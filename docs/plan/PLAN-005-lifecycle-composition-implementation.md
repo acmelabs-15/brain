@@ -72,17 +72,18 @@ Part 5 (diagnosing-bugs) ──────────────────�
 
 ### Part 3: the planner rebuilt (PRD-002 requirement 4)
 
-> Status: planned
+> Status: done (session SES-010, `724a2bc`)
 
-- [ ] Task 1: `planning-and-task-breakdown` — the union task template (What / AC /
-  Verification / Blocked-by), both sizing rulers, tracer/vertical doctrine with prefactoring
-  and expand–contract, checkpoints, the quiz-the-user approval round, the freshness dial
-  stated per plan, the extended task-list target (plan doc + todo items, or per-ticket files /
-  native tracker issues with blocking links); `to-tickets` becomes a pointer stub.
-  **§ Continuing a plan is carried byte-identical.** Acceptance: `diff` shows § Continuing a
-  plan unchanged; `/brain:plan PLAN-NNN` headless brief unchanged in a scratch repo; the
-  description holds cand3's measured rates (10/10, 13/13) or better; validators green.
-- [ ] Checkpoint: the bar.
+- [x] Task 1 (2026-08-31, `724a2bc`): the union landed as additions (364 lines): tracer rules +
+  prefactor, expand–contract, the second ruler, the freshness dial with the AGENT-BRIEF
+  durability rules, Step 6 quiz round via brain:ask-user-question, the Task List Target
+  resolved by the issue-tracker order with per-ticket files and native blocking links;
+  to-tickets a stub. § Continuing a plan byte-identical (python compare vs HEAD); /brain:plan
+  rendered the full brief in a scratch repo (all template lines; the walk caught the fixture's
+  planted missing-sha as a Finding); description untouched — cand3's 10/10 · 13/13 hold by
+  identity; behavioral evals.json + notifications-spec fixture checked in.
+- [x] Checkpoint (2026-08-31): the bar — tests 29/29, typecheck, both validators, the
+  byte-identity check, the render.
 
 ### Part 4: implement, the merged Build skill (PRD-002 requirement 5)
 
