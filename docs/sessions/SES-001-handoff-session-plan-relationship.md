@@ -4,11 +4,20 @@
 - Status: open
 - Plan: PLAN-001 · parts 1, 2, 4, 5
 - Outcome: _(fill in)_
-- Open at end: _(fill in)_
+- Open at end: PLAN-001 is the whole handoff — every part's tasks say what is done (with shas) and what
+  is left. First thing next time: Part 4 Task 5 — read disclosure-3's result (see the task for where it
+  is and how to re-run it), commit the evidence, decide iteration 7. Unverified: whether iteration 6
+  (`129705f`) fixed the join and the closing note — disclosure-3 answers that. Peter's items: Part 1
+  Task 3 (interactive `/session start PLAN-001`), Part 5 Task 3 (glossary words in plugin-kit's
+  CONTEXT.md), Part 3 Task 4 (plugin `version` bump 0.1.0 → 0.2.0 when the next skill change ships —
+  `129705f` is such a change). env-setup's own open list is `docs/OVERVIEW.md` "Next up" there
+  (visual grouping from `wip/visual-grouping`, release v0.1.10, the first real connect run).
 
 ## Narrative
 
 Opened 2026-08-31 at the end of the conversation that built this plugin, when its context ran low. Peter: "make sure all of that gets captured somewhere so we can make sure it actually gets done … completely captured, all of the full context needed". PLAN-001 is that capture; this is the session a fresh conversation joins with `/session continue PLAN-001`. Nothing in it is done yet. This repo's own commits before this session predate its log and are unrecorded; the first `entry` here should vouch for them with one line rather than write entries for history.
+
+Evening 2026-08-31: Peter asked for a full re-read of the transcript back to the previous compaction; the read found two open items with no task (the disclosure-2 residuals; the untested description hypothesis) — added as Part 4 Tasks 5 and 6 (`4136740`). Iteration 6 followed: eight disclosure-2 transcripts read in full, diagnosis A–D validated with Peter, the edits landed (`129705f`), the fixture script fixed at the cause (`703ff81`), disclosure-3 launched. Peter's rule stated this evening: validate findings with him before making updates.
 
 ## Changes (one entry per commit, in order)
 
@@ -192,3 +201,18 @@ Opened 2026-08-31 at the end of the conversation that built this plugin, when it
   - `skills/session/evals/results/description-2/2026-08-31_023852/report.html` (+623/−0) — the loop's own report
   - `skills/session/evals/results/description-2/2026-08-31_023852/results.json` (+1694/−0) — five iterations with per-query train and held-out rows
   - `skills/session/evals/results/description-2/loop.log` (+1707/−0) — stderr of the detached run — the nine timeout warnings are here and nowhere else
+
+### 2026-08-31 · fix(evals): make-fixture resets main to the pin (git switch -C) — the clone already has main since env-setup PR #44, and -c died leaving a half-built fixture · 703ff81
+
+- Summary: `make-fixture.ts` resets `main` to the pinned commit with `git switch -C` instead of creating it with `-c`
+- Why: since env-setup PR #44 the clone already carries `main`, so `-c` failed and left a half-built fixture (SES-006 open, no SES-007, no fix commit) that disclosure-3's first launch measured — Peter's rule: fix the cause
+- Files:
+- `skills/session/evals/fixtures/make-fixture.ts` (+4/−1) — `git switch -q -C main` with the comment saying why (verified: the rebuilt fixture lists SES-006 closed, SES-007 open, the unrecorded fix at HEAD)
+
+### 2026-08-31 · feat(skill): iteration 6 from disclosure-2 — join by Goal before open, entry joins when no session was joined, a Departures line in the closing note, the brief/note is the entire reply (Done-when), the reference pointer names its two situations; eval 2 no longer expects the reference · 129705f
+
+- Summary: iteration 6 of the skill from the disclosure-2 transcripts — a join-by-Goal branch in step 7, `entry` runs that step when no session was joined, a Departures line in the closing note, every Done-when says the brief/note is the entire reply, the reference pointer names its two situations; the two entry examples moved to the reference (already there)
+- Why: disclosure-2's residuals had no task (PLAN-001 Part 4 Task 5): `entry` created SES-008 because step 7 said "no plan → open" (2/2 runs), every end/close appended prose after the note (4/4), no run read the reference (recall 0/2 with every entry passing); diagnosis validated by Peter before the edit
+- Files:
+- `skills/session/SKILL.md` (+28/−34) — step 7 gains "an open session's Goal covers this work → join" before "open"; entry step 1 points at it; closing note gains `Departures:`; Question line one clause; Done-when lines end "the entire reply"; the two entry examples replaced by a pointer to `references/session-log.md` § The entry; body 4,996 validator tokens (5,000 target)
+- `skills/session/evals/evals.json` (+3/−4) — eval 2 `expects_references` cleared; a fixture note records why

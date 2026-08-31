@@ -121,8 +121,19 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   something to `references/session-log.md`.
 - [ ] Task 4: iteration 5 of the outcome evals with the fixture (baseline
   `evals/results/skill-snapshot/`), per skill-creator; `evals/README.md` gains its row.
-- [ ] Task 5 (added 2026-08-31 after the transcript re-read — these failures survived iteration 5
-  and had no task): iteration 6 on the disclosure-2 residuals, measured with
+- [ ] Task 5 — IN PROGRESS 2026-08-31 (session SES-001). Done: the eight disclosure-2 transcripts read
+  in full; diagnosis approved by Peter (A: step 7 had no join-by-Goal branch, so `entry` followed
+  "no plan → open"; B: the closing note had no line for departures, so prose was appended; C: no
+  scenario needs the reference; D: "the whole reply" was not restated at Done-when); the four edits
+  landed in `129705f` (SKILL.md + `evals.json`, body 4,996 validator tokens); `make-fixture.ts`
+  fixed in `703ff81` (`git switch -C main`). Left: read disclosure-3's result — it ran in the
+  scratch dir `…/scratchpad/disclosure-3/` of the conversation that started it; if that dir is
+  gone, re-run the Task 2 command against the fixture and a fresh `--results-dir`, then copy
+  `results.json`, `envelope.json`, `run.log`, `logs/` to `evals/results/disclosure-3/`, add the
+  README row, tick this task with the sha, and decide iteration 7 from the failures that remain.
+  Compare against disclosure-2 (36/54): the two scenario-2 runs must append to SES-007; the four
+  end/close notes must be the entire reply. The original task: iteration 6 on the disclosure-2
+  residuals, measured with
   `measure-disclosure.ts` on the fixture as in Task 2. Failing still: `entry` opens a new session
   instead of appending to the open one (2/2 runs — the iteration-5 wording did not land); the closing
   note runs over 60 words (4/4); the reply is not the template alone (5 runs);
@@ -172,6 +183,12 @@ given (so layouts survive a crash), and `--tier-study` replacing `--model` on
   **scenario repo** and rename the flag if Peter agrees.
 - [x] Task 4 (`0ababec`, `docs/sessions/SESSION-2026-08-31_01-loop-parity-and-harness-fixes.md`): plugin-kit's `docs/sessions/` has its own note convention
   (`SESSION-YYYY-MM-DD_NN-title.md`); write today's note there pointing at this plan.
+- [ ] Task 6 (plugin-kit, found 2026-08-31 while measuring): plugin-kit's validator scans
+  `evals/results/**` — a transcript quoting `python3` fails the skill's Bun-purity check as an
+  error, and every `curl` in a log is a warning; the disclosure inventory already skips `evals/`
+  (PR #3), the validator should too. Also `measure-disclosure.ts` warns on `fixture_notes` and
+  `hard_negatives` in `evals.json` as unknown keys — either recognise them or the README says to
+  keep them elsewhere.
 - [ ] Task 5 (plugin-kit, open, recorded in its session file as T-07 and T-10): a resume never
   compares the dead run's `envelope.json` with the current inputs; a timed-out query leaves no
   trace in `results.json` (no `timed_out` on the row, the warning names no query), so a one-query
