@@ -184,7 +184,7 @@ Task 1 ──> Task 2 ──> Task 3 ──> Task 4 ──┬──> Task 5 (the
 
 ### Part 2: the toolset copied into the plugin
 
-> Status: in progress (session SES-002)
+> Status: done (session SES-002, `41ebf38`)
 
 ```text
 Part 1 Task 5 (a)–(c): the plugin exists ──> Task 1 (layout) ──> Task 2 (the copy, 0.4.0) ──> Checkpoint

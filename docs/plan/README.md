@@ -7,7 +7,7 @@ The PRD (what the system is, for whom, the promise, the requirements) and the pl
 | Doc | What | Status |
 | --- | --- | --- |
 | [PRD-001-session-log-and-rehydration.md](PRD-001-session-log-and-rehydration.md) | The `brain` toolset — the session log, plan rehydration, and the one plugin carrying every skill, command and agent; requirements 1–12 | current |
-| [PLAN-001-record-and-rehydration-split.md](PLAN-001-record-and-rehydration-split.md) | The record with three acts (start · log · close) and one status; rehydration moved to `/plan`; three commands; the docs sweep; the toolset copied into the `brain` plugin at Part 2 and its sources retired at Part 6 (ADR-002, ADR-003, ANA-003) | in progress — Part 1 done (session SES-001); Part 2 next |
+| [PLAN-001-record-and-rehydration-split.md](PLAN-001-record-and-rehydration-split.md) | The record with three acts (start · log · close) and one status; rehydration moved to `/plan`; three commands; the docs sweep; the toolset copied into the `brain` plugin at Part 2 and its sources retired at Part 6 (ADR-002, ADR-003, ANA-003) | in progress — Parts 1–2 done (sessions SES-001, SES-002); Part 3 next |
 | [archive/acmelabs-15-sessions/](archive/acmelabs-15-sessions/README.md) | The sessions repo's PLAN-001 (its own open work: its Part 1 Task 6, Part 5 Tasks 3, 5, 6 — that plan's numbers) and PLAN-002 (superseded by this repo's PLAN-001), merged in with their history (ADR-003) | archived |
 
 ## Rules
