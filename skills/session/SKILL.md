@@ -14,21 +14,19 @@ one **part** of a plan, and that part's status line names it. This skill keeps t
 through three acts: **start** creates a session from a description, **log** records a commit into
 one, **close** finishes one. A conversation that stops does nothing — the session stays
 `in progress`. Where a plan stands and what comes next is `/plan PLAN-NNN`'s to say; the
-`SES-NNN` it hands over is the session every `log` here writes into. `references/session-log.md`
-holds the rules of the record: read it when a skeleton is a fix-up or a valueless commit (§ Which
-commits get no entry), or a done session must be reopened (§ What is never rewritten).
+`SES-NNN` it hands over is the session every `log` here writes into. The words — session, entry,
+gate, plan part, the acts — are defined once, in the repo's `CONTEXT.md` § The session log; use
+them in entries, commits and replies.
 
 ## Workflow
 
 1. Determine the act from the arguments — **$ARGUMENTS**. An act word wins when present; otherwise
-   the shape of the arguments decides. `close` is never inferred:
+   the shape of the arguments decides, and `close` is never inferred:
 
-   | Arguments | Act |
-   | --- | --- |
-   | `start <description> [--plan "PLAN-NNN · part N"]`, or a description and no `SES-NNN` | **start** |
-   | `log [SES-NNN]`, or `SES-NNN` alone, or nothing — and the Sessions line shows `unrecorded:` | **log** |
-   | `close SES-NNN`, or `close` alone | **close** |
-   | nothing, and no `unrecorded:` line | say `up to date` — the entire reply |
+   **`start <description> [--plan "PLAN-NNN · part N"]`, or a description and no `SES-NNN`?** → Follow "start" below
+   **`log [SES-NNN]`, or `SES-NNN` alone, or nothing — and the Sessions line shows `unrecorded:`?** → Follow "log" below
+   **`close SES-NNN`, or `close` alone?** → Follow "close" below
+   **Nothing, and no `unrecorded:` line?** → Reply `up to date` — the entire reply
 
    **Example 1:** Input: `the finder favourites fix --plan "PLAN-003 · part 2"` → Output: start, the Goal drawn from the description and the part
    **Example 2:** Input: `SES-004`, and the Sessions line shows `unrecorded: 9c1d2e3 fix(finder): …` → Output: log, `--session SES-004`
@@ -70,12 +68,13 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
   `in progress` and refuses between several — then ask which. Every `append`, `check` and `close`
   carries `--session SES-NNN`. Placeholders in any other session are that conversation's: the gate
   reports them as warnings; leave that file untouched. A done session takes nothing; reopening one
-  is `references/session-log.md` § What is never rewritten.
+  is § What is never rewritten.
 - **The gate's exit status is the gate.** Run `session check --session SES-NNN` bare and read its
   exit; pipe it through nothing (a `| tail` once hid a failure and a PR merged with an unfilled
   entry). Stage by named file; `git add -A` once swept in a stray file.
 - **Merge PRs with merge commits.** A squash replaces every sha the entries cite with one new
-  commit, which the gate then reports as `missing:`.
+  commit, which the gate then reports as `missing:`. An archived log under `docs/sessions/archive/`
+  (a merged-in repository's sessions) accounts for its commits too; the tool reads it, never lists it.
 - **`docs(session): …` commits are skipped by the tool** — the entry-writing commit needs no entry.
 - **The gate counts entries, the Goal and the Narrative; `Outcome` only at `close`.** A session
   in progress carries it as a placeholder; do not invent an Outcome early.
@@ -83,7 +82,22 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
   part; a conversation continuing that part logs into it with `--session`.
 - **A release marker lands only when the release commit's entry is appended.** Tag first, then
   `session append`; if the entry already exists, add `> **Released vX.Y.Z** — tag on this commit.`
-  under it by hand.
+  under it by hand. Readers use the last marker as the boundary: everything after it is unreleased.
+
+## The plan part's status line
+
+Each `### Part N` heading in a plan carries one blockquote line under it. It is the pointer `/plan`
+follows from the plan to the session that holds the part's story, so its form is exact:
+
+| Status | Written by | Meaning |
+| --- | --- | --- |
+| `> Status: planned` | the plan's author | no session serves it yet; `start … --plan "PLAN-NNN · part N"` creates one |
+| `> Status: in progress (session SES-NNN)` | `start` | the session every `log` on this part writes into, across every conversation until the part is done |
+| `> Status: done (session SES-NNN, <sha>)` | `close` | finished; the sha is the entry that finished it, so the line is never self-referential |
+
+The plan's own top status and the PRD's Plans row change only when every part is done. Progress
+is read from the entries: a plan's task ticks cite the entry sha that did them, and nothing else
+about progress is written into the plan.
 
 ## start
 
@@ -109,8 +123,8 @@ Start progress:
    file write the H1 title, the Goal line, and the Narrative's first lines — what was asked, by
    whom. On unplanned work `note: also in progress — SES-…` is a question: is this a separate
    stream, or that session's own work? The latter → `log` into it and start nothing.
-4. The part's status line, ALWAYS this exact form: `> Status: in progress (session SES-NNN)` — the
-   pointer `/plan` follows. Unplanned work has no part to mark.
+4. The part's status line, ALWAYS this exact form: `> Status: in progress (session SES-NNN)`.
+   Unplanned work has no part to mark; its `Plan:` line is `—`.
 5. Reply one line — the entire reply:
 
    ```text
@@ -140,10 +154,18 @@ Log progress:
    `Why` placeholders, one line per touched file with +/− counts — every file, a rename as two
    lines, none trimmed; `session current --session SES-NNN` lists them by line). A skeleton for a
    commit you did not make is a finding: fill what `git show <sha>` supports and say in Notes it
-   was not verified, or ask. **The log holds value only:** a fix-up's skeleton is deleted and its
-   parent entry gets `- Also: <sha> — <what it fixed>` under `Why`; a commit with nothing to
-   record carries the trailer `Session-entry: none` (write it yourself on such commits). The table
-   is in `references/session-log.md` § Which commits get no entry.
+   was not verified, or ask. **The log holds value only** — decide at commit time which of these a
+   commit is:
+
+   | The commit is | What you write | What the tool does |
+   | --- | --- | --- |
+   | a change worth reading about | its entry (step 2) | appends the skeleton |
+   | a fix-up of an earlier entry's commit | `- Also: <sha> — <what it fixed>` under that entry's `Why`; delete the skeleton | the parent entry vouches for the sha |
+   | worth nothing to a reader on its own | the trailer `Session-entry: none` in its message (`git commit -m "style: reformat" -m "Session-entry: none"`) | never appends a skeleton |
+   | `docs(session): …` — a log update itself | nothing | skipped outright |
+
+   A valueless commit already pushed without the trailer is vouched for by its nearest parent
+   entry with an `Also:` line.
 2. Fill every placeholder. ALWAYS use this exact entry structure (the tool wrote the headings and
    the file lines; you write what follows each dash):
 
@@ -159,15 +181,23 @@ Log progress:
    ```
 
    Every claim verified yourself (driver, test, byte comparison) before it is written; "updated"
-   or "changes" is not a phrase. Two worked examples (a Files line, a Summary and Why):
-   `references/session-log.md` § The entry.
+   or "changes" is not a phrase. A Files line says what changed *in that file*; Summary and Why
+   give the whole change, then the cause:
+
+   **Example 1:** Input: `` - `src/items/finder/assets/set-favorites.swift` (+19/−0) — _(fill in)_ `` → Output: `` — re-synced with the embedded SET_FAVORITES_SWIFT constant: gains the `list` mode and the LSSharedFileListItemCopyResolvedURL binding (verified byte-identical by the driver) ``
+   **Example 2:** Input: the commit `fix(picker): keep the cursor on the item after a rescan` → Output: `- Summary: the picker keeps its cursor on the same item across a rescan instead of jumping to the top; the rescan now diffs by item id` / `- Why: Peter lost his place every time the picker refreshed (SES-003 request)`
+
+   `git show <sha>` is for a later reader who needs the exact diff; the entry is for the reader
+   who does not.
 3. Same step, citing the sha: tick the plan part's tasks (`- [x] … — <sha>`; its status line stays
    `in progress`); OVERVIEW **Status** / **Next up** where the repo has one; a decision → an ADR
    (`documentation-and-adrs` if installed, else the decisions README template); a changed
    requirement → the PRD; a finding → an analysis; a new or sharpened term → `CONTEXT.md`
    (`domain-modeling` if installed); a directory convention → its `CLAUDE.md`; any doc the commit
    made false (grep the old claim); the README index for a new doc.
-4. Narrative: what the entry cannot hold — the request, a dead end, a false lead, a verification.
+4. Narrative: what the entry cannot hold — the request as it was made, a decision and the
+   alternative it rejected, a dead end, a false lead, what was verified and how. Written as things
+   happen, citing entries by sha, not as a summary at the end.
 5. Gate and commit, three commands in this order, each on its own:
 
    ```bash
@@ -226,3 +256,15 @@ rewritten. Where the answer is the user's to give, ask with the `ask-user-questi
 **Done when** the tool printed `session: closed SES-NNN — done`, the `docs(session): close` commit
 exists, the plan part and the PRD say the same thing as the Outcome, and the one line is the
 entire reply.
+
+## What is never rewritten
+
+- **Old entries and old sessions.** A mistake is corrected with a new entry or a dated note, never
+  by editing history; `git show <sha>` must keep agreeing with the record.
+- **Another conversation's session.** Its placeholders are that conversation's to fill; the gate
+  reports them as warnings and you leave the file alone, whatever its title says.
+- **A done session's Changes.** Nothing is appended to it. Reopening one means editing its
+  `Status:` line back to `in progress` with a dated note in the Narrative saying why — a rare,
+  deliberate act.
+- **Merge history.** PRs are merged with merge commits, not squashed, so every sha an entry cites
+  stays valid.

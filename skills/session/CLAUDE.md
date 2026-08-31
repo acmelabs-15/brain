@@ -2,14 +2,20 @@
 
 ## Where a meaning lives (one place each)
 
-- The procedure: `SKILL.md`. Its body is paid for on every invocation — keep it under 5,000 tokens
-  (`tiktoken`, not lines) and its `description` under 1,024 characters, measured before committing.
-- The rules of the record: `references/session-log.md`. Rules only; it quotes no document.
-- Every document the tool writes (session file, the two directory READMEs, the `CONTEXT.md`
-  section): `scripts/templates.ts`. `session template <name>` prints it; `init` and `new` write it.
-  A shape shown anywhere else is a pointer to that command, not a copy.
-- Parsing, session selection, the gate's counting, plan matching: `scripts/session-lib.ts`, tested
-  in `scripts/__tests__/`. The tool itself: `scripts/session.ts`; repo and path resolution: `scripts/paths.ts`.
+- The procedure and the rules of the record: `SKILL.md`, and nothing else the model reads — no
+  `references/` (the one it had was read in 0 of the measured runs, so its rules moved into the
+  body: the status-line table, the no-entry table, the entry examples, what is never rewritten).
+  The body is paid for on every invocation — keep it under 500 lines and its `description` under
+  1,024 characters, measured before committing.
+- The model behind the tool — paths, the session file's header and template, which session a run
+  acts on, the gate's counting, the entry skeleton (`render`), and every document `init` writes
+  (`session template <name>` prints it): `scripts/session-log.ts`, tested in
+  `scripts/__tests__/session-log.test.ts`. A shape shown anywhere else is a pointer to that
+  command or a filled specimen of it (the entry template in `SKILL.md`, pinned by a test), not a
+  second copy.
+- The tool itself, the CLI over that model: `scripts/session.ts`, tested end to end in a throwaway
+  repo by `scripts/__tests__/session.test.ts`. It runs on import, which is why the model is a
+  separate file.
 - The three aliases: `../../commands/session-{start,log,close}.md`, each delegating one act with
   `skill: brain:session` and that act's arguments.
 

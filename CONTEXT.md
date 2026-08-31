@@ -55,20 +55,21 @@ _Avoid_: file type, category, genre
 
 **Script**:
 A file the model **runs**, where only the output enters context and the source never does.
-`scripts/` here: `session.ts`, `session-lib.ts`, `templates.ts`, `paths.ts` and the tests. What
-the tool does it prints itself (`session help`), so the model never reads a script to find out.
+`scripts/` here: `session.ts` (the CLI), `session-log.ts` (the model behind it) and their tests.
+What the tool does it prints itself (`session help`), so the model never reads a script to find out.
 _Avoid_: source, implementation, code
 
 **Reference**:
 A file the model **reads in full** for rules, shapes and outputs — prose about the domain, not a
-specimen of it. `references/` here: `session-log.md`, the rules of the record. When the subject is a pointer
+specimen of it. None here since 2026-08-31: the rules of the record live in `SKILL.md` (the one
+reference the skill had was read in 0 of the measured runs). When the subject is a pointer
 from one document to another, say **link** or **cross-reference**.
 _Avoid_: doc, guide, appendix
 
 **Asset**:
 A file the model **copies into what it produces**, needing its bytes rather than its meaning.
 None here: the documents `session init` writes into a consuming repo are code in
-`scripts/templates.ts` (`session template <name>` prints them), so they have one home.
+`scripts/session-log.ts` (`session template <name>` prints them), so they have one home.
 _Avoid_: template file, fixture, resource
 
 **Example**:

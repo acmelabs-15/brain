@@ -45,8 +45,9 @@ bun "<plugin>/skills/session/scripts/session.ts" <help | init | template | list 
 under `docs/plan/` — the plan's shape is the plan skill's). `check` is the gate: exit 0 only when
 every commit on the branch is accounted for — by an entry, a parent entry's `Also:` line, a
 `Session-entry: none` trailer, a `docs(session)` subject, or an archived log under
-`docs/sessions/archive/` — and the session has no placeholder left. The rules of the record are
-[skills/session/references/session-log.md](skills/session/references/session-log.md).
+`docs/sessions/archive/` — and the session has no placeholder left. The rules of the record — what
+an entry holds, which commits get none, what is never rewritten — are in
+[skills/session/SKILL.md](skills/session/SKILL.md) itself.
 
 ## Working on this repo
 

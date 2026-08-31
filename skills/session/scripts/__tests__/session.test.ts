@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-// The CLI end to end, in a throwaway repository: what the pure half (session-lib) cannot show —
+// The CLI end to end, in a throwaway repository: what the model (session-log.ts) cannot show —
 // which commits the gate walks and which files it reads for them.
 const TOOL = new URL("../session.ts", import.meta.url).pathname;
 

@@ -1,18 +1,32 @@
 import { describe, expect, test } from "bun:test";
 import {
+  CONTEXT_SECTION_HEADING,
+  contextFile,
+  contextSection,
   declinesEntry,
   FILL,
+  id,
   indexRow,
   knownShas,
+  MAX_FILES,
   parseHeader,
   placeholderCount,
+  planDir,
+  projectDir,
+  render,
   selectSession,
   servesPlan,
+  sessionFileTemplate,
+  sessionsDir,
+  sessionsReadme,
+  SESSIONS_INDEX_END,
+  SESSIONS_INDEX_START,
   slugify,
   template,
+  TEMPLATES,
   withStatus,
-} from "../session-lib";
-import type { Session } from "../session-lib";
+} from "../session-log";
+import type { Session } from "../session-log";
 
 const header = (extra = "") => `# 2026-08-30 18:00 · Docs for rehydration
 
@@ -38,6 +52,32 @@ const session = (seq: number, status: "in progress" | "done", title = `s${seq}`)
   text: "",
 });
 
+describe("paths", () => {
+  test("CLAUDE_PROJECT_DIR wins when set; the docs hang off it", () => {
+    const before = process.env.CLAUDE_PROJECT_DIR;
+    process.env.CLAUDE_PROJECT_DIR = "/repo";
+    try {
+      expect(projectDir()).toBe("/repo");
+      expect(sessionsDir()).toBe("/repo/docs/sessions");
+      expect(planDir()).toBe("/repo/docs/plan");
+      expect(contextFile()).toBe("/repo/CONTEXT.md");
+    } finally {
+      if (before === undefined) delete process.env.CLAUDE_PROJECT_DIR;
+      else process.env.CLAUDE_PROJECT_DIR = before;
+    }
+  });
+
+  test("without the variable the git toplevel is the root (this repo)", () => {
+    const before = process.env.CLAUDE_PROJECT_DIR;
+    delete process.env.CLAUDE_PROJECT_DIR;
+    try {
+      expect(projectDir()).toBe(new URL("../../../..", import.meta.url).pathname.replace(/\/$/, ""));
+    } finally {
+      if (before !== undefined) process.env.CLAUDE_PROJECT_DIR = before;
+    }
+  });
+});
+
 describe("parseHeader", () => {
   test("reads seq, timestamp, title, goal, status and plan", () => {
     const h = parseHeader(
@@ -58,7 +98,7 @@ describe("parseHeader", () => {
     expect(parseHeader("SES-005-rehydration.md", header()).status).toBe("in progress");
   });
 
-  test("the pre-ADR-024 words open / closed are read as in progress / done", () => {
+  test("the pre-ADR-001 words open / closed are read as in progress / done", () => {
     expect(parseHeader("SES-005-x.md", header("- Status: open\n")).status).toBe("in progress");
     expect(parseHeader("SES-005-x.md", header("- Status: closed\n")).status).toBe("done");
   });
@@ -124,6 +164,7 @@ describe("template, placeholders, index", () => {
     expect(placeholderCount(t)).toBe(2); // Goal + Narrative; Outcome waits for close
     expect(placeholderCount(t, true)).toBe(3);
     expect(template("2026-08-31 09:00", "x", "")).toContain("- Plan: —\n");
+    expect(parseHeader("SES-001-x.md", template("2026-01-01 00:00", "t", "")).status).toBe("in progress");
   });
 
   test("the index row shows status and plan", () => {
@@ -133,8 +174,9 @@ describe("template, placeholders, index", () => {
     );
   });
 
-  test("slugify", () => {
+  test("slugify and id", () => {
     expect(slugify("Fix 2FA — again!")).toBe("fix-2fa-again");
+    expect(id(7)).toBe("SES-007");
   });
 });
 
@@ -165,6 +207,42 @@ describe("what a session accounts for (ADR-021)", () => {
   });
 });
 
+describe("the entry skeleton", () => {
+  const commit = {
+    sha: "9c1d2e3f4a5b6c7d",
+    date: "2026-08-31",
+    subject: "fix(finder): keep_the cursor",
+    body: "",
+    files: [
+      { path: "src/picker.ts", added: 12, deleted: 3 },
+      { path: "assets/icon.png", added: null, deleted: null },
+    ],
+  };
+
+  test("render: the heading with the short sha, the placeholders, one line per file, binary marked", () => {
+    const text = render(commit, undefined);
+    expect(text).toContain("### 2026-08-31 · fix(finder): keep\\_the cursor · 9c1d2e3");
+    expect(text).toContain(`- Summary: ${FILL}\n- Why: ${FILL}\n- Files:\n`);
+    expect(text).toContain("  - `src/picker.ts` (+12/−3) — _(fill in)_");
+    expect(text).toContain("  - `assets/icon.png` (binary) — _(fill in)_");
+    expect(knownShas(text)).toEqual(["9c1d2e3"]);
+  });
+
+  test("render: a tagged commit gets its release marker; past MAX_FILES the list is cut with a pointer", () => {
+    expect(render(commit, "v1.2.0")).toContain("> **Released v1.2.0** — tag on this commit.");
+    const many = { ...commit, files: Array.from({ length: MAX_FILES + 5 }, (_, i) => ({ path: `f${i}`, added: 1, deleted: 0 })) };
+    expect(render(many, undefined)).toContain(`… +5 more (\`git show --stat 9c1d2e3\`)`);
+    expect(render({ ...commit, files: [] }, undefined)).toContain("_(no files)_");
+  });
+
+  test("SKILL.md's entry template shows the skeleton's own lines, filled (one shape, two readers)", async () => {
+    const skill = await Bun.file(new URL("../../SKILL.md", import.meta.url)).text();
+    for (const line of ["### YYYY-MM-DD · type(scope): subject · sha", "- Summary: [", "- Why: [", "- Also: [sha] — [", "- Files:", "  - `path/to/file` (+a/−d) — [", "- Notes: ["]) {
+      expect(skill, line).toContain(line);
+    }
+  });
+});
+
 describe("servesPlan", () => {
   test("matches the plan id at the start of the Plan line, any part, any case", () => {
     expect(servesPlan("PLAN-003 · part 2", "PLAN-003")).toBe(true);
@@ -172,5 +250,38 @@ describe("servesPlan", () => {
     expect(servesPlan("PLAN-0031 · x", "PLAN-003")).toBe(false);
     expect(servesPlan("", "PLAN-003")).toBe(false);
     expect(servesPlan("PLAN-003", "")).toBe(false);
+  });
+});
+
+describe("the documents init writes", () => {
+  test("the sessions README carries the index markers the tool regenerates between, and the session file shape", () => {
+    const r = sessionsReadme();
+    expect(r.indexOf(SESSIONS_INDEX_START)).toBeGreaterThan(-1);
+    expect(r.indexOf(SESSIONS_INDEX_END)).toBeGreaterThan(r.indexOf(SESSIONS_INDEX_START));
+    expect(r).toContain(sessionFileTemplate().trimEnd());
+    expect(r).toContain("three acts");
+  });
+
+  test("the session file template is the shape `new` writes, plus one worked entry", () => {
+    for (const line of ["- Goal:", "- Status: in progress", "- Plan:", "- Outcome:", "## Narrative", "## Changes"]) {
+      expect(sessionFileTemplate()).toContain(line);
+      expect(template("2026-01-01 00:00", "t", "")).toContain(line);
+    }
+    // `[sha]` is the template's own slot form, as in `[what that fix-up fixed]` beside it;
+    // `<sha>` is the prose form the rules use (SKILL.md).
+    expect(sessionFileTemplate()).toContain("- Also: [sha]");
+  });
+
+  test("the glossary section names every term the skill uses, each with an Avoid line", () => {
+    const c = contextSection();
+    expect(c.startsWith(CONTEXT_SECTION_HEADING)).toBe(true);
+    for (const term of ["Session log", "Session", "Conversation", "Status", "Start", "Log", "Close", "Plan part", "Gate", "Entry", "Record"]) expect(c).toContain(`**${term}**`);
+    // the acts entry is one glossary entry (Start / Log / Close), so nine _Avoid_ lines for nine entries
+    expect(c.match(/_Avoid_/g)?.length).toBe(9);
+    for (const retired of ["**Join**", "**Leave**", "**Handoff**", "Open at end"]) expect(c).not.toContain(retired);
+  });
+
+  test("every template name prints something", () => {
+    for (const [name, fn] of Object.entries(TEMPLATES)) expect(fn().length, name).toBeGreaterThan(100);
   });
 });

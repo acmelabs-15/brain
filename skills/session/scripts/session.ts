@@ -1,8 +1,9 @@
 /**
- * Session log tooling — <repo>/docs/sessions/*.md, one file per session (a
- * bounded stream of work toward one Goal, `in progress` until `close` writes
- * `done`; a conversation names the session it logs into). `session help`
- * prints USAGE below; the templates it writes are code in templates.ts.
+ * The session log tool — the CLI over `session-log.ts` (the model: paths, the session file,
+ * the gate's counting, the entry skeleton, every document `init` writes). One file per
+ * session under <repo>/docs/sessions/ — a bounded stream of work toward one Goal,
+ * `in progress` until `close` writes `done`; a conversation names the session it logs into.
+ * `session help` prints USAGE below.
  *
  * Which session a run acts on: the one named with --session, else the single
  * session in progress. None, or more than one, is an error that says what to
@@ -20,9 +21,12 @@
  */
 import { existsSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { archiveDir, contextFile, projectDir, sessionsDir } from "./paths";
-import { CONTEXT_SECTION_HEADING, contextSection, sessionsReadme, TEMPLATES, type TemplateName } from "./templates";
 import {
+  archiveDir,
+  type Commit,
+  CONTEXT_SECTION_HEADING,
+  contextFile,
+  contextSection,
   declinesEntry,
   FILL,
   id,
@@ -30,21 +34,25 @@ import {
   knownShas,
   parseHeader,
   placeholderCount,
+  projectDir,
+  render,
   selectSession,
   servesPlan,
   type Session,
+  sessionsDir,
+  sessionsReadme,
   slugify,
   template,
+  TEMPLATES,
+  type TemplateName,
+  type Touched,
   withStatus,
-} from "./session-lib";
+} from "./session-log";
 
 const ROOT = projectDir();
 const DIR = sessionsDir(ROOT);
 const ARCHIVE = archiveDir(ROOT);
 const INDEX = join(DIR, "README.md");
-// A skeleton lists every touched file; past 80 a commit is a mass move or a generated tree, and one
-// "… +N more" line plus `git show --stat` serves a reader better than a page of identical phrases.
-const MAX_FILES = 80;
 // Subjects that are the log updates themselves and never get an entry. `docs(ledger)` is the
 // pre-2026-08-30 name of the session log; repos that predate the rename carry commits with it.
 const SKIP_PREFIXES = ["docs(session)", "docs(ledger)"];
@@ -78,19 +86,6 @@ docs(session)/docs(ledger) subject — in a session here or in an archived log u
 docs/sessions/archive/ (a merged-in repository's sessions, which keep their numbers and are never
 listed or written). Every refusal is one "session: …" line on stderr and exit 1.`;
 type Command = (typeof COMMANDS)[number];
-
-interface Touched {
-  path: string;
-  added: number | null;
-  deleted: number | null;
-}
-interface Commit {
-  sha: string;
-  date: string;
-  subject: string;
-  body: string;
-  files: Touched[];
-}
 
 function git(...args: string[]): string {
   const r = Bun.spawnSync(["git", ...args], { cwd: ROOT });
@@ -141,32 +136,6 @@ function commits(): Commit[] {
     result.push({ sha, date, subject, body: body ?? "", files });
   }
   return result;
-}
-
-function stat(f: Touched): string {
-  return f.added === null || f.deleted === null ? "binary" : `+${f.added}/−${f.deleted}`;
-}
-
-function render(c: Commit, tag: string | undefined): string {
-  const short = c.sha.slice(0, 7);
-  const subject = c.subject.replace(/_/g, "\\_");
-  const lines = [
-    `### ${c.date} · ${subject} · ${short}`,
-    "",
-    `- Summary: ${FILL}`,
-    `- Why: ${FILL}`,
-    "- Files:",
-  ];
-  for (const f of c.files.slice(0, MAX_FILES)) {
-    lines.push(`  - \`${f.path}\` (${stat(f)}) — ${FILL}`);
-  }
-  if (c.files.length > MAX_FILES) {
-    lines.push(`  - … +${c.files.length - MAX_FILES} more (\`git show --stat ${short}\`)`);
-  }
-  if (c.files.length === 0) lines.push("  - _(no files)_");
-  lines.push("");
-  if (tag) lines.push(`> **Released ${tag}** — tag on this commit.`, "");
-  return lines.join("\n");
 }
 
 async function sessions(): Promise<Session[]> {
