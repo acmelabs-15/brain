@@ -26,3 +26,12 @@ Started 2026-08-31 right after SES-006 closed (PLAN-002 Parts 1–4 done). Peter
 - Files:
   - `docs/analysis/ANA-009-define-plan-composition.md` (+160/−0) — the ranking, the provenance table, the S1–S3 composition, the six priced decisions
   - `docs/analysis/README.md` (+1/−0) — ANA-009's index row
+
+### 2026-08-31 · docs(plan): PLAN-004 — the Build stage synthesized the same way (implement, implement-spec, incremental-implementation, /brain:build, the DoD tiers; references are artifacts of the synthesis); PLAN-003 Part 4 decisions 1–5 recorded, PRD-home and ADR deferred to PLAN-004 Part 4; PRD-001 Plans rows · f1b9f38
+
+- Summary: Peter extended the synthesis to the Build stage mid-decision-round and reframed the references as artifacts of the synthesis ("should be updated to fit whatever new set of skills we come up with"). PLAN-004 mirrors PLAN-003's five parts for `implement` (Matt), `implement-spec` (Matt — authorship corrected, it lives in matt-pocock-skills/skills/in-progress/, not Addy's), `incremental-implementation` (Addy), `/brain:build`, and the DoD tiers; the roster names the adjacent skills pointed out per his ask (TDD, debugging-and-error-recovery, doubt-driven-development, /brain:test, triage's AGENT-BRIEF, testing-patterns) and the excluded ones with reasons. PLAN-003 Part 4 records decisions 1–5 as settled (part stays; idea-refine standalone + two wayfinder transfers; issue-tracker resolution order; rename the spec writer only; DoD tiers with converge as the plan-level tier) and defers the PRD-home question and the ADR to PLAN-004 Part 4 so the composed program is decided and recorded once.
+- Why: Peter, 2026-08-31: "do the exact same thing you just did for the define and plan lifecycle phases … scoped specifically to matts implement skill, addys implement-spec and incremental-implementation skills"; ANA-009's open decision 6 asked for exactly this plan.
+- Files:
+  - `docs/plan/PLAN-003-define-plan-synthesis.md` (+11/−2) — Part 4 in progress with the five settled decisions; the deferral; open questions updated (wayfinder settled, decision 6 → PLAN-004)
+  - `docs/plan/PLAN-004-build-stage-synthesis.md` (+141/−0) — the Build-stage plan: five parts, the roster in and out, the references-as-artifacts rule, ANA-010/011 acceptance
+  - `docs/plan/PRD-001-session-log-and-rehydration.md` (+2/−1) — PLAN-003's row updated; PLAN-004's row added under requirement 12's umbrella
