@@ -113,17 +113,16 @@ Part 5 (diagnosing-bugs) ──────────────────�
 
 ### Part 6: /brain:build with the DoD gates (PRD-002 requirement 6, sequential modes)
 
-> Status: planned
+> Status: done (session SES-013, `a6fef37`)
 
-- [ ] Task 1: the tier gates — step 8's tick gates Correctness + Quality; the part checkpoint
-  gates Integration + Documentation; the plan close runs converge (re-read spec and plan
-  against the built work, full checklist as floor, misses appended as tasks, the Review-stage
-  handoff named). Step 8's tick-cites-sha wording unchanged.
-- [ ] Task 2: artifact discovery per the resolution order (`docs/plan/` PRD/PLAN first,
-  today's known paths as fallbacks); the failure and high-risk steps retarget to
-  `diagnosing-bugs` and keep `doubt-driven-development`.
-- [ ] Checkpoint: a headless `/brain:build` render in a scratch repo with a `docs/plan/` plan
-  shows discovery, one task's loop, and the converge step; the bar.
+- [x] Task 1 (2026-08-31, `a6fef37`): the tier gates — the tick's gate folded into step 8 (its
+  tick-cites-sha clause verbatim), the part's close, converge with the Review handoff.
+- [x] Task 2 (2026-08-31, `a6fef37`): discovery by the resolution order (tracker doc → the
+  docs/plan convention or CLAUDE.md → the known paths); invokes implement; fails into
+  diagnosing-bugs; keeps doubt-driven-development.
+- [x] Checkpoint (2026-08-31): the render in a scratch repo with a PRD, a PLAN and a session
+  log — the resolution order walked in sequence, Task 1 named, the Correctness + Quality gate
+  and converge stated; `bun run validate` and plugin-kit's command validator green.
 
 ### Part 7: the verify-first measurements, then the concurrent mode (PRD-002 requirement 6)
 
