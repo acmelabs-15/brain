@@ -36,3 +36,11 @@ describe("templates", () => {
     for (const [name, fn] of Object.entries(TEMPLATES)) expect(fn().length, name).toBeGreaterThan(100);
   });
 });
+
+describe("references/session-log.md", () => {
+  test("its session file template is byte-for-byte what the tool prints (one source, two readers)", async () => {
+    const ref = await Bun.file(new URL("../../references/session-log.md", import.meta.url)).text();
+    const fence = "```markdown\n" + sessionFileTemplate().trimEnd() + "\n```";
+    expect(ref).toContain(fence);
+  });
+});

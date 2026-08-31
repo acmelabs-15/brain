@@ -1,6 +1,6 @@
 # The session log — the rules of the record
 
-What the record is made of and the rules that keep it readable: how a plan points at the session serving each of its parts, what a session file and an entry hold, which commits get no entry, and what is never rewritten. Read this when a step in SKILL.md names a shape or a rule you have not seen. The documents themselves are not quoted here: `session template session | sessions-readme | plan-readme | context` prints each one, and that output is what `init` and `new` write.
+What the record is made of and the rules that keep it readable: how a plan points at the session serving each of its parts, what a session file and an entry hold, which commits get no entry, and what is never rewritten. Read this when a step in SKILL.md names a shape or a rule you have not seen. The session file template below is the one the tool writes (a test pins the two equal); the other documents `init` writes — `session template sessions-readme | plan-readme | context` — are not quoted here.
 
 ## Table of Contents
 
@@ -52,7 +52,37 @@ The plan's own top status (`> Status: planned | in progress | done — shipped i
 
 ## The session file
 
-`docs/sessions/SES-NNN-<slug>.md`, created by `session new <slug> [--plan "PLAN-NNN · part N"]`. Its header lines are read by the tool:
+`docs/sessions/SES-NNN-<slug>.md`, created by `session new <slug> [--plan "PLAN-NNN · part N"]`. ALWAYS this exact structure — it is what the tool writes (`session template session` prints it, with one worked entry under Changes):
+
+```markdown
+# YYYY-MM-DD HH:MM · Title of the session
+
+- Goal: what this session set out to do
+- Status: open
+- Plan: PLAN-NNN · part N, or —
+- Outcome: what it actually delivered (releases, merged PRs) — written when it closes
+- Open at end: the handoff — what the next conversation picks up first, what is unverified
+
+## Narrative
+
+What was asked, decided, tried and abandoned, verified (and how); cite entries by sha.
+
+## Changes (one entry per commit, in order)
+
+### YYYY-MM-DD · type(scope): subject · sha
+
+- Summary: one or two lines — what this change does as a whole
+- Why: one line — the problem or request that caused it (name who asked)
+- Also: <sha> — a fix-up this entry vouches for (optional; it gets no entry of its own)
+- Files:
+  - `src/thing.ts` (+12/−3) — what changed in this file
+  - `docs/OVERVIEW.md` (+4/−1) — what changed in this file
+- Notes: optional — gotchas, follow-ups, what was verified and how
+
+> **Released vX.Y.Z** — tag on this commit.
+```
+
+The header lines are read by the tool:
 
 - The H1 `# YYYY-MM-DD HH:MM · Title` records when the session opened and is required — the tool refuses a file without it.
 - `SES-NNN` orders sessions; the number never changes.
