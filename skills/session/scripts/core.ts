@@ -320,7 +320,7 @@ was verified and what was not.
 The procedure that writes them is the \`session\` skill (the \`brain\` plugin), three acts:
 \`start\` creates a session from a description when a stream of work begins, \`log\` records a
 commit right after it lands, \`close\` finishes a session whose Goal is done. Where a plan stands
-and what comes next is \`/plan PLAN-NNN\`'s to say. The rules — what an entry holds, which commits
+and what comes next is \`/brain:plan PLAN-NNN\`'s to say. The rules — what an entry holds, which commits
 get none, what is never rewritten — are the skill's, so they live with it rather than being copied
 here; the tool behind it regenerates the index below.
 
