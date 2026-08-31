@@ -1,6 +1,6 @@
 # Plan: the consult skills and the Addy lifecycle — evaluate deeply, then integrate deliberately
 
-> Status: planned · Peter, 2026-08-31 ("a deep comprehensive evaluation of both domain-modeling
+> Status: in progress · Peter, 2026-08-31 ("a deep comprehensive evaluation of both domain-modeling
 > and codebase-design as well as … all of the addy osmani agent-skills commands/skills in the
 > ACMElabs/brain plugin specifically evaluating for how to best integrate") · serves
 > [PRD-001](PRD-001-session-log-and-rehydration.md) requirement 12's one-toolset goal (no numbered
@@ -59,7 +59,7 @@ Parts 1 and 2 are independent of each other; everything after is sequential.
 
 ### Part 1: the two consult skills, inventoried
 
-> Status: planned
+> Status: in progress (session SES-006)
 
 - [ ] Task 1: `domain-modeling` read in full — every file under `skills/domain-modeling/`
   (`SKILL.md`, `ADR-FORMAT.md`, `CONTEXT-FORMAT.md`, anything else the directory holds). The
