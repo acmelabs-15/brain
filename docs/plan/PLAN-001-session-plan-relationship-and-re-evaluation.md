@@ -139,7 +139,7 @@ must exist on disk), the candidate workspace under `<results-dir>/workspace` whe
 given (so layouts survive a crash), and `--tier-study` replacing `--model` on
 `optimize-disclosure.ts` with the envelope's TIER STUDY cap.
 
-- [x] Task 1: finish that branch — tests for `readResumeState`, the full suite (1,756), PR #5 merged
+- [x] Task 1: finish that branch — tests for `readResumeState`, the full suite (1,756), PR #5 merged — corrected 2026-08-31: the suite was 1,754 with 5 failing on `main`; PR #7 (`6968d28`) fixed them at the cause and hardened `--resume-from` (1,759 green)
   with a merge commit (`0ababec`), pulled, branch and worktree deleted.
 - [x] Task 2 (`0ababec`): the rest of the staleness sweep (grep `--model`, `user's configured`, `default 10`,
   `not yet write` outside `docs/` and `evals/results`): `propose-description.ts`
@@ -150,6 +150,7 @@ given (so layouts survive a crash), and `--tier-study` replacing `--model` on
   sonnet` in the snippet) and `:44` ("optimize-disclosure still takes --model"). The CLAUDE.md
   files were read in full for this sweep: they carry nothing about models or workers, so nothing
   in them is stale from this change.
+- [ ] Task 5 (plugin-kit, open, recorded in its session file as T-07 and T-10): a resume never compares the dead run's `envelope.json` with the current inputs; a timed-out query leaves no trace in `results.json` (no `timed_out` on the row, the warning names no query), so a one-query gap between candidates cannot be told from a timeout.
 - [ ] Task 3: glossary gaps to raise in plugin-kit's `CONTEXT.md` (a gap is raised, not a synonym
   coined): **tier study**, **measurement model**, **tool trace**, and a word for the repository
   `--fixture` copies into a throwaway root — "fixture" already means the invalid validator
