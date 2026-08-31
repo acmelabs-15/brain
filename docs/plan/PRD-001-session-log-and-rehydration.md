@@ -110,7 +110,7 @@ rules, index and template. Simplified Technical English, glossary words.
 
 - Owning the plan's shape or the PRD's (the plan skills do); authoring ADRs, PRDs or `CONTEXT.md`.
 - Rewriting the 46 carried skills on the way in — they move as they stand; standardising their
-  duplicated shapes is PLAN-001 Part 4 Task 3, after the move is not before.
+  duplicated shapes is PLAN-001 Part 5 Task 2, after the copy (Part 2) not before.
 - A changelog, a release tool, or an issue tracker.
 - Portability outside Claude Code (the injected state lines and `${CLAUDE_SKILL_DIR}` are its).
 
@@ -123,4 +123,4 @@ rules, index and template. Simplified Technical English, glossary words.
 
 | Plan | Implements | Status |
 | --- | --- | --- |
-| [PLAN-001-record-and-rehydration-split.md](PLAN-001-record-and-rehydration-split.md) | requirements 1–12 (1–2 via Part 3; 12 via Parts 5 and 6 — the copy, then the retirement) | in progress — part 1 (session SES-001) |
+| [PLAN-001-record-and-rehydration-split.md](PLAN-001-record-and-rehydration-split.md) | requirements 1–12 (1–2 via Part 4; 12 via Parts 2 and 6 — the copy, then the retirement) | in progress — part 1 (session SES-001) |

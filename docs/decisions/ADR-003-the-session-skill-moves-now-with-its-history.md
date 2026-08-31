@@ -21,9 +21,9 @@ PLAN-001 Part 1 Task 4 landed in acmelabs-15/sessions (`0caa67c`) and was record
 
 - **Move now, history merged.** acmelabs-15/sessions `main` is merged into this repo with `--allow-unrelated-histories`; the code lands at the same paths (`skills/session/`, `commands/`, `.claude-plugin/`, the Bun scaffold), so `git log --follow` and `git blame` keep working. The sessions repo's docs keep their numbers and move under `docs/plan/archive/acmelabs-15-sessions/` and `docs/sessions/archive/acmelabs-15-sessions/`; this repo's PRD-001, PLAN-001 and SES-001 stay the record.
 - **An archived log still vouches for its commits.** The tool reads every `SES-*.md` under `docs/sessions/archive/` for the shas it accounts for, and never lists, selects or writes one. That is the rule that lets a repository's history be merged in without renumbering its sessions.
-- **Namespaced only.** Every typed form is `/brain:session start | log | close` (and `/brain:plan` once Part 3 and Part 5 move the plan command in). The plugin's `commands/` directory is the typed surface: the sessions repo's aliases move in and delegate to `brain:session` (three of them from Part 2 Task 1); the commands under `~/.claude/commands` join them at Part 5. Nothing is installed under `~/.claude` to provide a bare form.
+- **Namespaced only.** Every typed form is `/brain:session start | log | close` (and `/brain:plan` once the plan command is copied in and rewritten — PLAN-001 Parts 2 and 4 since the renumbering of 2026-08-31). The plugin's `commands/` directory is the typed surface: the sessions repo's aliases move in and delegate to `brain:session` (three of them from Part 3 Task 1, as numbered since 2026-08-31); the commands under `~/.claude/commands` join them at Part 5. Nothing is installed under `~/.claude` to provide a bare form.
 - **The `brain` plugin exists from this day**: `.claude-plugin/plugin.json` named `brain`, version 0.3.0 (the first release after `sessions` 0.2.0), listed in the ACMElabs marketplace by env-setup's generator; `sessions@ACMElabs` uninstalled once `brain@ACMElabs` is installed and a fresh conversation resolves `/brain:session`. The sessions repo is archived with a pointer.
-- **Part 5 keeps the rest**: the `ask-user-question` skill, the 46 skills, the 8 commands, the 4 agents and the references still move last, as ADR-002 says.
+- **The rest moves as ADR-002 says**: the `ask-user-question` skill, the 46 skills, the 8 commands, the 4 agents and the references — copied in at PLAN-001 Part 2 and their sources retired at Part 6, as numbered since 2026-08-31 (this ADR first said "Part 5 keeps the rest").
 
 ## Alternatives considered
 
@@ -41,7 +41,7 @@ Parts 1–4 in sessions, the merge at Part 5, history intact. Rejected: every pa
 
 ## Consequences
 
-- PLAN-001 Part 1 Task 6 carries the move; Part 5 loses the session skill from its sources and the `sessions` retirement from its Task 3; PRD-001 requirement 11 changes.
+- PLAN-001 Part 1 Task 5 (Task 6 when written) carries the move; the copy part loses the session skill from its sources and the retirement part the `sessions` retirement; PRD-001 requirement 11 changes.
 - The tool gains the archive rule (`docs/sessions/archive/**`), with a test.
 - Every `/sessions:session` form in this repo's docs, aliases and manifests becomes `/brain:session` — Part 2 Task 2's sweep is done here, at the move.
 - env-setup's `claude-settings` and marketplace items name `brain`; the reinstall route in PLAN-001 § State changes to `brain@ACMElabs`.

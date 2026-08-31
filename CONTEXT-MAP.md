@@ -33,4 +33,4 @@ keeps its own `docs/sessions/`, gated by the tool it ships.
   together when a shipped shape changes.
 - **The docs system** (`docs/plan`, `docs/decisions`, `docs/analysis`, `docs/sessions`) uses the
   session-log words for its own record and `~/.claude/references/project-docs-conventions.md`'s
-  words for its layout; a `CONTEXT-MAP` entry per carried skill arrives with PLAN-001 Part 5.
+  words for its layout; a `CONTEXT-MAP` entry per carried skill arrives with PLAN-001 Part 2 Task 1.

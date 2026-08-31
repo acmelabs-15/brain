@@ -9,7 +9,7 @@ wrote into this file's last section — and [CONTEXT-MAP.md](./CONTEXT-MAP.md) s
 
 **Plugin**:
 This repo as Claude Code installs it — `brain`: the manifest, one skill, three commands, and (from
-PLAN-001 Part 5) every skill, command and agent of the toolset. The unit a marketplace lists and
+PLAN-001 Part 2) every skill, command and agent of the toolset. The unit a marketplace lists and
 a version tags.
 _Avoid_: package, extension, add-on, the sessions plugin (its name before 2026-08-31)
 

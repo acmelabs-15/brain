@@ -26,7 +26,7 @@ session skill's evals and description, and about the toolset's current shape?
   (bare `/session`, `/plan` under a `brain:` namespace) is real.
 - **The stale-cache non-cause.** `~/.claude/plugins/cache/ACMElabs/session/0.1.0/` is the
   pre-rename plugin (description still `start | record | end`), not installed, not the reason the
-  bare form failed. Delete it (PLAN-001 Part 5 Task 3).
+  bare form failed. Delete it (PLAN-001 Part 6 Task 1).
 - **`/plan` is claimed twice on this machine**: `~/.claude/commands/plan.md` (personal, bare) and
   the Brain-knowledge-graph plugin's `skills:plan` (`/skills:plan`, its own PLAN notes with
   phase-keyed parts). Peter: the latter is not a design input. Its `installed_plugins.json`
@@ -109,7 +109,7 @@ at most `handoff`, not now (ANA-001 F8). Commands: `build`, `code-simplify`, `pl
 copies drift from: `~/Dev/reference/addy-osmani-agent-skills`, `~/Dev/reference/matt-pocock-skills`
 (v1.2.3).
 
-Duplicated shapes found across them (PLAN-001 Part 4 Task 3): the ADR template
+Duplicated shapes found across them (PLAN-001 Part 5 Task 2): the ADR template
 (`documentation-and-adrs` vs `domain-modeling/ADR-FORMAT.md`), the spec template
 (`spec-driven-development` vs `to-spec`), the ticket shape (`to-tickets` vs
 `references/issue-tracker.md`). The plan template had three homes until `session init` stopped
@@ -132,6 +132,6 @@ writing `docs/plan/README.md` (`f80af22`); nothing generates a repo's `docs/plan
 
 ## Consequences
 
-- PLAN-001 Part 1 Task 4 (the description carries the tool situations); Part 5 Task 4 (the redo
+- PLAN-001 Part 1 Task 4 (the description carries the tool situations); Part 6 Task 2 (the redo
   keeps eval 3's premise, drops eval 4, grounds any judgement rule in the fixture).
 - ADR-002's open point on bare names is decided with these facts in hand.

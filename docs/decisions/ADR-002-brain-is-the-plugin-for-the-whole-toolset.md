@@ -47,7 +47,7 @@ commands in `~/.claude/commands` and all of the agents in `~/.claude/agents`."
   `/plan` and `/session`.
 - **Order unchanged.** The session skill is still built and recorded in acmelabs-15/sessions
   through PLAN-001 Parts 1–4; Part 5 is the move — of everything, not only the session skill.
-- **Open, decided at Part 5 Task 1 with Peter:** how the bare `/session` and `/plan` are kept, since
+- **Open, decided at Part 5 Task 1 with Peter (as numbered then; ADR-003 decided it):** how the bare `/session` and `/plan` are kept, since
   a plugin skill is reached as `brain:<skill>` and acmelabs-15/sessions PLAN-001 Part 1 Task 3
   measured that bare forms fail for a plugin. Candidates: the plugin's `commands/` as the typed
   surface, or a thin personal command per entry point installed by env-setup.
@@ -71,9 +71,9 @@ ADR-001's design — untracked. Rejected: the design is one system.
 
 ## Consequences
 
-- PRD-001 requirement 12; PLAN-001 Part 5 lists the sources, the retirements and the eval redo.
+- PRD-001 requirement 12; PLAN-001 Part 5 lists the sources, the retirements and the eval redo (since the renumbering of 2026-08-31, ANA-003: Part 2 the copy, Part 6 the retirements and the redo).
 - Plugin-kit's `plugin-creator` governs the layout; `claude plugin validate --strict` is a check
-  before finishing; the plugin's namespace question is Part 5 Task 1's first decision.
+  before finishing; the plugin's namespace question is Part 5 Task 1's first decision (decided by ADR-003).
 - `choosing-a-skill`'s three lineages and its name-collision table describe files that will all
   live in one plugin; it is rewritten at the move.
 - env-setup's `claude-settings` item stops copying skills, commands and agents into `~/.claude`

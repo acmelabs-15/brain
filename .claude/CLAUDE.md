@@ -24,7 +24,7 @@ you work inside the skill and carries what editing it needs.
   (measured 2026-08-31 on CLI 2.1.251: `/session isn't available in this environment.`,
   `Unknown command: /session-start`), so no document here promises a bare form (ADR-003).
 - `commands/` is a legacy plugin layout kept on purpose: it is the typed surface, one file per
-  act, and `~/.claude/commands` joins it at PLAN-001 Part 5. A command buys a `/` menu slot, not
+  act, and `~/.claude/commands` joins it at PLAN-001 Part 2. A command buys a `/` menu slot, not
   brevity — `/brain:session-log` is longer than `/brain:session log`.
 - This file lives under `.claude/` because `claude plugin validate --strict` rejects a root `CLAUDE.md`.
 - The installed copy (`~/.claude/plugins/cache/ACMElabs/brain/<version>/`) is a snapshot: after a

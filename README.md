@@ -29,7 +29,7 @@ Every form is namespaced — a plugin skill resolves only as `/brain:…` (measu
 `/brain:session` alone infers the act from its arguments (`SES-NNN` and a landed commit → log; a
 description → start); `close` is always named. The commands `/brain:session-start`,
 `/brain:session-log` and `/brain:session-close` expose one act each. Where a plan stands and what
-comes next is `/plan PLAN-NNN`'s to say (PLAN-001 Part 3), not this skill's.
+comes next is `/plan PLAN-NNN`'s to say (PLAN-001 Part 4), not this skill's.
 
 A **session** is a stream of work toward one Goal, `in progress` until `done`; it may span many
 conversations and usually serves one part of a plan, whose status line names it. A conversation
