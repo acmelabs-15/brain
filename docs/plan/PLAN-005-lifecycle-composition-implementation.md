@@ -87,16 +87,16 @@ Part 5 (diagnosing-bugs) ──────────────────�
 
 ### Part 4: implement, the merged Build skill (PRD-002 requirement 5)
 
-> Status: planned
+> Status: done (session SES-011, `7389aca`)
 
-- [ ] Task 1: the merged `implement` — the discipline rules (simplicity, scope, safe landing),
-  the working rhythm, TDD at pre-agreed seams, stack discovery with the no-redundant-rerun
-  rule, the DoD tier gates as its checklist sections, the plan/ticket consumption contract,
-  the slicing escape citing the planner; `incremental-implementation` becomes a pointer stub;
-  the 6 citing files retarget. Acceptance: a trigger set covering both old surfaces' phrases
-  measured; model-invocable (the old `disable-model-invocation` dropped deliberately — the
-  description now guards routing); render; validators green.
-- [ ] Checkpoint: the bar.
+- [x] Task 1 (2026-08-31, `7389aca`): the merged `implement` (122 lines), model-invocable;
+  incremental-implementation a stub; deprecation-and-migration's see-also retargeted (the
+  router rows are Part 8's; commands/build.md is Part 6's, working through the stub meanwhile).
+  Measured 15/20 against an all-zero baseline, negatives 10/10; the five sub-threshold rows
+  probe-verified as the no-consult behavior class. Render quote-back green (injection, tick
+  gate, cycle). bunfig's pathIgnorePatterns keeps eval fixtures out of the repo suite.
+- [x] Checkpoint (2026-08-31): the bar — tests 29/29 (fixtures excluded at the cause),
+  typecheck, both validators, two sweeps, two probes, one render.
 
 ### Part 5: diagnosing-bugs, the merged debugging skill (PRD-002 requirement 7)
 
