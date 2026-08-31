@@ -204,11 +204,13 @@ Read `~/Dev/ACMElabs/plugin-kit/skills/plugin-creator/SKILL.md` first — layout
 one plugin's namespace (`brain:<skill>`). The bare-name question is answered (ADR-003): every
 form is `brain:`-namespaced and `commands/` is the typed surface.
 
-- [ ] Task 1: the layout — `agents/` and `references/` directories beside `skills/` and
+- [x] Task 1 (2026-08-31, `a1c8398`): the layout — `agents/` and `references/` directories beside `skills/` and
   `commands/`; `CONTEXT-MAP.md` gains the vocabularies the carried skills bring
   (`codebase-design`, `loop-me`, the triage roles). Acceptance: `validate --strict` green with the
   directories present.
-- [ ] Task 2: the copy — every skill under `~/.claude/skills` (24 Addy, 20 Matt, 2 local) as it
+- [x] Task 2 (2026-08-31, `514174e` the merge rule, `b1202e4` the ask-user-question merge, `a1c8398` the
+  copy; `validate --strict` green, 43 `brain:` names load headless, `bun test` 28/0, `tsc` clean;
+  four small changes on the way in, each forced by this repo's gates — SES-002 entry `a1c8398`): the copy — every skill under `~/.claude/skills` (24 Addy, 20 Matt, 2 local) as it
   stands with its local edits; the `ask-user-question` skill from `~/Dev/ACMElabs/ask-user-question`
   merged in with its history as the sessions repo was (ADR-003's method), its docs archived under
   `docs/*/archive/acmelabs-15-ask-user-question/`; the 8 commands under `~/.claude/commands`; the 4
