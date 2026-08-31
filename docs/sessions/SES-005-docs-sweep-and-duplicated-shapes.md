@@ -50,3 +50,13 @@ decision rounds for Tasks 2, 3 and 4 are next, one question at a time.
   - `references/project-docs-conventions.md` (+2/−1) — the templates paragraph: the ADR template's one home since 2026-08-31; ADR-FORMAT.md points at it and keeps the when-to-offer rule
   - `skills/domain-modeling/ADR-FORMAT.md` (+7/−15) — the Template and Optional-sections blocks replaced by the pointer paragraph; location, numbering and § When to offer an ADR unchanged
 - Notes: Verified: `grep ADR-FORMAT` — its citers (`domain-modeling/SKILL.md` line 74, the conventions reference, LOCAL-CHANGES as history) still resolve. Decision made on the facts as presented; immediately after confirming, Peter raised the wider concern — the Addy lifecycle likely defines the same concepts elsewhere, not fully aligned — which became PLAN-002 (next entry); shapes 2–3 of this task move there rather than being decided piecemeal.
+
+### 2026-08-31 · docs(plan): PLAN-002 — the consult skills (domain-modeling, codebase-design) evaluated in full against the Addy lifecycle, integration decided by ADR; PLAN-001 Part 5 shapes 2–3 and Task 3 hand their decisions there; PRD Plans table and plan README carry both plans' real state · 824ed34
+
+- Summary: _(fill in)_
+- Why: _(fill in)_
+- Files:
+  - `docs/plan/PLAN-001-record-and-rehydration-split.md` (+12/−3) — _(fill in)_
+  - `docs/plan/PLAN-002-consult-skills-integration.md` (+149/−0) — _(fill in)_
+  - `docs/plan/PRD-001-session-log-and-rehydration.md` (+2/−1) — _(fill in)_
+  - `docs/plan/README.md` (+3/−2) — _(fill in)_
