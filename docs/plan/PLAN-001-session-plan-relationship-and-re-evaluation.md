@@ -39,14 +39,14 @@ conversation**. Read every file a part names, in full.
   `/session start` must come from the installed plugin (`sessions@ACMElabs`) and
   `session check --session SES-006` must be green (it needs `docs(ledger)` in the tool's skip
   list — restored in `a4a207b`).
-- [ ] Task 2: close env-setup's SES-006 (Outcome: the plugin, ADR-022/023, the global templates,
+- [x] Task 2 (2026-08-31, `87b32c2` on env-setup PR #45 — SES-005 left open, that conversation's state is unknown): close env-setup's SES-006 (Outcome: the plugin, ADR-022/023, the global templates,
   the plan-part rule) and, if that conversation is over, SES-005 (another conversation's, all
   placeholders — fill from `git show` and say so in its Narrative, per the skill's rule).
 - [ ] Task 3: verify interactively what headless could not: bare `/session start PLAN-001` and
   `/session continue` resolve from the plugin in env-setup (headless resolved only
   `/sessions:session …`); the injected Branch/Tree/Sessions lines render; the `open` outcome
   writes `> Status: in progress (session SES-NNN)` under the part.
-- [ ] Task 4: ANA-010's four implications for envsetup (an `_Avoid_`-list check over agent-facing
+- [x] Task 4 (2026-08-31, env-setup SES-007 `afc9dca` on PR #45; the check enforces only `_Avoid_` items marked `(former name, …)` — a prototype showed 93 of 130 items are sense restrictions): ANA-010's four implications for envsetup (an `_Avoid_`-list check over agent-facing
   prose; `## Relationships` and `## Flagged ambiguities` in `CONTEXT.md`; the domain.md
   equivalent is covered; the success test "CONTEXT.md changes during the conversation").
 
@@ -105,7 +105,7 @@ then stopped at Peter's instruction) and no disclosure recall figure (runs 1–4
 the harness, not the skill: a false fixture, permission denials with no human at the prompt, a
 grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
 
-- [ ] Task 1 (running since 2026-08-31 ~02:30, `evals/results/description-2/`): run the description loop with only its inputs, detached (`SKILL_CREATOR_NO_OPEN=1`;
+- [ ] Task 1 (running since 2026-08-31 ~02:30, `evals/results/description-2/`; its log shows queries timing out at 180s and scored as non-triggers — read the count before trusting a score): run the description loop with only its inputs, detached (`SKILL_CREATOR_NO_OPEN=1`;
   read `shared/references/running-detached.md` first):
   `bun ~/Dev/ACMElabs/plugin-kit/shared/operations/optimize-description.ts --eval-set skills/session/evals/trigger-eval.json --target-path skills/session --results-dir skills/session/evals/results/description-2`.
   Adopt `best_description` only if its held-out score beats the incumbent; re-measure on the
@@ -116,7 +116,7 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   Read `shared/references/disclosure-optimization.md` for the verdict table; the reference's
   recall on eval 2 is the figure that matters (`signpost` below 0.5). Copy `results.json`,
   `envelope.json` and the logs under `evals/results/disclosure-1/` and commit them.
-- [x] Task 3 (`2815b00`: the six findings applied to the skill and the tool; the second measurement is `disclosure-2`, running): act on the results — the skill-reviewer's hypothesis is a narrower description
+- [x] Task 3 (`2815b00`: the six findings applied to the skill and the tool; `evals/results/disclosure-2/`: 36/54 against 35/54, reference recall still 0/2, over-fetch 0 — the remaining failures are the reply not being the template alone (5 runs), entry opening a new session instead of appending to the open one (2/2), a closing note over 60 words (4/4)): act on the results — the skill-reviewer's hypothesis is a narrower description
   clause naming the tool's situations; the body is ~4,900 tokens, so a body change must move
   something to `references/session-log.md`.
 - [ ] Task 4: iteration 5 of the outcome evals with the fixture (baseline
