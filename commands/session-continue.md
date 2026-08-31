@@ -6,9 +6,9 @@ argument-hint: "[PLAN-NNN]"
 
 Invoke the `session` skill in `continue` mode now — exactly what typing `/session continue` does.
 
-Typed after the command: `$ARGUMENTS`
+Typed after the alias: `$ARGUMENTS`
 
 When that text contains a `PLAN-NNN` id, call the Skill tool with `skill: sessions:session` and
 `args: continue PLAN-NNN` (that id); otherwise `args: continue`. Anything else typed is ignored.
-The skill carries the whole procedure and its completion criterion; run it rather than
+The skill carries the whole procedure and its Done-when line; run it rather than
 reproducing its steps here.

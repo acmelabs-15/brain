@@ -82,6 +82,15 @@ One block per commit worth reading about, appended by `session append` under a h
   "updated" or "changes" is not a phrase.
 - `Notes` — optional: what was verified and how, what is unverified, a follow-up, a decision made on the spot.
 
+`Summary` and `Why` are written the same way — the whole change, then the cause:
+
+  ```text
+  Input:  the commit `fix(picker): keep the cursor on the item after a rescan`
+  Output: - Summary: the picker keeps its cursor on the same item across a rescan instead of
+            jumping to the top; the rescan now diffs by item id
+          - Why: Peter lost his place every time the picker refreshed (SES-003 request)
+  ```
+
 `git show <sha>` is for a later reader who needs the exact diff; the entry is for the reader who does not.
 
 ---

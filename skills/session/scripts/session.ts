@@ -41,8 +41,12 @@ import {
 const ROOT = projectDir();
 const DIR = sessionsDir(ROOT);
 const INDEX = join(DIR, "README.md");
+// A skeleton lists every touched file; past 80 a commit is a mass move or a generated tree, and one
+// "… +N more" line plus `git show --stat` serves a reader better than a page of identical phrases.
 const MAX_FILES = 80;
-const SKIP_PREFIXES = ["docs(session)"];
+// Subjects that are the log updates themselves and never get an entry. `docs(ledger)` is the
+// pre-2026-08-30 name of the session log; repos that predate the rename carry commits with it.
+const SKIP_PREFIXES = ["docs(session)", "docs(ledger)"];
 const COMMANDS = ["help", "init", "template", "list", "new", "append", "check", "close", "current"] as const;
 
 const USAGE = `session — the session log tool (bun <plugin>/skills/session/scripts/session.ts <command>)

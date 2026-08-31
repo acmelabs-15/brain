@@ -4,6 +4,6 @@ disable-model-invocation: true
 ---
 
 Invoke the `session` skill in `close` mode now — exactly what typing `/session close` does: call
-the Skill tool with `skill: sessions:session`, `args: close`. Ignore any text typed after the command,
+the Skill tool with `skill: sessions:session`, `args: close`. Ignore any text typed after the alias,
 including an `ARGUMENTS:` line appended below this one. The skill carries the whole procedure and
-its completion criterion; run it rather than reproducing its steps here.
+its Done-when line; run it rather than reproducing its steps here.

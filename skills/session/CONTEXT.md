@@ -41,5 +41,6 @@ The glossary defines the words; the shapes those words name have one home each, 
 [`../../CONTEXT.md`](../../CONTEXT.md) it is the product being built. In a sentence that could be
 read either way, say "a session (the stream of work)" or "the session skill".
 
-`ledger` was an earlier name for the session log. It is an `_Avoid_` synonym now and appears
-nowhere in the code: the tool honours only a `docs(session)` commit subject.
+`ledger` was an earlier name for the session log. It is an `_Avoid_` synonym now; the one place
+the tool still knows it is the skip list (`docs(ledger)` commit subjects get no entry), so a log
+that predates the rename still gates green.

@@ -9,7 +9,7 @@
   section): `scripts/templates.ts`. `session template <name>` prints it; `init` and `new` write it.
   A shape shown anywhere else is a pointer to that command, not a copy.
 - Parsing, session selection, the gate's counting, plan matching: `scripts/session-lib.ts`, tested
-  in `scripts/__tests__/`. The CLI around it: `scripts/session.ts`; repo and path resolution: `scripts/paths.ts`.
+  in `scripts/__tests__/`. The tool itself: `scripts/session.ts`; repo and path resolution: `scripts/paths.ts`.
 - The five aliases: `../../commands/session-*.md`, each delegating with `skill: sessions:session`.
 
 ## Gotchas when editing SKILL.md
@@ -31,5 +31,5 @@
 - `evals/README.md` says what each iteration measured. Results are committed; fixture repositories
   (`**/repo/`) are not — they carry their own `.git`.
 - The next iteration is 5; keep the baseline at `evals/results/skill-snapshot/` so the numbers compare.
-- The trigger sweep on record measured the pre-plugin description; the current one is unmeasured
+- The trigger set on record was measured against the pre-plugin description; the current one is unmeasured
   on Sonnet and Haiku.
