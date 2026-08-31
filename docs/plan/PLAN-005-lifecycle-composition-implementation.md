@@ -18,9 +18,10 @@ plan and is not duplicated here.
 **The standing bar, every part** (PLAN-002 Part 5's, unchanged): `bun test`, `bun run
 typecheck`, `bun run validate`, plugin-kit's validator over every touched skill; every new or
 changed description trigger-measured on the fixed tier against its old rate, hard negatives
-declined; every changed procedure headless-rendered in a scratch repo; a retired skill becomes
-a pointer stub in the same commit that lands its replacement (never a live duplicate); the
-session ritual throughout; ADR-005's read-rule injection and the decrees inherited by every
+declined; every changed procedure headless-rendered in a scratch repo; a retired skill is
+deleted in the same commit that lands its replacement, every live reference retargeted — no
+stubs, no wrappers (ADR-007, superseding the stub rule this plan started with); the session
+ritual throughout; ADR-005's read-rule injection and the decrees inherited by every
 rebuilt skill. Eval material (Peter, 2026-08-31): trigger positives and negatives draw on the
 Addy corpus (`~/Dev/reference/addy-osmani-agent-skills/evals/cases/<name>.json`) beside the
 Matt-side phrasings — independent wording, not copies of our descriptions; each rebuilt skill
@@ -126,7 +127,7 @@ Part 5 (diagnosing-bugs) ──────────────────�
 
 ### Part 7: the verify-first measurements, then the concurrent mode (PRD-002 requirement 6)
 
-> Status: planned
+> Status: in progress (session SES-014)
 
 - [ ] Task 1: measure with strong oracles — (a) implementer subagents in git worktrees as
   implement-spec writes it, (b) Claude Code tasks carrying native dependencies as the
@@ -134,8 +135,8 @@ Part 5 (diagnosing-bugs) ──────────────────�
   Recorded as an ANA with the invocations and outputs.
 - [ ] Task 2: only where Task 1 is green — the concurrent mode lands in `/brain:build`
   (worktree implementers, mergers, one PR per spec, the deps-graph frontier); `implement-spec`
-  becomes a pointer stub. Where Task 1 fails, the ANA records what and why, the mode is
-  dropped, and `implement-spec` still retires (its parts live in the ANA for a future run).
+  is deleted in that commit. Where Task 1 fails, the ANA records what and why, the mode is
+  dropped, and `implement-spec` is still deleted (its parts live in the ANA for a future run).
 - [ ] Checkpoint: the bar; the ANA committed either way.
 
 ### Part 8: the references, the routing, the closure (PRD-002 requirements 8–10)
@@ -145,9 +146,9 @@ Part 5 (diagnosing-bugs) ──────────────────�
 - [ ] Task 1: `references/definition-of-done.md` § How to Apply rewritten to name the tick,
   the part checkpoint, and the plan-close converge; its skill list updated to the composed
   names; landed in one commit with nothing else touching it.
-- [ ] Task 2: `choosing-a-skill` and `using-agent-skills` rewrite their Define/Plan/Build rows
-  to the composed set; `CONTEXT-MAP.md` checked complete; each file edited once here and not
-  again before PLAN-001 Part 6.
+- [ ] Task 2: `choosing-a-skill` and `using-agent-skills` rewrite their Define/Plan/Build prose
+  to the composed set (the name swaps landed with ADR-007; the lineage prose still describes
+  the old chains); `CONTEXT-MAP.md` checked complete; no retired name anywhere live.
 - [ ] Task 3 (includes: re-run writing-specs' trigger sweep post-reinstall — two rows were held down by the installed old spec-driven-development description competing in the catalog, verified by probe; they should recover once the stub is what's installed): the marketplace regenerate + reinstall checkpoint (the PLAN-001 Part 4
   procedure): a fresh conversation in a scratch repo walks PRD-002 → a plan → a part headless;
   Peter runs `/reload-plugins` in his open terminals.

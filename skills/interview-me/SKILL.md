@@ -45,7 +45,7 @@ This skill needs a live, responsive user. In a non-interactive context (CI, sche
 ## Interaction with other skills
 
 - **`idea-refine`**: downstream. When the confirmed intent is "I want X but I don't know how to scope it," hand off — it generates variations against the now-explicit intent.
-- **`spec-driven-development`**: downstream. When the intent is concrete, hand off to write the requirements down.
+- **`writing-specs`**: downstream. When the intent is concrete, hand off to write the requirements down.
 - **`doubt-driven-development`**: the other end of the timeline — post-decision artifact review; this skill is pre-decision.
 - **`wayfinder`**: when the artifact is bigger than one session can hold, chart a map there instead; its decision tickets call back into this skill's artifact mode.
 

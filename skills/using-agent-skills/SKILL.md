@@ -18,10 +18,10 @@ Task arrives
     │
     ├── Don't know what you want yet? ──────→ interview-me
     ├── Have a rough concept, need variants? → idea-refine
-    ├── New project/feature/change? ──→ spec-driven-development
+    ├── New project/feature/change? ──→ writing-specs
     ├── Have a spec, need tasks? ──────→ planning-and-task-breakdown
     ├── "Work on PLAN-NNN", "catch me up"? → planning-and-task-breakdown § Continuing a plan (`/brain:plan PLAN-NNN`); the session skill only records
-    ├── Implementing code? ────────────→ incremental-implementation
+    ├── Implementing code? ────────────→ implement
     │   ├── UI work? ─────────────────→ frontend-ui-engineering
     │   ├── API work? ────────────────→ api-and-interface-design
     │   ├── Need better context? ─────→ context-engineering
@@ -29,7 +29,7 @@ Task arrives
     │   └── Stakes high / unfamiliar code? ──→ doubt-driven-development
     ├── Writing/running tests? ────────→ test-driven-development
     │   └── Browser-based? ───────────→ browser-testing-with-devtools
-    ├── Something broke? ──────────────→ debugging-and-error-recovery
+    ├── Something broke? ──────────────→ diagnosing-bugs
     ├── Reviewing code? ───────────────→ code-review-and-quality
     │   ├── Too complex? ─────────────→ code-simplification
     │   ├── Security concerns? ───────→ security-and-hardening
@@ -134,9 +134,9 @@ These are the subtle errors that look like productivity but create problems:
 
 2. **Skills are workflows, not suggestions.** Follow the steps in order. Don't skip verification steps.
 
-3. **Multiple skills can apply.** A feature implementation might involve `idea-refine` → `spec-driven-development` → `planning-and-task-breakdown` → `incremental-implementation` → `test-driven-development` → `code-review-and-quality` → `code-simplification` → `shipping-and-launch` in sequence.
+3. **Multiple skills can apply.** A feature implementation might involve `idea-refine` → `writing-specs` → `planning-and-task-breakdown` → `implement` → `test-driven-development` → `code-review-and-quality` → `code-simplification` → `shipping-and-launch` in sequence.
 
-4. **When in doubt, start with a spec.** If the task is non-trivial and there's no spec, begin with `spec-driven-development`.
+4. **When in doubt, start with a spec.** If the task is non-trivial and there's no spec, begin with `writing-specs`.
 
 ## Lifecycle Sequence
 
@@ -145,11 +145,11 @@ For a complete feature, the typical skill sequence is:
 ```
 1.  interview-me                → Extract what the user actually wants
 2.  idea-refine                 → Refine vague ideas
-3.  spec-driven-development     → Define what we're building
+3.  writing-specs               → Define what we're building
 4.  planning-and-task-breakdown → Break into verifiable chunks
 5.  context-engineering         → Load the right context
 6.  source-driven-development   → Verify against official docs
-7.  incremental-implementation  → Build slice by slice
+7.  implement                   → Build slice by slice
 8.  observability-and-instrumentation → Instrument as you build (runs parallel with 7-9, not after)
 9.  doubt-driven-development    → Cross-examine non-trivial decisions in-flight
 10. test-driven-development     → Prove each slice works
@@ -161,7 +161,7 @@ For a complete feature, the typical skill sequence is:
 16. shipping-and-launch         → Deploy safely
 ```
 
-Not every task needs every skill. A bug fix might only need: `debugging-and-error-recovery` → `test-driven-development` → `code-review-and-quality`.
+Not every task needs every skill. A bug fix might only need: `diagnosing-bugs` → `test-driven-development` → `code-review-and-quality`.
 
 ## Quick Reference
 
@@ -169,9 +169,9 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 |-------|-------|-----------------|
 | Define | interview-me | Surface what the user actually wants before any plan, spec, or code exists |
 | Define | idea-refine | Refine ideas through structured divergent and convergent thinking |
-| Define | spec-driven-development | Requirements and acceptance criteria before code |
+| Define | writing-specs | Requirements and acceptance criteria before code |
 | Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |
-| Build | incremental-implementation | Thin vertical slices, test each before expanding |
+| Build | implement | Thin vertical slices, test each before expanding |
 | Build | source-driven-development | Verify against official docs before implementing |
 | Build | doubt-driven-development | Adversarial fresh-context review of every non-trivial decision |
 | Build | context-engineering | Right context at the right time |
@@ -179,7 +179,7 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 | Build | api-and-interface-design | Stable interfaces with clear contracts |
 | Verify | test-driven-development | Failing test first, then make it pass |
 | Verify | browser-testing-with-devtools | Chrome DevTools MCP for runtime verification |
-| Verify | debugging-and-error-recovery | Reproduce → localize → fix → guard |
+| Verify | diagnosing-bugs | Build the loop → reproduce → localize → fix → guard |
 | Review | code-review-and-quality | Five-axis review with quality gates |
 | Review | code-simplification | Preserve behavior while reducing unnecessary complexity |
 | Review | security-and-hardening | OWASP prevention, input validation, least privilege |

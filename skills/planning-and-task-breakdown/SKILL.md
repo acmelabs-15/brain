@@ -310,7 +310,7 @@ unexpected branch, a dirty tree, another session's unfilled placeholders, a comm
 last entry with no entry. Report them; tidy nothing.
 
 **Step 8: Route.** The next task → `/brain:build` with the plan's path; a decision the task needs
-→ `/brain:grill-with-docs`; a question → answer it from what you read, and start no session.
+→ `/brain:interview-me` (artifact mode, with `domain-modeling` recording); a question → answer it from what you read, and start no session.
 
 ### Verification
 

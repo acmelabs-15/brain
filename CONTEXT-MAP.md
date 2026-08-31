@@ -43,7 +43,7 @@ using the words:
 
 - [Deep modules](./skills/codebase-design/SKILL.md): *seam*, *deep module*, *depth*, *frontier*,
   *tracer bullet*, *tight loop*, *red*, *fog of war* — the vocabulary the Matt Pocock lineage
-  shares (`grilling`, `to-tickets`, `implement-spec`, `wayfinder`, `diagnosing-bugs` use it
+  shares (`interview-me`, `planning-and-task-breakdown`, `implement-spec`, `wayfinder`, `diagnosing-bugs` use it
   verbatim). `choosing-a-skill` § The three lineages lists the words.
 - [Loops](./skills/loop-me/SKILL.md): *loop*, *workflow*, *trigger*, *checkpoint*, *brief*,
   *push right* — `loop-me` only; its *brief* is not the session skill's reply line.
@@ -53,8 +53,8 @@ using the words:
 
 **The word `spec`** names one artifact with two renderings since ADR-006: `writing-specs` writes
 it as a repo PRD (`docs/plan/PRD-NNN`, with a Plans table) or as a tracker spec (published with
-`ready-for-agent`), the repo's convention choosing. `spec-driven-development` and `to-spec` are
-pointer stubs at that skill; a sentence needing one rendering names it ("the repo PRD", "the
+`ready-for-agent`), the repo's convention choosing. `spec-driven-development` and `to-spec` were
+retired into it (ADR-007: no transition states); a sentence needing one rendering names it ("the repo PRD", "the
 tracker spec").
 
 `ask-user-question` carries its own words (*option*, *label*, *recommendation*, *preview*, *skip*)

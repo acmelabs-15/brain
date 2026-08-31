@@ -69,9 +69,10 @@ PLAN-NNN` rehydrating any conversation into the middle of it, unchanged.
    its skill list names the composed set.
 9. **The standing bar**: every new or changed description trigger-measured on the fixed tier
    against its old rate; every changed procedure headless-rendered; the session ritual, status
-   lines, ticks and `/brain:plan PLAN-NNN` behavior unchanged; retired skills stay pointer
-   stubs until PLAN-001 Part 6 retires sources; each file edited once across the
-   implementation parts.
+   lines, ticks and `/brain:plan PLAN-NNN` behavior unchanged; a retired skill is deleted in
+   the commit that lands its replacement, every live reference retargeted — no stubs, no
+   wrappers, no transition states (ADR-007); each file edited once across the implementation
+   parts.
 10. **Unchanged in role**: `research`, `wayfinder`, `triage`, `test-driven-development` (+
     `/brain:test`), `doubt-driven-development`, `domain-modeling` and its handoffs, the
     read-rule injection (ADR-005), `choosing-a-skill` as the router.

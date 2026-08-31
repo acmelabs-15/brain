@@ -73,7 +73,7 @@ The glossary defines the words; the shapes those words name have one home each, 
   rules in `SKILL.md` (§ log, § What is never rewritten).
 - **The plan part's status line** — its grammar and its use in `SKILL.md` (§ The plan part's
   status line). The plan's own shape is not this plugin's: `planning-and-task-breakdown` and
-  `spec-driven-development` carry the PLAN and PRD templates; `session init` writes nothing under
+  `writing-specs` carry the PLAN and PRD templates; `session init` writes nothing under
   `docs/plan/`.
 
 ## The boundary with the authoring context

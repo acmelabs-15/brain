@@ -1,6 +1,6 @@
 # brain — the plugin repo
 
-The Claude Code plugin that carries the whole toolset: 47 skills (`/brain:session` and `ask-user-question` maintained here, 45 copied in as they stand), 11 commands in `commands/` (3 typed-only session acts, 8 model-invocable), 4 agents, 9 references, the Bun tool the session skill runs — and the docs system of record for that work (`docs/`). `README.md` is the human-facing description; `skills/session/CLAUDE.md` loads when
+The Claude Code plugin that carries the whole toolset: 40 skills (`/brain:session` and `ask-user-question` maintained here; the Define/Plan/Build set rebuilt under PLAN-005; the rest copied in as they stand), 11 commands in `commands/` (3 typed-only session acts, 8 model-invocable), 4 agents, 9 references, the Bun tool the session skill runs — and the docs system of record for that work (`docs/`). `README.md` is the human-facing description; `skills/session/CLAUDE.md` loads when
 you work inside the skill and carries what editing it needs.
 
 ## Checks before finishing

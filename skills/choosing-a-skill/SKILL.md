@@ -37,10 +37,10 @@ needed twenty minutes. Skipping a skill is a normal decision, not a violation.
 | "Work on PLAN-NNN", "catch me up", "where were we" — a repo with `docs/plan/` and a session log | `planning-and-task-breakdown` § Continuing a plan (`/brain:plan PLAN-NNN`): the walk from the plan to the part, the task, the session and the brief. The `session` skill is the record only — `start · log · close`, never the walk |
 | A contained change you already understand | `test-driven-development`, then commit |
 | Something is broken and you don't know why | `diagnosing-bugs` |
-| A real feature, spec unclear | `grilling` → `to-spec` → `to-tickets` → `implement-spec` |
-| Restructuring a module | `codebase-design` → `improve-codebase-architecture` → `grilling` → `domain-modeling` |
+| A real feature, spec unclear | `interview-me` → `writing-specs` → `planning-and-task-breakdown` → `implement-spec` |
+| Restructuring a module | `codebase-design` → `improve-codebase-architecture` → `interview-me` → `domain-modeling` |
 | Enforcing deep-module boundaries in a TS repo | `setup-ts-deep-modules` (installs dependency-cruiser rules) |
-| Designing a recurring process to delegate | `loop-me` — a `grilling` variant, below |
+| Designing a recurring process to delegate | `loop-me` — an `interview-me` variant, below |
 | Work bigger than one session | `wayfinder` |
 | An in-progress merge conflict | `resolving-merge-conflicts` |
 | An `AskUserQuestion` call is itself the deliverable | `ask-user-question` |
@@ -52,14 +52,14 @@ inventory of the library, not a recommendation — no real task runs all sixteen
 
 ### Running each chain
 
-**`grilling` → `to-spec` → `to-tickets` → `implement-spec`.** `grilling` works a design tree in
+**`interview-me` → `writing-specs` → `planning-and-task-breakdown` → `implement-spec`.** `interview-me` (artifact mode) works a design tree in
 rounds, asking the whole **frontier** at once with a recommended answer on each question, then
 waiting. It finds facts itself via sub-agents and puts only *decisions* to the user; it is done when
-the frontier is empty. `to-spec` then synthesises with no further interview. `to-tickets` cuts
+the frontier is empty. `writing-specs` then synthesises with no further interview. `planning-and-task-breakdown` cuts
 **tracer bullets** with blocking edges. `implement-spec` runs implementer sub-agents across the
 ticket frontier in parallel worktrees.
 
-**`codebase-design` → `improve-codebase-architecture` → `grilling` → `domain-modeling`.** Load
+**`codebase-design` → `improve-codebase-architecture` → `interview-me` → `domain-modeling`.** Load
 `codebase-design` first: it is pure vocabulary, and it keeps every later suggestion in the same
 words. `improve-codebase-architecture` then scans hot spots from `git log`, writes an HTML report to
 `$TMPDIR`, and asks which candidate to pursue. It applies the **deletion test**: if deleting a module
@@ -98,7 +98,7 @@ after the loop localises the problem.
 does**; the pull to just build the thing is the signal you have reached the edge of the map and
 should hand off.
 
-**Callers of `grilling`:** `grill-me` calls it; `grill-with-docs` calls it + `domain-modeling`;
+**Callers of `interview-me` (artifact mode):** `grill-me` and `grill-with-docs` are gone (ADR-007); `wayfinder`, `triage`, `loop-me` and `improve-codebase-architecture` call it, with `domain-modeling` beside it when decisions are recorded;
 `wait-what` asks for a re-pitch in Simplified Technical English using the repo's `CONTEXT.md`.
 `loop-me` is a **variant**, not an alias — same discipline, but its only output is workflow specs in
 `workflows/*.md` and it carries its own vocabulary (a **loop** is a recurring pattern worth
@@ -152,16 +152,16 @@ section, apply it, move on. Reading `security-and-hardening` end-to-end before t
 its OWASP section is a good one. Judge a candidate by what it produces — advice to apply, or a
 procedure that runs — rather than by how long it is; a length is a symptom of the kind, not the test.
 
-**Best of the bunch:** `test-driven-development`, `incremental-implementation`,
+**Best of the bunch:** `test-driven-development`, `implement`,
 `api-and-interface-design`, `security-and-hardening`.
 
 ### Lineage B — Matt Pocock family (vocabulary + workflow)
 
 **20 skills**, terse. 12 carry `disable-model-invocation: true` (user-invoked only); the eight that
-do not — `grilling`, `diagnosing-bugs`, `codebase-design`, `code-review`, `research`,
+do not — `interview-me`, `diagnosing-bugs`, `codebase-design`, `code-review`, `research`,
 `domain-modeling`, `resolving-merge-conflicts`, `writing-for-agents` — can also auto-trigger, and
 they include the ones this file routes to most often. **Spot one by**
-the `agents/openai.yaml` file in its directory, or its verb-shaped name (`grilling`, `to-tickets`,
+the `agents/openai.yaml` file in its directory, or its verb-shaped name (`implement`, `research`,
 `wayfinder`).
 
 **Character:** each one installs a **precise vocabulary** and then runs a **loop** on it. Shorter,
@@ -183,7 +183,7 @@ where "component", "service", "boundary" and "API" are the generic words they re
 - **push right** — defer the human checkpoint as far as it will go (`loop-me` only; the rest of
   the list recurs across the lineage)
 
-`frontier` recurs in `grilling`, `to-tickets`, `implement-spec`, and `wayfinder`. It is the same
+`frontier` recurs in `interview-me`, `planning-and-task-breakdown`, `implement-spec`, and `wayfinder`. It is the same
 concept in all four. That consistency is deliberate and worth preserving in your own output.
 
 ### Lineage C — `ask-user-question` (one tool, in depth)
@@ -230,7 +230,7 @@ lighter track, the plugin the heavyweight, high-ceremony one.
 
 ## Where tickets live
 
-Five skills create or read tickets — `code-review`, `to-spec`, `to-tickets`, `triage`, `wayfinder`.
+Five skills create or read tickets — `code-review`, `writing-specs`, `planning-and-task-breakdown`, `triage`, `wayfinder`.
 They resolve the tracker the same way, first hit wins: the repo's own `docs/agents/issue-tracker.md`;
 then the repo's evident convention (an existing labelling scheme, a numbered docs series tickets
 plainly belong to, a `CLAUDE.md` naming where work items live); then the local-markdown default in

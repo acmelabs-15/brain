@@ -42,7 +42,7 @@ The final output is a markdown one-pager saved to `docs/ideas/[idea-name].md` (a
 
 `interview-me` hands off here when a confirmed intent is "I want X but I don't know how to
 scope it" — ideate against that intent, not the original ask. Hand the finished one-pager
-back toward `spec-driven-development` when a direction is chosen.
+back toward `writing-specs` when a direction is chosen.
 
 ## Detailed Instructions
 
