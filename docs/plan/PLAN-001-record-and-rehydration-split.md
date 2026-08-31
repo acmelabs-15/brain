@@ -305,10 +305,14 @@ retires them. The door is `/brain:plan` (ADR-003).
   the section reads as Addy's skills read (steps, Verification, Rationalizations). Verification:
   plugin-kit's validator over the skill; a headless `--plugin-dir` run in a scratch clone of this
   repo (PLAN-001 in progress, its own log) reaches the brief with the right part, task and `SES-NNN`.
-- [ ] Task 2: the description gains `continue PLAN-NNN`, "work on PLAN-NNN", "catch me up",
+- [x] Task 2 (2026-08-31, `61bc93e`): the description gains `continue PLAN-NNN`, "work on PLAN-NNN", "catch me up",
   "where were we"; measured on Haiku and Sonnet with `measure-triggering.ts` against a new trigger
   set written for the plan skill. Acceptance: kept only if the should-fire rate is at least the
-  session skill's old 5/10 on Sonnet with hard negatives still declined.
+  session skill's old 5/10 on Sonnet with hard negatives still declined — met and kept: the
+  adopted description is 10/10 should-fire and 13/13 hard negatives on Sonnet (the old one: 3/10),
+  full sweeps with isolation verified; on Haiku 7/10 and 11/13 (the old one: 0/10). The set, the
+  three candidate iterations and every envelope:
+  `skills/planning-and-task-breakdown/evals/` and its README.
 - [x] Task 3 (2026-08-31, `04ddfd3`; verified the same day, two headless renders in scratch
   clones: `/brain:plan PLAN-001` posted the brief naming Part 4, Task 1 and SES-004 with nothing
   written; `/brain:plan <description>` wrote `PLAN-002` with every part `> Status: planned`, its
@@ -461,13 +465,14 @@ Exactly where things stand, for a conversation that starts from nothing:
   tick lines and SES-004's Narrative record — the `--plugin-dir` run of
   `/brain:planning-and-task-breakdown continue PLAN-001` in a scratch clone reached the brief
   (Part 4, Task 1, SES-004, nothing written), `/brain:plan PLAN-001` did the same, and
-  `/brain:plan <description>` wrote a plan with every part `planned`. Task 2 (the description gains
-  the continue triggers and is measured with `measure-triggering.ts` against a new trigger set)
-  is in progress: the trigger set is written
-  (`skills/planning-and-task-breakdown/evals/trigger-eval.json`, 10 should-fire, 13 hard
-  negatives) and the baseline-vs-candidate sweeps run on Sonnet and Haiku; the checkpoint
-  (reinstall with these commits; a fresh conversation in env-setup types `/brain:plan PLAN-NNN`
-  and its first `/brain:session-log` lands) is **not started**.
+  `/brain:plan <description>` wrote a plan with every part `planned`. Task 2 is done (`61bc93e`):
+  the description carries the continue triggers, kept on its measured acceptance — 10/10
+  should-fire and 13/13 hard negatives declined on Sonnet against the new trigger set
+  (`skills/planning-and-task-breakdown/evals/`), the Haiku tier study beside it. Only the
+  checkpoint remains: reinstall with these commits (marketplace regenerate → uninstall → install →
+  `/reload-plugins`, Peter's, per terminal), then a fresh conversation in env-setup types
+  `/brain:plan PLAN-NNN`, gets the brief with the right part, task and `SES-NNN`, and its first
+  `/brain:session-log` lands in that session.
 - **Installed plugin:** `brain@ACMElabs` 0.4.0 from `main` at `a1c8398`-era files; `main` is ahead
   of it by `fe60256` (`init --refresh`), `f70eaaf` (ADR-004: no `CONTEXT.md` writes) and Part 4's
   commit — the reinstall is Part 4's checkpoint (marketplace regenerate → `claude plugin uninstall
