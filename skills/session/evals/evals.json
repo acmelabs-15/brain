@@ -15,7 +15,8 @@
         "brief.md reports the state of the tree and the sessions as findings (branch name; every session `bun run session list` reports open, named; that another conversation's open session — SES-005 in these fixtures — has placeholders that are not this conversation's to fill) rather than fixing anything, and proposes a concrete next item with a first step that respects the previous session's Open at end",
         "transcript.md shows no push, no PR, no commit",
         "Every fact the brief states is true at the end of the run: the released sha matches `git rev-parse --short vX.Y.Z`, the parked branch exists where the brief says it does (local vs origin), and every file on the read-in-full line has a transcript step whose line range reaches the file's last line (`wc -l`)"
-      ]
+      ],
+      "expects_references": []
     },
     {
       "id": 2,
@@ -30,6 +31,9 @@
         "overview.diff shows docs/OVERVIEW.md Next-up 5 no longer lists the stale set-favorites.swift asset (removed or marked done, citing the fix commit)",
         "commit.diff shows src/items/finder/CLAUDE.md and src/items/finder/.claude/skills/run-src-items-finder/SKILL.md no longer say the asset is stale",
         "commit.diff does not touch docs/sessions/SES-005-rehydration.md, and transcript.md shows files were staged by name (no `git add -A` / `git add .`)"
+      ],
+      "expects_references": [
+        "references/session-log.md"
       ]
     },
     {
@@ -45,7 +49,8 @@
         "docs/sessions/SES-005-rehydration.md is untouched (git-state.txt / commit shows no change to it) and no second session file was created",
         "transcript.md shows no push, no PR opened, no merge",
         "Every read, review or verification that the session file's Outcome / Open at end / Narrative and the reply's Shipped line attribute to this conversation appears as a step in transcript.md (a file named as read has a Read/cat step reaching its end; a check named as run has its command and output); a claim with no transcript step fails this expectation, and so does a count or sha that `git rev-list --count origin/main..HEAD` / `git log` contradicts at the end of the run"
-      ]
+      ],
+      "expects_references": []
     },
     {
       "id": 4,
@@ -58,7 +63,8 @@
         "reply.md is at most 60 words, states what shipped and the first thing to do next time, and says the session stays open",
         "transcript.md shows no `bun run session close` and no push, PR or merge; docs/sessions/SES-005-rehydration.md is untouched",
         "Every read, review or verification that the session file's Outcome / Open at end / Narrative and the reply's Shipped line attribute to this conversation appears as a step in transcript.md (a file named as read has a Read/cat step reaching its end; a check named as run has its command and output); a claim with no transcript step fails this expectation, and so does a count or sha that `git rev-list --count origin/main..HEAD` / `git log` contradicts at the end of the run"
-      ]
+      ],
+      "expects_references": []
     }
   ],
   "hard_negatives": [

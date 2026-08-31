@@ -58,7 +58,7 @@ already exists. Those documents are code in `skills/session/scripts/templates.ts
 ## The tool
 
 `skills/session/scripts/session.ts` — `session` below; the skill runs it as
-`bun "${CLAUDE_PLUGIN_ROOT}/skills/session/scripts/session.ts"`, and by hand it is
+`bun "${CLAUDE_SKILL_DIR}/scripts/session.ts"`, and by hand it is
 `bun <this checkout>/skills/session/scripts/session.ts`. It finds the repo from
 `CLAUDE_PROJECT_DIR`, else the git toplevel, else the working directory. `session help` prints
 every subcommand with its output; the short form:

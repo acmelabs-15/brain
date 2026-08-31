@@ -18,8 +18,9 @@
   recognised only at line start or after a space; nothing in prose may spell one out, and each must
   be a single bare command that a rule in `allowed-tools` matches — a pipe or an env-prefix is a
   segment the permission checker evaluates on its own and aborts on.
-- `${CLAUDE_PLUGIN_ROOT}` is substituted in the body and in `allowed-tools`; the tool is invoked by
-  that path, quoted, and nowhere else.
+- `${CLAUDE_SKILL_DIR}` is substituted in the body and in `allowed-tools`, for a plugin skill and for a
+  project-skill install alike (which is how plugin-kit's harness runs it); the tool is invoked by that
+  path, quoted, and nowhere else. `${CLAUDE_PLUGIN_ROOT}` would resolve only inside the plugin.
 - `allowed-tools` costs every headless run: `claude -p` must pass `--allowedTools Skill` or the skill
   never loads.
 - `git add` and `git commit` are left out of `allowed-tools` on purpose: every commit the ritual

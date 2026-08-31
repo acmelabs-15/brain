@@ -1,7 +1,7 @@
 ---
 name: session
 argument-hint: "start [PLAN-NNN] | continue [PLAN-NNN] | entry | end | close"
-allowed-tools: Bash(git status:*), Bash(git branch:*), Bash(git show:*), Bash(git log:*), Bash(gh pr list:*), Bash(bun "${CLAUDE_PLUGIN_ROOT}/skills/session/scripts/session.ts" *)
+allowed-tools: Bash(git status:*), Bash(git branch:*), Bash(git show:*), Bash(git log:*), Bash(gh pr list:*), Bash(bun "${CLAUDE_SKILL_DIR}/scripts/session.ts" *)
 license: MIT
 compatibility: "Claude Code (the injected state lines and the plugin-root anchor do nothing elsewhere). Needs Bun on PATH and git; `gh` only for the open-PR check at the end of a conversation."
 description: "Runs the session ritual of a repo's docs system and produces its artifacts: `/session start [PLAN-NNN]` and `/session continue [PLAN-NNN]` read the docs system in full (OVERVIEW, plan, PRD, the open docs/sessions/SES-NNN serving it, CONTEXT.md), join the session the plan part names or open one and mark the part in progress, and post a brief (`continue` alone asks which plan in progress); `/session entry` after every commit appends and fills the commit's entry, updates what it made stale (plan ticks, OVERVIEW, ADR, PRD, CONTEXT.md) and commits it as docs(session); `/session end` leaves the session open with a handoff; `/session close` closes a session whose Goal is done and marks its plan part done. Use at the start of a conversation in a repo with docs/sessions (or to set one up), after each commit, and before finishing — \"catch me up\", \"record that commit\", \"write the handoff\". Not for authoring an ADR, a PRD or CONTEXT.md, for changing the session tool itself, or for a changelog of recent commits."
@@ -39,7 +39,7 @@ The tool is one exact command, always written this way — quoted path, then the
 `session <subcommand>` below:
 
 ```bash
-bun "${CLAUDE_PLUGIN_ROOT}/skills/session/scripts/session.ts" <help | init | template | list | new | append | current | check | close> …
+bun "${CLAUDE_SKILL_DIR}/scripts/session.ts" <help | init | template | list | new | append | current | check | close> …
 ```
 
 `session help` prints every subcommand with its output. It finds the repo itself
@@ -50,7 +50,7 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
 
 - Branch: !`git branch --show-current`
 - Tree: !`git status --short`
-- Sessions: !`bun "${CLAUDE_PLUGIN_ROOT}/skills/session/scripts/session.ts" list --brief`
+- Sessions: !`bun "${CLAUDE_SKILL_DIR}/scripts/session.ts" list --brief`
 
 ## Gotchas
 
