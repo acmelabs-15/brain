@@ -30,6 +30,10 @@ conversation**. Read every file a part names, in full.
 
 ## Parts
 
+Tasks are listed in execution order inside each part; the first unticked task of the first
+part still in progress is the next move. A task's number is its stable name — session entries and
+commit messages cite it — so a task added later keeps its number and is filed where it runs.
+
 ### Part 1: land the relationship in env-setup
 
 > Status: in progress (session SES-001)
@@ -42,6 +46,9 @@ conversation**. Read every file a part names, in full.
 - [x] Task 2 (2026-08-31, `87b32c2`, env-setup PR #45 merged `1c81476` — SES-005 left open, that conversation's state is unknown): close env-setup's SES-006 (Outcome: the plugin, ADR-022/023, the global templates,
   the plan-part rule) and, if that conversation is over, SES-005 (another conversation's, all
   placeholders — fill from `git show` and say so in its Narrative, per the skill's rule).
+- [x] Task 4 (2026-08-31, env-setup SES-007 `afc9dca`, PR #45 merged `1c81476`; the check enforces only `_Avoid_` items marked `(former name, …)` — a prototype showed 93 of 130 items are sense restrictions): ANA-010's four implications for envsetup (an `_Avoid_`-list check over agent-facing
+  prose; `## Relationships` and `## Flagged ambiguities` in `CONTEXT.md`; the domain.md
+  equivalent is covered; the success test "CONTEXT.md changes during the conversation").
 - [x] Task 3 (2026-08-31, `7bd6782`): the interface is measured and the docs state it. On CLI 2.1.251, in a
   clean scratch repo: bare `/session` → `/session isn't available in this environment.`; bare
   `/session-start` → `Unknown command: /session-start`; `/sessions:session start` and
@@ -62,9 +69,15 @@ conversation**. Read every file a part names, in full.
   thing it was meant to provide; and a stale orphaned `session` plugin sits in the cache
   (`~/.claude/plugins/cache/ACMElabs/session/0.1.0/`, pre-rename, its description still on
   `start | record | end`) — not installed, not the cause of anything, worth deleting.
-- [x] Task 4 (2026-08-31, env-setup SES-007 `afc9dca`, PR #45 merged `1c81476`; the check enforces only `_Avoid_` items marked `(former name, …)` — a prototype showed 93 of 130 items are sense restrictions): ANA-010's four implications for envsetup (an `_Avoid_`-list check over agent-facing
-  prose; `## Relationships` and `## Flagged ambiguities` in `CONTEXT.md`; the domain.md
-  equivalent is covered; the success test "CONTEXT.md changes during the conversation").
+- [ ] Task 6 (added 2026-08-31, from Task 3): the namespaced form outside this repo. env-setup's
+  CLAUDE.md, README, OVERVIEW and `docs/sessions/README.md`, and `~/CLAUDE.md` §1 (line 41) still say
+  bare `/session start`; correct each to `/sessions:session …`. ADR-023's Consequences says
+  "interactively the bare `/session` works when nothing else claims the name" — measurably false
+  (`7bd6782`) and a settled ADR, so ADR-024 supersedes that sentence rather than editing it. Delete
+  the stale cache while there: `~/.claude/plugins/cache/ACMElabs/session/` (pre-rename) and
+  `sessions/0.1.0` — 65 MB, neither referenced by `claude plugin list` or any settings file.
+  Verification: the checkpoint's grep.
+- [ ] Checkpoint: env-setup's docs and `~/CLAUDE.md` name only `/sessions:session …`; ADR-024 exists; `grep -rn '/session ' ~/Dev/env-setup/docs ~/Dev/env-setup/*.md ~/CLAUDE.md` returns no bare form
 
 ### Part 2: the global templates and skills carry the same pointers
 
@@ -85,10 +98,11 @@ Validated with plugin-kit's validator.
 - [x] Task 3 (2026-08-31, `build.md` step 5): the "sha in `done (session SES-NNN, sha)` is never self-referential" rule
   (ADR-022, Consequences) — check `/build`'s "stage the task-status update with the task's commit"
   wording against it.
+- [x] Checkpoint: plugin-kit's validator green over each edited skill — 2026-08-31
 
 ### Part 3: this plugin — design points Peter raised and did not close
 
-> Status: in progress (session SES-001)
+> Status: done (session SES-001, cc3bd05)
 
 - [x] Task 1 (decided 2026-08-31: keep `references/session-log.md` as it is): the reference's name — Peter's sentence "I think references/docs-system.md" stopped
   mid-way; it is `references/session-log.md` now (the glossary word). Ask what he meant.
@@ -100,6 +114,7 @@ Validated with plugin-kit's validator.
   entry, shipped with the `close` stop condition. Not yet reinstalled on this machine, so the
   installed copy is still 0.1.0 until
   `claude plugin uninstall sessions@ACMElabs && claude plugin install sessions@ACMElabs` runs.
+- [x] Checkpoint: 0.2.0 installed (`claude plugin list`), installed `SKILL.md` byte-identical to `main` — 2026-08-31
 
 ### Part 4: re-evaluate the skill on plugin-kit's loops (progressive disclosure and description)
 
@@ -136,8 +151,6 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
 - [x] Task 3 (`2815b00`: the six findings applied to the skill and the tool; `evals/results/disclosure-2/`: 36/54 against 35/54, reference recall still 0/2, over-fetch 0 — the remaining failures are the reply not being the template alone (5 runs), entry opening a new session instead of appending to the open one (2/2), a closing note over 60 words (4/4)): act on the results — the skill-reviewer's hypothesis is a narrower description
   clause naming the tool's situations; the body is ~4,900 tokens, so a body change must move
   something to `references/session-log.md`.
-- [ ] Task 4: iteration 5 of the outcome evals with the fixture (baseline
-  `evals/results/skill-snapshot/`), per skill-creator; `evals/README.md` gains its row.
 - [x] Task 5 (2026-08-31, `evals/results/disclosure-3/`: 37/54 vs 36/54; scenario 4 now 12/12, scenario 2
   unchanged, scenario 3 regressed — the row in `evals/README.md` has the per-scenario reading; the
   follow-up is Task 7). The work: the eight disclosure-2 transcripts read
@@ -184,7 +197,11 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   stays NOT ready; a warning about another session's file; the released marker; a skeleton for a
   commit you did not make; "was X verified"; "stepping away"; "catch me up") — is untested. Write it
   by hand within 1,024 characters, measure on `evals/trigger-eval.json` with
-  `measure-triggering.ts` (Haiku and Sonnet, inputs only), keep it only if held-out improves.
+  `measure-triggering.ts` (Haiku and Sonnet, inputs only), keep it only if held-out improves. Independent of Task 8; the sweep
+  (`7bd6782`) spent the headroom, so the clause replaces text rather than adding to it.
+- [ ] Task 4: iteration 5 of the outcome evals with the fixture (baseline
+  `evals/results/skill-snapshot/`), per skill-creator; `evals/README.md` gains its row. Runs after Task 8, on the same fixture.
+- [ ] Checkpoint: disclosure-4 and the description measurement on record under `evals/results/`, each with its README row; every remaining miss has a task or a stated reason to leave it
 
 ### Part 5: plugin-kit — finish the parity branch and the staleness sweep
 
@@ -214,11 +231,6 @@ given (so layouts survive a crash), and `--tier-study` replacing `--model` on
   sonnet` in the snippet) and `:44` ("optimize-disclosure still takes --model"). The CLAUDE.md
   files were read in full for this sweep: they carry nothing about models or workers, so nothing
   in them is stale from this change.
-- [ ] Task 3: glossary gaps to raise in plugin-kit's `CONTEXT.md` (a gap is raised, not a synonym
-  coined): **tier study**, **measurement model**, **tool trace**, and a word for the repository
-  `--fixture` copies into a throwaway root — "fixture" already means the invalid validator
-  fixtures under `shared/` (`CLAUDE.md` § Tests), so the flag's name collides; propose
-  **scenario repo** and rename the flag if Peter agrees.
 - [x] Task 4 (`0ababec`, `docs/sessions/SESSION-2026-08-31_01-loop-parity-and-harness-fixes.md`): plugin-kit's `docs/sessions/` has its own note convention
   (`SESSION-YYYY-MM-DD_NN-title.md`); write today's note there pointing at this plan.
 - [ ] Task 6 (plugin-kit, found 2026-08-31 while measuring): plugin-kit's validator scans
@@ -227,10 +239,16 @@ given (so layouts survive a crash), and `--tier-study` replacing `--model` on
   (PR #3), the validator should too. Also `measure-disclosure.ts` warns on `fixture_notes` and
   `hard_negatives` in `evals.json` as unknown keys — either recognise them or the README says to
   keep them elsewhere.
+- [ ] Task 3: glossary gaps to raise in plugin-kit's `CONTEXT.md` (a gap is raised, not a synonym
+  coined): **tier study**, **measurement model**, **tool trace**, and a word for the repository
+  `--fixture` copies into a throwaway root — "fixture" already means the invalid validator
+  fixtures under `shared/` (`CLAUDE.md` § Tests), so the flag's name collides; propose
+  **scenario repo** and rename the flag if Peter agrees.
 - [ ] Task 5 (plugin-kit, open, recorded in its session file as T-07 and T-10): a resume never
   compares the dead run's `envelope.json` with the current inputs; a timed-out query leaves no
   trace in `results.json` (no `timed_out` on the row, the warning names no query), so a one-query
   gap between candidates cannot be told from a timeout.
+- [ ] Checkpoint: plugin-kit `main` green (`bun test`, its validator over this skill with 0 errors), the glossary words decided, its session note updated
 
 ## Risks and mitigations
 
@@ -242,22 +260,6 @@ given (so layouts survive a crash), and `--tier-study` replacing `--model` on
 
 ## Open questions
 
-Part 3's three design points were answered on 2026-08-31 (all kept as they are). Part 1 Tasks 3 and 5
-closed by measurement and Peter's call (`7bd6782`): every `/sessions:session` form is namespaced,
-no shim. Part 4 Task 7 closed in `976c5ff` and `2116ff4`.
-
-## What comes next, in order
-
-1. **Part 4 Task 8** — disclosure-4. The measurement that says whether iteration 7 worked; nothing
-   else in Part 4 should move until this number is on record.
-2. **Part 4 Task 6** — the description. Independent of Task 8. Headroom is 13 characters (the
-   namespaced sweep spent it), so the tool-situation clause needs a rewrite of existing text, then
-   `measure-triggering.ts` on Haiku and Sonnet.
-3. **Part 4 Task 4** — iteration 5 of the outcome evals, never run. After Task 8, on the same fixture.
-4. **Part 5 Task 6** — plugin-kit's validator skipping `evals/results/**`; today's validation carried
-   1 error and 20 warnings, all transcripts. Blocks a clean validator run on this skill.
-5. **Part 5 Tasks 3 and 5** — glossary words (Peter's) and the resume defects, in plugin-kit.
-6. **Outside this repo** — env-setup's CLAUDE.md/README/OVERVIEW/sessions README and `~/CLAUDE.md`
-   line 41 still say bare `/session`; ADR-023's Consequences sentence needs a superseding ADR.
-7. **Housekeeping** — 65 MB of stale plugin cache (`~/.claude/plugins/cache/ACMElabs/session/`,
-   pre-rename, and `sessions/0.1.0`), neither referenced; Peter's to delete.
+- Part 5 Task 3 — the glossary words for plugin-kit's `CONTEXT.md` (Peter's).
+- Part 4 Task 8 — if disclosure-4's eval 1 opens a session for an empty repo's scaffold commit, as one
+  of four `--plugin-dir` renders did on 2026-08-31, is that the next iteration or acceptable variance?
