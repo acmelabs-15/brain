@@ -42,7 +42,15 @@ conversation**. Read every file a part names, in full.
 - [x] Task 2 (2026-08-31, `87b32c2`, env-setup PR #45 merged `1c81476` — SES-005 left open, that conversation's state is unknown): close env-setup's SES-006 (Outcome: the plugin, ADR-022/023, the global templates,
   the plan-part rule) and, if that conversation is over, SES-005 (another conversation's, all
   placeholders — fill from `git show` and say so in its Narrative, per the skill's rule).
-- [ ] Task 3: verify interactively what headless could not: bare `/session start PLAN-001` and
+- [ ] Task 3 — PARTIAL RESULT 2026-08-31: Peter typed `/session continue PLAN-001` in a fresh conversation
+  in `~/Dev/ACMElabs/sessions` and got `Unknown command: /session` with the plugin installed and enabled
+  (`claude plugin list`: sessions@ACMElabs 0.1.0, enabled). So the bare form does NOT resolve; the
+  namespaced forms are the real ones: `/sessions:session continue PLAN-001`, aliases
+  `/sessions:session-start` … `/sessions:session-close`. Left: (a) Peter confirms the namespaced form
+  renders the three injected lines and `open` writes the part status; (b) every doc that says bare
+  `/session` is corrected to the namespaced form — this repo's `.claude/CLAUDE.md` ("the bare `/session …`
+  works interactively" is false), `README.md`, the skill description and its alias text, env-setup's
+  CLAUDE.md/README/OVERVIEW/sessions README, `~/CLAUDE.md` §1 mention. Original task: verify interactively what headless could not: bare `/session start PLAN-001` and
   `/session continue` resolve from the plugin in env-setup (headless resolved only
   `/sessions:session …`); the injected Branch/Tree/Sessions lines render; the `open` outcome
   writes `> Status: in progress (session SES-NNN)` under the part.

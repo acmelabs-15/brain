@@ -5,7 +5,7 @@
 - Plan: PLAN-001 · parts 1, 2, 4, 5
 - Outcome: _(fill in)_
 - Open at end: PLAN-001 is the whole handoff — every part's tasks say what is done (with shas) and what
-  is left. First thing next time: Part 4 Task 7 — iteration 7 from disclosure-3 (37/54; scenario 4 fixed, scenario 2
+  is left. First thing next time: Part 1 Task 3 (b) — the bare `/session` does not resolve; docs say the namespaced form. Then Part 4 Task 7 — iteration 7 from disclosure-3 (37/54; scenario 4 fixed, scenario 2
   unchanged, scenario 3 regressed to a question); its three points need Peter's decision before any edit. Unverified: whether iteration 6
   (`129705f`) fixed the join and the closing note — disclosure-3 answers that. Peter's items: Part 1
   Task 3 (interactive `/session start PLAN-001`), Part 5 Task 3 (glossary words in plugin-kit's
