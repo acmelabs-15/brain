@@ -31,5 +31,5 @@
 - `evals/README.md` says what each iteration measured. Results are committed; fixture repositories
   (`**/repo/`) are not — they carry their own `.git`.
 - The next iteration is 5; keep the baseline at `evals/results/skill-snapshot/` so the numbers compare.
-- The trigger set on record was measured against the pre-plugin description; the current one is unmeasured
-  on Sonnet and Haiku.
+- The trigger set is measured on Haiku and Sonnet (`evals/results/trigger/tiers-2/`): 2/10 and 5/10
+  should-fire, 13/13 hard negatives declined. A description change is measured there before it is kept.
