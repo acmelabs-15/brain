@@ -59,51 +59,56 @@ Parts 1 and 2 are independent of each other; everything after is sequential.
 
 ### Part 1: the two consult skills, inventoried
 
-> Status: in progress (session SES-006)
+> Status: done (session SES-006, `b8c5f99`)
 
-- [ ] Task 1: `domain-modeling` read in full — every file under `skills/domain-modeling/`
+- [x] Task 1 (2026-08-31, `b8c5f99`): `domain-modeling` read in full — every file under `skills/domain-modeling/`
   (`SKILL.md`, `ADR-FORMAT.md`, `CONTEXT-FORMAT.md`, anything else the directory holds). The
   capability inventory: what it defines (glossary ownership, term resolution, the ADR offer rule),
   what it produces, what it reads, its lineage and its drift from any reference checkout under
   `~/Dev/reference/`. Acceptance: a capability table where every row cites file:line.
-- [ ] Task 2: `codebase-design` likewise — the deep-modules vocabulary as a defined term set, its
+- [x] Task 2 (2026-08-31, `b8c5f99`): `codebase-design` likewise — the deep-modules vocabulary as a defined term set, its
   dependency on domain-modeling's CONTEXT files, its own workflows. Same acceptance.
-- [ ] Task 3: the citation graph, measured — a grep over `skills/`, `commands/`, `agents/`,
+- [x] Task 3 (2026-08-31, `b8c5f99`): the citation graph, measured — a grep over `skills/`, `commands/`, `agents/`,
   `references/` for `domain-modeling`, `codebase-design`, `CONTEXT.md`, `CONTEXT-MAP.md` and the
   deep-modules terms; every edge with direction and count. Acceptance: the graph in ANA-005 with
   the grep beside it; Refuted and Unverifiable sections present.
-- [ ] Checkpoint: ANA-005 committed with its index row and its entry logged (SES-NNN per the
-  part's status line).
+- [x] Checkpoint (2026-08-31): ANA-005 committed with its index row (`b8c5f99`) and its entry
+  logged (`1b503c4`).
 
 ### Part 2: the Addy lifecycle, inventoried
 
-> Status: planned
+> Status: done (session SES-006, `b827926` — evaluated in Part 1's session, one continuous read; the deviation is in SES-006's Narrative)
 
-- [ ] Task 1: the lifecycle map — the 8 commands (`/brain:plan`, `build`, `spec`, `test`,
+- [x] Task 1 (2026-08-31, `b827926`): the lifecycle map — the 8 commands (`/brain:plan`, `build`, `spec`, `test`,
   `review`, `ship`, `webperf`, `code-simplify`) and `choosing-a-skill`'s routing read in full;
   the stage graph (what hands to what, which skills each stage fires). Acceptance: the map with
   every edge cited.
-- [ ] Task 2: the 24 Addy skills read in full, one row each: lifecycle stage, artifacts consumed
+- [x] Task 2 (2026-08-31, `b827926`): the 24 Addy skills read in full, one row each: lifecycle stage, artifacts consumed
   and produced, the concept definitions the skill carries (decision records, glossary or
   vocabulary guidance, design terms, output templates), the local CONTEXT.md-read drift line
   where present, and overlap flags against ANA-005's inventory. Acceptance: every skill's row
   cites file:line; every file read to its last line.
-- [ ] Task 3: the collision matrix — concept × every home × what each home says, including
+- [x] Task 3 (2026-08-31, `b827926`): the collision matrix — concept × every home × what each home says, including
   PLAN-001 Part 5's two open shapes (the spec template: `spec-driven-development` vs `to-spec`;
   the ticket shape: `to-tickets` vs `references/issue-tracker.md`). Acceptance: each cell cites
   file:line; alignments and misalignments stated plainly.
-- [ ] Checkpoint: ANA-006 committed with its index row and its entry logged.
+- [x] Checkpoint (2026-08-31): ANA-006 committed with its index row (`b827926`); the entry logged in the docs(session) commit that carries these ticks.
 
 ### Part 3: the integration options
 
-> Status: planned
+> Status: in progress (session SES-006 — the evaluation's session, as Parts 1–2)
 
 - [ ] Task 1: ANA-007 — the options, each priced and none chosen: keep-separate with one-home
   pointers (the `df0205b` pattern generalized); merge into a single skill; distribute into
   several lifecycle skills; demote either consult skill to a reference. Each priced against:
   upstream drift, triggering and routing (description collisions, static analysis — a
   `measure-triggering.ts` sweep only where the static case is genuinely unclear), body budgets
-  and disclosure economics, the deletion test, and Peter's daily flows. Acceptance: every cost
+  and disclosure economics, the deletion test, and Peter's daily flows. The keep-separate option
+  gets first-class depth, not a default's (Peter, 2026-08-31: "does it actually make sense just
+  to keep it as a separate skill? And if so where does that skill fit into the life cycle, what
+  does it look like, how does it change potentially") — for each consult skill: its place in the
+  lifecycle map, the shape it takes (description, edges, who owns the read-rule lines), and what
+  changes even if it stays. Acceptance: every cost
   stated in measurable terms with its source; no verdict anywhere in the note.
 - [ ] Checkpoint: ANA-007 committed with its index row and its entry logged.
 
