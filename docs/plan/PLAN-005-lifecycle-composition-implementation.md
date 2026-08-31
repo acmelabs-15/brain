@@ -100,15 +100,16 @@ Part 5 (diagnosing-bugs) ──────────────────�
 
 ### Part 5: diagnosing-bugs, the merged debugging skill (PRD-002 requirement 7)
 
-> Status: planned
+> Status: done (session SES-012, `cc922d3`)
 
-- [ ] Task 1: the merged `diagnosing-bugs` — the loop-first spine (Phases 1–6, Redact) with
-  stop-the-line as the entry, the triage trees as the fast path, the untrusted-error rule and
-  safe fallbacks folded in; `debugging-and-error-recovery` becomes a pointer stub; its 6
-  citing files retarget (including `/brain:build`'s failure step, edited in Part 6).
-  Acceptance: the merged description measured against both old trigger sets; render;
-  validators green.
-- [ ] Checkpoint: the bar.
+- [x] Task 1 (2026-08-31, `cc922d3`): the merged `diagnosing-bugs` (152 lines + triage-trees.md);
+  the stub; four citers retargeted (/build's failure step is Part 6's, the routers Part 8's).
+  Description iterated to cand3: 18/20, verdict-equal to Matt's old description (18/20 — the
+  second baseline, missed at first and measured after a probe exposed it), above Addy's 16/20,
+  negatives 10/10. Render quote-back green. Fixtures converted to ESM for the Bun-purity check.
+- [x] Checkpoint (2026-08-31): the checks — tests 29/29, typecheck, both validators; and the
+  validity sweep Peter asked for over every skill touched this session (`391af77`): 22/22 valid
+  after idea-refine's ToCs and Bun port, triage's ToCs, wayfinder's placeholder.
 
 ### Part 6: /brain:build with the DoD gates (PRD-002 requirement 6, sequential modes)
 
