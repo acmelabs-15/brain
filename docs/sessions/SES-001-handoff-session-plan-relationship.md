@@ -280,3 +280,32 @@ Evening 2026-08-31: Peter asked for a full re-read of the transcript back to the
 - Files:
   - `skills/session/SKILL.md` (+12/−7) — step 7's table: three rows replace one (fix from open work → join; planned part → open however many are open; unplanned and uncovered → open with a clause); the `open` bullet reads `new`'s `note: also open` as a question on unplanned work only; step 5's findings list gains another session's placeholders
 - Notes: Verified: `bun test` 24/0, typecheck, `bun run validate`; body 316 lines against the 500-line limit; a real `claude --plugin-dir . -p "/sessions:session start"` render in a scratch repo posted the brief in template. Variance seen in that render: it opened SES-001 for the scaffold commit where three earlier renders today said `Session: none` — nothing in this change addresses start's outcome for an empty repo, so it is noted for disclosure-4 rather than chased. Unverified: whether eval 2 now appends to SES-007 — that is disclosure-4.
+
+### 2026-08-31 · docs(plan): PLAN-001 follows its own template — tasks in execution order, a checkpoint closes each part, Part 3 done, Part 1 Task 6 for the sweep outside this repo · f086a10
+
+- Summary: PLAN-001 follows the plan template it was written against — tasks in execution order inside each part, a checkpoint closing each part, Part 3 marked done, Part 1 Task 6 for the sweep outside this repo — and the "What comes next" list is gone.
+- Why: Peter: parts and tasks are the sequencing; a separate ordered list was a second record of one fact (ADR-022 rejected exactly that). Read against `planning-and-task-breakdown` Step 5 and the plugin's own `plan-readme` template, PLAN-001 broke three rules: file order no longer meant anything (Part 4 read 4, 8, 6), no part closed with a checkpoint, and Open questions was being used as a queue. He then asked for the investigation before the reorder; the reorder stands as the proposal, easy to revert.
+- Files:
+  - `docs/plan/PLAN-001-session-plan-relationship-and-re-evaluation.md` (+33/−31) — Parts preamble states the rule (number is the stable name the log cites; file order is the sequence); Part 1 gains Task 6 and a checkpoint; Part 3 `done (session SES-001, cc3bd05)`; Part 4 open tasks ordered 8, 6, 4 with a checkpoint; Part 5 ordered 6, 3, 5 with a checkpoint; Open questions holds two questions
+- Notes: A first attempt at this edit mangled the file (stray dashes, a task line without its `- `); it was restored from `cbe5a3e` and redone with a parser that splits parts into task blocks and asserts the task set before and after. Task numbers were kept rather than renumbered because eight commit messages and this file cite them. Unverified: whether `/build` would read the reordered parts as intended — no `/build` run was made.
+
+### 2026-08-31 · evals: disclosure-4 on record (35/54); fixture Narrative names the finding eval 2 turns on · d48d72b
+
+- Summary: disclosure-4 is on record — 35/54, below disclosure-3's 37/54 — and the fixture's SES-007 Narrative now says the README pass found the finder docs calling `set-favorites.swift` stale, so eval 2's join rule has the evidence it asks for.
+- Why: iteration 7 (`2116ff4`) did not land: eval 2 still opened SES-008 on both runs. `run_2_1` says "neither open session had a Goal covering a code fix"; `run_2_2` says SES-007 is another conversation's. The join rule needs the fix to be work the open session turned up, and the Narrative said the README pass found nothing. Peter chose "fix the fixture" from three options (AskUserQuestion); PLAN-001 Part 4 Task 8.
+- Files:
+  - `skills/session/evals/README.md` (+1/−0) — the disclosure-4 row with per-scenario scores and the reason eval 2 failed
+  - `skills/session/evals/evals.json` (+2/−1) — a `fixture_notes` entry: why the Narrative changed, and that eval 2 is no longer comparable with disclosure-1 to 3
+  - `skills/session/evals/fixtures/make-fixture.ts` (+1/−1) — SES-007's Narrative names the drift the README pass found and says re-syncing the asset is the session's next commit
+- Notes: Verified: the eight `logs/run_*.json` gradings sum to 35/54; the run used the Task 2 command against a fresh fixture that listed SES-006 closed, SES-007 open and the unrecorded fix at HEAD. Not yet re-measured: the changed fixture — that is iteration 8. Also seen: eval 1 split 4/7 and 7/7 and eval 4 dropped one to 5/6 in one run; neither is diagnosed. The installed plugin snapshot is `1ac975d`, behind `main` since `2116ff4` — reinstall before the next real use.
+  - `skills/session/evals/results/disclosure-4/envelope.json` (+183/−0) — the run's envelope (Sonnet, the fixture, `--allowed-tools Bash`)
+  - `skills/session/evals/results/disclosure-4/logs/run_1_1.json` (+221/−0) — scenario 1, run 1: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-4/logs/run_1_2.json` (+143/−0) — scenario 1, run 2: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-4/logs/run_2_1.json` (+212/−0) — scenario 2, run 1: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-4/logs/run_2_2.json` (+213/−0) — scenario 2, run 2: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-4/logs/run_3_1.json` (+101/−0) — scenario 3, run 1: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-4/logs/run_3_2.json` (+280/−0) — scenario 3, run 2: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-4/logs/run_4_1.json` (+165/−0) — scenario 4, run 1: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-4/logs/run_4_2.json` (+171/−0) — scenario 4, run 2: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-4/results.json` (+114/−0) — 35/54, per-file pull rates
+  - `skills/session/evals/results/disclosure-4/run.log` (+119/−0) — the harness log (the two unknown-key warnings are Part 5 Task 6)
