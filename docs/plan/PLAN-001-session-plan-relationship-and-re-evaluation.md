@@ -116,7 +116,7 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   Read `shared/references/disclosure-optimization.md` for the verdict table; the reference's
   recall on eval 2 is the figure that matters (`signpost` below 0.5). Copy `results.json`,
   `envelope.json` and the logs under `evals/results/disclosure-1/` and commit them.
-- [ ] Task 3 (in progress — the six findings are in `evals/README.md`): act on the results — the skill-reviewer's hypothesis is a narrower description
+- [x] Task 3 (`2815b00`: the six findings applied to the skill and the tool; the second measurement is `disclosure-2`, running): act on the results — the skill-reviewer's hypothesis is a narrower description
   clause naming the tool's situations; the body is ~4,900 tokens, so a body change must move
   something to `references/session-log.md`.
 - [ ] Task 4: iteration 5 of the outcome evals with the fixture (baseline
