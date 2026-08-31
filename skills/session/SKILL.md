@@ -12,7 +12,9 @@ description: "Runs the session ritual of a repo's docs system and produces its a
 A **session** is a stream of work toward one Goal, open until closed, that may outlive many
 conversations; it usually serves one **part** of a plan, and that part's status line names it. A
 conversation joins a session or opens one before its first commit; one that changes nothing needs
-none. The rules of the record are `references/session-log.md`.
+none. `references/session-log.md` holds the rules of the record: read it when a skeleton is a fix-up
+or a valueless commit (§ Which commits get no entry), or a closed session must be reopened (§ What
+is never rewritten).
 
 ## Workflow
 
@@ -57,8 +59,7 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
   marker is recognised only at line start or after a space; wrapped in a code span it is inert,
   which is why an earlier version of this skill never rendered. If the lines show markers, or
   `[shell command execution disabled by policy]`, run the three commands once yourself and treat
-  the output as the injected state. (This bullet spells no marker: the harness runs any it finds
-  in the body, and a failed one aborts the whole invocation.)
+  the output as the injected state.
 - **A Sessions line that says `no session log at …`** means no docs system yet: run
   `session init` (writes `docs/sessions/README.md`, `docs/plan/README.md` and the session-log
   section of `CONTEXT.md`; keeps any file that exists), commit that, continue.
@@ -135,16 +136,18 @@ Progress:
 7. Determine the session outcome:
 
    **The part is `in progress (session SES-NNN)` and that session is open?** → join
-   **The part is `planned`, or the work has no plan?** → open
+   **No part, but an open session's Goal covers this work, its Goal and Narrative filled?** → join
+   **The part is `planned`, or no open Goal covers the work?** → open
    **A question, a review, a check — nothing will change?** → none (a question opens nothing, even when Next up names work; open a session only when the user asks for a change)
 
-   - **join** — the part is `in progress (session SES-NNN)` and that session is open: it is yours
-     (`--session SES-NNN`); say so in the brief. A session another conversation owns —
+   - **join** — the part is `in progress (session SES-NNN)` and that session is open, or an open
+     session's Goal covers the work (a fix the session's own work found is its work; a Goal that
+     only reads or verifies covers no change): it is yours (`--session SES-NNN`); say so in the brief. A session another conversation owns —
      placeholders unfilled, Outcome not yours — is never joined: when the user wants work on that
      part, post the brief with a Question line (wait for that conversation, or take its session
      over — fill its placeholders from `git show`, say so in its Narrative) and change nothing
      until answered;
-   - **open** — the part is `planned` (or the work has no plan): `session new <slug> --plan
+   - **open** — the part is `planned`, or no open Goal covers the work: `session new <slug> --plan
      "PLAN-NNN · part N"` (slug = the work ahead, kebab-case; omit `--plan` only for unplanned
      work); set the title and `Goal` in the file it names; then the part's status line, ALWAYS
      this exact form: `> Status: in progress (session SES-NNN)` — how the next conversation finds
@@ -163,14 +166,14 @@ Progress:
    Open / unverified: [what the log names as unverified]
    Plan: [PLAN-NNN · part — its status before this conversation] | none
    Next: [item] — first step: [the first move]
-   Question: [at most one, or omit the line]
+   Question: [one clause, at most one question, or omit the line]
    Session: [SES-NNN joined | SES-NNN opened — its Goal] | none — nothing to record yet
    read in full: [every file from steps 1–4 and 6]
    ```
 
-**Done when** the brief is posted in that shape and the session is joined, opened with its Goal
-set and its part marked in progress, or stated as none. A question is answered from what you read;
-the session opens before the first change, not before the answer.
+**Done when** the brief is posted in that shape and is the entire reply, and the session is joined,
+opened with its Goal set and its part marked in progress, or stated as none. A question is answered
+from what you read; the session opens before the first change, not before the answer.
 
 ## entry
 
@@ -185,7 +188,11 @@ Entry progress:
 - [ ] 5 gate green (bare command, exit read), then named-file stage + docs(session) commit
 ```
 
-1. `session append --session SES-NNN` — `SES-NNN` is the session you joined or opened in this conversation; a session whose Goal or Narrative still reads `_(fill in)_` is another conversation's and is never appended to, whatever its title; a commit outside every open Goal gets a new session. One skeleton per commit not yet accounted for (`Summary` /
+1. `session append --session SES-NNN` — `SES-NNN` is the session you joined or opened in this
+   conversation. None yet (the commit is this conversation's first move)? Run "start and continue"
+   step 7 first: join the open session whose Goal covers the commit, else open one; a session whose
+   Goal or Narrative still reads `_(fill in)_` is another conversation's and is never appended to,
+   whatever its title. One skeleton per commit not yet accounted for (`Summary` /
    `Why` placeholders, one line per touched file with +/− counts — every file, a rename as two
    lines, none trimmed; `session current --session SES-NNN` lists them by line). A skeleton for a
    commit you did not make is a finding: fill what `git show <sha>` supports and say in Notes it
@@ -207,25 +214,9 @@ Entry progress:
    - Notes: [verified how; unverified what; follow-ups; a decision made on the spot]
    ```
 
-   Write the phrases like these — every claim verified yourself (driver, test, byte comparison)
-   before it is written:
-
-   **Example 1:** Input: a Files line `(+19/−0) — _(fill in)_` for `set-favorites.swift`
-   Output:
-   ```markdown
-   - `src/items/finder/assets/set-favorites.swift` (+19/−0) — re-synced with the embedded
-     SET_FAVORITES_SWIFT constant: gains the `list` mode (verified byte-identical by the driver)
-   ```
-
-   **Example 2:** Input: the commit `fix(picker): keep the cursor on the item after a rescan`
-   Output:
-   ```markdown
-   - Summary: the picker keeps its cursor on the same item across a rescan instead of jumping
-     to the top; the rescan now diffs by item id
-   - Why: Peter lost his place every time the picker refreshed (SES-003 request)
-   ```
-
-   "updated" or "changes" is not a phrase.
+   Every claim verified yourself (driver, test, byte comparison) before it is written; "updated"
+   or "changes" is not a phrase. Two worked examples (a Files line, a Summary and Why):
+   `references/session-log.md` § The entry.
 3. Same step, citing the sha: tick the plan part's tasks (`- [x] … — <sha>`; its status line stays
    `in progress`); OVERVIEW **Status** / **Next up**; a decision → an ADR (`documentation-and-adrs`
    if installed, else the decisions README template); a changed requirement → the PRD; a finding →
@@ -279,15 +270,17 @@ End progress:
    gh pr list --state open        # none dangling, or each named in Open at end (no GitHub origin: say so)
    ```
 
-6. The closing note — the whole reply, nothing before it or after it. ALWAYS use this exact template, at most ~60 words:
+6. The closing note — the whole reply, nothing before it or after it; what you did is in the
+   session file, not here. ALWAYS use this exact template, at most ~60 words:
 
    ```text
    Shipped: [what landed this conversation — PRs/commits, one line]
    Next time: [the first thing to do, one line]  (SES-NNN stays open)
+   Departures: [a dirty tree, another open session, an open PR — one line, or omit the line]
    ```
 
 **Done when** the gate is green, the handoff commit exists, the tree is clean on `main` (or every
-departure is named in `Open at end` and in Status), and the closing note is posted in that shape.
+departure is named in `Open at end` and in Status), and the closing note is the entire reply.
 
 ## close
 
@@ -317,4 +310,5 @@ Close progress:
 5. The closing note as in `end` — the whole reply — with `(SES-NNN closed)` on the second line.
 
 **Done when** the tool printed `session: closed SES-NNN`, the `docs(session)` commit exists, the
-tree is clean, and the plan part, the plan and OVERVIEW say the same thing as the Outcome.
+tree is clean, the plan part, the plan and OVERVIEW say the same thing as the Outcome, and the
+closing note is the entire reply.

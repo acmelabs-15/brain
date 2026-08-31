@@ -31,9 +31,7 @@
         "docs/sessions/SES-005-rehydration.md is not edited and not staged",
         "The transcript shows no push and no PR"
       ],
-      "expects_references": [
-        "references/session-log.md"
-      ]
+      "expects_references": []
     },
     {
       "id": 3,
@@ -94,6 +92,7 @@
     "Hard negatives 101–103 were swept on 2026-08-30 as part of evals/trigger-eval.json (23 queries; results/trigger/): declined 3/3 on every tier. The per-tier outcome runs live in results/tier-sweep/.",
     "Iteration 3 (ADR-020): fixtures are clones of feat/session-model; the old_skill arm is main's SKILL.md folded into the scaffolding commit by --amend (no visible baseline commit). Eval 3's prompt now says the Goal is met, so the new skill's `close` mode is what is measured; the old skill has only `end`.",
     "2026-08-30: expectations added after five graders flagged the same ungraded gap across iterations 2–3 — Outcome/Narrative/Shipped lines claiming reads or reviews the transcript does not show, and counts that go stale after the handoff commit (evals 3 and 4); the brief's facts checked against the fixture (eval 1). Not yet measured: iteration 4 would be the first run with them.",
-    "2026-08-31: fixtures are built by evals/fixtures/make-fixture.ts (env-setup at c89ae34: SES-006 closed, SES-007 docs-review open and green, an unrecorded fix(finder) commit at HEAD, SES-005 left as the other conversation's). Expectations rewritten for plugin-kit's disclosure/outcome harness, which grades the transcript and the files the run wrote — no executor-saved artifacts (commit.diff, brief.md …) exist there. A scenario's expects_references is its declared ground truth for recall."
+    "2026-08-31: fixtures are built by evals/fixtures/make-fixture.ts (env-setup at c89ae34: SES-006 closed, SES-007 docs-review open and green, an unrecorded fix(finder) commit at HEAD, SES-005 left as the other conversation's). Expectations rewritten for plugin-kit's disclosure/outcome harness, which grades the transcript and the files the run wrote — no executor-saved artifacts (commit.diff, brief.md …) exist there. A scenario's expects_references is its declared ground truth for recall.",
+    "2026-08-31 (iteration 6): eval 2 no longer expects references/session-log.md — disclosure-1 and -2 showed every entry passing without it; the reference is needed only for a fix-up / valueless skeleton or reopening a closed session, which no scenario exercises. The SKILL.md pointer now names those two situations."
   ]
 }
