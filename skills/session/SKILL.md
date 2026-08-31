@@ -61,8 +61,8 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
   `[shell command execution disabled by policy]`, run the three commands once yourself and treat
   the output as the injected state.
 - **A Sessions line that says `no session log at …`** means no docs system yet: run
-  `session init` (writes `docs/sessions/README.md`, `docs/plan/README.md` and the session-log
-  section of `CONTEXT.md`; keeps any file that exists), commit that, continue.
+  `session init` (writes `docs/sessions/README.md` and the session-log section of `CONTEXT.md`;
+  keeps any file that exists; `docs/plan/` is the plan skill's to create), commit that, continue.
 - **No sampling.** Every file a step names is read to its last line (continue with `offset`).
 - **Your session is the one you joined or opened, never "the newest".** Another conversation may
   share this checkout with its own open session, so every `session append`, `check` and `close`

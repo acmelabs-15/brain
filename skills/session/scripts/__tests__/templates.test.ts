@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { SESSIONS_INDEX_END, SESSIONS_INDEX_START, TEMPLATES, contextSection, planReadme, sessionFileTemplate, sessionsReadme } from "../templates";
+import { SESSIONS_INDEX_END, SESSIONS_INDEX_START, TEMPLATES, contextSection, sessionFileTemplate, sessionsReadme } from "../templates";
 import { parseHeader, template } from "../session-lib";
 
 describe("templates", () => {
@@ -20,12 +20,6 @@ describe("templates", () => {
     // `[sha]` is the template's own slot form, as in `[what that fix-up fixed]` beside it;
     // `<sha>` is the prose form the rules use (SKILL.md, references/session-log.md).
     expect(sessionFileTemplate()).toContain("- Also: [sha]");
-  });
-
-  test("the plan README carries the per-part status line in all three states and the PRD Plans table", () => {
-    const p = planReadme();
-    for (const s of ["> Status: planned", "> Status: in progress (session SES-006)", "> Status: done (session SES-004"]) expect(p).toContain(s);
-    expect(p).toContain("## Plans");
   });
 
   test("the glossary section names every term the skill uses, each with an Avoid line", () => {

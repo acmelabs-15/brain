@@ -1,6 +1,6 @@
 # The session log — the rules of the record
 
-What the record is made of and the rules that keep it readable: how a plan points at the session serving each of its parts, what a session file and an entry hold, which commits get no entry, and what is never rewritten. Read this when a step in SKILL.md names a shape or a rule you have not seen. The session file template below is the one the tool writes (a test pins the two equal); the other documents `init` writes — `session template sessions-readme | plan-readme | context` — are not quoted here.
+What the record is made of and the rules that keep it readable: how a plan points at the session serving each of its parts, what a session file and an entry hold, which commits get no entry, and what is never rewritten. Read this when a step in SKILL.md names a shape or a rule you have not seen. The session file template below is the one the tool writes (a test pins the two equal); the other documents `init` writes — `session template sessions-readme | context` — are not quoted here.
 
 ## Table of Contents
 

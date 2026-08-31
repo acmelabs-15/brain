@@ -20,8 +20,8 @@
  */
 import { existsSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { contextFile, planDir, projectDir, sessionsDir } from "./paths";
-import { CONTEXT_SECTION_HEADING, contextSection, planReadme, sessionsReadme, TEMPLATES, type TemplateName } from "./templates";
+import { contextFile, projectDir, sessionsDir } from "./paths";
+import { CONTEXT_SECTION_HEADING, contextSection, sessionsReadme, TEMPLATES, type TemplateName } from "./templates";
 import {
   declinesEntry,
   FILL,
@@ -52,11 +52,12 @@ const COMMANDS = ["help", "init", "template", "list", "new", "append", "check", 
 const USAGE = `session — the session log tool (bun <plugin>/skills/session/scripts/session.ts <command>)
 
   help                                    this text
-  init                                    scaffold docs/sessions/README.md, docs/plan/README.md and the
-                                          CONTEXT.md glossary section in this repo; existing files are kept
-  template <session | sessions-readme | plan-readme | context>
+  init                                    scaffold docs/sessions/README.md and the CONTEXT.md glossary
+                                          section in this repo; existing files are kept. docs/plan/ is the
+                                          plan skill's to create — a plan's shape has one home, and it is not here
+  template <session | sessions-readme | context>
                                           print one of the documents init writes (the session file's shape,
-                                          the two directory READMEs, the glossary section)
+                                          the sessions README, the glossary section)
   list [--plan PLAN-NNN] [--brief]        every session: id, status, title · plan, its Goal; then "open: …"
                                           --plan narrows to the sessions serving that plan; --brief drops the
                                           Goal lines, adds "unrecorded: <sha> <subject>" per commit no session
@@ -168,7 +169,7 @@ async function sessions(): Promise<Session[]> {
   const list: Session[] = [];
   if (!existsSync(INDEX)) {
     throw new Error(
-      `no session log at ${DIR} — run \`session init\` in this repo first (it scaffolds docs/sessions, docs/plan and the CONTEXT.md section)`,
+      `no session log at ${DIR} — run \`session init\` in this repo first (it scaffolds docs/sessions and the CONTEXT.md section)`,
     );
   }
   for (const name of readdirSync(DIR)) {
@@ -244,10 +245,10 @@ try {
  * exactly as it is — this is the first-run step, never a reset.
  */
 async function init(): Promise<void> {
-  const writes: [string, string][] = [
-    [INDEX, sessionsReadme()],
-    [join(planDir(ROOT), "README.md"), planReadme()],
-  ];
+  // docs/plan/ is deliberately not scaffolded: the PRD and plan shapes belong to the plan skills
+  // (planning-and-task-breakdown, spec-driven-development); this tool reads a plan's part status
+  // lines and writes nothing else about plans (Peter, 2026-08-31).
+  const writes: [string, string][] = [[INDEX, sessionsReadme()]];
   for (const [to, text] of writes) {
     if (existsSync(to)) {
       console.log(`kept: ${to}`);

@@ -32,8 +32,10 @@ The glossary defines the words; the shapes those words name have one home each, 
 - **The session file, its header and its entries** — `scripts/session-lib.ts` (`template`,
   `parseHeader`, `knownShas`, `placeholderCount`) and `scripts/templates.ts`; the rules in
   `references/session-log.md`.
-- **The plan part's status line** — its grammar in `references/session-log.md`, its template in
-  `scripts/templates.ts` (`session template plan-readme`), its use in `SKILL.md`.
+- **The plan part's status line** — its grammar in `references/session-log.md`, its use in
+  `SKILL.md`. The plan's own shape is not this plugin's: `planning-and-task-breakdown` and
+  `spec-driven-development` carry the PLAN and PRD templates; `session init` writes nothing under
+  `docs/plan/`.
 
 ## The boundary with the authoring context
 

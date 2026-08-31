@@ -52,10 +52,11 @@ a Bun script, no `node`, no install step.
 
 In a repo that has no session log yet, type `/sessions:session start`: its Sessions line says
 `no session log at …`, and the skill runs `session init`, which writes `docs/sessions/README.md`
-(purpose, index, the session file template), `docs/plan/README.md` (the PRD and plan templates
-with the per-part status lines) and the session-log section of `CONTEXT.md`, keeping any file that
-already exists. Those documents are code in `skills/session/scripts/templates.ts`;
-`session template <name>` prints any of them.
+(purpose, index, the session file template) and the session-log section of `CONTEXT.md`, keeping
+any file that already exists. It writes nothing under `docs/plan/`: the PRD and plan shapes belong
+to the plan skills (`planning-and-task-breakdown`, `spec-driven-development`), and this plugin only
+reads a plan's part status lines. The documents it does write are code in
+`skills/session/scripts/templates.ts`; `session template <name>` prints any of them.
 
 ## The tool
 
@@ -66,8 +67,8 @@ already exists. Those documents are code in `skills/session/scripts/templates.ts
 every subcommand with its output; the short form:
 
 ```bash
-session init                             # scaffold docs/sessions, docs/plan, the CONTEXT.md section (keeps existing files)
-session template <session | sessions-readme | plan-readme | context>   # print one of the documents init writes
+session init                             # scaffold docs/sessions and the CONTEXT.md section (keeps existing files)
+session template <session | sessions-readme | context>   # print one of the documents init writes
 session list [--plan PLAN-NNN] [--brief] # SES-NNN  open|closed  title · plan, its Goal (--brief: no Goal line); then "open: …"
 session new <slug> [--plan "PLAN-NNN · part N"]   # open SES-<next>-<slug>.md (Status: open) and regenerate the index
 session append --session SES-NNN         # skeletons for commits no session accounts for → "session: up to date" when none
