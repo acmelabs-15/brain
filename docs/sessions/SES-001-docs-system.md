@@ -13,6 +13,8 @@ Findings while recording: `e74d0d5` (ADR-002) left two claims stale — the root
 
 PLAN-001 Part 1 Task 4 landed in acmelabs-15/sessions (`0caa67c`, recorded in SES-002 there); the tick here cites it. The `templates.ts` change in that commit is the one this repo's `docs/sessions/README.md` and `CONTEXT.md` section wait for: regenerate both from `session template sessions-readme | context` once the plugin is reinstalled (Part 2 Task 3), so they say start · log · close.
 
+Then the order changed (ADR-003, `53c9213`): Peter saw the two-log split and asked for the work to be done in brain so the history is captured here; the sessions repo's history is merged in (Part 1 Task 6), its log archived under `docs/sessions/archive/` where the tool still reads it for the commits it accounts for, and every form becomes `/brain:session`. From Task 6 on this session records Part 1's code as well as its docs; the archived SES-002 holds Tasks 1–4.
+
 ## Changes (one entry per commit, in order)
 
 ### 2026-08-31 · docs: the session-log and rehydration docs system — PRD-001, PLAN-001, ADR-001, ANA-001 with their READMEs · 4c0c5c2
@@ -65,3 +67,15 @@ PLAN-001 Part 1 Task 4 landed in acmelabs-15/sessions (`0caa67c`, recorded in SE
   - `docs/decisions/ADR-002-brain-is-the-plugin-for-the-whole-toolset.md` (+5/−0) — § Analysis it relies on: ANA-002 § Invocation and § The toolset; ANA-001 F1
   - `docs/plan/PLAN-001-record-and-rehydration-split.md` (+14/−0) — § State: the open work in acmelabs-15/sessions PLAN-001 (Part 1 Task 6; Part 5 Tasks 3, 5, 6), "this repo has no session log yet" with the instruction this session followed, the marketplace-regenerate-and-reinstall route, `brain` as a multi-context repo needing a `CONTEXT-MAP.md` at the move
 - Notes: Recorded from `git show`. The "no session log yet" sentence is made true-then-stale by this session; PLAN-001 now says the log opened with SES-001. ANA-002's trigger and disclosure figures were not re-measured here.
+
+### 2026-08-31 · docs: ADR-003 — the session skill moves into brain now with its history; every form brain:-namespaced, commands/ the typed surface; PLAN-001 Part 1 Task 6, Part 5 rescoped; PRD-001 requirement 11 · 53c9213
+
+- Summary: ADR-003 decides that the session skill moves into this repo now, with acmelabs-15/sessions' history merged in and its docs archived with their numbers, that an archived log still vouches for its commits, and that every typed form is `brain:`-namespaced with the plugin's `commands/` as the typed surface; PLAN-001 gains Part 1 Task 6 (the move, in five steps) and Part 5 loses the session skill from its sources; PRD-001 requirement 11 says the skill is built here.
+- Why: Peter, after Task 4 landed in one repo and was ticked in another: "this work should be being done in the brain plugin so that history can be captured … we're eventually going to remove this sessions plugin codebase." Two questions put to him (AskUserQuestion): move now with history merged (chosen over copy-only and keeping the order), and the bare-name point — namespaced only, the commands in the plugin's `commands/` (his words: the `~/.claude/commands` are going into the plugin, "and that's what those act as"; the sessions repo's commands serve the same purpose and come too).
+- Files:
+  - `docs/decisions/ADR-002-brain-is-the-plugin-for-the-whole-toolset.md` (+1/−1) — Status: the order clause and the bare-name point superseded by ADR-003, the rest stands (the precedent ADR-001 set in `e74d0d5`)
+  - `docs/decisions/ADR-003-the-session-skill-moves-now-with-its-history.md` (+48/−0) — the decision: the merge, the archive paths, the tool's archive rule, `brain:` only with `commands/` as the surface, `brain` 0.3.0 installed and `sessions` retired, Part 5 keeps the rest; three alternatives rejected; consequences
+  - `docs/decisions/README.md` (+2/−1) — ADR-002's row notes the supersession; ADR-003's row
+  - `docs/plan/PLAN-001-record-and-rehydration-split.md` (+46/−22) — Overview: the sequencing sentence; Decisions: ADR-003; Part 1 Task 6 with steps (a)–(e), acceptance and verification, placed before Task 5 in file order; Task 5 names `/brain:session`; Part 5's preamble, Tasks 1–3 rescoped to what still moves; the open question on bare names struck through
+  - `docs/plan/PRD-001-session-log-and-rehydration.md` (+3/−1) — requirement 11: built and recorded here from 2026-08-31, `brain:`-namespaced, `commands/` the typed surface
+- Notes: The tool's archive rule comes from reading `session.ts`: `commits()` walks every non-merge commit on the branch and `sessions()` reads only the top level of `docs/sessions/`, so a merged-in history needs its log readable from an archive path or the gate reports 50-odd `missing:` lines. Unverified until Task 6 runs: the merge's conflict set (expected: `README.md`, `CONTEXT.md`, `docs/plan/README.md`, `docs/sessions/README.md`).
