@@ -1,4 +1,4 @@
-# PRD: the session log and plan rehydration system
+# PRD: the `brain` toolset — the session log, plan rehydration, and the plugin that carries every skill, command and agent
 
 > Status: current as of 2026-08-31 · owner Peter Kloss · last change: the founding conversation (acmelabs-15/sessions SES-002)
 
@@ -11,9 +11,15 @@ that "work on PLAN-NNN" is enough for a new conversation to know where the work 
 last conversation did and left unverified, and what the next task needs — and so that every
 commit that reaches `main` has its story written where the next reader looks.
 
+The system ships as **one plugin, `brain`** (ADR-002): the `session` skill and its tool, the
+`ask-user-question` skill, every skill, command and agent Peter works with today from
+`~/.claude/`, their references and evidence, and this docs system — one versioned home instead of
+five, so a change that touches two skills lands in one repo.
+
 For Peter, working alone across several repos on several machines, with many conversations per
 day and no memory between them. Success: a fresh conversation rehydrates from the docs in one
-typed command and its first commit is recorded without being told to.
+typed command, its first commit is recorded without being told to, and every machine env-setup
+bootstraps has the same toolset from one plugin.
 
 ## The promise — the user-visible contract
 
@@ -29,6 +35,8 @@ typed command and its first commit is recorded without being told to.
   record says so in its own message.
 - **One vocabulary.** Session, plan and plan part share their status words; the glossary the
   system writes into a repo's `CONTEXT.md` defines every term once.
+- **One home.** Every skill, command and agent, with its local edits, is a tracked file in the
+  `brain` plugin; installing `brain` is installing the toolset.
 
 ## Requirements
 
@@ -99,16 +107,18 @@ rules, index and template. Simplified Technical English, glossary words.
 ## Non-goals
 
 - Owning the plan's shape or the PRD's (the plan skills do); authoring ADRs, PRDs or `CONTEXT.md`.
+- Rewriting the 46 carried skills on the way in — they move as they stand; standardising their
+  duplicated shapes is PLAN-001 Part 4 Task 3, after the move is not before.
 - A changelog, a release tool, or an issue tracker.
 - Portability outside Claude Code (the injected state lines and `${CLAUDE_SKILL_DIR}` are its).
 
 ## Open questions
 
-- ~~Does `~/.claude/skills` become a git repo, and is this repo (`brain`) its future home?~~ Decided 2026-08-31: **`brain` is the plugin that holds everything** — the `ask-user-question` skill (`~/Dev/ACMElabs/ask-user-question`), the `session` skill (`~/Dev/ACMElabs/sessions`), every skill in `~/.claude/skills`, every command in `~/.claude/commands`, every agent in `~/.claude/agents`. Requirement 12.
+- ~~Does `~/.claude/skills` become a git repo, and is this repo (`brain`) its future home?~~ Decided 2026-08-31: **`brain` is the plugin that holds everything** — the `ask-user-question` skill (`~/Dev/ACMElabs/ask-user-question`), the `session` skill (`~/Dev/ACMElabs/sessions`), every skill in `~/.claude/skills`, every command in `~/.claude/commands`, every agent in `~/.claude/agents`. Requirement 12; [ADR-002](../decisions/ADR-002-brain-is-the-plugin-for-the-whole-toolset.md).
 - Which copy of each duplicated shape survives (ADR template, spec template, ticket shape)?
 
 ## Plans
 
 | Plan | Implements | Status |
 | --- | --- | --- |
-| [PLAN-001-record-and-rehydration-split.md](PLAN-001-record-and-rehydration-split.md) | requirements 3–11 (the record, the commands, the move); 1–2 via Part 3 | in progress — part 1 (session SES-002 in acmelabs-15/sessions) |
+| [PLAN-001-record-and-rehydration-split.md](PLAN-001-record-and-rehydration-split.md) | requirements 1–12 (1–2 via Part 3; 12 via Part 5) | in progress — part 1 (session SES-002 in acmelabs-15/sessions) |

@@ -10,8 +10,10 @@ ADR-001 (brain; ADR-024 in env-setup) splits what this plugin does today into tw
 three acts (**start · log · close**), one status (`in progress | done`), argument inference, three
 scoped commands. Rehydration — new-vs-continue, where the plan stands, which session, what happened,
 what comes next, the brief — moves to `/plan [PLAN-NNN]` in `planning-and-task-breakdown`. Sequencing
-is decided: **build here, move last** — every step lands in this repo with an entry and the gate, and
-the copy into `~/.claude/skills/session` is the final part, once the git-repo question is answered.
+is decided: **build in acmelabs-15/sessions, move last** — every step lands there with an entry and the
+gate, and the move is the final part. The destination is decided too (ADR-002): the `brain` plugin,
+which carries the whole toolset — this skill, `ask-user-question`, every skill, command and agent from
+`~/.claude/` — so Part 5 moves everything, not one skill.
 Read ANA-001 and ADR-001 (brain; ADR-024 in env-setup) in full before any part.
 
 Tasks are listed in execution order inside each part; the first unticked task of the first part
@@ -194,7 +196,7 @@ Outside this repo (`~/.claude`, not a repo): each edit is recorded in
 
 > Status: planned
 
-Decided 2026-08-31 (PRD-001 requirement 12): the deferred question is answered — `brain` (this repo)
+Decided 2026-08-31 (ADR-002; PRD-001 requirement 12): the deferred question is answered — `brain` (this repo)
 becomes **one plugin holding the whole toolset**. Sources to move, each as it stands with its
 local edits: the `ask-user-question` skill from `~/Dev/ACMElabs/ask-user-question`; the `session`
 skill from `~/Dev/ACMElabs/sessions/skills/session` (after Parts 1–2); every skill under

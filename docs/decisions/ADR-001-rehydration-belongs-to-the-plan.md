@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted — the founding decision of this repo's docs system. It supersedes the *placement* and *mode*
+Accepted — its *home* clause ("the skill moves into `~/.claude/skills/session`; the git-repo question is deferred") is superseded by [ADR-002](ADR-002-brain-is-the-plugin-for-the-whole-toolset.md): the home is the `brain` plugin. The rest stands. The founding decision of this repo's docs system. It supersedes the *placement* and *mode*
 clauses of env-setup's ADR-019 (the mode set), ADR-020 (the `leave` act and `Open at end`), ADR-022
 ("`/session start [PLAN-NNN]` reads down that walk") and ADR-023 (the walk shipping in the plugin;
 the plugin as the skill's final home) — all in `~/Dev/env-setup/docs/decisions/`, where the same
