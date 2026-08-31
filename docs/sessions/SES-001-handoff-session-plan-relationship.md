@@ -176,3 +176,19 @@ Opened 2026-08-31 at the end of the conversation that built this plugin, when it
   - `skills/session/evals/results/disclosure-2/logs/run_4_2.json` — scenario 4, run 2: transcript, tool trace, grading
   - `skills/session/evals/results/disclosure-2/results.json` (+118/−0) — 36/54, per-file pull rates and the reference's recall (0/2 → signpost)
   - `skills/session/evals/results/disclosure-2/run.log` (+130/−0) — the harness log
+
+### 2026-08-31 · docs(evals): description-2 on record — nothing adopted (7/9 vs 6/9 is one query inside the timeout noise) · e1fd118
+
+- Summary: The first description-loop run on the tool's own defaults is on record and nothing is adopted: the incumbent scores 6/9 held-out, the best candidates 7/9 by flipping one different query each, one of them 1,027 characters long, with nine timed-out queries the tool cannot attribute.
+- Why: PLAN-001 Part 4 Task 1's rule — adopt only when held-out improves — needs a gap larger than the noise; here the noise is unmeasurable (plugin-kit T-10), so the description keeps its measured tiers-2 figures.
+- Files:
+  - `docs/plan/PLAN-001-session-plan-relationship-and-re-evaluation.md` (+1/−1) — Part 4 Task 1 done, with the reasons nothing was adopted
+  - `skills/session/evals/README.md` (+1/−0) — description-2 row
+  - `skills/session/evals/results/description-2/2026-08-31_023852/envelope.json` (+347/−0) — the run's envelope (measurement model, eval-set hash)
+  - `skills/session/evals/results/description-2/2026-08-31_023852/logs/improve_iter_1.json` — the proposal step's input and candidate for iteration 1
+  - `skills/session/evals/results/description-2/2026-08-31_023852/logs/improve_iter_2.json` — the proposal step's input and candidate for iteration 2
+  - `skills/session/evals/results/description-2/2026-08-31_023852/logs/improve_iter_3.json` — the proposal step's input and candidate for iteration 3
+  - `skills/session/evals/results/description-2/2026-08-31_023852/logs/improve_iter_4.json` — the proposal step's input and candidate for iteration 4
+  - `skills/session/evals/results/description-2/2026-08-31_023852/report.html` (+623/−0) — the loop's own report
+  - `skills/session/evals/results/description-2/2026-08-31_023852/results.json` (+1694/−0) — five iterations with per-query train and held-out rows
+  - `skills/session/evals/results/description-2/loop.log` (+1707/−0) — stderr of the detached run — the nine timeout warnings are here and nowhere else
