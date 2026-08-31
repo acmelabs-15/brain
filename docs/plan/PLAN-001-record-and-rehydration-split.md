@@ -341,7 +341,7 @@ retires them. The door is `/brain:plan` (ADR-003).
 
 ### Part 5: the docs sweep and the duplicated shapes
 
-> Status: planned
+> Status: in progress (session SES-005)
 
 ```text
 Part 4 (the door exists) ──> Task 1 (docs say /brain:plan) ──┐
@@ -352,11 +352,16 @@ Tasks 2 and 3 are independent of Task 1 and of each other; both can run any time
 
 After Part 4 and Part 2; ANA-003 F5.
 
-- [ ] Task 1: env-setup root `CLAUDE.md` § Rehydrating — the per-repo read order only, delegating
+- [x] Task 1 (2026-08-31, env-setup `4fbddd4` — logged there by the installed plugin as `8ec333e`,
+  SES-010 closed `1e75ca7`; brain `24327a7` fixed the bare `/plan` at its source, the sessions-README
+  template, and both repos' copies were regenerated with `init --refresh`; `~/CLAUDE.md` §1 by
+  hand; the log run swept `CONTRIBUTING.md`'s leftover "once it lands"; the env-setup commits ride
+  to `main` on `feat/visual-grouping` with SES-009's PR): env-setup root `CLAUDE.md` § Rehydrating — the per-repo read order only, delegating
   the procedure to `/brain:plan PLAN-NNN`; `~/CLAUDE.md` §1; env-setup `README.md`, `OVERVIEW.md`,
   `docs/sessions/README.md` (the namespace rename was Part 3 Task 4 (b); this is the procedure's
   delegation). Acceptance: each names `/brain:plan PLAN-NNN` as the way in; no `/session start`
-  remains, bare or namespaced; grep.
+  remains, bare or namespaced; grep — met, with `OVERVIEW.md`'s dated history bullets keeping the
+  names of their day (the Part 3 Task 4 precedent).
 - [ ] Task 2 (was Task 3; the commit task between them moved to Part 3 Task 4 (a)): duplicated shapes get one home each — the ADR template (`documentation-and-adrs` vs
   `domain-modeling/ADR-FORMAT.md`), the spec template (`spec-driven-development` vs `to-spec`),
   the ticket shape (`to-tickets` vs `references/issue-tracker.md`) — all in this repo since Part 2.
