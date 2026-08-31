@@ -55,3 +55,19 @@ Opened 2026-08-31 from SES-001, after ANA-011 and ADR-024 (env-setup, both uncom
   - `skills/session/scripts/session.ts` (+25/−24) — USAGE, `inProgressIds`, `list` (`in progress: …`, wider column), `new` (`started`, `also in progress`), `close` (`already done`, `closed SES-NNN — done; still in progress`), `append`'s refusal on a done session
   - `skills/session/scripts/templates.ts` (+9/−7) — the session template's Status line; the glossary **Status** entry replacing Open/Closed; the Conversation entry no longer says join/open
 - Notes: Verified: `bun test` 24/0 (one legacy-words test added), `tsc`, `bun run validate`; `session list --brief` prints both sessions as `in progress`; a `--plugin-dir` render in an empty scratch repo scaffolded a README whose template says `- Status: in progress` and a glossary with the **Status** entry, then posted the brief. Not done here: the skill's prose still says "open session" throughout — Task 4 rewrites the skill around the three acts; the plan-part status line and the plan's own status were already `planned | in progress | done` and did not change.
+
+### 2026-08-31 · feat(tool): `Open at end` retired — the plan says what is next, the entries say what is unverified (ADR-024) · 3bbcf8c
+
+- Summary: `Open at end` is gone from the template, the reference, the glossary and the gate; `close` counts `Outcome` only; a conversation that stops writes nothing and the session stays `in progress`.
+- Why: ADR-024 — no leave act: the plan's first unticked task says what is next, and every entry's `Notes` says what is unverified, so a handoff line duplicated both. Peter: "if a session just has a status and that status is in progress, nothing needs to be done when a conversation stops." PLAN-002 Part 1 Task 3.
+- Files:
+  - `README.md` (+2/−2) — the `end` row and the `close` synopsis no longer name the line
+  - `skills/session/CONTEXT.md` (+0/−1) — the **Handoff** row removed
+  - `skills/session/SKILL.md` (+3/−3) — the gate gotcha and close step 4 name `Outcome` only; end/close prose is Task 4's
+  - `skills/session/references/session-log.md` (+4/−5) — template copy, header rules, what the gate counts; § The Narrative and the Outcome replaces the handoff paragraph and says older files keep the line as history
+  - `skills/session/scripts/__tests__/session-lib.test.ts` (+2/−3) — header fixture and the close-time placeholder count (3)
+  - `skills/session/scripts/__tests__/templates.test.ts` (+3/−3) — the template line list; the glossary term list and `_Avoid_` count (9)
+  - `skills/session/scripts/session-lib.ts` (+3/−4) — template line dropped; `placeholderCount` skips `Outcome` only until close
+  - `skills/session/scripts/session.ts` (+2/−2) — USAGE and the gate comment
+  - `skills/session/scripts/templates.ts` (+3/−8) — the session template; the sessions README says `in progress` until `done` and where the next conversation reads what is next; the **Handoff** glossary entry removed
+- Notes: Verified: `bun test` 24/0, `tsc`, `bun run validate`; a `--plugin-dir` render in an empty scratch repo scaffolded a README and glossary with no `Open at end` and no Handoff entry, then posted the brief. Left deliberately: SES-001 and SES-002 keep their `Open at end` lines as history; `evals.json` still expects the line in evals 3 and 4 — eval 4 measures the leave act that Task 4 removes, so Part 5's redo covers both rather than patching them twice.

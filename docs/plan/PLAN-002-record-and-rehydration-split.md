@@ -45,7 +45,7 @@ still in progress is the next move. A task's number is its stable name.
   reads both old and new words for one release (existing files say `open`); the glossary's
   **Open** / **Closed** entry becomes **Status** with the three artefacts' vocabularies side by
   side. Verification: `bun test` with a migration case; the fixture's SES-005/006/007 parse.
-- [ ] Task 3: `Open at end` retired. The template, `references/session-log.md`, the gate (it stops
+- [x] Task 3 (2026-08-31, `3bbcf8c`): `Open at end` retired. The template, `references/session-log.md`, the gate (it stops
   counting the line at close) and the glossary (**Handoff** retired or redefined as "the plan plus
   the last entries"). `Outcome` stays. Acceptance: `session close` gates on Goal, Narrative,
   entries and Outcome only; `session template session` has no `Open at end`. Verification: tests;
