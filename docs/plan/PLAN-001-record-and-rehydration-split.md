@@ -123,7 +123,11 @@ still in progress is the next move. A task's number is its stable name.
     500 lines. The `plugin-kit:skill-reviewer` agent may be run if Peter asks for it. Peter reads
     the new `SKILL.md` before the part's checkpoint.
 - [ ] Task 6 (added 2026-08-31, ADR-003; runs before Task 5 — a task's number is its stable name, file
-  order is execution order): the session skill moves into this repo with its history. (a) `git merge
+  order is execution order. State 2026-08-31: (a) `5b89ce6`, (b) `2322745`, (c) `6b486dd` + `b45bda7`
+  done; (d) the marketplace regenerated with `brain` 0.3.0 listed — the uninstall of
+  `sessions@ACMElabs`, the install of `brain@ACMElabs` and `/reload-plugins` are Peter's, by his
+  choice; (e) the sessions repo's pointer commit is `ff756dd` there, local — the push and the GitHub
+  archive are Peter's): the session skill moves into this repo with its history. (a) `git merge
   --allow-unrelated-histories` of acmelabs-15/sessions `main`; conflicts resolved for this repo's
   `README.md`, `CONTEXT.md`, `docs/plan/README.md`, `docs/sessions/README.md`; the sessions repo's
   docs moved with their numbers to `docs/plan/archive/acmelabs-15-sessions/` and
@@ -142,7 +146,10 @@ still in progress is the next move. A task's number is its stable name.
   "sessions:session"` over this repo returns history only (`docs/**/archive/`, `evals/results/`).
   Verification: `bun test`, typecheck, `bun run validate`, plugin-kit's validator and the
   `plugin-kit:plugin-reviewer` agent over the plugin.
-- [ ] Task 5: argument inference for `/brain:session` — `SES-NNN` + a commit → log; a description → start;
+- [x] Task 5 (2026-08-31; the three runs on `b45bda7`'s body reached start, log and close — SES-001
+  Narrative; the inference rule is step 1 of `SKILL.md`, in the conditional-workflow pattern since
+  `e20f7fa`, which also folded `references/` into the body and the four scripts into two — Peter's
+  reading of the best-practices page): argument inference for `/brain:session` — `SES-NNN` + a commit → log; a description → start;
   `close` only when named. Acceptance: the mode table in `SKILL.md` step 1 is the inference rule,
   with an example per act. Verification: three headless runs (`claude -p`) with the three argument
   shapes each reach the right act.
@@ -283,6 +290,13 @@ its own authoring words and the session-log glossary (`CONTEXT-MAP.md`); the voc
 carried skills bring (`codebase-design`, `loop-me`, the triage roles) join it at Part 5 Task 2.
 
 **Uncommitted at handoff — secure these first:**
+
+- env-setup `src/items/repos/repo-factory.ts` gained a `repo-brain` spec in `ACMELABS_REPOS` on
+  2026-08-31 (Part 1 Task 6 (d)): the marketplace generator lists only repos in that array, so
+  without it `brain` never reaches the ACMElabs marketplace. Commit it there through env-setup's
+  session skill; the `repo-sessions` spec comes out at Part 5 Task 3 when the sessions repo is
+  archived. `~/Dev/ACMElabs/.claude-plugin/marketplace.json` is regenerated (generated, not tracked)
+  and lists `brain` 0.3.0 and `sessions` 0.2.0 side by side until then.
 
 - `../analysis/ANA-001-rehydration-ownership.md` (also ANA-001 in env-setup, uncommitted there) and
   `docs/analysis/README.md` (index row); `docs/decisions/ADR-001 (brain; ADR-024 in env-setup)-rehydration-belongs-to-the-plan.md`
