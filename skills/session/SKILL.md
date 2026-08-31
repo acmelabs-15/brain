@@ -12,8 +12,7 @@ description: "Runs the session ritual of a repo's docs system and produces its a
 A **session** is a stream of work toward one Goal, open until closed, that may outlive many
 conversations; it usually serves one **part** of a plan, and that part's status line names it. A
 conversation joins a session or opens one before its first commit; one that changes nothing needs
-none. The rules of the record are `references/session-log.md`; `session template <name>` prints
-the documents themselves.
+none. The rules of the record are `references/session-log.md`.
 
 ## Workflow
 
@@ -42,9 +41,9 @@ The tool is one exact command, always written this way — quoted path, then the
 bun "${CLAUDE_SKILL_DIR}/scripts/session.ts" <help | init | template | list | new | append | current | check | close> …
 ```
 
-`session help` prints every subcommand with its output. It finds the repo itself
-(`CLAUDE_PROJECT_DIR`, else the git toplevel); paths below are relative to the repo root. Every
-refusal is one `session: …` line that says what to do.
+`session help` prints every subcommand with its output; `session template <name>` prints any document
+`init` writes. It finds the repo itself (`CLAUDE_PROJECT_DIR`, else the git toplevel). Every refusal
+is one `session: …` line that says what to do.
 
 Injected state (the harness ran these at load; findings, not commands to re-run):
 
@@ -63,8 +62,7 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
 - **A Sessions line that says `no session log at …`** means no docs system yet: run
   `session init` (writes `docs/sessions/README.md`, `docs/plan/README.md` and the session-log
   section of `CONTEXT.md`; keeps any file that exists), commit that, continue.
-- **No sampling.** Every file a step names is read to its last line; when the Read tool
-  truncates, continue with `offset`.
+- **No sampling.** Every file a step names is read to its last line (continue with `offset`).
 - **Your session is the one you joined or opened, never "the newest".** Another conversation may
   share this checkout with its own open session, so every `session append`, `check` and `close`
   takes `--session SES-NNN`; with two open the tool refuses to guess. Placeholders in any other
@@ -130,7 +128,7 @@ Progress:
    and abandoned, what was verified and how.
 4. `CONTEXT.md` — its words from here on, in code labels, prompts, commits, docs.
 5. The injected lines are findings for the brief (an unexpected branch, a dirty tree, a second
-   open session, warnings about another session's file). Report them; tidy nothing.
+   open session, an `unrecorded:` commit no session accounts for). Report them; tidy nothing.
 6. Every `ADR-NNN` the plan cites (settled — a change needs a superseding ADR); the `ANA-NNN` it
    cites; search `docs/sessions/` with the Grep tool for the file or keyword. A directory's own
    `CLAUDE.md` loads when you read files there.
@@ -138,7 +136,7 @@ Progress:
 
    **The part is `in progress (session SES-NNN)` and that session is open?** → join
    **The part is `planned`, or the work has no plan?** → open
-   **A question, a review, a check — nothing will change?** → none
+   **A question, a review, a check — nothing will change?** → none (a question opens nothing, even when Next up names work; open a session only when the user asks for a change)
 
    - **join** — the part is `in progress (session SES-NNN)` and that session is open: it is yours
      (`--session SES-NNN`); say so in the brief. A session another conversation owns —
@@ -153,8 +151,8 @@ Progress:
      this session;
    - **none** — a question, a review, a check; nothing will change. Say so. The moment the work
      turns into a change, run this step alone before the first commit.
-8. Post the brief. ALWAYS use this exact template structure — square brackets mark what you write,
-   every line present, nothing after it, under ~1,200 characters (one clause per line; the session
+8. Post the brief — the whole reply, nothing before it or after it. ALWAYS use this exact template
+   structure — square brackets mark what you write, every line present, under ~1,200 characters (one clause per line; the session
    file and the Narrative hold the detail):
 
    ```text
@@ -187,7 +185,7 @@ Entry progress:
 - [ ] 5 gate green (bare command, exit read), then named-file stage + docs(session) commit
 ```
 
-1. `session append --session SES-NNN` — one skeleton per commit not yet accounted for (`Summary` /
+1. `session append --session SES-NNN` — `SES-NNN` is the session you joined or opened in this conversation; a session whose Goal or Narrative still reads `_(fill in)_` is another conversation's and is never appended to, whatever its title; a commit outside every open Goal gets a new session. One skeleton per commit not yet accounted for (`Summary` /
    `Why` placeholders, one line per touched file with +/− counts — every file, a rename as two
    lines, none trimmed; `session current --session SES-NNN` lists them by line). A skeleton for a
    commit you did not make is a finding: fill what `git show <sha>` supports and say in Notes it
@@ -225,12 +223,6 @@ Entry progress:
    - Summary: the picker keeps its cursor on the same item across a rescan instead of jumping
      to the top; the rescan now diffs by item id
    - Why: Peter lost his place every time the picker refreshed (SES-003 request)
-   ```
-
-   **Example 3:** Input: a `Notes:` placeholder on a commit whose test suite ran but whose PTY path did not
-   Output:
-   ```markdown
-   - Notes: `bun test` 111 pass; the PTY path is unverified — the expect harness was not run
    ```
 
    "updated" or "changes" is not a phrase.
@@ -287,7 +279,7 @@ End progress:
    gh pr list --state open        # none dangling, or each named in Open at end (no GitHub origin: say so)
    ```
 
-6. The closing note. ALWAYS use this exact template, at most ~60 words:
+6. The closing note — the whole reply, nothing before it or after it. ALWAYS use this exact template, at most ~60 words:
 
    ```text
    Shipped: [what landed this conversation — PRs/commits, one line]
@@ -311,7 +303,7 @@ Close progress:
 ```
 
 1. `end` steps 1–3.
-2. `Outcome` = what the session delivered (releases, merged PRs, what was verified);
+2. `Outcome` = what the session delivered (releases, merged PRs, what was verified) — only work this or an earlier conversation did and the log shows; a read or a pass not in the transcript is not claimed;
    `Open at end` = what it leaves for a later session, or "nothing".
 3. The plan on the session's `Plan:` line: the part's status line →
    `done (session SES-NNN, <sha of the entry that finished it>)`, remaining ticks cite entry shas;
@@ -322,7 +314,7 @@ Close progress:
    sessions). Then `git add docs/sessions/SES-NNN-<slug>.md docs/sessions/README.md
    docs/OVERVIEW.md docs/plan/PLAN-NNN-<feature>.md docs/plan/PRD-NNN-<product>.md`, commit
    `docs(session): close SES-NNN`, and run `end` step 5.
-5. The closing note as in `end`, with `(SES-NNN closed)` on the second line.
+5. The closing note as in `end` — the whole reply — with `(SES-NNN closed)` on the second line.
 
 **Done when** the tool printed `session: closed SES-NNN`, the `docs(session)` commit exists, the
 tree is clean, and the plan part, the plan and OVERVIEW say the same thing as the Outcome.

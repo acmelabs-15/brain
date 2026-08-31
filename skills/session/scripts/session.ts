@@ -59,7 +59,8 @@ const USAGE = `session — the session log tool (bun <plugin>/skills/session/scr
                                           the two directory READMEs, the glossary section)
   list [--plan PLAN-NNN] [--brief]        every session: id, status, title · plan, its Goal; then "open: …"
                                           --plan narrows to the sessions serving that plan; --brief drops the
-                                          Goal lines and reports a missing log on stdout, exit 0
+                                          Goal lines, adds "unrecorded: <sha> <subject>" per commit no session
+                                          accounts for, and reports a missing log on stdout, exit 0
   new <slug> [--plan "PLAN-NNN · part N"] open SES-<next>-<slug>.md (Status: open) and regenerate the index
   append [--session SES-NNN]              entry skeletons for commits no session accounts for ("up to date" when none)
   current [--session SES-NNN]             the session's file, status, Goal, and every placeholder by line number
@@ -355,6 +356,11 @@ async function list(): Promise<void> {
   if (planArg && shown.length === 0) console.log(`no session serves ${planArg}`);
   const open = openIds();
   console.log(open.length ? `open: ${open.join(", ")}` : "open: none");
+  // The injected state is the one place a conversation is told, before it acts, that a
+  // commit on this branch has no entry -- the brief's Findings line comes from here.
+  if (brief) {
+    for (const c of missingCommits()) console.log(`unrecorded: ${c.sha.slice(0, 7)} ${c.subject}`);
+  }
 }
 
 async function open(): Promise<void> {
