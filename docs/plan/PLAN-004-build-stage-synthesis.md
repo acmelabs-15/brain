@@ -33,7 +33,9 @@ Roster beyond Peter's three, pointed out per his ask — **in scope**: `test-dri
 (the loop /build embeds; the Prove-It pattern), `debugging-and-error-recovery` (the loop's
 failure path), `doubt-driven-development` (the high-risk path /build auto cites), the
 `/brain:build` and `/brain:test` commands, `triage`'s AGENT-BRIEF (the ticket contract the
-implement skills consume), and the references `definition-of-done` and `testing-patterns`.
+implement skills consume), `diagnosing-bugs` (Matt's failure-path counterpart to the Addy
+debugging skill — spotted and added during Part 1), and the references `definition-of-done`
+and `testing-patterns`.
 **Flagged and excluded**: `source-driven-development` (orthogonal evidence discipline, callable
 from any stage), `code-review` / `code-review-and-quality` / `code-simplification` (the Review
 stage — a later plan), `git-workflow-and-versioning` (cross-cutting), `loop-me` (workflow
@@ -70,7 +72,7 @@ Part 1 (evidence) ──> Part 2 (ANA-010, the overlap) ──> Part 3 (ANA-011,
   `agents/openai.yaml`), `incremental-implementation`, `test-driven-development`,
   `doubt-driven-development`, `debugging-and-error-recovery`, `commands/build.md`,
   `commands/test.md`, `references/definition-of-done.md`, `references/testing-patterns.md`,
-  `triage`'s AGENT-BRIEF; upstream diffs for the three named skills enumerated. Acceptance:
+  `triage`'s AGENT-BRIEF, `diagnosing-bugs`; upstream diffs for the three named skills enumerated. Acceptance:
   every file read to its last line; the diffs enumerated; recorded as ANA-010 cites.
 - [ ] Checkpoint: the read list is done and the drift is enumerated (expected: only the
   ledgered read-rule and DoD-pointer hunks — verify, do not assume).
