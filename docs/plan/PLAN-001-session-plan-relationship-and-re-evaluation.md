@@ -39,14 +39,14 @@ conversation**. Read every file a part names, in full.
   `/session start` must come from the installed plugin (`sessions@ACMElabs`) and
   `session check --session SES-006` must be green (it needs `docs(ledger)` in the tool's skip
   list — restored in `a4a207b`).
-- [x] Task 2 (2026-08-31, `87b32c2` on env-setup PR #45 — SES-005 left open, that conversation's state is unknown): close env-setup's SES-006 (Outcome: the plugin, ADR-022/023, the global templates,
+- [x] Task 2 (2026-08-31, `87b32c2`, env-setup PR #45 merged `1c81476` — SES-005 left open, that conversation's state is unknown): close env-setup's SES-006 (Outcome: the plugin, ADR-022/023, the global templates,
   the plan-part rule) and, if that conversation is over, SES-005 (another conversation's, all
   placeholders — fill from `git show` and say so in its Narrative, per the skill's rule).
 - [ ] Task 3: verify interactively what headless could not: bare `/session start PLAN-001` and
   `/session continue` resolve from the plugin in env-setup (headless resolved only
   `/sessions:session …`); the injected Branch/Tree/Sessions lines render; the `open` outcome
   writes `> Status: in progress (session SES-NNN)` under the part.
-- [x] Task 4 (2026-08-31, env-setup SES-007 `afc9dca` on PR #45; the check enforces only `_Avoid_` items marked `(former name, …)` — a prototype showed 93 of 130 items are sense restrictions): ANA-010's four implications for envsetup (an `_Avoid_`-list check over agent-facing
+- [x] Task 4 (2026-08-31, env-setup SES-007 `afc9dca`, PR #45 merged `1c81476`; the check enforces only `_Avoid_` items marked `(former name, …)` — a prototype showed 93 of 130 items are sense restrictions): ANA-010's four implications for envsetup (an `_Avoid_`-list check over agent-facing
   prose; `## Relationships` and `## Flagged ambiguities` in `CONTEXT.md`; the domain.md
   equivalent is covered; the success test "CONTEXT.md changes during the conversation").
 
