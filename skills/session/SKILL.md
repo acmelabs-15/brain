@@ -129,7 +129,8 @@ Progress:
    and abandoned, what was verified and how.
 4. `CONTEXT.md` — its words from here on, in code labels, prompts, commits, docs.
 5. The injected lines are findings for the brief (an unexpected branch, a dirty tree, a second
-   open session, an `unrecorded:` commit no session accounts for). Report them; tidy nothing.
+   open session, another session's unfilled placeholders, an `unrecorded:` commit no session
+   accounts for). Report them; tidy nothing.
 6. Every `ADR-NNN` the plan cites (settled — a change needs a superseding ADR); the `ANA-NNN` it
    cites; search `docs/sessions/` with the Grep tool for the file or keyword. A directory's own
    `CLAUDE.md` loads when you read files there.
@@ -137,7 +138,9 @@ Progress:
 
    **The part is `in progress (session SES-NNN)` and that session is open?** → join
    **No part, but an open session's Goal covers this work, its Goal and Narrative filled?** → join
-   **The part is `planned`, or no open Goal covers the work?** → open
+   **A fix or a follow-up that an open session's own work turned up?** → join it — the Goal covers what its work finds, whatever file that lands in
+   **The part is `planned`?** → open, however many sessions are already open — one session per part is the model
+   **Unplanned work, and no open Goal covers it?** → open, and say in one clause what makes it a separate stream
    **A question, a review, a check — nothing will change?** → none (a question opens nothing, even when Next up names work; open a session only when the user asks for a change)
 
    - **join** — the part is `in progress (session SES-NNN)` and that session is open, or an open
@@ -147,11 +150,13 @@ Progress:
      part, post the brief with a Question line (wait for that conversation, or take its session
      over — fill its placeholders from `git show`, say so in its Narrative) and change nothing
      until answered;
-   - **open** — the part is `planned`, or no open Goal covers the work: `session new <slug> --plan
-     "PLAN-NNN · part N"` (slug = the work ahead, kebab-case; omit `--plan` only for unplanned
-     work); set the title and `Goal` in the file it names; then the part's status line, ALWAYS
-     this exact form: `> Status: in progress (session SES-NNN)` — how the next conversation finds
-     this session;
+   - **open** — the part is `planned`, or unplanned work no open Goal covers: `session new <slug>
+     --plan "PLAN-NNN · part N"` (slug = the work ahead, kebab-case; omit `--plan` only for
+     unplanned work); set the title and `Goal` in the file it names; then the part's status line,
+     ALWAYS this exact form: `> Status: in progress (session SES-NNN)` — how the next conversation
+     finds this session. Sessions run in parallel by design, one per part. On **unplanned** work
+     `new` answers with `note: also open — SES-…`: read that as a question — is this a separate
+     stream, or the open session's own work? — and join instead when it is the latter;
    - **none** — a question, a review, a check; nothing will change. Say so. The moment the work
      turns into a change, run this step alone before the first commit.
 8. Post the brief — the whole reply, nothing before it or after it. ALWAYS use this exact template
