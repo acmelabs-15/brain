@@ -34,8 +34,9 @@ mode calls subcommands; the two vocabularies do not overlap even where the word 
 _Avoid_: command (that is the alias), flag, option
 
 **Alias**:
-One of the five files in `commands/` (`/session-start` … `/session-close`) that invokes a mode.
-Typed only — `disable-model-invocation: true` — and carrying no procedure of its own.
+One of the five files in `commands/` (`/sessions:session-start` … `/sessions:session-close`) that
+invokes a mode. Typed only — `disable-model-invocation: true` — and carrying no procedure of its
+own. The prefix is not optional: a bare `/session-start` resolves to nothing.
 _Avoid_: slash command, shortcut, wrapper
 
 ## Bundled files, named by load mode
@@ -121,7 +122,7 @@ has a named cause and states its remedy in the line itself.
 _Avoid_: error, failure, crash, exception
 
 **Brief**:
-The reply `/session start` and `/session continue` post — the fixed template of Released / Unreleased / Parked /
+The reply `/sessions:session start` and `/sessions:session continue` post — the fixed template of Released / Unreleased / Parked /
 Findings / Plan / Next / Session / read-in-full lines, under ~1,200 characters.
 _Avoid_: summary, report, standup
 

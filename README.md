@@ -1,7 +1,7 @@
 # sessions
 
-A Claude Code plugin: one skill, `/session`, that keeps a **session log** a fresh conversation can
-rehydrate from — and the tool that gates every commit against it.
+A Claude Code plugin: one skill, `/sessions:session`, that keeps a **session log** a fresh
+conversation can rehydrate from — and the tool that gates every commit against it.
 
 The problem it solves: a conversation starts from nothing but the repo. Git says *what* changed;
 nothing says what was asked, what was tried and abandoned, what was verified, or what to do next.
@@ -18,16 +18,18 @@ whole story of how it got there.
 
 | You type | It does |
 | --- | --- |
-| `/session start [PLAN-NNN]` | a conversation's first read: OVERVIEW → the plan and its PRD → every open session serving it → `CONTEXT.md` → the ADRs it cites; joins the session the plan part names or opens one and marks the part `in progress (session SES-NNN)`; posts a brief. A `PLAN-NNN` that does not exist is written first with `planning-and-task-breakdown` |
-| `/session continue [PLAN-NNN]` | picks a plan part already in progress back up; with no id, lists the plans in progress and asks which |
-| `/session entry` | right after every commit: appends the commit's entry (Summary, Why, a line per touched file), fills it, updates what the change made stale (plan ticks, OVERVIEW, ADR, PRD, `CONTEXT.md`), gates, commits `docs(session): …` |
-| `/session end` | leaving: log complete, handoff written in `Open at end`, tree clean; the session stays open |
-| `/session close` | the Goal is done: Outcome written, plan part `done (session SES-NNN, sha)`, `Status: closed` |
+| `/sessions:session start [PLAN-NNN]` | a conversation's first read: OVERVIEW → the plan and its PRD → every open session serving it → `CONTEXT.md` → the ADRs it cites; joins the session the plan part names or opens one and marks the part `in progress (session SES-NNN)`; posts a brief. A `PLAN-NNN` that does not exist is written first with `planning-and-task-breakdown` |
+| `/sessions:session continue [PLAN-NNN]` | picks a plan part already in progress back up; with no id, lists the plans in progress and asks which |
+| `/sessions:session entry` | right after every commit: appends the commit's entry (Summary, Why, a line per touched file), fills it, updates what the change made stale (plan ticks, OVERVIEW, ADR, PRD, `CONTEXT.md`), gates, commits `docs(session): …` |
+| `/sessions:session end` | leaving: log complete, handoff written in `Open at end`, tree clean; the session stays open |
+| `/sessions:session close` | the Goal is done: Outcome written, plan part `done (session SES-NNN, sha)`, `Status: closed` |
 
-`/session-start`, `/session-continue`, `/session-entry`, `/session-end`, `/session-close` are
-typed-only aliases of the five modes; a bare `PLAN-NNN` is `continue` when the plan exists and
-`start` when it does not. The skill is also invoked by Claude itself when a conversation in a repo
-with `docs/sessions/` is about to commit.
+`/sessions:session-start`, `/sessions:session-continue`, `/sessions:session-entry`,
+`/sessions:session-end`, `/sessions:session-close` are typed-only aliases of the five modes, for
+the `/` menu rather than for brevity; a bare `PLAN-NNN` is `continue` when the plan exists and
+`start` when it does not. **Every form carries the `sessions:` prefix** — a bare `/session` or
+`/session-start` resolves to nothing (measured 2026-08-31, CLI 2.1.251). The skill is also
+invoked by Claude itself when a conversation in a repo with `docs/sessions/` is about to commit.
 
 A **session** is a bounded stream of work toward one Goal, open until closed, spanning any number
 of conversations; a conversation joins one or opens one before its first commit, and one that
@@ -48,7 +50,7 @@ It is also listed in Peter's ACMElabs marketplace, which `envsetup` generates ov
 repos it clones. Either way the plugin needs [Bun](https://bun.sh) on `PATH` and git; the tool is
 a Bun script, no `node`, no install step.
 
-In a repo that has no session log yet, type `/session start`: its Sessions line says
+In a repo that has no session log yet, type `/sessions:session start`: its Sessions line says
 `no session log at …`, and the skill runs `session init`, which writes `docs/sessions/README.md`
 (purpose, index, the session file template), `docs/plan/README.md` (the PRD and plan templates
 with the per-part status lines) and the session-log section of `CONTEXT.md`, keeping any file that

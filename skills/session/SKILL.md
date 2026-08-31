@@ -4,7 +4,7 @@ argument-hint: "start [PLAN-NNN] | continue [PLAN-NNN] | entry | end | close"
 allowed-tools: Bash(git status:*), Bash(git branch:*), Bash(git show:*), Bash(git log:*), Bash(gh pr list:*), Bash(bun "${CLAUDE_SKILL_DIR}/scripts/session.ts" *)
 license: MIT
 compatibility: "Claude Code (the injected state lines and the plugin-root anchor do nothing elsewhere). Needs Bun on PATH and git; `gh` only for the open-PR check at the end of a conversation."
-description: "Runs the session ritual of a repo's docs system and produces its artifacts: `/session start [PLAN-NNN]` and `/session continue [PLAN-NNN]` read the docs system in full (OVERVIEW, plan, PRD, the open docs/sessions/SES-NNN serving it, CONTEXT.md), join the session the plan part names or open one and mark the part in progress, and post a brief (`continue` alone asks which plan in progress); `/session entry` after every commit appends and fills the commit's entry, updates what it made stale (plan ticks, OVERVIEW, ADR, PRD, CONTEXT.md) and commits it as docs(session); `/session end` leaves the session open with a handoff; `/session close` closes a session whose Goal is done and marks its plan part done. Use at the start of a conversation in a repo with docs/sessions (or to set one up), after each commit, and before finishing — \"catch me up\", \"record that commit\", \"write the handoff\". Not for authoring an ADR, a PRD or CONTEXT.md, for changing the session tool itself, or for a changelog of recent commits."
+description: "Runs the session ritual of a repo's docs system and produces its artifacts: `/sessions:session start [PLAN-NNN]` and `/sessions:session continue [PLAN-NNN]` read the docs system in full (OVERVIEW, plan, PRD, the open docs/sessions/SES-NNN serving it, CONTEXT.md), join the session the plan part names or open one and mark the part in progress, and post a brief (`continue` alone asks which plan in progress); `entry` after every commit appends and fills the commit's entry, updates what it made stale (plan ticks, OVERVIEW, ADR, PRD, CONTEXT.md) and commits it as docs(session); `end` leaves the session open with a handoff; `close` closes a session whose Goal is done and marks its plan part done. Use at the start of a conversation in a repo with docs/sessions (or to set one up), after each commit, and before finishing — \"catch me up\", \"record that commit\", \"write the handoff\". Not for authoring an ADR, a PRD or CONTEXT.md, for changing the session tool itself, or for a changelog of recent commits."
 ---
 
 # Session — start, continue, entry, end, close
@@ -19,8 +19,8 @@ is never rewritten).
 ## Workflow
 
 1. Determine the mode from the arguments — **$ARGUMENTS** — a mode word and, for `start` and
-   `continue`, an optional `PLAN-NNN` (the aliases `/session-start` … `/session-close` pass the
-   same words):
+   `continue`, an optional `PLAN-NNN` (the aliases `/sessions:session-start` …
+   `/sessions:session-close` pass the same words):
 
    **`start` or `continue`, with or without a plan id?** → Follow "start and continue" below
    **A bare `PLAN-NNN`, no mode word?** → `docs/plan/PLAN-NNN-*.md` exists → "start and continue" as `continue`; no such file → as `start`
@@ -29,9 +29,9 @@ is never rewritten).
    **`end`, or wrapping up with the Goal not done?** → Follow "end" below
    **`close`, or the Goal done?** → Follow "close" below
 
-   **Example 1:** Input: `/session PLAN-003`, and `docs/plan/PLAN-003-search.md` exists → Output: "start and continue" as `continue PLAN-003`
-   **Example 2:** Input: `/session PLAN-009`, no such file → Output: "start and continue" as `start PLAN-009`
-   **Example 3:** Input: `/session` right after `git commit` → Output: "entry"
+   **Example 1:** Input: `/sessions:session PLAN-003`, and `docs/plan/PLAN-003-search.md` exists → Output: "start and continue" as `continue PLAN-003`
+   **Example 2:** Input: `/sessions:session PLAN-009`, no such file → Output: "start and continue" as `start PLAN-009`
+   **Example 3:** Input: `/sessions:session` right after `git commit` → Output: "entry"
 
 2. Run that mode to its **Done when** line. Each mode opens with a progress checklist: copy it into
    the reply and tick it as you go.
