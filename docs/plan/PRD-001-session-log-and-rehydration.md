@@ -69,7 +69,9 @@ bootstraps has the same toolset from one plugin.
    line) is still read correctly and never rewritten.
 10. Every mode's reply is the template alone (the brief, the one-line confirmations); a step that
     cannot be satisfied stops the act, names itself, and asks where the answer is the user's.
-11. Until the move the skill and commands are built and recorded in acmelabs-15/sessions.
+11. The skill, its tool and its commands are built and recorded in this repo, the `brain` plugin,
+    from 2026-08-31 (ADR-003); acmelabs-15/sessions' history is merged in and its repo archived.
+    Every typed form is `brain:`-namespaced; the plugin's `commands/` is the typed surface.
 12. **The `brain` plugin** (this repo) is the single home of the whole toolset: the `ask-user-question`
     skill, the `session` skill, all 46 skills now under `~/.claude/skills`, the 8 commands under
     `~/.claude/commands` and the 4 agents under `~/.claude/agents` move into it as one plugin, with

@@ -10,10 +10,11 @@ ADR-001 (brain; ADR-024 in env-setup) splits what this plugin does today into tw
 three acts (**start · log · close**), one status (`in progress | done`), argument inference, three
 scoped commands. Rehydration — new-vs-continue, where the plan stands, which session, what happened,
 what comes next, the brief — moves to `/plan [PLAN-NNN]` in `planning-and-task-breakdown`. Sequencing
-is decided: **build in acmelabs-15/sessions, move last** — every step lands there with an entry and the
-gate, and the move is the final part. The destination is decided too (ADR-002): the `brain` plugin,
-which carries the whole toolset — this skill, `ask-user-question`, every skill, command and agent from
-`~/.claude/` — so Part 5 moves everything, not one skill.
+was "build in acmelabs-15/sessions, move last" until Part 1 Task 4; ADR-003 (2026-08-31) moves the
+session skill into this repo now, with the sessions repo's history merged in (Part 1 Task 6), so from
+then on every step lands here with an entry and the gate. The destination for the rest is unchanged
+(ADR-002): the `brain` plugin carries the whole toolset — `ask-user-question`, every skill, command
+and agent from `~/.claude/` — and Part 5 moves those.
 Read ANA-001 and ADR-001 (brain; ADR-024 in env-setup) in full before any part.
 
 Tasks are listed in execution order inside each part; the first unticked task of the first part
@@ -24,6 +25,9 @@ still in progress is the next move. A task's number is its stable name.
 - `../decisions/ADR-001-rehydration-belongs-to-the-plan.md` (the same text stands in env-setup as ADR-001 (brain; ADR-024 in env-setup), uncommitted there) — the split, the acts,
   the status vocabulary, the inference, the home and the order. Supersedes the placement and mode
   clauses of ADR-019, ADR-020, ADR-022, ADR-023; ADR-021 (entry grain) stands.
+- `../decisions/ADR-003-the-session-skill-moves-now-with-its-history.md` — the move now, history
+  merged; the archive rule for the tool; `brain:`-namespaced forms with `commands/` as the typed
+  surface. Supersedes ADR-002's order clause and its open point.
 - `../analysis/ANA-001-rehydration-ownership.md` (also ANA-001 in env-setup, uncommitted there) — the findings, the refuted
   alternatives, the per-file change list.
 - Peter's standing rules (`~/CLAUDE.md`): decisions through `ask-user-question`; validate findings
@@ -118,7 +122,27 @@ still in progress is the next move. A task's number is its stable name.
     (`start` with a description; `log` after a commit; `close` with and without an id); body under
     500 lines. The `plugin-kit:skill-reviewer` agent may be run if Peter asks for it. Peter reads
     the new `SKILL.md` before the part's checkpoint.
-- [ ] Task 5: argument inference for `/session` — `SES-NNN` + a commit → log; a description → start;
+- [ ] Task 6 (added 2026-08-31, ADR-003; runs before Task 5 — a task's number is its stable name, file
+  order is execution order): the session skill moves into this repo with its history. (a) `git merge
+  --allow-unrelated-histories` of acmelabs-15/sessions `main`; conflicts resolved for this repo's
+  `README.md`, `CONTEXT.md`, `docs/plan/README.md`, `docs/sessions/README.md`; the sessions repo's
+  docs moved with their numbers to `docs/plan/archive/acmelabs-15-sessions/` and
+  `docs/sessions/archive/acmelabs-15-sessions/`, each with a one-line README pointer. (b) The tool
+  reads every `SES-*.md` under `docs/sessions/archive/` for the shas it accounts for and never lists,
+  selects or writes one — with a test. (c) The plugin renamed: `.claude-plugin/plugin.json` name
+  `brain`, version 0.3.0, description in the new words; `package.json`; the five aliases delegate to
+  `brain:session`; every `/sessions:session` form in `README.md`, `.claude/CLAUDE.md`, `CONTEXT.md`,
+  `CONTEXT-MAP.md`, `skills/session/CLAUDE.md` and the templates becomes `/brain:session`, and the
+  five-mode prose there becomes the three acts (Part 2 Task 2's sweep, done here). (d) The marketplace
+  regenerated (§ State names the command), `sessions@ACMElabs` uninstalled, `brain@ACMElabs`
+  installed — Peter asked first; a headless `claude -p "/brain:session"` in a scratch repo reaches
+  the skill. (e) acmelabs-15/sessions gets a final commit pointing here and is archived — the push
+  is Peter's. Acceptance: `session check --session SES-001` here is green with the 57 merged commits
+  accounted for by the archived log; `claude plugin list` shows `brain` 0.3.0; `grep -rn
+  "sessions:session"` over this repo returns history only (`docs/**/archive/`, `evals/results/`).
+  Verification: `bun test`, typecheck, `bun run validate`, plugin-kit's validator and the
+  `plugin-kit:plugin-reviewer` agent over the plugin.
+- [ ] Task 5: argument inference for `/brain:session` — `SES-NNN` + a commit → log; a description → start;
   `close` only when named. Acceptance: the mode table in `SKILL.md` step 1 is the inference rule,
   with an example per act. Verification: three headless runs (`claude -p`) with the three argument
   shapes each reach the right act.
@@ -197,26 +221,26 @@ Outside this repo (`~/.claude`, not a repo): each edit is recorded in
 > Status: planned
 
 Decided 2026-08-31 (ADR-002; PRD-001 requirement 12): the deferred question is answered — `brain` (this repo)
-becomes **one plugin holding the whole toolset**. Sources to move, each as it stands with its
-local edits: the `ask-user-question` skill from `~/Dev/ACMElabs/ask-user-question`; the `session`
-skill from `~/Dev/ACMElabs/sessions/skills/session` (after Parts 1–2); every skill under
+becomes **one plugin holding the whole toolset**. The `session` skill is already here (Part 1 Task 6,
+ADR-003). Sources still to move, each as it stands with its
+local edits: the `ask-user-question` skill from `~/Dev/ACMElabs/ask-user-question`; every skill under
 `~/.claude/skills` (24 Addy, 20 Matt, 2 local — `LOCAL-CHANGES.md` records their edits; git history
 takes over that job here); every command under `~/.claude/commands`; every agent under
 `~/.claude/agents`; the references under `~/.claude/references` that those skills point at. Read
 `~/Dev/ACMElabs/plugin-kit/skills/plugin-creator/SKILL.md` first — layout, path anchoring,
-`claude plugin validate --strict`, one plugin's namespace (`brain:<skill>`) — and decide with Peter
-how bare `/session` and `/plan` are kept (a plugin skill is namespaced; see acmelabs-15/sessions
-PLAN-001 Part 1 Task 3).
+`claude plugin validate --strict`, one plugin's namespace (`brain:<skill>`). The bare-name question
+is answered (ADR-003): every form is `brain:`-namespaced and `commands/` is the typed surface.
 
-- [ ] Task 1: plugin skeleton — `.claude-plugin/plugin.json`, marketplace entry in
-  `~/Dev/ACMElabs/.claude-plugin/marketplace.json` (env-setup's generator reads `plugin.json`),
-  `claude plugin validate --strict` green on an empty component set.
-- [ ] Task 2: move the skills, commands, agents and references in; a `session init` here for this
-  repo's own log; `LOCAL-CHANGES.md` retired into git history with a pointer.
-- [ ] Task 3: retire the sources — `sessions@ACMElabs` and `ask-user-question@ACMElabs` uninstalled,
-  their repos archived with a pointer, the stale caches deleted (`~/.claude/plugins/cache/ACMElabs/
-  session/`, `sessions/0.1.0`, `0.2.0`); `~/.claude/skills`, `commands`, `agents` emptied of what
-  moved once the plugin is installed and a fresh conversation resolves `/plan` and `/session`.
+- [ ] Task 1: the plugin skeleton exists since Part 1 Task 6 (`plugin.json` named `brain`, the
+  marketplace entry, `validate --strict` green); this task adds what the 46 skills, the commands and
+  the agents need of it — the `agents/` directory, `commands/` holding `~/.claude/commands` as well.
+- [ ] Task 2: move the skills, commands, agents and references in; `LOCAL-CHANGES.md` retired into
+  git history with a pointer.
+- [ ] Task 3: retire the sources — `ask-user-question@ACMElabs` uninstalled and its repo archived
+  with a pointer (the `sessions` plugin and repo were retired at Part 1 Task 6); the stale caches
+  deleted (`~/.claude/plugins/cache/ACMElabs/session/`, `sessions/0.1.0`, `0.2.0`);
+  `~/.claude/skills`, `commands`, `agents` emptied of what moved once the plugin is installed and a
+  fresh conversation resolves `/brain:plan` and `/brain:session`.
 - [ ] Task 4: evals redone against the plugin layout — trigger sets and disclosure scenarios from
   real usage of `/plan PLAN-NNN`, `/session-log`, `/session-close`; measured with plugin-kit pointed
   at the new homes; the old `evals/results/` kept as history with a README line.
@@ -302,5 +326,5 @@ does not stop and report; read every named file to its last line.
 
 ## Open questions
 
-- ~~Part 5: does `~/.claude/skills` become a git repo?~~ Answered: `brain` is the plugin home (PRD-001 req. 12). Open: how bare `/session` and `/plan` are kept when every skill is namespaced `brain:`.
+- ~~Part 5: does `~/.claude/skills` become a git repo?~~ Answered: `brain` is the plugin home (PRD-001 req. 12). ~~Open: how bare `/session` and `/plan` are kept when every skill is namespaced `brain:`.~~ Answered 2026-08-31 (ADR-003): they are not kept — every form is `brain:`-namespaced and the plugin's `commands/` is the typed surface.
 - Part 4 Task 3: which copy of each duplicated shape survives — Peter's, per shape.

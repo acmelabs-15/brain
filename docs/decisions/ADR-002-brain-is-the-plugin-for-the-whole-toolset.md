@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted — supersedes the *home* clause of [ADR-001](ADR-001-rehydration-belongs-to-the-plan.md)
+Accepted — its *order* clause ("Order unchanged … Part 5 is the move") and its open point on bare names are superseded by [ADR-003](ADR-003-the-session-skill-moves-now-with-its-history.md): the session skill moves now, with its history, and every typed form is `brain:`-namespaced. The rest stands. Supersedes the *home* clause of [ADR-001](ADR-001-rehydration-belongs-to-the-plan.md)
 ("the skill moves into `~/.claude/skills/session`; whether `~/.claude/skills` becomes a git repo
 is deferred") and the remaining *location* clause of env-setup's ADR-023 (the session skill as
 its own plugin `sessions`). Everything else in ADR-001 stands: the split, the three acts, the
