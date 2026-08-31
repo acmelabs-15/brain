@@ -313,8 +313,9 @@ retires them. The door is `/brain:plan` (ADR-003).
 
 ```text
 Part 4 (the door exists) ──> Task 1 (docs say /brain:plan) ──┐
-Part 2 (the shapes' files are tracked here) ──> Task 2 (one home per shape) ──┴──> Checkpoint
-The two tasks are independent; Task 2 can run any time after Part 2.
+Part 2 (the shapes' files are tracked here) ──> Task 2 (one home per shape) ──┼──> Checkpoint
+Part 2 (the references are tracked here)   ──> Task 3 (the references audit) ─┘
+Tasks 2 and 3 are independent of Task 1 and of each other; both can run any time after Part 2.
 ```
 
 After Part 4 and Part 2; ANA-003 F5.
@@ -329,6 +330,25 @@ After Part 4 and Part 2; ANA-003 F5.
   the ticket shape (`to-tickets` vs `references/issue-tracker.md`) — all in this repo since Part 2.
   Decide each with Peter (`ask-user-question`); the loser becomes a pointer. Tracked commits, an
   entry each.
+- [ ] Task 3 (added 2026-08-31; Peter: "it's very possible we don't need a lot of these anymore and
+  we could probably restore a lot of the skills referencing these to what they were originally,
+  esp. the Addy Osmani agent-skills"): the references audit. Facts at the copy: seven of the nine
+  files under `references/` are upstream's own (`accessibility-checklist`, `definition-of-done`,
+  `observability-checklist`, `orchestration-patterns`, `performance-checklist`,
+  `security-checklist`, `testing-patterns` ship in `~/Dev/reference/addy-osmani-agent-skills/references/`);
+  `issue-tracker.md` and `project-docs-conventions.md` are local. The Addy skills differ from
+  upstream by 0–8 lines each (the `CONTEXT.md` read rule, the ADR-location rule) except
+  `planning-and-task-breakdown` (37, the plan template's parts and status lines — ADR-022) and
+  `spec-driven-development` (20, the Plans table). For each reference: which skills cite it (the
+  grep is in SES-002's Narrative), whether any measured run ever read it (the disclosure lesson of
+  ANA-002: a bundled file no run reads is unnecessary or poorly signposted), and whether the citing
+  skill's local edit was only the pointer — if so, restore upstream's text and drop the reference;
+  keep a reference only where a skill demonstrably loads it. Decide each with Peter
+  (`ask-user-question`). Acceptance: every file left under `references/` is cited by a skill that
+  reads it; every Addy skill whose only drift was a reference pointer is byte-identical to upstream
+  again; the two deliberate edits (`CONTEXT.md` read rule; the plan's status lines) stay and are
+  named as the drift that remains. Verification: `diff -r` against the reference checkout, listed
+  per skill in the entry.
 - [ ] Checkpoint: `grep -rn "/session start\|Open at end\|session end"` over env-setup docs,
   `~/CLAUDE.md` and `~/.claude` returns history only.
 
