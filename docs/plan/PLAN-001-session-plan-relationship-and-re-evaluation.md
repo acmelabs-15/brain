@@ -52,7 +52,7 @@ conversation**. Read every file a part names, in full.
 
 ### Part 2: the global templates and skills carry the same pointers
 
-> Status: in progress (session SES-001)
+> Status: done (session SES-001)
 
 Done on 2026-08-31 in `~/.claude` (not a repo; recorded in `~/.claude/skills/LOCAL-CHANGES.md`):
 `planning-and-task-breakdown` (parts with `> Status:` lines, a verification item),
@@ -60,13 +60,13 @@ Done on 2026-08-31 in `~/.claude` (not a repo; recorded in `~/.claude/skills/LOC
 `references/project-docs-conventions.md` (the docs/plan row, a `docs/sessions/` paragraph).
 Validated with plugin-kit's validator.
 
-- [ ] Task 1: `to-tickets` and `references/issue-tracker.md` carry a different `Status:` vocabulary
+- [x] Task 1 (2026-08-31, `project-docs-conventions.md`): `to-tickets` and `references/issue-tracker.md` carry a different `Status:` vocabulary
   (`needs-triage … wontfix`) for tickets; say in `project-docs-conventions.md` which vocabulary
   belongs to which artefact so the two do not collide (the Explore agent's finding, 2026-08-31).
-- [ ] Task 2: the `tasks/plan.md` vs `docs/plan/PLAN-NNN.md` split is unreconciled across six
+- [x] Task 2 (2026-08-31, `project-docs-conventions.md`: the rule that picks): the `tasks/plan.md` vs `docs/plan/PLAN-NNN.md` split is unreconciled across six
   files (`planning-and-task-breakdown` L35/L147/L159, `spec-driven-development` L178, `plan.md`
   L18, `build.md` L33/L38, conventions L37): decide one, or state the rule that picks.
-- [ ] Task 3: the "sha in `done (session SES-NNN, sha)` is never self-referential" rule
+- [x] Task 3 (2026-08-31, `build.md` step 5): the "sha in `done (session SES-NNN, sha)` is never self-referential" rule
   (ADR-022, Consequences) — check `/build`'s "stage the task-status update with the task's commit"
   wording against it.
 
