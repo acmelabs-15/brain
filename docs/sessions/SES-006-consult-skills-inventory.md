@@ -1,9 +1,9 @@
 # 2026-08-31 10:29 · The consult skills inventoried — PLAN-002 Part 1
 
 - Goal: PLAN-002 Part 1 — `domain-modeling` and `codebase-design` read in full (every file, the `agents/` subdirectories included), their capability inventories with file:line cites, their lineage and drift against `~/Dev/reference/matt-pocock-skills`, and the measured citation graph over `skills/`, `commands/`, `agents/` and `references/` — written up as ANA-005 with Refuted and Unverifiable sections.
-- Status: in progress
+- Status: done
 - Plan: PLAN-002 · part 1
-- Outcome: _(fill in)_
+- Outcome: PLAN-002 Parts 1–4 done in this one session (the deviation recorded in the Narrative). Delivered: ANA-005 (`b8c5f99` — the consult skills' inventories, drift, and the 30-edge citation graph), ANA-006 (`b827926` — the Addy lifecycle map and collision matrix, two duplicates refuted), ANA-007 (`545f48e` — the priced options), and ADR-005 (`7b0afc0` — six decisions with Peter through seven ask-user-question rounds, three of them designed in the round itself; his two decrees; three measurements: `@` in SKILL.md bodies attaches nothing, a plugin SessionStart hook's stdout injects, `!`-cat inlines deterministically with the grant). PLAN-003 founded from his redirect (`ef6ae3b`). Verified: every evaluated file read to its last line; the measurements ran headless with read tools disallowed and streams captured. Not done, by design: PLAN-002 Part 5 (implementation; Task 5 waits on PLAN-003); the spec-shape call, superseded into PLAN-003.
 
 ## Narrative
 
