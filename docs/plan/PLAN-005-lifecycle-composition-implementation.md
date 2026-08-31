@@ -21,7 +21,14 @@ changed description trigger-measured on the fixed tier against its old rate, har
 declined; every changed procedure headless-rendered in a scratch repo; a retired skill becomes
 a pointer stub in the same commit that lands its replacement (never a live duplicate); the
 session ritual throughout; ADR-005's read-rule injection and the decrees inherited by every
-rebuilt skill.
+rebuilt skill. Eval material (Peter, 2026-08-31): trigger positives and negatives draw on the
+Addy corpus (`~/Dev/reference/addy-osmani-agent-skills/evals/cases/<name>.json`) beside the
+Matt-side phrasings — independent wording, not copies of our descriptions; each rebuilt skill
+also ships a behavioral case file `evals/evals.json` in skill-creator's schema (+`kind`), with
+fixtures adapted from that corpus where they fit (portal-brief → the requirements skill's
+capability-map case; notifications-spec → the planner; reports + tasks/plan.md and the
+sunk-cost scenario → implement; pagination + time-pressure → diagnosing-bugs). The behavioral
+cases are checked in as the graded contract; running them stays manual until a runner lands.
 
 ### Dependencies between the parts
 
@@ -50,7 +57,7 @@ Part 5 (diagnosing-bugs) ──────────────────�
 
 ### Part 2: the requirements skill (PRD-002 requirement 3)
 
-> Status: planned
+> Status: in progress (session SES-009)
 
 - [ ] Task 1: the name — chosen by the merit test (says the job in invocation words), its
   trigger set written and measured before the body lands (ADR-006 D4).
