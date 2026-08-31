@@ -68,34 +68,27 @@ describe("an archived log (docs/sessions/archive/**) accounts for its commits", 
   });
 });
 
-describe("init --refresh rewrites only what the tool owns", () => {
-  test("the CONTEXT.md section is replaced and the sections after it kept; the README's index survives", async () => {
+describe("init writes the sessions README and nothing else; --refresh rewrites only its prose", () => {
+  test("CONTEXT.md is never created or touched (ADR-004); a refresh keeps the index", async () => {
     const root = mkdtempSync(join(tmpdir(), "session-refresh-"));
     git(root, "init", "-q", "-b", "main");
-    expect(session(root, "init").code).toBe(0);
-    // A repo's own sections after the glossary, and an older wording inside it.
     const ctx = join(root, "CONTEXT.md");
-    let text = await Bun.file(ctx).text();
-    text = text.replace("_Avoid_: ledger (former name, retired 2026-08-30)", "_Avoid_: ledger, an old wording");
-    text += "\n## Secrets\n\n**Key**:\nA thing the repo keeps.\n_Avoid_: token\n\n## Open\n\n- a question\n";
-    writeFileSync(ctx, text);
-    // A session in the index that a refresh must keep.
+    writeFileSync(ctx, "# Words\n\n**Thing**:\nThe repo's own.\n_Avoid_: object\n");
+    expect(session(root, "init").code).toBe(0);
+    expect(await Bun.file(ctx).text()).toBe("# Words\n\n**Thing**:\nThe repo's own.\n_Avoid_: object\n");
+    // An older wording in the README's prose, and a session in its index that a refresh must keep.
+    const readme = join(root, "docs", "sessions", "README.md");
+    writeFileSync(readme, (await Bun.file(readme).text()).replace("three acts", "five modes"));
     expect(session(root, "new", "work").code).toBe(0);
-    const before = session(root, "init");
-    expect(before.out).toContain("kept: ");
-    expect((await Bun.file(ctx).text()).includes("an old wording")).toBe(true);
+    expect(session(root, "init").out).toContain("kept: ");
     const after = session(root, "init", "--refresh");
     expect(after.code).toBe(0);
-    expect(after.out).toContain("the sections after it kept");
-    const refreshed = await Bun.file(ctx).text();
-    expect(refreshed).toContain("_Avoid_: ledger (former name, retired 2026-08-30)");
-    expect(refreshed).not.toContain("an old wording");
-    expect(refreshed).toContain("\n## Secrets\n");
-    expect(refreshed).toContain("\n## Open\n");
-    expect(refreshed.match(/^## The session log/gm)).toHaveLength(1);
-    const readme = await Bun.file(join(root, "docs", "sessions", "README.md")).text();
-    expect(readme).toContain("SES-001");
-    expect(readme).toContain("three acts");
+    expect(after.out).toContain("the index kept");
+    const text = await Bun.file(readme).text();
+    expect(text).toContain("three acts");
+    expect(text).not.toContain("five modes");
+    expect(text).toContain("SES-001");
+    expect(await Bun.file(ctx).text()).toBe("# Words\n\n**Thing**:\nThe repo's own.\n_Avoid_: object\n");
   });
 });
 

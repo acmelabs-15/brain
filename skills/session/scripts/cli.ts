@@ -24,11 +24,8 @@ import { join } from "node:path";
 import {
   archiveDir,
   type Commit,
-  CONTEXT_SECTION_HEADING,
   SESSIONS_INDEX_END,
   SESSIONS_INDEX_START,
-  contextFile,
-  contextSection,
   declinesEntry,
   FILL,
   id,
@@ -63,14 +60,12 @@ const COMMANDS = ["help", "init", "template", "list", "new", "append", "check", 
 const USAGE = `session — the session log tool (bun <plugin>/skills/session/scripts/cli.ts <command>)
 
   help                                    this text
-  init [--refresh]                        scaffold docs/sessions/README.md and the CONTEXT.md glossary
-                                          section in this repo; existing files are kept. --refresh rewrites
-                                          the two from the current templates, keeping the README's index and
-                                          every CONTEXT.md section after the glossary's. docs/plan/ is the
-                                          plan skill's to create — a plan's shape has one home, and it is not here
-  template <session | sessions-readme | context>
-                                          print one of the documents init writes (the session file's shape,
-                                          the sessions README, the glossary section)
+  init [--refresh]                        scaffold docs/sessions/README.md in this repo; an existing file is
+                                          kept; --refresh rewrites its prose from the current template and
+                                          keeps its index. Nothing else is written: docs/plan/ is the plan
+                                          skill's, CONTEXT.md is domain-modeling's (ADR-004)
+  template <session | sessions-readme>    print one of the documents the tool writes (the session file's
+                                          shape, the sessions README)
   list [--plan PLAN-NNN] [--brief]        every session: id, status, title · plan, its Goal; then "in progress: …"
                                           --plan narrows to the sessions serving that plan; --brief drops the
                                           Goal lines, adds "unrecorded: <sha> <subject>" per commit no session
@@ -218,11 +213,9 @@ try {
 }
 
 /**
- * Scaffold the docs system a repo needs before the first session: the sessions
- * index (which the tool regenerates), the plan directory's README (the PRD and
- * plan templates, with the per-part status lines that point at sessions), and
- * the session-log section of CONTEXT.md. A file that already exists is left
- * exactly as it is — this is the first-run step, never a reset.
+ * Scaffold what a repo needs before the first session: the sessions README, whose index the
+ * tool regenerates. A file that already exists is left exactly as it is unless `--refresh`
+ * asks for the template's prose again — the first-run step, never a reset.
  */
 async function init(refresh: boolean): Promise<void> {
   // docs/plan/ is deliberately not scaffolded: the PRD and plan shapes belong to the plan skills
@@ -230,9 +223,8 @@ async function init(refresh: boolean): Promise<void> {
   // lines and writes nothing else about plans (Peter, 2026-08-31).
   //
   // `--refresh` rewrites what this tool owns and nothing else: the README's prose around the index
-  // block it regenerates, and the CONTEXT.md section between its heading and the next `## `
-  // heading. Regenerating those by hand once cut every section that followed (env-setup,
-  // 2026-08-31), which is the defect this flag exists to remove.
+  // block it regenerates. Regenerating a tool-written document by hand once cut a repo's own
+  // sections (env-setup, 2026-08-31), which is the defect this flag exists to remove.
   const writes: [string, string][] = [[INDEX, sessionsReadme()]];
   for (const [to, text] of writes) {
     if (existsSync(to)) {
@@ -255,31 +247,9 @@ async function init(refresh: boolean): Promise<void> {
     await Bun.write(to, text);
     console.log(`wrote: ${to}`);
   }
-  const ctx = contextFile(ROOT);
-  const section = contextSection();
-  const heading = CONTEXT_SECTION_HEADING;
-  if (existsSync(ctx)) {
-    const text = await Bun.file(ctx).text();
-    if (text.includes(heading) && refresh) {
-      const at = text.indexOf(heading);
-      const after = text.indexOf("\n## ", at + heading.length);
-      const tail = after === -1 ? "" : text.slice(after + 1);
-      await Bun.write(ctx, `${text.slice(0, at)}${section}${tail ? `\n${tail}` : ""}`);
-      console.log(`refreshed: ${ctx} ← "${heading}" (${after === -1 ? "last section" : "the sections after it kept"})`);
-    } else if (text.includes(heading)) {
-      console.log(`kept: ${ctx} (already has "${heading}" — \`init --refresh\` rewrites it)`);
-    } else {
-      await Bun.write(ctx, `${text.replace(/\n+$/, "")}\n\n${section}`);
-      console.log(`appended: ${ctx} ← "${heading}"`);
-    }
-  } else {
-    await Bun.write(
-      ctx,
-      `# Ubiquitous language\n\nThe words this repo uses, one definition each; an _Avoid_ line names the synonyms not to use.\n\n${section}`,
-    );
-    console.log(`wrote: ${ctx}`);
-  }
-  console.log("session: initialised — open the first session with `session new <slug>`");
+  // CONTEXT.md is never written: it is domain-modeling's (ADR-004). The session-log words live in
+  // this plugin's skills/session/CONTEXT.md, and the skill reads a repo's glossary to write in its words.
+  console.log("session: initialised — start the first session with `session new <slug>`");
 }
 
 if (cmd === "help") {

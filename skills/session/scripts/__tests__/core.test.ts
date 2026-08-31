@@ -1,8 +1,5 @@
 import { describe, expect, test } from "bun:test";
 import {
-  CONTEXT_SECTION_HEADING,
-  contextFile,
-  contextSection,
   declinesEntry,
   FILL,
   id,
@@ -60,7 +57,6 @@ describe("paths", () => {
       expect(projectDir()).toBe("/repo");
       expect(sessionsDir()).toBe("/repo/docs/sessions");
       expect(planDir()).toBe("/repo/docs/plan");
-      expect(contextFile()).toBe("/repo/CONTEXT.md");
     } finally {
       if (before === undefined) delete process.env.CLAUDE_PROJECT_DIR;
       else process.env.CLAUDE_PROJECT_DIR = before;
@@ -272,16 +268,20 @@ describe("the documents init writes", () => {
     expect(sessionFileTemplate()).toContain("- Also: [sha]");
   });
 
-  test("the glossary section names every term the skill uses, each with an Avoid line", () => {
-    const c = contextSection();
-    expect(c.startsWith(CONTEXT_SECTION_HEADING)).toBe(true);
+  test("every template name prints something, and CONTEXT.md is not among them (ADR-004)", () => {
+    for (const [name, fn] of Object.entries(TEMPLATES)) expect(fn().length, name).toBeGreaterThan(100);
+    expect(Object.keys(TEMPLATES).sort()).toEqual(["session", "sessions-readme"]);
+  });
+});
+
+describe("the plugin's own glossary (skills/session/CONTEXT.md, the one home of the words — ADR-004)", () => {
+  test("names every term the skill uses, each with an Avoid line, and none of the retired ones", async () => {
+    const c = await Bun.file(new URL("../../CONTEXT.md", import.meta.url)).text();
     for (const term of ["Session log", "Session", "Conversation", "Status", "Start", "Log", "Close", "Plan part", "Gate", "Entry", "Record"]) expect(c).toContain(`**${term}**`);
     // the acts entry is one glossary entry (Start / Log / Close), so nine _Avoid_ lines for nine entries
-    expect(c.match(/_Avoid_/g)?.length).toBe(9);
+    // (counted at line start: the prose below the glossary mentions the word)
+    expect(c.match(/^_Avoid_:/gm)?.length).toBe(9);
+    expect(c).toContain("ledger (former name, retired 2026-08-30)");
     for (const retired of ["**Join**", "**Leave**", "**Handoff**", "Open at end"]) expect(c).not.toContain(retired);
-  });
-
-  test("every template name prints something", () => {
-    for (const [name, fn] of Object.entries(TEMPLATES)) expect(fn().length, name).toBeGreaterThan(100);
   });
 });

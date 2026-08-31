@@ -12,16 +12,16 @@ keeps its own `docs/sessions/`, gated by the tool it ships.
   that it works. The words a person uses while changing this repo's code.
 - [Session log](./skills/session/CONTEXT.md): the record the plugin produces — a session, an
   entry, the gate, a plan part, the three acts as a user types them. The words a person uses in a
-  repo that *installed* the plugin, and in this repo's own `docs/`. Defined once, in the glossary
-  section `session init` writes out (code in `skills/session/scripts/core.ts`, printed by
-  `session template context`); the same section sits at the end of [CONTEXT.md](./CONTEXT.md)
-  here because `init` wrote it, and that context file points at it rather than restating it.
+  repo that *installed* the plugin, and in this repo's own `docs/`. Defined once, in that file —
+  the plugin's own glossary (ADR-004); the tool writes them into no repo's `CONTEXT.md`, and the
+  last section of [CONTEXT.md](./CONTEXT.md) here is a pointer at it.
 
 ## Relationships
 
-- **Authoring → Session log**: one-way. The authoring context builds the thing that teaches the
-  session-log context its words: `session init` writes the glossary section into a consuming
-  repo's `CONTEXT.md` — this repo included.
+- **Authoring → Session log**: one-way. The authoring context builds the thing whose words the
+  session-log context uses; those words are defined in the plugin and read from it, never written
+  into a consuming repo's `CONTEXT.md` (ADR-004) — the skill reads a repo's `CONTEXT-MAP.md` and
+  `CONTEXT.md` instead, to write that repo's entries in its own words.
 - **The shared boundary term is `session`.** In the authoring context it names the *product*
   (the skill, the tool, the plugin). In the session-log context it names a *stream of work toward
   one Goal*. A sentence in this repo that says "session" without saying which is ambiguous; say

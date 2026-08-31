@@ -75,9 +75,11 @@ A fourth kind, `docs/sessions/` (`SES-NNN`, one per stream of work toward one Go
 **session log** the `session` plugin keeps: the plan's part status line names the session serving
 it, the session's `Plan:` line points back, and the PRD's Plans table names the plan — so "work on
 PLAN-NNN" is enough for a conversation that starts from nothing. `session init` (the plugin's
-tool) scaffolds `docs/sessions/README.md`, `docs/plan/README.md` with the PRD and plan
-templates, and the glossary section of `CONTEXT.md`; those templates are the PLAN and PRD shapes
-this file used to lack.
+tool) scaffolds `docs/sessions/README.md` and nothing else: the PLAN and PRD shapes are the plan
+skills' (`planning-and-task-breakdown`, `spec-driven-development`), and `CONTEXT.md` is
+`domain-modeling`'s — the record's own words are defined in the plugin (brain ADR-004), and the
+session skill reads a repo's `CONTEXT-MAP.md` and `CONTEXT.md` to write its entries in that repo's
+words.
 
 Two `Status:` vocabularies exist and belong to different artefacts; keep them apart. A **plan part**
 carries `planned | in progress (session SES-NNN) | done (session SES-NNN, sha)` — the session log's

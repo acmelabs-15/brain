@@ -8,11 +8,14 @@
   The body is paid for on every invocation — keep it under 500 lines and its `description` under
   1,024 characters, measured before committing.
 - The model behind the tool — paths, the session file's header and template, which session a run
-  acts on, the gate's counting, the entry skeleton (`render`), and every document `init` writes
-  (`session template <name>` prints it): `scripts/core.ts`, tested in
-  `scripts/__tests__/core.test.ts`. A shape shown anywhere else is a pointer to that
-  command or a filled specimen of it (the entry template in `SKILL.md`, pinned by a test), not a
-  second copy.
+  acts on, the gate's counting, the entry skeleton (`render`), and the two documents the tool
+  writes (`session template <name>` prints them; `CONTEXT.md` is not one — ADR-004):
+  `scripts/core.ts`, tested in `scripts/__tests__/core.test.ts`. A shape shown anywhere else is a
+  pointer to that command or a filled specimen of it (the entry template in `SKILL.md`, pinned by
+  a test), not a second copy.
+- The words of the record: `CONTEXT.md` beside this file — the one home of the glossary, every
+  term with its `_Avoid_` line, pinned by a test. The skill reads a repo's own `CONTEXT.md` and
+  `CONTEXT-MAP.md` and writes into neither.
 - The tool itself, the CLI over that model: `scripts/cli.ts`, tested end to end in a throwaway
   repo by `scripts/__tests__/cli.test.ts`. It runs on import, which is why the model is a
   separate file.

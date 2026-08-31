@@ -14,9 +14,11 @@ one **part** of a plan, and that part's status line names it. This skill keeps t
 through three acts: **start** creates a session from a description, **log** records a commit into
 one, **close** finishes one. A conversation that stops does nothing — the session stays
 `in progress`. Where a plan stands and what comes next is `/plan PLAN-NNN`'s to say; the
-`SES-NNN` it hands over is the session every `log` here writes into. The words — session, entry,
-gate, plan part, the acts — are defined once, in the repo's `CONTEXT.md` § The session log; use
-them in entries, commits and replies.
+`SES-NNN` it hands over is the session every `log` here writes into. The words of the record —
+session, entry, gate, plan part, the acts — are defined once, in this skill's own
+`${CLAUDE_SKILL_DIR}/CONTEXT.md`; the repo's own words are in its `CONTEXT.md` (read
+`CONTEXT-MAP.md` first where there is one): entries, commits and replies use both, and the skill
+writes into neither — a term the repo lacks is a gap for `domain-modeling` (ADR-004).
 
 ## Workflow
 
@@ -60,11 +62,9 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
   `[shell command execution disabled by policy]`, run the three commands once yourself and treat
   the output as the injected state.
 - **A Sessions line that says `no session log at …`** means no docs system yet: run
-  `session init` (writes `docs/sessions/README.md` and the session-log section of `CONTEXT.md`;
-  keeps any file that exists; `docs/plan/` is the plan skill's to create), commit that, continue.
-  After the plugin changes its templates, `session init --refresh` rewrites those two from the
-  current templates and nothing else — the README's index and every `CONTEXT.md` section after the
-  glossary's stay; regenerating them by hand once cut a repo's sections that followed.
+  `session init` (writes `docs/sessions/README.md` and nothing else — `docs/plan/` is the plan
+  skill's to create, `CONTEXT.md` is `domain-modeling`'s), commit that, continue. After the plugin
+  changes its template, `session init --refresh` rewrites that README's prose and keeps its index.
 - **No sampling.** Every file a step names is read to its last line (continue with `offset`).
 - **Your session is the one named, never "the newest".** `/plan` hands over the `SES-NNN` of the
   part in progress, or the user names one; with neither, the tool takes the single session
@@ -154,7 +154,8 @@ Log progress:
 - [ ] 5 gate green (bare command, exit read), then named-file stage + docs(session) commit
 ```
 
-1. `session append --session SES-NNN`. One skeleton per commit not yet accounted for (`Summary` /
+1. Read the repo's `CONTEXT-MAP.md` (where there is one) and the `CONTEXT.md` it points at — the
+   entry is written in those words. Then `session append --session SES-NNN`. One skeleton per commit not yet accounted for (`Summary` /
    `Why` placeholders, one line per touched file with +/− counts — every file, a rename as two
    lines, none trimmed; `session current --session SES-NNN` lists them by line). A skeleton for a
    commit you did not make is a finding: fill what `git show <sha>` supports and say in Notes it

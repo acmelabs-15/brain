@@ -33,8 +33,9 @@ bootstraps has the same toolset from one plugin.
   entry has a placeholder. Its exit status is the verdict.
 - **Value only.** A fix-up gets no entry (its parent vouches for it); a commit with nothing to
   record says so in its own message.
-- **One vocabulary.** Session, plan and plan part share their status words; the glossary the
-  system writes into a repo's `CONTEXT.md` defines every term once.
+- **One vocabulary.** Session, plan and plan part share their status words; the plugin's own
+  glossary (`skills/session/CONTEXT.md`) defines every term of the record once, and the skill
+  writes a repo's entries in that repo's words, read from its `CONTEXT.md` (ADR-004).
 - **One home.** Every skill, command and agent, with its local edits, is a tracked file in the
   `brain` plugin; installing `brain` is installing the toolset.
 
@@ -63,8 +64,10 @@ bootstraps has the same toolset from one plugin.
 7. The tool (`session.ts`, Bun) provides `init`, `list [--plan] [--brief]`, `new`, `append`,
    `current`, `check`, `close`, each refusal one `session: …` line and exit 1; `list --brief`
    prints `unrecorded: <sha>` for every commit no session accounts for.
-8. `session init` scaffolds `docs/sessions/README.md` and the glossary section of `CONTEXT.md`, and
-   nothing under `docs/plan/`: the PRD and plan shapes have one home, the plan skills.
+8. `session init` scaffolds `docs/sessions/README.md` and nothing else — nothing under
+   `docs/plan/` (the PRD and plan shapes have one home, the plan skills) and nothing in
+   `CONTEXT.md` (ADR-004: `domain-modeling` owns it; the session-log words live in the plugin, and
+   the skill reads a repo's `CONTEXT-MAP.md` and `CONTEXT.md` to write in its words).
 9. A session file written before this system's status words (`open` / `closed`, an `Open at end`
    line) is still read correctly and never rewritten.
 10. Every mode's reply is the template alone (the brief, the one-line confirmations); a step that

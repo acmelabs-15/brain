@@ -42,8 +42,9 @@ that stops does nothing.
 bun "<plugin>/skills/session/scripts/cli.ts" <help | init | template | list | new | append | current | check | close>
 ```
 
-`init` scaffolds `docs/sessions/README.md` and the session-log section of `CONTEXT.md` (nothing
-under `docs/plan/` — the plan's shape is the plan skill's). `check` is the gate: exit 0 only when
+`init` scaffolds `docs/sessions/README.md` and nothing else — nothing under `docs/plan/` (the
+plan's shape is the plan skill's) and nothing in `CONTEXT.md` (`domain-modeling`'s; the record's
+own words are in `skills/session/CONTEXT.md`, ADR-004). `check` is the gate: exit 0 only when
 every commit on the branch is accounted for — by an entry, a parent entry's `Also:` line, a
 `Session-entry: none` trailer, a `docs(session)` subject, or an archived log under
 `docs/sessions/archive/` — and the session has no placeholder left. The rules of the record — what
