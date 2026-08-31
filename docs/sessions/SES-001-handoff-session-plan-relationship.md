@@ -11,3 +11,168 @@
 Opened 2026-08-31 at the end of the conversation that built this plugin, when its context ran low. Peter: "make sure all of that gets captured somewhere so we can make sure it actually gets done … completely captured, all of the full context needed". PLAN-001 is that capture; this is the session a fresh conversation joins with `/session continue PLAN-001`. Nothing in it is done yet. This repo's own commits before this session predate its log and are unrecorded; the first `entry` here should vouch for them with one line rather than write entries for history.
 
 ## Changes (one entry per commit, in order)
+
+### 2026-08-31 · feat: the session plugin — /session start [PLAN-NNN] · entry · end · close, its four aliases, and the tool that gates every commit · d194e3e
+
+- Summary: First commit of this repo: the session skill, its four typed-only aliases, its Bun tool and the evidence of iterations 1–4 leave env-setup (`.claude/skills/session`, `.claude/commands/session-*.md`) and become the plugin `session` (renamed `sessions` in `4014c98`), listed in the ACMElabs marketplace.
+- Why: ADR-023 in env-setup: the ritual is one plugin installed from the marketplace so every repo runs the same skill and tool; Peter: "plugin name should just be session — part of me would prefer a single skill with a commands folder".
+- Files:
+  - `.claude-plugin/marketplace.json` (+14/−0) — the marketplace entry (source: this repo)
+  - `.claude-plugin/plugin.json` (+10/−0) — the manifest: name, version 0.1.0, author, license
+  - `.claude/CLAUDE.md` (+15/−0) — repo-level instructions (under `.claude/` because `--strict` rejects a root CLAUDE.md)
+  - `.github/workflows/ci.yml` (+14/−0) — CI: bun test, typecheck, `claude plugin validate --strict`
+  - `.gitignore` (+47/−0) — scaffold (MIT; Bun test config; fixture repos ignored)
+  - `LICENSE` (+21/−0) — scaffold (MIT; Bun test config; fixture repos ignored)
+  - `README.md` (+102/−0) — the human-facing description: install, the five modes, the record's shape
+  - `bun.lock` (+24/−0) — scaffold (MIT; Bun test config; fixture repos ignored)
+  - `bunfig.toml` (+2/−0) — scaffold (MIT; Bun test config; fixture repos ignored)
+  - `commands/session-close.md` (+9/−0) — typed-only alias delegating with `skill:`
+  - `commands/session-end.md` (+9/−0) — typed-only alias delegating with `skill:`
+  - `commands/session-entry.md` (+9/−0) — typed-only alias delegating with `skill:`
+  - `commands/session-start.md` (+11/−0) — typed-only alias delegating with `skill:`
+  - `package.json` (+15/−0) — scaffold (MIT; Bun test config; fixture repos ignored)
+  - `skills/session/CLAUDE.md` (+24/−0) — how to edit the skill (moved from env-setup)
+  - `skills/session/SKILL.md` (+276/−0) — the procedure, moved from env-setup as it stood at iteration 4
+  - `skills/session/assets/context-session-log.md` (+60/−0) — template as a file (became `scripts/templates.ts` in `4014c98`)
+  - `skills/session/assets/plan-README.md` (+95/−0) — template as a file (became `scripts/templates.ts` in `4014c98`)
+  - `skills/session/assets/sessions-README.md` (+50/−0) — template as a file (became `scripts/templates.ts` in `4014c98`)
+  - `skills/session/evals/CLAUDE.md` (+14/−0) — eval layout and the iterations table
+  - `skills/session/evals/README.md` (+25/−0) — eval layout and the iterations table
+  - `skills/session/evals/evals.json` (+92/−0) — the four evals as env-setup left them
+  - `skills/session/evals/results/iteration-1/.started-at` (+1/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/benchmark.json` (+366/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/benchmark.md` (+13/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/eval_metadata.json` (+12/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/with_skill/grading.json` (+137/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/with_skill/outputs/git-state.txt` (+16/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/with_skill/outputs/overview.diff` (+20/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/with_skill/outputs/reply.md` (+4/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/with_skill/outputs/session-file.md` (+56/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/with_skill/outputs/transcript.md` (+108/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/with_skill/timing.json` (+1/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/without_skill/grading.json` (+143/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/without_skill/outputs/git-state.txt` (+16/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/without_skill/outputs/overview.diff` (+45/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/without_skill/outputs/reply.md` (+11/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/without_skill/outputs/session-file.md` (+86/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/without_skill/outputs/transcript.md` (+91/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/end-close/without_skill/timing.json` (+1/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/feedback.json` (+35/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/notes.json` (+25/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/eval_metadata.json` (+13/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/with_skill/grading.json` (+160/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/with_skill/outputs/commit.diff` (+196/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/with_skill/outputs/git-state.txt` (+13/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/with_skill/outputs/overview.diff` (+30/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/with_skill/outputs/reply.md` (+13/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/with_skill/outputs/session-file.md` (+37/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/with_skill/outputs/transcript.md` (+53/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/with_skill/timing.json` (+1/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/without_skill/grading.json` (+167/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/without_skill/outputs/commit.diff` (+214/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/without_skill/outputs/git-state.txt` (+12/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/without_skill/outputs/overview.diff` (+29/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/without_skill/outputs/reply.md` (+18/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/without_skill/outputs/session-file.md` (+84/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/without_skill/outputs/transcript.md` (+71/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/record-commit/without_skill/timing.json` (+1/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/eval_metadata.json` (+13/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/with_skill/grading.json` (+158/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/with_skill/outputs/brief.md` (+13/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/with_skill/outputs/git-state.txt` (+19/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/with_skill/outputs/session-file.md` (+11/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/with_skill/outputs/transcript.md` (+67/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/with_skill/timing.json` (+1/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/without_skill/grading.json` (+167/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/without_skill/outputs/brief.md` (+30/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/without_skill/outputs/git-state.txt` (+18/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/without_skill/outputs/session-file.md` (+30/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/without_skill/outputs/transcript.md` (+76/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-1/start-brief/without_skill/timing.json` (+1/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-2/benchmark.json` (+382/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-2/benchmark.md` (+13/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-2/end-close/eval_metadata.json` (+15/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-2/end-close/old_skill/grading.json` (+120/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-2/end-close/old_skill/outputs/git-state.txt` (+32/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-2/end-close/old_skill/outputs/overview.diff` (+12/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-2/end-close/old_skill/outputs/reply.md` (+4/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - `skills/session/evals/results/iteration-2/end-close/old_skill/outputs/session-file.md` (+19/−0) — iteration evidence moved from env-setup (skill-creator layout)
+  - … +278 more (`git show --stat d194e3e`)
+
+### 2026-08-31 · feat: rename to sessions; continue mode; templates as code; rules-only reference; CLAUDE.md files per Anthropic's guidance · 4014c98
+
+- Summary: Plugin renamed `sessions` (skill stays `session`); `continue` mode with an optional PLAN-NNN; the three asset templates become `scripts/templates.ts`, printed by `session template` and written by `init`; `references/session-log.md` (rules only) replaces `docs-system.md` and `tool.md`; the three CLAUDE.md files rewritten as headed bullet lists; `CONTEXT.md` and `CONTEXT-MAP.md` for the authoring context.
+- Why: Peter's critique after reading the first cut: no `assets/` (skill-creator: a template the tool writes is code), `references/tool.md` confusing, CLAUDE.md files "a single big blocky paragraph", a `continue` mode that rehydrates a plan in progress, and the name question (`sessions`).
+- Files:
+  - `.claude-plugin/marketplace.json` (+2/−2) — name `sessions`
+  - `.claude-plugin/plugin.json` (+3/−3) — name `sessions`
+  - `.claude/CLAUDE.md` (+24/−15) — rewritten: checks before finishing, the conventions this repo does not share
+  - `CONTEXT-MAP.md` (+31/−0) — new — the two contexts (authoring vs the shipped record) and which file each word belongs to
+  - `CONTEXT.md` (+166/−0) — new — the authoring context's glossary
+  - `README.md` (+20/−23) — the new name and the `continue` mode
+  - `commands/session-close.md` (+2/−2) — delegates to `sessions:session`
+  - `commands/session-continue.md` (+14/−0) — new — the fifth alias
+  - `commands/session-end.md` (+1/−1) — delegates to `sessions:session`
+  - `commands/session-entry.md` (+1/−1) — delegates to `sessions:session`
+  - `commands/session-start.md` (+9/−6) — delegates to `sessions:session`
+  - `package.json` (+1/−1) — name
+  - `skills/session/CLAUDE.md` (+32/−21) — rewritten: where each meaning lives, SKILL.md gotchas, evals
+  - `skills/session/CONTEXT.md` (+45/−0) — new — the shipped record's words, pointing at `templates.ts` for definitions
+  - `skills/session/SKILL.md` (+75/−46) — `continue` mode; `${CLAUDE_SKILL_DIR}`; pointers to the reference
+  - `skills/session/assets/context-session-log.md` (+0/−60) — removed — now in `templates.ts`
+  - `skills/session/assets/plan-README.md` (+0/−95) — removed — now in `templates.ts`
+  - `skills/session/assets/sessions-README.md` (+0/−50) — removed — now in `templates.ts`
+  - `skills/session/evals/CLAUDE.md` (+0/−14) — removed — folded into `evals/README.md`
+  - `skills/session/references/docs-system.md` (+0/−159) — removed — its rules moved to `session-log.md`
+  - `skills/session/references/session-log.md` (+139/−0) — new — the rules of the record, nothing quoted
+  - `skills/session/references/tool.md` (+0/−71) — removed — the tool's `help` is the reference
+  - `skills/session/scripts/__tests__/paths.test.ts` (+1/−4) — one fewer path
+  - `skills/session/scripts/__tests__/templates.test.ts` (+38/−0) — new — the templates render and carry their slots
+  - `skills/session/scripts/paths.ts` (+1/−7) — no assets dir
+  - `skills/session/scripts/session-lib.ts` (+2/−2) — index markers from `templates.ts`
+  - `skills/session/scripts/session.ts` (+49/−30) — `init` and `template` subcommands
+  - `skills/session/scripts/templates.ts` (+237/−0) — new — every document the tool writes
+
+### 2026-08-31 · refactor(skill): apply Anthropic's skill best practices — concise body, one vocabulary, justified constants · a4a207b
+
+- Summary: SKILL.md rewritten to Anthropic's skill best practices: a conditional workflow (`case? → section`), the brief, entry and closing-note templates with bracketed slots and "the whole reply", Input/Output examples, one vocabulary shared with the three CONTEXT files; `SKIP_PREFIXES` and `MAX_FILES` carry the reason they exist.
+- Why: Peter's reading list (the best-practices anchors, "to completion, absolutely no sampling") and his checks: "I'm not seeing conditional-workflow-pattern", "template-pattern", "does it align".
+- Files:
+  - `commands/session-close.md` (+2/−2) — the alias text in the skill's vocabulary
+  - `commands/session-continue.md` (+2/−2) — the alias text in the skill's vocabulary
+  - `commands/session-end.md` (+2/−2) — the alias text in the skill's vocabulary
+  - `commands/session-entry.md` (+2/−2) — the alias text in the skill's vocabulary
+  - `commands/session-start.md` (+2/−2) — the alias text in the skill's vocabulary
+  - `skills/session/CLAUDE.md` (+2/−2) — the token budget stated
+  - `skills/session/CONTEXT.md` (+3/−2) — the boundary with the authoring context
+  - `skills/session/SKILL.md` (+143/−175) — the rewrite: 143 lines in, 175 out
+  - `skills/session/evals/README.md` (+3/−3) — the description's measured rates
+  - `skills/session/references/session-log.md` (+9/−0) — the session file template, pinned by test
+  - `skills/session/scripts/session.ts` (+5/−1) — constants justified in comments
+
+### 2026-08-31 · feat(skill): iteration 5 from the first disclosure measurement — six findings applied · 2815b00
+
+- Summary: The six findings from disclosure-1 applied: the brief and the closing note are the whole reply; `entry` appends only to the session this conversation joined or opened; a question opens nothing; the Outcome names only work the transcript shows; `list --brief` prints `unrecorded: <sha>` lines so the brief's Findings line carries HEAD.
+- Why: disclosure-1 measured 35/54 and every miss clustered on those behaviours (evals README, disclosure-1 row).
+- Files:
+  - `skills/session/SKILL.md` (+13/−21) — the five behaviours, 13 lines in, 21 out
+  - `skills/session/scripts/session.ts` (+7/−1) — `list --brief`: `unrecorded:` per commit no session accounts for
+
+### 2026-08-31 · docs(evals): disclosure-2 on record (36/54); PLAN-001 Part 1 Tasks 2 and 4 done · 007ca39
+
+- Summary: The second valid disclosure measurement is on record — 36/54 against 35/54 after `2815b00`, reference recall still 0/2 — and PLAN-001 Part 1 Tasks 2 and 4 are ticked: env-setup SES-006 closed and ANA-010's implications landed as SES-007 (env-setup PR #45).
+- Why: A number nobody can re-derive is not evidence (skill-creator); the plan is the handoff, so what happened in env-setup is written where the next conversation reads.
+- Files:
+  - `docs/plan/PLAN-001-session-plan-relationship-and-re-evaluation.md` (+4/−4) — Part 1 Tasks 2 and 4 done (shas, PR #45, SES-005 left open); Part 4 Task 3 carries disclosure-2's figures and its three remaining failure clusters; Task 1 warns about the loop's timed-out queries
+  - `skills/session/evals/README.md` (+1/−0) — disclosure-2 row
+  - `skills/session/evals/results/disclosure-2/envelope.json` (+187/−0) — the run's envelope (Sonnet, the fixture, `--allowed-tools Bash`)
+  - `skills/session/evals/results/disclosure-2/logs/run_1_1.json` — scenario 1, run 1: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-2/logs/run_1_2.json` — scenario 1, run 2: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-2/logs/run_2_1.json` — scenario 2, run 1: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-2/logs/run_2_2.json` — scenario 2, run 2: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-2/logs/run_3_1.json` — scenario 3, run 1: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-2/logs/run_3_2.json` — scenario 3, run 2: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-2/logs/run_4_1.json` — scenario 4, run 1: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-2/logs/run_4_2.json` — scenario 4, run 2: transcript, tool trace, grading
+  - `skills/session/evals/results/disclosure-2/results.json` (+118/−0) — 36/54, per-file pull rates and the reference's recall (0/2 → signpost)
+  - `skills/session/evals/results/disclosure-2/run.log` (+130/−0) — the harness log
