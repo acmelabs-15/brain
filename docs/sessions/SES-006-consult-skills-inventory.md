@@ -35,3 +35,11 @@ per-skill copies are redundant on Peter's machines and load-bearing only for plu
 - Files:
   - `docs/analysis/ANA-006-addy-lifecycle-inventory.md` (+99/−0) — the map, the table, the ten-row collision matrix with verdicts, two refuted beliefs, the four decision areas for Part 3
   - `docs/analysis/README.md` (+1/−0) — ANA-006's index row
+
+### 2026-08-31 · docs(analysis): ANA-007 — the integration options priced, none chosen: keep-separate at first-class depth (lifecycle position, shape, what changes anyway), the mergers and demotions with drift/routing/edges/disclosure prices, the four cross-cutting collisions, the Part 4 question order (PLAN-002 Part 3 Task 1) · 545f48e
+
+- Summary: ANA-007 prices the options and chooses nothing: keep-separate at first-class depth for both consult skills — domain-modeling as the cross-stage vocabulary keeper the Define stage hands to (a parallel track, like observability in the 16-step sequence), codebase-design as the Build/Review design consult heading the restructuring chain — beside the mergers (permanent forks, trigger dilution, 27 or 5 edges retargeting) and the reference demotions (the measured-weakest mechanism); the four cross-cutting collisions each get their own option set (the ADR offer rule, the 18 read-rule copies, boundary vs seam, the grill-me claim), and the Part 4 question order is fixed — structure before collisions.
+- Why: PLAN-002 Part 3 Task 1, with Peter's mid-Part-2 addition honoured verbatim: the keep-separate option evaluated fully — where each skill fits, what it looks like, what changes even if it stays — not listed as a default.
+- Files:
+  - `docs/analysis/ANA-007-consult-skills-integration-options.md` (+152/−0) — the pricing dimensions, D1–D3, C1–C3, collisions A–D with options, one refuted belief, the question order
+  - `docs/analysis/README.md` (+1/−0) — ANA-007's index row

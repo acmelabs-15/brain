@@ -96,9 +96,9 @@ Parts 1 and 2 are independent of each other; everything after is sequential.
 
 ### Part 3: the integration options
 
-> Status: in progress (session SES-006 — the evaluation's session, as Parts 1–2)
+> Status: done (session SES-006, `545f48e`)
 
-- [ ] Task 1: ANA-007 — the options, each priced and none chosen: keep-separate with one-home
+- [x] Task 1 (2026-08-31, `545f48e`): ANA-007 — the options, each priced and none chosen: keep-separate with one-home
   pointers (the `df0205b` pattern generalized); merge into a single skill; distribute into
   several lifecycle skills; demote either consult skill to a reference. Each priced against:
   upstream drift, triggering and routing (description collisions, static analysis — a
@@ -110,11 +110,11 @@ Parts 1 and 2 are independent of each other; everything after is sequential.
   lifecycle map, the shape it takes (description, edges, who owns the read-rule lines), and what
   changes even if it stays. Acceptance: every cost
   stated in measurable terms with its source; no verdict anywhere in the note.
-- [ ] Checkpoint: ANA-007 committed with its index row and its entry logged.
+- [x] Checkpoint (2026-08-31): ANA-007 committed with its index row (`545f48e`); the entry logged in the docs(session) commit carrying these ticks.
 
 ### Part 4: the decisions and the ADR
 
-> Status: planned
+> Status: in progress (session SES-006 — the evaluation's session)
 
 - [ ] Task 1: the decisions — Peter's, `ask-user-question`, one at a time, ANA-007's options
   verbatim with one recommendation each.
