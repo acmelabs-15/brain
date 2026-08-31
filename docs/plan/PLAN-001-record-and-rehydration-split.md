@@ -246,9 +246,9 @@ Read in full, in this order, before touching a part:
 Tasks 3, 5, 6 (plugin-kit: glossary gaps *tier study*, *measurement model*, *tool trace*, a word for
 the `--fixture` repo; `--resume-from` never compares the dead run's envelope and timed-out queries
 leave no trace; the validator scans `evals/results/**` and warns on `fixture_notes` /
-`hard_negatives` in `evals.json`). This repo has **no session log yet**: the first conversation here
-runs `session init`, opens a session for the docs system, and records commits `4c0c5c2`..HEAD as its
-first entries. Reinstalling the plugin, when a part calls for it: regenerate the marketplace
+`hard_negatives` in `evals.json`). This repo's session log opened on 2026-08-31 (`4b7a165`):
+`docs/sessions/SES-001` serves the docs system, and the founding commits `4c0c5c2`..`3c940b0` are
+its first entries. Reinstalling the plugin, when a part calls for it: regenerate the marketplace
 (`cd ~/Dev/env-setup && bun -e 'import { generateMarketplace } from "./src/items/repos/acmelabs-marketplace.ts"; await generateMarketplace("/Users/peterkloss/Dev/ACMElabs")'`
 — it reads each plugin's `plugin.json`), then `claude plugin uninstall sessions@ACMElabs`,
 `claude plugin install sessions@ACMElabs`, `/reload-plugins`. `brain` will be multi-context: its own
