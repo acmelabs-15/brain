@@ -71,3 +71,20 @@ Opened 2026-08-31 from SES-001, after ANA-011 and ADR-024 (env-setup, both uncom
   - `skills/session/scripts/session.ts` (+2/−2) — USAGE and the gate comment
   - `skills/session/scripts/templates.ts` (+3/−8) — the session template; the sessions README says `in progress` until `done` and where the next conversation reads what is next; the **Handoff** glossary entry removed
 - Notes: Verified: `bun test` 24/0, `tsc`, `bun run validate`; a `--plugin-dir` render in an empty scratch repo scaffolded a README and glossary with no `Open at end` and no Handoff entry, then posted the brief. Left deliberately: SES-001 and SES-002 keep their `Open at end` lines as history; `evals.json` still expects the line in evals 3 and 4 — eval 4 measures the leave act that Task 4 removes, so Part 5's redo covers both rather than patching them twice.
+
+### 2026-08-31 · docs(plan): PLAN-002 — Task 4's full design, the fresh-conversation reading list, the uncommitted state and every decision's home · 0439e58
+
+- Summary: PLAN-002 gained Task 4's complete design, the fresh-conversation reading list, the uncommitted state outside this repo and the home of every decision taken that day.
+- Why: the context of the founding conversation was nearly spent; Peter: nothing decided may be missing for a brand-new conversation. Written before any of Task 4 was coded.
+- Files:
+  - `docs/plan/PLAN-002-record-and-rehydration-split.md` (+118/−8) — the handoff text (plan) / the Narrative and the history line (session)
+  - `docs/sessions/SES-002-record-model.md` (+2/−2) — the handoff text (plan) / the Narrative and the history line (session)
+
+### 2026-08-31 · docs(plan): PLAN-002 superseded by acmelabs-15/brain PLAN-001, the copy of record · 2bf3d0b
+
+- Summary: PLAN-002 is superseded: the copy of record is `PLAN-001` in acmelabs-15/brain, alongside `PRD-001`, `ADR-001` and `ANA-001` — the docs system Peter asked for as a brand-new PRD, plan and decisions (brain commit `4c0c5c2`, local).
+- Why: Peter, 2026-08-31: "a brand new plan, brand new PRD, brand new all of that … it can all go into a brand new ACMElabs plugin called brain … only the docs directory for now." This repo keeps the code and this session log until that plan's Part 5.
+- Files:
+  - `docs/plan/PLAN-002-record-and-rehydration-split.md` (+1/−1) — status line → superseded, pointing at brain
+  - `docs/plan/README.md` (+1/−1) — index row says superseded
+- Notes: The brain repo (cloned to `~/Dev/ACMElabs/brain`, empty before) holds `docs/plan/PRD-001-session-log-and-rehydration.md` (new: objective, promise, 11 requirements, boundaries, success criteria, Plans table), `PLAN-001` (PLAN-002 renumbered, with Task 4's full design and the reading list), `docs/decisions/ADR-001` (ADR-024's text, restated as the founding decision), `docs/analysis/ANA-001` (ANA-011), and a README per directory. Committed locally only — the push is Peter's. env-setup's ANA-011/ADR-024 remain uncommitted there. Next conversation: `/sessions:session continue` is gone from the plan of record; start by reading brain's PRD-001 and PLAN-001 § State, then PLAN-001 Part 1 Task 4.
