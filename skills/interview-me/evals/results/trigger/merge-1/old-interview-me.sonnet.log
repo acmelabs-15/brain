@@ -1,0 +1,3 @@
+
+WARNING: `measure-triggering` needs the target NOT to be installed, and it is (installed). Content served through the skill system never produces a `Read`, so pull rates measured under this condition are floored at zero and the file verdicts below cannot be trusted.
+Envelope written to: skills/interview-me/evals/results/trigger/merge-1/old-interview-me.sonnet.envelope.json

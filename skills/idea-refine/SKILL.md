@@ -3,6 +3,8 @@ name: idea-refine
 description: Refines raw ideas into sharp, actionable concepts through structured divergent and convergent thinking. Use when an idea is still vague, when you need to stress-test assumptions before committing to a plan, or when you want to expand options before converging on one. Triggers on "ideate", "refine this idea", or "stress-test my plan".
 ---
 
+Call the Skill tool for `brain:ask-user-question` before your first question — every question this skill asks is composed and delivered through it, one question at a time.
+
 # Idea Refine
 
 Refines raw ideas into sharp, actionable concepts worth building through structured divergent and convergent thinking.
@@ -36,6 +38,12 @@ The final output is a markdown one-pager saved to `docs/ideas/[idea-name].md` (a
 - MVP Scope
 - Not Doing list
 
+## Handoffs
+
+`interview-me` hands off here when a confirmed intent is "I want X but I don't know how to
+scope it" — ideate against that intent, not the original ask. Hand the finished one-pager
+back toward `spec-driven-development` when a direction is chosen.
+
 ## Detailed Instructions
 
 You are an ideation partner. Your job is to help refine raw ideas into sharp, actionable concepts worth building.
@@ -59,14 +67,18 @@ When the user invokes this skill with an idea (`$ARGUMENTS`), guide them through
 
 1. **Restate the idea** as a crisp "How Might We" problem statement. This forces clarity on what's actually being solved.
 
-2. **Ask 3-5 sharpening questions** — no more. Focus on:
+2. **Ask 3-5 sharpening questions — one at a time, each through `brain:ask-user-question`, your
+   best guess attached as the recommended option.** Wait for each answer before the next
+   question. Focus on:
    - Who is this for, specifically?
    - What does success look like?
    - What are the real constraints (time, tech, resources)?
    - What's been tried before?
    - Why now?
 
-   Use the `AskUserQuestion` tool to gather this input. Do NOT proceed until you understand who this is for and what success looks like.
+   Do NOT proceed until you understand who this is for and what success looks like. When
+   `interview-me` handed off here, its confirmed intent already answers some of these — start
+   from it, never re-ask what it settled.
 
 3. **Generate 5-8 idea variations** using these lenses:
    - **Inversion:** "What if we did the opposite?"

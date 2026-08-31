@@ -1,0 +1,429 @@
+{
+  "run": {
+    "artifact": "skill",
+    "target": "interview-me",
+    "operation": "measure-triggering",
+    "model": "sonnet",
+    "graderModel": null,
+    "workers": 20,
+    "runsPer": 3,
+    "timeoutSeconds": 180,
+    "evalSetHash": "sha256:3a6e3f53d316d3c93be277be5d48cb60405c070dfef69cf3a7a4b081bcd96b0b",
+    "targetSha": "sha256:40ef3644edbebe97048bb67cba0903dcd6b14eb6f782b6ddf1a8900f40360d76",
+    "installState": "installed",
+    "isolation": "verified",
+    "id": "measure-triggering-interview-me-20260831T213421Z-196811",
+    "startedAt": "2026-08-31T21:34:21.342Z"
+  },
+  "provenance": {
+    "tokenizer": "none",
+    "unit": "query attempt",
+    "scored": 66,
+    "excluded": 0,
+    "failed": 0,
+    "timeoutPolicy": "scored",
+    "caps": [
+      "A copy of `interview-me` is installed at /Users/peterkloss/.claude/skills/interview-me/SKILL.md. Anything this run measured through the skill system was served by that copy, not by the source directory.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26713.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26719.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26716.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26715.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26723.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26712.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27208.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26718.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26711.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26721.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26714.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26722.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27266.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26720.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26717.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27308.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27500.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27676.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27341.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27656.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26727.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27508.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27302.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26725.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27305.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27921.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26728.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27715.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26726.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28008.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28060.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27998.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28077.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28174.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28127.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28162.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26729.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28240.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26730.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/27776.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28327.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28448.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28003.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28286.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28152.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28009.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/26724.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28186.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28365.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/29146.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28797.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/29193.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28702.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28283.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/28796.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/29515.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/29568.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/29310.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/29491.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/29439.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/29820.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/29819.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/30472.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/30451.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/30214.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 66 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.252, so 1 unrecognised skill name(s) were recorded rather than treated as contamination (workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/30730.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side."
+    ]
+  },
+  "headline": [
+    {
+      "label": "queries passed",
+      "value": 16,
+      "unit": "of 22"
+    },
+    {
+      "label": "pass rate",
+      "value": 0.7272727272727273,
+      "unit": "fraction"
+    },
+    {
+      "label": "recall",
+      "value": 0.6111111111111112,
+      "unit": "fraction"
+    },
+    {
+      "label": "false triggers",
+      "value": 0.06666666666666667,
+      "unit": "fraction"
+    }
+  ],
+  "rows": [
+    {
+      "query": "interview me about this feature before we build anything",
+      "shouldTrigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "triggerRate": 1,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "grill me on this plan",
+      "shouldTrigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "triggerRate": 1,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "grill this design doc before I share it with the team",
+      "shouldTrigger": true,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": false,
+      "earlyStopped": false
+    },
+    {
+      "query": "are we sure about this approach? stress-test my thinking",
+      "shouldTrigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "triggerRate": 1,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "build me a dashboard for our metrics",
+      "shouldTrigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "triggerRate": 1,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "I want an app for tracking stuff, make it modern and scalable",
+      "shouldTrigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "triggerRate": 1,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "make it faster",
+      "shouldTrigger": true,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": false,
+      "earlyStopped": false
+    },
+    {
+      "query": "before you write the spec, make sure you actually understand what I'm after",
+      "shouldTrigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "triggerRate": 1,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "here's my migration plan — poke holes in it until we both trust it",
+      "shouldTrigger": true,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": false,
+      "earlyStopped": false
+    },
+    {
+      "query": "I have a rough decision written up, walk me through every branch of it and don't let me hand-wave",
+      "shouldTrigger": true,
+      "triggers": 1,
+      "runs": 3,
+      "triggerRate": 0.3333333333333333,
+      "pass": false,
+      "earlyStopped": false
+    },
+    {
+      "query": "we keep building the wrong thing; this time ask me questions until you can predict my answers",
+      "shouldTrigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "triggerRate": 1,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "something feels off about this architecture choice, challenge every assumption in it one at a time",
+      "shouldTrigger": true,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": false,
+      "earlyStopped": false
+    },
+    {
+      "query": "rename this variable to snake_case",
+      "shouldTrigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "how does the session tool's append subcommand work?",
+      "shouldTrigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "fix this typo in the README",
+      "shouldTrigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "run the test suite and tell me what fails",
+      "shouldTrigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "review this PR for security issues",
+      "shouldTrigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "the spec is confirmed and final — turn it into tickets",
+      "shouldTrigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "grill some chicken recipes for me — what marinade works for a charcoal grill?",
+      "shouldTrigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "interview questions for hiring a senior engineer — draft ten",
+      "shouldTrigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "summarize what this codebase does",
+      "shouldTrigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "triggerRate": 0,
+      "pass": true,
+      "earlyStopped": false
+    },
+    {
+      "query": "I know exactly what I want: add a --json flag to the list command, output shape below. just build it",
+      "shouldTrigger": false,
+      "triggers": 2,
+      "runs": 3,
+      "triggerRate": 0.6666666666666666,
+      "pass": false,
+      "earlyStopped": false
+    }
+  ],
+  "verdicts": [
+    {
+      "subject": "interview me about this feature before we build anything",
+      "verdict": "pass",
+      "reason": "3/3 attempts triggered (1.00) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "grill me on this plan",
+      "verdict": "pass",
+      "reason": "3/3 attempts triggered (1.00) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "grill this design doc before I share it with the team",
+      "verdict": "fail",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "are we sure about this approach? stress-test my thinking",
+      "verdict": "pass",
+      "reason": "3/3 attempts triggered (1.00) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "build me a dashboard for our metrics",
+      "verdict": "pass",
+      "reason": "3/3 attempts triggered (1.00) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "I want an app for tracking stuff, make it modern and scalable",
+      "verdict": "pass",
+      "reason": "3/3 attempts triggered (1.00) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "make it faster",
+      "verdict": "fail",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "before you write the spec, make sure you actually understand what I'm after",
+      "verdict": "pass",
+      "reason": "3/3 attempts triggered (1.00) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "here's my migration plan — poke holes in it until we both trust it",
+      "verdict": "fail",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "I have a rough decision written up, walk me through every branch of it and don't let me hand-wave",
+      "verdict": "fail",
+      "reason": "1/3 attempts triggered (0.33) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "we keep building the wrong thing; this time ask me questions until you can predict my answers",
+      "verdict": "pass",
+      "reason": "3/3 attempts triggered (1.00) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "something feels off about this architecture choice, challenge every assumption in it one at a time",
+      "verdict": "fail",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected a trigger."
+    },
+    {
+      "subject": "rename this variable to snake_case",
+      "verdict": "pass",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected no trigger."
+    },
+    {
+      "subject": "how does the session tool's append subcommand work?",
+      "verdict": "pass",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected no trigger."
+    },
+    {
+      "subject": "fix this typo in the README",
+      "verdict": "pass",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected no trigger."
+    },
+    {
+      "subject": "run the test suite and tell me what fails",
+      "verdict": "pass",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected no trigger."
+    },
+    {
+      "subject": "review this PR for security issues",
+      "verdict": "pass",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected no trigger."
+    },
+    {
+      "subject": "the spec is confirmed and final — turn it into tickets",
+      "verdict": "pass",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected no trigger."
+    },
+    {
+      "subject": "grill some chicken recipes for me — what marinade works for a charcoal grill?",
+      "verdict": "pass",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected no trigger."
+    },
+    {
+      "subject": "interview questions for hiring a senior engineer — draft ten",
+      "verdict": "pass",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected no trigger."
+    },
+    {
+      "subject": "summarize what this codebase does",
+      "verdict": "pass",
+      "reason": "0/3 attempts triggered (0.00) against a 0.5 threshold; expected no trigger."
+    },
+    {
+      "subject": "I know exactly what I want: add a --json flag to the list command, output shape below. just build it",
+      "verdict": "fail",
+      "reason": "2/3 attempts triggered (0.67) against a 0.5 threshold; expected no trigger."
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Before exploring the codebase, read `CONTEXT.md` (and `CONTEXT-MAP.md` if the repo has more than one context) when it exists, and the ADRs where the project keeps them. Use the glossary's terms and never a synonym it lists under `_Avoid_`; a concept it lacks is a gap to note for `/domain-modeling`.
