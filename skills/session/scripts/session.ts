@@ -1,24 +1,8 @@
 /**
  * Session log tooling — <repo>/docs/sessions/*.md, one file per session (a
  * bounded stream of work toward one Goal, open until closed; a conversation
- * joins an open session or opens one before its first commit).
- *
- *   session init                            scaffold docs/sessions, docs/plan and the CONTEXT.md
- *                                           section in the current repo (existing files are kept)
- *   session list [--plan PLAN-NNN] [--brief] every session with its status, plan and Goal
- *                                           (--brief: one line each, no Goal; a missing log is a
- *                                           plain stdout line, exit 0 — the shape the skill injects)
- *   session new <slug> [--plan "PLAN-NNN · part"]
- *                                           open SES-<next>-<slug>.md (Status: open)
- *   session [append] [--session SES-NNN]    append entry skeletons for commits no session mentions
- *   session check [--session SES-NNN]       exit 1 if commits are missing or placeholders unfilled
- *   session close [--session SES-NNN]       Status: closed — refused while the gate is red
- *   session current [--session SES-NNN]     the session's file, status, Goal, and every
- *                                           placeholder with its line number (what to fill, where)
- *
- * `session` here is `bun <plugin>/skills/session/scripts/session.ts`; the /session
- * skill knows the path. The repo is CLAUDE_PROJECT_DIR, else the git toplevel,
- * else the working directory (paths.ts).
+ * joins an open session or opens one before its first commit). `session help`
+ * prints USAGE below; the templates it writes are code in templates.ts.
  *
  * Which session a run acts on: the one named with --session, else the single
  * open session. No open session, or more than one, is an error that says what
@@ -36,7 +20,8 @@
  */
 import { existsSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { assetsDir, contextFile, planDir, projectDir, sessionsDir } from "./paths";
+import { contextFile, planDir, projectDir, sessionsDir } from "./paths";
+import { CONTEXT_SECTION_HEADING, contextSection, planReadme, sessionsReadme, TEMPLATES, type TemplateName } from "./templates";
 import {
   declinesEntry,
   FILL,
@@ -57,8 +42,31 @@ const ROOT = projectDir();
 const DIR = sessionsDir(ROOT);
 const INDEX = join(DIR, "README.md");
 const MAX_FILES = 80;
-const SKIP_PREFIXES = ["docs(session)", "docs(ledger)"];
-const COMMANDS = ["init", "list", "new", "append", "check", "close", "current"] as const;
+const SKIP_PREFIXES = ["docs(session)"];
+const COMMANDS = ["help", "init", "template", "list", "new", "append", "check", "close", "current"] as const;
+
+const USAGE = `session — the session log tool (bun <plugin>/skills/session/scripts/session.ts <command>)
+
+  help                                    this text
+  init                                    scaffold docs/sessions/README.md, docs/plan/README.md and the
+                                          CONTEXT.md glossary section in this repo; existing files are kept
+  template <session | sessions-readme | plan-readme | context>
+                                          print one of the documents init writes (the session file's shape,
+                                          the two directory READMEs, the glossary section)
+  list [--plan PLAN-NNN] [--brief]        every session: id, status, title · plan, its Goal; then "open: …"
+                                          --plan narrows to the sessions serving that plan; --brief drops the
+                                          Goal lines and reports a missing log on stdout, exit 0
+  new <slug> [--plan "PLAN-NNN · part N"] open SES-<next>-<slug>.md (Status: open) and regenerate the index
+  append [--session SES-NNN]              entry skeletons for commits no session accounts for ("up to date" when none)
+  current [--session SES-NNN]             the session's file, status, Goal, and every placeholder by line number
+  check [--session SES-NNN]               the gate: exit 0 "session: complete", exit 1 with missing:/unfilled: lines
+  close [--session SES-NNN]               the gate (now counting Outcome and Open at end), then Status: closed
+
+Which session a run acts on: --session (SES-NNN, the number, or the file name), else the single open
+session; none or several open is a refusal that says what to do. The repo is CLAUDE_PROJECT_DIR, else
+the git toplevel, else the working directory. Accounted for: an entry heading with the sha, a parent
+entry's "- Also: <sha>" line, the trailer "Session-entry: none" in the commit message, or a
+docs(session)/docs(ledger) subject. Every refusal is one "session: …" line on stderr and exit 1.`;
 type Command = (typeof COMMANDS)[number];
 
 interface Touched {
@@ -197,7 +205,7 @@ function option(argv: string[], name: string): string | undefined {
 
 /** The subcommand: a bare word; `--word` (the older spelling) still works. */
 function command(argv: string[]): Command {
-  const word = (argv[0] ?? "append").replace(/^--/, "");
+  const word = (argv[0] ?? "append").replace(/^--/, "").replace(/^-h$/, "help");
   if (!COMMANDS.includes(word as Command)) {
     throw new Error(`unknown command "${argv[0]}" — one of: ${COMMANDS.join(", ")}`);
   }
@@ -231,23 +239,22 @@ try {
  * exactly as it is — this is the first-run step, never a reset.
  */
 async function init(): Promise<void> {
-  const assets = assetsDir();
-  const copies: [string, string][] = [
-    [join(assets, "sessions-README.md"), INDEX],
-    [join(assets, "plan-README.md"), join(planDir(ROOT), "README.md")],
+  const writes: [string, string][] = [
+    [INDEX, sessionsReadme()],
+    [join(planDir(ROOT), "README.md"), planReadme()],
   ];
-  for (const [from, to] of copies) {
+  for (const [to, text] of writes) {
     if (existsSync(to)) {
       console.log(`kept: ${to}`);
       continue;
     }
     mkdirSync(join(to, ".."), { recursive: true });
-    await Bun.write(to, await Bun.file(from).text());
+    await Bun.write(to, text);
     console.log(`wrote: ${to}`);
   }
   const ctx = contextFile(ROOT);
-  const section = await Bun.file(join(assets, "context-session-log.md")).text();
-  const heading = section.split("\n")[0] ?? "";
+  const section = contextSection();
+  const heading = CONTEXT_SECTION_HEADING;
   if (existsSync(ctx)) {
     const text = await Bun.file(ctx).text();
     if (text.includes(heading)) {
@@ -266,6 +273,16 @@ async function init(): Promise<void> {
   console.log("session: initialised — open the first session with `session new <slug>`");
 }
 
+if (cmd === "help") {
+  console.log(USAGE);
+  process.exit(0);
+}
+if (cmd === "template") {
+  const name = argv[0] as TemplateName | undefined;
+  if (!name || !(name in TEMPLATES)) refuse(new Error(`usage: session template <${Object.keys(TEMPLATES).join(" | ")}>`));
+  process.stdout.write(TEMPLATES[name]());
+  process.exit(0);
+}
 if (cmd === "init") {
   await init().catch(refuse);
   process.exit(0);
@@ -432,6 +449,8 @@ async function append(): Promise<void> {
 }
 
 const run: Record<Command, () => Promise<void>> = {
+  help: async () => console.log(USAGE),
+  template: async () => undefined,
   init,
   list,
   new: open,

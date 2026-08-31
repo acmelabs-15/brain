@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { assetsDir, contextFile, planDir, projectDir, sessionsDir } from "../paths";
+import { contextFile, planDir, projectDir, sessionsDir } from "../paths";
 
 describe("paths", () => {
   test("CLAUDE_PROJECT_DIR wins when set; the docs hang off it", () => {
@@ -26,7 +26,4 @@ describe("paths", () => {
     }
   });
 
-  test("assets are the skill's own, next to scripts/", () => {
-    expect(assetsDir()).toBe(new URL("../../assets", import.meta.url).pathname);
-  });
 });

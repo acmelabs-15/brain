@@ -3,8 +3,7 @@
  *
  * The tool runs from wherever the plugin is installed, against the docs of
  * whatever repo the conversation is in, so the two anchors are different:
- * shipped files (the asset templates) hang off this file; the docs system
- * hangs off the user's project root, which is `CLAUDE_PROJECT_DIR` inside a
+ * the docs system hangs off the user's project root, which is `CLAUDE_PROJECT_DIR` inside a
  * Claude Code session, the git toplevel outside one, and the working directory
  * as the last resort.
  */
@@ -37,9 +36,4 @@ export function planDir(root = projectDir()): string {
 
 export function contextFile(root = projectDir()): string {
   return join(root, "CONTEXT.md");
-}
-
-/** The templates `init` copies — shipped with the plugin, read-only. */
-export function assetsDir(): string {
-  return join(import.meta.dir, "..", "assets");
 }

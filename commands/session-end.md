@@ -4,6 +4,6 @@ disable-model-invocation: true
 ---
 
 Invoke the `session` skill in `end` mode now — exactly what typing `/session end` does: call
-the Skill tool with `skill: session:session`, `args: end`. Ignore any text typed after the command,
+the Skill tool with `skill: sessions:session`, `args: end`. Ignore any text typed after the command,
 including an `ARGUMENTS:` line appended below this one. The skill carries the whole procedure and
 its completion criterion; run it rather than reproducing its steps here.

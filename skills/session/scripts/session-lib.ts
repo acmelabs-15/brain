@@ -152,10 +152,10 @@ export function knownShas(text: string): string[] {
 }
 
 /**
- * A commit that says, in its own message, that the ledger has nothing to gain
+ * A commit that says, in its own message, that the session log has nothing to gain
  * from it: the trailer `Session-entry: none`. The tool skips it like it skips
  * `docs(session)` commits. Only the commit's author can make that call, and
- * only at commit time -- which is the point: the ledger holds value, and the
+ * only at commit time -- which is the point: the session log holds value, and the
  * decision that a commit has none is recorded where it cannot be forgotten.
  */
 export function declinesEntry(body: string): boolean {

@@ -1,4 +1,4 @@
-# session
+# sessions
 
 A Claude Code plugin: one skill, `/session`, that keeps a **session log** a fresh conversation can
 rehydrate from — and the tool that gates every commit against it.
@@ -18,14 +18,16 @@ whole story of how it got there.
 
 | You type | It does |
 | --- | --- |
-| `/session start [PLAN-NNN]` | reads the docs system in full (OVERVIEW → the plan and its PRD → every open session serving it → `CONTEXT.md` → the ADRs it cites), joins the open session serving the plan part or opens one and marks the part `in progress (session SES-NNN)`, posts a brief |
+| `/session start [PLAN-NNN]` | a conversation's first read: OVERVIEW → the plan and its PRD → every open session serving it → `CONTEXT.md` → the ADRs it cites; joins the session the plan part names or opens one and marks the part `in progress (session SES-NNN)`; posts a brief. A `PLAN-NNN` that does not exist is written first with `planning-and-task-breakdown` |
+| `/session continue [PLAN-NNN]` | picks a plan part already in progress back up; with no id, lists the plans in progress and asks which |
 | `/session entry` | right after every commit: appends the commit's entry (Summary, Why, a line per touched file), fills it, updates what the change made stale (plan ticks, OVERVIEW, ADR, PRD, `CONTEXT.md`), gates, commits `docs(session): …` |
 | `/session end` | leaving: log complete, handoff written in `Open at end`, tree clean; the session stays open |
 | `/session close` | the Goal is done: Outcome written, plan part `done (session SES-NNN, sha)`, `Status: closed` |
 
-`/session-start`, `/session-entry`, `/session-end`, `/session-close` are typed-only aliases of the
-four modes. The skill is also invoked by Claude itself when a conversation in a repo with
-`docs/sessions/` is about to commit.
+`/session-start`, `/session-continue`, `/session-entry`, `/session-end`, `/session-close` are
+typed-only aliases of the five modes; a bare `PLAN-NNN` is `continue` when the plan exists and
+`start` when it does not. The skill is also invoked by Claude itself when a conversation in a repo
+with `docs/sessions/` is about to commit.
 
 A **session** is a bounded stream of work toward one Goal, open until closed, spanning any number
 of conversations; a conversation joins one or opens one before its first commit, and one that
@@ -35,11 +37,11 @@ changes nothing needs none. The log holds value only: a fix-up commit gets no en
 
 ## Install
 
-This repo is its own marketplace (`.claude-plugin/marketplace.json`), so:
+This repo is its own marketplace (`.claude-plugin/marketplace.json`):
 
 ```bash
-claude plugin marketplace add acmelabs-15/session   # or, in a session: /plugin marketplace add acmelabs-15/session
-claude plugin install session@acmelabs-session
+claude plugin marketplace add acmelabs-15/sessions   # or, in a session: /plugin marketplace add acmelabs-15/sessions
+claude plugin install sessions@acmelabs-sessions
 ```
 
 It is also listed in Peter's ACMElabs marketplace, which `envsetup` generates over the ACMElabs
@@ -50,44 +52,39 @@ In a repo that has no session log yet, type `/session start`: its Sessions line 
 `no session log at …`, and the skill runs `session init`, which writes `docs/sessions/README.md`
 (purpose, index, the session file template), `docs/plan/README.md` (the PRD and plan templates
 with the per-part status lines) and the session-log section of `CONTEXT.md`, keeping any file that
-already exists. The templates are `skills/session/assets/`; the rules they point back at are the
-skill's (`skills/session/references/docs-system.md`), so a rule has one home.
+already exists. Those documents are code in `skills/session/scripts/templates.ts`;
+`session template <name>` prints any of them.
 
 ## The tool
 
 `skills/session/scripts/session.ts` — `session` below; the skill runs it as
 `bun "${CLAUDE_PLUGIN_ROOT}/skills/session/scripts/session.ts"`, and by hand it is
 `bun <this checkout>/skills/session/scripts/session.ts`. It finds the repo from
-`CLAUDE_PROJECT_DIR`, else the git toplevel, else the working directory (`scripts/paths.ts`).
-Every output and every refusal, with its cause, is `skills/session/references/tool.md`.
+`CLAUDE_PROJECT_DIR`, else the git toplevel, else the working directory. `session help` prints
+every subcommand with its output; the short form:
 
 ```bash
 session init                             # scaffold docs/sessions, docs/plan, the CONTEXT.md section (keeps existing files)
+session template <session | sessions-readme | plan-readme | context>   # print one of the documents init writes
 session list [--plan PLAN-NNN] [--brief] # SES-NNN  open|closed  title · plan, its Goal (--brief: no Goal line); then "open: …"
-session new <slug> [--plan "PLAN-NNN · part"]   # open SES-<next>-<slug>.md (Status: open) and regenerate the index
+session new <slug> [--plan "PLAN-NNN · part N"]   # open SES-<next>-<slug>.md (Status: open) and regenerate the index
 session append --session SES-NNN         # skeletons for commits no session accounts for → "session: up to date" when none
 session current --session SES-NNN        # the file, status, Goal, every placeholder with its line number
 session check --session SES-NNN          # the gate: exit 0 + "session: complete (SES-NNN, open)"; exit 1 + missing:/unfilled: lines
 session close --session SES-NNN          # gate (now counting Outcome / Open at end), then Status: closed
 ```
 
-What it reads as accounted for: an entry heading `### date · subject · sha`, a parent entry's
-`- Also: <sha>` line, the trailer `Session-entry: none` in a commit's message; `docs(session): …`
-commits are skipped outright. It uses `git log --no-renames` (a rename is a delete + an add),
-orders sessions by their `SES-NNN` number, requires the H1 `# YYYY-MM-DD HH:MM · Title` line,
-reads a file without a `Status:` line as open, and never guesses which session a run acts on:
-`--session` wins, else the single open session, else a refusal that says what to do.
-Placeholders in a session other than the target are warnings, never errors — that file belongs to
-another conversation.
+The rules the gate enforces — what counts as accounted for, what a placeholder is, what is never
+rewritten — are `skills/session/references/session-log.md`.
 
 ## Developing
 
 ```bash
 bun install
-bun test              # scripts/__tests__/ — header parsing, selection, the gate's counting, plan matching, paths
+bun test              # scripts/__tests__/ — header parsing, selection, the gate's counting, plan matching, paths, templates
 bun run typecheck
 bun run validate      # claude plugin validate . --strict
-claude --plugin-dir . # load it from this checkout; /help lists /session and the four aliases
+claude --plugin-dir . # load it from this checkout; /help lists /sessions:session and the five aliases
 ```
 
 `skills/session/evals/` holds the skill-creator evidence (eval prompts, four measured iterations,
