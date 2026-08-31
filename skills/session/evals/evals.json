@@ -1,0 +1,100 @@
+{
+  "skill_name": "session",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm picking envsetup back up. Where are we, and what should I do first?",
+      "expected_output": "A brief (under 1,600 characters) in the skill's template — released version, unreleased on main, parked branches, open/unverified items, the proposed next item and its first step, a Session line, a 'read in full:' line. The message is a question, so the Session line may say none (nothing to record yet) — then no file is created; if the run opens one instead, exactly one new docs/sessions/SES-NNN with Status: in progress and its Goal set; either way nothing else on disk changes except the regenerated sessions index.",
+      "files": [],
+      "expectations": [
+        "The final reply is a brief in the skill's template — Released, Unreleased on main, Parked, Findings, Open / unverified, Plan, Next, Session and a line starting with 'read in full:' — and is under 1,600 characters",
+        "The brief states the released version v0.1.9 and names the parked branch wip/visual-grouping",
+        "The brief's 'read in full:' line names docs/OVERVIEW.md, CONTEXT.md and every open session file, and the transcript shows each of those read to its last line (a second read with offset where the first was truncated)",
+        "The Session line says none — the message is a question and nothing changes — and the transcript shows no session file created or edited",
+        "The brief's Findings line reports the unrecorded fix(finder) commit at HEAD and that SES-005, another conversation's open session, carries unfilled placeholders; nothing in SES-005-rehydration.md is edited",
+        "The transcript shows no commit, no push and no PR",
+        "Every fact the brief states is true of the fixture: the released sha matches the v0.1.9 tag and every file the read-in-full line names exists"
+      ],
+      "expects_references": []
+    },
+    {
+      "id": 2,
+      "prompt": "I just committed the fix for the stale set-favorites.swift asset (it now matches the embedded constant). Record it properly before I open the PR.",
+      "expected_output": "A docs(session) commit on HEAD whose entry for the fix commit has Summary, Why, a specific phrase per touched file (naming --list / LSSharedFileListItemCopyResolvedURL for the Swift file) and Notes saying how the claim was verified; OVERVIEW Next-up 5 and the two finder docs that called the asset stale updated; `bun run session check` prints session: complete; SES-005 untouched.",
+      "files": [],
+      "expectations": [
+        "The transcript shows the session tool's append run against the open docs-review session (SES-007) and a skeleton appended for the fix(finder) commit at HEAD",
+        "The transcript shows the fix's claim verified before it is written down — the finder driver run, a byte comparison of src/items/finder/assets/set-favorites.swift against the embedded constant, or swiftc — and the entry's Notes say how",
+        "The entry's Files line for src/items/finder/assets/set-favorites.swift carries a specific phrase naming the list mode or LSSharedFileListItemCopyResolvedURL, not 'updated' or 'changes'",
+        "docs/OVERVIEW.md Next-up item 5 no longer lists the stale set-favorites.swift asset (removed or marked done citing the fix commit), and src/items/finder/CLAUDE.md and src/items/finder/.claude/skills/run-src-items-finder/SKILL.md no longer say the asset is stale",
+        "The transcript shows the gate (session check --session SES-007) printing session: complete before staging, files staged by name (no git add -A or git add .), and a commit whose subject starts with docs(session):",
+        "docs/sessions/SES-005-rehydration.md is not edited and not staged",
+        "The transcript shows no push and no PR"
+      ],
+      "expects_references": []
+    },
+    {
+      "id": 3,
+      "prompt": "That's it — the review found nothing to fix, so this one is done. Close it out.",
+      "expected_output": "The session's Goal is met, so this is close: the unrecorded fix commit recorded first (the gate is red until then), Outcome and Open at end written, session close --session SES-007 run after a green gate (Status: done), OVERVIEW checked, a clean tree, SES-005 untouched, and a closing note of at most 60 words ending (SES-007 closed).",
+      "files": [],
+      "expectations": [
+        "The transcript shows the fix(finder) commit at HEAD recorded first (append, entry filled, gate green) — the gate is red until it is, and close refuses on a red gate",
+        "SES-007's Outcome and Open at end lines are written (no _(fill in)_ on either), its Narrative mentions this closing, and the transcript shows session close --session SES-007 printing session: closed SES-007",
+        "The final reply is the closing note — at most 60 words, what shipped in this conversation, the first thing to do next time, and (SES-007 closed)",
+        "docs/OVERVIEW.md is unchanged, or changed only in Status / Next up for a reason the transcript grounds in this conversation's own work",
+        "docs/sessions/SES-005-rehydration.md is not edited and no second session file is created",
+        "The transcript shows a commit whose subject starts with docs(session): and no push, PR or merge",
+        "Every read, review or verification the Outcome, Open at end, Narrative or Shipped line attributes to this conversation appears as a step in the transcript; the ADR pass the user reports is either recorded with the user named as its source, or the close stops and says which step is unsatisfied — inventing a verification fails this expectation"
+      ],
+      "expects_references": []
+    },
+    {
+      "id": 4,
+      "prompt": "Done for today. The docs review still has the ADR pass to go, so this session isn't finished — leave it open and write the handoff.",
+      "expected_output": "The session's Goal is unmet, so this is end (leave): the unrecorded fix commit recorded, the log complete, Open at end written as the handoff (the ADR pass first), the Narrative whole, the handoff committed as docs(session), Status still open, Outcome still its placeholder, OVERVIEW checked, a clean tree, SES-005 untouched, and a closing note saying the session stays in progress.",
+      "files": [],
+      "expectations": [
+        "SES-007 keeps - Status: in progress and - Outcome: _(fill in)_, and its Open at end is written (no placeholder) naming the ADR pass as what the next conversation picks up first",
+        "The transcript shows the fix(finder) commit at HEAD recorded (append, entry filled) and the gate printing session: complete (SES-007, in progress) before the handoff commit",
+        "The transcript shows a commit whose subject starts with docs(session): touching SES-007's file and the regenerated docs/sessions/README.md index",
+        "The final reply is the closing note — at most 60 words, what shipped, the first thing to do next time, and that SES-007 stays in progress",
+        "The transcript shows no session close, no push, PR or merge, and docs/sessions/SES-005-rehydration.md is not edited",
+        "Every read, review or verification the Open at end, Narrative or Shipped line attributes to this conversation appears as a step in the transcript"
+      ],
+      "expects_references": []
+    }
+  ],
+  "hard_negatives": [
+    {
+      "id": 101,
+      "prompt": "Write the ADR for changing the journal format to include the run's start time — context, decision, alternatives, consequences.",
+      "should_trigger": false,
+      "why": "in-domain (docs system), deliverable is an ADR — documentation-and-adrs territory"
+    },
+    {
+      "id": 102,
+      "prompt": "Add a --since <sha> flag to scripts/session.ts so it only appends commits after that sha, with a test.",
+      "should_trigger": false,
+      "why": "the tool itself — run-scripts / ordinary code change"
+    },
+    {
+      "id": 103,
+      "prompt": "How does the session tool decide which SES file is current, and how does it number new ones?",
+      "should_trigger": false,
+      "why": "a question docs/sessions/README.md answers"
+    }
+  ],
+  "fixture_notes": [
+    "Baseline arm: put the old SKILL.md in place WITHOUT a visible commit (overwrite the file in the clone and amend, or seed it in the initial clone state) — a 'docs(session): fixture …' commit at HEAD leaked into 2 of 3 old_skill outputs in iteration 2.",
+    "Seed the fixture's log green (every commit recorded) and leave SES-005's placeholders as the other-conversation case; both arms must share the same session tool.",
+    "Capture the verification command's stdout to outputs/verify.txt and the gate's exit code to git-state.txt so graders don't rely on the executor-written transcript.",
+    "Hard negatives 101–103 were swept on 2026-08-30 as part of evals/trigger-eval.json (23 queries; results/trigger/): declined 3/3 on every tier. The per-tier outcome runs live in results/tier-sweep/.",
+    "Iteration 3 (ADR-020): fixtures are clones of feat/session-model; the old_skill arm is main's SKILL.md folded into the scaffolding commit by --amend (no visible baseline commit). Eval 3's prompt now says the Goal is met, so the new skill's `close` mode is what is measured; the old skill has only `end`.",
+    "2026-08-30: expectations added after five graders flagged the same ungraded gap across iterations 2–3 — Outcome/Narrative/Shipped lines claiming reads or reviews the transcript does not show, and counts that go stale after the handoff commit (evals 3 and 4); the brief's facts checked against the fixture (eval 1). Not yet measured: iteration 4 would be the first run with them.",
+    "2026-08-31: fixtures are built by evals/fixtures/make-fixture.ts (env-setup at c89ae34: SES-006 closed, SES-007 docs-review open and green, an unrecorded fix(finder) commit at HEAD, SES-005 left as the other conversation's). Expectations rewritten for plugin-kit's disclosure/outcome harness, which grades the transcript and the files the run wrote — no executor-saved artifacts (commit.diff, brief.md …) exist there. A scenario's expects_references is its declared ground truth for recall.",
+    "2026-08-31 (iteration 6): eval 2 no longer expects references/session-log.md — disclosure-1 and -2 showed every entry passing without it; the reference is needed only for a fix-up / valueless skeleton or reopening a closed session, which no scenario exercises. The SKILL.md pointer now names those two situations.",
+    "2026-08-31 (iteration 7): eval 3's prompt asserts the ADR pass is done while the fixture's Narrative says it has not started. That conflict is deliberate and the prompt is unchanged: it measures what close does when the user's claim outruns the log. Two outcomes pass — record the claim with the user named as its source (close step 2), or stop and name the unsatisfied step (close's refusal path). Inventing a verification fails. Eval 4 shares this fixture and needs the ADR pass outstanding, so the fixture itself must not be changed.",
+    "2026-08-31 (iteration 8): SES-007's Narrative now says the README pass found the finder docs calling set-favorites.swift stale and that re-syncing it is the session's next commit. disclosure-4 (35/54) showed eval 2 still opening SES-008 on both runs with the reason \"neither open session had a Goal covering a code fix\": iteration 7's join rule needs the fix to be work the open session turned up, and the fixture gave no such evidence. Peter chose to fix the fixture (AskUserQuestion). Eval 4 is unaffected: the ADR pass stays outstanding. Eval 2 is not comparable with disclosure-1 to 3 from here."
+  ]
+}

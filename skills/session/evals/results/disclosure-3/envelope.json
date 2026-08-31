@@ -1,0 +1,183 @@
+{
+  "run": {
+    "artifact": "skill",
+    "target": "session",
+    "operation": "measure-disclosure",
+    "model": "sonnet",
+    "graderModel": "sonnet",
+    "workers": 20,
+    "runsPer": 2,
+    "timeoutSeconds": 600,
+    "evalSetHash": "sha256:2aadd89ee1e3f8d2190e8600acda36017ba59debdff92b01c53000732d34073c",
+    "targetSha": "sha256:cde7c76286cba0cf65abd1d39b1765fb92753908e64f22377c12311e1ca9d21a",
+    "installState": "absent",
+    "isolation": "verified",
+    "id": "measure-disclosure-session-20260831T104826Z-6faca0",
+    "startedAt": "2026-08-31T10:48:26.198Z"
+  },
+  "provenance": {
+    "tokenizer": "tiktoken",
+    "unit": "scenario run",
+    "scored": 8,
+    "excluded": 0,
+    "failed": 0,
+    "timeoutPolicy": "excluded",
+    "caps": [
+      "1 of 8 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.251, so 2 unrecognised skill name(s) were recorded rather than treated as contamination (run-envsetup, workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/59909.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 8 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.251, so 2 unrecognised skill name(s) were recorded rather than treated as contamination (run-envsetup, workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/59910.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 8 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.251, so 2 unrecognised skill name(s) were recorded rather than treated as contamination (run-envsetup, workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/59904.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 8 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.251, so 2 unrecognised skill name(s) were recorded rather than treated as contamination (run-envsetup, workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/59906.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 8 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.251, so 2 unrecognised skill name(s) were recorded rather than treated as contamination (run-envsetup, workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/59908.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 8 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.251, so 2 unrecognised skill name(s) were recorded rather than treated as contamination (run-envsetup, workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/59907.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 8 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.251, so 2 unrecognised skill name(s) were recorded rather than treated as contamination (run-envsetup, workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/59903.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "1 of 8 run(s): Isolation was verified, with caveats: the built-in skill list is pinned to CLI 2.1.241 and this child ran 2.1.251, so 2 unrecognised skill name(s) were recorded rather than treated as contamination (run-envsetup, workflow-authoring); the child still bound a cross-session inbox at `/tmp/cc-socks/59905.sock` and registered itself among the operator's live sessions -- it cannot address a session it can no longer enumerate, but the registration itself is not preventable from the spawn side.",
+      "Nothing was restructured. This run measured the layout AS AUTHORED and proposed no alternative, so every verdict below is a hypothesis about a cheaper layout rather than a measurement of one — no candidate was built, and none was tested.",
+      "Each scenario was run 2 time(s) per layout (`--runs-per-scenario`), so every pull rate in `rows` rests on at most that many runs per scenario. A rate from a single run is a boolean wearing a percentage sign.",
+      "Every one of the 4 scenario(s) is evidence about the same unmodified layout, so none was held back and the rows are computed over all of them. That is not the optimizer's optimistic training score — nothing was selected on this evidence, so there is no selection for it to be optimistic about.",
+      "Counted versus all: the denominator behind every rate in `headline` and behind every `assertionsTotal` is 8, out of 8 error-free run(s) on the layout the rows describe. Dropped: 0 where the body never reached context, and 0 where it reached context because the model READ SKILL.md itself rather than because the skill system delivered it — a different experiment, so it does not share the denominator. Outside that count entirely: 0 timeout(s) and 0 hard failure(s). `provenance.scored` is 8 and is NOT this denominator — it counts the file-loaded runs in. Two runs' headline figures are comparable only against each other's counted totals, never against each other's run counts."
+    ]
+  },
+  "headline": [
+    {
+      "label": "body tokens",
+      "value": 4988,
+      "unit": "tokens"
+    },
+    {
+      "label": "context tokens per run",
+      "value": 864904.125,
+      "unit": "tokens"
+    },
+    {
+      "label": "assertion pass rate",
+      "value": 0.6851851851851852,
+      "unit": "fraction"
+    },
+    {
+      "label": "bundled files measured",
+      "value": 7,
+      "unit": "files"
+    },
+    {
+      "label": "over-fetch rate",
+      "value": 0,
+      "unit": "fraction"
+    }
+  ],
+  "rows": [
+    {
+      "path": "CLAUDE.md",
+      "loadMode": "root",
+      "tokens": 661,
+      "pulls": 0,
+      "countedRuns": 8,
+      "pullRate": 0,
+      "recall": null,
+      "signposted": true,
+      "verdict": "prune"
+    },
+    {
+      "path": "CONTEXT.md",
+      "loadMode": "root",
+      "tokens": 612,
+      "pulls": 0,
+      "countedRuns": 8,
+      "pullRate": 0,
+      "recall": null,
+      "signposted": true,
+      "verdict": "prune"
+    },
+    {
+      "path": "references/session-log.md",
+      "loadMode": "read",
+      "tokens": 2823,
+      "pulls": 0,
+      "countedRuns": 8,
+      "pullRate": 0,
+      "recall": null,
+      "signposted": true,
+      "verdict": "prune"
+    },
+    {
+      "path": "scripts/paths.ts",
+      "loadMode": "execute",
+      "tokens": 315,
+      "pulls": 0,
+      "countedRuns": 8,
+      "pullRate": 0,
+      "recall": null,
+      "signposted": false,
+      "verdict": "keep"
+    },
+    {
+      "path": "scripts/session-lib.ts",
+      "loadMode": "execute",
+      "tokens": 1738,
+      "pulls": 0,
+      "countedRuns": 8,
+      "pullRate": 0,
+      "recall": null,
+      "signposted": false,
+      "verdict": "keep"
+    },
+    {
+      "path": "scripts/session.ts",
+      "loadMode": "execute",
+      "tokens": 4900,
+      "pulls": 0,
+      "countedRuns": 8,
+      "pullRate": 0,
+      "recall": null,
+      "signposted": true,
+      "verdict": "keep"
+    },
+    {
+      "path": "scripts/templates.ts",
+      "loadMode": "execute",
+      "tokens": 2623,
+      "pulls": 0,
+      "countedRuns": 8,
+      "pullRate": 0,
+      "recall": null,
+      "signposted": false,
+      "verdict": "keep"
+    }
+  ],
+  "verdicts": [
+    {
+      "subject": "CLAUDE.md",
+      "verdict": "prune",
+      "reason": "read on 0/8 run(s), and no scenario in the set declares it. The ground truth says nothing needs this file and the measurement says nothing reached for it, so deleting it is a hypothesis the next iteration can test."
+    },
+    {
+      "subject": "CONTEXT.md",
+      "verdict": "prune",
+      "reason": "read on 0/8 run(s), and no scenario in the set declares it. The ground truth says nothing needs this file and the measurement says nothing reached for it, so deleting it is a hypothesis the next iteration can test."
+    },
+    {
+      "subject": "references/session-log.md",
+      "verdict": "prune",
+      "reason": "read on 0/8 run(s), and no scenario in the set declares it. The ground truth says nothing needs this file and the measurement says nothing reached for it, so deleting it is a hypothesis the next iteration can test."
+    },
+    {
+      "subject": "scripts/paths.ts",
+      "verdict": "keep",
+      "reason": "a `execute`-mode file that no run read, which is what a working `execute` file looks like — its text is never meant to enter context."
+    },
+    {
+      "subject": "scripts/session-lib.ts",
+      "verdict": "keep",
+      "reason": "a `execute`-mode file that no run read, which is what a working `execute` file looks like — its text is never meant to enter context."
+    },
+    {
+      "subject": "scripts/session.ts",
+      "verdict": "keep",
+      "reason": "a `execute`-mode file that no run read, which is what a working `execute` file looks like — its text is never meant to enter context."
+    },
+    {
+      "subject": "scripts/templates.ts",
+      "verdict": "keep",
+      "reason": "a `execute`-mode file that no run read, which is what a working `execute` file looks like — its text is never meant to enter context."
+    }
+  ]
+}

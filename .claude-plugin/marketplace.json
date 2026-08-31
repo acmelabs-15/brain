@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "acmelabs-sessions",
+  "description": "The session plugin on its own — install from this repo without the ACMElabs marketplace",
+  "owner": { "name": "Peter Kloss", "email": "pkloss@gmail.com" },
+  "plugins": [
+    {
+      "name": "sessions",
+      "description": "Keeps a session log a fresh Claude Code conversation rehydrates from: /sessions:session start, entry, end, close, and the tool that gates every commit against it",
+      "version": "0.2.0",
+      "source": "./"
+    }
+  ]
+}
