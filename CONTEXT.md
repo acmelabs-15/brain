@@ -177,7 +177,7 @@ _Avoid_: CI, lint, verification step
 **Session log**:
 The `docs/sessions/` files together: the append-only record of every change that reached `main`
 and the narrative around it — what a conversation reads to rehydrate.
-_Avoid_: ledger, history, changelog (that is the generated one)
+_Avoid_: ledger (former name, retired 2026-08-30), history, changelog (that is the generated one)
 
 **Session**:
 A bounded stream of work toward one Goal, recorded in one `docs/sessions/SES-NNN` file;

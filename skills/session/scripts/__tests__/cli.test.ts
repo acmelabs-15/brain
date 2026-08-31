@@ -68,6 +68,37 @@ describe("an archived log (docs/sessions/archive/**) accounts for its commits", 
   });
 });
 
+describe("init --refresh rewrites only what the tool owns", () => {
+  test("the CONTEXT.md section is replaced and the sections after it kept; the README's index survives", async () => {
+    const root = mkdtempSync(join(tmpdir(), "session-refresh-"));
+    git(root, "init", "-q", "-b", "main");
+    expect(session(root, "init").code).toBe(0);
+    // A repo's own sections after the glossary, and an older wording inside it.
+    const ctx = join(root, "CONTEXT.md");
+    let text = await Bun.file(ctx).text();
+    text = text.replace("_Avoid_: ledger (former name, retired 2026-08-30)", "_Avoid_: ledger, an old wording");
+    text += "\n## Secrets\n\n**Key**:\nA thing the repo keeps.\n_Avoid_: token\n\n## Open\n\n- a question\n";
+    writeFileSync(ctx, text);
+    // A session in the index that a refresh must keep.
+    expect(session(root, "new", "work").code).toBe(0);
+    const before = session(root, "init");
+    expect(before.out).toContain("kept: ");
+    expect((await Bun.file(ctx).text()).includes("an old wording")).toBe(true);
+    const after = session(root, "init", "--refresh");
+    expect(after.code).toBe(0);
+    expect(after.out).toContain("the sections after it kept");
+    const refreshed = await Bun.file(ctx).text();
+    expect(refreshed).toContain("_Avoid_: ledger (former name, retired 2026-08-30)");
+    expect(refreshed).not.toContain("an old wording");
+    expect(refreshed).toContain("\n## Secrets\n");
+    expect(refreshed).toContain("\n## Open\n");
+    expect(refreshed.match(/^## The session log/gm)).toHaveLength(1);
+    const readme = await Bun.file(join(root, "docs", "sessions", "README.md")).text();
+    expect(readme).toContain("SES-001");
+    expect(readme).toContain("three acts");
+  });
+});
+
 describe("a merge of unrelated histories accounts for the history it brought in", () => {
   test("the merged-in repository's commits are not missing; an ordinary merge's commits still are", async () => {
     const root = mkdtempSync(join(tmpdir(), "session-foreign-"));

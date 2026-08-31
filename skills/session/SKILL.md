@@ -62,6 +62,9 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
 - **A Sessions line that says `no session log at …`** means no docs system yet: run
   `session init` (writes `docs/sessions/README.md` and the session-log section of `CONTEXT.md`;
   keeps any file that exists; `docs/plan/` is the plan skill's to create), commit that, continue.
+  After the plugin changes its templates, `session init --refresh` rewrites those two from the
+  current templates and nothing else — the README's index and every `CONTEXT.md` section after the
+  glossary's stay; regenerating them by hand once cut a repo's sections that followed.
 - **No sampling.** Every file a step names is read to its last line (continue with `offset`).
 - **Your session is the one named, never "the newest".** `/plan` hands over the `SES-NNN` of the
   part in progress, or the user names one; with neither, the tool takes the single session

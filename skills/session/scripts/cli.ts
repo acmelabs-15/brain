@@ -25,6 +25,8 @@ import {
   archiveDir,
   type Commit,
   CONTEXT_SECTION_HEADING,
+  SESSIONS_INDEX_END,
+  SESSIONS_INDEX_START,
   contextFile,
   contextSection,
   declinesEntry,
@@ -61,8 +63,10 @@ const COMMANDS = ["help", "init", "template", "list", "new", "append", "check", 
 const USAGE = `session — the session log tool (bun <plugin>/skills/session/scripts/cli.ts <command>)
 
   help                                    this text
-  init                                    scaffold docs/sessions/README.md and the CONTEXT.md glossary
-                                          section in this repo; existing files are kept. docs/plan/ is the
+  init [--refresh]                        scaffold docs/sessions/README.md and the CONTEXT.md glossary
+                                          section in this repo; existing files are kept. --refresh rewrites
+                                          the two from the current templates, keeping the README's index and
+                                          every CONTEXT.md section after the glossary's. docs/plan/ is the
                                           plan skill's to create — a plan's shape has one home, and it is not here
   template <session | sessions-readme | context>
                                           print one of the documents init writes (the session file's shape,
@@ -205,6 +209,7 @@ if (argv[0] === "--") argv.shift();
 const sessionArg = option(argv, "--session");
 const planArg = option(argv, "--plan");
 const brief = flag(argv, "--brief");
+const refresh = flag(argv, "--refresh");
 let cmd: Command;
 try {
   cmd = command(argv);
@@ -219,14 +224,31 @@ try {
  * the session-log section of CONTEXT.md. A file that already exists is left
  * exactly as it is — this is the first-run step, never a reset.
  */
-async function init(): Promise<void> {
+async function init(refresh: boolean): Promise<void> {
   // docs/plan/ is deliberately not scaffolded: the PRD and plan shapes belong to the plan skills
   // (planning-and-task-breakdown, spec-driven-development); this tool reads a plan's part status
   // lines and writes nothing else about plans (Peter, 2026-08-31).
+  //
+  // `--refresh` rewrites what this tool owns and nothing else: the README's prose around the index
+  // block it regenerates, and the CONTEXT.md section between its heading and the next `## `
+  // heading. Regenerating those by hand once cut every section that followed (env-setup,
+  // 2026-08-31), which is the defect this flag exists to remove.
   const writes: [string, string][] = [[INDEX, sessionsReadme()]];
   for (const [to, text] of writes) {
     if (existsSync(to)) {
-      console.log(`kept: ${to}`);
+      if (refresh) {
+        const old = await Bun.file(to).text();
+        const a = old.indexOf(SESSIONS_INDEX_START);
+        const b = old.indexOf(SESSIONS_INDEX_END);
+        const ta = text.indexOf(SESSIONS_INDEX_START);
+        const tb = text.indexOf(SESSIONS_INDEX_END);
+        if (a === -1 || b === -1) throw new Error(`${to} is missing the sessions:start/end markers — nothing to keep`);
+        const index = old.slice(a, b + SESSIONS_INDEX_END.length);
+        await Bun.write(to, text.slice(0, ta) + index + text.slice(tb + SESSIONS_INDEX_END.length));
+        console.log(`refreshed: ${to} (the index kept)`);
+      } else {
+        console.log(`kept: ${to}`);
+      }
       continue;
     }
     mkdirSync(join(to, ".."), { recursive: true });
@@ -238,8 +260,14 @@ async function init(): Promise<void> {
   const heading = CONTEXT_SECTION_HEADING;
   if (existsSync(ctx)) {
     const text = await Bun.file(ctx).text();
-    if (text.includes(heading)) {
-      console.log(`kept: ${ctx} (already has "${heading}")`);
+    if (text.includes(heading) && refresh) {
+      const at = text.indexOf(heading);
+      const after = text.indexOf("\n## ", at + heading.length);
+      const tail = after === -1 ? "" : text.slice(after + 1);
+      await Bun.write(ctx, `${text.slice(0, at)}${section}${tail ? `\n${tail}` : ""}`);
+      console.log(`refreshed: ${ctx} ← "${heading}" (${after === -1 ? "last section" : "the sections after it kept"})`);
+    } else if (text.includes(heading)) {
+      console.log(`kept: ${ctx} (already has "${heading}" — \`init --refresh\` rewrites it)`);
     } else {
       await Bun.write(ctx, `${text.replace(/\n+$/, "")}\n\n${section}`);
       console.log(`appended: ${ctx} ← "${heading}"`);
@@ -265,7 +293,7 @@ if (cmd === "template") {
   process.exit(0);
 }
 if (cmd === "init") {
-  await init().catch(refuse);
+  await init(refresh).catch(refuse);
   process.exit(0);
 }
 // `list --brief` is what the skill injects at load time, where a non-zero exit
@@ -477,7 +505,7 @@ async function append(): Promise<void> {
 const run: Record<Command, () => Promise<void>> = {
   help: async () => console.log(USAGE),
   template: async () => undefined,
-  init,
+  init: () => init(refresh),
   list,
   new: open,
   append,
