@@ -1,0 +1,15 @@
+# Analysis — research and investigations
+
+What we *found out*, against primary sources or empirically, as opposed to what we decided (`../decisions/`) or require (`../plan/PRD-001-…`). Unverified beliefs are labelled unverified.
+
+## Index
+
+| Doc | Question it answers | Status |
+| --- | --- | --- |
+| [ANA-001-rehydration-ownership.md](ANA-001-rehydration-ownership.md) | Who should own rehydration; every installed skill and both authors' lifecycles read in full; four homes found; the design that gives the plan the procedure and the session the record | decided |
+
+## Rules
+
+- **One per file**, `<TYPE>-NNN-<kebab-title>.md`, numbered sequentially, never renumbered.
+- **Every claim cites a primary source**; `Refuted` and `Unverifiable` sections stay so a wrong belief is not re-researched.
+- **Produced with** the `research` skill; its template is the template.
