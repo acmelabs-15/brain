@@ -1,12 +1,12 @@
 /**
  * Session log tooling — <repo>/docs/sessions/*.md, one file per session (a
- * bounded stream of work toward one Goal, open until closed; a conversation
- * joins an open session or opens one before its first commit). `session help`
+ * bounded stream of work toward one Goal, `in progress` until `close` writes
+ * `done`; a conversation names the session it logs into). `session help`
  * prints USAGE below; the templates it writes are code in templates.ts.
  *
  * Which session a run acts on: the one named with --session, else the single
- * open session. No open session, or more than one, is an error that says what
- * to do — never a guess into another conversation's file.
+ * session in progress. None, or more than one, is an error that says what to
+ * do — never a guess into another conversation's file.
  *
  * Append-only: every commit on the current branch (merges excluded) that no
  * session accounts for -- no entry heading, no parent entry's `- Also: <sha>`
@@ -58,18 +58,19 @@ const USAGE = `session — the session log tool (bun <plugin>/skills/session/scr
   template <session | sessions-readme | context>
                                           print one of the documents init writes (the session file's shape,
                                           the sessions README, the glossary section)
-  list [--plan PLAN-NNN] [--brief]        every session: id, status, title · plan, its Goal; then "open: …"
+  list [--plan PLAN-NNN] [--brief]        every session: id, status, title · plan, its Goal; then "in progress: …"
                                           --plan narrows to the sessions serving that plan; --brief drops the
                                           Goal lines, adds "unrecorded: <sha> <subject>" per commit no session
                                           accounts for, and reports a missing log on stdout, exit 0
-  new <slug> [--plan "PLAN-NNN · part N"] open SES-<next>-<slug>.md (Status: open) and regenerate the index
+  new <slug> [--plan "PLAN-NNN · part N"] start SES-<next>-<slug>.md (Status: in progress) and regenerate the index
   append [--session SES-NNN]              entry skeletons for commits no session accounts for ("up to date" when none)
   current [--session SES-NNN]             the session's file, status, Goal, and every placeholder by line number
   check [--session SES-NNN]               the gate: exit 0 "session: complete", exit 1 with missing:/unfilled: lines
-  close [--session SES-NNN]               the gate (now counting Outcome and Open at end), then Status: closed
+  close [--session SES-NNN]               the gate (now counting Outcome and Open at end), then Status: done
 
-Which session a run acts on: --session (SES-NNN, the number, or the file name), else the single open
-session; none or several open is a refusal that says what to do. The repo is CLAUDE_PROJECT_DIR, else
+Which session a run acts on: --session (SES-NNN, the number, or the file name), else the single session
+in progress; none or several in progress is a refusal that says what to do. A session is "in progress"
+or "done" — the words a plan and a plan part use; the older "open" / "closed" are still read. The repo is CLAUDE_PROJECT_DIR, else
 the git toplevel, else the working directory. Accounted for: an entry heading with the sha, a parent
 entry's "- Also: <sha>" line, the trailer "Session-entry: none" in the commit message, or a
 docs(session)/docs(ledger) subject. Every refusal is one "session: …" line on stderr and exit 1.`;
@@ -345,18 +346,18 @@ function gate(target: Session, missing: Commit[], closing = false): boolean {
   return missing.length === 0 && unfilled === 0;
 }
 
-const openIds = () => all.filter((s) => s.status === "open").map((s) => id(s.seq));
+const inProgressIds = () => all.filter((s) => s.status === "in progress").map((s) => id(s.seq));
 
 async function list(): Promise<void> {
   // --plan PLAN-NNN narrows to the sessions serving that plan (any part).
   const shown = planArg ? all.filter((s) => servesPlan(s.plan, planArg)) : all;
   for (const s of shown) {
-    console.log(`${id(s.seq)}  ${s.status.padEnd(6)}  ${s.title}${s.plan ? ` · ${s.plan}` : ""}`);
+    console.log(`${id(s.seq)}  ${s.status.padEnd(11)}  ${s.title}${s.plan ? ` · ${s.plan}` : ""}`);
     if (!brief) console.log(`            ${s.goal || "(no Goal)"}`);
   }
   if (planArg && shown.length === 0) console.log(`no session serves ${planArg}`);
-  const open = openIds();
-  console.log(open.length ? `open: ${open.join(", ")}` : "open: none");
+  const active = inProgressIds();
+  console.log(active.length ? `in progress: ${active.join(", ")}` : "in progress: none");
   // The injected state is the one place a conversation is told, before it acts, that a
   // commit on this branch has no entry -- the brief's Findings line comes from here.
   if (brief) {
@@ -377,13 +378,13 @@ async function open(): Promise<void> {
   if (await Bun.file(file).exists()) throw new Error(`${name} already exists`);
   const title = slug.replace(/-/g, " ");
   const text = template(started, title, planArg ?? "");
-  const others = openIds();
+  const others = inProgressIds();
   await Bun.write(file, text);
   await writeIndex([...all, { ...parseHeader(name, text), file, name, text }]);
   console.log(
-    `session: opened ${name} — set the Goal line and the title; pass \`--session ${id(seq)}\` to later runs.`,
+    `session: started ${name} — set the Goal line and the title; pass \`--session ${id(seq)}\` to later runs.`,
   );
-  if (others.length) console.log(`note: also open — ${others.join(", ")}`);
+  if (others.length) console.log(`note: also in progress — ${others.join(", ")}`);
 }
 
 async function current(): Promise<void> {
@@ -419,21 +420,21 @@ async function check(): Promise<void> {
 async function close(): Promise<void> {
   // Closing is the gate plus the Outcome: a session closes complete or not at all.
   const target = selectSession(all, sessionArg);
-  if (target.status === "closed") {
-    console.log(`session: ${id(target.seq)} is already closed`);
+  if (target.status === "done") {
+    console.log(`session: ${id(target.seq)} is already done`);
     return;
   }
   if (!gate(target, missingCommits(), true)) {
     console.log(`session: NOT closed — ${id(target.seq)} is not complete.`);
     process.exit(1);
   }
-  target.text = withStatus(target.text, "closed");
-  target.status = "closed";
+  target.text = withStatus(target.text, "done");
+  target.status = "done";
   await Bun.write(target.file, target.text);
   await writeIndex(all);
-  const open = openIds();
+  const active = inProgressIds();
   console.log(
-    `session: closed ${id(target.seq)}${open.length ? ` — still open: ${open.join(", ")}` : ""}`,
+    `session: closed ${id(target.seq)} — done${active.length ? `; still in progress: ${active.join(", ")}` : ""}`,
   );
 }
 
@@ -445,9 +446,9 @@ async function append(): Promise<void> {
     return;
   }
   const target = selectSession(all, sessionArg);
-  if (target.status === "closed") {
+  if (target.status === "done") {
     throw new Error(
-      `${id(target.seq)} is closed — reopen it (edit its Status line) or open a new session with \`new <slug>\``,
+      `${id(target.seq)} is done — reopen it (edit its Status line to in progress) or start a new session with \`new <slug>\``,
     );
   }
   const tags = tagsByCommit();

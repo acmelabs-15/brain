@@ -1,7 +1,7 @@
 # 2026-08-31 06:31 · The record's model — status, three acts, no handoff
 
 - Goal: PLAN-002 Part 1 — the session skill keeps the record only: one status (`in progress | done`), three acts (start · log · close) with argument inference, `Open at end` retired, and `session init` writing nothing under `docs/plan/`; every change lands here with an entry before the skill moves to `~/.claude/skills`.
-- Status: open
+- Status: in progress
 - Plan: PLAN-002 · part 1
 - Outcome: _(fill in)_
 - Open at end: PLAN-002 Part 1 Task 2 is next — the status vocabulary (`in progress | done`, the header, the tool's words, the glossary, `parseHeader` reading both old and new for one release). Unverified: nothing yet in this session. (This line is retired by Task 3 of this part; it stays until then.)

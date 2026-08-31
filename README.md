@@ -21,8 +21,8 @@ whole story of how it got there.
 | `/sessions:session start [PLAN-NNN]` | a conversation's first read: OVERVIEW → the plan and its PRD → every open session serving it → `CONTEXT.md` → the ADRs it cites; joins the session the plan part names or opens one and marks the part `in progress (session SES-NNN)`; posts a brief. A `PLAN-NNN` that does not exist is written first with `planning-and-task-breakdown` |
 | `/sessions:session continue [PLAN-NNN]` | picks a plan part already in progress back up; with no id, lists the plans in progress and asks which |
 | `/sessions:session entry` | right after every commit: appends the commit's entry (Summary, Why, a line per touched file), fills it, updates what the change made stale (plan ticks, OVERVIEW, ADR, PRD, `CONTEXT.md`), gates, commits `docs(session): …` |
-| `/sessions:session end` | leaving: log complete, handoff written in `Open at end`, tree clean; the session stays open |
-| `/sessions:session close` | the Goal is done: Outcome written, plan part `done (session SES-NNN, sha)`, `Status: closed` |
+| `/sessions:session end` | leaving: log complete, handoff written in `Open at end`, tree clean; the session stays in progress |
+| `/sessions:session close` | the Goal is done: Outcome written, plan part `done (session SES-NNN, sha)`, `Status: done` |
 
 `/sessions:session-start`, `/sessions:session-continue`, `/sessions:session-entry`,
 `/sessions:session-end`, `/sessions:session-close` are typed-only aliases of the five modes, for
@@ -31,7 +31,7 @@ the `/` menu rather than for brevity; a bare `PLAN-NNN` is `continue` when the p
 `/session-start` resolves to nothing (measured 2026-08-31, CLI 2.1.251). The skill is also
 invoked by Claude itself when a conversation in a repo with `docs/sessions/` is about to commit.
 
-A **session** is a bounded stream of work toward one Goal, open until closed, spanning any number
+A **session** is a bounded stream of work toward one Goal, `in progress` until `done`, spanning any number
 of conversations; a conversation joins one or opens one before its first commit, and one that
 changes nothing needs none. The log holds value only: a fix-up commit gets no entry (its parent's
 `Also:` line vouches for it) and a commit with nothing to record carries the trailer
@@ -69,12 +69,12 @@ every subcommand with its output; the short form:
 ```bash
 session init                             # scaffold docs/sessions and the CONTEXT.md section (keeps existing files)
 session template <session | sessions-readme | context>   # print one of the documents init writes
-session list [--plan PLAN-NNN] [--brief] # SES-NNN  open|closed  title · plan, its Goal (--brief: no Goal line); then "open: …"
-session new <slug> [--plan "PLAN-NNN · part N"]   # open SES-<next>-<slug>.md (Status: open) and regenerate the index
+session list [--plan PLAN-NNN] [--brief] # SES-NNN  in progress|done  title · plan, its Goal (--brief: no Goal line); then "in progress: …"
+session new <slug> [--plan "PLAN-NNN · part N"]   # start SES-<next>-<slug>.md (Status: in progress) and regenerate the index
 session append --session SES-NNN         # skeletons for commits no session accounts for → "session: up to date" when none
 session current --session SES-NNN        # the file, status, Goal, every placeholder with its line number
-session check --session SES-NNN          # the gate: exit 0 + "session: complete (SES-NNN, open)"; exit 1 + missing:/unfilled: lines
-session close --session SES-NNN          # gate (now counting Outcome / Open at end), then Status: closed
+session check --session SES-NNN          # the gate: exit 0 + "session: complete (SES-NNN, in progress)"; exit 1 + missing:/unfilled: lines
+session close --session SES-NNN          # gate (now counting Outcome / Open at end), then Status: done
 ```
 
 The rules the gate enforces — what counts as accounted for, what a placeholder is, what is never

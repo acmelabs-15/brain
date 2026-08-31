@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "I'm picking envsetup back up. Where are we, and what should I do first?",
-      "expected_output": "A brief (under 1,600 characters) in the skill's template — released version, unreleased on main, parked branches, open/unverified items, the proposed next item and its first step, a Session line, a 'read in full:' line. The message is a question, so the Session line may say none (nothing to record yet) — then no file is created; if the run opens one instead, exactly one new docs/sessions/SES-NNN with Status: open and its Goal set; either way nothing else on disk changes except the regenerated sessions index.",
+      "expected_output": "A brief (under 1,600 characters) in the skill's template — released version, unreleased on main, parked branches, open/unverified items, the proposed next item and its first step, a Session line, a 'read in full:' line. The message is a question, so the Session line may say none (nothing to record yet) — then no file is created; if the run opens one instead, exactly one new docs/sessions/SES-NNN with Status: in progress and its Goal set; either way nothing else on disk changes except the regenerated sessions index.",
       "files": [],
       "expectations": [
         "The final reply is a brief in the skill's template — Released, Unreleased on main, Parked, Findings, Open / unverified, Plan, Next, Session and a line starting with 'read in full:' — and is under 1,600 characters",
@@ -36,7 +36,7 @@
     {
       "id": 3,
       "prompt": "That's it — the review found nothing to fix, so this one is done. Close it out.",
-      "expected_output": "The session's Goal is met, so this is close: the unrecorded fix commit recorded first (the gate is red until then), Outcome and Open at end written, session close --session SES-007 run after a green gate (Status: closed), OVERVIEW checked, a clean tree, SES-005 untouched, and a closing note of at most 60 words ending (SES-007 closed).",
+      "expected_output": "The session's Goal is met, so this is close: the unrecorded fix commit recorded first (the gate is red until then), Outcome and Open at end written, session close --session SES-007 run after a green gate (Status: done), OVERVIEW checked, a clean tree, SES-005 untouched, and a closing note of at most 60 words ending (SES-007 closed).",
       "files": [],
       "expectations": [
         "The transcript shows the fix(finder) commit at HEAD recorded first (append, entry filled, gate green) — the gate is red until it is, and close refuses on a red gate",
@@ -52,13 +52,13 @@
     {
       "id": 4,
       "prompt": "Done for today. The docs review still has the ADR pass to go, so this session isn't finished — leave it open and write the handoff.",
-      "expected_output": "The session's Goal is unmet, so this is end (leave): the unrecorded fix commit recorded, the log complete, Open at end written as the handoff (the ADR pass first), the Narrative whole, the handoff committed as docs(session), Status still open, Outcome still its placeholder, OVERVIEW checked, a clean tree, SES-005 untouched, and a closing note saying the session stays open.",
+      "expected_output": "The session's Goal is unmet, so this is end (leave): the unrecorded fix commit recorded, the log complete, Open at end written as the handoff (the ADR pass first), the Narrative whole, the handoff committed as docs(session), Status still open, Outcome still its placeholder, OVERVIEW checked, a clean tree, SES-005 untouched, and a closing note saying the session stays in progress.",
       "files": [],
       "expectations": [
-        "SES-007 keeps - Status: open and - Outcome: _(fill in)_, and its Open at end is written (no placeholder) naming the ADR pass as what the next conversation picks up first",
-        "The transcript shows the fix(finder) commit at HEAD recorded (append, entry filled) and the gate printing session: complete (SES-007, open) before the handoff commit",
+        "SES-007 keeps - Status: in progress and - Outcome: _(fill in)_, and its Open at end is written (no placeholder) naming the ADR pass as what the next conversation picks up first",
+        "The transcript shows the fix(finder) commit at HEAD recorded (append, entry filled) and the gate printing session: complete (SES-007, in progress) before the handoff commit",
         "The transcript shows a commit whose subject starts with docs(session): touching SES-007's file and the regenerated docs/sessions/README.md index",
-        "The final reply is the closing note — at most 60 words, what shipped, the first thing to do next time, and that SES-007 stays open",
+        "The final reply is the closing note — at most 60 words, what shipped, the first thing to do next time, and that SES-007 stays in progress",
         "The transcript shows no session close, no push, PR or merge, and docs/sessions/SES-005-rehydration.md is not edited",
         "Every read, review or verification the Open at end, Narrative or Shipped line attributes to this conversation appears as a step in the transcript"
       ],

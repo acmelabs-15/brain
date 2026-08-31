@@ -13,7 +13,7 @@ installed the plugin* — this repo keeps no `docs/sessions/` of its own.
 | **Session log** | the record as a whole |
 | **Session** | one bounded stream of work toward one Goal |
 | **Conversation** | one exchange with Claude; many may share a session |
-| **Open** / **Closed** | a session's status |
+| **Status** | one vocabulary: a session is `in progress` or `done`; a plan part `planned` / `in progress (session SES-NNN)` / `done (session SES-NNN, sha)`; a plan `planned` / `in progress` / `done` |
 | **Join** / **Open** / **Leave** / **Close** | what a conversation does to a session |
 | **Plan part** | the unit of a plan a session serves |
 | **Handoff** | what `Open at end` carries to the next conversation |

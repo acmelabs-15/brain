@@ -155,7 +155,7 @@ Progress:
      unplanned work); set the title and `Goal` in the file it names; then the part's status line,
      ALWAYS this exact form: `> Status: in progress (session SES-NNN)` — how the next conversation
      finds this session. Sessions run in parallel by design, one per part. On **unplanned** work
-     `new` answers with `note: also open — SES-…`: read that as a question — is this a separate
+     `new` answers with `note: also in progress — SES-…`: read that as a question — is this a separate
      stream, or the open session's own work? — and join instead when it is the latter;
    - **none** — a question, a review, a check; nothing will change. Say so. The moment the work
      turns into a change, run this step alone before the first commit.
@@ -232,7 +232,7 @@ Entry progress:
 5. Gate and commit, three commands in this order, each on its own:
 
    ```bash
-   session check --session SES-NNN               # prints: session: complete (SES-NNN, open)
+   session check --session SES-NNN               # prints: session: complete (SES-NNN, in progress)
    git add docs/sessions/SES-NNN-<slug>.md docs/sessions/README.md <other docs you touched>
    git commit -m "docs(session): <what the entry records>"
    ```
@@ -259,7 +259,7 @@ End progress:
 ```
 
 1. `session append --session SES-NNN` (expect `up to date`), then the gate (expect
-   `session: complete (SES-NNN, open)`).
+   `session: complete (SES-NNN, in progress)`).
 2. `Open at end` = what the next conversation picks up first and what is unverified; the Narrative
    whole; every entry's `Notes` says what was verified. `Outcome` stays its placeholder; the plan
    part stays `in progress (session SES-NNN)` — the pointer `continue` follows.
@@ -310,7 +310,7 @@ Close progress:
    every part done → the plan's top status `done — shipped in vX.Y.Z (session SES-NNN)` and the
    PRD's **Plans** row say the same; OVERVIEW Status names the session as closed.
 4. `session close --session SES-NNN` — the gate again, now counting `Outcome` and `Open at end`;
-   prints `session: closed SES-NNN` (a `— still open: …` suffix names other conversations'
+   prints `session: closed SES-NNN — done` (a `still in progress: …` suffix names other conversations'
    sessions). Then `git add` your session file, the index, OVERVIEW and every plan or PRD step 3
    touched — by name, never `-A` — commit `docs(session): close SES-NNN`, and run `end` step 5.
 5. The closing note as in `end` — the whole reply — with `(SES-NNN closed)` on the second line.

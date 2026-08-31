@@ -58,7 +58,7 @@ The plan's own top status (`> Status: planned | in progress | done — shipped i
 # [YYYY-MM-DD HH:MM] · [Title of the session]
 
 - Goal: [what this session set out to do]
-- Status: open
+- Status: in progress
 - Plan: [PLAN-NNN · part N, or —]
 - Outcome: [what it actually delivered — releases, merged PRs; written when it closes]
 - Open at end: [the handoff — what the next conversation picks up first, what is unverified]
@@ -85,9 +85,9 @@ The header lines are read by the tool:
 
 - The H1 `# YYYY-MM-DD HH:MM · Title` records when the session opened and is required — the tool refuses a file without it.
 - `SES-NNN` orders sessions; the number never changes.
-- `- Status: open` until `session close` writes `closed`. A file without the line (written before the line existed, or another conversation's) reads as open.
+- `- Status: in progress` until `session close` writes `done` — the words a plan and a plan part use. A file without the line reads as in progress; the pre-ADR-024 words `open` / `closed` are read as `in progress` / `done` and never written.
 - `- Plan: PLAN-NNN · part N`, or `—` for unplanned work; `session list --plan PLAN-NNN` matches on it.
-- `- Outcome:` and `- Open at end:` keep their `_(fill in)_` placeholders while the session is open — the gate does not count them; `close` does.
+- `- Outcome:` and `- Open at end:` keep their `_(fill in)_` placeholders while the session is in progress — the gate does not count them; `close` does.
 - `## Narrative` and `## Changes (one entry per commit, in order)` follow; the entries are appended under Changes.
 
 ---
@@ -145,7 +145,7 @@ Decide at commit time. A valueless commit already pushed without the trailer is 
 - **Every commit on the current branch is accounted for** — by an entry heading carrying its sha, by a parent entry's `Also:` line, by the `Session-entry: none` trailer, or by a `docs(session)` subject. Merges are excluded, and a rename shows as a delete plus an add. Anything else prints `missing: <sha> <subject>`.
 - **Your session has no placeholder the gate counts** — `_(fill in)_` on an entry line, the Goal, or the Narrative. `Outcome` and `Open at end` are counted only by `close`. Placeholders in any other session print as warnings and are that conversation's to fill.
 
-Which session is "yours": `--session SES-NNN` (or the number, or the file name); with no flag, the single open session; none or several open is a refusal that says what to do.
+Which session is "yours": `--session SES-NNN` (or the number, or the file name); with no flag, the single session in progress; none or several in progress is a refusal that says what to do.
 
 ---
 

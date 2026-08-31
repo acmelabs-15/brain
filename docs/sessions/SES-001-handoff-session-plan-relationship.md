@@ -1,7 +1,7 @@
 # 2026-08-31 02:35 · Handoff — the session ↔ plan relationship, the re-evaluation, the plugin-kit parity branch
 
 - Goal: Finish the session ↔ plan relationship end to end (env-setup PR #44, the closes, the interactive checks), re-evaluate this skill on plugin-kit's loops, and land the plugin-kit parity branch — everything PLAN-001 lists.
-- Status: open
+- Status: in progress
 - Plan: PLAN-001 · parts 1, 2, 4, 5
 - Outcome: _(fill in)_
 - Open at end: PLAN-001 is the whole handoff — every part's tasks say what is done (with shas) and what

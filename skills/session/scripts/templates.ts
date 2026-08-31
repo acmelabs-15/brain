@@ -14,7 +14,7 @@ export function sessionFileTemplate(): string {
   return `# [YYYY-MM-DD HH:MM] · [Title of the session]
 
 - Goal: [what this session set out to do]
-- Status: open
+- Status: in progress
 - Plan: [PLAN-NNN · part N, or —]
 - Outcome: [what it actually delivered — releases, merged PRs; written when it closes]
 - Open at end: [the handoff — what the next conversation picks up first, what is unverified]
@@ -88,15 +88,17 @@ number of conversations and may serve a plan part (its \`Plan:\` line).
 _Avoid_: conversation (for this), sitting, chat, the newest file (as the definition of current)
 
 **Conversation**:
-One agent context or one human sitting. A participant in a session: it joins the open session
-whose Goal is its work, or opens one, before its first commit; a conversation that changes nothing
+One agent context or one human sitting. A participant in a session: it names the session in
+progress it logs into, or starts one, before its first commit; a conversation that changes nothing
 needs none.
 _Avoid_: session (for this)
 
-**Open** / **Closed** (session status):
-Open — work toward the Goal may still land; the tool appends entries and gates it. Closed — the
-Goal is done or abandoned, the Outcome says which; nothing is appended to it again.
-_Avoid_: current (as the status word), active, done (for the status), finished
+**Status** (one vocabulary for session, plan and plan part):
+A session is \`in progress\` from \`session new\` until \`session close\` writes \`done\` — the Outcome says
+whether the Goal was met or abandoned; nothing is appended to a done session. A plan part is
+\`planned\`, \`in progress (session SES-NNN)\` or \`done (session SES-NNN, sha)\`; a plan is \`planned\`,
+\`in progress\` or \`done\`. Tickets and ADRs carry their own words (triage roles; Accepted / Superseded).
+_Avoid_: open, closed (the pre-ADR-024 session words, still read), active, current, finished, complete (as a status)
 
 **Join** / **Open** / **Leave** / **Close** (a conversation's moves):
 Join — take an open session as yours because you will record entries into it and its Goal is your

@@ -12,8 +12,8 @@ describe("templates", () => {
 
   test("the session file template is the shape `new` writes, plus one worked entry", () => {
     const written = template("2026-01-01 00:00", "t", "");
-    expect(parseHeader("SES-001-x.md", written).status).toBe("open");
-    for (const line of ["- Goal:", "- Status: open", "- Plan:", "- Outcome:", "- Open at end:", "## Narrative", "## Changes"]) {
+    expect(parseHeader("SES-001-x.md", written).status).toBe("in progress");
+    for (const line of ["- Goal:", "- Status: in progress", "- Plan:", "- Outcome:", "- Open at end:", "## Narrative", "## Changes"]) {
       expect(sessionFileTemplate()).toContain(line);
       expect(written).toContain(line);
     }

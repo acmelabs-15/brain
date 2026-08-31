@@ -3,16 +3,18 @@
  * parsing a session file's header, choosing which session a run acts on, and
  * the text edits that never touch an entry.
  *
- * A session is a bounded stream of work toward one Goal. It is
- * `open` from `new` until `close` writes `Status: closed`; a conversation
- * joins an open session or opens one before its first commit, and a
- * conversation that changes nothing needs none. A file without a Status line
- * (another conversation's, or one written before the Status line existed) is read as open.
+ * A session is a bounded stream of work toward one Goal. Its status is
+ * `in progress` from `new` until `close` writes `done` — the same words a plan
+ * and a plan part carry (ADR-024). A conversation names the session it logs
+ * into; one that changes nothing needs none. A file without a Status line, or
+ * with the pre-ADR-024 words `open` / `closed`, is read as `in progress` / `done`.
  */
 
 export const FILL = "_(fill in)_";
-export const STATUSES = ["open", "closed"] as const;
+export const STATUSES = ["in progress", "done"] as const;
 export type Status = (typeof STATUSES)[number];
+/** The words sessions carried before ADR-024; read, never written. */
+const LEGACY_STATUS: Record<string, Status> = { open: "in progress", closed: "done" };
 
 export interface SessionHeader {
   seq: number;
@@ -47,8 +49,14 @@ export function parseHeader(name: string, text: string): SessionHeader {
   const h1 = text.match(/^# (\d{4}-\d{2}-\d{2} \d{2}:\d{2}) · (.+)$/m);
   if (!h1) throw new Error(`${name}: first heading must be "# YYYY-MM-DD HH:MM · Title"`);
   const goal = text.match(/^- Goal: (.+)$/m)?.[1] ?? "";
-  const rawStatus = text.match(/^- Status: (\S+)/m)?.[1];
-  if (rawStatus !== undefined && !STATUSES.includes(rawStatus as Status)) {
+  const rawStatus = text.match(/^- Status: (.+?)\s*$/m)?.[1];
+  const status: Status | undefined =
+    rawStatus === undefined
+      ? undefined
+      : STATUSES.includes(rawStatus as Status)
+        ? (rawStatus as Status)
+        : LEGACY_STATUS[rawStatus];
+  if (rawStatus !== undefined && status === undefined) {
     throw new Error(`${name}: Status must be one of ${STATUSES.join(" | ")}, got "${rawStatus}"`);
   }
   const plan = (text.match(/^- Plan: (.+)$/m)?.[1] ?? "").trim();
@@ -57,7 +65,7 @@ export function parseHeader(name: string, text: string): SessionHeader {
     started: h1[1] ?? "",
     title: h1[2] ?? "",
     goal,
-    status: (rawStatus as Status | undefined) ?? "open",
+    status: status ?? "in progress",
     plan: plan === "—" || plan === "-" || plan === "none" ? "" : plan,
   };
 }
@@ -66,7 +74,7 @@ export function template(started: string, title: string, plan: string): string {
   return `# ${started} · ${title}
 
 - Goal: ${FILL}
-- Status: open
+- Status: in progress
 - Plan: ${plan || "—"}
 - Outcome: ${FILL}
 - Open at end: ${FILL}
@@ -81,8 +89,8 @@ ${FILL} — what was asked, decided, tried and abandoned, verified (and how); ci
 
 /**
  * Placeholder lines the gate counts: entry lines, the Goal and the Narrative
- * placeholder. `Outcome` and `Open at end` are the closing lines — an open
- * session has none yet — so only `--close` (`closing: true`) counts them.
+ * placeholder. `Outcome` and `Open at end` are the closing lines — a session
+ * in progress has none yet — so only `close` (`closing: true`) counts them.
  */
 export function placeholderCount(text: string, closing = false): number {
   return text.split("\n").filter((l) => {
@@ -116,9 +124,9 @@ export function indexRow(s: Session): string {
 
 /**
  * Which session a run acts on. Named (`--session SES-004`, `4`, or the file
- * name) wins; otherwise the one open session. None open or several open are
- * errors that say what to do, because guessing wrong writes into another
- * conversation's file.
+ * name) wins; otherwise the one session in progress. None or several in
+ * progress are errors that say what to do, because guessing wrong writes into
+ * another conversation's file.
  */
 export function selectSession(all: readonly Session[], arg: string | undefined): Session {
   if (arg !== undefined) {
@@ -129,15 +137,15 @@ export function selectSession(all: readonly Session[], arg: string | undefined):
     if (!found) throw new Error(`no session file matches --session ${arg}`);
     return found;
   }
-  const open = all.filter((s) => s.status === "open");
-  if (open.length === 1 && open[0]) return open[0];
-  if (open.length === 0) {
+  const active = all.filter((s) => s.status === "in progress");
+  if (active.length === 1 && active[0]) return active[0];
+  if (active.length === 0) {
     throw new Error(
-      "no open session — join one with `--session SES-NNN` or open one with `new <slug>`",
+      "no session in progress — name one with `--session SES-NNN` or start one with `new <slug>`",
     );
   }
-  const list = open.map((s) => `${id(s.seq)} (${s.title})`).join(", ");
-  throw new Error(`${open.length} open sessions — say which with --session: ${list}`);
+  const list = active.map((s) => `${id(s.seq)} (${s.title})`).join(", ");
+  throw new Error(`${active.length} sessions in progress — say which with --session: ${list}`);
 }
 
 /**
