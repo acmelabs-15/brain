@@ -336,19 +336,24 @@ After Part 4 and Part 2; ANA-003 F5.
   files under `references/` are upstream's own (`accessibility-checklist`, `definition-of-done`,
   `observability-checklist`, `orchestration-patterns`, `performance-checklist`,
   `security-checklist`, `testing-patterns` ship in `~/Dev/reference/addy-osmani-agent-skills/references/`);
-  `issue-tracker.md` and `project-docs-conventions.md` are local. The Addy skills differ from
+  `issue-tracker.md` and `project-docs-conventions.md` are local. Peter's premise was that the
+  references stood in for skills not yet installed; measured, it does not hold for the seven — they
+  are byte-identical to upstream and upstream's own skills cite them (the same citers brain has),
+  so they are Addy's design, loaded on demand, and all 24 of his skills are here. What is local:
+  the two files above; the pointers to `orchestration-patterns` added in `/ship`, the four agents
+  and `choosing-a-skill` (upstream has one citer, `doubt-driven-development`); the agents' drift
+  of 2–8 lines (the "Project vocabulary" section and that pointer); and the eight commands, which
+  are local `.md` renderings of upstream's `.toml` files, not copies. The Addy skills differ from
   upstream by 0–8 lines each (the `CONTEXT.md` read rule, the ADR-location rule) except
   `planning-and-task-breakdown` (37, the plan template's parts and status lines — ADR-022) and
-  `spec-driven-development` (20, the Plans table). For each reference: which skills cite it (the
-  grep is in SES-002's Narrative), whether any measured run ever read it (the disclosure lesson of
-  ANA-002: a bundled file no run reads is unnecessary or poorly signposted), and whether the citing
-  skill's local edit was only the pointer — if so, restore upstream's text and drop the reference;
-  keep a reference only where a skill demonstrably loads it. Decide each with Peter
-  (`ask-user-question`). Acceptance: every file left under `references/` is cited by a skill that
-  reads it; every Addy skill whose only drift was a reference pointer is byte-identical to upstream
-  again; the two deliberate edits (`CONTEXT.md` read rule; the plan's status lines) stay and are
-  named as the drift that remains. Verification: `diff -r` against the reference checkout, listed
-  per skill in the entry.
+  `spec-driven-development` (20, the Plans table). So the audit is: keep the seven as upstream
+  ships them; decide the two local references and the local-only pointers with Peter
+  (`ask-user-question`), each on whether a skill demonstrably loads it (the disclosure lesson of
+  ANA-002: a bundled file no run reads is unnecessary or poorly signposted); the `CONTEXT.md` read
+  rule and the plan's status lines stay as the drift that is meant. Acceptance: every file under
+  `references/` is cited by a skill that reads it; every local-only pointer either earns its place
+  or is gone; the drift of every Addy skill and agent from upstream is listed and each line of it
+  is intended. Verification: `diff -r` against the reference checkout, per file, in the entry.
 - [ ] Checkpoint: `grep -rn "/session start\|Open at end\|session end"` over env-setup docs,
   `~/CLAUDE.md` and `~/.claude` returns history only.
 
