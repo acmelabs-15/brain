@@ -366,8 +366,14 @@ After Part 4 and Part 2; ANA-003 F5.
   `domain-modeling/ADR-FORMAT.md`), the spec template (`spec-driven-development` vs `to-spec`),
   the ticket shape (`to-tickets` vs `references/issue-tracker.md`) — all in this repo since Part 2.
   Decide each with Peter (`ask-user-question`); the loser becomes a pointer. Tracked commits, an
-  entry each.
-- [ ] Task 3 (added 2026-08-31; Peter: "it's very possible we don't need a lot of these anymore and
+  entry each. Shape 1 decided 2026-08-31 (`df0205b`): the ADR template's home is
+  `documentation-and-adrs`. Shapes 2–3 moved 2026-08-31 to
+  [PLAN-002](PLAN-002-consult-skills-integration.md) (Peter, after shape 1: the collision class is
+  lineage-wide — evaluate comprehensively before deciding piecemeal); they tick here citing its
+  Part 4 ADR.
+- [ ] Task 3 (on hold 2026-08-31 — [PLAN-002](PLAN-002-consult-skills-integration.md) Parts 1–3
+  subsume the evaluation and its Part 4 takes the decisions; this task ticks citing that ADR.
+  Added 2026-08-31; Peter: "it's very possible we don't need a lot of these anymore and
   we could probably restore a lot of the skills referencing these to what they were originally,
   esp. the Addy Osmani agent-skills"): the references audit. Facts at the copy: seven of the nine
   files under `references/` are upstream's own (`accessibility-checklist`, `definition-of-done`,
@@ -391,7 +397,10 @@ After Part 4 and Part 2; ANA-003 F5.
   `references/` is cited by a skill that reads it; every local-only pointer either earns its place
   or is gone; the drift of every Addy skill and agent from upstream is listed and each line of it
   is intended. Verification: `diff -r` against the reference checkout, per file, in the entry.
-- [ ] Task 4 (added 2026-08-31, Peter, verbatim: "I want to go back to the session skill again,
+- [ ] Task 4 (research done 2026-08-31 — ANA-004, `868d15a`; the decision rounds paused while
+  [PLAN-002](PLAN-002-consult-skills-integration.md) runs, Peter's direction — the session skill
+  is local, so this task is otherwise independent of the lineage question.
+  Added 2026-08-31, Peter, verbatim: "I want to go back to the session skill again,
   specifically some of the commands that I'm not sure match up with the skill, which uses start,
   log and close — the commands for the CLI are very different — init (not sure I agree it needs a
   refresh flag), not sure it should be writing the template — I FEEL like the way this is normally
