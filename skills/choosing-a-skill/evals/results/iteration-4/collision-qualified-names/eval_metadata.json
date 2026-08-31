@@ -1,0 +1,11 @@
+{
+  "eval_id": 2,
+  "eval_name": "collision-qualified-names",
+  "prompt": "Can you review this branch before I merge it? And once that's done I want the messy bits cleaned up.",
+  "expectations": [
+    "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+    "Rejects no candidate on a property it does not declare, and claims no capability of the chosen skill that it does not declare",
+    "Routes cleanup to code-simplifier:code-simplifier, giving the reason that it runs tests between edits and reverts breakage where the local skill only advises",
+    "In response.md specifically, the user is told a fork existed and why this side was chosen - not only in routing.md"
+  ]
+}

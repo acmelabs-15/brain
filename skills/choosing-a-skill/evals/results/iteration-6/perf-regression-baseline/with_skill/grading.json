@@ -1,0 +1,98 @@
+{
+  "expectations": [
+    {
+      "text": "In response.md specifically, routes to the diagnosis workflow rather than the lexically-matching performance-optimization skill, naming both, and states there why it prefers it",
+      "passed": true,
+      "evidence": "response.md (not merely routing.md) names both skills explicitly and gives the reason. Paragraph 1: \"'Slow since the last deploy' is a diagnosis, not an optimisation ... That's `diagnosing-bugs` Phase 1, and it's the whole first step; nothing after it is worth doing until it exists.\" Penultimate paragraph: \"There is a `performance-optimization` skill that lists regressions as a trigger, and I looked at it — it's a checklist of things that are commonly slow, useful once I know *where* the time goes. I'll consult it after the loop localises the problem, not before.\" This clears the bar the grading notes set: it is not a bare sequencing instinct, both skill names appear in the reply, the lexical collision is acknowledged ('lists regressions as a trigger'), and the stated reason for preferring diagnosis is substantive — performance-optimization is a checklist that presupposes knowing where the time goes, which is the open question."
+    },
+    {
+      "text": "In response.md specifically, names no candidate bottleneck before a measurement exists, and no shape it names is later something the plan goes looking for",
+      "passed": true,
+      "evidence": "First clause: response.md names no candidate mechanism as a live hypothesis. The only mechanisms appearing anywhere in the file are in an explicit refusal: \"I'm not naming a likely culprit — an N+1 that crept in, a bundle that grew, a missing index — because a ranked list of suspects turns the loop into something that confirms a theory instead of finding one, and I'd read every later measurement through it.\" Second clause (checked explicitly): none of N+1, bundle growth, or missing index reappears as a target of the plan. The three committed steps in response.md are (1) pin down what 'slow' means as a number and where it is measured, (2) turn that into a scripted, threshold-failing command, (3) run the same loop against the previous release and walk the commits between. Step 3 searches the commit range by re-running the measurement, not by looking for any named shape; the closing paragraph asks only for symptom locus, every-load-vs-some, and environment access. It explicitly forecloses the shape-hunting fallback: \"rather than fall back on reading the diff and reasoning about what looks expensive — that guessing is exactly what this phase exists to prevent.\" No reappearance, so this is a genuine refusal rather than a hypothesis list under a disclaimer."
+    },
+    {
+      "text": "Uses the deploy as an interval to bisect rather than a cause to assume, and says what it concludes if the symptom predates the deploy",
+      "passed": false,
+      "evidence": "First half passes cleanly. response.md step 3: \"Then use the deploy boundary as the thing I **bisect against**, not as the cause I assume. Same loop against the previous release; if the gap reproduces, walk the commits in between until the number moves.\" That is the interval reading, stated in the exact terms the expectation wants, and routing.md reinforces it (\"The deploy boundary is a bisection axis, not a cause\"). Second half is absent. Nothing in response.md states what follows if the symptom turns out to predate the deploy. The conditional 'if the gap reproduces' names only the branch where the regression IS in the interval; the complementary branch — previous release measures the same, so the deploy is not the boundary and the dashboard was already slow — is never followed through to a conclusion. A grep of response.md for 'predate', 'before the deploy', 'pre-exist', 'environmental' and 'not the deploy' returns nothing. The nearest passage is about intermittency, a different axis: \"if the slowness is intermittent rather than consistent, that intermittency is a **rate to drive up to certainty**, not evidence about mechanism.\" That addresses flakiness, not a symptom that predates the deploy. Both halves are required, so this fails."
+    },
+    {
+      "text": "In response.md specifically, commits to one next action whose outcome is unknown; any further step is stated as conditional on what that action shows",
+      "passed": true,
+      "evidence": "response.md commits to a single next action and frames everything downstream as contingent. The commitment is declared in the opening: \"before I touch anything I want a **tight loop**: one command I can run repeatedly that goes **red** on this specific slowness ... That's `diagnosing-bugs` Phase 1, and it's the whole first step; nothing after it is worth doing until it exists.\" The three numbered items are not three independent commitments running through to a fix — items 1 and 2 are the construction of that one artifact (define the number, then 'Make it a command'), and item 3 is explicitly gated on it existing and on what it shows: \"if the gap reproduces, walk the commits in between until the number moves.\" No fix step is asserted in the indicative anywhere; the performance-optimization consult is conditional and deferred (\"after the loop localises the problem, not before\"), and the reply ends by making even the loop's construction conditional on information and access it does not have: \"If I can't drive the environment, I'll say so and stop there.\" This is one action of unknown outcome plus conditional follow-ons, not a plan presuming results not yet obtained."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "execution_metrics": {
+    "output_chars": 6173,
+    "transcript_chars": 0,
+    "total_tokens": 48071,
+    "errors_encountered": 0,
+    "note": "No transcript exists for this eval; response.md and routing.md are the artifact. No metrics.json or user_notes.md present in outputs."
+  },
+  "timing": {
+    "executor_duration_seconds": 45.9,
+    "total_duration_seconds": 45.9
+  },
+  "claims": [
+    {
+      "claim": "performance-optimization lists performance regressions as a trigger, making the collision real rather than invented",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Verified against the installed skill roster. The performance-optimization description reads: 'Use when performance requirements exist, when you suspect performance regressions, when Core Web Vitals or load times need improvement...'. The reply's characterization is accurate, not a strawman built to be knocked down."
+    },
+    {
+      "claim": "diagnosing-bugs is the workflow that covers performance regressions",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The installed diagnosing-bugs description reads: 'Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.' The user's phrasing ('slow', 'have a look') sits squarely inside this trigger."
+    },
+    {
+      "claim": "Phase 1 of diagnosing-bugs requires a red-capable command already run at least once before Phase 2",
+      "type": "process",
+      "verified": false,
+      "evidence": "Asserted in routing.md ('Its completion criterion is one command already run at least once — red-capable, deterministic, fast, agent-runnable'). The skill body was not consulted as part of this grading and no transcript exists, so the specific completion criterion is unverifiable from the artifact. It is internally consistent and does not affect any expectation verdict."
+    },
+    {
+      "claim": "The reply names no candidate mechanism at all",
+      "type": "quality",
+      "verified": true,
+      "evidence": "routing.md's 'Visible-in-the-reply check' claims this, and it holds under inspection of response.md. The three mechanisms that appear (N+1, grown bundle, missing index) appear only as the content of an explicit refusal, and none is picked up again by any step of the plan."
+    },
+    {
+      "claim": "The response states the stop-if-undrivable condition",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Confirmed in response.md's final paragraph: 'If I can't drive the environment, I'll say so and stop there rather than fall back on reading the diff and reasoning about what looks expensive.' This is a genuine self-limit, not a hedge — it names and forecloses the specific cheaper fallback."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Uses the deploy as an interval to bisect rather than a cause to assume, and says what it concludes if the symptom predates the deploy",
+        "reason": "This is the only expectation bundling two independently-failing behaviours under one verdict, and the run split on it — interval framing textbook-perfect, predates-clause entirely absent. A single boolean cannot report that. Splitting it into 3a (deploy as bisection interval, not assumed cause) and 3b (states the conclusion if the symptom predates the deploy) would make the signal legible and stop a strong interval framing from being scored identically to a run that also missed the interval reading."
+      },
+      {
+        "expectation": "Uses the deploy as an interval to bisect rather than a cause to assume, and says what it concludes if the symptom predates the deploy",
+        "reason": "The second half is underspecified relative to how strictly the notes ask it to be graded. 'Says what it concludes' does not state whether a bare branch acknowledgement ('that changes the investigation') suffices or whether a named conclusion is required (the deploy is exonerated; this is a standing characteristic, not a regression; the bisection interval must be widened). Two graders could reasonably split on the same text. Worth pinning the bar explicitly."
+      },
+      {
+        "expectation": "Uses the deploy as an interval to bisect rather than a cause to assume, and says what it concludes if the symptom predates the deploy",
+        "reason": "Unlike 1, 2 and 4, this expectation carries no 'in response.md specifically' scope. Run A satisfies the first half in both files, so nothing turned on it here, but the asymmetry is almost certainly unintentional and lets a future run satisfy 3 entirely from routing.md while the user-facing reply says nothing about the deploy boundary."
+      },
+      {
+        "reason": "No expectation covers the strongest behaviour this run displayed: response.md pre-commits to stopping rather than substituting a cheaper method when the environment cannot be driven ('rather than fall back on reading the diff and reasoning about what looks expensive'). Refusing the plausible-looking fallback is the hardest part of measurement-first discipline and the likeliest place a weaker run silently degrades into diff-reading dressed as diagnosis. It currently earns no credit."
+      }
+    ],
+    "overall": "The expectation set is unusually well-targeted — 2's reappearance clause and 4's commitment-breadth framing both discriminate sharply, and 2's clause did real work on the paired baseline run. The one structural weakness is expectation 3, which conjoins two separable behaviours, leaves its second half's bar unstated, and is missing the response.md scoping its siblings all carry."
+  }
+}

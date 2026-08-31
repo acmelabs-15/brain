@@ -1,7 +1,7 @@
 {
   "name": "brain",
-  "description": "Keeps a repo's session log — the record of every commit that reached main and the story around it — through three acts: /brain:session start creates a session from a description, /brain:session log records a commit and updates what it made stale, /brain:session close finishes a session and its plan part; a tool gates every commit against the log and scaffolds the docs a repo needs. The one plugin that will carry the whole toolset (ADR-002).",
-  "version": "0.3.0",
+  "description": "Keeps a repo's session log — the record of every commit that reached main and the story around it — through three acts: /brain:session start creates a session from a description, /brain:session log records a commit and updates what it made stale, /brain:session close finishes a session and its plan part; a tool gates every commit against the log and scaffolds the docs a repo needs. The one plugin that carries the whole toolset (ADR-002): every skill, command, agent and reference Peter works with, as brain:<name>.",
+  "version": "0.4.0",
   "author": { "name": "Peter Kloss", "email": "pkloss@gmail.com" },
   "homepage": "https://github.com/acmelabs-15/brain",
   "repository": "https://github.com/acmelabs-15/brain",

@@ -1,0 +1,314 @@
+{
+  "metadata": {
+    "skill_name": "choosing-a-skill",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-08-31T04:11:38Z",
+    "evals_run": [
+      0,
+      1,
+      2
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 2,
+      "eval_name": "collision-qualified-names",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 57.7,
+        "tokens": 48226,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+          "passed": true,
+          "evidence": "routing.md section '1. Review -> local `code-review`' names both members of the pair explicitly before choosing: '- **`code-review`** (local) - two axes, Standards + Spec, parallel sub-agents, Fowler smell baseline.' and '- **`code-review:code-review`** (plugin) - multi-axis cell-based review, unit discovery, per-cell dispatch'. The pick and its reason follow: '**Picked: local.** The routing rule is local for a branch diff against a spec, plugin for a heavyweight repo-wide sweep. This is a single branch about to be merged - one diff, one spec, a bounded scope. The plugin's cell-planning and per-unit coverage machinery is built for sweeping a whole repository and would be ceremony here.' response.md repeats the fork for the user: 'Worth flagging the fork I'm taking: `code-review` is also the prefix of the plugin skill `code-review:code-review`, which is a multi-axis cell-based sweep sized for a whole repo. That's heavier than a branch diff needs, so I'm going local.'"
+        },
+        {
+          "text": "Names the plugin as code-simplifier:code-simplifier rather than reaching it only by a bare name or the /code-simplify alias",
+          "passed": true,
+          "evidence": "Fully qualified name used in both artifacts. response.md: '**Then the cleanup: the plugin skill `code-simplifier:code-simplifier`.**' routing.md heading: '## 2. Cleanup -> plugin `code-simplifier:code-simplifier`', with '**Picked: plugin.**'. The alias is explicitly considered and set aside in favour of the qualified name: 'Reaching for `/code-simplify` would land in the same place - that command routes to the plugin - so invoking the plugin skill directly is the same destination without the indirection.' The bare local name is also explicitly rejected: 'Not `code-simplification` even though its name is the closer match to the word \"cleaned\".'"
+        },
+        {
+          "text": "Gives the reason that the plugin runs tests between edits and reverts breakage, where the local skill only advises",
+          "passed": true,
+          "evidence": "The contrast appears in BOTH files. routing.md states it as the deciding rule: '- **`code-simplification`** (local) - a 331-line reference. Advises only. - **`code-simplifier:code-simplifier`** (plugin) - an agent that edits, runs the project's tests between each individual change, and reverts anything that breaks them.' followed by '**Picked: plugin.** The rule is unambiguous here - the plugin verifies, the local one only advises.' response.md carries the same contrast: 'Also a deliberate pick over the local `code-simplification`, which is a reference document that only advises. The plugin one actually edits, runs the tests between each individual change, and reverts anything that breaks them.' Both also note the no-coverage behaviour ('proposes rather than edits')."
+        },
+        {
+          "text": "Runs review before cleanup and states why that order is load-bearing",
+          "passed": true,
+          "evidence": "Order is explicit in routing.md ('## Order 1. **`code-review`** (local skill) ... 2. **`code-simplifier:code-simplifier`** (plugin skill)') and the reason is given as a two-way dependency: 'Sequential, not parallel. The request itself says \"once that's done\", and the dependency is real in both directions: the simplifier edits files, so running it first would move the code out from under the review; and the review's findings are what tell us which \"messy bits\" are actually messy versus actually broken.' response.md opens with the same load-bearing claim: 'plus they have to run in that order, because simplifying before the review would move the code out from under it.' The handoff section adds the correctness argument: 'Simplification preserves behaviour by construction, so pointing it at code whose behaviour is wrong preserves the wrong behaviour.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 0,
+      "eval_name": "hypothesis-before-repro",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 60,
+        "tokens": 48193,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No candidate cause is asserted or ranked before a reproduction method is described",
+          "passed": true,
+          "evidence": "response.md opens with the loop, not a cause: 'the first thing I need isn't a theory about the cause, it's a **tight loop**: one command I can run that goes **red** on this specific bug, deterministically, every time.' It then explicitly refuses ranking: 'I'm not going to reason my way to a likely culprit from the error text and then confirm it; that's the thing that goes wrong here.' Mechanisms appear only inside the third bullet of the loop-construction section, framed as things the loop must force rather than a likelihood ordering: 'Candidates I want the loop to be able to **force**, not rank: request/response ordering ... a cached vs cold session or token state; render-order or effect-order differences ... These are knobs to control, not a shortlist of suspects.' Order within the document is correct: reproduction method is described before any mechanism is named."
+        },
+        {
+          "text": "Drives the reproduction to determinism (forcing the failing order) rather than sampling until it fires",
+          "passed": true,
+          "evidence": "Explicitly contrasted: 'What I'm going to do first is build the loop, by forcing the failing conditions rather than sampling until they happen'. Sampling is disqualified by argument: 'If I patch something plausible and reload, I've got an 80% chance of seeing green whether or not I fixed it.' Determinism is made the exit criterion: 'Prove the loop by making it go red on demand, several runs in a row, before I touch any product code.' routing.md reinforces: 'which is why \"reload a few times and see\" is disqualified as a loop.'"
+        },
+        {
+          "text": "Does not offer reading the code and reasoning about ordering as a fallback when the environment cannot be driven",
+          "passed": true,
+          "evidence": "The fallback is pre-refused rather than offered: 'If it turns out the failing conditions can't be forced in the environment I've got ... I'll tell you that plainly and stop there rather than switching to reading the code and reasoning about what *could* race. That fallback looks like progress and reliably produces a confident wrong answer on intermittent bugs, which is precisely the failure mode here.' No static-reasoning contingency appears anywhere in response.md or routing.md."
+        },
+        {
+          "text": "Places the fix strictly after the loop goes red, rather than proposing a patch alongside the diagnosis",
+          "passed": true,
+          "evidence": "No patch, guard, or code change is proposed anywhere in response.md. Fix is gated on the red loop: 'Once the loop is red on demand, the rest is fast: bisect the surface until it's minimal, fix, and then the same loop run green repeatedly is the actual proof.' The loop-building bullet also gates touching code at all: 'before I touch any product code.' routing.md defers TDD to '(only after the loop is red and the root cause is found)'."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "perf-regression-baseline",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 61.7,
+        "tokens": 48318,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Establishes a measurement or baseline before naming any bottleneck",
+          "passed": true,
+          "evidence": "response.md: 'the first job isn't to explain the slowness, it's to make it reproducible on demand' and 'one command I've actually run at least once, that is deterministic, fast, and agent-runnable, and that fails on the slow behaviour and passes on the pre-deploy build ... with a hard threshold on a number we've agreed matters (time to interactive, or the p95 of whichever request dominates), run against both the current deploy and the commit before it.' The pre-deploy build is explicitly the baseline. Gate is stated absolutely: 'Until that command exists and I've seen it go red, I don't start proposing causes.' routing.md reinforces: 'No red-capable command, no Phase 2.' No bottleneck is named anywhere in the response."
+        },
+        {
+          "text": "Does not propose a specific optimisation before a measurement exists",
+          "passed": true,
+          "evidence": "No optimisation is proposed at all. response.md pre-empts the temptation explicitly: 'I'm not going to read the diff, pick the most suspicious-looking change, and tell you it's probably an N+1 or a bundle-size regression. Opening with a ranked list of likely culprits would turn the loop into something that confirms a theory instead of finding one.' The only forward-looking statement is method, not remedy: 'bisect the deploy's commits against it, confirm the mechanism by forcing it, then fix and watch the same command go green.' N+1 and bundle-size appear solely as named-and-rejected moves, not as candidates being advanced."
+        },
+        {
+          "text": "Treats 'after the last deploy' as a bisectable boundary rather than as a cause",
+          "passed": true,
+          "evidence": "response.md: 'Once the loop is red, the rest is mechanical: bisect the deploy's commits against it' \u2014 the deploy supplies the commit range to bisect, not an explanation. The pre-deploy state is used as the comparison arm ('passes on the pre-deploy build', 'run against both the current deploy and the commit before it'), and the run flags dependence on it: 'no comparable pre-deploy build to run against \u2014 I'll say so and stop.' The deploy is never asserted to have caused the slowdown; routing.md warns against exactly that reading ('a deploy-correlated slowdown invites opening with a ranked list of plausible causes')."
+        },
+        {
+          "text": "Names at most two skills it commits to invoking",
+          "passed": true,
+          "evidence": "Counted as committed = skills the run states it will run in the normal path. Committed: 1 \u2014 `diagnosing-bugs`. routing.md's Decision is '`diagnosing-bugs` \u2014 alone, and nothing else until Phase 1 completes.' The two other numbered entries carry explicit non-commitment: `/webperf` is '*Conditionally, and only after the loop is red and localises the regression to the browser*' and `test-driven-development` is '*Conditionally, after a fix is identified*', followed by 'Steps 2 and 3 are not committed to now. They depend on what the loop shows.' Both are gated on a specific finding that may not occur (the response says /webperf applies only 'after the loop tells us the regression is in the browser rather than behind the API'), so neither sits in the normal path. All remaining skills named (`performance-optimization`, `/ship`, `code-review`, `grilling`, `interview-me`, `spec`, `observability-and-instrumentation`, `debugging-and-error-recovery`) appear under 'Why not the alternatives' and are rejected."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "collision-qualified-names",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 57.9,
+        "tokens": 42349,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+          "passed": true,
+          "evidence": "routing.md's 'Collisions resolved' section tabulates the pair explicitly - row '`code-review` (local skill) | Close, but narrower: two fixed axes (standards + spec) and it wants an originating issue/spec to check the code against. Nothing here mentions a spec or issue.' and row '`code-review:code-review` (plugin) | **Chosen.** Explicit scope resolution, planned cells, deduplication and triage, coverage reporting. Best fit for an unqualified \"review this branch.\"' - under the lead-in 'Both phases have a name collision between a local skill and a plugin skill. Both resolve toward the plugin, and in both cases the qualified name is what gets invoked.' response.md also surfaces the fork to the user: 'I'll run `code-review:code-review` (the plugin skill, not the local `code-review` command)'. Per the grading note, picking the plugin rather than the local skill is acceptable; both members are named and a reason is given."
+        },
+        {
+          "text": "Names the plugin as code-simplifier:code-simplifier rather than reaching it only by a bare name or the /code-simplify alias",
+          "passed": true,
+          "evidence": "Qualified name used throughout. routing.md lists it as invoked skill #2: '**`code-simplifier:code-simplifier`** (plugin skill - same)', with a dedicated section '### Phase 2: why `code-simplifier:code-simplifier`'. response.md: 'I'll run `code-simplifier:code-simplifier` for the \"messy bits\"'. The bare local name `code-simplification` is named separately as a rejected candidate, so the plugin is not reached by bare name. Note: this run compared against `/simplify` rather than `/code-simplify`, but the expectation only requires the plugin be named in qualified form rather than reached via an alias, which it is."
+        },
+        {
+          "text": "Gives the reason that the plugin runs tests between edits and reverts breakage, where the local skill only advises",
+          "passed": true,
+          "evidence": "The contrast is present in routing.md, though NOT in response.md. Local side: '`code-simplification` (local skill) | Generic guidance on simplifying for clarity. Overlaps, but no behaviour-preservation verification.' Plugin side, same table: '`code-simplifier:code-simplifier` (plugin) | **Chosen.** Deliverable is the edited code, behaviour must stay identical, test-verified between changes, reverts on breakage.' Restated in the Phase 2 prose: 'additionally verifies behaviour preservation by running tests between changes and reverting anything that breaks, and proposes rather than edits where there's no test coverage. That's the right safety posture for post-review cleanup on a branch about to merge.' response.md describes the simplifier's outcome ('behaviour identical') but never mentions the test loop, the revert, or the local alternative - so the discriminating contrast reaches the routing artifact only, not the user."
+        },
+        {
+          "text": "Runs review before cleanup and states why that order is load-bearing",
+          "passed": true,
+          "evidence": "Order is explicit ('## Skills invoked, in order 1. `code-review:code-review` ... 2. `code-simplifier:code-simplifier` ... Sequential, not parallel, and gated on user confirmation between the two') and routing.md's '### Why the order, and why a gate between them' gives three reasons, two of which are load-bearing rather than cosmetic: 'The review's findings are the *input* that tells us which bits are \"the messy bits.\" Running cleanup first would be guessing at that.' and 'The simplifier explicitly should not run on broken code: it preserves behaviour, so it would preserve any bug the review finds. Correctness findings must be fixed as bug fixes first, then cleanup on top.' response.md carries the same order and reason: 'review first, cleanup second, because simplifying code before it's been reviewed just makes the diff harder to review, and any fixes the review turns up would need re-simplifying afterwards.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 0,
+      "eval_name": "hypothesis-before-repro",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 2,
+        "failed": 2,
+        "total": 4,
+        "time_seconds": 54.9,
+        "tokens": 41528,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "No candidate cause is asserted or ranked before a reproduction method is described",
+          "passed": false,
+          "evidence": "The very first sentence of response.md asserts a cause in explicit likelihood framing, before any reproduction method appears: 'An intermittent \"cannot read property id of undefined\" at roughly one load in five is almost always a race, not a logic error \u2014 something reads a value before the thing that populates it has resolved.' That is a mechanism ('something reads a value before the thing that populates it has resolved') stated as a probability judgement ('almost always'), and it rules a competing class out ('not a logic error'). The disclaimer that follows \u2014 'But I don't want to guess at which one' \u2014 narrows to which race, having already fixed the class. routing.md repeats the ranking independently: 'A one-in-five failure rate is the classic shape of a race condition' and 'The tempting shortcut is to answer immediately with the most likely cause \u2014 \"you're rendering before the user/session promise resolves, add a null guard.\" That answer is probably even directionally right.' The reproduction method is not described until numbered step 1, after the assertion."
+        },
+        {
+          "text": "Drives the reproduction to determinism (forcing the failing order) rather than sampling until it fires",
+          "passed": false,
+          "evidence": "The reproduction as actually described is sampling. Step 1: 'I'll load the login page repeatedly in a real browser with the console and network panel recording, until I catch a failure. The one-in-five rate means a handful of reloads should do it.' The failure rate is treated as a convenience that makes sampling cheap rather than as something to drive to certainty. Forcing appears only after a hypothesis has been formed, as confirmation of it \u2014 step 3: 'Only then form a hypothesis, and prove it ... I'll confirm the mechanism by making the failure happen on demand \u2014 e.g. throttling the network or stubbing the slow response \u2014 rather than reloading and hoping.' Determinism is therefore downstream of the hypothesis and serves to confirm it; the reproduction that the diagnosis is built on is sampled, and the closing line commits to it: 'Starting with step 1 now.'"
+        },
+        {
+          "text": "Does not offer reading the code and reasoning about ordering as a fallback when the environment cannot be driven",
+          "passed": true,
+          "evidence": "No static-code-reading fallback is offered in response.md. routing.md explicitly rejects that path: 'The evidence I need \u2014 the stack frame from a failing load, and the network waterfall for that same load \u2014 only exists at runtime in a browser. No amount of source reading produces it, and source reading is precisely the path that tempts you into a hypothesis before you have facts.' The one contingency held in reserve is production telemetry, not code reasoning: 'observability-and-instrumentation \u2014 a plausible follow-up if the bug proves unreproducible locally and we need production telemetry to catch it.'"
+        },
+        {
+          "text": "Places the fix strictly after the loop goes red, rather than proposing a patch alongside the diagnosis",
+          "passed": true,
+          "evidence": "No patch is proposed in response.md; the fix is step 4, gated on a failing test: 'I'll write a test that fails on the pre-fix code (forcing the bad ordering deterministically) before applying the change.' The null-guard fix is named in routing.md only to refuse it: 'I'm not leading with it ... a null guard on the symptom line suppresses the crash without fixing the race, so the page silently renders in a wrong state one load in five instead of erroring \u2014 strictly worse.' routing.md orders TDD 'once the root cause is identified, before the fix lands.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "perf-regression-baseline",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 63.1,
+        "tokens": 41660,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Establishes a measurement or baseline before naming any bottleneck",
+          "passed": true,
+          "evidence": "The ordered plan puts measurement first. Step 1: 'I'll load the dashboard with DevTools attached, capture a performance trace and the network waterfall, and see which phase actually got worse.' Step 2 is explicitly the baseline: 'The single most valuable artifact here is the same trace against the previous deploy ... I'll capture both and diff them. Without a baseline we're profiling in absolute terms and every finding is arguable.' The response opens with 'the first job is to turn the feeling into a measurement before touching any code.' Step 3's six-item diff scan runs 'in parallel with the trace' and is framed as 'known regression shapes' / 'the usual suspects' to scan for \u2014 no item is asserted or ranked as the cause, which the grading note permits. Step 4 requires the trace and diff to agree before anything is treated as a suspect, and then demands 'one falsifiable check \u2014 revert or stub that one thing and watch the number move.' The 'ranked list of suspects' offered in the closing paragraph is explicitly delivered alongside the trace, i.e. after measurement, not before it. No bottleneck is named as this dashboard's problem anywhere in the response."
+        },
+        {
+          "text": "Does not propose a specific optimisation before a measurement exists",
+          "passed": true,
+          "evidence": "No remedy is proposed for this dashboard. The six items in step 3 are diagnostic shapes to look for ('a new or newly-unbatched query in a render path', 'a bundle-size jump', 'a lost memo/cache'), phrased as things that may have shipped, not as changes to make. Step 5 states only a policy \u2014 'Smallest change that moves the metric, re-measure to prove it' \u2014 with the fix's content left undetermined. routing.md holds the same line: `performance-optimization` is 'invoked only after a cause is identified, to write the fix', with the reasoning 'jumping straight to an optimization skill would produce a generic list of speedups with no evidence any of them is the actual regression.' The regression-guard suggestions in step 5 (bundle-size budget, query-count assertion, CWV check) are prevention mechanisms rather than optimisations of the current slowness."
+        },
+        {
+          "text": "Treats 'after the last deploy' as a bisectable boundary rather than as a cause",
+          "passed": true,
+          "evidence": "Stated in the opening sentence: 'a regression with a known change window, which is the good case \u2014 we don't have to guess across the whole system, we can bisect against the diff.' The boundary is operationalised in three ways: as a diff to scan (step 3), as a baseline arm to capture ('previous tag, staging pinned to it, or a local checkout of the prior commit'), and as an input to request ('the deploy in question \u2014 commit range, tag, or PR \u2014 so I can read the diff'). routing.md repeats it as 'bisect against the deploy diff' and 'a regression against a known-good prior state.' Nowhere is the deploy itself offered as the explanation; routing.md even reserves the case where it is not the boundary at all \u2014 'if the bisect comes up empty and it turns out the dashboard was always slow and someone just noticed.'"
+        },
+        {
+          "text": "Names at most two skills it commits to invoking",
+          "passed": false,
+          "evidence": "Counted as committed = skills the run states it will run in the normal path, including conditional or deferred ones per the grading note; excluded = skills named only to be rejected. routing.md's 'Order' section is a numbered commitment list of four entries: (1) `diagnosing-bugs` \u2014 'primary, invoked first'; (2) `browser-testing-with-devtools` \u2014 'invoked inside step 1, to gather the evidence', reinforced by response.md step 1 'I'll load the dashboard with DevTools attached'; (3) `performance-optimization` \u2014 'invoked only after a cause is identified, to write the fix', which is the normal path (the run expects to find a cause and step 5 of the response commits to writing a fix), so it counts as committed; (4) `test-driven-development` or `ci-cd-and-automation` \u2014 'optional tail, to leave a regression guard', which response.md step 5 states unconditionally as 'then a regression guard so this class doesn't come back silently'. That is 4 committed entries (5 skills if the step-4 alternatives are counted separately), against a cap of two. Only `/webperf` and the 'Deliberately not routed' list (`interview-me`, `ask-user-question`, `grilling`, `code-review`, `code-review-and-quality`, `debugging-and-error-recovery`, `observability-and-instrumentation`, `spec-driven-development`, `planning-and-task-breakdown`) are excluded as rejected. Even the most generous reading \u2014 treating entry 3 as truly conditional and entry 4 as truly optional \u2014 leaves entries 1 and 2 plus a stated intent to fix, and the run never marks any entry as uncommitted the way a passing run would."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1,
+        "stddev": 0,
+        "min": 1,
+        "max": 1
+      },
+      "time_seconds": {
+        "mean": 59.8,
+        "stddev": 2.0075,
+        "min": 57.7,
+        "max": 61.7
+      },
+      "tokens": {
+        "mean": 48245.6667,
+        "stddev": 64.7791,
+        "min": 48193,
+        "max": 48318
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.75,
+        "stddev": 0.25,
+        "min": 0.5,
+        "max": 1
+      },
+      "time_seconds": {
+        "mean": 58.6333,
+        "stddev": 4.1489,
+        "min": 54.9,
+        "max": 63.1
+      },
+      "tokens": {
+        "mean": 41845.6667,
+        "stddev": 440.8677,
+        "min": 41528,
+        "max": 42349
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.25",
+      "time_seconds": "+1.2",
+      "tokens": "+6400"
+    }
+  },
+  "notes": [
+    "Headline: 100% with skill vs 75% baseline (+0.25), against iteration 1's 100% vs 67% (+0.33). The two iterations are NOT comparable - eval 2 was replaced and evals 1 and 3 had their expectations rewritten - so the smaller delta is not a regression, it is a different and stricter measurement.",
+    "hypothesis-before-repro is now the discriminating eval at 4/4 vs 2/4. The rewrite worked exactly as intended: the baseline's opening sentence asserts 'almost always a race' before any reproduction method, and its step 1 samples ('a handful of reloads should do it') with forcing appearing only later as confirmation of a hypothesis already formed.",
+    "The most consequential finding in this iteration: the baseline's routing.md states the correct rule ('evidence capture ahead of hypothesis') and its response.md violates it in sentence one. Knowing a discipline and applying it in the user-facing artifact are separable, and only the latter reaches the user. No expectation is currently scoped to response.md.",
+    "collision-qualified-names went 4/4 vs 4/4, reversing iteration 1 where the baseline failed to find code-review:code-review. The same prompt with a stricter expectation produced a better baseline result, which is strong evidence of run-to-run variance at n=1 per cell rather than of any change in the skill. The collision table's measured value is weaker than iteration 1 implied.",
+    "In collision-qualified-names the two arms picked opposite sides of the review fork - with_skill chose local, baseline chose plugin - and both passed, because the expectation checks that a reason exists rather than that it is correct. The grader judged the baseline's reason better grounded: it cites the local skill's declared need for an originating spec, where the with_skill run's 'plugin is for repo-wide sweeps' framing does not match a skill that takes an explicitly named scope.",
+    "perf-regression-baseline separated 4/4 vs 3/4 on a single expectation: committed-skill count. The with_skill run committed to one skill and explicitly disowned its tail ('steps 2 and 3 are not committed to now'); the baseline committed to four in a numbered order section. That counting rule lives in the grader prompt rather than in the expectation text, so it is not reproducible without it.",
+    "The new eval 2 trap worked: both arms rejected performance-optimization as a lexical match and routed to diagnosing-bugs. But because both routed identically, the one decision the eval was designed to test produced zero signal - the discrimination came entirely from an unrelated expectation about commitment count.",
+    "Expectation 1 of perf-regression-baseline tests sequencing rather than speculation. It cannot separate 'measure first, then speculate' from 'refuse to speculate until the measurement is red' - the with_skill run does the latter and says so explicitly, the baseline enumerates six candidate shapes in parallel with the trace, and both pass.",
+    "Across all three evals no expectation checks whether a stated reason is factually correct, only that one exists. Two unsupported claims passed cleanly: the baseline asserting security is already covered as a review axis, and its case against performance-optimization quoting that skill's description while omitting the clause 'when you suspect performance regressions' - the one trigger that would have matched.",
+    "Uncovered outcome in collision-qualified-names: both arms volunteered that review findings must be triaged into defects (fix first) versus untidiness (simplify), because the simplifier preserves whatever behaviour it finds. A run that pointed the simplifier straight at buggy code would still score 4/4.",
+    "Uncovered outcome in hypothesis-before-repro: neither expectation checks whether the run declines a null or optional-chaining guard on the throwing line - the symptom-suppressing fix that converts a visible crash into a silently wrong render one load in five. The baseline refuses it well and earns no credit; a run offering it would lose no points.",
+    "Token cost is +6400 (+15.3%), with_skill 48246 +/- 65 against baseline 41846 +/- 441, consistent with iteration 1's +13.6%. The with_skill variance is remarkably tight (65 tokens across three runs) because the skill read dominates and is identical every time. Wall-clock is indistinguishable at +1.2s.",
+    "The harness-awareness confound from iteration 1 was addressed by adding an explicit instruction to the prompts, and no run in this iteration reasoned about being evaluated.",
+    "Every cell remains a single run, so per-eval deltas cannot be separated from run-to-run noise - the collision-qualified-names reversal between iterations is the clearest demonstration of that limit in this data."
+  ]
+}

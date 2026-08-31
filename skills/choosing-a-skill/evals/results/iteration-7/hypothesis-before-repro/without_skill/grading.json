@@ -1,0 +1,100 @@
+{
+  "expectations": [
+    {
+      "text": "In response.md specifically, no candidate cause is asserted or ranked anywhere, except as a state the reproduction must force",
+      "passed": false,
+      "evidence": "response.md line 3 asserts a cause class and then lists candidates: 'That ratio is itself evidence: it points at something that varies between loads rather than something structurally wrong with the code. The usual candidates are a race between two async calls (whichever resolves first wins, and sometimes the wrong one does), a render that runs before data has arrived, or state left over from a previous session in storage. But I'd be making that up if I committed to any of them now.' This is precisely the naming-suspects-then-disclaiming pattern the grading note calls a FAIL. Three points compound it: (a) 'The usual candidates are' is an assertion about likelihood, not a knob list — none of the three is presented as a state the loop must force, and the elaboration 'whichever resolves first wins, and sometimes the wrong one does' is mechanism exposition, not a lever; (b) the sentence before it asserts an inference about the cause class from the rate alone ('points at something that varies between loads rather than something structurally wrong'), which is a ranked conclusion in itself; (c) the disclaimer does not retract, it defers — 'I'd be making that up if I committed to any of them now' leaves the list standing as the working set, and line 8 then treats it as a live inventory to be narrowed: 'that alone usually collapses the candidate list from five to one.' Line 9 confirms the candidates persist as hypotheses rather than knobs: 'Once I have a suspect, I want to make the bug appear and disappear on command.' Forcing is applied to a suspect after the fact, not used to define the reproduction."
+    },
+    {
+      "text": "The first reproduction step's success condition is a changed failure rate or a forced state, not a single captured failure",
+      "passed": false,
+      "evidence": "Step 1 (line 7) is explicitly a single-capture condition: '**Make it reproducible.** Load the page in a loop until it throws, and capture the state of the failing load: the full stack trace (not just the message), the console, and the network waterfall for that specific load. If it's genuinely ~20%, a handful of reloads should catch it.' 'Until it throws' terminates on the first failure; 'a handful of reloads should catch it' treats the existing ~20% rate as adequate rather than as something to drive up; 'that specific load' scopes success to one instance. Step 2 (line 8) then reasons from that one capture: 'The stack tells me which `.id` on which undefined object — that alone usually collapses the candidate list from five to one.' Rate manipulation does appear, but only at step 3 and in a different role — 'Once I have a suspect, I want to make the bug appear and disappear on command — e.g. by throttling the network to widen a race window, or by clearing storage' — which is hypothesis confirmation after a suspect exists, not the success condition of the first reproduction step. No target rate is named anywhere."
+    },
+    {
+      "text": "routing.md states at least one falsifiable discipline the reply could visibly break, and response.md breaks none of the rules routing.md states",
+      "passed": false,
+      "evidence": "METHOD: extracted every checkable rule from routing.md, then tested response.md against each. Rules extracted: (R1) 'the routing must put **reproduction before hypothesis**' (line 18), restated as 'Reproduction strictly before hypothesis' (line 77); (R2) the named trap — 'The trap here is jumping to \"it's probably a race between the auth check and the render\" and editing code on that basis. That is hypothesis-before-reproduction, and with an intermittent bug it is actively dangerous' (lines 12-16); (R3) reading source alone must not be relied on — 'reading source alone will produce a plausible-sounding hypothesis that I cannot confirm' (lines 11-12); (R4) route to `diagnosing-bugs` first, with browser tooling subordinate to it — 'Invoked from inside the diagnosis loop, not before it' (line 40); (R5) TDD only after the cause is confirmed (lines 46-50); (R6) questions are non-blocking — 'framed as \"this would speed things up\" rather than blocking on it' (lines 68-69). VERDICT PART 1: PASS — R1, R2 and R3 are sharply falsifiable, and R2 in particular names the exact sentence shape that would break it, so the floor is cleared. VERDICT PART 2: FAIL — the reply breaks R1 and R2. R2 is broken most visibly: routing.md forbids 'jumping to it's probably a race between the auth check and the render', and response.md line 3 opens its candidate list with 'a race between two async calls (whichever resolves first wins, and sometimes the wrong one does)'. The notes name the trap and the reply walks into it, differing only in that no code is edited — but the stated rule is about the jump to the hypothesis, and R1 states the ordering rule without the editing qualifier ('reproduction before hypothesis', 'strictly'). R1 is broken by ordering as well as content: the hypotheses arrive in paragraph 2 (line 3) and the reproduction plan only in paragraph 3 (lines 5-7). R3 is technically honoured (the reply does propose browser-based reproduction rather than source reading), and R4, R5 and R6 are honoured. But two of the six stated rules — including the one routing.md flags as 'the trap here' — are broken by the reply, so part 2 fails and the expectation fails."
+    },
+    {
+      "text": "Names what it will do if the environment cannot be driven to reproduce, and that fallback is not reading the code and reasoning about ordering",
+      "passed": false,
+      "evidence": "Silence in both files. Searched response.md and routing.md for any conditional covering an undrivable environment — 'if I can't reproduce', 'if it only happens in production', 'if the loop stays green' — and found none. Every branch in the outputs assumes reproduction succeeds: response.md steps 1-4 run straight through from 'Load the page in a loop until it throws' to 'Then fix it', with no failure branch; the closing line (14) is 'If you'd rather I just go, point me at the repo and how to run it locally and I'll start reproducing.' routing.md's conditionals are all about which skill fits ('I'd fall back to `debugging-and-error-recovery` only if this turned out to be a straightforward deterministic failure once I had the trace', lines 33-34; 'If the repo turns out to have its own way to run the app, `run` would cover launching it', line 44) — none addresses reproduction failing. routing.md lines 11-12 do assert that source reading is inadequate, which is the right instinct, but the expectation requires naming what it *will* do, and no fallback is named at all. Per the grading note, silence FAILS."
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 4,
+    "total": 4,
+    "pass_rate": 0.0
+  },
+  "execution_metrics": {
+    "output_chars": 6882,
+    "transcript_chars": 0,
+    "note": "No metrics.json and no transcript were produced for this run; response.md (2088 chars) and routing.md (4794 chars) are the entire artifact."
+  },
+  "timing": {
+    "total_duration_seconds": 56.0,
+    "total_tokens": 41593,
+    "duration_ms": 56019
+  },
+  "claims": [
+    {
+      "claim": "'One in five loads' is itself evidence pointing at something that varies between loads rather than something structurally wrong with the code",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Overstated as a diagnostic inference. A 20% rate is consistent with input-dependent determinism (a specific account, a cached-vs-cold asset, one server in a pool, a particular browser) where the code is structurally wrong and the varying element is the input, not the timing. Treating the rate as evidence for a cause class is exactly the move routing.md line 18 forbids, and it is the sentence that sets up the candidate list."
+    },
+    {
+      "claim": "The stack trace alone usually collapses the candidate list from five to one",
+      "type": "quality",
+      "verified": false,
+      "evidence": "response.md line 8. Not justified for this bug shape. A stack trace for 'cannot read property id of undefined' names the read site, not the reason the value is absent — a late fetch, a cleared session, and a stale bundle can all surface at the identical frame. Also self-inconsistent: line 3 names three candidates, line 8 says 'five'. The claim is the load-bearing reason the plan stops at one captured failure, so its weakness is what drives the expectation-2 failure."
+    },
+    {
+      "claim": "Reproduction is strictly before hypothesis in this routing",
+      "type": "process",
+      "verified": false,
+      "evidence": "Stated in routing.md lines 18 and 77, contradicted by response.md line 3, where three candidate mechanisms are offered before any reproduction step is described. The notes hold the rule; the reply does not."
+    },
+    {
+      "claim": "'If it's genuinely ~20%, a handful of reloads should catch it'",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Arithmetically sound — at p=0.2, ten loads give ~89% odds of at least one failure. True, but it is the premise that makes the plan settle for a single capture rather than driving the rate, so being correct here does not help the run."
+    },
+    {
+      "claim": "Questions in the reply are non-blocking",
+      "type": "process",
+      "verified": true,
+      "evidence": "routing.md lines 68-69 claims the questions are framed as speed-ups rather than blockers, and response.md lines 12 and 14 bear this out: 'Two things that would speed this up a lot if you have them' and 'If you'd rather I just go, point me at the repo.' This claim holds."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "In response.md specifically, no candidate cause is asserted or ranked anywhere, except as a state the reproduction must force",
+        "reason": "The rewrite does the job here — this run would have had a plausible argument under an order-based reading, since the disclaimer follows immediately and the reproduction plan follows that, and it now fails cleanly on the property instead. Worth noting for the eval author that the phrase carrying the failure is 'The usual candidates are', which is likelihood language, while the three items themselves would be legitimate if reframed as knobs. That is a thin line, and it is the right line, but it means the grade turns on framing verbs — spelling out in the expectation that likelihood language ('usual', 'typical', 'most often') is itself an assertion would make the call reproducible across graders."
+      },
+      {
+        "expectation": "routing.md states at least one falsifiable discipline the reply could visibly break, and response.md breaks none of the rules routing.md states",
+        "reason": "The two parts work exactly as intended on this run and produce a sharper failure than the old version would have: this run's notes are unusually crisp (they name the forbidden sentence almost verbatim), so part 1 passes easily, and the reply then breaks that very rule. The self-contradiction is the real finding, and it is more damning than vagueness would have been. Consider making that explicit in the expectation text — 'states a rule and then breaks it' is a distinct and worse failure than 'states no rule', and both currently score identically as one failed expectation."
+      },
+      {
+        "expectation": "Names what it will do if the environment cannot be driven to reproduce, and that fallback is not reading the code and reasoning about ordering",
+        "reason": "Discriminating and cleanly graded — silence here is genuine, not a technicality. One caution: because silence fails, this expectation rewards writing a sentence, and a run could pass by appending 'if I can't reproduce it, I'll come back to you' without that fallback being connected to anything. Requiring the fallback to be actionable (ask for production telemetry, add instrumentation and wait, get a session replay) would raise the bar without making it harder to grade."
+      },
+      {
+        "reason": "No expectation covers the routing decision, even though routing.md is half the artifact and the skill under test is `choosing-a-skill`. This baseline actually routes well — `diagnosing-bugs` primary, browser tooling explicitly 'invoked from inside the diagnosis loop, not before it', TDD deferred, five distractor skills named and rejected with reasons — and scores 0/4 because every expectation targets the reply's discipline. That may be intended, but as written the suite cannot distinguish a good router with poor discipline from a bad router with poor discipline."
+      },
+      {
+        "reason": "Nothing checks internal consistency between the two files, which is where this run's most telling defect lives: routing.md names the trap ('jumping to it's probably a race between the auth check and the render') and response.md then supplies almost that exact sentence. Expectation 3 catches it only as a side effect of its part-two clause. A dedicated expectation on notes-versus-reply agreement would surface it as the primary finding it is."
+      }
+    ],
+    "overall": "The suite discriminates correctly on this run — 0/4, and each failure is substantive rather than technical. The rewritten 1 and 3 are the ones doing the work: 1 now catches name-then-disclaim, and 3's part-two clause catches a reply contradicting its own stated rule. Main gap is that the routing decision itself, which this run gets largely right, is graded by nothing."
+  }
+}

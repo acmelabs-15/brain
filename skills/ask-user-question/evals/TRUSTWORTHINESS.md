@@ -510,7 +510,7 @@ directory. *Isolated* means the inventory is gone, not that the model sits still
       **zero** rules; `checkCall` returns an empty array and `scoreFindings` "returns `1.00`
       for every input, including a call with a defect under every rule below"
       (`evals/composition/LINT-RULES-PENDING.md:26-27`) — "**That number means 'nothing was
-      checked'**" (`:28-29`). A lint mean of 1.00 today is vacuous, and `checks.test.ts`
+      checked'**" (`:28-29`). A lint mean of 1.00 today is vacuous, and `checks.check.ts`
       "Asserts nothing while `ACTIVE_RULE_COUNT === 0`" (`:16`), so `make checks`
       (`Makefile`, `checks` target) is not evidence either.
 
@@ -718,7 +718,7 @@ number does not get quoted, does not get compared, and does not go on a fix list
 | A `headline` delta with no comparability check behind it | "A `headline[].delta` is only ever filled in after that check has passed" (`PK/shared/references/schemas.md:543`) | **DISCARD** the delta |
 | A whole-set score with no `caps` sentence and a held-out split in play | Rows computed over the train split only, read as if computed over everything (`PK/shared/references/schemas.md:441-442`, `:495`) | **RE-RUN WITH** the split stated, or re-report scoped to the split |
 | A token figure against the 5,000 budget from an estimator | "A body measured at 4,800 estimated tokens against a 5,000-token budget has not been shown to be inside it" (`PK/shared/references/disclosure-optimization.md:48`) | **RE-RUN WITH** `tiktoken` present before claiming compliance |
-| A description character count near 1,024 | 1,024 is "a real cliff rather than a guideline: a description over it is silently truncated" (`PK/shared/references/description-writing.md:67`). Locally, the plain-scalar branch of the frontmatter parser stops collecting at a blank line (`evals/frontmatter.test.ts:43-47`), so a count taken through it can be short — the exact shape of fault F0 | **RE-RUN WITH** the description on **one physical line**, which is immune to both parser branches rather than dependent on the reader being the fixed one, and the count re-taken. Count the value, not the enclosing quotes |
+| A description character count near 1,024 | 1,024 is "a real cliff rather than a guideline: a description over it is silently truncated" (`PK/shared/references/description-writing.md:67`). Locally, the plain-scalar branch of the frontmatter parser stops collecting at a blank line (`evals/frontmatter.check.ts:43-47`), so a count taken through it can be short — the exact shape of fault F0 | **RE-RUN WITH** the description on **one physical line**, which is immune to both parser branches rather than dependent on the reader being the fixed one, and the count re-taken. Count the value, not the enclosing quotes |
 | A 0% false-positive rate in every condition tested | The negatives are too easy. A set of nine such queries "would have certified the worst description in the set as flawless" (`PK/shared/references/description-writing.md:110-112`) | **DISCARD.** Rewrite the negatives to the standard at `:116-120` |
 | A positive query losing to `(answered directly)` | The query never reached skill selection, so it measures the query rather than the description (`PK/shared/references/description-optimization.md:175-178`; `PK/shared/references/description-writing.md:114`) | **DISCARD** that query from the recall denominator; rewrite it |
 | Two figures from different harnesses differenced | "measure with the harness that produced the number you are comparing against" (`evals/README.md:122`) | **DISCARD** the delta |
@@ -743,7 +743,7 @@ descriptions lost 78-81%, taking every `<example>` block with them
 (`PK/evals/MEASUREMENT-CAVEATS.md:10-45`). "Every number in that run is a real measurement
 of a real string. It is not the string the artifact ships." Measurements taken after the fix
 are **not comparable** with the pre-fix baseline (`:41-45`). *Local status:* the block-scalar
-branch here tolerates blank lines (`evals/frontmatter.test.ts:32-35`); the plain wrapped-scalar
+branch here tolerates blank lines (`evals/frontmatter.check.ts:32-35`); the plain wrapped-scalar
 branch does not (`:43-47`).
 
 ### F0's real shape: the readers were fixed, the artifact was not
@@ -952,7 +952,7 @@ harness.
 *Signature:* a perfect deterministic score with no findings of any kind. `checks.ts` holds zero
 rules; `checkCall` returns an empty array and every input scores 1.00, "including a call with a
 defect under every rule below" (`evals/composition/LINT-RULES-PENDING.md:26-29`).
-`checks.test.ts` "Asserts nothing while `ACTIVE_RULE_COUNT === 0`" (`:16`), so a green
+`checks.check.ts` "Asserts nothing while `ACTIVE_RULE_COUNT === 0`" (`:16`), so a green
 `make checks` (`Makefile`, `checks` target) is not evidence — and `make all` runs `checks` first
 (`Makefile`, `all` target), which makes it look like a gate.
 

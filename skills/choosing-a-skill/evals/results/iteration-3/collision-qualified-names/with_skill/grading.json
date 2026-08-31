@@ -1,0 +1,100 @@
+{
+  "expectations": [
+    {
+      "text": "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+      "passed": true,
+      "evidence": "response.md names both: \"the local `code-review` skill (two axes - Standards and Spec - run as parallel sub-agents against a fixed point, with a Fowler smell baseline), and the plugin's `code-review:code-review`\". routing.md lists both under \"Candidates\" with the plugin written in qualified `code-review:code-review` form, and states a pick: \"Pick: **local `code-review`**\", with a reason attached. Both names appear in response.md, not only routing.md."
+    },
+    {
+      "text": "The stated reason for the review pick cites a property that skill actually declares, rather than an invented distinction",
+      "passed": false,
+      "evidence": "The stated reason rests entirely on an invented scope limit. response.md: the plugin is \"aimed at a heavyweight repo-wide sweep\" and \"A branch diff you're about to merge is the local skill's case\". routing.md makes the same claim its explicit basis: \"The routing table is explicit - local for a branch diff against a spec, plugin for a heavyweight repo-wide sweep. This is a branch about to merge, i.e. a diff against a fixed point, which is exactly the local skill's stated scope.\" I verified this against the actual plugin skill: `code-review:code-review` describes itself as running \"a multi-axis code review over an explicitly named scope\" and nowhere declares a repo-wide, heavyweight, or sweep-only scope. A branch diff IS an explicitly named scope, so the plugin is not excluded by anything it declares. A grep across /Users/peterkloss/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-review/ for 'repo-wide|repository-wide|heavyweight|whole repository|sweep' returns zero hits. The only source of the phrase is the choosing-a-skill routing table itself (SKILL.md line 220), which asserts the distinction rather than deriving it from the plugin - so the run inherited the error rather than checking it. Note the run had a correct, verifiable reason available and did not use it as the basis: it mentions the local skill's genuine two-axis Standards/Spec structure and fixed-point scoping in passing, but the load-bearing justification for excluding the plugin is the invented scope limit."
+    },
+    {
+      "text": "Routes cleanup to code-simplifier:code-simplifier, giving the reason that it runs tests between edits and reverts breakage where the local skill only advises",
+      "passed": true,
+      "evidence": "response.md: \"`code-simplification` is the local 331-line reference, and `code-simplifier:code-simplifier` is a plugin agent that runs the project's tests between each edit and reverts anything that breaks. Since you want the messy bits actually cleaned up rather than advised about, that's the plugin - it verifies, the local one only advises.\" routing.md repeats the contrast and adds \"proposes rather than edits where a unit has no coverage\". Both the run-tests-between-edits and revert-on-breakage properties are genuinely declared by the plugin agent, and the local code-simplification skill is indeed a guidance reference (331 lines, verified). The advises-vs-verifies framing is accurate."
+    },
+    {
+      "text": "In response.md specifically, the user is told that a fork existed and why this side was chosen - not only in routing.md",
+      "passed": true,
+      "evidence": "response.md opens by naming the fork explicitly: \"Both halves of that ask land on a name collision, so let me name the candidates in full before I pick either.\" It then surfaces both forks to the user in the reply itself - the review fork (\"Two different artifacts answer to 'review this'...\") with a stated reason for the pick, and the cleanup fork (\"Same fork: `code-simplification` is the local... and `code-simplifier:code-simplifier` is a plugin agent...\") with its reason. This is in response.md, not only routing.md. (Passes on the structural requirement; the accuracy of the review-side reason is separately failed under expectation 2.)"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "execution_metrics": {
+    "output_chars": 6279,
+    "transcript_chars": 0,
+    "note": "No transcript, metrics.json or user_notes.md exist for this run; response.md and routing.md are the entire artifact."
+  },
+  "timing": {
+    "total_duration_seconds": 52.0,
+    "total_tokens": 48445
+  },
+  "claims": [
+    {
+      "claim": "The plugin code-review:code-review is 'aimed at a heavyweight repo-wide sweep'",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Contradicted by the plugin skill's own description, which scopes it to 'an explicitly named scope' with no repo-wide restriction. No occurrence of repo-wide/heavyweight/sweep anywhere in the plugin's files. The claim originates from the choosing-a-skill routing table, not from the skill it describes."
+    },
+    {
+      "claim": "The plugin code-review:code-review 'needs the /code-review command'",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Asserted in routing.md. The plugin ships commands/code-review.md with 'disable-model-invocation: false', and the skill is listed as a directly invocable skill in the session listing, so it does not require the command as an entry point. Minor, but another unchecked property inherited from the routing table."
+    },
+    {
+      "claim": "The local code-review skill runs two axes (Standards + Spec) as parallel sub-agents against a fixed point with a Fowler smell baseline",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Confirmed in /Users/peterkloss/.claude/skills/code-review/SKILL.md: two axes named in the description, 'Both axes run as parallel sub-agents', and a 12-item Fowler smell baseline in step 3."
+    },
+    {
+      "claim": "code-simplifier:code-simplifier runs the project's tests between each edit, reverts breakage, and proposes rather than edits on uncovered units",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Matches the code-simplifier:code-simplifier declared description verbatim in substance."
+    },
+    {
+      "claim": "The local code-simplification skill is a 331-line reference that only advises",
+      "type": "factual",
+      "verified": true,
+      "evidence": "wc -l on /Users/peterkloss/.claude/skills/code-simplification/SKILL.md returns exactly 331. It is a process-guidance skill with no test-verification loop."
+    },
+    {
+      "claim": "Test-suite state on the branch is unknown and was not checked",
+      "type": "process",
+      "verified": true,
+      "evidence": "Explicitly surfaced in both files as a stated unknown rather than assumed. Good practice, uncovered by any expectation."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": ["Executor surfaced one unknown in-artifact: whether the branch's test suite is green, which gates the simplification step."],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+        "reason": "Satisfiable by any run that lists two names and attaches any sentence to a pick. Both runs here passed it while making opposite picks on reasoning of very different quality. Expectation 2 is doing all the discriminating work; this one only checks that the fork was noticed at all."
+      },
+      {
+        "reason": "No expectation checks whether the run's characterisation of the LOSING candidate is accurate. Run A's failure mode is precisely that: it mischaracterised the plugin to justify rejecting it. Expectation 2 as worded is about 'the stated reason for the pick', and only catches this because the reason and the mischaracterisation happen to be the same sentence. An expectation like 'no candidate is rejected on a property it does not declare' would catch this class directly."
+      },
+      {
+        "reason": "Neither expectation covers the ordering/conditionality of the two steps, which both runs treated as substantive (review before cleanup, correctness findings routed out of the simplifier). Run A additionally surfaced a stated unknown (red test suite blocks the simplifier). These are real quality signals going unmeasured."
+      },
+      {
+        "reason": "Expectation 2 is currently a trap on the skill under test: the 'heavyweight repo-wide sweep' phrasing is written into choosing-a-skill/SKILL.md line 220. A run that follows the skill faithfully FAILS this expectation. That is defensible as an eval - it measures whether the run verifies rather than parrots - but it should be recognised that fixing the skill's routing table is the intended remedy, not fixing the run. As written, the with_skill arm can only pass expectation 2 by contradicting its own skill."
+      }
+    ],
+    "overall": "Expectation 2 is the sharp one and correctly discriminated here. Expectations 1 and 3 are near-free for any competent run. Expectation 4 is well-scoped and worth keeping. Consider adding coverage for accuracy of the rejected candidate's description, independent of which side was picked."
+  }
+}

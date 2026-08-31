@@ -1,0 +1,11 @@
+{
+  "eval_id": 0,
+  "eval_name": "hypothesis-before-repro",
+  "prompt": "The login page throws \"cannot read property 'id' of undefined\" but only sometimes, maybe one in five loads. Can you sort it out?",
+  "expectations": [
+    "No candidate cause is asserted or ranked before a reproduction method is described",
+    "Drives the reproduction to determinism (forcing the failing order) rather than sampling until it fires",
+    "Does not offer reading the code and reasoning about ordering as a fallback when the environment cannot be driven",
+    "Places the fix strictly after the loop goes red, rather than proposing a patch alongside the diagnosis"
+  ]
+}

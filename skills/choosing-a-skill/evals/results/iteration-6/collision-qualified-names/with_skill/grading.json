@@ -1,0 +1,104 @@
+{
+  "expectations": [
+    {
+      "text": "Names both the local code-review and the plugin code-review:code-review, distinguishing which is which, and picks one rather than handing the choice back to the user",
+      "passed": true,
+      "evidence": "response.md names both with explicit lineage labels: '`code-review` (local) — two fixed axes, Standards and Spec...' and '`code-review:code-review` (plugin) — resolves a named scope (branch, PR ref, diff range or path)...'. It then commits: 'So I'm going to start with **`code-review:code-review`** over the branch's merge-base, unless you point me at the spec or issue behind the branch — in which case I'll switch to the local `code-review`.' That is a pick with a stated reversal condition, not a deferral — the run states which one it is running by default and does not ask the user to choose. routing.md reinforces this under 'Commitment discipline': 'One skill is committed to now (the review, with a stated condition that would swap which of the two `code-review`s runs).' It additionally distinguishes the plugin skill from `code-review:reviewer`, the plugin's internal sub-agent."
+    },
+    {
+      "text": "Every discriminator the pick or the rejection rests on holds against what those skills actually declare",
+      "passed": true,
+      "evidence": "Load-bearing discriminators, each verified against the installed files. (1) 'It wants an originating issue or spec to review against, and it skips the Spec axis without one' — local /Users/peterkloss/.claude/skills/code-review/SKILL.md step 2: 'If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report \"no spec available\".' HOLDS. (2) Plugin 'resolves a named scope (branch, PR ref, diff range or path)' and routing.md's 'branch is explicitly supported — it is not repo-only' — plugin /Users/peterkloss/Dev/ACMElabs/code-review/skills/code-review/SKILL.md argument-hint: '[what to review: a PR ref, a branch or diff range, or a path]', and its scope table line 27: '<branch>  a branch against its merge base'. HOLDS. (3) 'reports which cells it never reached' — plugin SKILL.md: 'coverage  per unit and per axis, required, including cells never dispatched'. HOLDS. (4) 'plans one row per review cell' — 'writes one plan row per review cell before dispatching anything'. HOLDS. (5) Local code-simplification is 'a 331-line reference that only advises' — `wc -l` returns exactly 331, and the file is principles/checklists with no execution loop. HOLDS. (6) 'code-simplifier:code-simplifier is an agent that runs the tests between each edit and reverts anything that breaks' — plugin simplifier SKILL.md: 'runs them after each individual change, and reverts anything that breaks them'. HOLDS. (7) '/code-simplify routes there too' — /Users/peterkloss/.claude/commands/code-simplify.md line 1 of body: 'Use the `code-simplifier:code-simplifier` plugin agent, not the local `code-simplification` skill'. HOLDS. Notably the run does NOT rest on the false claim that the plugin is repo-only or that a branch is not a named scope — it explicitly forecloses that error. No load-bearing discriminator was found to be inaccurate."
+    },
+    {
+      "text": "The stated reason for the pick is not contradicted elsewhere in the same outputs",
+      "passed": true,
+      "evidence": "The stated reason is a single spec-availability axis, held identically in both files. response.md: 'The spec does: if there's an issue or spec this branch was written against, the local skill is worth it because the Spec axis is the thing it adds. If there isn't, that axis is dead weight and the plugin is the better pick.' routing.md: 'The collision table splits on one fact: local `code-review` runs two fixed axes, Standards + Spec, and wants an originating issue or spec — without one it silently drops the Spec axis.' Both files name the same tiebreaker, the same default, and the same reversal condition. The secondary reason (coverage of unreviewed cells before a merge) also appears in both and is never contradicted. No statement anywhere in the two files undercuts the pick — in particular the run never elsewhere claims the local skill resolves scope better, nor that the plugin cannot take a branch."
+    },
+    {
+      "text": "Holds the cleanup conditional on what the review returns, because the simplifier declares it must not run on broken code - and says so in response.md",
+      "passed": true,
+      "evidence": "All three parts present in response.md itself: (a) the grounding in the simplifier's own declaration — 'One caveat that changes the order: simplifying code whose behaviour is wrong just preserves the wrong behaviour', which paraphrases the plugin simplifier's description verbatim in substance ('Do not use when that same code is broken or its tests are failing, since simplifying code whose behaviour is wrong preserves the wrong behaviour: fix it first'); (b) the conditionality — 'anything the review flags as a genuine defect gets fixed before the cleanup pass, not folded into it'; (c) the explicit hold — 'That ordering is also why I'm only committing to the review now. What \"the messy bits\" turns out to mean depends on what the review surfaces — if it's mostly nesting, duplication and dead code, the simplifier takes it straight; if it's correctness findings wearing a mess costume, that's a fix, not a cleanup, and we'd talk about it first.' routing.md corroborates under section 2 ('Why it is conditional, not a commitment'), but the requirement that it reach response.md is independently satisfied."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 5626,
+    "total_tokens": 48381,
+    "errors_encountered": 0
+  },
+  "timing": {
+    "executor_duration_seconds": 50.2,
+    "total_duration_seconds": 50.2
+  },
+  "claims": [
+    {
+      "claim": "The local code-review skill 'skips the Spec axis' when there is no originating spec",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Local SKILL.md step 2: 'If they say there isn't one, the **Spec** sub-agent will skip and report \"no spec available\".' Also step 4: 'If the spec is missing, skip the Spec sub-agent and note this in the final report.'"
+    },
+    {
+      "claim": "The plugin code-review accepts a branch as scope — 'it is not repo-only'",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Plugin SKILL.md argument-hint '[what to review: a PR ref, a branch or diff range, or a path]' and scope table '<branch>  a branch against its merge base'."
+    },
+    {
+      "claim": "The plugin code-review 'reports which cells it never reached'",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Plugin SKILL.md return contract: 'coverage  per unit and per axis, required, including cells never dispatched'; and 'a cell that is never reached still appears in the coverage account with a reason'."
+    },
+    {
+      "claim": "code-simplification (local) is a 331-line reference that only advises",
+      "type": "factual",
+      "verified": true,
+      "evidence": "wc -l on /Users/peterkloss/.claude/skills/code-simplification/SKILL.md returns exactly 331. Content is five principles plus checklists; no test-run/revert execution loop."
+    },
+    {
+      "claim": "/code-simplify routes to the plugin simplifier",
+      "type": "factual",
+      "verified": true,
+      "evidence": "/Users/peterkloss/.claude/commands/code-simplify.md: 'Use the `code-simplifier:code-simplifier` plugin agent, not the local `code-simplification` skill'."
+    },
+    {
+      "claim": "code-review:reviewer is the plugin's internal sub-agent, not the skill",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Plugin SKILL.md 'Dispatching a reviewer': 'stage 2  one cell  subagent_type: \"reviewer\"'. The agent roster confirms code-review:reviewer is dispatched by the skill, not invoked directly."
+    },
+    {
+      "claim": "The plugin code-review carries security and test-coverage axes, so security-review and TDD would be redundant passes",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Not load-bearing for the pick — it appears only in routing.md's 'Skills deliberately not routed to' rejection of third-party alternatives. The plugin SKILL.md globs `references/axis-*.md` at runtime as its axis roster and does not enumerate the axes in the file itself, so the specific claim that security and test-coverage axes are present could not be confirmed from SKILL.md alone. Recorded as unverified rather than counted against expectation 2, per the narrowed scope."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Names both the local code-review and the plugin code-review:code-review, distinguishing which is which, and picks one rather than handing the choice back to the user",
+        "reason": "The new pick clause is a real improvement, but the boundary between 'commit with a reversal condition' and 'deferral' currently lives only in the grader's prompt, not in the expectation text. A run could satisfy the letter by naming a default and then attaching so many conditions that the user must still decide. Consider tightening to: 'states one skill it will run by default, such that a reader with no further information knows which one executes'."
+      },
+      {
+        "reason": "No expectation checks whether the run avoids the specific trap this eval is built around — the plausible-but-false 'the plugin needs a named scope, and the user named none' inference, which the plugin's own argument-hint and scope table refute. Run B fails exactly there while passing three of four expectations. Expectation 2 catches it only because the grader was told which discriminators to verify; an expectation naming the branch-is-a-scope fact directly would be more discriminating and less grader-dependent."
+      },
+      {
+        "expectation": "The stated reason for the pick is not contradicted elsewhere in the same outputs",
+        "reason": "This expectation is close to free for any run that is internally coherent, and does not distinguish a well-grounded pick from a confidently-wrong one — expectation 2 already carries the accuracy load. It earns its place only as a cheap consistency tripwire; consider extending it to cover cross-file attribution errors (a property claimed for the chosen skill that was actually sourced from the rejected one), which is a real failure mode observed in the baseline run."
+      }
+    ],
+    "overall": "The expectation set is well-targeted for this collision eval, and the narrowing of expectation 2 to load-bearing discriminators is the right call — it stops peripheral inaccuracies from swamping the signal. Expectation 4 is strong: it requires grounding, conditionality, and delivery to the user in the right file, and all three parts are independently checkable. The weakest link is expectation 3, which is nearly always satisfied by a coherent writer."
+  }
+}

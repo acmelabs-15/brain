@@ -32,5 +32,26 @@ keeps its own `docs/sessions/`, gated by the tool it ships.
   authoring context links to it. `skills/session/CLAUDE.md` lists which files must change
   together when a shipped shape changes.
 - **The docs system** (`docs/plan`, `docs/decisions`, `docs/analysis`, `docs/sessions`) uses the
-  session-log words for its own record and `~/.claude/references/project-docs-conventions.md`'s
-  words for its layout; a `CONTEXT-MAP` entry per carried skill arrives with PLAN-001 Part 2 Task 1.
+  session-log words for its own record and `references/project-docs-conventions.md`'s words for
+  its layout.
+
+## The carried skills' vocabularies (since PLAN-001 Part 2)
+
+The 47 skills copied in on 2026-08-31 bring their own words, each defined in its own files and
+not repeated here. Three are contexts of their own, with a glossary a reader should load before
+using the words:
+
+- [Deep modules](./skills/codebase-design/SKILL.md): *seam*, *deep module*, *depth*, *frontier*,
+  *tracer bullet*, *tight loop*, *red*, *fog of war* — the vocabulary the Matt Pocock lineage
+  shares (`grilling`, `to-tickets`, `implement-spec`, `wayfinder`, `diagnosing-bugs` use it
+  verbatim). `choosing-a-skill` § The three lineages lists the words.
+- [Loops](./skills/loop-me/SKILL.md): *loop*, *workflow*, *trigger*, *checkpoint*, *brief*,
+  *push right* — `loop-me` only; its *brief* is not the session skill's reply line.
+- [Triage roles](./references/issue-tracker.md): `needs-triage`, `needs-info`, `ready-for-agent`,
+  `ready-for-human`, `wontfix` — a ticket's `Status:` words, distinct from a plan part's and a
+  session's (`references/project-docs-conventions.md` keeps them apart).
+
+`ask-user-question` carries its own words (*option*, *label*, *recommendation*, *preview*, *skip*)
+in its `SKILL.md` and `references/`. Where a carried skill's word collides with a session-log word
+— *brief*, *session*, *record* — the session-log context wins inside `docs/`, and the skill's
+word inside the skill.

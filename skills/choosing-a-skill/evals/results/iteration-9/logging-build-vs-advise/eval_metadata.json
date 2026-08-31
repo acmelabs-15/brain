@@ -1,0 +1,12 @@
+{
+  "eval_id": 4,
+  "eval_name": "logging-build-vs-advise",
+  "prompt": "Our checkout keeps failing for some users and we have no idea why - there's basically no logging in that flow. Can you add proper logging so we can actually see what's happening in production?",
+  "expectations": [
+    "Does not route to observability-and-instrumentation as the skill to run, since the request is to add code and that skill produces guidance rather than code",
+    "Names observability-and-instrumentation as material to consult while building - for what to log at a failing checkout boundary - rather than omitting it",
+    "Routes to a workflow that produces code, naming it, rather than leaving the build implicit",
+    "In response.md specifically, the reason given for the routing is the kind of artifact each candidate produces, not which description best matches the words of the request",
+    "HELPFULNESS: response.md gives the user something they can act on today - at least one concrete decision about what to log at the checkout boundary, or a named first place to instrument - rather than deferring every substantive question to a later round"
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "expectations": [
+    {
+      "text": "Routes to the diagnosis workflow rather than to the lexically-matching performance-optimization skill, and says why",
+      "passed": true,
+      "evidence": "routing.md orders '`diagnosing-bugs` — primary, invoked first' and places `performance-optimization` third. The 'says why' half is satisfied by a dedicated section giving an actual reason, not a bare rejection listing — 'Why not `performance-optimization` first': 'Its description is a genuine near-match — it names \"suspect performance regressions\" explicitly. But it is scoped to the act of optimizing: Core Web Vitals, N+1 queries, profiling-revealed bottlenecks. All of those presuppose a located bottleneck. Here nothing is located yet; we do not even know whether the cost is in the browser, the API, or the database.' A positive reason for the diagnosis route is also given: 'Routing straight to a fix skill would skip the step that determines whether there is a regression at all.' response.md carries the same framing to the user: 'I want to treat this as a diagnosis job first and an optimization job second.'"
+    },
+    {
+      "text": "In response.md specifically, names no candidate bottleneck - even hedged or unranked - before a measurement exists",
+      "passed": true,
+      "evidence": "Scanned response.md for every mechanism mention. Each appears in a form that is not an assertion or hedge about the cause. Line 1 names 'add caching, memoize the table, add an index' explicitly as the trap to avoid: 'The trap here is jumping straight to plausible-sounding fixes (...) before we know whether the deploy actually caused it.' Line 5 declines to populate a suspect list: 'each has a different suspect list' — the list itself is never given. Line 9 states mechanisms only as branches of a measurement that has not yet been taken: 'If server response time is flat and the browser is busy, it's a rendering or bundle problem. If the browser is idle waiting on responses, it's the backend or the queries' — both arms present, contingent on a trace. Line 15's 'sometimes turns out to be a p99 affecting a handful of large accounts' concerns the distribution of the symptom and is explicitly offered as something to 'rule in or out early', not as a cause. No ranking, no 'likely/probably/usually X is the culprit' applied to any mechanism."
+    },
+    {
+      "text": "Treats 'after the last deploy' as a bisectable boundary rather than as a cause",
+      "passed": true,
+      "evidence": "The boundary is made falsifiable before it is used. response.md step 2: '**Confirm the deploy is actually the boundary.** Compare the same measurement before and after the deploy timestamp — p50 and p95, not averages ... If the numbers were already climbing before the deploy, this is drift and we're chasing the wrong change.' Step 4 then uses it as a bisection target rather than an explanation: '**Bisect the deploy against that measurement.** Once we have a number that reproduces, the diff in that deploy is a finite list. Attribute the regression to a specific change rather than to a general theory about the code.' routing.md states the failure mode being avoided: '\"After the last deploy\" is the user's hypothesis about causation, and the most common failure mode on this class of request is accepting that hypothesis and optimizing whatever looks slowest in the code.'"
+    },
+    {
+      "text": "Commits to at most two skills, marking any further steps as conditional on what the measurement shows",
+      "passed": true,
+      "evidence": "Committed count = 2, at the boundary of the limit. Reached by reading routing.md's four-entry ordered list and subtracting entries explicitly gated on a finding. Entry 1 `diagnosing-bugs` — 'primary, invoked first' (committed). Entry 2 `browser-testing-with-devtools` — 'conditionally, inside step 3 of the diagnosis, only if the frontend/backend split points at the browser', reinforced by 'If that split lands the other way, the browser skills are never invoked at all and nothing is wasted' (genuinely conditional, names an observation that can come out either way, does not count). Entry 3 `performance-optimization` — 'after diagnosis has named a cause, to do the actual fix'; this is sequenced rather than gated, and routing.md speaks of it as certain ('This skill is the right second call ... it is the one that should carry the fix and the re-measurement'), so it counts as committed. Entry 4 `observability-and-instrumentation` — 'conditionally, if no before/after telemetry exists to compare against', echoed in response.md as 'if there's no before/after telemetry to compare against ... the first real deliverable is instrumentation, not a fix' (conditional, does not count). Two committed, two conditional, and the conditions name concrete measurement outcomes rather than being decorative labels."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {},
+    "total_tool_calls": null,
+    "total_steps": null,
+    "errors_encountered": 0,
+    "output_chars": 6518,
+    "transcript_chars": 0,
+    "note": "No transcript and no metrics.json exist for this run; response.md and routing.md are the entire artifact. Grading is based solely on those two files."
+  },
+  "timing": {
+    "executor_duration_seconds": 54.9,
+    "total_duration_seconds": 54.9,
+    "total_tokens": 41625
+  },
+  "claims": [
+    {
+      "claim": "`diagnosing-bugs` states outright that it covers performance regressions and reports of something being slow",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Installed description: 'Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.' Both claimed phrases are present."
+    },
+    {
+      "claim": "`performance-optimization` names 'suspect performance regressions' explicitly, making it a genuine near-match",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Installed description: 'Use when performance requirements exist, when you suspect performance regressions, when Core Web Vitals or load times need improvement, when N+1 query patterns need fixing, or when profiling reveals bottlenecks.' The quoted trigger and the three examples cited (Core Web Vitals, N+1 queries, profiling-revealed bottlenecks) all check out."
+    },
+    {
+      "claim": "`debugging-and-error-recovery` is framed around failing tests, broken builds and errors, making `diagnosing-bugs` the tighter match",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Installed description: 'Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error.' It carries no performance or slowness trigger, so the comparative claim holds."
+    },
+    {
+      "claim": "`observability-and-instrumentation` owns 'production issues are reported but you can't tell what happened from the available data'",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Quoted verbatim from the installed description: 'Use when production issues are reported but you can't tell what happened from the available data.' Accurate quotation."
+    },
+    {
+      "claim": "The frontend/backend split is answerable 'in minutes' with one load using the network panel and a performance trace",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Reasonable as stated and correctly scoped to what it can settle — whether the browser is busy or waiting — rather than to identifying a cause. The run also correctly notes the payoff asymmetry: 'the cheapest step that eliminates half the search space.' Its accompanying justification is sound: 'a dashboard that feels slow is at least as often a slow aggregation query or a fanned-out API call, and a browser audit would return a list of real-but-irrelevant frontend findings while the actual regression sat in a query plan.'"
+    },
+    {
+      "claim": "Comparing p50 and p95 rather than averages is necessary because a regression hitting heavy accounts hides in the mean",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Sound. response.md: 'p50 and p95, not averages, since a regression that only hits heavy accounts hides completely in the mean.' Consistent with the later p99 caveat, and it is a measurement-design point rather than a smuggled hypothesis about the cause."
+    },
+    {
+      "claim": "The task forbids clarifying questions",
+      "type": "process",
+      "verified": false,
+      "evidence": "routing.md asserts under 'Not routed': 'the task forbids clarifying questions'. The eval prompt available to grading is 'Something's off with how slow the dashboard feels after the last deploy. Have a look and tell me what you'd do.' — it contains no such prohibition, and no transcript or harness instructions are present in the run directory to corroborate one. Unverifiable from the available artifacts. The behaviour it justifies is nonetheless coherent: response.md step 1 poses its open questions as things the diagnosis will settle rather than blocking asks."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [
+      "routing.md justifies not routing to `interview-me`/`grilling` on the grounds that 'the task forbids clarifying questions', a constraint not present in the eval prompt and not corroborated by any artifact in the run directory."
+    ],
+    "workarounds": [],
+    "note": "No user_notes.md exists in the outputs directory."
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Commits to at most two skills, marking any further steps as conditional on what the measurement shows",
+        "reason": "This run lands exactly on the ceiling — two committed, two conditional — which exposes the expectation's one soft edge: entry 3 (`performance-optimization`, 'after diagnosis has named a cause') is sequenced rather than gated, and it counts as committed only because the routing prose speaks of it as certain ('it is the one that should carry the fix'). Had the same entry been labelled 'conditionally' with no change to the plan behind it, the count would have dropped to one. The label is cheap; the plan is what matters. Requiring that each conditional name a specific observation that could come out either way — with the other branch being that the skill is never invoked, as this run does well for `browser-testing-with-devtools` — would make the expectation measure the plan rather than the adverb."
+      },
+      {
+        "expectation": "In response.md specifically, names no candidate bottleneck - even hedged or unranked - before a measurement exists",
+        "reason": "The intent is right but the boundary lives outside the expectation text and had to be supplied to the grader as a separate note. This run names caching, indexes, memoization, bundles, rendering and queries, and passes because each is framed as a trap to avoid or a branch of an untaken measurement. That is a defensible line, but it is not readable from the expectation as written, which makes the verdict grader-dependent rather than artifact-dependent. Fold the discriminator in: 'names a mechanism only as a trap to avoid or a branch of a stated measurement, never as an assertion, hedge, or ordering of likelihood.'"
+      },
+      {
+        "reason": "No expectation covers what the run commits to when the measurement cannot be built at all — no staging, no previous build, no before/after telemetry. That is the only branch where diagnosis-first actually costs something, and where the cheap escape is exactly the failure the other expectations exist to prevent: read the deploy diff and rank changes by how expensive they look. This run addresses it unprompted ('if there's no before/after telemetry to compare against, step 2 becomes guesswork and the first real deliverable is instrumentation, not a fix'), so the eval is getting the outcome for free and would not notice a run that omitted it."
+      },
+      {
+        "reason": "Nothing checks whether the run invents constraints. routing.md asserts 'the task forbids clarifying questions' — a rule absent from the eval prompt and uncorroborated by anything in the run directory. It happens to be harmless here, but a fabricated constraint used to justify a routing decision is precisely the kind of defect a routing eval should catch, and all four expectations are blind to it. An expectation that no claim about the task's own constraints is asserted without support would cost little and discriminate well."
+      },
+      {
+        "reason": "The four expectations are all about restraint — do not name, do not assume, do not over-commit — and none about sufficiency. A reply that refused to name anything and committed to nothing would score 4/4. Consider one expectation requiring that the first step be concretely startable: a named first measurement and the specific inputs it needs. This run passes such a bar ('Point me at the repo and the deploy (or the dashboard URL) and I'll start at step 3'), but nothing in the eval is currently checking for it."
+      }
+    ],
+    "overall": "All four expectations pass, but three of them (1, 2, 3) are satisfied by prose posture that is comparatively cheap to produce, and only expectation 4 puts real pressure on the plan — and this run sits exactly on its ceiling, passing partly on how its third entry is worded. The set is well aimed at the hypothesis-first failure mode but is entirely composed of restraint checks, with no coverage of the no-measurement-possible branch, of invented constraints, or of whether the plan can actually be started."
+  }
+}

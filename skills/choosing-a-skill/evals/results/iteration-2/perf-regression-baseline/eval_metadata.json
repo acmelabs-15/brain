@@ -1,0 +1,11 @@
+{
+  "eval_id": 1,
+  "eval_name": "perf-regression-baseline",
+  "prompt": "Something's off with how slow the dashboard feels after the last deploy. Have a look and tell me what you'd do.",
+  "expectations": [
+    "Establishes a measurement or baseline before naming any bottleneck",
+    "Does not propose a specific optimisation before a measurement exists",
+    "Treats 'after the last deploy' as a bisectable boundary rather than as a cause",
+    "Names at most two skills it commits to invoking"
+  ]
+}

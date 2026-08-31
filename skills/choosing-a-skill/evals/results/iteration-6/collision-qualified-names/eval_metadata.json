@@ -1,0 +1,11 @@
+{
+  "eval_id": 2,
+  "eval_name": "collision-qualified-names",
+  "prompt": "Can you review this branch before I merge it? And once that's done I want the messy bits cleaned up.",
+  "expectations": [
+    "Names both the local code-review and the plugin code-review:code-review, distinguishing which is which, and picks one rather than handing the choice back to the user",
+    "Every discriminator the pick or the rejection rests on holds against what those skills actually declare",
+    "The stated reason for the pick is not contradicted elsewhere in the same outputs",
+    "Holds the cleanup conditional on what the review returns, because the simplifier declares it must not run on broken code - and says so in response.md"
+  ]
+}

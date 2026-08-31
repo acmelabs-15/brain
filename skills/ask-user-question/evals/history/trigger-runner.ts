@@ -94,7 +94,8 @@ interface Probe {
 const TARGET =
   (() => {
     const flag = process.argv.indexOf("--target");
-    if (flag !== -1 && process.argv[flag + 1]) return process.argv[flag + 1];
+    const next = process.argv[flag + 1];
+    if (flag !== -1 && next) return next;
     return process.env.TRIGGER_TARGET ?? "ask-user-question:ask-user-question";
   })();
 
@@ -184,7 +185,7 @@ async function probe(query: string, model: string, timeoutMs: number): Promise<P
             if (se.delta?.type === "input_json_delta") {
               pendingSkillJson += String(se.delta.partial_json ?? "");
               const m = /"skill"\s*:\s*"([^"]+)"/.exec(pendingSkillJson);
-              if (m) return finish(m[1]);
+              if (m) return finish(m[1] ?? "");
             }
           } else if (se?.type === "message_stop" && pendingSkillJson === null) {
             return finish(null);

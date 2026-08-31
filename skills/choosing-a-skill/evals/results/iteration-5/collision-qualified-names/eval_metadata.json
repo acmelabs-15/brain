@@ -1,0 +1,11 @@
+{
+  "eval_id": 2,
+  "eval_name": "collision-qualified-names",
+  "prompt": "Can you review this branch before I merge it? And once that's done I want the messy bits cleaned up.",
+  "expectations": [
+    "Names both the local code-review and the plugin code-review:code-review, distinguishing which is which, and picks one with a stated reason",
+    "Every discriminator it states holds against what those skills actually declare - in particular it does not rest the pick on scope shape or scope resolution, since the plugin accepts a branch and the local skill asks the user for a fixed point",
+    "The stated reason for the pick is not contradicted elsewhere in the same outputs",
+    "In response.md specifically, the user is told a fork existed, why this side was chosen, and that the cleanup plugin runs tests between edits and reverts breakage where the local skill only advises"
+  ]
+}

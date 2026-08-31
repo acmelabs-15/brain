@@ -1,0 +1,102 @@
+{
+  "expectations": [
+    {
+      "text": "Names both the local code-review and the plugin code-review:code-review, distinguishing which is which, and states one skill it will run by default such that a reader knows which one executes",
+      "passed": false,
+      "evidence": "First clause passes cleanly. response.md names both in qualified form and distinguishes them: '`code-review` (local) - two fixed axes, Standards + Spec, run as parallel sub-agents against a Fowler smell baseline' vs '`code-review:code-review` (plugin) - resolves a named scope (PR ref, branch, diff range or path), plans one row per review cell before dispatching'. The second clause fails. The run states no default and ends by handing the choice back: 'The question that decides it is: **is there an issue or spec this branch was written against?** If yes, local `code-review` [...] If not, or if you want to know what went *unreviewed* before merging, `code-review:code-review`. Tell me which and I'll run that one.' That is not a commitment with a named reversal condition - it is a two-way fork with no branch marked as the one that fires absent an answer, terminated by an explicit request that the user pick. routing.md confirms the choice was deliberately left open rather than merely unstated: heading '### 1. Review - `code-review` (local) OR `code-review:code-review` (plugin), decided by one question', followed by 'Not committed until the user answers.' A reader with no further information cannot say which skill executes, so the expectation's stated bar is not met. Note the run does commit on the second collision ('I'd use the plugin one') - but the expectation is about the code-review pair, which is the collision left unresolved."
+    },
+    {
+      "text": "Does not reject the plugin on the ground that no scope was named, since a branch is an accepted scope form for it; and does not credit the local skill with resolving scope itself, since it asks the user for a fixed point",
+      "passed": true,
+      "evidence": "Both halves hold. (a) The plugin is never rejected at all, and never on scope grounds - the run explicitly records the branch as an accepted scope form for it: 'resolves a named scope (PR ref, branch, diff range or path)', matching the plugin's argument-hint '[what to review: a PR ref, a branch or diff range, or a path]' and its scope table's '<branch>  a branch against its merge base'. routing.md goes further and names the trap directly as one it avoided: 'The discriminator is **not** \"does it take a branch diff\" - the table is explicit that both do, the plugin is not repo-only.' (b) The local skill is given no scope-resolution credit. Its stated distinguishing property is the Spec axis and its need for an originating issue ('it wants an originating issue or spec to review against; without one it skips that axis'), never scope handling. The run instead admits scope is unresolved on its own side and asks for it: 'One thing I haven't checked: I don't know the branch or the merge base yet. Point me at it (or tell me it's the current branch against main)', with routing.md's closing section 'The branch name and merge base are unknown, and I have not looked for a repo. Both are asked for in the reply rather than assumed.' That is the opposite of crediting the local skill with resolving scope."
+    },
+    {
+      "text": "No property it claims for the skill it chose is sourced from a different skill, and its stated reason is not contradicted elsewhere in the same outputs",
+      "passed": true,
+      "evidence": "Every claimed property checks out against the correct source file, with no cross-skill drift. For local `code-review`: 'two fixed axes, Standards + Spec, run as parallel sub-agents' and 'Fowler smell baseline' match ~/.claude/skills/code-review/SKILL.md ('Both axes run as **parallel sub-agents**'; 'the **smell baseline** below: a fixed set of Fowler code smells (_Refactoring_, ch.3)'); 'without one it skips that axis' matches its step 2 ('If they say there isn't one, the **Spec** sub-agent will skip and report \"no spec available\"'). For plugin `code-review:code-review`: 'plans one row per review cell before dispatching' and 'reports the cells it never reached' match the plugin SKILL.md ('plan cells [...] plan.jsonl, BEFORE any dispatch'; 'reporting per-unit coverage including the cells it never reached'). For the chosen `code-simplifier:code-simplifier`: 'runs the project's tests between each individual edit and reverts anything that breaks them' matches the code-simplifier agent declaration, and is correctly attributed to the plugin and withheld from the local skill. For local `code-simplification`: 'a 331-line reference document' - verified, the file is exactly 331 lines. The plugin's must-not-run-on-broken-code constraint is attributed to the plugin skill's own declared scope, which is where it lives. No stated reason is contradicted elsewhere: routing.md and response.md agree on every discriminator, on the open-fork status of the review pick, and on the ordering rationale."
+    },
+    {
+      "text": "Holds the cleanup conditional on what the review returns, because the simplifier declares it must not run on broken code - and says so in response.md",
+      "passed": true,
+      "evidence": "All three parts are present in response.md itself. Conditional: 'What the cleanup pass looks like depends on what the review shows - if it comes back with correctness findings, the shape of that middle step changes.' Grounded in the simplifier's declared refusal: 'The simplifier preserves behaviour by construction, so anything the review turns up as *wrong* has to be fixed before it runs; simplifying code whose behaviour is wrong just preserves the wrong behaviour more legibly' - which tracks the plugin's own description ('Do not use when that same code is broken or its tests are failing, since simplifying code whose behaviour is wrong preserves the wrong behaviour: fix it first'). Ordering stated explicitly: 'So the plan is: review, you and I triage the findings into fix-now versus fine, land the fixes, then hand the result to `code-simplifier:code-simplifier`.' routing.md corroborates and names the source: 'Also worth noting from the plugin skill's own declared scope: [...] explicitly not for code that is broken or whose tests are failing. That constraint is what fixes the ordering.'"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "execution_metrics": {
+    "output_chars": 7620,
+    "total_tokens": 48856,
+    "files_produced": [
+      "response.md",
+      "routing.md"
+    ],
+    "errors_encountered": 0
+  },
+  "timing": {
+    "executor_duration_seconds": 56.6,
+    "total_duration_seconds": 56.6
+  },
+  "claims": [
+    {
+      "claim": "The local code-review skill skips the Spec axis when there is no originating issue or spec",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Local SKILL.md step 2: 'If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report \"no spec available\".'"
+    },
+    {
+      "claim": "The plugin code-review:code-review accepts a branch, PR ref, diff range or path as scope",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Plugin SKILL.md argument-hint and scope table list pr <number|url>, <ref>...<ref>, <branch> (against its merge base), <path>, <path> --since <ref>."
+    },
+    {
+      "claim": "The local code-simplification skill is a 331-line reference document that only advises",
+      "type": "factual",
+      "verified": true,
+      "evidence": "wc -l on /Users/peterkloss/.claude/skills/code-simplification/SKILL.md returns exactly 331. Its header confirms it is an adapted 'model-agnostic, process-driven skill', not an executing agent."
+    },
+    {
+      "claim": "The plugin code-simplifier runs the project's tests between each edit and reverts breakage",
+      "type": "factual",
+      "verified": true,
+      "evidence": "code-simplifier agent declaration: 'Verifies behaviour preservation by running the project's tests between each individual change and reverting anything that breaks them, and proposes rather than edits where a unit has no test coverage.'"
+    },
+    {
+      "claim": "/code-simplify routes to the plugin anyway, so both paths reach the same place",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Not verifiable from the outputs supplied to grading; the local /code-simplify command file was not part of the eval artifact set. The claim is plausible but unconfirmed, and it is load-bearing for the run's argument that naming the plugin skill directly is merely 'clearer' rather than different in effect."
+    },
+    {
+      "claim": "The choice of review skill is not committed and awaits the user's answer",
+      "type": "process",
+      "verified": true,
+      "evidence": "routing.md: 'Not committed until the user answers.' response.md: 'Tell me which and I'll run that one.' The claim is accurate about the run's own behaviour - which is precisely why expectation 1 fails."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [
+      "Run self-reports that the branch name and merge base are unknown and no repo was inspected"
+    ],
+    "needs_review": [
+      "The review skill is left unselected pending a user answer, so no skill would actually execute from this turn"
+    ],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Names both the local code-review and the plugin code-review:code-review, distinguishing which is which, and states one skill it will run by default such that a reader knows which one executes",
+        "reason": "The rewritten second clause is a real improvement and it discriminated here - this run failed it while passing everything else, which is exactly the separation the rewrite was after. One residual softness: the expectation bundles naming/distinguishing with committing. A run that commits crisply but garbles which skill is which would fail for a reason indistinguishable in the score from this run's failure to commit. Splitting into 1a (names and distinguishes both) and 1b (a default is knowable) would make the failure mode legible from the pass rate alone."
+      },
+      {
+        "reason": "No expectation covers whether the run correctly identifies what the local skill does NOT have - specifically that it has no coverage account and no triage stage. This run got that right ('reports the cells it never reached' attributed only to the plugin), but an eval that never checks it would score identically against a run that credited the local skill with per-unit coverage reporting. Expectation 3 catches this only if the drift happens to land on the chosen skill; drift on the rejected one goes uncaught."
+      }
+    ],
+    "overall": "Expectation 2 is now genuinely self-contained - I could adjudicate it from its own text before opening either SKILL.md, and the file checks only corroborated what the wording already settled. Expectations 3 and 4 are strong and hard to satisfy by accident. Expectation 1's rewrite bit as intended."
+  }
+}

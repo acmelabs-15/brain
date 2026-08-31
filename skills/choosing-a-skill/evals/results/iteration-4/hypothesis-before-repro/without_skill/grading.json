@@ -1,0 +1,95 @@
+{
+  "expectations": [
+    {
+      "text": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+      "passed": false,
+      "evidence": "Evidence from without_skill/outputs/response.md. Paragraph 2 -- before any reproduction method is described -- asserts a mechanism with explicit likelihood language: 'An intermittent cannot read property id of undefined almost always means something is being read before it exists, and the timing decides whether you win the race.' The grading notes name 'almost always X' as precisely the disallowed framing. It then enumerates four sub-causes still ahead of any repro: 'a session or user fetch resolving after first render, an auth-state subscription that fires with undefined before it fires with a user, a redirect param or cached token that's only sometimes present, a component mounting before a provider is ready.' The enumeration itself would be permissible as 'explicitly unresolved alternatives' -- and the response does hedge it ('right now I have no evidence telling me which one it is') -- but the hedge is scoped to WHICH of the four, not to the race-condition mechanism, which has already been asserted as near-certain one sentence earlier. The first reproduction method does not appear until the numbered list further down. The opening line ('I want to start by making it fail reliably, not by guessing at a fix') states an intention but describes no method, so it does not move the reproduction description ahead of the assertion. Note that without_skill/outputs/routing.md contains the correct discipline -- 'I did not commit to a cause... Naming one before seeing the trace would be a hypothesis dressed as a diagnosis' -- but this expectation is scoped to response.md only, and response.md contradicts that note."
+    },
+    {
+      "text": "The first reproduction action described is a forcing step, not a sampling step; a forcing method mentioned later in the same step does not rescue a sampling opener",
+      "passed": false,
+      "evidence": "Evidence from without_skill/outputs/response.md. The first reproduction action is numbered step 1, and it is a capture/sampling step: 'Get the real failure signal. The message alone isn't enough -- I need the stack trace and the component/frame where the read happens, so I know which .id on which undefined object. That comes from reproducing it with the console open, or from whatever error reporting you already have.' Reproducing with the console open, at the reported 1-in-5 rate, is waiting for a failure to occur and reading it -- a sampling step, with a single captured failure as its success condition. Forcing appears only in the separately numbered step 2: 'Make it deterministic. Once I know the suspect, I want a knob that flips the failure from 1-in-5 to always: throttling the network, delaying the relevant request, or forcing the pre-resolution state directly.' That is not merely 'later in the same step' -- it is a distinct later step, and it is explicitly gated on the sampling step having already succeeded ('Once I know the suspect'). The ordering is exactly the one the expectation is written to catch."
+    },
+    {
+      "text": "Names the null or optional-chaining guard at the throwing line and refuses it, rather than offering it as the fix or passing over it in silence",
+      "passed": true,
+      "evidence": "Evidence from without_skill/outputs/response.md, paragraph 3. The guard is named specifically and refused, with the reason given: 'The trap with a 20% failure rate is that it will happily confirm a wrong fix. If I add an optional chain somewhere plausible, reload a few times and see no error, that's roughly a two-in-three chance of looking fixed while the real race is untouched -- and it'll come back in production, probably on slower connections where the timing is worse.' Both halves of the requirement are met in response.md itself: the optional chain is named as the tempting patch, and it is refused rather than offered, on the grounds that the low failure rate cannot distinguish a real fix from a lucky run of clean reloads. routing.md reinforces this independently ('A null-guard also frequently converts a crash into a silent wrong state'), but response.md alone satisfies the expectation."
+    },
+    {
+      "text": "Invents no evidence it could not have: no fabricated stack trace, loop output, timing figure or file path is presented as observed",
+      "passed": true,
+      "evidence": "Evidence from without_skill/outputs/response.md. Nothing is presented as observed. No stack trace is reproduced, no file path or repository symbol is named, no loop output or measured timing appears. The response is explicit that it does NOT have the trace and asks for it: 'I need the stack trace and the component/frame where the read happens' and 'Two things would speed this up a lot if you have them: the full stack trace from a failing load.' The candidate mechanisms are stated as possibilities, not findings ('There are several plausible stories'), and are accompanied by an admission of no evidence ('right now I have no evidence telling me which one it is'). The percentages used -- '20% failure rate', 'roughly a two-in-three chance' -- are arithmetic on the user's own reported one-in-five rate, not measurements. Note: the reasoning quality problem in this response is premature ranking (expectation 1), which is distinct from fabricating observations; this expectation is about invented evidence and is genuinely satisfied."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "execution_metrics": {
+    "tool_calls": {},
+    "total_tool_calls": null,
+    "total_steps": null,
+    "errors_encountered": 0,
+    "output_chars": 6047,
+    "transcript_chars": 0,
+    "note": "No metrics.json and no transcript exist for this run; response.md (2253 chars) and routing.md (3794 chars) are the entire artifact."
+  },
+  "timing": {
+    "total_tokens": 41489,
+    "duration_ms": 56989,
+    "total_duration_seconds": 57.0
+  },
+  "claims": [
+    {
+      "claim": "An intermittent 'cannot read property id of undefined' almost always means something is being read before it exists",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Plausible as a heuristic but asserted with unearned confidence and no evidence from this system. It is also the exact assertion expectation 1 exists to catch. Other mechanisms consistent with a 1-in-5 rate (a sometimes-absent server field, a cached response shape difference, a specific user or account state) are not race conditions at all, and the response's own routing.md lists 'a sometimes-present redirect/token param' among its candidates, which is not primarily a timing story."
+    },
+    {
+      "claim": "A wrong optional-chain fix has roughly a two-in-three chance of looking fixed after a few reloads",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Consistent arithmetic on the user's reported 1-in-5 rate (0.8 cubed is about 0.51 for three reloads, 0.8 squared is 0.64 for two); 'a few reloads' and 'roughly' make the figure fair rather than fabricated."
+    },
+    {
+      "claim": "The response did not commit to a cause",
+      "type": "process",
+      "verified": false,
+      "evidence": "routing.md asserts 'I did not commit to a cause.' This holds for the four sub-candidates but not for the mechanism class: response.md states the race framing as 'almost always' true, which is a commitment. The routing note and the response disagree."
+    },
+    {
+      "claim": "The response defers the fix until after diagnosis",
+      "type": "process",
+      "verified": true,
+      "evidence": "Step 3 places the fix after the deterministic knob is found, and the opening line declines to guess at a fix. The defect this eval targets is premature HYPOTHESIS, not premature fix, and the fix is indeed correctly deferred."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": [],
+    "note": "No user_notes.md exists in the outputs directory."
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+        "reason": "This run illustrates why the response.md-only scoping is the right call and worth keeping -- routing.md states the correct discipline verbatim ('Naming one before seeing the trace would be a hypothesis dressed as a diagnosis') while response.md does the opposite in its second paragraph. Without the scoping, a grader reading both files could easily be talked into a pass. Worth noting explicitly in the eval that this divergence is the thing being measured, since it is the most informative signal in the artifact."
+      },
+      {
+        "expectation": "The first reproduction action described is a forcing step, not a sampling step; a forcing method mentioned later in the same step does not rescue a sampling opener",
+        "reason": "Consider rewording to test the exit criterion rather than the action's position: 'the first reproduction step's success condition is a changed failure rate or a forced state, not a single captured failure.' That is readable directly off the text and avoids adjudicating what counts as one step in unnumbered prose. Here it would give the same verdict for a clearer reason -- step 1's success condition is possessing one stack trace."
+      },
+      {
+        "reason": "No expectation covers commitment breadth, which is a large observable difference. This run lays out a complete three-step plan through fix and regression test before any evidence exists; the comparison run commits to one move and stops. An expectation such as 'the response commits to a next action whose outcome is unknown, rather than pre-planning steps downstream of an unobtained result' would catch a real and currently unmeasured behaviour."
+      },
+      {
+        "reason": "Expectation 4 is passed by both runs and is close to unfailable given the prompt supplies no repository, no logs and no running app -- there is nothing available to fabricate a file path from, and both runs instead correctly ask for the trace. Keep it as a guardrail, but it carries no discriminating signal in this eval as configured."
+      }
+    ],
+    "overall": "Expectations 1 and 2 are the load-bearing ones and both discriminate correctly on this run, catching a response whose routing notes were right and whose user-facing text was not. Expectation 3 passes here on genuinely good content. Expectation 4 is a freebie."
+  }
+}

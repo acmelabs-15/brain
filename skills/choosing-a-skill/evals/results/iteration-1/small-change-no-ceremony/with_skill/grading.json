@@ -1,0 +1,100 @@
+{
+  "expectations": [
+    {
+      "text": "Does not invoke spec-driven-development, planning-and-task-breakdown, interview-me, grilling, to-spec or to-tickets",
+      "passed": true,
+      "evidence": "routing.md 'Skills invoked' section names exactly one: \"**`test-driven-development`** — and nothing else.\" Every skill on the forbidden list appears only under '## Why not the others', explicitly rejected: \"**`grilling` → `to-spec` → `to-tickets` → `implement-spec`** — the full feature chain. This is the exact ceremony failure the skill warns about\" and \"**`interview-me` / `spec-driven-development`** — nothing is underspecified.\" planning-and-task-breakdown is rejected via its command form: \"**`/plan`, `/build`, `/build auto`** — `/build auto` demands a spec at a known path...\". response.md corroborates: \"I'll do it directly — no spec, no ticket breakdown.\" None of the six is invoked."
+    },
+    {
+      "text": "Routes to test-driven-development, or proceeds directly, rather than to a multi-skill chain",
+      "passed": true,
+      "evidence": "routing.md routes to exactly test-driven-development and states \"Order: just the one. No chain.\" It cites the routing-table row it matched: \"*\\\"A contained change you already understand → `test-driven-development`, then commit.\\\"*\" and justifies it on a testable assertion (\"nothing mutated, expected lines printed\"). The multi-skill chain is named and declined. This is the exact route the expectation asks for."
+    },
+    {
+      "text": "Names at most two skills in total",
+      "passed": true,
+      "evidence": "Counting skills the run ROUTES TO (commits to invoking), per the stated counting rule: exactly one — test-driven-development (\"and nothing else\"). The eight or so other skills/commands named (grilling, to-spec, to-tickets, implement-spec, interview-me, spec-driven-development, /plan, /build, /review, /ship, incremental-implementation, skills:*) all appear under '## Why not the others' as explicit rejections and do not count. 1 <= 2."
+    },
+    {
+      "text": "Says explicitly that the heavier chain is being skipped because the change is small",
+      "passed": true,
+      "evidence": "response.md opens: \"Agreed, this is small. I'll do it directly — no spec, no ticket breakdown.\" — smallness is stated as the reason and the skipped artifacts are named. routing.md reinforces the causal link: \"It is a contained change: flag parsing, a boolean threaded to the mutation sites, print statements, one test\" and \"The user explicitly framed it as small. That is a constraint on the response, not just a description of the work\", followed by rejecting the full chain as \"the exact ceremony failure the skill warns about: 'an interview, a spec, a ticket breakdown and a five-axis review on a change that needed twenty minutes.'\" It also legitimizes the skip: \"Skipping the rest is a normal decision, not a violation.\""
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {},
+    "total_tool_calls": null,
+    "total_steps": null,
+    "errors_encountered": 0,
+    "output_chars": 4171,
+    "transcript_chars": 0,
+    "note": "No transcript or metrics.json present; outputs (response.md 1209 chars, routing.md 2962 chars) are the graded artifact. total_tokens from timing.json: 46200."
+  },
+  "timing": {
+    "executor_duration_seconds": 36.3,
+    "total_duration_seconds": 36.3
+  },
+  "claims": [
+    {
+      "claim": "The routing table in choosing-a-skill contains a row 'A contained change you already understand → test-driven-development, then commit'",
+      "type": "process",
+      "verified": null,
+      "evidence": "Quoted as a direct citation of the skill's routing table. The skill source was not supplied to the grader, so the quote cannot be confirmed verbatim; it is plausible and internally consistent with the routing decision taken."
+    },
+    {
+      "claim": "test-driven-development was 'loaded as reference for the one test around the flag, not run as a ceremony'",
+      "type": "process",
+      "verified": null,
+      "evidence": "No transcript or tool log accompanies the outputs, so whether the skill was actually loaded (versus only named) cannot be checked. The run is a routing-declaration exercise, so this is a declaration rather than an observable action."
+    },
+    {
+      "claim": "The response commits to doing the work now and states five concrete steps",
+      "type": "factual",
+      "verified": true,
+      "evidence": "response.md contains a numbered plan of exactly five steps (flag parsing, threading to side effects, print-instead-of-act, a dry-run test, help text)."
+    },
+    {
+      "claim": "The real risk is an incomplete dry run that misses a mutation site",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Substantively correct and non-generic: \"Sync commands often mutate in more than one place — a state file, a cache, a lock, a remote call — and a partial dry run is worse than none.\" This is a genuine failure mode for the change described."
+    },
+    {
+      "claim": "No code was written; the run ends by asking to be pointed at the repo",
+      "type": "factual",
+      "verified": true,
+      "evidence": "response.md closes: \"Point me at the repo (or confirm I should look in the current one) and I'll start.\" No diff or file edit appears in either output. This is consistent with a routing-only eval, but means no expectation tests implementation quality."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": [],
+    "note": "No user_notes.md present in outputs_dir."
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Routes to test-driven-development, or proceeds directly, rather than to a multi-skill chain",
+        "reason": "The disjunction makes this near-unfalsifiable: 'proceeds directly' is satisfied by any run that does not chain, so the only way to fail is to actually build a chain. Both graded runs pass on opposite behaviours (one routes to TDD, one invokes nothing), which means the expectation cannot distinguish the skill's routing from a default no-op. Consider splitting it or asserting the positive route the skill is supposed to produce."
+      },
+      {
+        "expectation": "Names at most two skills in total",
+        "reason": "As literally written this expectation is failed by every good answer — both runs name eight to twelve skills, and naming-to-reject is exactly the desired behaviour. It only becomes gradeable under the counting rule supplied out-of-band in the grader prompt. Rewrite it as 'commits to invoking at most two skills' so the artifact itself carries the rule rather than the grader."
+      },
+      {
+        "reason": "No expectation checks the substance of the proposed change, and both runs stop before touching code. The one place these two runs genuinely differ in engineering value is the with-skill run's warning that a partial dry run (missing a state file, cache, lock or remote call) is worse than none, and the baseline's insistence that the read/compute path stay identical so the printed plan is truthful. An expectation like 'identifies that --dry-run must suppress every side effect, not only the obvious one' would be discriminating and is currently uncaught."
+      },
+      {
+        "reason": "Nothing penalises verbosity, yet the whole point of this eval is ceremony avoidance. The with-skill run spends 2962 characters of routing rationale on a change it calls small, and the baseline spends 3153 — more prose about not doing process than either spends on the work. If the routing.md artifact is inherent to the harness that is fine, but consider an expectation bounding the user-facing response.md length, which is where ceremony would actually cost the user."
+      }
+    ],
+    "overall": "All four expectations pass, but two of them (2 and 3) are weakly discriminating as written — expectation 2 passes on either of two opposite behaviours, and expectation 3 needs an external counting convention to be gradeable at all. The eval currently proves the run avoided ceremony but proves nothing about whether the resulting plan is correct."
+  }
+}

@@ -1,0 +1,11 @@
+Both halves of that land on a name collision, so let me name the candidates before I pick rather than after.
+
+**The review.** Two different things answer to "review this": the local `code-review` skill, and the plugin's `code-review:code-review`. They aren't variants of each other. The local one runs two fixed axes — Standards and Spec — and wants an originating issue or spec to review against; without one it skips the Spec axis, so you'd be paying for a two-axis review and getting one. The plugin one resolves a named scope (a branch works fine — it isn't repo-only), plans one row per review cell, then dedupes, ranks and triages what comes back, and tells you which cells it never reached.
+
+You haven't pointed me at a spec or issue behind this branch, so the axis the local skill exists to add is the one that would go missing. **I'm running `code-review:code-review`**, scoped to the branch against its merge-base. If there *is* a spec or ticket driving this work, say so and I'll switch — that flips the answer, because reviewing against the spec is exactly what the local skill is for.
+
+**The cleanup.** Same fork: `code-simplification` locally, `code-simplifier:code-simplifier` in the plugin, near-identical names, different artifacts. The local one is a 331-line reference that advises. The plugin one is an agent that runs your tests between each individual edit and reverts anything that breaks them, and proposes rather than edits where a unit has no coverage. For changing code you're about to merge, verification is the whole point — so that's `code-simplifier:code-simplifier`, not the local reference.
+
+I'm treating that as conditional, though, not as step two of a plan. Simplification preserves behaviour, including wrong behaviour — so if the review turns up a correctness problem, that gets fixed before anything gets tidied, or the tidying just locks the bug in more legibly. What the review finds also determines whether "the messy bits" means a cleanup pass at all or a real change: renaming a public API, splitting something out into a new module boundary, or making a function faster are behaviour changes and fall outside what the simplifier does.
+
+So: review first, then I'll come back with what it found and what the cleanup actually looks like from there.

@@ -1,0 +1,92 @@
+{
+  "expectations": [
+    {
+      "text": "Does not route to observability-and-instrumentation as the skill to run, since the request is to add code and that skill produces guidance rather than code",
+      "passed": false,
+      "evidence": "routing.md heading: '**1. `observability-and-instrumentation` - invoke immediately, before touching any code.**' The skill is placed first in a section titled 'Skills I would invoke, in order', and the instruction is to invoke it. That is routing to it as the skill to run, which is the trap. The run partially recovers - it recognizes the build/advise distinction ('Critically, this is a *build* request, not an *advise* request... they want instrumented code in their repo, not an essay about observability principles') and names the exact failure mode ('The failure mode to avoid here is loading an observability skill and producing a strategy document instead of a diff'). But the recovery is applied as a caveat about what to do after invoking, not as a reason to decline invoking: the skill 'is loaded to shape *how* I instrument... and then I actually write the code.' Invoking a guidance skill and then separately writing code is precisely what expectation 1 excludes; the grading note is explicit that routing to it as the skill to RUN fails, and 'invoke immediately, before touching any code' is an instruction to run it. Contrast the with-skill run's 'Consulted, not executed.'"
+    },
+    {
+      "text": "Names observability-and-instrumentation as material to consult while building - for what to log at a failing checkout boundary - rather than omitting it",
+      "passed": true,
+      "evidence": "Not omitted, and the consultative content is specific and boundary-relevant: the skill is 'loaded to shape *how* I instrument (event taxonomy, correlation IDs, structured fields, cardinality discipline, what not to log)'. This is exactly the material an instrumented checkout boundary needs, and it maps onto response.md's structured-event field list. security-and-hardening is likewise scoped as a narrow consult 'for the redaction rules... a targeted consult, not a full-scope invocation.' The framing verb is wrong for expectation 1 (invoke rather than consult), but the substance of what it draws from the skill satisfies expectation 2 on its own terms."
+    },
+    {
+      "text": "Routes to a workflow that produces code, naming it, rather than leaving the build implicit",
+      "passed": true,
+      "evidence": "Names a code-producing workflow explicitly: '**2. `incremental-implementation` - invoke once I'm writing the changes.** \"Use when implementing any feature or change that touches more than one file.\"' It justifies the fit concretely - 'Checkout instrumentation is inherently multi-file: the flow itself, the payment-provider boundary, a logger/context module for the correlation ID, probably middleware where the ID is minted' - and describes the resulting shape: 'one path instrumented and shown as a diff, pattern confirmed, then applied across the rest.' A reader knows exactly how code gets produced and by which named workflow. This is the strongest satisfaction of expectation 3 across both runs."
+    },
+    {
+      "text": "In response.md specifically, the reason given for the routing is the kind of artifact each candidate produces, not which description best matches the words of the request",
+      "passed": false,
+      "evidence": "The expectation is scoped to response.md, and response.md contains no routing reason of any kind. It opens 'Yes - and the first thing I want to do is treat \"no logging\" as the smaller half of the problem' and proceeds directly into a six-step instrumentation plan. No candidate is compared, no alternative is mentioned or declined, and no reason is offered for why the work is sequenced as instrument-now rather than diagnose-now. There is no deciding sentence to quote because no routing decision is surfaced to the user. Separately, where routing reasoning does appear - in routing.md, which this expectation does not cover - the primary stated reason for the top choice is description-matching: 'This is a direct description match: \"Use when adding logging, metrics, tracing, or alerting. Use when production issues are reported but you can't tell what happened from the available data.\" Both halves of the user's message land on it... There is no closer skill in the installed set.' The artifact-kind reasoning ('a *build* request, not an *advise* request') follows as a secondary qualifier on how to use the already-chosen skill, not as the ground for choosing it. So the expectation fails on its own scope (nothing in response.md), and would also fail on the substance test if routing.md were admitted, since the deciding sentence there is a closest-description argument."
+    },
+    {
+      "text": "HELPFULNESS: response.md gives the user something they can act on today - at least one concrete decision about what to log at the checkout boundary, or a named first place to instrument - rather than deferring every substantive question to a later round",
+      "passed": true,
+      "evidence": "Graded independently of routing, and this is the more actionable of the two replies. It names the first place to instrument as an enumerated boundary list: 'validation rejections, payment-provider calls, inventory/reservation checks, tax and shipping lookups, session or cart expiry, idempotency collisions, retries. Those boundaries are where the log lines go.' Most actionable single item: the field schema, given concretely enough to implement without further input - 'Key-value / JSON fields - `event`, `checkout_id`, `stage`, `outcome`, `provider`, `error_code`, `duration_ms` - so you can aggregate (\"which stage fails most\", \"is it one payment provider\", \"is it one region\").' It makes four further settled decisions: one correlation ID minted at attempt start and 'returned to the client and surfaced in the error the user sees'; reason codes on every early return ('Most silent checkout failures aren't exceptions - they're a path that returned early'); the redaction rule ('never the instrument itself', log 'a payment-provider reference, last four, and an error code'); and two named metrics. It also states an explicit anti-pattern to avoid today: 'Instrumenting uniformly (\"log at the top of every function\") produces volume, not answers.' Only two questions are asked, both marked as changing the output, with an offer to proceed regardless."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 2,
+    "total": 5,
+    "pass_rate": 0.6
+  },
+  "execution_metrics": {
+    "output_chars": 8040,
+    "transcript_chars": 0,
+    "total_tokens": 41861,
+    "note": "No transcript exists for this eval; response.md and routing.md are the artifact."
+  },
+  "timing": {
+    "executor_duration_seconds": 60.9,
+    "total_duration_seconds": 60.9
+  },
+  "claims": [
+    {
+      "claim": "observability-and-instrumentation is 'a direct description match' with 'no closer skill in the installed set'",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The quoted description text is verbatim from the skill's frontmatter, and the claim of closest match is correct. The claim is true and is exactly why it is a trap: closeness of description is not the criterion the routing should turn on. The run states the true fact and draws the wrong operational conclusion from it."
+    },
+    {
+      "claim": "The user has explicitly told me diagnosis is currently impossible, so diagnosing-bugs and debugging-and-error-recovery should not be invoked",
+      "type": "process",
+      "verified": true,
+      "evidence": "Sound and well-argued: 'A diagnosis loop with no evidence produces speculation, which is exactly the trap here. Instrumentation is the prerequisite.' Matches the with-skill run's independent conclusion and matches observability-and-instrumentation's own NOT-for note. Both runs got this secondary fork right."
+    },
+    {
+      "claim": "Loading the observability skill will shape the instrumentation without producing a strategy document instead of a diff",
+      "type": "quality",
+      "verified": false,
+      "evidence": "Stated as a self-issued guardrail - 'The failure mode to avoid here is loading an observability skill and producing a strategy document instead of a diff' - but the artifact shows the guardrail did not hold. response.md is a six-step strategy for how to instrument, with no diff, no file touched, and no named checkout file. The run correctly predicted its own failure mode and then exhibited it. Note this cuts against process quality, not against helpfulness: the strategy it produced is unusually concrete."
+    },
+    {
+      "claim": "Checkout instrumentation is inherently multi-file, justifying incremental-implementation",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Reasonable inference stated with appropriate hedging ('probably middleware where the ID is minted'). No codebase was available to either run, and the claim is presented as expectation rather than established fact."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Does not route to observability-and-instrumentation as the skill to run, since the request is to add code and that skill produces guidance rather than code",
+        "reason": "This run is the strongest possible argument that the expectation is well-built: it independently derived the correct principle ('a *build* request, not an *advise* request') and still routed to invoke the guidance skill first. That gap - right principle, wrong action - is the most interesting signal in the suite and the binary pass/fail records it only as a fail. Consider a companion expectation on whether the artifact-kind principle, once stated, actually changes the routing verb, since a run can articulate the rule and not apply it."
+      },
+      {
+        "expectation": "In response.md specifically, the reason given for the routing is the kind of artifact each candidate produces, not which description best matches the words of the request",
+        "reason": "The response.md scoping means a run that surfaces no routing reasoning at all fails identically to one that surfaces word-matching reasoning. Those are different defects and arguably the silent one is the better user experience. If the intent is to test the quality of the reason, grade it in routing.md where the decision is actually made; if the intent is to test that the user is told why, say so explicitly, because 'the reason given' presupposes a reason was given."
+      },
+      {
+        "reason": "Expectation 5 is doing exactly the job it was designed for and should be kept. It is the only expectation on which the worse-routed run scores at least as well, and without it the suite would report a clean sweep for the skill and miss that the baseline reply is denser in actionable content. Worth adding a parallel expectation about whether either run actually touched code, since both produced plans rather than diffs despite a request phrased as 'can you add proper logging' - a shared failure no current expectation catches."
+      }
+    ],
+    "overall": "The uncontaminated trap discriminates cleanly: this run failed expectations 1 and 4 while matching or beating the with-skill run on 2, 3 and 5. Expectation 5 earned its place by isolating answer quality from routing quality. Expectations 3 and 4 are loosely specified in ways that let opposite behaviours land on the same verdict."
+  }
+}

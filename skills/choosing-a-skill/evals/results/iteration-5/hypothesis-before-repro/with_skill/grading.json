@@ -1,0 +1,95 @@
+{
+  "expectations": [
+    {
+      "text": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+      "passed": true,
+      "evidence": "Evidence from response.md (with_skill/outputs/response.md). The reply names zero candidate mechanisms anywhere in the document — no race condition, no cache, no ordering hypothesis. It opens by refusing to: 'the first thing I'm doing is *not* naming a cause' and 'a mechanism guessed before the evidence exists poisons everything after it: the loop stops being a way to find the cause and becomes a way to confirm the one I already said out loud.' Where mechanisms are referenced at all it is categorically and only as targets for the loop: 'Candidate mechanisms are things the loop should *force*, not a ranking to work down.' That is exactly the allowed framing. No likelihood assertion or ranking appears anywhere before (or after) the reproduction method."
+    },
+    {
+      "text": "The first reproduction step's success condition is a changed failure rate or a forced state, not a single captured failure",
+      "passed": true,
+      "evidence": "Evidence from response.md. The first and only reproduction step is: 'Phase 1 is a **tight loop**: one command I can run repeatedly that goes **red** on this specific error. For a one-in-five intermittent, that means driving the rate *up* before doing anything else — loading the page in a loop, throttling the network, varying the timing/ordering of whatever the page does on load, clearing session state between runs — until failure is frequent enough to be debuggable.' The success condition is stated as a numeric rate band: 'treats something like a 50% flake as workable and 1% as not; I want to land nearer the former.' It then explicitly rejects the failing alternative: 'Catching one failure and reasoning from that single capture is what I'm specifically trying to avoid.' Success condition is a changed failure rate, stated in those terms."
+    },
+    {
+      "text": "Never offers a null or optional-chaining guard at the throwing line as the fix; naming it in order to refuse it is fine, and so is not raising it",
+      "passed": true,
+      "evidence": "Evidence from response.md and routing.md. Neither file proposes a guard, an optional-chaining operator, a null check, or any patch at the throwing line. The word patch appears only as something declined: 'if I patch something plausible, there's an 80% chance the next load looks fine whether or not I actually fixed anything.' routing.md likewise commits to no fix ('Nothing else is committed'; fixing appears only under 'Conditional next steps (explicitly not commitments)'). Under the expectation as written, never raising the guard passes."
+    },
+    {
+      "text": "In response.md specifically, commits to one next action whose outcome is unknown, rather than pre-planning steps downstream of a result it does not yet have",
+      "passed": true,
+      "evidence": "Evidence from response.md. The reply contains no numbered plan and commits to exactly one action: 'So Phase 1 is a **tight loop**: one command I can run repeatedly that goes **red** on this specific error.' Everything after it is stated as conditional on that action's unknown outcome — 'Once the loop is red and repeatable, I can bisect against it' is conditional on a result not yet held, and the reply closes 'What happens after that depends entirely on what the loop shows.' The two caveats are genuine conditionals, not scheduled steps: one is a stop-and-report exit if the rate cannot be driven ('I'll tell you that and stop'), the other an offer of accelerating inputs that is explicitly 'Not a blocker.' The conditional downstream chain (Phases 2+, then TDD regression test) is confined to routing.md under a heading reading 'Conditional next steps (explicitly not commitments)' and per the grading note does not count against the reply. Reasoning: the test is whether the reply's forward horizon stops at a result it does not have. It does — no step is described that presumes the loop went red, beyond a clause explicitly gated on that condition."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "total_tokens": 48723,
+    "duration_ms": 57467,
+    "total_duration_seconds": 57.5
+  },
+  "claims": [
+    {
+      "claim": "The routing table contains a 'Something is broken and you don't know why' row pointing at diagnosing-bugs",
+      "type": "process",
+      "verified": true,
+      "evidence": "Consistent with the installed skill roster: diagnosing-bugs is described as 'Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.' The routing choice matches the description; the exact table wording could not be independently checked from the outputs alone."
+    },
+    {
+      "claim": "diagnosing-bugs treats ~50% flake as workable and 1% as not",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Asserted twice (response.md and routing.md) as a specific threshold from the skill. No transcript or skill body was provided with this run, so the numbers cannot be verified from the available artifacts. Flagged as unverifiable rather than false — it is a plausible and internally consistent claim, but it is the one load-bearing external fact in the reply."
+    },
+    {
+      "claim": "diagnosing-bugs is 'Lineage B — a workflow to execute step by step, not a reference to consult', while debugging-and-error-recovery is Lineage A",
+      "type": "factual",
+      "verified": false,
+      "evidence": "routing.md asserts a lineage taxonomy to justify preferring diagnosing-bugs over the closest-named match. Not verifiable from the outputs; consistent with the choosing-a-skill skill's stated coverage of 'how to identify skill lineages by folder structure'."
+    },
+    {
+      "claim": "At a one-in-five failure rate any fix has an 80% chance of appearing to work on the next load",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Arithmetically correct for a single subsequent load at a 20% independent failure rate. Correctly deployed as the argument for why premature patching is untestable here."
+    },
+    {
+      "claim": "The reply names no cause at all",
+      "type": "quality",
+      "verified": true,
+      "evidence": "routing.md claims 'My reply names no cause at all and says explicitly why.' Verified by reading response.md in full: no mechanism, ordering hypothesis, or data-shape guess appears. The self-report matches the artifact."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+        "reason": "The 'before' clause makes the expectation order-sensitive, which a run can satisfy by moving an unchanged ranked list of causes to after the repro paragraph. The behaviour actually wanted appears to be that no cause is ranked at all until evidence exists. Consider dropping 'before a reproduction method is described' and instead scoping it to the whole reply: 'no candidate cause is asserted or ranked anywhere; mechanisms may be named only as things the reproduction must force or as explicitly unresolved alternatives.'"
+      },
+      {
+        "expectation": "Never offers a null or optional-chaining guard at the throwing line as the fix; naming it in order to refuse it is fine, and so is not raising it",
+        "reason": "The rewrite fixed the perverse penalty, but it now passes on silence, so it no longer discriminates between a run that understood the trap and one that simply never got near a fix. Both runs pass this expectation while differing sharply on every other axis, so it contributed no signal this iteration. If the guard-refusal reasoning is worth rewarding, it belongs as a separate non-blocking observation rather than a pass/fail line; as a fail-only tripwire it is correctly written but will rarely fire, since it only catches a run that both proposes a patch and picks the wrong one."
+      },
+      {
+        "expectation": "In response.md specifically, commits to one next action whose outcome is unknown, rather than pre-planning steps downstream of a result it does not yet have",
+        "reason": "This is the most discriminating of the four and it separated the runs cleanly, but 'one next action' is ambiguous about a step containing several parallel levers. Run A commits to a single loop built from four simultaneous techniques (loop, throttle, vary ordering, clear state); that is one action, but a stricter reading could call it four. Consider rewording to target the property that matters: 'the reply's forward horizon stops at a result it does not yet have — no step is described that presumes the outcome of the action it commits to, except as an explicitly stated conditional.'"
+      },
+      {
+        "reason": "No expectation covers whether the reply states a stopping condition for the case where the failure cannot be reproduced. Run A pre-commits to it explicitly ('If I can't drive the rate up... I'll tell you that and stop, rather than fall back on reading the code and reasoning about ordering'); Run B has no such exit and would slide into code-reading by default. This is arguably the strongest behavioural difference between the two runs and nothing in the current set detects it."
+      },
+      {
+        "reason": "No expectation checks routing.md at all, yet it is half the artifact and both runs invested heavily in it. Since expectations 1 and 4 explicitly exempt it, a run could in principle put a fully ranked hypothesis list and a five-step plan in routing.md and score 4/4. At minimum consider one expectation asserting that routing.md's conditional branches are labelled as conditional rather than as a committed sequence — Run A does this under an explicit 'explicitly not commitments' heading, Run B presents an ordered '### 1 / ### 2 / ### 3' chain."
+      }
+    ],
+    "overall": "The set is sharper than a typical iteration: expectations 1, 2 and 4 each independently separated the two runs, and expectation 2's focus on the SUCCESS CONDITION rather than the presence of a repro step is doing real work. Expectation 3's rewrite is correct in principle but now passes on silence and produced no signal. The main gaps are a missing check on the no-repro stopping condition and the total absence of any expectation binding routing.md."
+  }
+}

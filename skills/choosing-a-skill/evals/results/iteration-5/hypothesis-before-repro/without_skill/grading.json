@@ -1,0 +1,95 @@
+{
+  "expectations": [
+    {
+      "text": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+      "passed": false,
+      "evidence": "Evidence from response.md (without_skill/outputs/response.md), first paragraph — before any reproduction method appears: 'An intermittent read of `.id` on `undefined` has several plausible causes that look identical from the outside — a race between an auth/session fetch and first render, a router or query param that's only sometimes present, a cached vs. cold user object, an array `find()` that returns nothing for some accounts, a third-party script that sometimes loads late.' Five candidate mechanisms are asserted as 'plausible causes' in the opening paragraph. This is an assertion of likelihood, not a list of states the reproduction must force, and the reply is not neutral among them afterwards: step 1 says 'That single frame usually collapses five hypotheses into one', treating the five as the working hypothesis space, and step 2 pre-commits to one of them ('If it's a race, throttling the network usually turns \"sometimes\" into \"always\"'). The reply's own hedge — 'Guessing between those and \"fixing\" the wrong one is how intermittent bugs come back a week later' — declines to act on the ranking but does not undo having asserted it. Naming the trap is not the same as avoiding it."
+    },
+    {
+      "text": "The first reproduction step's success condition is a changed failure rate or a forced state, not a single captured failure",
+      "passed": false,
+      "evidence": "Evidence from response.md. The first step is '1. **Pin down the failure.** Get the exact error: the full stack trace with the file and line, from the browser console or whatever error reporting you have (Sentry etc.). That single frame usually collapses five hypotheses into one.' The success condition is explicitly one captured failure and its trace — the exact failure mode the expectation targets. Reading step 2 as the first true reproduction step does not rescue it: '**Reproduce it reliably.** One-in-five means I need to load it 15-20 times, not 3. I'd drive the real page in Chrome DevTools, capture the console and the network waterfall on both a failing and a passing load, and diff them.' The stated success condition there is capture-one-failing-and-one-passing-load-and-diff-them — still a captured-instance criterion, with the loop sized merely to guarantee a catch (15-20 loads at 1-in-5), not to move the rate. Rate-changing appears only as a conditional aside subordinated to a guessed mechanism: 'If it's a race, throttling the network usually turns \"sometimes\" into \"always\"' — a technique mentioned, not the step's completion criterion. Step 3 confirms the intended sequencing: 'Once I can make it fail on demand' is placed after step 2 as a hoped-for consequence, not as step 2's gate."
+    },
+    {
+      "text": "Never offers a null or optional-chaining guard at the throwing line as the fix; naming it in order to refuse it is fine, and so is not raising it",
+      "passed": true,
+      "evidence": "Evidence from response.md, step 4: 'A defensive `?.` may end up being part of the fix, but only once I know what should have been there — on its own it just converts a visible crash into a blank or half-rendered login form.' The guard is named and explicitly refused as the fix, with the correct reason (it hides the symptom rather than repairing the defect). routing.md reinforces this: 'the main failure mode is shipping a `?.` that hides the crash while leaving the real defect in place.' The hedge 'may end up being part of the fix' is conditioned on already knowing the cause, so it is not an offer of the guard as the fix. Passes under the expectation as written — naming it in order to refuse it is explicitly permitted."
+    },
+    {
+      "text": "In response.md specifically, commits to one next action whose outcome is unknown, rather than pre-planning steps downstream of a result it does not yet have",
+      "passed": false,
+      "evidence": "Evidence from response.md. The reply presents a numbered four-step plan under 'Here's how I'd work it:' that runs from evidence-gathering all the way to a merged fix: '1. **Pin down the failure.** ... 2. **Reproduce it reliably.** ... 3. **Find the root cause, then prove it.** ... 4. **Fix it with a regression test.** Write a test that fails on the current code for the identified cause, then make it pass.' Steps 3 and 4 are stated as scheduled steps in the indicative, not as conditionals — they presume a root cause that has not been found and a mechanism that has not been identified, and step 4 even prescribes the test's shape from a guessed mechanism ('For a timing bug that usually means a test that forces the bad ordering'). routing.md confirms this is a committed sequence rather than a single move: '## Skills I would invoke, in order' with '### 1 ... ### 2 ... ### 3', and the reply's own closing line describes it as a plan the user is not blocked on ('I still commit to a plan in the same message'). This is precisely the pre-planning pattern the expectation names — a numbered chain running through to 'fix and add a regression test' before any evidence exists. Reasoning: the test is whether the reply's forward horizon stops at a result it does not have. It does not; it extends two full steps past the first unknown outcome, and those steps are asserted rather than gated. The one genuinely conditional element ('if you'd rather I just start hammering a URL... tell me which one') concerns which input to start from, not the downstream chain."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 3,
+    "total": 4,
+    "pass_rate": 0.25
+  },
+  "timing": {
+    "total_tokens": 42149,
+    "duration_ms": 64868,
+    "total_duration_seconds": 64.9
+  },
+  "claims": [
+    {
+      "claim": "A stack trace frame 'usually collapses five hypotheses into one'",
+      "type": "quality",
+      "verified": false,
+      "evidence": "Overstated for this bug class. A trace localises the throwing line but does not by itself explain why the value is undefined only on ~20% of loads — the very question that separates a race from a data-shape variance from a cache state. The reply treats trace acquisition as the hypothesis-collapsing move, which is what pushes reproduction into second place behind evidence-request."
+      },
+    {
+      "claim": "One-in-five means loading 15-20 times is sufficient to reproduce",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Arithmetically sound for catching at least one failure (P(no failure in 15 loads at p=0.2) is about 3.5%). The number is correct for its stated purpose; the defect graded under expectation 2 is that the stated purpose is catching a failure rather than raising the rate."
+    },
+    {
+      "claim": "Network throttling tends to convert an intermittent race into a deterministic one",
+      "type": "factual",
+      "verified": true,
+      "evidence": "A standard and correct technique. Both runs identify it. The difference is placement: Run B subordinates it to a conditional on a guessed mechanism ('If it's a race'), whereas the expectation asks for rate-forcing as the step's success condition."
+    },
+    {
+      "claim": "diagnosing-bugs 'sets the discipline I most need here: reproduce before hypothesizing'",
+      "type": "process",
+      "verified": false,
+      "evidence": "routing.md states this principle explicitly, but response.md does not follow it: five hypotheses are asserted in the opening paragraph, before any reproduction method. The routing document correctly identifies the discipline the task demands and the user-facing reply does not implement it — a stated-versus-enacted gap, and the clearest signal in this run."
+    },
+    {
+      "claim": "The reply does not block the user on answering its questions",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Supported. response.md closes 'If you'd rather I just start hammering a URL and watching the console, tell me which one and I'll begin there', and routing.md explains the choice: 'I still commit to a plan in the same message so the user isn't blocked on answering.' The offer is genuine, though it still routes the user into choosing an environment rather than committing to an action."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+        "reason": "The 'before' clause makes the expectation order-sensitive, so a run could satisfy it by relocating an unchanged list of asserted causes to after the repro paragraph. This run would have been much closer to passing on a purely positional reading, and the substantive defect — that it is not neutral among the five afterwards — only becomes visible by reading further. Consider scoping to the whole reply and testing the framing rather than the position: 'mechanisms may be named only as things the reproduction must force or as explicitly unresolved alternatives; no likelihood assertion or ranking anywhere.'"
+      },
+      {
+        "expectation": "Never offers a null or optional-chaining guard at the throwing line as the fix; naming it in order to refuse it is fine, and so is not raising it",
+        "reason": "The rewrite correctly removed the perverse penalty, but the expectation now passes on silence and so no longer discriminates: both runs in this pair passed it, one by refusing the guard with a good reason and one by never approaching a fix at all. It contributed zero separating signal this iteration. As a fail-only tripwire it is correctly written, but it will only fire against a run that both proposes a patch and picks the wrong one — worth keeping for that narrow case while not expecting it to distinguish good runs from adequate ones."
+      },
+      {
+        "expectation": "In response.md specifically, commits to one next action whose outcome is unknown, rather than pre-planning steps downstream of a result it does not yet have",
+        "reason": "This is the strongest new expectation in the set and it discriminated cleanly and unambiguously here — a numbered 1-2-3-4 chain ending at 'fix it with a regression test' is exactly the pattern the wording names, and no judgement call was required. One refinement: 'commits to one next action' is slightly ambiguous where a single step bundles several simultaneous levers. Retarget the property that is actually doing the work: 'the reply's forward horizon stops at a result it does not yet have — no step is described that presumes the outcome of the action it commits to, except as an explicitly stated conditional.' That phrasing would grade both runs identically to the current one while removing the ambiguity."
+      },
+      {
+        "reason": "No expectation covers whether the reply states a stopping condition for the case where the failure cannot be reproduced. This run has none, and its default fallback is visible in routing.md: 'if the stack trace and a `git log` immediately identify the cause... I would skip straight to the fix rather than instrument a browser'. That is a code-reading-substitutes-for-reproduction path, arguably the most consequential difference between the two runs, and nothing in the current set detects it."
+      },
+      {
+        "reason": "No expectation binds routing.md, yet it is half the artifact, and expectations 1 and 4 explicitly exempt it. That exemption is right for the user-facing test but leaves a hole: this run's routing.md correctly articulates the principle ('reproduce before hypothesizing') that its response.md then violates. An expectation checking consistency between the two files — that the reply enacts the discipline the routing claims — would catch a stated-versus-enacted gap that the current set can only surface as an unverified claim."
+      }
+    ],
+    "overall": "Expectations 1, 2 and 4 each independently caught real defects in this run, and expectation 2's focus on the SUCCESS CONDITION rather than the mere presence of a repro step is what makes it discriminating — this run does describe reproduction, at length, and still fails correctly. Expectation 3's rewrite is sound but passed on both runs and produced no signal. The set's main gaps are the absence of any check on a no-repro stopping condition and the absence of any expectation binding routing.md or its consistency with the reply."
+  }
+}

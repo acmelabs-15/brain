@@ -1,0 +1,112 @@
+{
+  "expectations": [
+    {
+      "text": "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+      "passed": true,
+      "evidence": "routing.md's 'Collisions resolved' section tabulates the pair explicitly - row '`code-review` (local skill) | Close, but narrower: two fixed axes (standards + spec) and it wants an originating issue/spec to check the code against. Nothing here mentions a spec or issue.' and row '`code-review:code-review` (plugin) | **Chosen.** Explicit scope resolution, planned cells, deduplication and triage, coverage reporting. Best fit for an unqualified \"review this branch.\"' - under the lead-in 'Both phases have a name collision between a local skill and a plugin skill. Both resolve toward the plugin, and in both cases the qualified name is what gets invoked.' response.md also surfaces the fork to the user: 'I'll run `code-review:code-review` (the plugin skill, not the local `code-review` command)'. Per the grading note, picking the plugin rather than the local skill is acceptable; both members are named and a reason is given."
+    },
+    {
+      "text": "Names the plugin as code-simplifier:code-simplifier rather than reaching it only by a bare name or the /code-simplify alias",
+      "passed": true,
+      "evidence": "Qualified name used throughout. routing.md lists it as invoked skill #2: '**`code-simplifier:code-simplifier`** (plugin skill - same)', with a dedicated section '### Phase 2: why `code-simplifier:code-simplifier`'. response.md: 'I'll run `code-simplifier:code-simplifier` for the \"messy bits\"'. The bare local name `code-simplification` is named separately as a rejected candidate, so the plugin is not reached by bare name. Note: this run compared against `/simplify` rather than `/code-simplify`, but the expectation only requires the plugin be named in qualified form rather than reached via an alias, which it is."
+    },
+    {
+      "text": "Gives the reason that the plugin runs tests between edits and reverts breakage, where the local skill only advises",
+      "passed": true,
+      "evidence": "The contrast is present in routing.md, though NOT in response.md. Local side: '`code-simplification` (local skill) | Generic guidance on simplifying for clarity. Overlaps, but no behaviour-preservation verification.' Plugin side, same table: '`code-simplifier:code-simplifier` (plugin) | **Chosen.** Deliverable is the edited code, behaviour must stay identical, test-verified between changes, reverts on breakage.' Restated in the Phase 2 prose: 'additionally verifies behaviour preservation by running tests between changes and reverting anything that breaks, and proposes rather than edits where there's no test coverage. That's the right safety posture for post-review cleanup on a branch about to merge.' response.md describes the simplifier's outcome ('behaviour identical') but never mentions the test loop, the revert, or the local alternative - so the discriminating contrast reaches the routing artifact only, not the user."
+    },
+    {
+      "text": "Runs review before cleanup and states why that order is load-bearing",
+      "passed": true,
+      "evidence": "Order is explicit ('## Skills invoked, in order 1. `code-review:code-review` ... 2. `code-simplifier:code-simplifier` ... Sequential, not parallel, and gated on user confirmation between the two') and routing.md's '### Why the order, and why a gate between them' gives three reasons, two of which are load-bearing rather than cosmetic: 'The review's findings are the *input* that tells us which bits are \"the messy bits.\" Running cleanup first would be guessing at that.' and 'The simplifier explicitly should not run on broken code: it preserves behaviour, so it would preserve any bug the review finds. Correctness findings must be fixed as bug fixes first, then cleanup on top.' response.md carries the same order and reason: 'review first, cleanup second, because simplifying code before it's been reviewed just makes the diff harder to review, and any fixes the review turns up would need re-simplifying afterwards.'"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {},
+    "total_tool_calls": null,
+    "total_steps": null,
+    "errors_encountered": 0,
+    "output_chars": 8062,
+    "transcript_chars": 0,
+    "note": "No metrics.json in outputs_dir; no separate transcript - response.md (1852 chars) and routing.md (6210 chars) are the artifact. total_tokens from timing.json: 42349."
+  },
+  "timing": {
+    "executor_duration_seconds": 57.9,
+    "total_duration_seconds": 57.9
+  },
+  "claims": [
+    {
+      "claim": "The plugin `code-review:code-review` does not deliver findings to a PR or a tracker and does not apply fixes",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Matches the plugin skill description: 'Do not use to deliver, post, publish, submit or comment a review anywhere ... this skill opens no network connection and has no destination ... Not for applying or committing a fix.'"
+    },
+    {
+      "claim": "The local `code-review` skill 'wants an originating issue/spec to check the code against. Nothing here mentions a spec or issue.'",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Consistent with the local skill's description, which defines its Spec axis as 'does the code match what the originating issue/spec asked for?'. The inference that no spec was mentioned is correct against the eval prompt, which says only 'review this branch before I merge it'. This is a genuine distinguishing property rather than a generic preference, making the pick reason substantive."
+    },
+    {
+      "claim": "`code-review:code-review` 'needs the /code-review command' / the local one is a 'command'",
+      "type": "factual",
+      "verified": false,
+      "evidence": "response.md calls the local one 'the local `code-review` command'. The local code-review is registered as a skill, not a slash command, in the available-skills listing. Minor mislabelling; it does not affect expectation 1, which requires the name in qualified form and a reason, both of which are present."
+    },
+    {
+      "claim": "The plugin code-simplifier verifies behaviour preservation by running tests between changes, reverts breakage, and proposes rather than edits where coverage is absent",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Matches the code-simplifier:code-simplifier agent description verbatim in substance."
+    },
+    {
+      "claim": "`/simplify` is a quality pass that 'overlaps the review - running it after a review duplicates the analysis we just paid for'",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Justified. The /simplify command is described as 'Review the changed code for reuse, simplification, efficiency, and altitude cleanups, then apply the fixes. Quality only.' The overlap-with-review argument is a sound reason to prefer the dedicated simplifier after a review has already run."
+    },
+    {
+      "claim": "Security is 'already one axis the review skill covers', so a standalone security pass would duplicate it",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The plugin code-review skill is described as multi-axis with the axis rubric named per dispatch, but neither its description nor anything in outputs_dir confirms that security is among the axes it will actually run on this branch. Asserted rather than established; it is used to justify skipping security-and-hardening, security-auditor and /security-review, so if wrong it silently drops security coverage. Flagged as unverifiable."
+    },
+    {
+      "claim": "Phase 2 is gated on user confirmation, so the user sees triaged findings before anything is edited",
+      "type": "process",
+      "verified": true,
+      "evidence": "Consistent across both artifacts. routing.md: 'Sequential, not parallel, and gated on user confirmation between the two.' response.md: 'Once you've seen the findings and told me which to act on ...' and 'I'll start with the review and come back with the triaged findings before touching anything.'"
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": [],
+    "note": "No user_notes.md present in outputs_dir."
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Gives the reason that the plugin runs tests between edits and reverts breakage, where the local skill only advises",
+        "reason": "This run places the contrast in routing.md only - response.md, the sole thing the user reads, says 'behaviour identical' but never mentions the test loop, the revert, or that a local alternative was passed over. The expectation as written cannot distinguish that from a run that told the user why. Consider splitting it, or scoping it to response.md, so the reasoning has to reach the user rather than only the scratch artifact."
+      },
+      {
+        "reason": "No expectation covers the deliberate-skip reasoning, which is where this run's one real defect sits: it declines security-and-hardening, security-auditor and /security-review on the asserted grounds that 'security is already one axis the review skill covers' - a claim nothing in the outputs establishes. A run can pass all four expectations while silently dropping a coverage axis on a false premise."
+      },
+      {
+        "reason": "Nothing checks the defect-versus-untidiness triage between the two phases, which both runs volunteered unprompted and which is the highest-value routing judgement in the artifacts. Since the simplifier preserves whatever behaviour it finds, a run that routed straight from review findings into cleanup without that split would still pass all four expectations."
+      },
+      {
+        "expectation": "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+        "reason": "Because the expectation accepts either pick with any stated reason, it cannot separate a reason grounded in a real property of the two skills (this run's 'no originating spec was mentioned') from a plausible-sounding but inaccurate one. Requiring the reason to cite a distinguishing property that actually holds would make it discriminating."
+      }
+    ],
+    "overall": "All four expectations pass on real substance - routing.md tabulates both collisions with qualified names and gives grounded reasons. The expectations are permissive in two ways worth fixing: they do not require the reasoning to surface in the user-facing response, and they check that reasons exist rather than that they hold, which lets an unverified skip rationale through uncaught."
+  }
+}

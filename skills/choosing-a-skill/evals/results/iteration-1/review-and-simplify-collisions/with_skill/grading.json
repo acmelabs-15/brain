@@ -1,0 +1,104 @@
+{
+  "expectations": [
+    {
+      "text": "Identifies that more than one installed skill matches 'review'",
+      "passed": true,
+      "evidence": "routing.md heads a section '## Collision 1 — \"review this\"' with a two-column comparison table of 'Local `code-review`' vs 'Plugin `code-review:code-review`', and states 'Both name collisions resolve in opposite directions. That is the whole difficulty of this request.' It then lists four further review-side candidates it considered and rejected (`/review` command, `code-review-and-quality`, `/ship`, `skills:review`). response.md also names the collision to the user: 'There's also a plugin `code-review:code-review` with the same name'."
+    },
+    {
+      "text": "Names both the local code-review and the plugin code-review:code-review, and picks one with a stated reason",
+      "passed": true,
+      "evidence": "Both exact candidates are named: routing.md's collision table columns are 'Local `code-review`' and 'Plugin `code-review:code-review`', and the pick is explicit — '**Chosen: local.** ... This is a branch about to merge — a diff against a fixed point, which is precisely the local skill's stated scope. The plugin's cell-planning and per-unit coverage machinery is ceremony at this size.' The same choice and reason are surfaced in response.md: 'it's a heavyweight cell-based repo-wide sweep, which is more machinery than a branch needs, so I'm not using it here.'"
+    },
+    {
+      "text": "Routes the cleanup half to the code-simplifier plugin rather than the local code-simplification skill",
+      "passed": true,
+      "evidence": "routing.md's ordered invocation list item 2 is '**`code-simplifier:code-simplifier`** — the *plugin* agent (not the local `code-simplification`)', and '## Collision 2' concludes '**Chosen: plugin.**'. response.md: '**2. Cleanup — plugin `code-simplifier:code-simplifier`.** For \"the messy bits\" I'll use the plugin agent, not the local `code-simplification` skill.'"
+    },
+    {
+      "text": "Gives the reason that the plugin runs tests between edits and reverts breakage, where the local skill only advises",
+      "passed": true,
+      "evidence": "routing.md's Collision 2 table has a 'Verification' row contrasting local 'None — advises only' against plugin 'Runs the tests between each individual change, reverts breakage; proposes rather than edits where a unit has no coverage', and adds 'the plugin, because it verifies and the local one only advises'. response.md states the same reason in prose: 'the plugin one actually edits and runs your tests between each individual change, reverting anything that breaks them ... The local skill is a reference document — it advises, it doesn't verify.'"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 6339,
+    "output_files": [
+      "response.md (1957 chars)",
+      "routing.md (4382 chars)"
+    ],
+    "transcript_chars": 0,
+    "errors_encountered": 0,
+    "note": "No transcript file, metrics.json or user_notes.md exist for this run; response.md and routing.md are the graded artifacts."
+  },
+  "timing": {
+    "executor_duration_seconds": 54.0,
+    "total_duration_seconds": 54.0,
+    "total_tokens": 47545
+  },
+  "claims": [
+    {
+      "claim": "A local `code-review` skill and a distinct plugin `code-review:code-review` skill are both installed",
+      "type": "factual",
+      "verified": true,
+      "evidence": "/Users/peterkloss/.claude/skills/code-review/SKILL.md exists locally, and the available-skills listing includes a separate plugin entry `code-review:code-review`."
+    },
+    {
+      "claim": "The local `code-simplification` skill is a 331-line reference document that advises rather than edits",
+      "type": "factual",
+      "verified": true,
+      "evidence": "`wc -l /Users/peterkloss/.claude/skills/code-simplification/SKILL.md` returns exactly 331. Its registered description ('Simplifies code for clarity. Use when refactoring...') carries no verification or test-running behaviour, consistent with the advisory characterisation."
+    },
+    {
+      "claim": "The plugin code-simplifier runs the project's tests between each individual change, reverts breakage, and proposes rather than edits where a unit has no test coverage",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Matches the installed `code-simplifier:code-simplifier` agent description verbatim in substance: 'Verifies behaviour preservation by running the project's tests between each individual change and reverting anything that breaks them, and proposes rather than edits where a unit has no test coverage.'"
+    },
+    {
+      "claim": "The plugin `code-review:code-review` is a heavyweight cell-based sweep with per-unit coverage reporting, while the local skill is scoped to a diff since a fixed point",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The plugin description names 'discovers review units, writes one plan row per review cell before dispatching anything ... reporting per-unit coverage'; the local skill description names 'Review the changes since a fixed point (commit, branch, tag, or merge-base) ... two axes ... parallel sub-agents'. The characterisation is accurate, though 'repo-wide' is the run's inference — the plugin resolves an explicitly named scope rather than being inherently repo-wide."
+    },
+    {
+      "claim": "The `/code-simplify` command already routes to the plugin, so it is an equivalent entry point",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Cannot be confirmed from the available artifacts. The `code-simplify` command is listed ('Simplify code for clarity and maintainability — reduce complexity without changing behavior') but its body was not inspected in this run's outputs, so which skill it dispatches to is unverified. Flagged as unverifiable rather than contradicted."
+    },
+    {
+      "claim": "Review must precede simplification because simplifying unreviewed code entrenches defects",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Justified and correctly grounded in the tool's own contract, which the run quotes: the simplifier's description says 'Do not use when that same code is broken ... since simplifying code whose behaviour is wrong preserves the wrong behaviour: fix it first.'"
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": [],
+    "note": "No user_notes.md present in outputs_dir."
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Identifies that more than one installed skill matches 'review'",
+        "reason": "This is largely subsumed by expectation 2 — any run that names both code-review variants necessarily identifies more than one match. It costs an expectation slot without discriminating between runs."
+      },
+      {
+        "reason": "No expectation checks that the run avoids inventing a collision that does not exist, or that the losing candidate is characterised accurately. A run could name both variants and pick one with a confidently wrong reason (e.g. claiming the local skill is repo-wide) and still pass every expectation as written."
+      },
+      {
+        "reason": "No expectation covers ordering, which both runs treated as the substantive risk: simplifying before reviewing entrenches unreviewed behaviour. Given the prompt explicitly chains the two halves, an expectation like 'runs the review before the cleanup and states why the order is load-bearing' would test a real outcome nothing currently checks."
+      }
+    ],
+    "overall": "Expectations 2, 3 and 4 are well-targeted and genuinely discriminating on the collision-resolution behaviour. Expectation 1 is redundant with 2. The set has a gap around ordering and around the accuracy (not just the presence) of the stated reasons."
+  }
+}

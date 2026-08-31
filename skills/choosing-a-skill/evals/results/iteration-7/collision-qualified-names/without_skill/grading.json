@@ -1,0 +1,104 @@
+{
+  "expectations": [
+    {
+      "text": "Names both the local code-review and the plugin code-review:code-review, distinguishing which is which, and states one skill it will run by default such that a reader knows which one executes",
+      "passed": true,
+      "evidence": "Both clauses hold. Names and distinguishes: response.md gives the local one as 'the local `code-review` skill. It reviews the changes since a fixed point along two axes, Standards [...] and Spec [...] running both as parallel sub-agents' and the plugin as 'a plugin skill called `code-review:code-review`, which runs a multi-axis review over a scope you name and returns triaged, ranked findings' - the local/plugin labels are explicit and the descriptions are not interchangeable. Default is knowable: the deciding sentence is '**Step 1 - review the branch.** I'll run the local `code-review` skill.' - a flat commitment in the future indicative, made before the plugin is even mentioned. The plugin then appears only as a named reversal condition the user must actively trigger: 'Say the word if you'd rather have the plugin's triaged-findings format instead.' Under the grading note's rule that a commitment plus a reversal condition passes, this is the passing shape: a reader with no further information knows the local skill executes and knows exactly what would change that. routing.md matches rather than muddies it: 'Chosen: local `code-review`.'"
+    },
+    {
+      "text": "Does not reject the plugin on the ground that no scope was named, since a branch is an accepted scope form for it; and does not credit the local skill with resolving scope itself, since it asks the user for a fixed point",
+      "passed": false,
+      "evidence": "The run walks into both halves of the trap, in one sentence. routing.md, giving the reason for the pick: 'The plugin `code-review:code-review` is a reasonable alternative and I flag it to the user in one line, but it wants an explicitly named scope and its deliverable is triaged findings; the local one's branch/merge-base framing is the closer match to the phrasing given.' (a) 'but it wants an explicitly named scope' is deployed as a mark against the plugin - the 'but' makes it a disqualifier in a sentence whose job is to justify not choosing it. That is precisely the rejection ground the expectation forbids, and it is wrong on the facts: a branch is an accepted scope form for the plugin (argument-hint '[what to review: a PR ref, a branch or diff range, or a path]'; scope table '<branch>  a branch against its merge base'), and the user did name a branch. The comparison table repeats the framing in bold - 'Runs a multi-axis review over an **explicitly named scope**' - with no counterpart noting the local skill needs a fixed point, so the table presents scope-demandingness as a plugin-only cost. (b) The same clause credits the local skill with the contrasting property - 'the local one's branch/merge-base framing is the closer match' - implying it takes the branch as given where the plugin would not. It does not: the local SKILL.md step 1 says 'If they didn't specify one, ask for it.' The run's own outputs contradict the credit it just granted: response.md, one sentence after committing, 'It needs one thing from you: **the fixed point to diff against**', and routing.md's own section 'What I ask the user for' - 'The local `code-review` skill's whole contract is \"changes since a fixed point,\" so it cannot run without one.' So the run holds simultaneously that the local skill's branch framing beats the plugin's scope demand, and that the local skill cannot run until the user supplies the scope. Both halves of the expectation fail, and the second is additionally self-contradicting."
+    },
+    {
+      "text": "No property it claims for the skill it chose is sourced from a different skill, and its stated reason is not contradicted elsewhere in the same outputs",
+      "passed": false,
+      "evidence": "The second limb fails on the review pick. The stated reason for choosing local `code-review` is, in part, 'the local one's branch/merge-base framing is the closer match to the phrasing given' (routing.md) - i.e. that it handles the branch the user named. That reason is contradicted twice inside the run's own outputs: response.md 'It needs one thing from you: **the fixed point to diff against** - a commit, branch, tag, or merge-base', and routing.md 'so it cannot run without one. I offer merge-base-with-main as the default.' A skill that cannot run until the user names the fixed point does not have a framing advantage over one that accepts the branch as an argument; the run's justification and its own account of what the skill needs cannot both stand. Ancillary drift in the same table: the plugin row's 'plans one row per review cell' is stated only for the plugin (correct), but the local row asserts 'Description explicitly names \"review a branch, a PR, work-in-progress changes\"' as the discriminator while omitting that the plugin's argument-hint names a branch too - a selective reading rather than a misattribution, though it is what makes the contradiction possible. Note the cleanup half of the run is clean on this expectation: every property claimed for `code-simplifier:code-simplifier` ('runs the project's tests between each individual change and reverts anything that breaks them, and proposes rather than edits where a unit has no test coverage') is verbatim its own agent declaration, correctly withheld from the local `code-simplification` skill, and its stated reason is consistent throughout. The failure is confined to the chosen review skill - but that is the skill it chose, which is what the expectation scopes."
+    },
+    {
+      "text": "Holds the cleanup conditional on what the review returns, because the simplifier declares it must not run on broken code - and says so in response.md",
+      "passed": true,
+      "evidence": "All three parts are in response.md. Conditional on the review's return: 'Once you've seen the review and decided what's in scope, I'll run `code-simplifier:code-simplifier`', reinforced by 'I'll treat the review's readability and structure findings as the candidate list and confirm the scope with you before touching anything.' Grounded in the simplifier's declared refusal, attributed to the skill rather than asserted as the run's own preference: 'The plugin skill is explicit that it must not run on broken code or failing tests - simplifying code whose behaviour is wrong just preserves the wrong behaviour. So if the review turns up correctness bugs, those get fixed first, and the cleanup runs after.' That tracks the plugin's own description ('Do not use when that same code is broken or its tests are failing, since simplifying code whose behaviour is wrong preserves the wrong behaviour: fix it first'). routing.md corroborates with the explicit chain '`code-review` -> (fix correctness findings, if any) -> `code-simplifier:code-simplifier`' and names the constraint as coming 'from the skills' own declarations'."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "execution_metrics": {
+    "output_chars": 8858,
+    "total_tokens": 43932,
+    "files_produced": [
+      "response.md",
+      "routing.md"
+    ],
+    "errors_encountered": 0
+  },
+  "timing": {
+    "executor_duration_seconds": 64.8,
+    "total_duration_seconds": 64.8
+  },
+  "claims": [
+    {
+      "claim": "The plugin code-review:code-review 'wants an explicitly named scope', making it a weaker fit than the local skill for a branch review",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The premise is half-true and the inference is false. The plugin does require a scope argument, but a branch is one of its accepted forms ('<branch>  a branch against its merge base'), and the user named a branch. The local skill equally cannot proceed without a fixed point ('If they didn't specify one, ask for it'), so this is not a discriminator between them at all, let alone one favouring the local skill."
+    },
+    {
+      "claim": "The local code-review skill's description names the exact situation verbatim - reviewing a branch before merge",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Local SKILL.md description: 'Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\".' The quotation is accurate; it is the comparative conclusion drawn from it that does not hold, since the plugin's argument-hint also names a branch."
+    },
+    {
+      "claim": "The local code-review skill runs Standards and Spec as parallel sub-agents reporting side by side",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Local SKILL.md: 'Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.'"
+    },
+    {
+      "claim": "The plugin code-simplifier runs tests between each change, reverts breakage, and proposes rather than edits where coverage is absent",
+      "type": "factual",
+      "verified": true,
+      "evidence": "code-simplifier agent declaration matches the claim nearly verbatim, including the propose-don't-edit clause."
+    },
+    {
+      "claim": "The local code-simplification skill declares behaviour preservation as a goal but no verification mechanism",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Its description says 'refactoring code for clarity without changing behavior' with no test-execution or revert mechanism; the file is a 331-line process reference, not an executing agent."
+    },
+    {
+      "claim": "The only thing asked of the user is a genuine skill input rather than a clarifying stall",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Accurate as far as it goes - the local skill genuinely cannot run without a fixed point. But the run does not notice that this same fact undercuts the scope-based reason it gave for preferring that skill."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [
+      "The stated justification for the review pick rests on a scope-handling contrast that the run's own outputs disprove two paragraphs later"
+    ],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Does not reject the plugin on the ground that no scope was named, since a branch is an accepted scope form for it; and does not credit the local skill with resolving scope itself, since it asks the user for a fixed point",
+        "reason": "Genuinely self-contained now, and it did the work here: I reached the fail verdict from the expectation text plus the run's outputs alone, and opening the two SKILL.md files only confirmed what the wording had already settled. Worth keeping the phrasing exactly as-is. One note for the author: this run fails it via a soft 'but it wants an explicitly named scope' inside a justification clause rather than an outright rejection. That is the interesting failure mode and the current wording does catch it, but a grader reading 'reject' narrowly might let it pass - 'does not treat the absence of a named scope as a mark against the plugin' would close that gap without losing self-containment."
+      },
+      {
+        "expectation": "No property it claims for the skill it chose is sourced from a different skill, and its stated reason is not contradicted elsewhere in the same outputs",
+        "reason": "The broadened second limb overlaps expectation 2 heavily on this run - both fail on the same sentence, so the pass rate reads 50% where arguably one defect was found, not two. That is defensible (they test different things: 2 is about the specific scope trap, 3 about internal consistency generally), but the author should know the correlation exists, because a run that trips the scope trap will nearly always trip 3 as well, making the two expectations less independent than the count suggests."
+      },
+      {
+        "reason": "No expectation rewards or penalises the depth of the rejected-candidate analysis, and this run does far more of it than the eval can see - it works through `code-review-and-quality`, `/review`, `skills:review`, `/simplify`, `git-workflow-and-versioning`, `resolving-merge-conflicts` and more, all correctly. That work is invisible to the score while a single justification clause costs two expectations. If breadth of correct rejection is a quality the skill is meant to produce, it needs its own expectation; if it is not, the eval is fine as-is but the author should know the runs are spending budget on it."
+      }
+    ],
+    "overall": "Expectation 2 is self-contained and discriminating - it is the expectation that separated this run from a clean sheet, and it did so without the grader needing any briefing beyond its own text. Expectations 1 and 4 are well-specified and were straightforward to adjudicate. The main structural note is the correlation between 2 and 3."
+  }
+}

@@ -310,8 +310,8 @@ require-kit:
 checks: ## frontmatter + linter, no model calls, seconds
 	@printf '\n  $(B)checks$(X) $(D)no model calls$(X)\n'
 	@run="$(call stamped,checks)"; mkdir -p "$$run"; \
-	  bun "$(EVALS)/frontmatter.test.ts"        | tee "$$run/frontmatter.txt" | tail -2; \
-	  bun "$(EVALS)/composition/checks.test.ts" | tee "$$run/checks.txt"      | tail -1; \
+	  bun "$(EVALS)/frontmatter.check.ts"        | tee "$$run/frontmatter.txt" | tail -2; \
+	  bun "$(EVALS)/composition/checks.check.ts" | tee "$$run/checks.txt"      | tail -1; \
 	  printf '  $(D)%s$(X)\n\n' "$$run"
 
 # The static gate, and the only one here that does not run the code it checks. `checks` above

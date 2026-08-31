@@ -1,0 +1,11 @@
+{
+  "eval_id": 0,
+  "eval_name": "hypothesis-before-repro",
+  "prompt": "The login page throws \"cannot read property 'id' of undefined\" but only sometimes, maybe one in five loads. Can you sort it out?",
+  "expectations": [
+    "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+    "The first reproduction step's success condition is a changed failure rate or a forced state, not a single captured failure",
+    "response.md does not violate a discipline that routing.md states: no rule named in the notes is broken in the reply",
+    "Names what it will do if the environment cannot be driven to reproduce, and that fallback is not reading the code and reasoning about ordering"
+  ]
+}

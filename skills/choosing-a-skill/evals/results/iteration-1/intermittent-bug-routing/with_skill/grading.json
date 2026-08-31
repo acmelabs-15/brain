@@ -1,0 +1,108 @@
+{
+  "expectations": [
+    {
+      "text": "Routes to the diagnosing-bugs skill by name",
+      "passed": true,
+      "evidence": "routing.md heads its 'Skill to invoke' section with '**`diagnosing-bugs`** — and nothing else, at least until it has run.' response.md repeats it in the user-facing reply: 'So I'm going to run `diagnosing-bugs`, and Phase 1 of that skill is the whole job right now'. The routing note also justifies the choice over the near-neighbour `debugging-and-error-recovery`, citing the routing-table row 'Something is broken and you don't know why → diagnosing-bugs'."
+    },
+    {
+      "text": "States that a reproduction loop comes before any hypothesis about the cause",
+      "passed": true,
+      "evidence": "Stated explicitly and in the correct causal order. response.md: 'An intermittent failure with no reliable way to reproduce it is exactly the case where reading code to build a theory burns the most time for the least return... Until that command exists I won't start proposing fixes.' routing.md is more explicit still: 'The skill is explicit that reading code to build a theory before that command exists is the exact failure it prevents, and that there is no Phase 2 without a red-capable command.' The loop is defined concretely (one command, deterministic, fast, goes red on this bug), not gestured at."
+    },
+    {
+      "text": "Treats the one-in-five intermittency as a reproduction-rate to raise, rather than a reason to reason from the code",
+      "passed": true,
+      "evidence": "The intermittency is framed as the thing to attack, and the target is stated as determinism rather than a higher sample count. response.md opens 'the \"one in five loads\" part is the thing to attack first, not the stack trace', and step 2 is headed 'Make the intermittency deterministic', specifying 'The loop I want is one that forces the losing order every time — throttling or stubbing the relevant request so the slow path always wins — rather than one that reloads the page twenty times and hopes.' That last clause explicitly rejects the brute-force-sampling substitute. routing.md gives the reason: 'A 1-in-5 intermittent bug is the pathological case for fix-and-eyeball verification: any change at all has an 80% chance of looking successful on the next load... the intermittency is not a complication to work around — it is the reason this skill is the right route.'"
+    },
+    {
+      "text": "Does not propose a specific root cause or a fix before a reproduction exists",
+      "passed": true,
+      "evidence": "No cause is asserted and no fix is committed to. Candidate mechanisms appear only as hedged search space subordinate to building the loop: 'A 1-in-5 rate on page load almost always means a race... Common shapes on a login page are...' — offered to say what the loop should force, immediately followed by the gate 'Once that command fails reliably on demand, the fix is small and, crucially, provable'. The one place a remedy is named is explicitly deferred and subordinated: 'I'll also add the guard (optional chaining or an explicit loading state) as part of the fix — but the guard alone would just hide it, so I want the ordering bug named before I paper over it.' The run also names the symptom/location distinction rather than guessing a location: 'cannot read property 'id' of undefined is the symptom, not the location.'"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 5813,
+    "transcript_chars": 0,
+    "output_files": 2,
+    "errors_encountered": 0,
+    "note": "No metrics.json was produced by the executor; output_chars is the sum of response.md (2143) and routing.md (3670). There is no separate transcript — the outputs are the artifact."
+  },
+  "timing": {
+    "executor_duration_seconds": 46.4,
+    "total_duration_seconds": 46.4,
+    "total_tokens": 46713
+  },
+  "claims": [
+    {
+      "claim": "The choosing-a-skill routing table contains a row mapping 'Something is broken and you don't know why' to diagnosing-bugs",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Consistent with the installed diagnosing-bugs description ('Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow'). The quoted table row was not independently checked against the skill source, but the route it produces is correct for this request."
+    },
+    {
+      "claim": "diagnosing-bugs is Lineage B (Matt Pocock family), a workflow to execute rather than a reference to consult, and is one of eight Lineage B skills without disable-model-invocation",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Unverifiable from the outputs alone — the lineage taxonomy and the count of eight live in the choosing-a-skill skill body, not in the graded artifacts. The claim is specific enough to be wrong (the count in particular). It is load-bearing only for the contrast against debugging-and-error-recovery, and the routing conclusion does not depend on it."
+    },
+    {
+      "claim": "debugging-and-error-recovery is a 180-500 line encyclopedic checklist, i.e. reference rather than workflow",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The line-count range cannot be checked against the outputs. The functional characterization is consistent with that skill's installed description ('Guides systematic root-cause debugging... Use when tests fail, builds break'), but the numeric range is asserted, not shown."
+    },
+    {
+      "claim": "Phase 1 of diagnosing-bugs is the tight-loop step and gates all later phases",
+      "type": "process",
+      "verified": true,
+      "evidence": "Internally consistent across both files and matches the skill's stated purpose as a diagnosis loop. The run behaves as if gated: it declines to propose a fix and defers test-driven-development to after the loop goes red."
+    },
+    {
+      "claim": "Any fix to a 1-in-5 bug has an ~80% chance of appearing successful on the next load",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Arithmetically correct for a 20% per-load failure rate under an independence assumption, and it is the correct argument for why eyeball verification fails here."
+    },
+    {
+      "claim": "No clarifying question was used as a gate on starting work",
+      "type": "process",
+      "verified": true,
+      "evidence": "response.md requests the stack trace and the auth-provider detail as accelerators, then states 'If neither is to hand I'll start from the trace I can capture myself.' routing.md confirms the intent: 'I ask for the stack trace as an accelerator inside the diagnosis, not as a gate on beginning.'"
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": [],
+    "note": "No user_notes.md was present in the outputs directory."
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Does not propose a specific root cause or a fix before a reproduction exists",
+        "reason": "This is the only genuinely discriminating expectation of the four, and its boundary is undefined. Both runs name the same candidate mechanisms (render reading session.user.id before the fetch settles, hydration ordering, racing requests). This run subordinates them to the loop and withholds commitment; the baseline ranks them 'in rough order of likelihood' and pre-commits to a fix shape. That is a real difference in discipline, but a grader could defensibly read either as 'proposing a specific root cause'. Worth rewriting to name the distinction under test — e.g. 'names candidate mechanisms only as search space for the reproduction, and commits to none as the cause' — otherwise the eval's single load-bearing expectation is decided by grader taste."
+      },
+      {
+        "expectation": "Routes to the diagnosing-bugs skill by name",
+        "reason": "Near-trivially satisfied. The installed diagnosing-bugs description matches the prompt's own vocabulary ('reports something broken/throwing/failing/slow' against 'the login page throws'), so name-matching alone routes correctly with no skill loaded — confirmed by the baseline arriving at the identical primary route. A discriminating version would test the harder judgement the routing note actually makes: choosing diagnosing-bugs over the overlapping near-neighbour debugging-and-error-recovery, and giving a reason for it."
+      },
+      {
+        "reason": "No expectation checks the ordering claim that the response's own credibility rests on — that test-driven-development (or the fix step generally) comes only after the loop is red. Both runs make this claim and it is checkable from the outputs, but nothing grades it. It is also where a wrong answer would be most costly in practice: TDD before diagnosis on an intermittent bug produces a test that forces the wrong race."
+      },
+      {
+        "reason": "No expectation covers over-escalation, which is a stated failure mode of the skill collection and which both runs explicitly guard against (declining spec-driven-development, planning-and-task-breakdown, grilling, /ship, five-axis review for a single TypeError). Since routing.md is a graded artifact, an expectation like 'declines lifecycle/ceremony skills as over-escalation for a single bug' would be cheap to verify and would catch a plausible failure the current four would let through."
+      },
+      {
+        "reason": "Expectations 2 and 3 overlap heavily — a run that says 'build a deterministic repro before theorising' satisfies both almost automatically, so they behave as one check with two votes, inflating pass_rate. Consider collapsing them and spending the freed slot on the ordering or over-escalation gap above."
+      }
+    ],
+    "overall": "The run passes all four cleanly and with unusually strong evidence on expectation 4, which is the one that separates disciplined diagnosis from confident guessing. But the expectation set is weaker than the run makes it look: expectation 1 is satisfiable by name-matching alone, expectations 2 and 3 are near-duplicates, and expectation 4 — the only real discriminator — has an undefined boundary between 'candidate mechanisms as search space' and 'proposing a root cause'. Two observed behaviours worth grading go unchecked: fix-after-red ordering, and refusal to over-escalate."
+  }
+}

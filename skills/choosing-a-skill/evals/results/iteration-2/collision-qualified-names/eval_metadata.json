@@ -1,0 +1,11 @@
+{
+  "eval_id": 2,
+  "eval_name": "collision-qualified-names",
+  "prompt": "Can you review this branch before I merge it? And once that's done I want the messy bits cleaned up.",
+  "expectations": [
+    "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+    "Names the plugin as code-simplifier:code-simplifier rather than reaching it only by a bare name or the /code-simplify alias",
+    "Gives the reason that the plugin runs tests between edits and reverts breakage, where the local skill only advises",
+    "Runs review before cleanup and states why that order is load-bearing"
+  ]
+}

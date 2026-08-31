@@ -1,0 +1,99 @@
+{
+  "expectations": [
+    {
+      "text": "Does not route to security-and-hardening as the skill to run, since the request is to build something and that skill produces advice rather than code",
+      "passed": true,
+      "evidence": "routing.md gives security-and-hardening its own section headed 'Consulted, not run', and states 'It is reference, not a workflow, and it does not go in the chain.' It appears nowhere in the 'Order' section as a step to execute — only as item 3, 'Throughout: OWASP section of `security-and-hardening` as a reference read against the diff.' The committed skill is `grilling` ('One skill: `grilling`. That is the only commitment.'), with `test-driven-development` as the expected follow-on. The trap was not taken."
+    },
+    {
+      "text": "Names security-and-hardening as material to consult while building - specifically for the token, expiry and enumeration concerns this feature raises - rather than omitting it",
+      "passed": true,
+      "evidence": "Both files name it and name the specific concerns. routing.md: 'pull the token-generation and enumeration material, apply it against the written code, move on.' response.md: 'One thing I'll consult rather than run, whichever way that goes: the OWASP section of `security-and-hardening`, for the token-generation and enumeration specifics.' Token and enumeration are named explicitly; expiry is covered adjacently in the open-decision list ('whether the link is single-use as well as time-limited') and in the TDD test cases ('expired token rejected, reused token rejected'), though it is not attributed to security-and-hardening by name. Two of the three named concerns are explicitly attributed and the third is addressed in the build path, which meets the substance of the expectation."
+    },
+    {
+      "text": "Routes to a workflow that produces code, naming it, rather than leaving the build implicit",
+      "passed": true,
+      "evidence": "`test-driven-development` is named as the code-producing route and is justified rather than listed: response.md says 'I'll go straight to `test-driven-development` and build it — the reset flow is exactly the kind of thing where the tests are the spec (expired token rejected, reused token rejected, wrong-user token rejected).' routing.md's Order section names it as step 2 in the expected branch, with `to-spec` → `to-tickets` → `implement-spec` as the conditional wider branch. Note this is a two-step route: the immediate commitment is `grilling`, an interview skill, and code is reached at step 2. But the path to code is explicitly named with the condition that selects it, so a reader knows exactly how code gets written and under what circumstances — this is not the 'interview-only, no named path to code' partial answer the grading notes warn about."
+    },
+    {
+      "text": "Says what security-and-hardening would produce if run at this request, rather than rejecting it only as premature or out of scope",
+      "passed": true,
+      "evidence": "routing.md characterizes the artifact rather than the timing: '`security-and-hardening` is Lineage A — a 499-line encyclopedic checklist. The lineage guidance is explicit that reading it end-to-end before touching an auth handler is a poor trade, while reading its OWASP section is a good one.' response.md restates it in plain terms: 'It's a checklist to read against the code, not a workflow.' The rejection is on the kind of thing it is — a checklist you read — not on it being premature or out of scope. Verified accurate: the actual SKILL.md is 499 lines, is a threat-model-plus-checklist document, and defers detail to `~/.claude/references/security-checklist.md`. Weaker point: the run says what the artifact IS (a checklist) more sharply than what running it WOULD PRODUCE at this specific request (i.e. a list of considerations about auth and no password-reset code). It never spells out that consequence. This passes on the artifact-kind framing, but by a narrower margin than expectations 1 and 5."
+    },
+    {
+      "text": "In response.md specifically, the reason given for the routing is the kind of artifact each candidate produces, not which description best matches the words of the request",
+      "passed": true,
+      "evidence": "The deciding sentence in response.md is: 'One thing I'll consult rather than run, whichever way that goes: the OWASP section of `security-and-hardening`, for the token-generation and enumeration specifics. It's a checklist to read against the code, not a workflow.' The reason is what the thing is and what it yields — a checklist read against code — not that its description mentions authentication. The positive routing is reasoned the same way: `grilling` is chosen because of what it does to the problem ('It works the open questions as a frontier — I ask the whole set at once with a recommended answer on each'), and TDD because of the artifact fit ('the tests are the spec'). At no point does response.md argue from description wording. The word 'authentication' — the hook in security-and-hardening's description that the trap depends on — is never invoked as a reason to route anywhere."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 6668,
+    "output_files": 2,
+    "total_tokens": 48579
+  },
+  "timing": {
+    "executor_duration_seconds": 56.2,
+    "total_duration_seconds": 56.2
+  },
+  "claims": [
+    {
+      "claim": "security-and-hardening is a 499-line Lineage A encyclopedic checklist",
+      "type": "factual",
+      "verified": true,
+      "evidence": "`wc -l /Users/peterkloss/.claude/skills/security-and-hardening/SKILL.md` returns exactly 499. Content is a threat-model process plus a three-tier boundary list, OWASP prevention patterns and a review checklist; it defers to `~/.claude/references/security-checklist.md` at lines 77, 303 and 451. It contains no build workflow and produces no code."
+    },
+    {
+      "claim": "The lineage guidance says reading security-and-hardening end-to-end before touching an auth handler is a poor trade, reading its OWASP section a good one",
+      "type": "process",
+      "verified": true,
+      "evidence": "choosing-a-skill/SKILL.md lines 149-151 read: 'Reading `security-and-hardening` (499 lines) end-to-end before touching an auth handler is a poor trade; reading its OWASP section is a good one.' The run quotes this near-verbatim and applies it correctly. Note this is close to a lookup: the skill's illustrative example happens to be an auth handler, which is the eval's own scenario. See eval_feedback."
+    },
+    {
+      "claim": "Routing to `grilling` rather than `interview-me` is correct because grilling asks the whole frontier at once with recommendations and researches its own facts",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Consistent with the installed grilling skill's description ('Grill the user relentlessly about a plan, decision, or idea') and interview-me's ('one-question-at-a-time interview until ~95% confidence'). The run correctly identifies this as a real collision and gives a substantive tie-break rather than a description comparison."
+    },
+    {
+      "claim": "`/build auto` requires a spec at a known path and a clean tree, so it has nothing to consume here",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Consistent with the installed `build` command description ('Implement tasks incrementally... Add \"auto\" to run the whole plan in one approved pass') and the skills:build skill, which is spec-driven ('implement the SPEC', 'code up SPEC-NNN'). Correctly excluded."
+    },
+    {
+      "claim": "The immediate commitment is a single skill, and downstream steps are conditional rather than a committed chain",
+      "type": "process",
+      "verified": true,
+      "evidence": "Held consistently across both files. routing.md: 'One skill: `grilling`. That is the only commitment.' response.md matches: 'So I'm starting with `grilling`... What happens after that depends on what the grilling turns up.' No drift between the two artifacts."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Says what security-and-hardening would produce if run at this request, rather than rejecting it only as premature or out of scope",
+        "reason": "This expectation is the weakest of the five as written. Both arms pass it fairly easily by describing the skill's genre ('a checklist', 'names authentication explicitly') without stating the consequence the expectation is really after — that running it at this request returns considerations about auth and zero lines of password-reset code. Consider tightening to require the run to name the output artifact concretely, e.g. 'states that invoking it would return a list of considerations rather than a working reset flow'. As written, a run can satisfy it by classifying the skill without ever confronting what invoking it costs the user."
+      },
+      {
+        "reason": "The choosing-a-skill SKILL.md at line 150 uses an auth handler as its worked example for the Lineage-A-is-reference rule: 'Reading `security-and-hardening` (499 lines) end-to-end before touching an auth handler is a poor trade.' The eval prompt is a password reset feature — an auth handler. The eval was designed so a run 'cannot win by lookup', but the skill's illustrative example lands almost exactly on the eval scenario, and the with_skill run quotes it near-verbatim. The trap is therefore less blind for the skill arm than intended. To restore the intended difficulty, either move the eval to a non-auth Lineage A collision (e.g. a build request that description-matches `observability-and-instrumentation` or `api-and-interface-design`), or change the SKILL.md example away from auth. This does not invalidate the with_skill result — the run still applied the principle rather than just citing it — but it does mean the arms were not tested on equal footing."
+      },
+      {
+        "reason": "No expectation checks the two output files for consistency with each other. Here they agree, but a run could plausibly reason correctly in routing.md and then present a description-matched route to the user in response.md — exactly the failure mode expectation 5 isolates, but only detectable by comparing the pair. An expectation like 'the skill committed to in response.md is the same one routing.md commits to, with the same stated reason' would catch a split that no current expectation sees."
+      },
+      {
+        "reason": "Nothing checks that the immediate commitment is actually a code-producing step. This run's first move is `grilling` — an interview — with TDD conditional on its outcome. That is defensible and well-argued, but the same structure could mask a run that never gets to code. Expectation 3 as written is satisfied by naming a code workflow anywhere in a conditional branch. If the eval cares that the user gets code rather than another round of questions, that distinction needs its own expectation."
+      }
+    ],
+    "overall": "The run passes all five expectations, and passes the two that matter most (1 and 5) with clear, quotable evidence rather than on a technicality. The main eval-design concern is not this run's grade but the contamination noted above: choosing-a-skill's own worked example for the reference-vs-workflow rule uses an auth handler, which is this eval's scenario, so the with_skill arm had a partial lookup available where the eval intended none. Expectation 4 is also softer than the others and should be tightened."
+  }
+}

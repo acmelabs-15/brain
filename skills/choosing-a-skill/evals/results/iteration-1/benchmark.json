@@ -1,0 +1,313 @@
+{
+  "metadata": {
+    "skill_name": "choosing-a-skill",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-08-31T04:08:14Z",
+    "evals_run": [
+      0,
+      1,
+      2
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "eval_name": "intermittent-bug-routing",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 46.4,
+        "tokens": 46713,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Routes to the diagnosing-bugs skill by name",
+          "passed": true,
+          "evidence": "routing.md heads its 'Skill to invoke' section with '**`diagnosing-bugs`** \u2014 and nothing else, at least until it has run.' response.md repeats it in the user-facing reply: 'So I'm going to run `diagnosing-bugs`, and Phase 1 of that skill is the whole job right now'. The routing note also justifies the choice over the near-neighbour `debugging-and-error-recovery`, citing the routing-table row 'Something is broken and you don't know why \u2192 diagnosing-bugs'."
+        },
+        {
+          "text": "States that a reproduction loop comes before any hypothesis about the cause",
+          "passed": true,
+          "evidence": "Stated explicitly and in the correct causal order. response.md: 'An intermittent failure with no reliable way to reproduce it is exactly the case where reading code to build a theory burns the most time for the least return... Until that command exists I won't start proposing fixes.' routing.md is more explicit still: 'The skill is explicit that reading code to build a theory before that command exists is the exact failure it prevents, and that there is no Phase 2 without a red-capable command.' The loop is defined concretely (one command, deterministic, fast, goes red on this bug), not gestured at."
+        },
+        {
+          "text": "Treats the one-in-five intermittency as a reproduction-rate to raise, rather than a reason to reason from the code",
+          "passed": true,
+          "evidence": "The intermittency is framed as the thing to attack, and the target is stated as determinism rather than a higher sample count. response.md opens 'the \"one in five loads\" part is the thing to attack first, not the stack trace', and step 2 is headed 'Make the intermittency deterministic', specifying 'The loop I want is one that forces the losing order every time \u2014 throttling or stubbing the relevant request so the slow path always wins \u2014 rather than one that reloads the page twenty times and hopes.' That last clause explicitly rejects the brute-force-sampling substitute. routing.md gives the reason: 'A 1-in-5 intermittent bug is the pathological case for fix-and-eyeball verification: any change at all has an 80% chance of looking successful on the next load... the intermittency is not a complication to work around \u2014 it is the reason this skill is the right route.'"
+        },
+        {
+          "text": "Does not propose a specific root cause or a fix before a reproduction exists",
+          "passed": true,
+          "evidence": "No cause is asserted and no fix is committed to. Candidate mechanisms appear only as hedged search space subordinate to building the loop: 'A 1-in-5 rate on page load almost always means a race... Common shapes on a login page are...' \u2014 offered to say what the loop should force, immediately followed by the gate 'Once that command fails reliably on demand, the fix is small and, crucially, provable'. The one place a remedy is named is explicitly deferred and subordinated: 'I'll also add the guard (optional chaining or an explicit loading state) as part of the fix \u2014 but the guard alone would just hide it, so I want the ordering bug named before I paper over it.' The run also names the symptom/location distinction rather than guessing a location: 'cannot read property 'id' of undefined is the symptom, not the location.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "review-and-simplify-collisions",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 54,
+        "tokens": 47545,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies that more than one installed skill matches 'review'",
+          "passed": true,
+          "evidence": "routing.md heads a section '## Collision 1 \u2014 \"review this\"' with a two-column comparison table of 'Local `code-review`' vs 'Plugin `code-review:code-review`', and states 'Both name collisions resolve in opposite directions. That is the whole difficulty of this request.' It then lists four further review-side candidates it considered and rejected (`/review` command, `code-review-and-quality`, `/ship`, `skills:review`). response.md also names the collision to the user: 'There's also a plugin `code-review:code-review` with the same name'."
+        },
+        {
+          "text": "Names both the local code-review and the plugin code-review:code-review, and picks one with a stated reason",
+          "passed": true,
+          "evidence": "Both exact candidates are named: routing.md's collision table columns are 'Local `code-review`' and 'Plugin `code-review:code-review`', and the pick is explicit \u2014 '**Chosen: local.** ... This is a branch about to merge \u2014 a diff against a fixed point, which is precisely the local skill's stated scope. The plugin's cell-planning and per-unit coverage machinery is ceremony at this size.' The same choice and reason are surfaced in response.md: 'it's a heavyweight cell-based repo-wide sweep, which is more machinery than a branch needs, so I'm not using it here.'"
+        },
+        {
+          "text": "Routes the cleanup half to the code-simplifier plugin rather than the local code-simplification skill",
+          "passed": true,
+          "evidence": "routing.md's ordered invocation list item 2 is '**`code-simplifier:code-simplifier`** \u2014 the *plugin* agent (not the local `code-simplification`)', and '## Collision 2' concludes '**Chosen: plugin.**'. response.md: '**2. Cleanup \u2014 plugin `code-simplifier:code-simplifier`.** For \"the messy bits\" I'll use the plugin agent, not the local `code-simplification` skill.'"
+        },
+        {
+          "text": "Gives the reason that the plugin runs tests between edits and reverts breakage, where the local skill only advises",
+          "passed": true,
+          "evidence": "routing.md's Collision 2 table has a 'Verification' row contrasting local 'None \u2014 advises only' against plugin 'Runs the tests between each individual change, reverts breakage; proposes rather than edits where a unit has no coverage', and adds 'the plugin, because it verifies and the local one only advises'. response.md states the same reason in prose: 'the plugin one actually edits and runs your tests between each individual change, reverting anything that breaks them ... The local skill is a reference document \u2014 it advises, it doesn't verify.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "small-change-no-ceremony",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 36.3,
+        "tokens": 46200,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Does not invoke spec-driven-development, planning-and-task-breakdown, interview-me, grilling, to-spec or to-tickets",
+          "passed": true,
+          "evidence": "routing.md 'Skills invoked' section names exactly one: \"**`test-driven-development`** \u2014 and nothing else.\" Every skill on the forbidden list appears only under '## Why not the others', explicitly rejected: \"**`grilling` \u2192 `to-spec` \u2192 `to-tickets` \u2192 `implement-spec`** \u2014 the full feature chain. This is the exact ceremony failure the skill warns about\" and \"**`interview-me` / `spec-driven-development`** \u2014 nothing is underspecified.\" planning-and-task-breakdown is rejected via its command form: \"**`/plan`, `/build`, `/build auto`** \u2014 `/build auto` demands a spec at a known path...\". response.md corroborates: \"I'll do it directly \u2014 no spec, no ticket breakdown.\" None of the six is invoked."
+        },
+        {
+          "text": "Routes to test-driven-development, or proceeds directly, rather than to a multi-skill chain",
+          "passed": true,
+          "evidence": "routing.md routes to exactly test-driven-development and states \"Order: just the one. No chain.\" It cites the routing-table row it matched: \"*\\\"A contained change you already understand \u2192 `test-driven-development`, then commit.\\\"*\" and justifies it on a testable assertion (\"nothing mutated, expected lines printed\"). The multi-skill chain is named and declined. This is the exact route the expectation asks for."
+        },
+        {
+          "text": "Names at most two skills in total",
+          "passed": true,
+          "evidence": "Counting skills the run ROUTES TO (commits to invoking), per the stated counting rule: exactly one \u2014 test-driven-development (\"and nothing else\"). The eight or so other skills/commands named (grilling, to-spec, to-tickets, implement-spec, interview-me, spec-driven-development, /plan, /build, /review, /ship, incremental-implementation, skills:*) all appear under '## Why not the others' as explicit rejections and do not count. 1 <= 2."
+        },
+        {
+          "text": "Says explicitly that the heavier chain is being skipped because the change is small",
+          "passed": true,
+          "evidence": "response.md opens: \"Agreed, this is small. I'll do it directly \u2014 no spec, no ticket breakdown.\" \u2014 smallness is stated as the reason and the skipped artifacts are named. routing.md reinforces the causal link: \"It is a contained change: flag parsing, a boolean threaded to the mutation sites, print statements, one test\" and \"The user explicitly framed it as small. That is a constraint on the response, not just a description of the work\", followed by rejecting the full chain as \"the exact ceremony failure the skill warns about: 'an interview, a spec, a ticket breakdown and a five-axis review on a change that needed twenty minutes.'\" It also legitimizes the skip: \"Skipping the rest is a normal decision, not a violation.\""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 0,
+      "eval_name": "intermittent-bug-routing",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.25,
+        "passed": 1,
+        "failed": 3,
+        "total": 4,
+        "time_seconds": 66,
+        "tokens": 42235,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Routes to the diagnosing-bugs skill by name",
+          "passed": true,
+          "evidence": "routing.md names it as the primary route under a dedicated heading: '### 1. `diagnosing-bugs` \u2014 primary, invoke first', quoting the skill description as 'a direct match' and concluding 'This is the skill that owns the request end-to-end'. The closing summary repeats the chain: '`diagnosing-bugs` \u2192 (`browser-testing-with-devtools` for evidence during reproduce/isolate) \u2192 `test-driven-development` at the fix step.' It also justifies the choice over the near-neighbour `debugging-and-error-recovery` and names it as the fallback if unavailable."
+        },
+        {
+          "text": "States that a reproduction loop comes before any hypothesis about the cause",
+          "passed": false,
+          "evidence": "The run states reproduction comes before the FIX, not before the hypothesis, and its own structure demonstrates the difference. response.md orders the work 'reproduce it reliably first, then bisect down to the exact read that fires early, confirm the root cause with evidence, and only then patch it' \u2014 the gate is on patching. Step 1 is 'Reproduce deterministically', but step 2, 'Find the root cause', arrives already carrying four ranked hypotheses, and those hypotheses were in fact stated in the opening line of the response, before the plan: 'is almost always a race, not a logic error \u2014 the code reads `something.id` before the thing it depends on has arrived.' routing.md likewise gates only implementation: 'for a reported-symptom bug, diagnosis precedes implementation, and for an *intermittent* one, a deterministic reproduction precedes any claim that it is fixed.' Both formulations place the repro before the fix-claim while leaving cause-theorising unrestricted, which is the specific ordering this expectation asks for and does not get. The closest the run comes is 'Rather than guess at a fix, I'll run this through a diagnosis loop' \u2014 again scoped to the fix."
+        },
+        {
+          "text": "Treats the one-in-five intermittency as a reproduction-rate to raise, rather than a reason to reason from the code",
+          "passed": false,
+          "evidence": "The intermittency is read primarily as diagnostic evidence for a conclusion rather than as a rate to drive to certainty. response.md's opening treats the ratio as a signal confirming a theory: 'The one-in-five ratio is the tell: it tracks how often a request loses the race, which varies with network latency and cache state.' There is genuine credit on the other side \u2014 step 1 says 'Intermittent means I need to control the variable that makes it intermittent', and step 4 requires 'confirm the failure rate goes to zero, not just down' \u2014 but the proposed method stops short of forcing the failure: 'throttling the network, clearing session/auth state between loads, and reloading in a loop until it fires' is raising the odds and sampling until it happens, not making the losing order deterministic. routing.md then explicitly authorises the fallback this expectation rules out: 'If it isn't [available], the diagnosis loop falls back to reading the auth/session code paths statically and reasoning about mount and fetch ordering.' Reasoning from the code is named as an acceptable substitute for reproduction, which is the failure mode under test. Burden of proof to pass is on the expectation; the mixed evidence does not carry it."
+        },
+        {
+          "text": "Does not propose a specific root cause or a fix before a reproduction exists",
+          "passed": false,
+          "evidence": "Both halves are violated in the response's first paragraph, before any reproduction step is described. Root cause: 'An intermittent \"cannot read property 'id' of undefined\" at roughly one load in five is almost always a race, not a logic error \u2014 the code reads `something.id` before the thing it depends on has arrived.' That is an asserted mechanism, not a hedge. It is then expanded into four candidates given 'in rough order of likelihood' \u2014 a ranking is a claim about which cause is probable, made with no evidence in hand. The run partly self-corrects with 'I'll confirm which one it is from the trace rather than patching all four', but the ranking is already a proposal. Fix: the run pre-commits to a remedy and pre-rejects an alternative before knowing the mechanism \u2014 'Then apply the minimal correct change (a proper loading state or guard, not an optional-chain band-aid that turns a crash into a blank screen)'. Calling one unseen fix 'correct' and another a 'band-aid' is a fix decision taken ahead of the diagnosis it depends on."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "review-and-simplify-collisions",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 40.9,
+        "tokens": 40904,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies that more than one installed skill matches 'review'",
+          "passed": true,
+          "evidence": "routing.md states 'There are two near-identical candidates on each side. The collisions:' and lists four review-side candidates under '**Review side:**' \u2014 `code-review` / `/review` (chosen), `code-review-and-quality`, `security-review`, and the `code-reviewer` / `code-review:reviewer` agents \u2014 with a stated reason for rejecting each. Multiple matching review skills are explicitly recognised."
+        },
+        {
+          "text": "Names both the local code-review and the plugin code-review:code-review, and picks one with a stated reason",
+          "passed": false,
+          "evidence": "The plugin skill `code-review:code-review` is never named anywhere in response.md or routing.md. The pair the run actually compares and picks between is the local `code-review` / `/review` command versus `code-review-and-quality` ('a guidance/reference skill about how to conduct multi-axis review, not a runner over a concrete diff'), with `security-review` and the dispatch-target agents `code-reviewer` / `code-review:reviewer` as further rejects. Note that `code-review:reviewer` is the plugin's internal sub-agent, not the plugin skill `code-review:code-review`, and it is dismissed as a 'dispatch target *of* the skill' rather than treated as the competing entry point. The specific local-vs-plugin code-review collision this expectation targets is therefore never surfaced or resolved."
+        },
+        {
+          "text": "Routes the cleanup half to the code-simplifier plugin rather than the local code-simplification skill",
+          "passed": true,
+          "evidence": "routing.md item 2 is '**`/code-simplify`** (the `code-simplify` command \u2192 `code-simplifier` skill)', and under '**Simplification side:**' it marks '`code-simplifier` / `/code-simplify` \u2014 **chosen.**' while explicitly rejecting the local sibling: '`code-simplification` \u2014 the vocabulary/guidance sibling. Doesn't produce edits.' The routing outcome is correct, though the plugin is referred to as `code-simplifier` rather than by its fully qualified `code-simplifier:code-simplifier` name."
+        },
+        {
+          "text": "Gives the reason that the plugin runs tests between edits and reverts breakage, where the local skill only advises",
+          "passed": true,
+          "evidence": "Both halves of the contrast are present. Plugin side, routing.md: 'Deliverable is the edited code, behaviour held identical, tests run between changes'; and response.md: 'with tests run between changes so anything that breaks behaviour gets reverted.' Local side, routing.md: '`code-simplification` \u2014 the vocabulary/guidance sibling. Doesn't produce edits.' The 'reverts breakage' element appears in response.md and the 'only advises' element in routing.md; taken across the two graded artifacts the stated reason matches the expectation."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "small-change-no-ceremony",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 34.3,
+        "tokens": 40459,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Does not invoke spec-driven-development, planning-and-task-breakdown, interview-me, grilling, to-spec or to-tickets",
+          "passed": true,
+          "evidence": "routing.md 'Skills invoked' section reads in full: \"**None.**\" Each forbidden skill is named only under '## Skills explicitly considered and rejected' with the word 'Rejected': \"**spec-driven-development / `/spec`** \u2014 Rejected\", \"**planning-and-task-breakdown / `/plan`** \u2014 Rejected\", \"**interview-me / grilling / idea-refine** \u2014 Rejected\". to-spec and to-tickets are not named at all, so a fortiori not invoked. Nothing is invoked."
+        },
+        {
+          "text": "Routes to test-driven-development, or proceeds directly, rather than to a multi-skill chain",
+          "passed": true,
+          "evidence": "Satisfies the second disjunct. routing.md: \"The correct move is to read the sync command, make the edit, and show the diff.\" response.md acts on it immediately: \"Sure \u2014 I'll find the sync command, add a `--dry-run` flag... Let me look at how the command is wired up first.\" No chain of any kind. Note it declines test-driven-development as a gate while keeping the substance: \"Rejected as a *gate*, but I will follow the repo's existing convention: if the sync command has tests, I add a small case covering the dry-run path as part of the same change.\""
+        },
+        {
+          "text": "Names at most two skills in total",
+          "passed": true,
+          "evidence": "Counting skills the run ROUTES TO (commits to invoking), per the stated counting rule: zero \u2014 \"Skills invoked: **None.**\" The eleven-plus skills and commands named (spec-driven-development, /spec, planning-and-task-breakdown, /plan, interview-me, grilling, idea-refine, test-driven-development, /test, incremental-implementation, code-review, /review, doubt-driven-development, security-and-hardening, shipping-and-launch, documentation-and-adrs) all sit under '## Skills explicitly considered and rejected' and do not count. 0 <= 2."
+        },
+        {
+          "text": "Says explicitly that the heavier chain is being skipped because the change is small",
+          "passed": true,
+          "evidence": "routing.md states the causal link directly: \"The request is a small, well-specified, low-risk change to a CLI... There is nothing ambiguous to resolve and nothing to design\" followed by \"Every skill I could plausibly reach for here would add process that costs more than the change itself.\" Per-skill it repeats the smallness rationale: \"Writing a specification for a single boolean flag inverts the cost of the work. The requirement fits in the user's one sentence\", \"A task breakdown needs more than one task to break down. This is one edit in one or two files\", and \"It exists for changes too big to land in one step. This one lands in one step.\" Caveat noted but not disqualifying: none of this reaches the user \u2014 response.md (212 chars) never mentions skipping process or the change being small; the explicit statement lives entirely in the routing artifact."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1,
+        "stddev": 0,
+        "min": 1,
+        "max": 1
+      },
+      "time_seconds": {
+        "mean": 45.5667,
+        "stddev": 8.8794,
+        "min": 36.3,
+        "max": 54
+      },
+      "tokens": {
+        "mean": 46819.3333,
+        "stddev": 678.7756,
+        "min": 46200,
+        "max": 47545
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.6667,
+        "stddev": 0.3819,
+        "min": 0.25,
+        "max": 1
+      },
+      "time_seconds": {
+        "mean": 47.0667,
+        "stddev": 16.7255,
+        "min": 34.3,
+        "max": 66
+      },
+      "tokens": {
+        "mean": 41199.3333,
+        "stddev": 924.0997,
+        "min": 40459,
+        "max": 42235
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.33",
+      "time_seconds": "-1.5",
+      "tokens": "+5620"
+    }
+  },
+  "notes": [
+    "Eval discrimination is uneven: intermittent-bug-routing separates the arms 4/4 vs 1/4, review-and-simplify-collisions separates them 4/4 vs 3/4, and small-change-no-ceremony separates them not at all (4/4 vs 4/4). The headline +0.33 delta rests almost entirely on one eval.",
+    "The baseline routed to the correct skill in all three evals without the skill loaded. Every failure it recorded was a failure of discipline or of naming, never of destination. This bounds what the skill is measurably buying: not which skill to reach for, but how to run it and which of two same-named skills is meant.",
+    "Expectation 1 of intermittent-bug-routing ('routes to diagnosing-bugs by name') passed in both arms and measures nothing. The installed description already matches the prompt's own vocabulary - 'reports something broken/throwing/failing/slow' against 'the login page throws' - so name-matching alone reaches it.",
+    "Expectations 2 and 3 of intermittent-bug-routing overlap: a run that says 'build a deterministic repro before theorising' satisfies both almost automatically, so they act as one check casting two votes and inflate the arm's pass rate.",
+    "The single most consequential behaviour observed is caught by no expectation. The baseline's routing.md sanctions 'reading the auth/session code paths statically and reasoning about mount and fetch ordering' as a fallback - precisely the failure the skill's Phase 1 exists to prevent, offered as a legitimate contingency.",
+    "small-change-no-ceremony cannot demonstrate value by construction: its pass condition is satisfied by doing nothing, and doing nothing is the no-skill default. Both arms passed 4/4, the baseline partly because it invoked no skill at all.",
+    "Expectation 2 of small-change-no-ceremony ('routes to test-driven-development, or proceeds directly') is near-unfalsifiable - the second disjunct is the default absent any skill, so only an actively constructed multi-skill chain could fail it.",
+    "The one baseline failure in review-and-simplify-collisions is the local-vs-plugin code-review collision. The baseline compared an easier pair (code-review versus code-review-and-quality) and never surfaced code-review:code-review, despite brushing against that namespace when it dismissed code-review:reviewer as a dispatch target.",
+    "No expectation in any eval checks whether a stated reason is factually accurate, only that a reason exists. A run could name both collision variants and justify its pick with a confidently wrong claim and still score 4/4.",
+    "Both arms of review-and-simplify-collisions independently identified review-before-simplify ordering as load-bearing, and the baseline additionally raised merge sequencing (the approved diff diverging from the merged diff). Neither earns credit; the prompt explicitly chains the halves, so ordering is a real uncovered outcome.",
+    "Token cost is +5620 (+13.6%) with the skill loaded, against a with-skill mean of 46819 and a baseline mean of 41199. Wall-clock is not a reliable signal at n=1 per cell: the baseline was slower on eval 1 (66.0s vs 46.4s) and faster on eval 3 (40.9s vs 54.0s).",
+    "Every cell is a single run, so no within-cell variance is measurable and any per-eval delta could be run-to-run noise. The 38-point stddev on the baseline pass rate is variance across evals, not across repeated runs of one eval.",
+    "Both baseline runs reasoned about being evaluated - eval 1's routing.md asserts 'this eval explicitly forbids clarifying questions' and eval 2's cites 'the eval framing' - a claim that appears in neither prompt. Harness awareness leaking into routing justification is a confound worth an explicit negative check."
+  ]
+}

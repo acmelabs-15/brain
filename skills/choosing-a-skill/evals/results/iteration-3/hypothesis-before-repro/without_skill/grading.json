@@ -1,0 +1,103 @@
+{
+  "run": "without_skill",
+  "eval_name": "hypothesis-before-repro",
+  "expectations": [
+    {
+      "text": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+      "passed": false,
+      "evidence": "Evidence from response.md (without_skill). The very first sentence, before any reproduction method appears, asserts a cause with a likelihood claim: 'An intermittent `cannot read property 'id' of undefined` at roughly one load in five is **almost always a timing problem rather than a logic problem** — the code reads `something.id` before `something` has arrived.' This is precisely the banned framing ('almost always X'), and it is not merely naming a mechanism the reproduction must force — it states the mechanism ('the code reads something.id before something has arrived') as the working explanation and ranks it above the alternative ('rather than a logic problem'). The hedge that follows — 'But \"almost always\" is not a diagnosis, and the fix that follows from a guess is the fix that has to be made twice' — walks back the commitment to acting on it, but does not retract the assertion, and it arrives after the assertion has already been made. The first reproduction step ('Get a reliable reproduction first') appears only afterward, in the numbered plan. Ordering is unambiguous: cause asserted first, reproduction described second."
+    },
+    {
+      "text": "The first reproduction step described is a forcing step, not a sampling step",
+      "passed": false,
+      "evidence": "Evidence from response.md (without_skill). Step 1 reads: 'Get a reliable reproduction first. One-in-five is frequent enough to catch. I'll **load the login page repeatedly with the console captured**, and hold the failure until I can trigger it deliberately rather than by waiting for it. Throttling the network is usually what turns a one-in-five into a one-in-one, because it widens whatever window the bug is losing.' The first reproduction action described is loading the page repeatedly until the failure appears — sampling, reinforced by the justification 'one-in-five is frequent enough to catch', which is a rationale for waiting rather than for driving. Throttling (a genuine forcing step, widening the race window) is named only in the fourth sentence, after the sampling method, and is framed as a general observation ('is usually what turns...') rather than as the step being taken. The intervening clause 'hold the failure until I can trigger it deliberately rather than by waiting for it' states forcing as an eventual goal, not as the first step. Judged on the first step described, this is sampling."
+    },
+    {
+      "text": "Does not offer reading the code and reasoning about ordering as a fallback when the environment cannot be driven",
+      "passed": true,
+      "evidence": "Evidence from response.md (without_skill). No undriveable-environment fallback is offered anywhere. The response commits to obtaining evidence itself from a live reproduction: 'If you don't, no problem — I'll get the trace myself from the reproduction', and closes 'Want me to start on the reproduction now?' The only contingency discussed concerns information the user might supply (stack trace, deploy correlation), not a substitute for reproduction. Step 3 requires proving the mechanism empirically — 'make the failure happen on demand by forcing the suspected ordering, and confirm the \"good\" loads take the other path. That's what separates a root cause from a plausible story' — which is the opposite of reasoning about ordering from source. Passing here reflects absence of the offer; the response never confronts the case where the environment cannot be driven at all, but it does not offer the prohibited fallback."
+    },
+    {
+      "text": "Declines a null or optional-chaining guard on the throwing line, or names it only to refuse it, rather than offering it as the fix",
+      "passed": true,
+      "evidence": "Evidence from response.md (without_skill). Step 4 names the guard explicitly in order to refuse it: 'Fix at the root, not at the symptom. **An optional-chain at the crash site would make the error go away while leaving the page rendering in a half-initialised state — quietly broken instead of loudly broken.** The fix should be the ordering or the missing guard on the data contract itself, with the component handling the not-yet-loaded case honestly.' The optional-chain at the throwing line is named and rejected with a stated reason (symptom suppression masking a half-initialised render). The residual phrase 'the missing guard on the data contract itself' is not a guard on the throwing line — it is contrasted against the crash-site fix and located at the data contract, i.e. a root-cause fix. This satisfies the 'names it only to refuse it' limb."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 2,
+    "total": 4,
+    "pass_rate": 0.5
+  },
+  "execution_metrics": {
+    "output_files": 2,
+    "output_chars": 7180,
+    "response_md_chars": 2230,
+    "routing_md_chars": 4950,
+    "transcript_chars": 0,
+    "note": "No transcript, metrics.json, or user_notes.md exist for this eval; response.md and routing.md are the entire artifact."
+  },
+  "timing": {
+    "executor_duration_seconds": 59.4,
+    "total_duration_seconds": 59.4,
+    "total_tokens": 41602
+  },
+  "claims": [
+    {
+      "claim": "One-in-five intermittency is 'almost always a timing problem rather than a logic problem'",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Unverifiable and overstated. No evidence was gathered — there is no repo, no stack trace, and no reproduction in this run. Intermittent undefined-property errors can equally arise from cache/session state, feature flags, varying API payloads, or race-free data-dependent branches. The response itself concedes the claim is not load-bearing ('\"almost always\" is not a diagnosis'), which confirms it was asserted without support."
+    },
+    {
+      "claim": "Throttling the network 'is usually what turns a one-in-five into a one-in-one'",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Presupposes the timing/race diagnosis that has not been established. Throttling widens a race window only if the mechanism is in fact a race against network-dependent data; if the cause is cold-cache session state or a payload variation, throttling changes nothing. The claim inherits the unverified premise of the opening sentence."
+    },
+    {
+      "claim": "A regression test that fails on current code and passes after the fix will be written",
+      "type": "process",
+      "verified": true,
+      "evidence": "Stated as step 5 of the plan and corroborated by routing.md, which defers test-driven-development until 'once the mechanism is confirmed — the Prove-It pattern'. Correctly sequenced after root-cause confirmation rather than before it. Note this is a forward commitment, not work performed."
+    },
+    {
+      "claim": "No code was changed and no fix was applied in this run",
+      "type": "process",
+      "verified": true,
+      "evidence": "Confirmed by full read of response.md and routing.md. The response ends by asking permission to begin: 'Want me to start on the reproduction now?' No edits, no patches."
+    },
+    {
+      "claim": "diagnosing-bugs is the tighter match than debugging-and-error-recovery, and running both would be counterproductive",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Justified. routing.md reasons that 'diagnosing-bugs ... triggers directly on \"reports something broken/throwing\", whereas the other is framed around tests failing and builds breaking', which matches the installed skill descriptions, and the caution that 'overlapping process skills on one bug produce two competing procedures' is sound. The routing analysis is the stronger half of this artifact."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": [],
+    "note": "No user_notes.md was present in the outputs directory."
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+        "reason": "This run illustrates why the response.md-only scoping matters and works. routing.md contains the correct reasoning — it explicitly identifies 'the tempting shortcut is to skip straight to a fix' and warns the guess 'names no line, no object, and no ordering' — while response.md, the thing the user actually reads, opens with 'almost always a timing problem'. Without the file scoping this run would have passed on borrowed credit from the wrong file. Keep the scoping, and consider stating it in the expectation text itself so future graders cannot drift."
+      },
+      {
+        "expectation": "Declines a null or optional-chaining guard on the throwing line, or names it only to refuse it, rather than offering it as the fix",
+        "reason": "Both runs pass this, for opposite reasons: this baseline run names the optional-chain and refuses it with a real argument, while the with_skill run never mentions a guard at all. An expectation that both arms satisfy contributes no discriminating signal to the with/without comparison, and here it arguably rewards the weaker run's behaviour less than the stronger run's silence. Consider splitting into a hard-fail condition (guard offered as the fix) plus a separate positive credit for naming and refuting it."
+      },
+      {
+        "expectation": "The first reproduction step described is a forcing step, not a sampling step",
+        "reason": "The forcing/sampling boundary is doing real work here and is close to the line — this run mentions throttling (forcing) three sentences after 'load the page repeatedly' (sampling), within the same numbered step. The grading note resolves it, but the expectation text alone does not say that ordering within a single step counts. Recommend tightening to 'the first reproduction action described' and stating that a forcing method mentioned after a sampling method within the same step does not rescue it."
+      },
+      {
+        "reason": "No expectation covers the verification problem that both responses raise unprompted — that at a 20% base rate, a handful of clean loads cannot distinguish a fix from luck. The with_skill run makes this the core of its argument and this run makes it step 5. It is a genuine outcome worth checking and currently graded by nothing."
+      }
+    ],
+    "overall": "The expectation set discriminates well: this baseline fails exactly the two expectations the skill is presumably designed to enforce (no cause before reproduction; forcing before sampling), and passes the two that are more loosely specified. Expectation 4 is the weakest link — non-discriminating across this pair — and expectation 3 passes here by absence rather than by the response actually addressing the undriveable case, which is a softer pass than it appears."
+  }
+}

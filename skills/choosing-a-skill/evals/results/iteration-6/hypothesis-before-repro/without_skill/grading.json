@@ -1,0 +1,108 @@
+{
+  "expectations": [
+    {
+      "text": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+      "passed": false,
+      "evidence": "Step 1 of response.md asserts and ranks a cause in the sentence immediately before the repro method is described: '\"One in five\" is a strong hint that something is racing — most likely the page renders before an async fetch (session, user, or feature-flag call) has resolved, so some component reads `user.id` or `data.id` off `undefined`.' 'Most likely' is an explicit likelihood ranking, and the mechanism is asserted concretely down to which property is read off which object. Only after that does the repro appear: 'I'll drive the login page in a real browser with DevTools attached, reload it in a loop until it throws'. The self-aware disclaimer that follows — 'But that's a hypothesis, not a diagnosis, and I'd rather not act on it yet' — defers acting on the hypothesis but does not unsay it; the expectation gates on asserting or ranking, not on patching. Step 3 compounds it with a second ranked list: 'Intermittent bugs have a handful of usual causes (unawaited promise, missing loading state, stale closure, uninitialised store, race between two effects)'. Neither list is framed as states the reproduction must force, and neither is left explicitly unresolved — the first is named as the leading candidate. Also asserted in the closing: 'it makes the error disappear while leaving the page rendering with no user data', which presumes the race mechanism is the true one."
+    },
+    {
+      "text": "The first reproduction step's success condition is a changed failure rate or a forced state, not a single captured failure",
+      "passed": false,
+      "evidence": "The success condition of step 1 is one captured failure plus its artifacts: 'reload it in a loop until it throws, and capture the full stack trace, the console error, and the network waterfall for both a passing and a failing load. The diff between those two is usually the whole answer.' 'Until it throws' terminates the loop at the first failure; the payoff is described as reading the diff between one passing and one failing capture. This is the exact anti-pattern the grading note names as a fail ('Load it until I catch one failure and read the trace'). Nothing in step 1 aims at raising the failure rate or forcing the failing state on demand — no counting of failures, no threshold, no stressing of a varying input. Step 2 confirms the orientation ('Read the actual stack, not the message ... The trace tells us the exact file, line, and component'), i.e. the single trace is the instrument. Rate-thinking does appear later but only as post-fix verification in step 4 — 'Then re-run the repro loop to confirm the error rate goes to zero, not just down' — and step 4's determinism ('forcing the slow path deterministically rather than hoping the loop catches it') is a property of the test written after root cause is known, not a success condition of the first reproduction step. Notably, 'hoping the loop catches it' is an accurate description of the loop step 1 actually specifies."
+    },
+    {
+      "text": "response.md does not violate a discipline that routing.md states: no rule named in the notes is broken in the reply",
+      "passed": false,
+      "evidence": "Method: I extracted every disciplinary rule routing.md states, then checked response.md against each. routing.md states the rule twice, in its own emphasis. 'Signal read': 'So the routing decision is: **diagnose before implementing**, and **reproduce before hypothesising**. Not the reverse.' And 'Why this order and not the obvious alternative': 'The routing is built so that the repro comes before the hypothesis and the hypothesis comes before the edit, precisely because a 1-in-5 bug will happily appear fixed by a change that did nothing.' response.md breaks 'reproduce before hypothesising' in the first substantive sentence of step 1, which hypothesises ('most likely the page renders before an async fetch ... has resolved') before the reproduction method is stated, and breaks it again in step 3's list of 'usual causes'. The notes even anticipate the correct sequencing — routing.md step 1 says diagnosing-bugs 'owns the whole front half of the job: establish a reliable reproduction, gather evidence, form and discriminate between hypotheses' — hypothesis third, after reproduction and evidence. The reply inverts that order. A second, weaker violation: routing.md rules out asking the user up front ('the task is well enough specified to start ... I don't block on them'), which the reply honours in form but ends by handing the decision back ('Want me to start with the repro loop?'); I do not rest the verdict on this. The primary violation is unambiguous and it is the rule the notes state most emphatically. FAIL."
+    },
+    {
+      "text": "Names what it will do if the environment cannot be driven to reproduce, and that fallback is not reading the code and reasoning about ordering",
+      "passed": false,
+      "evidence": "Neither file names what happens if the environment cannot be driven. response.md is silent: it assumes throughout that the page can be loaded in a real browser with DevTools attached and never contemplates the negative case. The nearest thing in routing.md is scoped to a missing tool, not an undrivable environment: 'Requires the chrome-devtools MCP server; if unavailable, the repro falls back to whatever harness the project has, and to an error-tracker trace if one exists.' That is a fallback between instruments for driving a page that is assumed drivable — and both branches ('whatever harness the project has', 'an error-tracker trace if one exists') are hedged on existence with no statement of what happens when neither exists. The reply's request for 'a stack trace from your error tracker (Sentry or similar)' is explicitly an accelerant, not a fallback: 'Not blockers, I can dig them out myself.' Per the grading note, silence FAILS. No stop condition is declared, and no statement rules out reading the source and reasoning about ordering if the loop cannot be built."
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 4,
+    "total": 4,
+    "pass_rate": 0.0
+  },
+  "execution_metrics": {
+    "tool_calls": {},
+    "total_tool_calls": null,
+    "total_steps": null,
+    "errors_encountered": 0,
+    "output_chars": 8431,
+    "transcript_chars": 0,
+    "note": "No metrics.json present; no transcript for this eval — response.md and routing.md are the artifact. output_chars is response.md (2664) + routing.md (5767)."
+  },
+  "timing": {
+    "executor_duration_seconds": 65.8,
+    "total_duration_seconds": 65.8,
+    "total_tokens": 42247
+  },
+  "claims": [
+    {
+      "claim": "The repro comes before the hypothesis in this plan",
+      "type": "process",
+      "verified": false,
+      "evidence": "Contradicted by the reply's own text. routing.md asserts the ordering twice as the organising principle, but response.md step 1 states the leading hypothesis ('most likely the page renders before an async fetch ... has resolved') before describing the repro. The notes describe a discipline the reply does not follow."
+    },
+    {
+      "claim": "'One in five' is a strong hint that something is racing",
+      "type": "factual",
+      "verified": false,
+      "evidence": "Unsupported inference. A 1-in-5 rate is consistent with a race, but equally with cache/session state variation, a specific account or entry route, a load-balanced backend returning different shapes, or a flaky dependency. The rate constrains nothing about mechanism — which is precisely why treating it as a 'strong hint' is the failure this eval targets."
+    },
+    {
+      "claim": "diagnosing-bugs is the correct primary route, chosen over debugging-and-error-recovery",
+      "type": "process",
+      "verified": true,
+      "evidence": "Correct route with correct justification against the skill descriptions ('Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow'), and it correctly declines to run both overlapping skills. The routing decision is sound; the discipline inside it is what fails."
+    },
+    {
+      "claim": "The diff between a passing and a failing load 'is usually the whole answer'",
+      "type": "quality",
+      "verified": false,
+      "evidence": "Overstated for an intermittent bug and load-bearing for the failure on expectation 2. Two single captures differ in many incidental ways (timing jitter, request order noise, unrelated state); without a rate high enough to sample repeatedly, there is no way to tell which difference is causal. This claim is what licenses stopping the loop at the first failure."
+    },
+    {
+      "claim": "Optional chaining would convert a visible crash into a silently broken render",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Correct and genuinely useful reasoning, and the strongest passage in the reply. It is however conditional on the race hypothesis being the true mechanism — the reply asserts the consequence unconditionally."
+    },
+    {
+      "claim": "The unknowns here are answerable by investigation, not by asking the user",
+      "type": "process",
+      "verified": true,
+      "evidence": "Consistent between the files: routing.md rules out interview-me/ask-user-question/grilling and the reply asks for accelerants without blocking on them ('Not blockers, I can dig them out myself')."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": [],
+    "note": "No user_notes.md present in outputs."
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+        "reason": "This run is the case that shows the 'before' clause needs replacing rather than tightening. The reply hypothesises then immediately disclaims — 'But that's a hypothesis, not a diagnosis, and I'd rather not act on it yet' — which is the most likely near-miss a model produces, and the ordering language invites an argument about whether the disclaimer repairs the sentence. It does not, but the expectation should not need a grading note to settle that. Test the property directly: no candidate cause is asserted or ranked anywhere in response.md except as a state the reproduction must force. That wording fails this run on its face and needs no ordering analysis."
+      },
+      {
+        "expectation": "response.md does not violate a discipline that routing.md states: no rule named in the notes is broken in the reply",
+        "reason": "This expectation earned its place on this run — it is the only one that catches the specific pathology of a run that knows the rule and states it in emphasis ('**reproduce before hypothesising**. Not the reverse.') while breaking it one file over. That is a strictly worse failure than not knowing the rule, and no other expectation distinguishes them. The asymmetry noted on the sibling run still applies though: a run with empty notes cannot fail this, so it should be paired with a floor requiring routing.md to state at least one falsifiable discipline."
+      },
+      {
+        "reason": "No expectation checks whether the reply ends by acting or by asking. This run closes 'Want me to start with the repro loop?' — after four paragraphs of plan, the deliverable is handed back as a question. Whether that counts as appropriate deference or as failing to start is a real distinction between the two runs that nothing currently scores.",
+        "expectation": null
+      },
+      {
+        "reason": "Nothing checks that the reply avoids proposing a fix mechanism. This run partially clears that bar by rejecting `?.` as the fix — good reasoning — but in doing so it commits further to the race mechanism ('leaving the page rendering with no user data'). An expectation on fix-abstinence would surface that the anti-fix argument is itself hypothesis-dependent, which the current four expectations only catch indirectly through expectation 1."
+      }
+    ],
+    "overall": "A clean 0/4, and the failures are substantive rather than technicalities. The run makes the exact error the eval was built to detect — it names the leading mechanism in its first substantive sentence, stops the repro loop at the first thrown error, states 'reproduce before hypothesising' in its notes while inverting that order in its reply, and never says what it does if the page cannot be driven. The reply is well-written and its routing choices are correct, which is what makes it a good negative case: surface quality is high and the discipline is absent. Expectations 2 and 4 discriminate cleanly with no interpretation needed. Expectation 3 is the most valuable addition — it is the only check that catches notes-say-one-thing-reply-does-another, which is this run's signature. Expectation 1 reaches the right verdict but its 'before' framing lets the disclaimer sentence create doubt the wording should have foreclosed."
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "expectations": [
+    {
+      "text": "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+      "passed": true,
+      "evidence": "routing.md section '1. Review -> local `code-review`' names both members of the pair explicitly before choosing: '- **`code-review`** (local) - two axes, Standards + Spec, parallel sub-agents, Fowler smell baseline.' and '- **`code-review:code-review`** (plugin) - multi-axis cell-based review, unit discovery, per-cell dispatch'. The pick and its reason follow: '**Picked: local.** The routing rule is local for a branch diff against a spec, plugin for a heavyweight repo-wide sweep. This is a single branch about to be merged - one diff, one spec, a bounded scope. The plugin's cell-planning and per-unit coverage machinery is built for sweeping a whole repository and would be ceremony here.' response.md repeats the fork for the user: 'Worth flagging the fork I'm taking: `code-review` is also the prefix of the plugin skill `code-review:code-review`, which is a multi-axis cell-based sweep sized for a whole repo. That's heavier than a branch diff needs, so I'm going local.'"
+    },
+    {
+      "text": "Names the plugin as code-simplifier:code-simplifier rather than reaching it only by a bare name or the /code-simplify alias",
+      "passed": true,
+      "evidence": "Fully qualified name used in both artifacts. response.md: '**Then the cleanup: the plugin skill `code-simplifier:code-simplifier`.**' routing.md heading: '## 2. Cleanup -> plugin `code-simplifier:code-simplifier`', with '**Picked: plugin.**'. The alias is explicitly considered and set aside in favour of the qualified name: 'Reaching for `/code-simplify` would land in the same place - that command routes to the plugin - so invoking the plugin skill directly is the same destination without the indirection.' The bare local name is also explicitly rejected: 'Not `code-simplification` even though its name is the closer match to the word \"cleaned\".'"
+    },
+    {
+      "text": "Gives the reason that the plugin runs tests between edits and reverts breakage, where the local skill only advises",
+      "passed": true,
+      "evidence": "The contrast appears in BOTH files. routing.md states it as the deciding rule: '- **`code-simplification`** (local) - a 331-line reference. Advises only. - **`code-simplifier:code-simplifier`** (plugin) - an agent that edits, runs the project's tests between each individual change, and reverts anything that breaks them.' followed by '**Picked: plugin.** The rule is unambiguous here - the plugin verifies, the local one only advises.' response.md carries the same contrast: 'Also a deliberate pick over the local `code-simplification`, which is a reference document that only advises. The plugin one actually edits, runs the tests between each individual change, and reverts anything that breaks them.' Both also note the no-coverage behaviour ('proposes rather than edits')."
+    },
+    {
+      "text": "Runs review before cleanup and states why that order is load-bearing",
+      "passed": true,
+      "evidence": "Order is explicit in routing.md ('## Order 1. **`code-review`** (local skill) ... 2. **`code-simplifier:code-simplifier`** (plugin skill)') and the reason is given as a two-way dependency: 'Sequential, not parallel. The request itself says \"once that's done\", and the dependency is real in both directions: the simplifier edits files, so running it first would move the code out from under the review; and the review's findings are what tell us which \"messy bits\" are actually messy versus actually broken.' response.md opens with the same load-bearing claim: 'plus they have to run in that order, because simplifying before the review would move the code out from under it.' The handoff section adds the correctness argument: 'Simplification preserves behaviour by construction, so pointing it at code whose behaviour is wrong preserves the wrong behaviour.'"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {},
+    "total_tool_calls": null,
+    "total_steps": null,
+    "errors_encountered": 0,
+    "output_chars": 6738,
+    "transcript_chars": 0,
+    "note": "No metrics.json in outputs_dir; no separate transcript - response.md (1859 chars) and routing.md (4879 chars) are the artifact. total_tokens from timing.json: 48226."
+  },
+  "timing": {
+    "executor_duration_seconds": 57.7,
+    "total_duration_seconds": 57.7
+  },
+  "claims": [
+    {
+      "claim": "The local `code-review` skill runs two axes, Standards and Spec, as parallel sub-agents reported side by side",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Matches the installed local code-review skill description verbatim in substance: 'along two axes: Standards ... and Spec ... Runs both reviews in parallel sub-agents and reports them side by side.'"
+    },
+    {
+      "claim": "The plugin `code-review:code-review` is a multi-axis cell-based sweep with unit discovery and per-cell dispatch, sized for a whole repo",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Consistent with the plugin skill description ('resolves the scope argument, discovers review units, writes one plan row per review cell before dispatching anything, then deduplicates, ranks and triages'). The 'sized for a whole repo' framing is the executor's inference rather than stated text - the plugin skill takes 'an explicitly named scope', so a branch diff is not out of its range. This weakens but does not invalidate the stated reason, since a reason was required, not a correct one."
+    },
+    {
+      "claim": "The plugin code-simplifier runs the project's tests between each individual change, reverts anything that breaks them, and proposes rather than edits where a unit has no test coverage",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Matches the code-simplifier:code-simplifier agent description verbatim: 'Verifies behaviour preservation by running the project's tests between each individual change and reverting anything that breaks them, and proposes rather than edits where a unit has no test coverage.'"
+    },
+    {
+      "claim": "The local `code-simplification` skill is a 331-line reference that only advises",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The 'advises only' characterisation is consistent with the skill's registered description ('Simplifies code for clarity. Use when refactoring...'), but the specific line count of 331 could not be verified from the outputs directory, which contains only response.md and routing.md. Flagged as an unverifiable precision claim, not as a contradiction."
+    },
+    {
+      "claim": "`/code-simplify` routes to the plugin skill, so invoking the plugin directly reaches the same destination",
+      "type": "process",
+      "verified": false,
+      "evidence": "Not verifiable from the artifacts. The installed command listing shows a `code-simplify` command ('Simplify code for clarity and maintainability') without exposing what it dispatches to. The claim is plausible but unsupported by anything in outputs_dir. It does not affect any expectation, since the qualified plugin name was invoked directly regardless."
+    },
+    {
+      "claim": "`code-review:reviewer` is the plugin's internal per-cell sub-agent, not the plugin skill",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Correct. The code-review:reviewer agent is described as reviewing 'one cell of a code review ... Dispatched by the code-review skill', i.e. an internal dispatch target rather than an entry point."
+    },
+    {
+      "claim": "Both halves of the request were routed without asking the user a clarifying question, because the routing table resolved cleanly and the review point defaults to merge-base",
+      "type": "process",
+      "verified": true,
+      "evidence": "Consistent with the artifacts: routing.md's 'Skipped deliberately' section lists 'Clarifying questions to the user' with that rationale, and response.md ends 'Starting the review now' after offering the plugin fork as an override rather than blocking on it."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": [],
+    "note": "No user_notes.md present in outputs_dir."
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "expectation": "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+        "reason": "As graded, 'a stated reason' accepts any reason, including a factually shaky one. This run justified going local by calling the plugin a whole-repo sweep, but the plugin skill actually takes an explicitly named scope and would handle a branch diff. A stronger expectation would require the reason to rest on a real distinguishing property of the two skills, so a plausible-sounding but wrong differentiator fails."
+      },
+      {
+        "reason": "No expectation checks whether the qualified naming reaches the USER. Expectation 3's note asks the grader to record which file the contrast appears in, but nothing pass/fails on it. Since routing.md is a scratch artifact and response.md is what the user sees, an expectation like 'response.md itself names both collision members in qualified form' would discriminate between a run that reasoned correctly in private and one that actually surfaced the fork."
+      },
+      {
+        "reason": "Nothing checks the second-order handoff quality that both runs volunteered: that review findings must be triaged into defects (fix first) versus untidiness (simplify), because the simplifier preserves whatever behaviour it finds. That is the highest-value routing insight in either artifact and it is entirely uncovered - a run could pass all four expectations while planning to point the simplifier at buggy code."
+      },
+      {
+        "expectation": "Runs review before cleanup and states why that order is load-bearing",
+        "reason": "'Load-bearing' is not operationalised, so almost any ordering rationale passes - including the weak one that reviewing a churned diff is noisy. Consider requiring the stated reason to identify a correctness or dependency consequence (the simplifier moves code out from under the review, or it would preserve a bug), not merely a convenience one."
+      }
+    ],
+    "overall": "All four expectations pass on genuine substance, not surface compliance - both artifacts name the collisions in qualified form and give real reasons. The expectations are reasonable but permissive: they check that reasons exist rather than that they are correct, and they do not distinguish reasoning captured in the internal routing.md from what the user actually sees in response.md."
+  }
+}

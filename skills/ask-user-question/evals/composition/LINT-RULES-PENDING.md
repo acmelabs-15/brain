@@ -15,9 +15,9 @@ they produced would look like a measurement. So they are inert:
 | File | Status |
 |:--|:--|
 | `checks.quarantined.ts` | The 32 rules, byte-identical to the fork. Nothing imports it. |
-| `checks.quarantined.test.ts` | Their corpus calibration, byte-identical. Nothing imports it. |
+| `checks.quarantined.check.ts` | Their corpus calibration, byte-identical. Nothing imports it. |
 | `checks.ts` | The active rule set, re-derived from this skill. Same exported API. |
-| `checks.test.ts` | Calibrates the active rules against a broken call and a correct one. |
+| `checks.check.ts` | Calibrates the active rules against a broken call and a correct one. |
 
 Byte-identical matters for one practical reason: the `file:line` references below resolve
 against `checks.quarantined.ts` exactly as they did against the original `checks.ts`.
@@ -30,7 +30,7 @@ the point of keeping them — they are the input to re-derivation, not dead weig
 `checkCall` returns an empty array, so `scoreFindings` returns `1.00` for every input,
 including a call with a defect under every rule below. The composition runner executes
 normally and its deterministic arm scores a flat 1.00 across the board. **That number means
-"nothing was checked".** Both `checks.ts` and `checks.test.ts` say so in their output.
+"nothing was checked".** Both `checks.ts` and `checks.check.ts` say so in their output.
 
 ## How to re-derive
 

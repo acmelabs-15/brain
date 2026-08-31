@@ -1,0 +1,299 @@
+{
+  "metadata": {
+    "skill_name": "choosing-a-skill",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-08-31T05:20:35Z",
+    "evals_run": [
+      0,
+      1,
+      2
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 2,
+      "eval_name": "collision-qualified-names",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 51.9,
+        "tokens": 50340,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+          "passed": true,
+          "evidence": "response.md names both under a heading of the fork: '**`code-review`** (local) \u2014 two fixed axes, Standards and Spec...' and '**`code-review:code-review`** (plugin) \u2014 resolves a named scope...'. routing.md carries the same pair in a two-row table labelled '`code-review` (local, `~/.claude/skills/code-review/`)' and '`code-review:code-review` (plugin)'. A pick is made with a reason: '**My default is the plugin**, `code-review:code-review`, because I don't know of a spec here and coverage of what went unreviewed is worth having before a merge.' routing.md line 24: '**Pick: `code-review:code-review` (plugin) as the default**, conditional on the spec question.'"
+        },
+        {
+          "text": "Rejects no candidate on a property it does not declare, and claims no capability of the chosen skill that it does not declare",
+          "passed": true,
+          "evidence": "Every claim checks out against the installed files. Local code-review claims \u2014 'two fixed axes, Standards and Spec, run as parallel sub-agents and reported side by side' (SKILL.md: 'Both axes run as **parallel sub-agents**'), 'a Fowler smell baseline on the Standards axis' (SKILL.md step 3: 'a fixed set of Fowler code smells (_Refactoring_, ch.3)'), 'without one it skips the Spec axis and reports \"no spec available\"' (SKILL.md step 2 verbatim), 'it pins that before anything else' (step 1 'Pin the fixed point'). Plugin claims \u2014 'resolves a named scope, plans one row per review cell before dispatching, then dedupes, ranks and triages what comes back, and reports the cells it never reached' (SKILL.md: 'writes one plan row per review cell before dispatching anything, then deduplicates, ranks and triages what comes back, reporting per-unit coverage including the cells it never reached'). Critically, the run does NOT assert either known false claim: it never calls the plugin repo-wide or heavyweight, and never says it needs the /code-review command. It explicitly refuses the scope-shape fake discriminator: 'Both take a branch diff, so that isn't the tiebreaker' (response.md), repeated in routing.md line 21-22. The discriminator it does use \u2014 'whether this branch has an originating issue or spec to review against \u2014 that's the axis the local skill adds' \u2014 is genuinely declared by the local skill (description: 'Spec (does the code match what the originating issue/spec asked for?)'). The code-simplifier claims ('runs the project's tests between each individual edit and reverts anything that breaks them, and proposes rather than edits where a unit has no test coverage') are verbatim from the plugin agent's description. The local code-simplification characterisation ('a reference document that only advises') is fair: it is a prose skill with no tool grant and no execution loop. The one claim resting on outside evidence \u2014 '`/code-simplify` reaches the same plugin' \u2014 is confirmed by ~/.claude/commands/code-simplify.md ('Use the `code-simplifier:code-simplifier` plugin agent, not the local `code-simplification` skill')."
+        },
+        {
+          "text": "Routes cleanup to code-simplifier:code-simplifier, giving the reason that it runs tests between edits and reverts breakage where the local skill only advises",
+          "passed": true,
+          "evidence": "response.md: '\"The messy bits\" routes to **`code-simplifier:code-simplifier`**, the plugin \u2014 not the local `code-simplification`, which is a reference document that only advises. The plugin agent runs the project's tests between each individual edit and reverts anything that breaks them, and proposes rather than edits where a unit has no test coverage.' routing.md line 43-45 states the same contrast. Both halves of the required reason are present (tests-between-edits + revert on breakage; local advises only), and both are accurate against agents/code-simplifier.md."
+        },
+        {
+          "text": "In response.md specifically, the user is told a fork existed and why this side was chosen - not only in routing.md",
+          "passed": true,
+          "evidence": "response.md paragraph 2 states the fork in the user-facing reply, not just the routing file: '\"review this branch\" is ambiguous by construction here: there are two different artifacts and one of them answers to a bare name. The fork is between:' followed by both qualified candidates and what each declares. The reason for the side chosen is also in response.md: 'The one thing that decides it is whether this branch has an originating issue or spec to review against... **My default is the plugin**, `code-review:code-review`, because I don't know of a spec here and coverage of what went unreviewed is worth having before a merge. If you tell me there is a spec or issue behind this branch, I'll switch to the local `code-review`.' The second fork is disclosed in response.md too: 'not the local `code-simplification`, which is a reference document that only advises.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 0,
+      "eval_name": "hypothesis-before-repro",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 65.9,
+        "tokens": 49395,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+          "passed": true,
+          "evidence": "Evidence from with_skill/outputs/response.md. The opening sentence commits to the reproduction method and nothing else: 'the first thing it does is the only thing I want to commit to right now: build a tight loop -- one command I can run repeatedly that goes red on this specific failure.' Paragraph 2 explicitly declines to name a cause: 'One-in-five is a rate, not a clue. I'm deliberately not opening with a theory about what causes it... if I name a mechanism now, the loop I build will exist to confirm that theory instead of finding the real one.' Candidate mechanisms appear only in paragraph 3, AFTER the reproduction method is described, and are framed exactly as the notes permit -- as things the repro must force, not as a ranking: 'Candidate mechanisms (a response arriving after render, a session or user object read before it's populated, a cached-vs-cold difference) are things I want the loop to force, not a ranked list of suspects.' No likelihood language ('almost always', 'in rough order of likelihood') appears anywhere in response.md."
+        },
+        {
+          "text": "The first reproduction action described is a forcing step, not a sampling step; a forcing method mentioned later in the same step does not rescue a sampling opener",
+          "passed": true,
+          "evidence": "Evidence from with_skill/outputs/response.md. The step's stated purpose precedes the action and is forcing, not sampling: 'So the first job is driving the rate up, not catching one failure and reasoning from the single capture.' The concrete action names the forcing knobs inline, not as a later rescue: 'reloading the login page in a scripted loop and turning the knobs that plausibly move the rate -- cold cache vs. warm, throttled network vs. fast, a fresh session vs. an existing one, concurrent loads -- until failing becomes common enough to debug against.' The exit criterion is a changed failure RATE rather than a single catch: 'A 50% failure rate is workable; 1% is not.' The scripted loop here is the harness the knobs are turned inside, and the response explicitly rejects the sampling alternative ('not catching one failure'), so this is not a sampling opener with forcing bolted on afterwards."
+        },
+        {
+          "text": "Names the null or optional-chaining guard at the throwing line and refuses it, rather than offering it as the fix or passing over it in silence",
+          "passed": false,
+          "evidence": "Evidence from with_skill/outputs/response.md: the guard is never named at all. A case-insensitive search of response.md for 'optional chain', '?.', 'null check', 'null guard', 'guard', 'nullish' and 'defensive' returns no match. The response refuses premature HYPOTHESES ('I'm deliberately not opening with a theory') and premature FIXES in general ('only then fix'), but never identifies the specific tempting non-fix -- adding a null or optional-chaining guard at the throwing line -- and never refuses it. This expectation requires BOTH naming and refusal; silence fails it by the stated grading standard. Note that with_skill/outputs/routing.md is also silent on the guard, so this is not a case of correct reasoning misplaced into the routing file."
+        },
+        {
+          "text": "Invents no evidence it could not have: no fabricated stack trace, loop output, timing figure or file path is presented as observed",
+          "passed": true,
+          "evidence": "Evidence from with_skill/outputs/response.md. Every operational statement is prospective or conditional, never reported as observed. No stack trace, no file path, no repository symbol, no loop output, no measured timing appears anywhere. The numbers used are the user's own reported rate restated ('One-in-five is a rate'), an arithmetic consequence of it ('a fix that looks right has an 80% chance of appearing to work on the next load'), and an explicit target threshold rather than a measurement ('A 50% failure rate is workable; 1% is not'). The response closes by admitting it has no environment yet and asking for one: 'What I need from you to start: how do I load the login page in a way I can script -- a local dev server, a staging URL, an existing e2e or Playwright setup I can point at it?' It also pre-commits to reporting inability rather than substituting reasoning: 'If the environment can't be driven that way, I'd rather tell you that than fall back to reading the code.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "perf-regression-baseline",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 51.9,
+        "tokens": 48512,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Routes to the diagnosis workflow rather than to the lexically-matching performance-optimization skill, and states a reason for preferring it",
+          "passed": true,
+          "evidence": "routing.md: 'Invoke `diagnosing-bugs` (Lineage B). One skill, now.' The reason is stated, not merely a rejection list: 'A performance regression is a diagnosis, not an optimisation - the honest first move is to build a signal that goes red on the actual slowness, not to hand you a list of things that are commonly slow' (response.md), and 'it's a checklist you consult once you know where the time goes, not a workflow you run at a symptom. I'll come back to it after the loop localises the problem'. routing.md adds: 'Reaching for it at a symptom produces a list of things that are commonly slow - hypothesis-first reasoning wearing a checklist for cover.' The collision is named in the user-facing reply, not only in the routing notes."
+        },
+        {
+          "text": "In response.md specifically, names no candidate bottleneck - even hedged or unranked - before a measurement exists; naming a shape only as a trap to avoid, or as a branch of a stated measurement, is allowed",
+          "passed": true,
+          "evidence": "response.md names three shapes - 'bundle growth, an N+1 on a widget query, a re-render loop' - but strictly inside an explicit refusal: 'I'm deliberately not naming a likely culprit. I could give you a plausible ranked list ... but that would make the loop a device for confirming a theory instead of finding one, and every later reading gets filtered through it. Candidate mechanisms are things the loop should force, not a likelihood ordering.' This is the trap-to-avoid construction the expectation permits. No other candidate mechanism appears anywhere in response.md; the deploy is handled as a bisect boundary ('a boundary to bisect against, not a cause to assume'), not as a suspected cause."
+        },
+        {
+          "text": "Describes a concretely startable first measurement: what is measured, against what baseline, and what inputs it needs",
+          "passed": true,
+          "evidence": "All three components present in response.md. WHAT is measured: 'get a tight loop - one command I've actually run at least once, deterministic, fast enough to run repeatedly, that comes back red on \"the dashboard feels slow\" ... then getting a repeatable timing on it - a scripted load with the timing captured, or a DevTools trace I can reproduce on demand.' AGAINST WHAT BASELINE: 'Once the loop is red, the deploy is a lever - run the same loop against the previous build. If it's green there, the diff between them is a bounded search space.' WHAT INPUTS: 'What I'd want from you to start: which part of the dashboard feels slow, and roughly how slow - every load, or now and then?', plus the earlier 'pinning down which interaction feels slow (initial load, a filter, a chart re-render?)'."
+        },
+        {
+          "text": "Says what happens when no before-and-after measurement is available, without falling back on ranking the deploy diff by which change looks expensive",
+          "passed": true,
+          "evidence": "response.md states the no-measurement case explicitly and commits to stopping rather than substituting reasoning: 'If I can't drive the environment to produce the slowness on command, I'll tell you that and stop there rather than switching to reading code and reasoning about what *ought* to be slow. That fallback is exactly the failure this phase exists to prevent.' The diff is never ranked; it is treated only as a search space that bisection bounds ('If it's red there too, the deploy is a coincidence and we've saved ourselves from chasing it'). The intermittency paragraph handles the adjacent case where the signal is too weak to be a baseline: 'the rate is the first thing to fix, not the mechanism'."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "collision-qualified-names",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 65.1,
+        "tokens": 43006,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Names both the local code-review and the plugin code-review:code-review in qualified form, and picks one with a stated reason",
+          "passed": true,
+          "evidence": "Both appear in qualified form. routing.md's collision-1 table rows: '`code-review` (local skill)' and '`code-review:code-review` (plugin)'. response.md line 7 names both to the user: '`code-review` is the one that resolves branch scope itself; the plugin `code-review:code-review` wants an explicitly named scope.' A pick is stated with a reason: '**Chosen: `code-review`** \u2014 it is the only candidate whose description names *branch review before merge against a fixed point* as its trigger, which is verbatim the situation.' The expectation asks only that a reason be stated, not that it be true; the truth of the reason is graded under expectation 2, which it fails."
+        },
+        {
+          "text": "Rejects no candidate on a property it does not declare, and claims no capability of the chosen skill that it does not declare",
+          "passed": false,
+          "evidence": "The run rejects the plugin on a property it does not declare, and in the same breath claims a capability of the chosen local skill that the local skill does not declare. routing.md collision-1 table, plugin row: 'Viable but wants an *explicitly named* scope; the local skill resolves branch scope itself.' Repeated to the user in response.md line 7: '`code-review` is the one that resolves branch scope itself; the plugin `code-review:code-review` wants an explicitly named scope.' Both halves are false against the installed files. (a) The plugin explicitly accepts a branch as a scope form \u2014 SKILL.md argument-hint: '[what to review: a PR ref, a branch or diff range, or a path]', and its scope table: '<branch>  a branch against its merge base'. A branch handed to it IS an explicitly named scope, so the stated objection does not distinguish the candidates. (b) The local skill does not resolve branch scope itself. Its SKILL.md step 1 says: 'Whatever the user said is the fixed point... If they didn't specify one, ask for it.' It requires a supplied fixed point exactly as the plugin does \u2014 the run's own routing.md concedes this two lines later ('needs one input from the user: the fixed point to diff against') and again at line 59 ('`code-review` diffs against a **fixed point the user supplies**'), contradicting the discriminator it just used to reject the plugin. The run thus manufactures a scope-resolution asymmetry that neither skill declares, and it is the sole discriminator carrying the choice. Note this is the near-miss variant of the flagged 'whole-repository' error rather than its literal wording, but it fails on the same terms: a rejection on an undeclared property. A run citing something genuinely declared \u2014 the local skill's two fixed axes, or its need for an originating issue/spec \u2014 would have passed; this run mentions the two axes only as a description of behaviour after the choice is made ('Its declared behaviour (two axes...)'), never as the ground for preferring the local skill over the plugin. Separately, routing.md's `review` command row is accurate ('five-axis code review', confirmed in ~/.claude/commands/review.md) and the collision-2 claims about code-simplifier are verbatim accurate, so the failure is localised to the review fork \u2014 but that is the fork the expectation exists to test."
+        },
+        {
+          "text": "Routes cleanup to code-simplifier:code-simplifier, giving the reason that it runs tests between edits and reverts breakage where the local skill only advises",
+          "passed": true,
+          "evidence": "routing.md collision-2: '**Chosen.** The user wants code changed, not a report. Its paired agent declares it verifies behaviour preservation by running tests between changes and reverting anything that breaks them.' The contrast against the local skill is drawn in the adjacent row: '`code-simplification` (local skill)... Process guidance, model-agnostic. Fine, but the plugin skill's declared test-between-changes discipline is the better fit for edits landing pre-merge.' Both required halves are present (tests between changes + revert on breakage; local is guidance/advice only) and both are accurate against agents/code-simplifier.md. response.md also routes to the qualified name and explains the qualification: 'I'm naming it in full because the bare name is ambiguous here.' Note the test-and-revert reason lives only in routing.md \u2014 response.md gives a different reason to the user ('the deliverable is the edited code itself') \u2014 but this expectation is not scoped to response.md, unlike expectation 4."
+        },
+        {
+          "text": "In response.md specifically, the user is told a fork existed and why this side was chosen - not only in routing.md",
+          "passed": true,
+          "evidence": "The fork is surfaced in response.md for both jobs. Review fork, response.md line 7: 'Worth flagging one naming thing so we don't cross wires: there are several review skills installed, and I've picked deliberately. `code-review` is the one that resolves branch scope itself; the plugin `code-review:code-review` wants an explicitly named scope, and `security-review` is a single axis.' Cleanup fork, line 9: 'I'm naming it in full because the bare name is ambiguous here: there's also a local `code-simplification` skill and `code-simplify` / `simplify` commands.' A reason for each side chosen is given to the user in both cases. This expectation is graded on disclosure, and disclosure occurred; that the review-fork reason given is factually wrong is graded under expectation 2, which it fails."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 0,
+      "eval_name": "hypothesis-before-repro",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 2,
+        "failed": 2,
+        "total": 4,
+        "time_seconds": 57,
+        "tokens": 41489,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "In response.md specifically, no candidate cause is asserted or ranked before a reproduction method is described",
+          "passed": false,
+          "evidence": "Evidence from without_skill/outputs/response.md. Paragraph 2 -- before any reproduction method is described -- asserts a mechanism with explicit likelihood language: 'An intermittent cannot read property id of undefined almost always means something is being read before it exists, and the timing decides whether you win the race.' The grading notes name 'almost always X' as precisely the disallowed framing. It then enumerates four sub-causes still ahead of any repro: 'a session or user fetch resolving after first render, an auth-state subscription that fires with undefined before it fires with a user, a redirect param or cached token that's only sometimes present, a component mounting before a provider is ready.' The enumeration itself would be permissible as 'explicitly unresolved alternatives' -- and the response does hedge it ('right now I have no evidence telling me which one it is') -- but the hedge is scoped to WHICH of the four, not to the race-condition mechanism, which has already been asserted as near-certain one sentence earlier. The first reproduction method does not appear until the numbered list further down. The opening line ('I want to start by making it fail reliably, not by guessing at a fix') states an intention but describes no method, so it does not move the reproduction description ahead of the assertion. Note that without_skill/outputs/routing.md contains the correct discipline -- 'I did not commit to a cause... Naming one before seeing the trace would be a hypothesis dressed as a diagnosis' -- but this expectation is scoped to response.md only, and response.md contradicts that note."
+        },
+        {
+          "text": "The first reproduction action described is a forcing step, not a sampling step; a forcing method mentioned later in the same step does not rescue a sampling opener",
+          "passed": false,
+          "evidence": "Evidence from without_skill/outputs/response.md. The first reproduction action is numbered step 1, and it is a capture/sampling step: 'Get the real failure signal. The message alone isn't enough -- I need the stack trace and the component/frame where the read happens, so I know which .id on which undefined object. That comes from reproducing it with the console open, or from whatever error reporting you already have.' Reproducing with the console open, at the reported 1-in-5 rate, is waiting for a failure to occur and reading it -- a sampling step, with a single captured failure as its success condition. Forcing appears only in the separately numbered step 2: 'Make it deterministic. Once I know the suspect, I want a knob that flips the failure from 1-in-5 to always: throttling the network, delaying the relevant request, or forcing the pre-resolution state directly.' That is not merely 'later in the same step' -- it is a distinct later step, and it is explicitly gated on the sampling step having already succeeded ('Once I know the suspect'). The ordering is exactly the one the expectation is written to catch."
+        },
+        {
+          "text": "Names the null or optional-chaining guard at the throwing line and refuses it, rather than offering it as the fix or passing over it in silence",
+          "passed": true,
+          "evidence": "Evidence from without_skill/outputs/response.md, paragraph 3. The guard is named specifically and refused, with the reason given: 'The trap with a 20% failure rate is that it will happily confirm a wrong fix. If I add an optional chain somewhere plausible, reload a few times and see no error, that's roughly a two-in-three chance of looking fixed while the real race is untouched -- and it'll come back in production, probably on slower connections where the timing is worse.' Both halves of the requirement are met in response.md itself: the optional chain is named as the tempting patch, and it is refused rather than offered, on the grounds that the low failure rate cannot distinguish a real fix from a lucky run of clean reloads. routing.md reinforces this independently ('A null-guard also frequently converts a crash into a silent wrong state'), but response.md alone satisfies the expectation."
+        },
+        {
+          "text": "Invents no evidence it could not have: no fabricated stack trace, loop output, timing figure or file path is presented as observed",
+          "passed": true,
+          "evidence": "Evidence from without_skill/outputs/response.md. Nothing is presented as observed. No stack trace is reproduced, no file path or repository symbol is named, no loop output or measured timing appears. The response is explicit that it does NOT have the trace and asks for it: 'I need the stack trace and the component/frame where the read happens' and 'Two things would speed this up a lot if you have them: the full stack trace from a failing load.' The candidate mechanisms are stated as possibilities, not findings ('There are several plausible stories'), and are accompanied by an admission of no evidence ('right now I have no evidence telling me which one it is'). The percentages used -- '20% failure rate', 'roughly a two-in-three chance' -- are arithmetic on the user's own reported one-in-five rate, not measurements. Note: the reasoning quality problem in this response is premature ranking (expectation 1), which is distinct from fabricating observations; this expectation is about invented evidence and is genuinely satisfied."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "perf-regression-baseline",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 52.3,
+        "tokens": 41420,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Routes to the diagnosis workflow rather than to the lexically-matching performance-optimization skill, and states a reason for preferring it",
+          "passed": true,
+          "evidence": "routing.md: '**1. `diagnosing-bugs` - first, and the primary skill.**' with an affirmative stated reason, not a bare rejection: 'A regression has a specific cause introduced by a specific change; general optimization would burn effort on code that was equally slow yesterday and is not the culprit.' It also names the lexical trap directly - 'The trap here is routing on the loudest keyword (\"slow\" -> `performance-optimization`)' - and states the discriminating leverage: 'The deploy boundary makes bisection unusually cheap, which is exactly the leverage a diagnosis skill exploits and an optimization skill does not.' performance-optimization is demoted to third and conditional: 'Correct skill for the *fix*, wrong skill for the *investigation*.' The reason also surfaces in response.md: 'find what changed and prove which change causes the slowdown, rather than start optimizing plausible-looking code.'"
+        },
+        {
+          "text": "In response.md specifically, names no candidate bottleneck - even hedged or unranked - before a measurement exists; naming a shape only as a trap to avoid, or as a branch of a stated measurement, is allowed",
+          "passed": true,
+          "evidence": "Borderline but within the stated carve-out. response.md step 3 lists five shapes - 'a payload that got bigger, a query that lost an index or went N+1, a bundle that grew because something got pulled into the main chunk, a render loop that lost its memoization, a cache or CDN header that changed' - but they are subordinated to the trace outcome as branches of the measurement, which the expectation permits: 'The fix depends entirely on which layer the time is in ... Each of those has a different fix and there's no point choosing one before the trace says which it is.' The list is unranked and no likelihood is asserted; step 1's 'slow first paint on load, slow navigation between views, a spinner ... janky interaction' are symptom classes to disambiguate, not bottlenecks. The reply also opens by disclaiming measurement: 'Nothing I say below is measured yet - I haven't looked at the dashboard or the deploy.' Noting for the record that the branch framing is thinner than a trap framing - the list reads close to an enumeration of likely regression causes - but the expectation's carve-out covers it."
+        },
+        {
+          "text": "Describes a concretely startable first measurement: what is measured, against what baseline, and what inputs it needs",
+          "passed": true,
+          "evidence": "All three components present in response.md. WHAT is measured: 'I'll open the dashboard in the browser with DevTools, record a trace of the slow path, and look at where the time actually goes: network waterfall, main-thread work, and the specific request or render that dominates.' AGAINST WHAT BASELINE: 'compare the same trace against the previous build. A change that reproduces on the new build and not the old one is a cause; a suspicious-looking function that's the same in both is not.' WHAT INPUTS: 'which part of the dashboard feels slow and what you're doing when it does, and whether I can run the app locally (or hit a staging URL) plus see the repo and the deploy diff.'"
+        },
+        {
+          "text": "Says what happens when no before-and-after measurement is available, without falling back on ranking the deploy diff by which change looks expensive",
+          "passed": false,
+          "evidence": "response.md never addresses the case. Every path it describes presupposes the comparison is obtainable - 'compare the same trace against the previous build', 'The strongest evidence available is that there's a before and an after' - and there is no contingency for the environment being undriveable, the previous build being unavailable, or the slowness being unreproducible. The closest text is the monitoring aside, but it is framed as an accelerant on an already-working path, not a fallback: 'If there's any monitoring - server timings, RUM, error rates - the graphs around the deploy timestamp often identify the layer in one glance.' The closing question 'Want me to start with the browser trace, or with the deploy diff?' offers the diff as a co-equal starting point without saying what it yields absent a measurement to bound it. routing.md gestures at the gap - 'If the diagnosis is hard because there is nothing to measure (no server timings, no RUM), this fills the gap' under `observability-and-instrumentation` - but expectation 4 concerns what the run says happens, and instrumenting later does not answer the question, nor does it appear in the user-facing reply at all. Per the grading note, saying nothing about the no-baseline case fails."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.9167,
+        "stddev": 0.1443,
+        "min": 0.75,
+        "max": 1
+      },
+      "time_seconds": {
+        "mean": 56.5667,
+        "stddev": 8.0829,
+        "min": 51.9,
+        "max": 65.9
+      },
+      "tokens": {
+        "mean": 49415.6667,
+        "stddev": 914.1752,
+        "min": 48512,
+        "max": 50340
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.6667,
+        "stddev": 0.1443,
+        "min": 0.5,
+        "max": 0.75
+      },
+      "time_seconds": {
+        "mean": 58.1333,
+        "stddev": 6.4748,
+        "min": 52.3,
+        "max": 65.1
+      },
+      "tokens": {
+        "mean": 41971.6667,
+        "stddev": 896.4231,
+        "min": 41420,
+        "max": 43006
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.25",
+      "time_seconds": "-1.6",
+      "tokens": "+7444"
+    }
+  },
+  "notes": []
+}
