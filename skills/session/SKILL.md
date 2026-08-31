@@ -153,21 +153,21 @@ Progress:
      this session;
    - **none** — a question, a review, a check; nothing will change. Say so. The moment the work
      turns into a change, run this step alone before the first commit.
-8. Post the brief. ALWAYS use this exact template structure — every line present, nothing after
-   it, under ~1,200 characters (one clause per line; the session file and the Narrative hold the
-   detail):
+8. Post the brief. ALWAYS use this exact template structure — square brackets mark what you write,
+   every line present, nothing after it, under ~1,200 characters (one clause per line; the session
+   file and the Narrative hold the detail):
 
    ```text
-   Released: vX.Y.Z (date, sha)
-   Unreleased on main: …
-   Parked: <branch> — <what, verified or not>
-   Findings: <branch/tree/sessions observations, or "clean">
-   Open / unverified: …
-   Plan: PLAN-NNN · <part> — <its status before this conversation> | none
-   Next: <item> — first step: …
-   Question: <at most one, or omit the line>
-   Session: SES-NNN <joined | opened> — <its Goal> | none — nothing to record yet
-   read in full: <every file from steps 1–4 and 6>
+   Released: [vX.Y.Z (date, sha)]
+   Unreleased on main: [commits since the last release marker]
+   Parked: [branch — what, verified or not]
+   Findings: [branch/tree/sessions observations, or "clean"]
+   Open / unverified: [what the log names as unverified]
+   Plan: [PLAN-NNN · part — its status before this conversation] | none
+   Next: [item] — first step: [the first move]
+   Question: [at most one, or omit the line]
+   Session: [SES-NNN joined | SES-NNN opened — its Goal] | none — nothing to record yet
+   read in full: [every file from steps 1–4 and 6]
    ```
 
 **Done when** the brief is posted in that shape and the session is joined, opened with its Goal
@@ -203,7 +203,7 @@ Entry progress:
 
    - Summary: [what the change does as a whole, one or two lines]
    - Why: [the problem or request behind it, naming who asked]
-   - Also: <sha> — [what that fix-up fixed]            (only when a fix-up is vouched for)
+   - Also: [sha] — [what that fix-up fixed]            (only when a fix-up is vouched for)
    - Files:
      - `path/to/file` (+a/−d) — [what changed in this file]
    - Notes: [verified how; unverified what; follow-ups; a decision made on the spot]
@@ -290,8 +290,8 @@ End progress:
 6. The closing note. ALWAYS use this exact template, at most ~60 words:
 
    ```text
-   Shipped: <what landed this conversation — PRs/commits, one line>
-   Next time: <the first thing to do, one line>  (SES-NNN stays open)
+   Shipped: [what landed this conversation — PRs/commits, one line]
+   Next time: [the first thing to do, one line]  (SES-NNN stays open)
    ```
 
 **Done when** the gate is green, the handoff commit exists, the tree is clean on `main` (or every

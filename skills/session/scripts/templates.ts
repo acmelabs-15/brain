@@ -11,24 +11,31 @@ export const SESSIONS_INDEX_END = "<!-- sessions:end -->";
 
 /** The session file `new` writes, shown with placeholder prose instead of `_(fill in)_`. */
 export function sessionFileTemplate(): string {
-  return template("YYYY-MM-DD HH:MM", "Title of the session", "PLAN-NNN · part N, or —")
-    .replace("- Goal: _(fill in)_", "- Goal: what this session set out to do")
-    .replace("- Outcome: _(fill in)_", "- Outcome: what it actually delivered (releases, merged PRs) — written when it closes")
-    .replace("- Open at end: _(fill in)_", "- Open at end: the handoff — what the next conversation picks up first, what is unverified")
-    .replace("_(fill in)_ — what was asked", "What was asked")
-    .concat(`
-### YYYY-MM-DD · type(scope): subject · sha
+  return `# [YYYY-MM-DD HH:MM] · [Title of the session]
 
-- Summary: one or two lines — what this change does as a whole
-- Why: one line — the problem or request that caused it (name who asked)
-- Also: <sha> — a fix-up this entry vouches for (optional; it gets no entry of its own)
+- Goal: [what this session set out to do]
+- Status: open
+- Plan: [PLAN-NNN · part N, or —]
+- Outcome: [what it actually delivered — releases, merged PRs; written when it closes]
+- Open at end: [the handoff — what the next conversation picks up first, what is unverified]
+
+## Narrative
+
+[What was asked, decided, tried and abandoned, verified and how; cite entries by sha]
+
+## Changes (one entry per commit, in order)
+
+### [YYYY-MM-DD] · [type(scope): subject] · [sha]
+
+- Summary: [what this change does as a whole, one or two lines]
+- Why: [the problem or request that caused it, naming who asked]
+- Also: [sha] — [what that fix-up fixed]                (only when a fix-up is vouched for)
 - Files:
-  - \`src/thing.ts\` (+12/−3) — what changed in this file
-  - \`docs/OVERVIEW.md\` (+4/−1) — what changed in this file
-- Notes: optional — gotchas, follow-ups, what was verified and how
+  - \`[path/to/file]\` (+[a]/−[d]) — [what changed in this file]
+- Notes: [verified how; unverified what; follow-ups; a decision made on the spot]
 
-> **Released vX.Y.Z** — tag on this commit.
-`);
+> **Released [vX.Y.Z]** — tag on this commit.          (only under a release commit's entry)
+`;
 }
 
 /** `docs/sessions/README.md`: purpose, the index the tool regenerates, the file template. */
