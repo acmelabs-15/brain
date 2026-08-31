@@ -110,7 +110,12 @@ Part 1 (the Matt side completed, the upstream diffs) ──> Part 2 (ANA-008, th
 
 ### Part 4: the decisions and the ADR
 
-> Status: planned
+> Status: in progress (session SES-007) — decisions 1–5 settled 2026-08-31 (part stays the
+> unit's word; idea-refine standalone with two wayfinder transfers; S2/S3 adopt the
+> issue-tracker resolution order; rename the spec writer only, name chosen in Part 5; the DoD
+> tiers wired into /brain:build with converge as the plan-level tier); the PRD-home question
+> and the ADR are deferred to PLAN-004 Part 4 so the composed program is decided and recorded
+> once (Peter's 2026-08-31 extension of scope to the Build stage)
 
 - [ ] Task 1: the decisions — Peter's, `ask-user-question`, one at a time, ANA-009's options
   verbatim with one recommendation each.
@@ -140,4 +145,8 @@ Part 1 (the Matt side completed, the upstream diffs) ──> Part 2 (ANA-008, th
 - Does PRD-001 gain a requirement for the composed Define/Plan set — Peter's, at Part 4.
 - *phase* vs *part* — Peter's, at Part 4, with the ripple priced in ANA-009.
 - Whether `wayfinder` joins the composed set or stays the bigger-than-one-session outrider —
-  ANA-009 prices both.
+  ANA-009 prices both. Settled in the Part 4 round: it stays the outrider; two granular
+  transfers into S1 (the prototype move, the fog-or-ticket sharpness test).
+- ANA-009's open decision 6 (execution-stage unification) is now
+  [PLAN-004](PLAN-004-build-stage-synthesis.md); the references are artifacts of the synthesis
+  there (Peter, 2026-08-31).
