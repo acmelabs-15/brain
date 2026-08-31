@@ -32,19 +32,21 @@ Part 5 (diagnosing-bugs) ──────────────────�
 
 ### Part 1: the interrogation skill (PRD-002 requirements 1–2)
 
-> Status: planned
+> Status: done (session SES-008, `9dfa271`)
 
-- [ ] Task 1: rebuild `interview-me` — intent and artifact modes behind a Step-0 fork; first
+- [x] Task 1 (2026-08-31, `9dfa271`): rebuild `interview-me` — intent and artifact modes behind a Step-0 fork; first
   line calls the Skill tool for `brain:ask-user-question`; one question at a time; the
   prototype move and the fog-or-ticket test (ADR-006 D2's riders); the domain-modeling
   handoff; `grilling` becomes a pointer stub; `grill-me` and `grill-with-docs` retarget;
   `wayfinder`'s and `triage`'s grilling calls follow. Acceptance: a trigger set covering both
   old skills' phrases measured at or above the old rates; a headless render shows the first
   line firing; validators green. (This task is PLAN-002 Part 5 Task 5, absorbed.)
-- [ ] Task 2: `idea-refine` gains the decrees and the standing handoff edge from S1's intent
-  mode. Acceptance: its description unchanged (no re-measure needed) or re-measured if edited;
-  render.
-- [ ] Checkpoint: the bar.
+- [x] Task 2 (2026-08-31, `9dfa271`): `idea-refine` gains the decrees and the handoff edges;
+  description unchanged, no re-measure needed.
+- [x] Checkpoint (2026-08-31): the bar — tests 29/29, typecheck, both validators, three
+  measured sweeps (21/22 vs 16 and 18), two headless renders (first-line decree observed;
+  injection quoted back verbatim; artifact-mode.md read). Peter's mid-round corrections
+  folded: the conditional-workflow pattern (his pointer), the grill-with-docs mention removed.
 
 ### Part 2: the requirements skill (PRD-002 requirement 3)
 
