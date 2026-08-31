@@ -67,7 +67,7 @@ let s7 = await Bun.file(ses7).text();
 s7 = s7
   .replace(/^# (.*) · docs review$/m, "# $1 · Docs review — every doc read against the code, one pass per kind")
   .replace(/^- Goal: .*$/m, "- Goal: Read every document in docs/ against the code it describes and fix what drifted: the README pass, then the ADR pass.")
-  .replace(/^_\(fill in\)_ — what was asked.*$/m, "Peter asked for a full docs review before the next release. The README pass is done: every directory README was read against its files and nothing had drifted. The ADR pass — each ADR's consequences checked against the code — has not started.");
+  .replace(/^_\(fill in\)_ — what was asked.*$/m, "Peter asked for a full docs review before the next release. The README pass is done: every directory README was read against its files, and it found one drift — `src/items/finder`'s CLAUDE.md and run skill call `assets/set-favorites.swift` stale against the embedded constant, and OVERVIEW Next-up 5 still lists it. Re-syncing that asset is this session's next commit. The ADR pass — each ADR's consequences checked against the code — has not started.");
 await Bun.write(ses7, s7);
 
 // 3. Fold the seeding into the pinned commit so no fixture commit is visible.
