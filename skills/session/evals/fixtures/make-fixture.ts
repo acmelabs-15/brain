@@ -72,10 +72,11 @@ run(["git", "add", "docs/sessions"], out);
 run(["git", "commit", "-q", "--amend", "--no-edit"], out);
 
 // 4. The fix commit at HEAD: the asset re-synced with the embedded constant, unrecorded.
-const src = await Bun.file(join(out, "src/items/finder/finder-favorites.ts")).text();
-const m = src.match(/export const SET_FAVORITES_SWIFT = `([\s\S]*?)`;\n/);
-if (!m) throw new Error("SET_FAVORITES_SWIFT not found");
-await Bun.write(join(out, "src/items/finder/assets/set-favorites.swift"), m[1]);
+// The evaluated constant, not the source text of the template literal — the source keeps
+// its escapes, and the finder driver compares bytes, so a fixture written from the source is
+// a fix whose claim the skill correctly refuses to record.
+const swift = run(["bun", "-e", "import { SET_FAVORITES_SWIFT } from \"./src/items/finder/finder-favorites.ts\"; process.stdout.write(SET_FAVORITES_SWIFT)"], out);
+await Bun.write(join(out, "src/items/finder/assets/set-favorites.swift"), swift);
 run(["git", "add", "src/items/finder/assets/set-favorites.swift"], out);
 run(["git", "commit", "-q", "-m", "fix(finder): re-sync set-favorites.swift with the embedded SET_FAVORITES_SWIFT constant\n\nThe shipped asset lacked the `list` mode and the LSSharedFileListItemCopyResolvedURL binding the\nembedded constant carries; the driver's byte comparison now passes."], out);
 
