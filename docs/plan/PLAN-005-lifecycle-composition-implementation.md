@@ -147,7 +147,7 @@ Part 5 (diagnosing-bugs) ──────────────────�
 - [ ] Task 2: `choosing-a-skill` and `using-agent-skills` rewrite their Define/Plan/Build rows
   to the composed set; `CONTEXT-MAP.md` checked complete; each file edited once here and not
   again before PLAN-001 Part 6.
-- [ ] Task 3: the marketplace regenerate + reinstall checkpoint (the PLAN-001 Part 4
+- [ ] Task 3 (includes: re-run writing-specs' trigger sweep post-reinstall — two rows were held down by the installed old spec-driven-development description competing in the catalog, verified by probe; they should recover once the stub is what's installed): the marketplace regenerate + reinstall checkpoint (the PLAN-001 Part 4
   procedure): a fresh conversation in a scratch repo walks PRD-002 → a plan → a part headless;
   Peter runs `/reload-plugins` in his open terminals.
 - [ ] Checkpoint: PRD-002's success criteria checked line by line; PLAN-001 Part 6 unblocked.

@@ -51,6 +51,12 @@ using the words:
   `ready-for-human`, `wontfix` — a ticket's `Status:` words, distinct from a plan part's and a
   session's (`references/project-docs-conventions.md` keeps them apart).
 
+**The word `spec`** names one artifact with two renderings since ADR-006: `writing-specs` writes
+it as a repo PRD (`docs/plan/PRD-NNN`, with a Plans table) or as a tracker spec (published with
+`ready-for-agent`), the repo's convention choosing. `spec-driven-development` and `to-spec` are
+pointer stubs at that skill; a sentence needing one rendering names it ("the repo PRD", "the
+tracker spec").
+
 `ask-user-question` carries its own words (*option*, *label*, *recommendation*, *preview*, *skip*)
 in its `SKILL.md` and `references/`. Where a carried skill's word collides with a session-log word
 — *brief*, *session*, *record* — the session-log context wins inside `docs/`, and the skill's

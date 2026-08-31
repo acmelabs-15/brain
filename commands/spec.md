@@ -1,8 +1,8 @@
 ---
-description: "Start spec-driven development — write a structured specification before writing code"
+description: "Write the requirements document — a PRD or tracker spec — before writing code"
 ---
 
-Invoke the spec-driven-development skill.
+Invoke the writing-specs skill.
 
 Begin by understanding what the user wants to build. Ask clarifying questions about:
 1. The objective and target users
@@ -10,9 +10,9 @@ Begin by understanding what the user wants to build. Ask clarifying questions ab
 3. Tech stack preferences and constraints
 4. Known boundaries (what to always do, ask first about, and never do)
 
-Then generate a structured spec covering all six core areas: objective, commands, project structure, code style, testing strategy, and boundaries.
+Then generate the document from the skill's template pool: objective, user stories, success criteria, tech stack and commands, project structure, code style, testing strategy, boundaries, out of scope, open questions and the Plans table. When the conversation already settled the requirements, use the skill's synthesis intake and skip the questions.
 
-If the request bundles several independently testable capabilities, first propose a capability map (module ids, dependency direction, build order) per the skill's Phase 0 and get it approved, then spec each module in dependency order.
+If the request bundles several independently testable capabilities, first propose a capability map (module ids, dependency direction, build order) per the skill's scope check and get it approved, then spec each module in dependency order.
 
 Save the spec where this project keeps specs — the project's own convention always wins. Read
 `~/.claude/references/project-docs-conventions.md` first, and let a repo that names its own location

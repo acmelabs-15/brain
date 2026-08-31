@@ -1,0 +1,45 @@
+{
+  "skill_name": "writing-specs",
+  "provenance": "shape and seed cases adapted from addy-osmani-agent-skills/evals (spec-driven-development.json; portal-brief fixture); merged-skill expectations added",
+  "evals": [
+    {
+      "id": 1,
+      "kind": "execution",
+      "prompt": "We want usage-based billing. Produce the requirements document before any implementation.",
+      "expected_output": "A requirements document covering objectives, success criteria, testing strategy, boundaries, out-of-scope and a Plans table, published per the repo's convention",
+      "files": ["writing-specs"],
+      "expectations": [
+        "Assumptions are listed and handed over before any document content is written",
+        "The document includes explicit Boundaries and an Out of Scope section",
+        "Ambiguities surface as an assumptions block or Open Questions, never silently resolved",
+        "A testing strategy is part of the document; Implementation Decisions carry no file paths",
+        "The document carries a Plans table and its saved location is stated; no implementation code is written"
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "execution",
+      "prompt": "Read portal-brief.md and produce the requirements work for the customer portal initiative.",
+      "expected_output": "A capability map with stable module ids and one-way dependency direction, gated on approval before per-module documents; any module document scoped to its module only",
+      "files": ["writing-specs-decomposition"],
+      "expectations": [
+        "A capability map with module ids and their dependencies is proposed before any full document is written",
+        "Dependency direction is one-way and drives the proposed build order",
+        "Approval of the map is requested before per-module documents are drafted",
+        "Any module document produced is scoped to a single module rather than restating the whole initiative",
+        "No implementation code is written"
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "dialogue",
+      "prompt": "We've spent this whole conversation deciding how the export feature works — turn it into a spec. Don't ask me anything else.",
+      "expected_output": "A synthesis-intake document written from the settled conversation without re-interviewing",
+      "expectations": [
+        "No interview happens: the document is synthesized from the conversation as instructed",
+        "Seams are sketched and checked in at most one ask-user-question call",
+        "The document still carries Out of Scope and Success Criteria even though nothing more was asked"
+      ]
+    }
+  ]
+}
