@@ -36,7 +36,7 @@ still in progress is the next move. A task's number is its stable name.
 
 ### Part 1: the record's model — status, three acts, no handoff
 
-> Status: in progress (session SES-002)
+> Status: in progress (session SES-001 — the docs here; the code in acmelabs-15/sessions SES-002)
 
 - [x] Task 1 (2026-08-31, `f80af22`): `session init` writes nothing under `docs/plan/` (the plan's shape has one home,
   `planning-and-task-breakdown`). Acceptance: `session template` lists `session | sessions-readme |

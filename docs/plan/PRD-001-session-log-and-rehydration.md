@@ -121,4 +121,4 @@ rules, index and template. Simplified Technical English, glossary words.
 
 | Plan | Implements | Status |
 | --- | --- | --- |
-| [PLAN-001-record-and-rehydration-split.md](PLAN-001-record-and-rehydration-split.md) | requirements 1–12 (1–2 via Part 3; 12 via Part 5) | in progress — part 1 (session SES-002 in acmelabs-15/sessions) |
+| [PLAN-001-record-and-rehydration-split.md](PLAN-001-record-and-rehydration-split.md) | requirements 1–12 (1–2 via Part 3; 12 via Part 5) | in progress — part 1 (session SES-001; the code in acmelabs-15/sessions SES-002) |
