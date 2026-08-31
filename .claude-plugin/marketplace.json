@@ -7,7 +7,7 @@
     {
       "name": "sessions",
       "description": "Keeps a session log a fresh Claude Code conversation rehydrates from: /sessions:session start, entry, end, close, and the tool that gates every commit against it",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "source": "./"
     }
   ]
