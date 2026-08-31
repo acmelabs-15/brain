@@ -7,6 +7,7 @@ What we *found out*, against primary sources or empirically, as opposed to what 
 | Doc | Question it answers | Status |
 | --- | --- | --- |
 | [ANA-001-rehydration-ownership.md](ANA-001-rehydration-ownership.md) | Who should own rehydration; every installed skill and both authors' lifecycles read in full; four homes found; the design that gives the plan the procedure and the session the record | decided |
+| [ANA-002-measured-facts-and-eval-lessons.md](ANA-002-measured-facts-and-eval-lessons.md) | The measured facts the ADRs rest on: how Claude Code resolves plugin and personal skills, the SKILL.md frontmatter fields (no dependency field), why `ask-user-question` was not fired, the session skill's four disclosure iterations and their failure clusters, the trigger figures, the inventory of what ADR-002 moves | current |
 
 ## Rules
 

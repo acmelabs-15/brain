@@ -241,6 +241,20 @@ Read in full, in this order, before touching a part:
    `~/.claude/skills/context-engineering/SKILL.md`, `~/.claude/skills/choosing-a-skill/SKILL.md`,
    `~/.claude/references/project-docs-conventions.md`, `~/.claude/skills/LOCAL-CHANGES.md`.
 
+**Open work recorded elsewhere, not to be lost:** acmelabs-15/sessions PLAN-001 — Part 1 Task 6
+(env-setup docs, `~/CLAUDE.md` line 41 and ADR-023's false sentence; the stale caches) and Part 5
+Tasks 3, 5, 6 (plugin-kit: glossary gaps *tier study*, *measurement model*, *tool trace*, a word for
+the `--fixture` repo; `--resume-from` never compares the dead run's envelope and timed-out queries
+leave no trace; the validator scans `evals/results/**` and warns on `fixture_notes` /
+`hard_negatives` in `evals.json`). This repo has **no session log yet**: the first conversation here
+runs `session init`, opens a session for the docs system, and records commits `4c0c5c2`..HEAD as its
+first entries. Reinstalling the plugin, when a part calls for it: regenerate the marketplace
+(`cd ~/Dev/env-setup && bun -e 'import { generateMarketplace } from "./src/items/repos/acmelabs-marketplace.ts"; await generateMarketplace("/Users/peterkloss/Dev/ACMElabs")'`
+— it reads each plugin's `plugin.json`), then `claude plugin uninstall sessions@ACMElabs`,
+`claude plugin install sessions@ACMElabs`, `/reload-plugins`. `brain` will be multi-context: its own
+authoring words, the session-log glossary, and the vocabularies the carried skills bring
+(`codebase-design`, `loop-me`, the triage roles) — a `CONTEXT-MAP.md` at the move (Part 5 Task 2).
+
 **Uncommitted at handoff — secure these first:**
 
 - `../analysis/ANA-001-rehydration-ownership.md` (also ANA-001 in env-setup, uncommitted there) and

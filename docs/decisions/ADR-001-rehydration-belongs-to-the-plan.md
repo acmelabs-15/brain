@@ -13,6 +13,11 @@ entry grain (ADR-021), the plan part → session pointer and the PRD Plans table
 
 2026-08-31 (session SES-001 in acmelabs-15/sessions; analysis [ANA-001](../analysis/ANA-001-rehydration-ownership.md))
 
+## Analysis it relies on
+
+- [ANA-001](../analysis/ANA-001-rehydration-ownership.md) — the four homes, the two lifecycles' shared model, the refuted alternatives, the per-file change list.
+- [ANA-002](../analysis/ANA-002-measured-facts-and-eval-lessons.md) — the measured invocation facts (bare forms fail for a plugin), the frontmatter facts (no dependency field; `disable-model-invocation` ours to remove), the eval clusters and trigger figures behind the acts, the stop condition and the attribution rule.
+
 ## Context
 
 After a fresh conversation typed `/sessions:session continue PLAN-001`, Peter: "session skills

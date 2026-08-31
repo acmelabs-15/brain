@@ -12,6 +12,11 @@ status vocabulary, the inference, the sequencing (build in acmelabs-15/sessions,
 
 2026-08-31 (the founding conversation; acmelabs-15/sessions SES-002)
 
+## Analysis it relies on
+
+- [ANA-002](../analysis/ANA-002-measured-facts-and-eval-lessons.md) § Invocation and resolution — a plugin skill is reachable only namespaced, a personal skill shadows a plugin's bare name (the open point on `/session` and `/plan`); § The toolset as it stands — the inventory of what moves and the reference checkouts it drifts from.
+- [ANA-001](../analysis/ANA-001-rehydration-ownership.md) F1 and § Costs — five homes for one toolset, drifted copies tracked only in `LOCAL-CHANGES.md`.
+
 ## Context
 
 The toolset Peter works with is spread over five homes: the `sessions` plugin
