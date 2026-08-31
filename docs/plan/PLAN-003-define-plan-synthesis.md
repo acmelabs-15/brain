@@ -91,9 +91,9 @@ Part 1 (the Matt side completed, the upstream diffs) ──> Part 2 (ANA-008, th
 
 ### Part 3: the synthesis (ANA-009)
 
-> Status: in progress (session SES-007)
+> Status: done (session SES-007, `164c926`)
 
-- [ ] Task 1: ANA-009 — three layers: (a) what Define and Plan most need — the functionality
+- [x] Task 1 (2026-08-31, `164c926`): ANA-009 — three layers: (a) what Define and Plan most need — the functionality
   ranking derived from both packages, brain's docs system, the decrees and the measured record;
   (b) the granular selection — the parts of skills chosen from each side with provenance and the
   reason each wins (sections and mechanisms, as big or small as fits); (c) the composition — the
@@ -106,7 +106,7 @@ Part 1 (the Matt side completed, the upstream diffs) ──> Part 2 (ANA-008, th
   plan, `/brain:plan`'s walk). No verdict anywhere in the note. Acceptance: every selected part
   carries provenance; every open decision carries its price; saved as
   `docs/analysis/ANA-009-…md` with its index row.
-- [ ] Checkpoint: ANA-009 committed and its entry logged.
+- [x] Checkpoint (2026-08-31): ANA-009 committed (`164c926`); the entry logged in the docs(session) commit carrying these ticks.
 
 ### Part 4: the decisions and the ADR
 

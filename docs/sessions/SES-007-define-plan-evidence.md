@@ -18,3 +18,11 @@ Started 2026-08-31 right after SES-006 closed (PLAN-002 Parts 1–4 done). Peter
 - Files:
   - `docs/analysis/ANA-008-define-plan-overlap.md` (+173/−0) — the map, the depth tables, the composition contrast, the comparanda, two refuted framings
   - `docs/analysis/README.md` (+1/−0) — ANA-008's index row
+
+### 2026-08-31 · docs(analysis): ANA-009 — the Define/Plan synthesis: eight ranked functions, the granular parts from each lineage with provenance, the composed set (S1 interrogation, S2 requirements with two renderings, S3 decomposition with § Continuing a plan intact), six open decisions priced (PLAN-003 Part 3) · 164c926
+
+- Summary: ANA-009 lands PLAN-003 Part 3 — the synthesis: the eight functions Define and Plan most need, ranked; the granular parts chosen from each lineage with file:line provenance and the reason each wins (never whole-skill-vs-whole-skill); and the composed set — S1 the interrogation skill (ADR-005's merge composed, intent and artifact modes), S2 the requirements skill (one template pool, PRD and tracker renderings — dissolving the "spec" collision structurally), S3 the decomposition skill (one work model, plan-doc and ticket renderings, § Continuing a plan verbatim), the outriders and the compatibility mapping. Six open decisions priced for Part 4, phase-vs-part first with its full ripple. No verdict anywhere in the note.
+- Why: PLAN-003 Part 3 Task 1 — deliverable two of Peter's 2026-08-31 ask ("pull the parts from each that make the most sense … and compose them into a new set of skills"), built on ANA-008's grain.
+- Files:
+  - `docs/analysis/ANA-009-define-plan-composition.md` (+160/−0) — the ranking, the provenance table, the S1–S3 composition, the six priced decisions
+  - `docs/analysis/README.md` (+1/−0) — ANA-009's index row
