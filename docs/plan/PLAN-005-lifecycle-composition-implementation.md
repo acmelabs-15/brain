@@ -57,18 +57,18 @@ Part 5 (diagnosing-bugs) ──────────────────�
 
 ### Part 2: the requirements skill (PRD-002 requirement 3)
 
-> Status: in progress (session SES-009)
+> Status: done (session SES-009, `9b2baf8`)
 
-- [ ] Task 1: the name — chosen by the merit test (says the job in invocation words), its
-  trigger set written and measured before the body lands (ADR-006 D4).
-- [ ] Task 2: the skill — the template pool (six areas, capability map, assumptions block,
-  success-criteria reframing, seam sketch, Implementation/Testing Decisions, Out of Scope,
-  Plans table); interview intake via Part 1's skill, no-interview synthesis intake; publication
-  per the issue-tracker resolution order; `spec-driven-development` and `to-spec` become
-  pointer stubs; `/brain:spec` repoints; `CONTEXT-MAP.md` gains the two-renderings "spec" row.
-  Acceptance: both old trigger sets' phrases covered at or above old rates; headless render
-  produces a PRD skeleton in a scratch repo with a Plans table; validators green.
-- [ ] Checkpoint: the bar.
+- [x] Task 1 (2026-08-31): `writing-specs` (gerund + object; "spec" the invocation word in both
+  corpora); the description measured before the body — cand2 18/20 vs the 16/20 baseline,
+  negatives 10/10, two rows probe-verified as held down by the installed old description.
+- [x] Task 2 (2026-08-31, `9b2baf8`): the skill (197 lines), both stubs, the command repoint,
+  the map row; behavioral evals.json with adapted fixtures; render produced
+  `docs/plan/PRD-001-…md` with Plans table and Out of Scope by the resolution order;
+  validators green.
+- [x] Checkpoint (2026-08-31): the bar — tests 29/29, typecheck, both validators, three sweeps
+  (cand1 refuted, cand2 accepted), one probe, one render; the post-reinstall re-sweep rides
+  Part 8 Task 3.
 
 ### Part 3: the planner rebuilt (PRD-002 requirement 4)
 
