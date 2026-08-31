@@ -28,6 +28,10 @@ the documents themselves.
    **`end`, or wrapping up with the Goal not done?** → Follow "end" below
    **`close`, or the Goal done?** → Follow "close" below
 
+   **Example 1:** Input: `/session PLAN-003`, and `docs/plan/PLAN-003-search.md` exists → Output: "start and continue" as `continue PLAN-003`
+   **Example 2:** Input: `/session PLAN-009`, no such file → Output: "start and continue" as `start PLAN-009`
+   **Example 3:** Input: `/session` right after `git commit` → Output: "entry"
+
 2. Run that mode to its **Done when** line. Each mode opens with a progress checklist: copy it into
    the reply and tick it as you go.
 
@@ -144,12 +148,14 @@ Progress:
      until answered;
    - **open** — the part is `planned` (or the work has no plan): `session new <slug> --plan
      "PLAN-NNN · part N"` (slug = the work ahead, kebab-case; omit `--plan` only for unplanned
-     work); set the title and `Goal` in the file it names; change the part's status line to
-     `in progress (session SES-NNN)` — how the next conversation finds this session;
+     work); set the title and `Goal` in the file it names; then the part's status line, ALWAYS
+     this exact form: `> Status: in progress (session SES-NNN)` — how the next conversation finds
+     this session;
    - **none** — a question, a review, a check; nothing will change. Say so. The moment the work
      turns into a change, run this step alone before the first commit.
-8. Post the brief — this template and nothing after it, every line present, under ~1,200
-   characters (one clause per line; the session file and the Narrative hold the detail):
+8. Post the brief. ALWAYS use this exact template structure — every line present, nothing after
+   it, under ~1,200 characters (one clause per line; the session file and the Narrative hold the
+   detail):
 
    ```text
    Released: vX.Y.Z (date, sha)
@@ -189,10 +195,45 @@ Entry progress:
    parent entry gets `- Also: <sha> — <what it fixed>` under `Why`; a commit with nothing to
    record carries the trailer `Session-entry: none` (write it yourself on such commits). The table
    is in `references/session-log.md`.
-2. Fill every placeholder — `Summary`, `Why` (name who asked), a phrase per file saying what
-   changed *in that file* ("updated" is not a phrase; `references/session-log.md` shows filled
-   lines beside skeletons), `Notes` (verified how, unverified what, follow-ups, decisions made on
-   the spot). Verify a claim yourself (driver, test, byte comparison) before writing it.
+2. Fill every placeholder. ALWAYS use this exact entry structure (the tool wrote the headings and
+   the file lines; you write what follows each dash):
+
+   ```markdown
+   ### YYYY-MM-DD · type(scope): subject · sha
+
+   - Summary: [what the change does as a whole, one or two lines]
+   - Why: [the problem or request behind it, naming who asked]
+   - Also: <sha> — [what that fix-up fixed]            (only when a fix-up is vouched for)
+   - Files:
+     - `path/to/file` (+a/−d) — [what changed in this file]
+   - Notes: [verified how; unverified what; follow-ups; a decision made on the spot]
+   ```
+
+   Write the phrases like these — every claim verified yourself (driver, test, byte comparison)
+   before it is written:
+
+   **Example 1:** Input: a Files line `(+19/−0) — _(fill in)_` for `set-favorites.swift`
+   Output:
+   ```markdown
+   - `src/items/finder/assets/set-favorites.swift` (+19/−0) — re-synced with the embedded
+     SET_FAVORITES_SWIFT constant: gains the `list` mode (verified byte-identical by the driver)
+   ```
+
+   **Example 2:** Input: the commit `fix(picker): keep the cursor on the item after a rescan`
+   Output:
+   ```markdown
+   - Summary: the picker keeps its cursor on the same item across a rescan instead of jumping
+     to the top; the rescan now diffs by item id
+   - Why: Peter lost his place every time the picker refreshed (SES-003 request)
+   ```
+
+   **Example 3:** Input: a `Notes:` placeholder on a commit whose test suite ran but whose PTY path did not
+   Output:
+   ```markdown
+   - Notes: `bun test` 111 pass; the PTY path is unverified — the expect harness was not run
+   ```
+
+   "updated" or "changes" is not a phrase.
 3. Same step, citing the sha: tick the plan part's tasks (`- [x] … — <sha>`; its status line stays
    `in progress`); OVERVIEW **Status** / **Next up**; a decision → an ADR (`documentation-and-adrs`
    if installed, else the decisions README template); a changed requirement → the PRD; a finding →
@@ -246,7 +287,7 @@ End progress:
    gh pr list --state open        # none dangling, or each named in Open at end (no GitHub origin: say so)
    ```
 
-6. The closing note — this template, at most ~60 words:
+6. The closing note. ALWAYS use this exact template, at most ~60 words:
 
    ```text
    Shipped: <what landed this conversation — PRs/commits, one line>
