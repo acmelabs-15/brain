@@ -1,11 +1,11 @@
 # Plan: the Build stage across both lineages — implement, implement-spec and incremental-implementation, the best parts composed
 
-> Status: in progress · Peter, 2026-08-31 ("do the exact same thing you just did for the define
+> Status: done (session SES-007, `d9f9f48`) · Peter, 2026-08-31 ("do the exact same thing you just did for the define
 > and plan lifecycle phases … scoped specifically to matts implement skill, addys implement-spec
 > and incremental-implementation skills (if there are any other skills that should be part of
 > this that I missed point them out to me). Maybe the … definition-of-done.md should be included
-> in this somehow as well") · serves [PRD-001](PRD-001-session-log-and-rehydration.md)
-> requirement 12's one-toolset goal · this is the plan ANA-009's open decision 6 asked for
+> in this somehow as well") · serves [PRD-002](PRD-002-lifecycle-composition.md)
+> requirements 5–9 (PRD-001 requirement 12's umbrella) · this is the plan ANA-009's open decision 6 asked for
 > (the execution-stage unification, "record for a later plan") · authorship corrected during
 > scoping: **implement-spec is Matt's** (`matt-pocock-skills/skills/in-progress/`), not Addy's;
 > incremental-implementation is the Addy one
@@ -109,21 +109,23 @@ Part 1 (evidence) ──> Part 2 (ANA-010, the overlap) ──> Part 3 (ANA-011,
 
 ### Part 4: the decisions and the ADR
 
-> Status: in progress (session SES-007)
+> Status: done (session SES-007, `d9f9f48`) — the five decisions settled 2026-08-31: the merged
+> implementation skill is `implement`; concurrency a /brain:build mode behind verify-first, the
+> frontier from the deps graph rendered as Claude Code tasks (Peter's rider); the merged
+> debugging skill is `diagnosing-bugs`; /build auto's discovery aligned with the resolution
+> order; the program's contract is PRD-002
 
-- [ ] Task 1: the decisions — Peter's, `ask-user-question`, one at a time, ANA-011's options
-  verbatim with one recommendation each; the deferred PRD-home question (PLAN-003's) is asked
-  here once, covering the whole composed program.
-- [ ] Task 2: the ADR — one ADR covering PLAN-003's and this plan's rounds (the Define/Plan/Build
-  composition), supersessions named (ADR-005 decision 6's shape; ANA-009's decision 6).
-- [ ] Checkpoint: ADR accepted; PLAN-001, PLAN-002, PLAN-003 and this plan consistent.
+- [x] Task 1 (2026-08-31): the decisions — one at a time; the five in the status line above,
+  the deferred PRD-home question answered here ("lets go with your recommendation").
+- [x] Task 2 (2026-08-31, `d9f9f48`): ADR-006 covers both rounds; PRD-002 (`e849bcb`) is the
+  contract.
+- [x] Checkpoint (2026-08-31): ADR-006 accepted; the plans consistent in the same commit set.
 
 ### Part 5: implementation
 
-> Status: planned — tasks written at Part 4's close, shaped by the ADR; the bar is PLAN-002
-> Part 5's, unchanged, plus: the reference updates land with the skills that cite them, and
-> every changed command gets a headless render; coordinated with PLAN-003 Part 5 and PLAN-001
-> Part 6's sweep so each file is edited once.
+> Status: superseded — the implementation is
+> [PLAN-005](PLAN-005-lifecycle-composition-implementation.md) (Peter, 2026-08-31); the
+> reference updates and the bar moved with it.
 
 ## Risks and mitigations
 
@@ -136,7 +138,6 @@ Part 1 (evidence) ──> Part 2 (ANA-010, the overlap) ──> Part 3 (ANA-011,
 
 ## Open questions
 
-- Where the Build surface lives (skill, command, or pair) — ANA-011 prices, Part 4 decides.
-- Whether `implement-spec`'s concurrent mode survives as a mode of the composed skill or stays
-  a separate skill — ANA-011 prices both.
-- The PRD home for the whole composed program — deferred from PLAN-003, asked once at Part 4.
+- Where the Build surface lives — settled: the skill `implement` plus `/brain:build` (ADR-006 D4, D6).
+- `implement-spec`'s concurrent mode — settled: a `/brain:build` mode behind verify-first (ADR-006 D6).
+- The PRD home — settled: [PRD-002](PRD-002-lifecycle-composition.md) (ADR-006 D8).

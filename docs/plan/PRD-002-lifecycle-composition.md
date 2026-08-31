@@ -108,5 +108,6 @@ are.
 
 | Plan | Serves | Status |
 | --- | --- | --- |
-| [PLAN-003-define-plan-synthesis.md](PLAN-003-define-plan-synthesis.md) | requirements 1–4, 9–10 (evidence, analyses, decisions; implementation in its Part 5) | Parts 1–4 done (SES-007); Part 5 planned |
-| [PLAN-004-build-stage-synthesis.md](PLAN-004-build-stage-synthesis.md) | requirements 5–9 (evidence, analyses, decisions; implementation in its Part 5) | Parts 1–4 done (SES-007); Part 5 planned |
+| [PLAN-003-define-plan-synthesis.md](PLAN-003-define-plan-synthesis.md) | requirements 1–4, 9–10: the evidence, analyses and decisions | done (SES-007, `d9f9f48`) |
+| [PLAN-004-build-stage-synthesis.md](PLAN-004-build-stage-synthesis.md) | requirements 5–9: the evidence, analyses and decisions | done (SES-007, `d9f9f48`) |
+| [PLAN-005-lifecycle-composition-implementation.md](PLAN-005-lifecycle-composition-implementation.md) | requirements 1–10: the build-out, eight parts in dependency order | planned |

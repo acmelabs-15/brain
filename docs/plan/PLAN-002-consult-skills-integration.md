@@ -132,7 +132,8 @@ Parts 1 and 2 are independent of each other; everything after is sequential.
 
 ### Part 5: implementation
 
-> Status: planned — written from ADR-005; Task 5 waits on PLAN-003 Part 4
+> Status: planned — written from ADR-005; Task 5 absorbed into
+> [PLAN-005](PLAN-005-lifecycle-composition-implementation.md) Part 1 (ADR-006)
 
 - [ ] Task 1: the read-rule injection — `references/read-the-glossary.md` created; the 16 skills'
   inline copies replaced by the `!`-cat line plus `allowed-tools: Bash(cat:*)`; the two agents'
@@ -146,9 +147,9 @@ Parts 1 and 2 are independent of each other; everything after is sequential.
   row lands with PLAN-003's ADR, not before.
 - [ ] Task 4: `using-agent-skills`' discovery tree names `domain-modeling` as the parallel
   vocabulary track and the `codebase-design` chain head. Acceptance: the tree routes to both.
-- [ ] Task 5 (after PLAN-003 Part 4): the interrogation skill — M1 under the decrees, composed
-  with PLAN-003's Define set; wrappers and the wayfinder/triage call sites retarget; the merged
-  description trigger-swept before landing.
+- [x] Task 5 (2026-08-31, absorbed): the interrogation skill is
+  [PLAN-005](PLAN-005-lifecycle-composition-implementation.md) Part 1 Task 1 — this plan does
+  not build it twice.
 
 > The bar below is fixed so the tasks inherit it
 

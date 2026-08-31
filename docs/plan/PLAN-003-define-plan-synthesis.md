@@ -1,12 +1,12 @@
 # Plan: Define and Plan across both lineages — the overlap mapped, the best parts composed
 
-> Status: in progress · Peter, 2026-08-31 ("identify where they overlap, where they don't or they do
+> Status: done (session SES-007, `d9f9f48`) · Peter, 2026-08-31 ("identify where they overlap, where they don't or they do
 > the same things differently, how they compose things differently … then what
 > features/functionality is most important to have for the define and plan parts of the
 > lifecycle — pulling from both — and … pull the parts from each that make the most sense … and
 > compose them into a new set of skills") · serves
-> [PRD-001](PRD-001-session-log-and-rehydration.md) requirement 12's one-toolset goal (no
-> numbered requirement — see Open questions) · the composition decision is Part 4's, not this
+> [PRD-002](PRD-002-lifecycle-composition.md) requirements 1–4 and 9–10 (PRD-001 requirement
+> 12's umbrella) · the composition decision is Part 4's, not this
 > plan's
 
 ## Overview
@@ -110,26 +110,25 @@ Part 1 (the Matt side completed, the upstream diffs) ──> Part 2 (ANA-008, th
 
 ### Part 4: the decisions and the ADR
 
-> Status: in progress (session SES-007) — decisions 1–5 settled 2026-08-31 (part stays the
+> Status: done (session SES-007, `d9f9f48`) — decisions 1–5 settled 2026-08-31 (part stays the
 > unit's word; idea-refine standalone with two wayfinder transfers; S2/S3 adopt the
 > issue-tracker resolution order; rename the spec writer only, name chosen in Part 5; the DoD
 > tiers wired into /brain:build with converge as the plan-level tier); the PRD-home question
 > and the ADR are deferred to PLAN-004 Part 4 so the composed program is decided and recorded
-> once (Peter's 2026-08-31 extension of scope to the Build stage)
+> once (Peter's 2026-08-31 extension of scope to the Build stage) — discharged the same day:
+> [PRD-002](PRD-002-lifecycle-composition.md) (`e849bcb`), ADR-006 (`d9f9f48`)
 
-- [ ] Task 1: the decisions — Peter's, `ask-user-question`, one at a time, ANA-009's options
-  verbatim with one recommendation each.
-- [ ] Task 2: the ADR; supersessions named (ADR-005 decision 6's shape may be refined here;
-  PLAN-001 Part 5 shape 2 resolves here).
-- [ ] Checkpoint: ADR accepted; PLAN-001, PLAN-002 and this plan consistent.
+- [x] Task 1 (2026-08-31): the decisions — Peter's, `ask-user-question`, one at a time; the five
+  settled in the status line above, the deferred two in PLAN-004's round.
+- [x] Task 2 (2026-08-31, `d9f9f48`): ADR-006, joint with PLAN-004 — ADR-005 decision 6 refined,
+  PLAN-001 Part 5 shape 2 resolved.
+- [x] Checkpoint (2026-08-31): ADR-006 accepted; the plans consistent in the same commit set.
 
 ### Part 5: implementation
 
-> Status: planned — tasks written at Part 4's close, shaped by the ADR; the bar is PLAN-002
-> Part 5's, unchanged: `bun test`, typecheck, `bun run validate`, plugin-kit's validator over
-> every touched skill, measured triggering for every description change, a headless render for
-> every changed procedure, the session ritual throughout, coordinated with PLAN-001 Part 6's
-> sweep so each file is edited once.
+> Status: superseded — the implementation is
+> [PLAN-005](PLAN-005-lifecycle-composition-implementation.md) (Peter, 2026-08-31: one plan
+> serving PRD-002 instead of Part 5s scattered across four plans); the bar moved with it.
 
 ## Risks and mitigations
 
@@ -142,7 +141,8 @@ Part 1 (the Matt side completed, the upstream diffs) ──> Part 2 (ANA-008, th
 
 ## Open questions
 
-- Does PRD-001 gain a requirement for the composed Define/Plan set — Peter's, at Part 4.
+- Does PRD-001 gain a requirement for the composed Define/Plan set — settled: the program got
+  its own contract, [PRD-002](PRD-002-lifecycle-composition.md) (ADR-006 D8).
 - *phase* vs *part* — Peter's, at Part 4, with the ripple priced in ANA-009.
 - Whether `wayfinder` joins the composed set or stays the bigger-than-one-session outrider —
   ANA-009 prices both. Settled in the Part 4 round: it stays the outrider; two granular
