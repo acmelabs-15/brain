@@ -159,21 +159,25 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   `references/session-log.md` recall 0/2 (the pointer is never followed — decide whether the two
   rules eval 2 needs move into the body or the pointer names the situation). Read
   `evals/results/disclosure-2/logs/` in full before changing a line.
-- [ ] Task 7 (added 2026-08-31 from disclosure-3, session SES-001): iteration 7. Three things, decide
-  with Peter first: (a) scenario 2 still opens SES-008 after `129705f` — read
-  `evals/results/disclosure-3/logs/run_2_1.json` and `run_2_2.json` in full to see which rule the
-  model followed instead of the new join-by-Goal branch in step 7, then fix that wording; (b) **decided
-  2026-08-31 with Peter (AskUserQuestion): fix the premise, not the skill** — stopping to ask was
-  close step 2 working correctly against a prompt the log contradicted. Peter chose "fix the
-  fixture"; the fixture itself could not move, because eval 4 shares it and needs the ADR pass
-  outstanding ("still has the ADR pass to go") and eval 4 scores 6/6. So eval 3's *prompt* changed
-  instead: it now reports the ADR pass as this conversation's own work, which is what a user
-  closing a session actually says, and its transcript-evidence expectation allows an Outcome to
-  record work the user is the source for. `make-fixture.ts` is untouched, so disclosure-4 stays
-  comparable to 1–3 on every other scenario; (c) scenario 1's Findings
-  line names the unrecorded commit but not the other conversation's placeholders — step 5 lists
-  what the injected lines are findings for; add "another session's unfilled placeholders". Measure
-  as disclosure-4 with the Task 2 command.
+- [x] Task 7 (2026-08-31, `976c5ff` (b), `2116ff4` (a) and (c)): iteration 7, all three points decided
+  with Peter by AskUserQuestion. (a) both `run_2_*.json` read in full: the model followed step 7's
+  table literally — a docs-review Goal does not name a source-asset fix, so "no open Goal covers the
+  work → open"; the correcting clause sat in the `join` bullet below the decision. The rule now lives
+  in the table: a fix from an open session's own work joins it; a planned part opens however many are
+  open (one per part is the model); unplanned uncovered work opens with one clause. (b) not the
+  fixture — eval 4 shares it and needs the ADR pass outstanding — and not the prompt in the end: the
+  cause was `close` describing only success. `close` step 2 now records what the user reports with
+  them as its source, and a stop condition before Done-when covers a step that cannot be satisfied;
+  eval 3's prompt is back to its original wording with an expectation admitting both correct
+  outcomes. (c) step 5 names another session's unfilled placeholders. **Measured by Task 8.**
+- [ ] Task 8 (added 2026-08-31): disclosure-4 — measure `2116ff4` with the Task 2 command against a
+  fresh fixture (`bun skills/session/evals/fixtures/make-fixture.ts <scratch>/fixture-envsetup`);
+  copy `results.json`, `envelope.json`, `run.log`, `logs/` to `evals/results/disclosure-4/`; add the
+  README row. Compare against disclosure-3 (37/54): eval 2 must append to SES-007 (was 4/7 ×2);
+  eval 3 must close or stop with a named step (was 2/7, 3/7); eval 1's Findings must name SES-005's
+  placeholders (was 6/7 ×2); eval 4 must hold 6/6. Also watch: one of today's four `--plugin-dir`
+  renders opened SES-001 for the scaffold commit in an empty repo where the other three said
+  `Session: none` — if disclosure-4's eval 1 shows the same variance, it is the next iteration.
 - [ ] Task 6 (added 2026-08-31, same reason): the description. The loop adopted nothing (Task 1),
   so the trigger rates are unchanged: Haiku 2/10, Sonnet 5/10 should-fire. The skill-reviewer's
   hypothesis — a clause naming the tool situations in the user's words (append says up to date; gate
@@ -238,7 +242,22 @@ given (so layouts survive a crash), and `--tier-study` replacing `--model` on
 
 ## Open questions
 
-- Part 3's three design points were answered on 2026-08-31 (all kept as they are). Part 1 Task 3 is
-  answered by measurement and Task 5 by Peter's call (`7bd6782`): every `/session` form is
-  namespaced and no shim is built. Open now: Part 5 Task 3 (the glossary words) — Peter's; and the
-  three iteration-7 points in Part 4 Task 7, which need his decision before any edit.
+Part 3's three design points were answered on 2026-08-31 (all kept as they are). Part 1 Tasks 3 and 5
+closed by measurement and Peter's call (`7bd6782`): every `/sessions:session` form is namespaced,
+no shim. Part 4 Task 7 closed in `976c5ff` and `2116ff4`.
+
+## What comes next, in order
+
+1. **Part 4 Task 8** — disclosure-4. The measurement that says whether iteration 7 worked; nothing
+   else in Part 4 should move until this number is on record.
+2. **Part 4 Task 6** — the description. Independent of Task 8. Headroom is 13 characters (the
+   namespaced sweep spent it), so the tool-situation clause needs a rewrite of existing text, then
+   `measure-triggering.ts` on Haiku and Sonnet.
+3. **Part 4 Task 4** — iteration 5 of the outcome evals, never run. After Task 8, on the same fixture.
+4. **Part 5 Task 6** — plugin-kit's validator skipping `evals/results/**`; today's validation carried
+   1 error and 20 warnings, all transcripts. Blocks a clean validator run on this skill.
+5. **Part 5 Tasks 3 and 5** — glossary words (Peter's) and the resume defects, in plugin-kit.
+6. **Outside this repo** — env-setup's CLAUDE.md/README/OVERVIEW/sessions README and `~/CLAUDE.md`
+   line 41 still say bare `/session`; ADR-023's Consequences sentence needs a superseding ADR.
+7. **Housekeeping** — 65 MB of stale plugin cache (`~/.claude/plugins/cache/ACMElabs/session/`,
+   pre-rename, and `sessions/0.1.0`), neither referenced; Peter's to delete.
