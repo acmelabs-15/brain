@@ -5,6 +5,14 @@ The `.out-of-scope/` directory in a repo stores persistent records of rejected f
 1. **Institutional memory**: why a feature was rejected, so the reasoning isn't lost when the issue is closed
 2. **Deduplication**: when a new issue comes in that matches a prior rejection, the skill can surface the previous decision instead of re-litigating it
 
+## Table of Contents
+
+- [Directory structure](#directory-structure)
+- [File format](#file-format)
+- [When to check `.out-of-scope/`](#when-to-check-out-of-scope)
+- [When to write to `.out-of-scope/`](#when-to-write-to-out-of-scope)
+- [Updating or removing out-of-scope files](#updating-or-removing-out-of-scope-files)
+
 ## Directory structure
 
 ```

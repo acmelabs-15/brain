@@ -4,6 +4,19 @@ These examples demonstrate what good ideation sessions look like across differen
 
 ---
 
+## Table of Contents
+
+- [Example 1: Vague Early-Stage Concept (Full 3-Phase Session)](#example-1-vague-early-stage-concept-full-3-phase-session)
+- [Problem Statement](#problem-statement)
+- [Recommended Direction](#recommended-direction)
+- [Key Assumptions to Validate](#key-assumptions-to-validate)
+- [MVP Scope](#mvp-scope)
+- [Not Doing (and Why)](#not-doing-and-why)
+- [Open Questions](#open-questions)
+- [Example 2: Feature Idea Within an Existing Product (Codebase-Aware)](#example-2-feature-idea-within-an-existing-product-codebase-aware)
+- [Example 3: Process/Workflow Idea (Non-Product)](#example-3-processworkflow-idea-non-product)
+- [What to Notice in These Examples](#what-to-notice-in-these-examples)
+
 ## Example 1: Vague Early-Stage Concept (Full 3-Phase Session)
 
 **User invokes:** `/ideate I want to help small local restaurants compete with the big delivery platforms`

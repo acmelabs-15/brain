@@ -2,6 +2,13 @@
 
 Use this rubric during Phase 2 (Evaluate & Converge) to stress-test idea directions. Not every criterion applies to every idea — use judgment about which dimensions matter most for the specific context.
 
+## Table of Contents
+
+- [Core Evaluation Dimensions](#core-evaluation-dimensions)
+- [Assumption Audit](#assumption-audit)
+- [Decision Framework](#decision-framework)
+- [MVP Scoping Principles](#mvp-scoping-principles)
+
 ## Core Evaluation Dimensions
 
 ### 1. User Value
