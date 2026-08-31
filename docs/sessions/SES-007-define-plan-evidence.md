@@ -52,3 +52,31 @@ Started 2026-08-31 right after SES-006 closed (PLAN-002 Parts 1–4 done). Peter
 - Files:
   - `docs/analysis/ANA-011-build-stage-composition.md` (+147/−0) — the ranking, the eighteen-part provenance table, the composed shape, the reference updates named, the five priced decisions
   - `docs/analysis/README.md` (+1/−0) — ANA-011's index row
+
+### 2026-08-31 · docs(plan): PRD-002 — the composed lifecycle set's contract: ten requirements for the rebuilt Define/Plan/Build skills, the promise, the bar, the boundaries; PRD-001's Plans rows repoint to it · e849bcb
+
+- Summary: PRD-002 is the composed program's contract — ten requirements: the interrogation skill's two modes and decrees, idea-refine standing, the requirements skill's pool and two renderings, the planner's union template with § Continuing a plan verbatim, the merged `implement`, /brain:build with the DoD tier gates and the verify-first concurrent mode, the merged `diagnosing-bugs`, references-as-artifacts, the standing bar, the unchanged outriders — with the promise, boundaries (Review/Release out), success criteria and non-goals.
+- Why: PLAN-004 Part 4's last decision — Peter: "lets go with your recommendation" on writing the program its own contract rather than stretching PRD-001.
+- Files:
+  - `docs/plan/PRD-001-session-log-and-rehydration.md` (+2/−2) — PLAN-003/004 rows repoint to PRD-002
+  - `docs/plan/PRD-002-lifecycle-composition.md` (+112/−0) — the contract
+
+### 2026-08-31 · docs(adr): ADR-006 — the composed lifecycle set: the eight decisions of both Part 4 rounds with alternatives and riders; refines ADR-005 decision 6, resolves the spec-shape and PRD-home questions; PRD-002 is the contract · d9f9f48
+
+- Summary: ADR-006 records both rounds' eight decisions with alternatives and riders: D1 part stays (delegated, decided on merit); D2 idea-refine standalone plus the two wayfinder transfers; D3 the resolution order; D4 the merit-test names — interview-me and planning-and-task-breakdown keep theirs, the spec writer renamed at implementation, `implement` and `diagnosing-bugs` the merge homes, retired skills always pointer stubs; D5 the DoD tiers as /brain:build's gates with plan-close converge, references as artifacts; D6 concurrency a /build mode behind verify-first with the deps-graph frontier rendered as Claude Code tasks; D7 discovery aligned; D8 PRD-002 the contract. Refines ADR-005 decision 6; resolves PLAN-001 Part 5 shape 2.
+- Why: PLAN-003 and PLAN-004 Part 4 Task 2 — one ADR for both rounds so the program is recorded once.
+- Files:
+  - `docs/decisions/ADR-006-the-composed-lifecycle-set.md` (+95/−0) — the eight decisions
+  - `docs/decisions/README.md` (+1/−0) — ADR-006's index row
+
+### 2026-08-31 · docs(plan): PLAN-005 — one implementation plan for PRD-002 (eight parts, dependency-ordered, the standing bar); PLAN-003 and PLAN-004 close (Parts 1–4 done, Part 5s superseded into PLAN-005); PLAN-002 Task 5 absorbed; the PRD tables follow · 8c1f519
+
+- Summary: Peter's call ("Should this just receive a brand new plan document?") — yes on merit: PLAN-005 is one implementation plan serving PRD-002, eight parts in dependency order (S1 interrogation → S2 requirements → S3 planner → implement → /brain:build gates → verify-first/concurrent → references and routing closure; diagnosing-bugs parallel), the standing bar in its preamble, one session per part. It replaces the Part 5s that were scattered across four plans: PLAN-003 and PLAN-004 close (Parts 1–4 done, `d9f9f48`; Part 5s superseded pointers), PLAN-002 Part 5 Task 5 is absorbed into PLAN-005 Part 1, PLAN-001 Part 6's sweep stays where it is and runs last.
+- Why: the PRD → plan grammar — PRD-002 exists, so its implementation gets its own plan instead of a four-way "each file edited once" coordination.
+- Files:
+  - `docs/plan/PLAN-002-consult-skills-integration.md` (+5/−4) — Task 5 absorbed into PLAN-005 Part 1
+  - `docs/plan/PLAN-003-define-plan-synthesis.md` (+16/−16) — done; Part 4 ticked (`d9f9f48`); Part 5 superseded; serves PRD-002
+  - `docs/plan/PLAN-004-build-stage-synthesis.md` (+19/−18) — done; Part 4 ticked with the five decisions; Part 5 superseded; open questions settled
+  - `docs/plan/PLAN-005-lifecycle-composition-implementation.md` (+153/−0) — the eight parts and the bar
+  - `docs/plan/PRD-001-session-log-and-rehydration.md` (+2/−2) — the two rows' status cells
+  - `docs/plan/PRD-002-lifecycle-composition.md` (+3/−2) — the Plans table: both plans done, PLAN-005 added
