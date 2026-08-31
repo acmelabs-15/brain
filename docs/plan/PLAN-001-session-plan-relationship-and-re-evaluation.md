@@ -54,6 +54,18 @@ conversation**. Read every file a part names, in full.
   `/session continue` resolve from the plugin in env-setup (headless resolved only
   `/sessions:session …`); the injected Branch/Tree/Sessions lines render; the `open` outcome
   writes `> Status: in progress (session SES-NNN)` under the part.
+- [ ] Task 5 (added 2026-08-31 — the original intention, from the prompt that started this stream: "Should
+  the name of the plugin and plugin skill be `sessions` instead of `session`?" — the plugin is `sessions`,
+  the skill `session`, and Peter types `/session start`, `/session continue PLAN-NNN`; a namespaced
+  `/sessions:session` is NOT the intended interface). Make the bare `/session` resolve interactively.
+  Order: (1) research with the `claude-code-guide` agent whether Claude Code resolves a unique bare
+  plugin skill or command name (a setting, a version, or the plugin/skill naming — e.g. would a plugin
+  named `session` with skill `session` resolve as `/session`?); (2) if nothing does, a personal shim
+  skill `~/.claude/skills/session/SKILL.md` — typed-only (`disable-model-invocation: true`), body: call
+  the Skill tool with `skill: sessions:session`, `args: $ARGUMENTS`, the shape the five aliases use —
+  installed on every machine by env-setup's `claude-settings` item; (3) verify interactively that the
+  hop renders the three injected lines and the brief; (4) Task 3 (b)'s doc sweep then states the real
+  interface. Decide (1) vs (2) with Peter before building.
 - [x] Task 4 (2026-08-31, env-setup SES-007 `afc9dca`, PR #45 merged `1c81476`; the check enforces only `_Avoid_` items marked `(former name, …)` — a prototype showed 93 of 130 items are sense restrictions): ANA-010's four implications for envsetup (an `_Avoid_`-list check over agent-facing
   prose; `## Relationships` and `## Flagged ambiguities` in `CONTEXT.md`; the domain.md
   equivalent is covered; the success test "CONTEXT.md changes during the conversation").
