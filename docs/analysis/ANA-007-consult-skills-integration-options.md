@@ -1,7 +1,7 @@
 # The integration options, priced — where the consult skills' capabilities should live
 
-> **Analysis** · 2026-08-31 · status: current — PLAN-002 Part 3; the options for Part 4's
-> decisions, none chosen here · brain SES-006 · rests on ANA-005 (the inventory and edge kinds)
+> **Analysis** · 2026-08-31 · status: decided — ADR-005 (2026-08-31; the A4 rule, the `!`-injection
+> mechanism and the M1 merge emerged in the decision round beyond this note's options) · brain SES-006 · rests on ANA-005 (the inventory and edge kinds)
 > and ANA-006 (the collision matrix)
 
 ## Question

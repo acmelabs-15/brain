@@ -18,6 +18,23 @@ verbatim; ANA-007 gives keep-separate first-class depth. A fact worth carrying i
 `~/CLAUDE.md` §1 already states the read-the-glossary rule in always-loaded context, so the 18
 per-skill copies are redundant on Peter's machines and load-bearing only for plugin portability.
 
+Part 4 ran as seven question rounds, and the round itself did design work: decisions 1–2
+(both consult skills stay) as recommended; decision 3 re-derived on merits after Peter's
+/wait-what — "we should be making the best decision, even if that decision does mean more work"
+— which produced the A4 synthesis neither incumbent rule stated; decision 4 evolved through his
+`@`-syntax question into three measurements (`@` in skill bodies attaches nothing; a plugin
+SessionStart hook injects; `!`-cat inlines deterministically with the grant) and his pointed-at
+mechanism won; decision 5 through his scoping question — CONTEXT-MAP.md already does per-context
+word scoping, so the map row beat both the ban and the free-for-all; decision 6 flipped by his
+two decrees (one at a time always; ask-user-question first), which removed the cadence
+contradiction that had justified keeping interview-me and grilling apart — M1, one interrogation
+skill. The seventh question (the spec shape) he redirected rather than answered: the Define/Plan
+overlap is bigger than one keep-or-delete call — his stage tables for both lineages, the
+task-vs-ticket grain, and the ask for a granular cross-package synthesis became PLAN-003
+(`ef6ae3b`), which also takes ADR-005 decision 6's implementation. ADR-005 landed (`7b0afc0`),
+the plans reconciled (PLAN-002 Part 4 done, Part 5's tasks written from the ADR; PLAN-001 Part 5
+Task 2 resolved), and this session closes here — PLAN-003's evidence work opens its own.
+
 ## Changes (one entry per commit, in order)
 
 ### 2026-08-31 · docs(analysis): ANA-005 — the consult skills inventoried: capabilities with cites, drift small and enumerable (and exactly where the integration already half-exists as local edges), the citation graph with its three edge kinds (PLAN-002 Part 1 Tasks 1–3) · b8c5f99
@@ -43,3 +60,20 @@ per-skill copies are redundant on Peter's machines and load-bearing only for plu
 - Files:
   - `docs/analysis/ANA-007-consult-skills-integration-options.md` (+152/−0) — the pricing dimensions, D1–D3, C1–C3, collisions A–D with options, one refuted belief, the question order
   - `docs/analysis/README.md` (+1/−0) — ANA-007's index row
+
+### 2026-08-31 · docs(decisions): ADR-005 — the consult skills stay; the ADR rule synthesized; the read rule injected from one home (the measured @-null and !-injection facts recorded); boundary scoped by the map; one interrogation skill under the decrees, implementation after PLAN-003 (PLAN-002 Part 4) · 7b0afc0
+
+- Summary: ADR-005 records PLAN-002 Part 4: the consult skills stay separate; the ADR rule synthesized (a real trade-off AND the choice would surprise or be re-litigated; reversal cost sets urgency, never eligibility); the read-the-glossary rule gets one home delivered by deterministic `!`-cat injection; *boundary* scoped by CONTEXT-MAP.md; one interrogation skill under Peter's two decrees (one question at a time always; `brain:ask-user-question` first), its implementation sequenced after PLAN-003; the three measurements recorded (`@` in SKILL.md bodies attaches nothing on 2.1.251; a plugin SessionStart hook's stdout injects; `!`-cat inlines with the `Bash(cat:*)` grant); the spec-shape question superseded by Peter's redirect.
+- Why: PLAN-002 Part 4 Task 2. Three of the six decisions emerged in the round itself, past ANA-007's options — the A4 rule after Peter's "best decision, not the incumbent" /wait-what, the injection mechanism after his `@`-syntax question forced the measurements, the M1 merge after his decrees removed the cadence contradiction.
+- Files:
+  - `docs/decisions/ADR-005-consult-skills-integration.md` (+109/−0) — the decision: status with supersessions, the measurements, the six decisions, alternatives, consequences
+  - `docs/decisions/README.md` (+1/−0) — ADR-005's index row (reattached to the table after landing below it)
+
+### 2026-08-31 · docs(plan): PLAN-003 — Define and Plan across both lineages: the Matt collection completed, the overlap mapped (ANA-008), the best parts composed at section grain into a new skill set (ANA-009), decided by ADR; Peter's stage tables the frame, phase-vs-part an open priced decision · ef6ae3b
+
+- Summary: PLAN-003 exists — Define and Plan across both lineages: Part 1 completes the Matt-side evidence (the ~12 unread skills, Peter's four most-important references, the upstream diffs including planning-and-task-breakdown's phase→part drift); Part 2 maps the overlap with his stage tables as the frame (ANA-008, external comparanda spec-kit and superpowers); Part 3 composes the best parts at section grain into a proposed new skill set compatible with brain (ANA-009, phase-vs-part priced as an open decision); Parts 4–5 his decisions and the implementation.
+- Why: Peter, 2026-08-31, correcting the spec-shape framing (the task/ticket grain overlaps substantially) and asking for the deep cross-package evaluation and a granular synthesis — "pull the parts from each that make the most sense … and compose them into a new set of skills" — with his process: think, plan, cut tasks, then begin.
+- Files:
+  - `docs/plan/PLAN-003-define-plan-synthesis.md` (+143/−0) — the plan: five parts, the method carried from PLAN-002, risks including the whole-skill-vs-granular drift
+  - `docs/plan/PRD-001-session-log-and-rehydration.md` (+2/−1) — PLAN-003's Plans row; PLAN-002's row updated to Parts 1–4 done
+  - `docs/plan/README.md` (+2/−1) — both index rows

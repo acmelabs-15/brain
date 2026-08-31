@@ -114,22 +114,43 @@ Parts 1 and 2 are independent of each other; everything after is sequential.
 
 ### Part 4: the decisions and the ADR
 
-> Status: in progress (session SES-006 — the evaluation's session)
+> Status: done (session SES-006, `7b0afc0`)
 
-- [ ] Task 1: the decisions — Peter's, `ask-user-question`, one at a time, ANA-007's options
-  verbatim with one recommendation each.
-- [ ] Task 2: the ADR (ADR-005, or several if the decisions split cleanly) — context, decision,
-  alternatives rejected, consequences; any clause it supersedes named (including `df0205b`'s
-  arrangement if the decision changes it).
-- [ ] Task 3: the plans reconciled — PLAN-001 Part 5 Tasks 2–3 ticked citing the ADR; this plan's
-  Part 5 gains its implementation tasks from the ADR's consequences.
-- [ ] Checkpoint: the ADR accepted; both plans consistent; grep for the old arrangement returns
-  history only.
+- [x] Task 1 (2026-08-31): the decisions — Peter's, `ask-user-question`, one at a time; six made
+  (three of them — the A4 rule, the `!`-injection mechanism, the M1 merge under his two decrees —
+  emerged in the round itself, beyond ANA-007's options, through his /wait-what repairs and
+  pushback); the seventh (the spec shape) superseded mid-round by his redirect into
+  [PLAN-003](PLAN-003-define-plan-synthesis.md).
+- [x] Task 2 (2026-08-31, `7b0afc0`): ADR-005 — the six decisions, the decrees, the three
+  measurements (the `@` null, the `!`-injection, the hook path), the supersessions.
+- [x] Task 3 (2026-08-31, with the docs(session) commit carrying these ticks): the plans
+  reconciled — PLAN-001 Part 5 Task 2 resolved (shape 1 `df0205b`; shape 3 refuted, ANA-006;
+  shape 2 → PLAN-003); this part's task list below written from ADR-005.
+- [x] Checkpoint (2026-08-31): the ADR accepted and the plans consistent. Its third clause
+  ("grep for the old arrangement returns history only") was mis-scoped at authoring — it
+  describes implementation and moves to Part 5's checkpoint.
 
 ### Part 5: implementation
 
-> Status: planned — its tasks are written at Part 4's close, shaped by the ADR; the bar below is
-> fixed now so the tasks inherit it
+> Status: planned — written from ADR-005; Task 5 waits on PLAN-003 Part 4
+
+- [ ] Task 1: the read-rule injection — `references/read-the-glossary.md` created; the 16 skills'
+  inline copies replaced by the `!`-cat line plus `allowed-tools: Bash(cat:*)`; the two agents'
+  "Project vocabulary" sections decided and handled (agent bodies run no `!`); one headless
+  render proving the injected text arrives. Acceptance: `grep` finds the rule's sentences only in
+  the one reference file; every consuming skill renders with the rule inlined.
+- [ ] Task 2: the ADR rule's one home — `domain-modeling` § Offer ADRs rewritten to ADR-005
+  decision 3's rule; `documentation-and-adrs` § When to Write an ADR becomes worked examples plus
+  the pointer. Acceptance: exactly one normative statement of the rule exists; both skills cite it.
+- [ ] Task 3: `CONTEXT-MAP.md` collision rows — the *boundary* senses (decision 5); the "spec"
+  row lands with PLAN-003's ADR, not before.
+- [ ] Task 4: `using-agent-skills`' discovery tree names `domain-modeling` as the parallel
+  vocabulary track and the `codebase-design` chain head. Acceptance: the tree routes to both.
+- [ ] Task 5 (after PLAN-003 Part 4): the interrogation skill — M1 under the decrees, composed
+  with PLAN-003's Define set; wrappers and the wayfinder/triage call sites retarget; the merged
+  description trigger-swept before landing.
+
+> The bar below is fixed so the tasks inherit it
 
 Verification bar for every implementation task: `bun test`, typecheck, `bun run validate`;
 plugin-kit's validator over every touched skill; measured triggering (`measure-triggering.ts`,

@@ -362,7 +362,12 @@ After Part 4 and Part 2; ANA-003 F5.
   delegation). Acceptance: each names `/brain:plan PLAN-NNN` as the way in; no `/session start`
   remains, bare or namespaced; grep — met, with `OVERVIEW.md`'s dated history bullets keeping the
   names of their day (the Part 3 Task 4 precedent).
-- [ ] Task 2 (was Task 3; the commit task between them moved to Part 3 Task 4 (a)): duplicated shapes get one home each — the ADR template (`documentation-and-adrs` vs
+- [x] Task 2 (resolved 2026-08-31 — shape 1 `df0205b` (the ADR template's home,
+  documentation-and-adrs); shape 3 refuted as a duplicate (ANA-006: `issue-tracker.md` defers to
+  `to-tickets` by name — one home each already); shape 2 (the spec template) superseded into
+  [PLAN-003](PLAN-003-define-plan-synthesis.md) by Peter's redirect — the two "specs" are
+  different artifacts and the Define/Plan synthesis decides their composition. ADR-005 records
+  the round. Was Task 3; the commit task between them moved to Part 3 Task 4 (a)): duplicated shapes get one home each — the ADR template (`documentation-and-adrs` vs
   `domain-modeling/ADR-FORMAT.md`), the spec template (`spec-driven-development` vs `to-spec`),
   the ticket shape (`to-tickets` vs `references/issue-tracker.md`) — all in this repo since Part 2.
   Decide each with Peter (`ask-user-question`); the loser becomes a pointer. Tracked commits, an
