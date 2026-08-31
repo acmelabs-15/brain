@@ -295,7 +295,10 @@ Every file this part edits is in this repo since Part 2 copied it in (`skills/pl
 commit with its entry and the gate; the copies under `~/.claude` are left as they are until Part 6
 retires them. The door is `/brain:plan` (ADR-003).
 
-- [ ] Task 1: `planning-and-task-breakdown/SKILL.md` § *Continuing a plan* — the eight steps in
+- [x] Task 1 (2026-08-31, `04ddfd3`; verified the same day: `claude --plugin-dir . -p
+  '/brain:planning-and-task-breakdown continue PLAN-001'` in a scratch clone of this repo posted
+  the brief naming Part 4, its first unticked task and SES-004, and wrote nothing — SES-004
+  Narrative): `planning-and-task-breakdown/SKILL.md` § *Continuing a plan* — the eight steps in
   ANA-001 (arguments → order → where it stands → what happened → what comes next → the session →
   the brief → route), each with a completion criterion; the brief template moves here unchanged;
   a Common Rationalizations row for "I'll read `git log` to see where things stand". Acceptance:
@@ -306,11 +309,16 @@ retires them. The door is `/brain:plan` (ADR-003).
   "where were we"; measured on Haiku and Sonnet with `measure-triggering.ts` against a new trigger
   set written for the plan skill. Acceptance: kept only if the should-fire rate is at least the
   session skill's old 5/10 on Sonnet with hard negatives still declined.
-- [ ] Task 3: `commands/plan.md` — `/brain:plan [PLAN-NNN | description]`; the file's existence
+- [x] Task 3 (2026-08-31, `04ddfd3`; verified the same day, two headless renders in scratch
+  clones: `/brain:plan PLAN-001` posted the brief naming Part 4, Task 1 and SES-004 with nothing
+  written; `/brain:plan <description>` wrote `PLAN-002` with every part `> Status: planned`, its
+  README row and PRD-001's Plans row, and no code — SES-004 Narrative): `commands/plan.md` — `/brain:plan [PLAN-NNN | description]`; the file's existence
   and the argument shape decide new-vs-continue; `disable-model-invocation` removed wherever the
   procedure must reach a skill. Acceptance: `/brain:plan PLAN-001` in this repo posts the brief and
   names `SES-NNN`; `/brain:plan` with a description writes a plan.
-- [ ] Task 4: one line each — `using-agent-skills` (routing row), `context-engineering` (pointer),
+- [x] Task 4 (2026-08-31, `04ddfd3`; verified the same day by grep: each of the four files names
+  `/brain:plan PLAN-NNN` exactly once, and none describes the session skill as more than the
+  record): one line each — `using-agent-skills` (routing row), `context-engineering` (pointer),
   `choosing-a-skill` (routing row; the session skill as the record), `project-docs-conventions`
   (the `docs/sessions/` paragraph; the status vocabularies with session added; `/brain:plan PLAN-NNN`
   the way in). Acceptance: each file names `/brain:plan PLAN-NNN` once and describes the session skill
@@ -449,16 +457,17 @@ them back.
 Exactly where things stand, for a conversation that starts from nothing:
 
 - **Parts 1, 2, 3 are done** (SES-001, SES-002, SES-003 — all `done`). **Part 4 is in progress
-  (SES-004)**: Task 1 written (§ Continuing a plan in `skills/planning-and-task-breakdown/SKILL.md`,
-  349 lines, plugin-kit's validator says valid; its headless verification — a `--plugin-dir` run of
-  `/brain:planning-and-task-breakdown continue PLAN-001` in a scratch clone reaching the brief —
-  **not run**); Task 3 written (`commands/plan.md` as `/brain:plan [PLAN-NNN | description]`, not
-  rendered); Task 4 written (one line each in `using-agent-skills`, `context-engineering`,
-  `choosing-a-skill`, `references/project-docs-conventions.md`); Task 2 (the description gains
+  (SES-004)**: Tasks 1, 3 and 4 are done (`04ddfd3`), each verified 2026-08-31 by the runs their
+  tick lines and SES-004's Narrative record — the `--plugin-dir` run of
+  `/brain:planning-and-task-breakdown continue PLAN-001` in a scratch clone reached the brief
+  (Part 4, Task 1, SES-004, nothing written), `/brain:plan PLAN-001` did the same, and
+  `/brain:plan <description>` wrote a plan with every part `planned`. Task 2 (the description gains
   the continue triggers and is measured with `measure-triggering.ts` against a new trigger set)
-  **not started**; the checkpoint (reinstall with these commits; a fresh conversation in env-setup
-  types `/brain:plan PLAN-NNN` and its first `/brain:session-log` lands) **not started**. Their
-  commit is the last of SES-004's entries; tick Tasks 1, 3, 4 only after their verification runs.
+  is in progress: the trigger set is written
+  (`skills/planning-and-task-breakdown/evals/trigger-eval.json`, 10 should-fire, 13 hard
+  negatives) and the baseline-vs-candidate sweeps run on Sonnet and Haiku; the checkpoint
+  (reinstall with these commits; a fresh conversation in env-setup types `/brain:plan PLAN-NNN`
+  and its first `/brain:session-log` lands) is **not started**.
 - **Installed plugin:** `brain@ACMElabs` 0.4.0 from `main` at `a1c8398`-era files; `main` is ahead
   of it by `fe60256` (`init --refresh`), `f70eaaf` (ADR-004: no `CONTEXT.md` writes) and Part 4's
   commit — the reinstall is Part 4's checkpoint (marketplace regenerate → `claude plugin uninstall

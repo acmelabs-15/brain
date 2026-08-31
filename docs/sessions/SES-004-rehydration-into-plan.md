@@ -11,6 +11,23 @@ Started 2026-08-31 after SES-003 closed (Part 3 done). The files this part edits
 
 Written in the founding conversation's last hour, with its context nearly spent: Task 1's section (eight steps, each with a Done-when; the brief template; Findings from `git branch`, `git status` and the sessions index rather than the tool's injected line, since this skill lives outside the plugin's `${CLAUDE_SKILL_DIR}`; a Common Rationalizations row for `git log`; Step 8 routes to `/brain:build` and `/brain:grill-with-docs`), Task 3's `commands/plan.md`, Task 4's four one-liners. Plugin-kit's validator says the plan skill is valid (349 lines). **Not verified**: the headless `--plugin-dir` run of Task 1 (a scratch clone with SES-004 was prepared at the founding conversation's scratchpad, `brain-p4`, and is gone with it — rebuild one: clone this repo, run `claude --plugin-dir . -p '/brain:planning-and-task-breakdown continue PLAN-001' --allowedTools "Skill,Bash,Read,Grep,Glob"`, expect the brief naming Part 4, its first unticked task and SES-004, and no writes), the render of `/brain:plan`, Task 2's measurement. Tasks 1, 3 and 4 stay unticked until those runs. Peter, at the end: the session tool's surface does not match the skill's acts — recorded verbatim as PLAN-001 Part 5 Task 4 with the research he named.
 
+2026-08-31, the next conversation: the verification runs `04ddfd3`'s Notes owed. A scratch clone
+of this repo at `f89774e` (`brain-p4` in the conversation's scratchpad), then
+`claude --plugin-dir . -p '/brain:planning-and-task-breakdown continue PLAN-001' --allowedTools
+"Skill,Bash,Read,Grep,Glob"` — the brief was the reply: Part 4, Task 1 as the next move, SES-004,
+every Findings line from the clone's real state, and `git status` clean after it (nothing
+written). `/brain:plan PLAN-001` in the same clone reached the same brief through the command
+(Task 3's continue arm). `/brain:plan <description>` in a second clone (`brain-p4b`, a docs
+link checker as the description) wrote `docs/plan/PLAN-002-docs-link-checker.md` with every part
+`> Status: planned`, its README row and PRD-001's Plans row, no code and no commit (Task 3's
+create arm). Task 4's grep: each of the four files names `/brain:plan PLAN-NNN` exactly once.
+Tasks 1, 3 and 4 ticked with this commit. Task 2 next: the trigger set written from
+`synthesize-scenarios.ts` output (its draft leaned on task breakdown; curated to 8 continue
+phrasings + 2 breakdown should-fires, and 13 hard negatives with the session skill's territory
+as the sharpest source), the candidate description drafted to description-writing.md's four
+criteria (910 characters), the four sweeps (old and new description × Sonnet and Haiku,
+`--no-early-stop`) launched.
+
 ## Changes (one entry per commit, in order)
 
 ### 2026-08-31 · feat(plan-skill): § Continuing a plan — ANA-001's eight steps and the brief in planning-and-task-breakdown; /brain:plan [PLAN-NNN | description]; one routing line each in using-agent-skills, context-engineering, choosing-a-skill and project-docs-conventions (PLAN-001 Part 4 Tasks 1, 3, 4 — written, headless verification not yet run) · 04ddfd3
