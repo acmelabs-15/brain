@@ -161,12 +161,15 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
 - [ ] Task 7 (added 2026-08-31 from disclosure-3, session SES-001): iteration 7. Three things, decide
   with Peter first: (a) scenario 2 still opens SES-008 after `129705f` — read
   `evals/results/disclosure-3/logs/run_2_1.json` and `run_2_2.json` in full to see which rule the
-  model followed instead of the new join-by-Goal branch in step 7, then fix that wording; (b)
-  scenario 3 regressed to a question: the fixture's Narrative says the ADR pass has not started, the
-  prompt says the review is done, and close step 2's "only work the log shows" made both runs ask
-  instead of closing — decide whether the skill should close with an Outcome that attributes the
-  claim to the user ("Peter reports the ADR pass found nothing; not verified here") or whether the
-  eval's premise is wrong and the fixture should say the ADR pass is done; (c) scenario 1's Findings
+  model followed instead of the new join-by-Goal branch in step 7, then fix that wording; (b) **decided
+  2026-08-31 with Peter (AskUserQuestion): fix the premise, not the skill** — stopping to ask was
+  close step 2 working correctly against a prompt the log contradicted. Peter chose "fix the
+  fixture"; the fixture itself could not move, because eval 4 shares it and needs the ADR pass
+  outstanding ("still has the ADR pass to go") and eval 4 scores 6/6. So eval 3's *prompt* changed
+  instead: it now reports the ADR pass as this conversation's own work, which is what a user
+  closing a session actually says, and its transcript-evidence expectation allows an Outcome to
+  record work the user is the source for. `make-fixture.ts` is untouched, so disclosure-4 stays
+  comparable to 1–3 on every other scenario; (c) scenario 1's Findings
   line names the unrecorded commit but not the other conversation's placeholders — step 5 lists
   what the injected lines are findings for; add "another session's unfilled placeholders". Measure
   as disclosure-4 with the Task 2 command.
