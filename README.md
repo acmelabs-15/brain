@@ -21,7 +21,7 @@ whole story of how it got there.
 | `/sessions:session start [PLAN-NNN]` | a conversation's first read: OVERVIEW → the plan and its PRD → every open session serving it → `CONTEXT.md` → the ADRs it cites; joins the session the plan part names or opens one and marks the part `in progress (session SES-NNN)`; posts a brief. A `PLAN-NNN` that does not exist is written first with `planning-and-task-breakdown` |
 | `/sessions:session continue [PLAN-NNN]` | picks a plan part already in progress back up; with no id, lists the plans in progress and asks which |
 | `/sessions:session entry` | right after every commit: appends the commit's entry (Summary, Why, a line per touched file), fills it, updates what the change made stale (plan ticks, OVERVIEW, ADR, PRD, `CONTEXT.md`), gates, commits `docs(session): …` |
-| `/sessions:session end` | leaving: log complete, handoff written in `Open at end`, tree clean; the session stays in progress |
+| `/sessions:session end` | leaving: log complete, tree clean; the session stays in progress (no handoff line — the plan and the entries carry it) |
 | `/sessions:session close` | the Goal is done: Outcome written, plan part `done (session SES-NNN, sha)`, `Status: done` |
 
 `/sessions:session-start`, `/sessions:session-continue`, `/sessions:session-entry`,
@@ -74,7 +74,7 @@ session new <slug> [--plan "PLAN-NNN · part N"]   # start SES-<next>-<slug>.md 
 session append --session SES-NNN         # skeletons for commits no session accounts for → "session: up to date" when none
 session current --session SES-NNN        # the file, status, Goal, every placeholder with its line number
 session check --session SES-NNN          # the gate: exit 0 + "session: complete (SES-NNN, in progress)"; exit 1 + missing:/unfilled: lines
-session close --session SES-NNN          # gate (now counting Outcome / Open at end), then Status: done
+session close --session SES-NNN          # gate (now counting Outcome), then Status: done
 ```
 
 The rules the gate enforces — what counts as accounted for, what a placeholder is, what is never

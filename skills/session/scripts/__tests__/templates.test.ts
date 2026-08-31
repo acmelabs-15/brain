@@ -13,7 +13,7 @@ describe("templates", () => {
   test("the session file template is the shape `new` writes, plus one worked entry", () => {
     const written = template("2026-01-01 00:00", "t", "");
     expect(parseHeader("SES-001-x.md", written).status).toBe("in progress");
-    for (const line of ["- Goal:", "- Status: in progress", "- Plan:", "- Outcome:", "- Open at end:", "## Narrative", "## Changes"]) {
+    for (const line of ["- Goal:", "- Status: in progress", "- Plan:", "- Outcome:", "## Narrative", "## Changes"]) {
       expect(sessionFileTemplate()).toContain(line);
       expect(written).toContain(line);
     }
@@ -24,8 +24,8 @@ describe("templates", () => {
 
   test("the glossary section names every term the skill uses, each with an Avoid line", () => {
     const c = contextSection();
-    for (const term of ["Session log", "Session", "Conversation", "Plan part", "Handoff", "Gate", "Entry", "Record"]) expect(c).toContain(`**${term}**`);
-    expect(c.match(/_Avoid_/g)?.length).toBe(10);
+    for (const term of ["Session log", "Session", "Conversation", "Plan part", "Gate", "Entry", "Record"]) expect(c).toContain(`**${term}**`);
+    expect(c.match(/_Avoid_/g)?.length).toBe(9);
   });
 
   test("every template name prints something", () => {

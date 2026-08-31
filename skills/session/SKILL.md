@@ -76,8 +76,8 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
 - **Merge PRs with merge commits.** A squash replaces every sha the entries cite with one new
   commit, which the gate then reports as `missing:`.
 - **`docs(session): …` commits are skipped by the tool** — the entry-writing commit needs no entry.
-- **The gate counts entries, the Goal and the Narrative; `Outcome` and `Open at end` only at
-  `close`.** An open session carries those two as placeholders; do not invent an Outcome early.
+- **The gate counts entries, the Goal and the Narrative; `Outcome` only at `close`.** A session
+  in progress carries it as a placeholder; do not invent an Outcome early.
 - **`new` opens a session for a stream of work, not for a conversation.** One session per plan
   part; a conversation continuing that part joins with `--session`.
 - **A release marker lands only when the release commit's entry is appended.** Tag first, then
@@ -309,7 +309,7 @@ Close progress:
    `done (session SES-NNN, <sha of the entry that finished it>)`, remaining ticks cite entry shas;
    every part done → the plan's top status `done — shipped in vX.Y.Z (session SES-NNN)` and the
    PRD's **Plans** row say the same; OVERVIEW Status names the session as closed.
-4. `session close --session SES-NNN` — the gate again, now counting `Outcome` and `Open at end`;
+4. `session close --session SES-NNN` — the gate again, now counting `Outcome`;
    prints `session: closed SES-NNN — done` (a `still in progress: …` suffix names other conversations'
    sessions). Then `git add` your session file, the index, OVERVIEW and every plan or PRD step 3
    touched — by name, never `-A` — commit `docs(session): close SES-NNN`, and run `end` step 5.

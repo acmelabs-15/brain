@@ -17,7 +17,6 @@ export function sessionFileTemplate(): string {
 - Status: in progress
 - Plan: [PLAN-NNN · part N, or —]
 - Outcome: [what it actually delivered — releases, merged PRs; written when it closes]
-- Open at end: [the handoff — what the next conversation picks up first, what is unverified]
 
 ## Narrative
 
@@ -42,13 +41,14 @@ export function sessionFileTemplate(): string {
 export function sessionsReadme(): string {
   return `# Sessions — what has been done, session by session
 
-One file per **session** — a bounded stream of work toward one Goal, \`open\` until \`closed\`, which
+One file per **session** — a bounded stream of work toward one Goal, \`in progress\` until \`done\`, which
 may span any number of conversations. A session usually serves one **part** of a plan in
 \`../plan/\`, and that part's status line names the session, so a plan is enough to find the story
 of its work. Together these files are the append-only record of every change that reached \`main\`
 — for each commit a Summary, the Why, and a note per touched file — **plus** the narrative a
 commit log cannot hold: what was asked, tried, abandoned, verified. A new conversation reads them
-to pick up exactly where the last one stopped.
+to pick up exactly where the last one stopped: the plan says what is next, the entries say what
+was verified and what was not.
 
 The procedure that reads and writes them is the \`/session\` skill (the \`sessions\` plugin):
 \`/session start [PLAN-NNN]\` or \`/session continue [PLAN-NNN]\` at the beginning of a
@@ -112,11 +112,6 @@ One \`### Part N\` of a plan in \`docs/plan/\`, with its own status line — \`p
 (session SES-NNN)\` or \`done (session SES-NNN, sha)\` — the pointer a new conversation follows from
 the plan to the session that holds its story. One session per part.
 _Avoid_: phase (as the heading word), step, milestone, ticket
-
-**Handoff**:
-The \`Open at end\` line of an open session: what the next conversation picks up first and what is
-unverified, written when a conversation leaves.
-_Avoid_: notes, todo, next steps (as the field name)
 
 **Gate**:
 \`session check\`: exit 0 only when every commit on the branch is accounted for and your session has

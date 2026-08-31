@@ -66,7 +66,7 @@ const USAGE = `session — the session log tool (bun <plugin>/skills/session/scr
   append [--session SES-NNN]              entry skeletons for commits no session accounts for ("up to date" when none)
   current [--session SES-NNN]             the session's file, status, Goal, and every placeholder by line number
   check [--session SES-NNN]               the gate: exit 0 "session: complete", exit 1 with missing:/unfilled: lines
-  close [--session SES-NNN]               the gate (now counting Outcome and Open at end), then Status: done
+  close [--session SES-NNN]               the gate (now counting Outcome), then Status: done
 
 Which session a run acts on: --session (SES-NNN, the number, or the file name), else the single session
 in progress; none or several in progress is a refusal that says what to do. A session is "in progress"
@@ -326,7 +326,7 @@ function missingCommits(): Commit[] {
  * concurrent checkout, or a session that ended abruptly): they are reported as
  * warnings so this one never has to edit someone else's file to go green, and
  * never silently rewrites history to do it. `closing` also counts the target's
- * Outcome / Open at end lines.
+ * Outcome line.
  */
 function gate(target: Session, missing: Commit[], closing = false): boolean {
   let unfilled = 0;

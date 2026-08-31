@@ -77,7 +77,6 @@ export function template(started: string, title: string, plan: string): string {
 - Status: in progress
 - Plan: ${plan || "—"}
 - Outcome: ${FILL}
-- Open at end: ${FILL}
 
 ## Narrative
 
@@ -89,13 +88,13 @@ ${FILL} — what was asked, decided, tried and abandoned, verified (and how); ci
 
 /**
  * Placeholder lines the gate counts: entry lines, the Goal and the Narrative
- * placeholder. `Outcome` and `Open at end` are the closing lines — a session
- * in progress has none yet — so only `close` (`closing: true`) counts them.
+ * placeholder. `Outcome` is the closing line — a session in progress has none
+ * yet — so only `close` (`closing: true`) counts it.
  */
 export function placeholderCount(text: string, closing = false): number {
   return text.split("\n").filter((l) => {
     if (!l.includes(FILL)) return false;
-    if (!closing && /^- (Outcome|Open at end): /.test(l)) return false;
+    if (!closing && /^- Outcome: /.test(l)) return false;
     return /^\s*- |^_\(fill in\)_/.test(l);
   }).length;
 }

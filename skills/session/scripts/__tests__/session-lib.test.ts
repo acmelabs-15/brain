@@ -18,7 +18,6 @@ const header = (extra = "") => `# 2026-08-30 18:00 · Docs for rehydration
 
 - Goal: Make a fresh session able to pick up where the last one stopped.
 ${extra}- Outcome: ${FILL}
-- Open at end: ${FILL}
 
 ## Narrative
 
@@ -122,8 +121,8 @@ describe("template, placeholders, index", () => {
   test("a new session starts in progress with its plan, and carries the placeholders", () => {
     const t = template("2026-08-31 09:00", "visual grouping", "PLAN-001 · Phase 1");
     expect(t).toContain("- Status: in progress\n- Plan: PLAN-001 · Phase 1\n");
-    expect(placeholderCount(t)).toBe(2); // Goal + Narrative; Outcome / Open at end wait for close
-    expect(placeholderCount(t, true)).toBe(4);
+    expect(placeholderCount(t)).toBe(2); // Goal + Narrative; Outcome waits for close
+    expect(placeholderCount(t, true)).toBe(3);
     expect(template("2026-08-31 09:00", "x", "")).toContain("- Plan: —\n");
   });
 
