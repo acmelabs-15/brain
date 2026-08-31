@@ -1,6 +1,6 @@
 # Plan: the record with three acts, and rehydration moved to the plan
 
-> Status: in progress · Peter, 2026-08-31 · requirement: ADR-024 in `~/Dev/env-setup/docs/decisions/`, from ANA-011 in `~/Dev/env-setup/docs/analysis/`
+> Status: superseded 2026-08-31 by PLAN-001 in acmelabs-15/brain (`docs/plan/PLAN-001-record-and-rehydration-split.md`), the copy of record; this file is history. Was: in progress · Peter, 2026-08-31 · requirement: ADR-024 in `~/Dev/env-setup/docs/decisions/`, from ANA-011 in `~/Dev/env-setup/docs/analysis/`
 
 ## Overview
 

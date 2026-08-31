@@ -18,7 +18,7 @@ from the session entries, never tracked twice.
 | Doc | What | Status |
 | --- | --- | --- |
 | [PLAN-001-session-plan-relationship-and-re-evaluation.md](PLAN-001-session-plan-relationship-and-re-evaluation.md) | Everything still open from the session ↔ plan work, the re-evaluation, and plugin-kit parity | in progress — parts 1, 2, 4, 5 (session SES-001) |
-| [PLAN-002-record-and-rehydration-split.md](PLAN-002-record-and-rehydration-split.md) | ADR-024: the record with three acts (start · log · close) and one status; rehydration moved to `/plan`; three commands; the docs sweep; the move to `~/.claude/skills` last | in progress — part 1 |
+| [PLAN-002-record-and-rehydration-split.md](PLAN-002-record-and-rehydration-split.md) | ADR-024: the record with three acts (start · log · close) and one status; rehydration moved to `/plan`; three commands; the docs sweep; the move to `~/.claude/skills` last | superseded — the copy of record is PLAN-001 in acmelabs-15/brain |
 
 ## Rules
 
