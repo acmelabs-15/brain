@@ -13,7 +13,7 @@ A discipline for hard bugs. Skip phases only when explicitly justified.
 
 When anything unexpected happens — a test fails, the build breaks, behavior stops matching — STOP adding features or making changes, and preserve the evidence (error output, logs, repro steps) before anything else. Don't push past a failing test to the next piece of work: errors compound, and a bug left in step 3 makes steps 4–6 wrong. Resume only after verification passes.
 
-**The fast path.** Ordinary breakage often falls to a known pattern before a full loop is worth building: read [triage-trees.md](triage-trees.md) when the failure looks like a common test, build, or runtime class — it carries the decision trees. A failure that survives the trees, is intermittent, or is a performance regression is a hard bug: run every phase below.
+**The fast path.** Ordinary breakage often falls to a known pattern before a full loop is worth building: read [references/triage-trees.md](references/triage-trees.md) when the failure looks like a common test, build, or runtime class — it carries the decision trees. A failure that survives the trees, is intermittent, or is a performance regression is a hard bug: run every phase below.
 
 ## Redact
 

@@ -20,9 +20,9 @@ The cheapest moment to find the gap is before building starts. This skill closes
 
 1. Determine the mode:
 
-   **No artifact yet — the ask itself is the fog?** → Read [intent-mode.md](intent-mode.md) and follow it: hypothesis with a confidence number, one question at a time with your guess attached, the want-vs-should-want probe, the restate, the explicit yes.
+   **No artifact yet — the ask itself is the fog?** → Read [references/intent-mode.md](references/intent-mode.md) and follow it: hypothesis with a confidence number, one question at a time with your guess attached, the want-vs-should-want probe, the restate, the explicit yes.
 
-   **An artifact exists — a plan, spec, design or decision to interrogate?** → Read [artifact-mode.md](artifact-mode.md) and follow it: the design tree, the frontier in dependency order, facts by subagents, done when nothing is silently assumed.
+   **An artifact exists — a plan, spec, design or decision to interrogate?** → Read [references/artifact-mode.md](references/artifact-mode.md) and follow it: the design tree, the frontier in dependency order, facts by subagents, done when nothing is silently assumed.
 
 2. When the user wants terms and decisions recorded as they settle, also call the Skill tool for `domain-modeling` and record inline as decisions land — in either mode.
 
