@@ -281,7 +281,7 @@ Task 2 (shipped surface, done) ─┼──> Task 3 (the reinstall at 0.4.0; nee
 
 ### Part 4: rehydration moves to `/plan`
 
-> Status: in progress (session SES-004)
+> Status: done (session SES-004, `61bc93e`)
 
 ```text
 Part 3 Task 3 (brain 0.4.0 installed) ──> Task 1 (the section) ──┬──> Task 2 (description, measured)
@@ -327,9 +327,17 @@ retires them. The door is `/brain:plan` (ADR-003).
   (the `docs/sessions/` paragraph; the status vocabularies with session added; `/brain:plan PLAN-NNN`
   the way in). Acceptance: each file names `/brain:plan PLAN-NNN` once and describes the session skill
   as the record only.
-- [ ] Checkpoint: the plugin reinstalled with this part's commits; a fresh conversation in env-setup
-  types `/brain:plan PLAN-NNN`, gets the brief with the right part, task and `SES-NNN`, and its
-  first `/brain:session-log` lands in that session.
+- [x] Checkpoint (2026-08-31): the marketplace regenerated and `brain@ACMElabs` 0.4.0 reinstalled
+  with this part's commits (`claude plugin list` shows it; the installed plan and session
+  `SKILL.md`s and `commands/plan.md` byte-identical to `main`; `/reload-plugins` is Peter's, per
+  open terminal); a fresh headless conversation in env-setup typed `/brain:plan PLAN-001`, got the
+  brief with the right part (Part 1, the first `planned` — nothing was in progress there), the
+  right task, and started SES-009 as § Continuing a plan Step 6 says; on Peter's call
+  ("re-run the probe, let the log land" — a first probe's stray session had been reverted) the
+  probe's session was kept and served real work (env-setup part 1 Tasks 1–2 on
+  `feat/visual-grouping`), and its first `/brain:session-log SES-009` landed both entries, ticked
+  that plan and committed `4787897` there — the whole clause exercised through the installed
+  plugin.
 
 ### Part 5: the docs sweep and the duplicated shapes
 
@@ -468,18 +476,17 @@ Exactly where things stand, for a conversation that starts from nothing:
   `/brain:plan <description>` wrote a plan with every part `planned`. Task 2 is done (`61bc93e`):
   the description carries the continue triggers, kept on its measured acceptance — 10/10
   should-fire and 13/13 hard negatives declined on Sonnet against the new trigger set
-  (`skills/planning-and-task-breakdown/evals/`), the Haiku tier study beside it. Only the
-  checkpoint remains: reinstall with these commits (marketplace regenerate → uninstall → install →
-  `/reload-plugins`, Peter's, per terminal), then a fresh conversation in env-setup types
-  `/brain:plan PLAN-NNN`, gets the brief with the right part, task and `SES-NNN`, and its first
-  `/brain:session-log` lands in that session.
-- **Installed plugin:** `brain@ACMElabs` 0.4.0 from `main` at `a1c8398`-era files; `main` is ahead
-  of it by `fe60256` (`init --refresh`), `f70eaaf` (ADR-004: no `CONTEXT.md` writes) and Part 4's
-  commit — the reinstall is Part 4's checkpoint (marketplace regenerate → `claude plugin uninstall
-  brain@ACMElabs` → `claude plugin install brain@ACMElabs` → `/reload-plugins`, Peter's, in each
-  open terminal). `sessions@ACMElabs` is uninstalled; `ask-user-question@ACMElabs` is still
-  installed (Part 6 Task 1); stale caches `~/.claude/plugins/cache/ACMElabs/session/`, `sessions/`
-  (Part 6 Task 1).
+  (`skills/planning-and-task-breakdown/evals/`), the Haiku tier study beside it. The checkpoint is
+  done (its tick line has the story): the reinstall at `fe23f60`, the env-setup probe kept as real
+  work on Peter's call, and `4787897` there as the first `/brain:session-log` landing in the
+  probe-started session. `/reload-plugins` in open terminals is Peter's. **Part 4 is done; Part 5
+  is next and opens its own session.**
+- **Installed plugin:** `brain@ACMElabs` 0.4.0 reinstalled 2026-08-31 at Part 4's checkpoint from
+  `main` at `fe23f60` — the installed plan and session `SKILL.md`s and `commands/plan.md`
+  byte-identical to `main`; only the `docs(session)` commits after `fe23f60` are newer than it.
+  `/reload-plugins` in each open terminal is Peter's. `sessions@ACMElabs` is uninstalled;
+  `ask-user-question@ACMElabs` is still installed (Part 6 Task 1); stale caches
+  `~/.claude/plugins/cache/ACMElabs/session/`, `sessions/` (Part 6 Task 1).
 - **env-setup:** SES-008 done (`e5e1375`), its docs on the installed forms, ADR-024/ANA-011
   committed, `repo-brain` in / `repo-sessions` out; its `CONTEXT.md` keeps its session-log section
   as its own glossary's text (ADR-004); its `link-check.ts` reports 11 `~/`-prefixed links in

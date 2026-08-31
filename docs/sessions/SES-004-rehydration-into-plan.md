@@ -1,9 +1,9 @@
 # 2026-08-31 08:51 · Rehydration moves to /brain:plan — PLAN-001 Part 4
 
 - Goal: PLAN-001 Part 4 — rehydration leaves the session skill for `/brain:plan PLAN-NNN`: the eight-step procedure and the brief in `planning-and-task-breakdown` (tracked here since the copy), its description carrying the continue triggers and measured, `commands/plan.md` deciding new-vs-continue from its arguments, one routing line each in `using-agent-skills`, `context-engineering`, `choosing-a-skill` and `references/project-docs-conventions.md`; the plugin reinstalled with it and a fresh conversation in env-setup rehydrating from `/brain:plan PLAN-NNN`.
-- Status: in progress
+- Status: done
 - Plan: PLAN-001 · part 4
-- Outcome: _(fill in)_
+- Outcome: PLAN-001 Part 4 done. Delivered: rehydration lives in `/brain:plan` — § Continuing a plan verified headless in scratch clones (the brief named Part 4, its first unticked task and SES-004, nothing written), both `/brain:plan` arms rendered (`PLAN-001` → the brief; a description → PLAN-002 written with every part `planned`), the four routing one-liners verified by grep; the description carries the continue triggers on its measured acceptance (`61bc93e`: 10/10 should-fire, 13/13 hard negatives on Sonnet — old 3/10 — with the Haiku tier study beside it and the set and envelopes committed); the plugin reinstalled at `fe23f60` and the checkpoint's env-setup conversation run for real — the probe's brief was right, its SES-009 was kept on Peter's call, served part 1 Tasks 1–2 (`53f28b3`, `021ff51` on `feat/visual-grouping`), and its first `/brain:session-log` landed as `4787897` there. Verified along the way: plugin-kit hard-codes the measurement model and workers (Peter's question; one stale comment found, plugin-kit's). Not done: `/reload-plugins` in Peter's open terminals; env-setup part 1's PTY checkpoint (SES-009, in progress there); Parts 5 and 6.
 
 ## Narrative
 
@@ -27,6 +27,30 @@ phrasings + 2 breakdown should-fires, and 13 hard negatives with the session ski
 as the sharpest source), the candidate description drafted to description-writing.md's four
 criteria (910 characters), the four sweeps (old and new description × Sonnet and Haiku,
 `--no-early-stop`) launched.
+
+Task 2 ran as three full Sonnet sweeps against the new set (old 3/10 · 13/13; cand1 9/10 but two
+negatives stolen at 3/3; cand2 10/10 with the residual moved to grilling; cand3 10/10 · 13/13 —
+adopted, `61bc93e`) with the Haiku pair as `--tier-study` rows. Peter, mid-measurement, asked
+whether plugin-kit hard-codes the model and workers — checked against the code, twice, at his
+insistence: yes (`MEASUREMENT_MODEL = "sonnet"`, `DEFAULT_NUM_WORKERS`, no `--model` flag on any
+sweep — `--tier-study` is the one sanctioned override, stamped not-of-record), and the one stale
+line found is `measurement.ts`'s comment still offering `--model` (plugin-kit's to fix). All six
+envelopes share one `evalSetHash`; no comparison in the record crosses a model.
+
+The checkpoint, same day: marketplace regenerated, `brain@ACMElabs` 0.4.0 reinstalled at
+`fe23f60`, installed files byte-identical to `main`. The first env-setup probe posted the right
+brief and — Step 6 working as written — started a session and marked a part in progress for work
+nobody was doing; those three uncommitted changes were reverted (the SES-001 precedent), and the
+fork put to Peter: tick on Part 3's log evidence, hold, or re-run and let a real log land. His
+call: the third. The probe re-ran, SES-009 was kept, and its plan's own part 1 was served for
+real — `feat/visual-grouping` cut from current `main` with the parked patch cherry-picked
+(`53f28b3`; the wip branch base predates the docs system, so the plan's literal checkout aborted
+on it), check and 111/0 tests green (Task 1), the step-6 connect marker as an optional `asStep`
+on `runConnectPhase` so the standalone `connect` keeps its plain header (`021ff51`, Task 2,
+decided as the plan recommends). Then `/brain:session-log SES-009`, headless via the installed
+plugin, landed both entries, ticked that plan and committed `4787897` — the checkpoint's last
+clause exercised end to end. Left there, deliberately: part 1's PTY checkpoint open, SES-009 in
+progress (env-setup's, not this session's); `/reload-plugins` in Peter's open terminals.
 
 ## Changes (one entry per commit, in order)
 
