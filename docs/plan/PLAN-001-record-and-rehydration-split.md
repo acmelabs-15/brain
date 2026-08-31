@@ -281,7 +281,7 @@ Task 2 (shipped surface, done) ─┼──> Task 3 (the reinstall at 0.4.0; nee
 
 ### Part 4: rehydration moves to `/plan`
 
-> Status: planned
+> Status: in progress (session SES-004)
 
 ```text
 Part 3 Task 3 (brain 0.4.0 installed) ──> Task 1 (the section) ──┬──> Task 2 (description, measured)
@@ -366,6 +366,31 @@ After Part 4 and Part 2; ANA-003 F5.
   `references/` is cited by a skill that reads it; every local-only pointer either earns its place
   or is gone; the drift of every Addy skill and agent from upstream is listed and each line of it
   is intended. Verification: `diff -r` against the reference checkout, per file, in the entry.
+- [ ] Task 4 (added 2026-08-31, Peter, verbatim: "I want to go back to the session skill again,
+  specifically some of the commands that I'm not sure match up with the skill, which uses start,
+  log and close — the commands for the CLI are very different — init (not sure I agree it needs a
+  refresh flag), not sure it should be writing the template — I FEEL like the way this is normally
+  done with skills is the template is defined in the SKILL.md or references if needed — this is
+  something that I think we should research on the web starting with but certainly do not limit
+  yourself to https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#template-pattern
+  and https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#examples-pattern.
+  Not sure append or current are needed and check if needed — I'm leaning towards validate but
+  should research this as well starting with but certainly do not limit yourself to
+  https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#implement-feedback-loops"):
+  the session tool's surface reviewed against the skill's three acts. Research first (the two
+  best-practices sections named, plugin-kit's `progressive-disclosure.md` and `pure-bun.md`,
+  Anthropic's skills overview, and the wider web on skill-shipped scripts and templates), written
+  up as ANA-004 with what each source says and what it does not; then decide with Peter
+  (`ask-user-question`, one at a time): whether the session-file, README and entry shapes live in
+  `SKILL.md` (Template pattern) rather than in `core.ts` written by the tool; whether `init` stays,
+  and without `--refresh` (`fe60256` added it; ADR-004 already shrank it to the README); whether
+  `append` and `current` survive or fold into the acts (`start` → `new`; `log` → `append` + `check`;
+  `close` → `close`); whether `check` is renamed `validate` and how the gate reads as a feedback
+  loop (run validator → fix → repeat, per the page). Every surviving subcommand named for its act
+  or its verdict; the tool's USAGE, `SKILL.md`, `skills/session/CONTEXT.md` (**Subcommand**), the
+  tests and the allowed-tools grant follow; an ADR if a shape moves. Acceptance: each of the nine
+  subcommands has a written reason to exist or is gone; the shapes have one home and the ADR says
+  which. Verification: `bun test`, typecheck, `validate --strict`, one `--plugin-dir` render per act.
 - [ ] Checkpoint: `grep -rn "/session start\|Open at end\|session end"` over env-setup docs,
   `~/CLAUDE.md` and `~/.claude` returns history only.
 
@@ -419,7 +444,42 @@ them back.
 - [ ] Checkpoint: a second machine bootstrapped by env-setup has the `brain` plugin and nothing
   under `~/.claude/skills`, `commands` or `agents` that the plugin also ships.
 
-## State at 2026-08-31 and the reading list for a fresh conversation
+## State at the end of 2026-08-31 (the founding conversation's last hour)
+
+Exactly where things stand, for a conversation that starts from nothing:
+
+- **Parts 1, 2, 3 are done** (SES-001, SES-002, SES-003 — all `done`). **Part 4 is in progress
+  (SES-004)**: Task 1 written (§ Continuing a plan in `skills/planning-and-task-breakdown/SKILL.md`,
+  349 lines, plugin-kit's validator says valid; its headless verification — a `--plugin-dir` run of
+  `/brain:planning-and-task-breakdown continue PLAN-001` in a scratch clone reaching the brief —
+  **not run**); Task 3 written (`commands/plan.md` as `/brain:plan [PLAN-NNN | description]`, not
+  rendered); Task 4 written (one line each in `using-agent-skills`, `context-engineering`,
+  `choosing-a-skill`, `references/project-docs-conventions.md`); Task 2 (the description gains
+  the continue triggers and is measured with `measure-triggering.ts` against a new trigger set)
+  **not started**; the checkpoint (reinstall with these commits; a fresh conversation in env-setup
+  types `/brain:plan PLAN-NNN` and its first `/brain:session-log` lands) **not started**. Their
+  commit is the last of SES-004's entries; tick Tasks 1, 3, 4 only after their verification runs.
+- **Installed plugin:** `brain@ACMElabs` 0.4.0 from `main` at `a1c8398`-era files; `main` is ahead
+  of it by `fe60256` (`init --refresh`), `f70eaaf` (ADR-004: no `CONTEXT.md` writes) and Part 4's
+  commit — the reinstall is Part 4's checkpoint (marketplace regenerate → `claude plugin uninstall
+  brain@ACMElabs` → `claude plugin install brain@ACMElabs` → `/reload-plugins`, Peter's, in each
+  open terminal). `sessions@ACMElabs` is uninstalled; `ask-user-question@ACMElabs` is still
+  installed (Part 6 Task 1); stale caches `~/.claude/plugins/cache/ACMElabs/session/`, `sessions/`
+  (Part 6 Task 1).
+- **env-setup:** SES-008 done (`e5e1375`), its docs on the installed forms, ADR-024/ANA-011
+  committed, `repo-brain` in / `repo-sessions` out; its `CONTEXT.md` keeps its session-log section
+  as its own glossary's text (ADR-004); its `link-check.ts` reports 11 `~/`-prefixed links in
+  ANA-011 (a checker fix, env-setup's); SES-005 there is another conversation's, in progress,
+  untouched. The sessions repo is pushed and archived on GitHub; the ask-user-question repo is
+  merged in here and untouched at its source until Part 6.
+- **`~/CLAUDE.md`** line 47 names `/brain:session` and the coming `/brain:plan` (not a repo).
+- **The decisions of the day** are ADR-003 (move now, `brain:` only) and ADR-004 (no `CONTEXT.md`
+  writes; the words in `skills/session/CONTEXT.md`; the skill reads a repo's glossary); the
+  analyses ANA-003 (the sequencing, the renumbering table). Part 5 Task 3 (the references audit)
+  and Part 5 Task 4 (the session tool's surface against the acts — Peter's words, above) are the
+  design questions waiting; Part 6 Task 1 carries the reviewer's measured sweep.
+
+## State at 2026-08-31 morning and the reading list for a fresh conversation
 
 Read in full, in this order, before touching a part:
 
