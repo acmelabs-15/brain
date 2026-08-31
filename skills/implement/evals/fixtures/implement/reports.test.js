@@ -1,8 +1,6 @@
-'use strict';
-
-const assert = require('node:assert/strict');
-const test = require('node:test');
-const { visibleReports } = require('./reports');
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { visibleReports } from './reports.js';
 
 test('hides archived reports', () => {
   assert.deepEqual(visibleReports([

@@ -1,0 +1,6 @@
+function paginate(items, page, pageSize) {
+  const start = page * pageSize;
+  return items.slice(start, start + pageSize);
+}
+
+export { paginate };

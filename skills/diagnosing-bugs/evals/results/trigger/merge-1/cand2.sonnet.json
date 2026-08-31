@@ -1,0 +1,191 @@
+{
+  "skill_name": "diagnosing-bugs",
+  "description": "Diagnosis loop for bugs, breakage and performance regressions: build a tight feedback loop first, then reproduce, localize, fix at the root cause and guard with a regression test. Use when the user says 'diagnose' or 'debug this', or reports something broken, throwing, failing or slow; when tests fail or builds break; when behavior doesn't match expectations; when something worked yesterday and fails today; or when a performance regression needs hunting.",
+  "results": [
+    {
+      "query": "The app crashes with a TypeError when I click save, help me find the root cause",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "The API is throwing intermittent 500 errors in production, help me find the root cause",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "This test passed yesterday and fails today, figure out what broke",
+      "should_trigger": true,
+      "trigger_rate": 0.6666666666666666,
+      "triggers": 2,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "diagnose this — the tests are red and I don't know why",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "debug this",
+      "should_trigger": true,
+      "trigger_rate": 0.6666666666666666,
+      "triggers": 2,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "the endpoint is suddenly slow, find out why",
+      "should_trigger": true,
+      "trigger_rate": 0.6666666666666666,
+      "triggers": 2,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "this worked before the last deploy and now it's broken",
+      "should_trigger": true,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": false,
+      "early_stopped": false
+    },
+    {
+      "query": "the build breaks with a type error that makes no sense to me",
+      "should_trigger": true,
+      "trigger_rate": 0.6666666666666666,
+      "triggers": 2,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "there's a flaky test that fails one run in ten — hunt it down",
+      "should_trigger": true,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": false,
+      "early_stopped": false
+    },
+    {
+      "query": "my change broke a seemingly unrelated test, find the root cause before we continue",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Write the API documentation for the orders service",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Simplify this working function for readability",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "review this PR before merge",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Write a failing test for this bug before fixing it",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Implement the next task from the plan as a small verifiable slice",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Break this spec into small verifiable tasks with acceptance criteria",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Interview me to figure out the real requirements",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Deploy the current build to staging",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "What alerts should we page on for the new service?",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "add input validation and error handling to this new endpoint",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    }
+  ],
+  "summary": {
+    "total": 20,
+    "passed": 18,
+    "failed": 2
+  }
+}
