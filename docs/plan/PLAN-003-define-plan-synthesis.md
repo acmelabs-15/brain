@@ -1,6 +1,6 @@
 # Plan: Define and Plan across both lineages — the overlap mapped, the best parts composed
 
-> Status: planned · Peter, 2026-08-31 ("identify where they overlap, where they don't or they do
+> Status: in progress · Peter, 2026-08-31 ("identify where they overlap, where they don't or they do
 > the same things differently, how they compose things differently … then what
 > features/functionality is most important to have for the define and plan parts of the
 > lifecycle — pulling from both — and … pull the parts from each that make the most sense … and
@@ -58,27 +58,27 @@ Part 1 (the Matt side completed, the upstream diffs) ──> Part 2 (ANA-008, th
 
 ### Part 1: the evidence completed
 
-> Status: planned
+> Status: done (session SES-007, `5cc6185` — the evidence's durable record is ANA-008's cites)
 
-- [ ] Task 1: the Matt skills not yet read in full, read to their last lines with every bundled
+- [x] Task 1 (2026-08-31): the Matt skills not yet read in full, read to their last lines with every bundled
   file: `wayfinder`, `to-tickets`, `triage`, `implement`, `code-review`, `diagnosing-bugs`,
   `wait-what`, `loop-me`, `resolving-merge-conflicts`, `writing-for-agents`,
   `setup-ts-deep-modules`, `improve-codebase-architecture` (+ `HTML-REPORT.md`). Acceptance:
   each named file read in full; per-skill rows in the ANA-008 working notes with file:line cites.
-- [ ] Task 2: Peter's four references read in full (`references/definition-of-done.md`,
+- [x] Task 2 (2026-08-31): Peter's four references read in full (`references/definition-of-done.md`,
   `orchestration-patterns.md`, `performance-checklist.md`, `testing-patterns.md`) and their role
   in a composed Define/Plan stated. Acceptance: read in full, cited.
-- [ ] Task 3: the upstream diffs that bear on the synthesis — brain's
+- [x] Task 3 (2026-08-31; the original's `### Phase N:` headings and separate `### Checkpoint:` sections quoted in ANA-008; Matt drift 0–8 lines each, all ledgered local edits): the upstream diffs that bear on the synthesis — brain's
   `planning-and-task-breakdown` against the Addy original (the phase→part drift, ADR-022's 37
   lines) and any Matt-side drift in the Part 1 skills. Acceptance: each diff enumerated;
   the original's Task List / phase wording quoted for the phase-vs-part decision.
-- [ ] Checkpoint: nothing written yet beyond working notes; every file on the list read in full.
+- [x] Checkpoint (2026-08-31): every file on the list read in full; the record is ANA-008.
 
 ### Part 2: the overlap analysis (ANA-008)
 
-> Status: planned
+> Status: done (session SES-007, `5cc6185`)
 
-- [ ] Task 1: ANA-008 — Peter's stage tables as the frame; the full-lifecycle overlap map (both
+- [x] Task 1 (2026-08-31, `5cc6185`): ANA-008 — Peter's stage tables as the frame; the full-lifecycle overlap map (both
   collections), with Define and Plan at depth; each cell classed **same-differently** /
   **unique-to-one** / **composed-differently**, with file:line cites both sides; the
   task-vs-ticket grain compared field by field; the composition-style contrast (monolithic
@@ -87,11 +87,11 @@ Part 1 (the Matt side completed, the upstream diffs) ──> Part 2 (ANA-008, th
   specify→plan→tasks flow; superpowers' brainstorm/plan skills), each fact cited. Acceptance:
   every claim cites file:line or a URL; Refuted and Unverifiable sections present; saved as
   `docs/analysis/ANA-008-…md` with its index row.
-- [ ] Checkpoint: ANA-008 committed and its entry logged.
+- [x] Checkpoint (2026-08-31): ANA-008 committed (`5cc6185`); the entry logged in the docs(session) commit carrying these ticks.
 
 ### Part 3: the synthesis (ANA-009)
 
-> Status: planned
+> Status: in progress (session SES-007)
 
 - [ ] Task 1: ANA-009 — three layers: (a) what Define and Plan most need — the functionality
   ranking derived from both packages, brain's docs system, the decrees and the measured record;
