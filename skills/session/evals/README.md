@@ -13,6 +13,7 @@ are under `results/iteration-N/`.
 | 2 | plan/session model (open/closed sessions, join before the first commit) | `results/iteration-2/benchmark.md` | snapshot |
 | 3 | value-only entries (`Also:`, `Session-entry: none`), the tool as a subcommand CLI | `results/iteration-3/benchmark.md` | snapshot |
 | 4 | transcript-evidence expectations; the injected state lines verified in a real conversation | 25/27 | 23/27 |
+| disclosure-1 (2026-08-31) | first progressive-disclosure measurement on plugin-kit's harness (Sonnet, fixture from `fixtures/make-fixture.ts`, `--allowed-tools Bash`): 35/54 expectations; `references/session-log.md` recall 0/2 → `signpost`; over-fetch 0/6. Failures cluster on: the closing note not being the whole reply (4/4), a question opening a session (1/2), a commit recorded into another conversation's session or a new one instead of the open one (2/2), an Outcome claiming work the transcript lacks (1/2), the unrecorded HEAD commit missing from Findings (2/2) | — | — |
 
 `tier-sweep/` holds the same evals measured on Haiku, Sonnet and Opus. `trigger/tiers/` holds the
 trigger set measured against the **pre-plugin** description; `trigger/tiers-2/` (2026-08-31) is the

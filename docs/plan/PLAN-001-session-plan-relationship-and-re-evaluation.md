@@ -110,13 +110,13 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   `bun ~/Dev/ACMElabs/plugin-kit/shared/operations/optimize-description.ts --eval-set skills/session/evals/trigger-eval.json --target-path skills/session --results-dir skills/session/evals/results/description-2`.
   Adopt `best_description` only if its held-out score beats the incumbent; re-measure on the
   tiers set (`measure-triggering.ts`, no flags beyond the inputs) and commit the results.
-- [ ] Task 2 (running since 2026-08-31 ~02:30, scratch `disclosure-5/`): run the disclosure measurement: build the fixture
+- [x] Task 2 (2026-08-31, `evals/results/disclosure-1/`: 35/54, reference recall 0/2 → signpost, over-fetch 0): run the disclosure measurement: build the fixture
   (`bun skills/session/evals/fixtures/make-fixture.ts <scratch>/fixture-envsetup`), then
   `bun ~/Dev/ACMElabs/plugin-kit/shared/operations/measure-disclosure.ts --skill-path skills/session --scenarios skills/session/evals/evals.json --fixture <scratch>/fixture-envsetup --allowed-tools Bash --results-dir <outside the skill>`.
   Read `shared/references/disclosure-optimization.md` for the verdict table; the reference's
   recall on eval 2 is the figure that matters (`signpost` below 0.5). Copy `results.json`,
   `envelope.json` and the logs under `evals/results/disclosure-1/` and commit them.
-- [ ] Task 3: act on the results — the skill-reviewer's hypothesis is a narrower description
+- [ ] Task 3 (in progress — the six findings are in `evals/README.md`): act on the results — the skill-reviewer's hypothesis is a narrower description
   clause naming the tool's situations; the body is ~4,900 tokens, so a body change must move
   something to `references/session-log.md`.
 - [ ] Task 4: iteration 5 of the outcome evals with the fixture (baseline
