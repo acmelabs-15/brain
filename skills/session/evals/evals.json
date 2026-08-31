@@ -35,7 +35,7 @@
     },
     {
       "id": 3,
-      "prompt": "That's the ADR pass done too — checked every ADR's consequences against the code and found nothing to fix. So the whole review is finished. Close it out.",
+      "prompt": "That's it — the review found nothing to fix, so this one is done. Close it out.",
       "expected_output": "The session's Goal is met, so this is close: the unrecorded fix commit recorded first (the gate is red until then), Outcome and Open at end written, session close --session SES-007 run after a green gate (Status: closed), OVERVIEW checked, a clean tree, SES-005 untouched, and a closing note of at most 60 words ending (SES-007 closed).",
       "files": [],
       "expectations": [
@@ -45,7 +45,7 @@
         "docs/OVERVIEW.md is unchanged, or changed only in Status / Next up for a reason the transcript grounds in this conversation's own work",
         "docs/sessions/SES-005-rehydration.md is not edited and no second session file is created",
         "The transcript shows a commit whose subject starts with docs(session): and no push, PR or merge",
-        "Every read, review or verification the Outcome, Open at end, Narrative or Shipped line attributes to THIS CONVERSATION appears as a step in the transcript; the ADR pass the user reports as already done may be recorded as the session's work without appearing in the transcript, since the user is the source for it"
+        "Every read, review or verification the Outcome, Open at end, Narrative or Shipped line attributes to this conversation appears as a step in the transcript; the ADR pass the user reports is either recorded with the user named as its source, or the close stops and says which step is unsatisfied — inventing a verification fails this expectation"
       ],
       "expects_references": []
     },
@@ -94,6 +94,6 @@
     "2026-08-30: expectations added after five graders flagged the same ungraded gap across iterations 2–3 — Outcome/Narrative/Shipped lines claiming reads or reviews the transcript does not show, and counts that go stale after the handoff commit (evals 3 and 4); the brief's facts checked against the fixture (eval 1). Not yet measured: iteration 4 would be the first run with them.",
     "2026-08-31: fixtures are built by evals/fixtures/make-fixture.ts (env-setup at c89ae34: SES-006 closed, SES-007 docs-review open and green, an unrecorded fix(finder) commit at HEAD, SES-005 left as the other conversation's). Expectations rewritten for plugin-kit's disclosure/outcome harness, which grades the transcript and the files the run wrote — no executor-saved artifacts (commit.diff, brief.md …) exist there. A scenario's expects_references is its declared ground truth for recall.",
     "2026-08-31 (iteration 6): eval 2 no longer expects references/session-log.md — disclosure-1 and -2 showed every entry passing without it; the reference is needed only for a fix-up / valueless skeleton or reopening a closed session, which no scenario exercises. The SKILL.md pointer now names those two situations.",
-    "2026-08-31 (iteration 7): eval 3's prompt asserted the whole review was done while the fixture's Narrative said the ADR pass had not started, so both disclosure-3 runs stopped and asked instead of closing (2/7, 3/7) — close step 2 refuses an Outcome the log cannot support, correctly. The fixture cannot simply mark the ADR pass done: eval 4 shares it and needs that pass outstanding (\"still has the ADR pass to go\"), and eval 4 scores 6/6. So eval 3's prompt now reports the ADR pass as this conversation's own work, which is what a user closing a session actually says; the fixture is unchanged and eval 4 is unaffected."
+    "2026-08-31 (iteration 7): eval 3's prompt asserts the ADR pass is done while the fixture's Narrative says it has not started. That conflict is deliberate and the prompt is unchanged: it measures what close does when the user's claim outruns the log. Two outcomes pass — record the claim with the user named as its source (close step 2), or stop and name the unsatisfied step (close's refusal path). Inventing a verification fails. Eval 4 shares this fixture and needs the ADR pass outstanding, so the fixture itself must not be changed."
   ]
 }

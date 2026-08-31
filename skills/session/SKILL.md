@@ -296,7 +296,9 @@ Close progress:
 ```
 
 1. `end` steps 1–3.
-2. `Outcome` = what the session delivered (releases, merged PRs, what was verified) — only work this or an earlier conversation did and the log shows; a read or a pass not in the transcript is not claimed;
+2. `Outcome` = what the session delivered (releases, merged PRs, what was verified) — only work
+   the log or this transcript shows. Work the user reports is recorded with them as its source
+   ("Peter reports the ADR pass found nothing; not verified here");
    `Open at end` = what it leaves for a later session, or "nothing".
 3. The plan on the session's `Plan:` line: the part's status line →
    `done (session SES-NNN, <sha of the entry that finished it>)`, remaining ticks cite entry shas;
@@ -304,10 +306,14 @@ Close progress:
    PRD's **Plans** row say the same; OVERVIEW Status names the session as closed.
 4. `session close --session SES-NNN` — the gate again, now counting `Outcome` and `Open at end`;
    prints `session: closed SES-NNN` (a `— still open: …` suffix names other conversations'
-   sessions). Then `git add docs/sessions/SES-NNN-<slug>.md docs/sessions/README.md
-   docs/OVERVIEW.md docs/plan/PLAN-NNN-<feature>.md docs/plan/PRD-NNN-<product>.md`, commit
-   `docs(session): close SES-NNN`, and run `end` step 5.
+   sessions). Then `git add` your session file, the index, OVERVIEW and every plan or PRD step 3
+   touched — by name, never `-A` — commit `docs(session): close SES-NNN`, and run `end` step 5.
 5. The closing note as in `end` — the whole reply — with `(SES-NNN closed)` on the second line.
+
+**A step that cannot be satisfied stops the close** — the gate stays red after the entries are
+filled, a task the part names is visibly unfinished, the log contradicts what you were told. Say
+which step stopped and what would satisfy it; the session stays open and nothing is rewritten.
+Where the answer is the user's to give, ask as step 2 of "Choose the plan" does.
 
 **Done when** the tool printed `session: closed SES-NNN`, the `docs(session)` commit exists, the
 tree is clean, the plan part, the plan and OVERVIEW say the same thing as the Outcome, and the
