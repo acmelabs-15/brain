@@ -34,12 +34,11 @@ still in progress is the next move. A task's number is its stable name.
 
 > Status: in progress (session SES-002)
 
-- [ ] Task 1: `session init` writes nothing under `docs/plan/` (the plan's shape has one home,
+- [x] Task 1 (2026-08-31, `f80af22`): `session init` writes nothing under `docs/plan/` (the plan's shape has one home,
   `planning-and-task-breakdown`). Acceptance: `session template` lists `session | sessions-readme |
   context`; a fresh `init` creates `docs/sessions/README.md` and the `CONTEXT.md` section only.
   Verification: `bun test`, a `--plugin-dir` render in a scratch repo; `README.md`, `SKILL.md`,
-  `CONTEXT.md`, `references/session-log.md` say the same. (Edited 2026-08-31, uncommitted at plan
-  time — the first commit of this part.)
+  `CONTEXT.md`, `references/session-log.md` say the same.
 - [ ] Task 2: status vocabulary. A session is `in progress | done`; `open`/`closed` leave the
   header, the tool (`list`, `check`, `close`, `new`), the templates, the glossary section, the
   reference and the tests. Acceptance: `session list` prints `in progress`/`done`; `parseHeader`

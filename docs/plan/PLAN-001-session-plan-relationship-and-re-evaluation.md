@@ -118,7 +118,7 @@ Validated with plugin-kit's validator.
 
 ### Part 4: re-evaluate the skill on plugin-kit's loops (progressive disclosure and description)
 
-> Status: in progress (session SES-001)
+> Status: done (session SES-001, 3cd33b7) — measured through disclosure-4; the rest superseded by PLAN-002 (ADR-024)
 
 What exists: `skills/session/evals/evals.json` (4 evals; expectations rewritten for plugin-kit's
 disclosure harness; `expects_references` declared — only eval 2 needs the reference);
@@ -183,7 +183,7 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   them as its source, and a stop condition before Done-when covers a step that cannot be satisfied;
   eval 3's prompt is back to its original wording with an expectation admitting both correct
   outcomes. (c) step 5 names another session's unfilled placeholders. **Measured by Task 8.**
-- [ ] Task 8 (added 2026-08-31): disclosure-4 — measure `2116ff4` with the Task 2 command against a
+- [x] (superseded 2026-08-31 by PLAN-002 Part 5 Task 3 — ADR-024: the evals are redone against the new layout, not carried; `3cd33b7`) Task 8 (added 2026-08-31): disclosure-4 — measure `2116ff4` with the Task 2 command against a
   fresh fixture (`bun skills/session/evals/fixtures/make-fixture.ts <scratch>/fixture-envsetup`);
   copy `results.json`, `envelope.json`, `run.log`, `logs/` to `evals/results/disclosure-4/`; add the
   README row. Compare against disclosure-3 (37/54): eval 2 must append to SES-007 (was 4/7 ×2);
@@ -191,7 +191,7 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   placeholders (was 6/7 ×2); eval 4 must hold 6/6. Also watch: one of today's four `--plugin-dir`
   renders opened SES-001 for the scaffold commit in an empty repo where the other three said
   `Session: none` — if disclosure-4's eval 1 shows the same variance, it is the next iteration.
-- [ ] Task 6 (added 2026-08-31, same reason): the description. The loop adopted nothing (Task 1),
+- [x] (superseded 2026-08-31 by PLAN-002 Part 3 Task 2 and Part 5 Task 3 — the description is rewritten with the acts and measured against a new trigger set; `3cd33b7`) Task 6 (added 2026-08-31, same reason): the description. The loop adopted nothing (Task 1),
   so the trigger rates are unchanged: Haiku 2/10, Sonnet 5/10 should-fire. The skill-reviewer's
   hypothesis — a clause naming the tool situations in the user's words (append says up to date; gate
   stays NOT ready; a warning about another session's file; the released marker; a skeleton for a
@@ -199,9 +199,9 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   by hand within 1,024 characters, measure on `evals/trigger-eval.json` with
   `measure-triggering.ts` (Haiku and Sonnet, inputs only), keep it only if held-out improves. Independent of Task 8; the sweep
   (`7bd6782`) spent the headroom, so the clause replaces text rather than adding to it.
-- [ ] Task 4: iteration 5 of the outcome evals with the fixture (baseline
+- [x] (superseded 2026-08-31 by PLAN-002 Part 5 Task 3; `3cd33b7`) Task 4: iteration 5 of the outcome evals with the fixture (baseline
   `evals/results/skill-snapshot/`), per skill-creator; `evals/README.md` gains its row. Runs after Task 8, on the same fixture.
-- [ ] Checkpoint: disclosure-4 and the description measurement on record under `evals/results/`, each with its README row; every remaining miss has a task or a stated reason to leave it
+- [x] Checkpoint (2026-08-31, `3cd33b7`): every remaining miss has a stated reason to leave it — ADR-024 replaces the layout these evals measured; PLAN-002 Part 5 Task 3 redoes them
 
 ### Part 5: plugin-kit — finish the parity branch and the staleness sweep
 
