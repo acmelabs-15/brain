@@ -19,7 +19,7 @@ alone, say **SKILL.md**; "the skill" never means that file by itself.
 _Avoid_: the command, the agent
 
 **Tool**:
-`skills/session/scripts/session.ts` — the Bun CLI the skill runs. Written `session <subcommand>`
+`skills/session/scripts/cli.ts` — the Bun CLI the skill runs. Written `session <subcommand>`
 in prose. It is run, never read by the model.
 _Avoid_: the script, the CLI, the binary
 
@@ -55,7 +55,7 @@ _Avoid_: file type, category, genre
 
 **Script**:
 A file the model **runs**, where only the output enters context and the source never does.
-`scripts/` here: `session.ts` (the CLI), `session-log.ts` (the model behind it) and their tests.
+`scripts/` here: `cli.ts` (the CLI), `core.ts` (the model behind it) and their tests.
 What the tool does it prints itself (`session help`), so the model never reads a script to find out.
 _Avoid_: source, implementation, code
 
@@ -69,7 +69,7 @@ _Avoid_: doc, guide, appendix
 **Asset**:
 A file the model **copies into what it produces**, needing its bytes rather than its meaning.
 None here: the documents `session init` writes into a consuming repo are code in
-`scripts/session-log.ts` (`session template <name>` prints them), so they have one home.
+`scripts/core.ts` (`session template <name>` prints them), so they have one home.
 _Avoid_: template file, fixture, resource
 
 **Example**:
@@ -100,7 +100,7 @@ _Avoid_: directive, trigger, injection token
 
 **Invocation**:
 One load of the skill — typed, aliased, or chosen by the model. What SKILL.md's body costs is paid
-per invocation, which is why the references are separate files.
+per invocation, which is why the body carries only what every act needs.
 _Avoid_: call, run, execution
 
 **Description**:

@@ -1,5 +1,5 @@
 /**
- * The session log tool — the CLI over `session-log.ts` (the model: paths, the session file,
+ * The session log tool — the CLI over `core.ts` (the model: paths, the session file,
  * the gate's counting, the entry skeleton, every document `init` writes). One file per
  * session under <repo>/docs/sessions/ — a bounded stream of work toward one Goal,
  * `in progress` until `close` writes `done`; a conversation names the session it logs into.
@@ -47,7 +47,7 @@ import {
   type TemplateName,
   type Touched,
   withStatus,
-} from "./session-log";
+} from "./core";
 
 const ROOT = projectDir();
 const DIR = sessionsDir(ROOT);
@@ -58,7 +58,7 @@ const INDEX = join(DIR, "README.md");
 const SKIP_PREFIXES = ["docs(session)", "docs(ledger)"];
 const COMMANDS = ["help", "init", "template", "list", "new", "append", "check", "close", "current"] as const;
 
-const USAGE = `session — the session log tool (bun <plugin>/skills/session/scripts/session.ts <command>)
+const USAGE = `session — the session log tool (bun <plugin>/skills/session/scripts/cli.ts <command>)
 
   help                                    this text
   init                                    scaffold docs/sessions/README.md and the CONTEXT.md glossary

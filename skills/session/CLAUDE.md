@@ -9,12 +9,12 @@
   1,024 characters, measured before committing.
 - The model behind the tool — paths, the session file's header and template, which session a run
   acts on, the gate's counting, the entry skeleton (`render`), and every document `init` writes
-  (`session template <name>` prints it): `scripts/session-log.ts`, tested in
-  `scripts/__tests__/session-log.test.ts`. A shape shown anywhere else is a pointer to that
+  (`session template <name>` prints it): `scripts/core.ts`, tested in
+  `scripts/__tests__/core.test.ts`. A shape shown anywhere else is a pointer to that
   command or a filled specimen of it (the entry template in `SKILL.md`, pinned by a test), not a
   second copy.
-- The tool itself, the CLI over that model: `scripts/session.ts`, tested end to end in a throwaway
-  repo by `scripts/__tests__/session.test.ts`. It runs on import, which is why the model is a
+- The tool itself, the CLI over that model: `scripts/cli.ts`, tested end to end in a throwaway
+  repo by `scripts/__tests__/cli.test.ts`. It runs on import, which is why the model is a
   separate file.
 - The three aliases: `../../commands/session-{start,log,close}.md`, each delegating one act with
   `skill: brain:session` and that act's arguments.

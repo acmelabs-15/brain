@@ -2,7 +2,7 @@
  * The session log as a model — everything the CLI (`session.ts`) needs that is not the
  * CLI itself: where the log lives, a session file's header and template, which session a run
  * acts on, what the gate counts, the entry skeleton, and every document `init` writes.
- * Pure where it can be (tested in `__tests__/session-log.test.ts`); the only I/O here is
+ * Pure where it can be (tested in `__tests__/core.test.ts`); the only I/O here is
  * asking git for the repo root.
  *
  * A session is a bounded stream of work toward one Goal. Its status is `in progress` from

@@ -15,13 +15,13 @@
  *     "fixture" commit is visible to the run (an earlier iteration leaked one).
  *
  * Pure Bun: git through Bun.spawnSync, files through Bun.file/Bun.write. Needs the session
- * tool from this skill (../../scripts/session.ts) to close SES-006 and open SES-007.
+ * tool from this skill (../../scripts/cli.ts) to close SES-006 and open SES-007.
  */
 import { existsSync, rmSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const PIN = "c89ae34"; // env-setup feat/session-plugin: the plugin-consuming state
-const TOOL = resolve(import.meta.dir, "../../scripts/session.ts");
+const TOOL = resolve(import.meta.dir, "../../scripts/cli.ts");
 
 const args = process.argv.slice(2);
 const out = args[0];

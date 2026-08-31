@@ -3,9 +3,9 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-// The CLI end to end, in a throwaway repository: what the model (session-log.ts) cannot show —
+// The CLI end to end, in a throwaway repository: what the model (core.ts) cannot show —
 // which commits the gate walks and which files it reads for them.
-const TOOL = new URL("../session.ts", import.meta.url).pathname;
+const TOOL = new URL("../cli.ts", import.meta.url).pathname;
 
 function session(root: string, ...args: string[]): { code: number; out: string } {
   const r = Bun.spawnSync(["bun", TOOL, ...args], {

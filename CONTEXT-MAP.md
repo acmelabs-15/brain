@@ -13,7 +13,7 @@ keeps its own `docs/sessions/`, gated by the tool it ships.
 - [Session log](./skills/session/CONTEXT.md): the record the plugin produces — a session, an
   entry, the gate, a plan part, the three acts as a user types them. The words a person uses in a
   repo that *installed* the plugin, and in this repo's own `docs/`. Defined once, in the glossary
-  section `session init` writes out (code in `skills/session/scripts/session-log.ts`, printed by
+  section `session init` writes out (code in `skills/session/scripts/core.ts`, printed by
   `session template context`); the same section sits at the end of [CONTEXT.md](./CONTEXT.md)
   here because `init` wrote it, and that context file points at it rather than restating it.
 

@@ -25,8 +25,8 @@ import {
   template,
   TEMPLATES,
   withStatus,
-} from "../session-log";
-import type { Session } from "../session-log";
+} from "../core";
+import type { Session } from "../core";
 
 const header = (extra = "") => `# 2026-08-30 18:00 · Docs for rehydration
 

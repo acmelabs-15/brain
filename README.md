@@ -38,7 +38,7 @@ that stops does nothing.
 ## The tool
 
 ```bash
-bun "<plugin>/skills/session/scripts/session.ts" <help | init | template | list | new | append | current | check | close>
+bun "<plugin>/skills/session/scripts/cli.ts" <help | init | template | list | new | append | current | check | close>
 ```
 
 `init` scaffolds `docs/sessions/README.md` and the session-log section of `CONTEXT.md` (nothing

@@ -1,7 +1,7 @@
 ---
 name: session
 argument-hint: "start <description> [--plan \"PLAN-NNN · part N\"] | log [SES-NNN] | close SES-NNN"
-allowed-tools: Bash(git status:*), Bash(git branch:*), Bash(git show:*), Bash(git log:*), Bash(gh pr list:*), Bash(bun "${CLAUDE_SKILL_DIR}/scripts/session.ts" *)
+allowed-tools: Bash(git status:*), Bash(git branch:*), Bash(git show:*), Bash(git log:*), Bash(gh pr list:*), Bash(bun "${CLAUDE_SKILL_DIR}/scripts/cli.ts" *)
 license: MIT
 compatibility: "Claude Code (the injected state lines and the plugin-root anchor do nothing elsewhere). Needs Bun on PATH and git."
 description: "Keeps a repo's session log — the record of every commit that reached `main` and the story around it — through three acts: `start` creates a session from a description and marks its plan part in progress; `log` appends and fills a commit's entry, ticks the plan, updates what the change made stale and commits it as docs(session); `close` writes the Outcome and marks the session and its plan part done. The act is inferred from the arguments (`SES-NNN` and a landed commit → log; a description → start); `close` is always named. Use right after a commit in a repo with docs/sessions, when a plan part's work begins, and when a stream of work is finished — \"record that commit\", \"log this\", \"the append says up to date\", \"the gate says NOT ready\", \"a skeleton for a commit I didn't make\", \"close SES-004\", \"start a session for the finder fix\". Not for finding where a plan stands or what to work on next (`/plan PLAN-NNN`), for authoring an ADR, a PRD or CONTEXT.md, or for a changelog of recent commits."
@@ -39,7 +39,7 @@ The tool is one exact command, always written this way — quoted path, then the
 `session <subcommand>` below:
 
 ```bash
-bun "${CLAUDE_SKILL_DIR}/scripts/session.ts" <help | init | template | list | new | append | current | check | close> …
+bun "${CLAUDE_SKILL_DIR}/scripts/cli.ts" <help | init | template | list | new | append | current | check | close> …
 ```
 
 `session help` prints every subcommand with its output; `session template <name>` prints any document
@@ -50,7 +50,7 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
 
 - Branch: !`git branch --show-current`
 - Tree: !`git status --short`
-- Sessions: !`bun "${CLAUDE_SKILL_DIR}/scripts/session.ts" list --brief`
+- Sessions: !`bun "${CLAUDE_SKILL_DIR}/scripts/cli.ts" list --brief`
 
 ## Gotchas
 

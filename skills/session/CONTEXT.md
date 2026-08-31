@@ -6,7 +6,7 @@ installed the plugin* — and in this repo's own `docs/sessions/`, which the too
 (ADR-003).
 
 **The definitions live in one file and are not repeated here:**
-`scripts/session-log.ts` (`contextSection`, printed by `session template context`) — the section
+`scripts/core.ts` (`contextSection`, printed by `session template context`) — the section
 `session init` appends to a consuming repo's `CONTEXT.md`. It defines:
 
 | Term | What it names |
@@ -29,7 +29,7 @@ second home for a rule, and the shipped section is the one a user actually recei
 The glossary defines the words; the shapes those words name have one home each, and
 [`CLAUDE.md`](./CLAUDE.md) says which:
 
-- **The session file, its header and its entries** — `scripts/session-log.ts` (`template`,
+- **The session file, its header and its entries** — `scripts/core.ts` (`template`,
   `parseHeader`, `knownShas`, `placeholderCount`, `render`, the documents `init` writes); the
   rules in `SKILL.md` (§ log, § What is never rewritten).
 - **The plan part's status line** — its grammar and its use in `SKILL.md` (§ The plan part's
