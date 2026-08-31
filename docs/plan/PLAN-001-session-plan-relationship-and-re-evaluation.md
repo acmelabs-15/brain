@@ -121,7 +121,9 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   something to `references/session-log.md`.
 - [ ] Task 4: iteration 5 of the outcome evals with the fixture (baseline
   `evals/results/skill-snapshot/`), per skill-creator; `evals/README.md` gains its row.
-- [ ] Task 5 — IN PROGRESS 2026-08-31 (session SES-001). Done: the eight disclosure-2 transcripts read
+- [x] Task 5 (2026-08-31, `evals/results/disclosure-3/`: 37/54 vs 36/54; scenario 4 now 12/12, scenario 2
+  unchanged, scenario 3 regressed — the row in `evals/README.md` has the per-scenario reading; the
+  follow-up is Task 7). The work: the eight disclosure-2 transcripts read
   in full; diagnosis approved by Peter (A: step 7 had no join-by-Goal branch, so `entry` followed
   "no plan → open"; B: the closing note had no line for departures, so prose was appended; C: no
   scenario needs the reference; D: "the whole reply" was not restated at Done-when); the four edits
@@ -140,6 +142,18 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   `references/session-log.md` recall 0/2 (the pointer is never followed — decide whether the two
   rules eval 2 needs move into the body or the pointer names the situation). Read
   `evals/results/disclosure-2/logs/` in full before changing a line.
+- [ ] Task 7 (added 2026-08-31 from disclosure-3, session SES-001): iteration 7. Three things, decide
+  with Peter first: (a) scenario 2 still opens SES-008 after `129705f` — read
+  `evals/results/disclosure-3/logs/run_2_1.json` and `run_2_2.json` in full to see which rule the
+  model followed instead of the new join-by-Goal branch in step 7, then fix that wording; (b)
+  scenario 3 regressed to a question: the fixture's Narrative says the ADR pass has not started, the
+  prompt says the review is done, and close step 2's "only work the log shows" made both runs ask
+  instead of closing — decide whether the skill should close with an Outcome that attributes the
+  claim to the user ("Peter reports the ADR pass found nothing; not verified here") or whether the
+  eval's premise is wrong and the fixture should say the ADR pass is done; (c) scenario 1's Findings
+  line names the unrecorded commit but not the other conversation's placeholders — step 5 lists
+  what the injected lines are findings for; add "another session's unfilled placeholders". Measure
+  as disclosure-4 with the Task 2 command.
 - [ ] Task 6 (added 2026-08-31, same reason): the description. The loop adopted nothing (Task 1),
   so the trigger rates are unchanged: Haiku 2/10, Sonnet 5/10 should-fire. The skill-reviewer's
   hypothesis — a clause naming the tool situations in the user's words (append says up to date; gate
