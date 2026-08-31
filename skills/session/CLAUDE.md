@@ -25,7 +25,8 @@
   never loads.
 - `git add` and `git commit` are left out of `allowed-tools` on purpose: every commit the ritual
   makes is a permission checkpoint for the user. Adding them removes two prompts per mode; that is
-  the trade, decide it rather than "fixing" the list.
+  the trade; Peter decided it on 2026-08-31: keep the prompts — a `Bash(git add:*)` grant would also pass
+  `git add -A`, the command that once swept a stray session file into a commit.
 
 ## Evals
 

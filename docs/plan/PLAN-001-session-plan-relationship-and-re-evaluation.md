@@ -34,7 +34,7 @@ conversation**. Read every file a part names, in full.
 
 > Status: in progress (session SES-001)
 
-- [ ] Task 1: merge env-setup PR #44 (`feat/session-plugin`, head `c89ae34`, checks green; Peter
+- [x] Task 1 (2026-08-31, merged with a merge commit): merge env-setup PR #44 (`feat/session-plugin`, head `c89ae34`, checks green; Peter
   chose to leave it open until he had read it) with a merge commit; then in env-setup
   `/session start` must come from the installed plugin (`sessions@ACMElabs`) and
   `session check --session SES-006` must be green (it needs `docs(ledger)` in the tool's skip
@@ -72,13 +72,13 @@ Validated with plugin-kit's validator.
 
 ### Part 3: this plugin — design points Peter raised and did not close
 
-> Status: planned
+> Status: in progress (session SES-001)
 
-- [ ] Task 1: the reference's name — Peter's sentence "I think references/docs-system.md" stopped
+- [x] Task 1 (decided 2026-08-31: keep `references/session-log.md` as it is): the reference's name — Peter's sentence "I think references/docs-system.md" stopped
   mid-way; it is `references/session-log.md` now (the glossary word). Ask what he meant.
-- [ ] Task 2: naming — Anthropic's skill best-practices page prefers gerunds (`processing-pdfs`);
+- [x] Task 2 (decided 2026-08-31: keep `session`): naming — Anthropic's skill best-practices page prefers gerunds (`processing-pdfs`);
   `session` is a bare noun typed as a command. Flagged, not decided.
-- [ ] Task 3: `git add`/`git commit` are left out of `allowed-tools` on purpose (every ritual
+- [x] Task 3 (decided 2026-08-31: keep the prompts): `git add`/`git commit` are left out of `allowed-tools` on purpose (every ritual
   commit is a permission checkpoint); `skills/session/CLAUDE.md` records the trade. Decide it.
 - [ ] Task 4: bump `version` in `.claude-plugin/plugin.json` when the next change ships — the
   installed cache is a snapshot and `plugin update` says "already at the latest version"
