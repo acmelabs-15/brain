@@ -1,0 +1,218 @@
+{
+  "skill_name": "planning-and-task-breakdown",
+  "description": "Breaks work into ordered tasks, and picks a plan up where it stands. Use when a spec or clear requirements need breaking into implementable tasks — a plan in parts, each with acceptance criteria and a status line — when a task feels too large to start, when scope needs estimating, or when parallel work is possible. Also the way in for a repo with a plan and a session log (docs/plan, docs/sessions): `continue PLAN-NNN`, \"work on PLAN-NNN\", \"catch me up\", \"where were we\", \"what's next on the plan\", \"pick it up where it left off\" — it reads the plan, the part in progress, the session serving it and what the last entries left unverified, and posts a brief. Not for writing the record once work lands — a commit's entry, a session's Outcome, marking a plan part or session done are the session skill's — nor for a changelog or rundown of recent commits, writing a PRD or an ADR, a guide or doc explaining how plans and sessions relate, or implementing a task once the plan exists.",
+  "results": [
+    {
+      "query": "work on PLAN-042",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "new convo — catch me up on where this project actually stands and then take the next thing off the list",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "continue PLAN-001, i think the last conversation ran out of context halfway through part 4 — figure out what got verified and what didn't before touching anything",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "where were we on the finder rewrite? there's a plan for it under docs/plan and a session log, i just can't remember which part we're in",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "i'm back after two weeks off. this repo has docs/plan and docs/sessions — tell me what's in progress, what the last session left unverified, and what the first move is. don't start coding",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "pick up the marketplace generator plan where it left off — the part's status line says in progress with a session number and i don't know what that session got done",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "what's next on PLAN-007? half the tasks are ticked with shas and i don't trust my memory of which part we're actually in",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "before we touch anything: was the set-favorites swift thing actually verified or is it still parked on a branch somewhere? read the plan and the session docs first, don't guess from memory",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "we've got the spec for the referral program finalized, need to turn it into tasks before we turn the agents loose on it — where do I even start",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "can you draft the implementation plan for the auth overhaul, split into parts with a status line under each so we can tell later what's done",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "ok that commit landed, do the log entry before we move on to the next piece",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "close SES-004 — part 4's checkpoint is ticked, write the outcome and mark the part done",
+      "should_trigger": false,
+      "trigger_rate": 0.3333333333333333,
+      "triggers": 1,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "the gate keeps printing NOT ready and i can't tell which placeholder it's mad about, sort it out and get the entry committed",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "the last conversation left SES-006 with three unfilled placeholders and a dirty tree — fill them from the diffs and get the docs(session) commit in",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "give me a quick rundown of the recent changes on main so i can paste it in the team slack",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "write up everything that changed since the last tag into a proper CHANGELOG entry",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "we settled on sqlite over the json store — write the decision up as an ADR so it sticks",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "there's no spec for this feature yet, can you write up a PRD for it",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "grill me on PLAN-003 before we start — i'm not convinced part 2 is even the right approach and i want my assumptions torn apart",
+      "should_trigger": false,
+      "trigger_rate": 0.6666666666666666,
+      "triggers": 2,
+      "runs": 3,
+      "pass": false,
+      "early_stopped": false
+    },
+    {
+      "query": "take the plan we just wrote and turn it into tracer-bullet tickets with blocking edges in Linear",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "we finished the planning doc, go ahead and implement task 1 now",
+      "should_trigger": false,
+      "trigger_rate": 0.3333333333333333,
+      "triggers": 1,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "I'm starting a new session on this repo, set up the context and rules files before I dive in",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "explain how a plan part's status line and a session's Plan: line point at each other — i'm writing the onboarding doc for the team, not changing anything",
+      "should_trigger": false,
+      "trigger_rate": 0.3333333333333333,
+      "triggers": 1,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    }
+  ],
+  "summary": {
+    "total": 23,
+    "passed": 22,
+    "failed": 1
+  }
+}

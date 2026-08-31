@@ -1,6 +1,6 @@
 ---
 name: planning-and-task-breakdown
-description: Breaks work into ordered tasks. Use when you have a spec or clear requirements and need to break work into implementable tasks. Use when a task feels too large to start, when you need to estimate scope, or when parallel work is possible.
+description: "Breaks work into ordered tasks, and picks a plan up where it stands. Use when a spec or clear requirements need breaking into implementable tasks — a plan in parts, each with acceptance criteria and a status line — when a task feels too large to start, when scope needs estimating, or when parallel work is possible. Also the way in for a repo with a plan and a session log (docs/plan, docs/sessions): `continue PLAN-NNN`, \"work on PLAN-NNN\", \"catch me up\", \"where were we\", \"what's next on the plan\", \"pick it up where it left off\" — it reads the plan, the part in progress, the session serving it and what the last entries left unverified, and posts a brief. Not for writing the record once work lands — a commit's entry, a session's Outcome, marking a plan part or session done are the session skill's — nor for a changelog or rundown of recent commits, a PRD or ADR, grilling a plan's assumptions, a doc explaining how plans and sessions relate, or implementing a task once the plan exists."
 ---
 
 # Planning and Task Breakdown
