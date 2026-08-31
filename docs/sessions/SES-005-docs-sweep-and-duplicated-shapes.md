@@ -53,10 +53,11 @@ decision rounds for Tasks 2, 3 and 4 are next, one question at a time.
 
 ### 2026-08-31 · docs(plan): PLAN-002 — the consult skills (domain-modeling, codebase-design) evaluated in full against the Addy lifecycle, integration decided by ADR; PLAN-001 Part 5 shapes 2–3 and Task 3 hand their decisions there; PRD Plans table and plan README carry both plans' real state · 824ed34
 
-- Summary: _(fill in)_
-- Why: _(fill in)_
+- Summary: PLAN-002 exists — the consult skills (`domain-modeling`, `codebase-design`) evaluated in full against the 24 Addy lifecycle skills and 8 commands, a measured collision matrix, priced integration options, Peter's decisions into an ADR, then implementation; five parts with the method fixed up front (one evaluator, full reads; no edit to anything evaluated before the ADR; upstream drift priced as a first-class cost). PLAN-001 Part 5's shapes 2–3 and Task 3 hand their decisions there; Task 4's rounds pause; the plan README's live bare `/plan PLAN-NNN` becomes `/brain:plan PLAN-NNN` (ADR-003).
+- Why: Peter, right after confirming shape 1: the Addy lifecycle likely defines the same concepts elsewhere, not fully aligned — "a deep comprehensive evaluation of both domain-modeling and codebase-design as well as … all of the addy osmani agent-skills commands/skills … specifically evaluating for how to best integrate", with the process he set: consider, evaluate the approach, plan, cut tasks, then start.
 - Files:
-  - `docs/plan/PLAN-001-record-and-rehydration-split.md` (+12/−3) — _(fill in)_
-  - `docs/plan/PLAN-002-consult-skills-integration.md` (+149/−0) — _(fill in)_
-  - `docs/plan/PRD-001-session-log-and-rehydration.md` (+2/−1) — _(fill in)_
-  - `docs/plan/README.md` (+3/−2) — _(fill in)_
+  - `docs/plan/PLAN-001-record-and-rehydration-split.md` (+12/−3) — Task 2's shape-1 record and shapes 2–3 handed to PLAN-002; Task 3 on hold with decisions there; Task 4's rounds paused, its research standing
+  - `docs/plan/PLAN-002-consult-skills-integration.md` (+149/−0) — the plan: overview with the method, five parts with the dependency graph, Part 5's fixed verification bar, risks, open questions
+  - `docs/plan/PRD-001-session-log-and-rehydration.md` (+2/−1) — PLAN-002's Plans row; PLAN-001's row un-staled (Parts 1–4 done, Part 5 in progress)
+  - `docs/plan/README.md` (+3/−2) — both index rows; the intro's way-in namespaced
+- Notes: Verified: the four files re-read after the edits; the plan follows this repo's PLAN shape (status lines per part, graphs, acceptance per task). Not done, by design: no evaluated skill touched; SES-006 serves Part 1. The first fill of this entry guessed the diff counts, its assert stopped it, and the docs(session) commit (`2289a2a`) still ran with the gate red — this follow-up fills the entry and the gate is green before its own commit; the lesson (never chain a commit after a gate in one command) stands in this line.
