@@ -42,30 +42,26 @@ conversation**. Read every file a part names, in full.
 - [x] Task 2 (2026-08-31, `87b32c2`, env-setup PR #45 merged `1c81476` — SES-005 left open, that conversation's state is unknown): close env-setup's SES-006 (Outcome: the plugin, ADR-022/023, the global templates,
   the plan-part rule) and, if that conversation is over, SES-005 (another conversation's, all
   placeholders — fill from `git show` and say so in its Narrative, per the skill's rule).
-- [ ] Task 3 — PARTIAL RESULT 2026-08-31: Peter typed `/session continue PLAN-001` in a fresh conversation
-  in `~/Dev/ACMElabs/sessions` and got `Unknown command: /session` with the plugin installed and enabled
-  (`claude plugin list`: sessions@ACMElabs 0.1.0, enabled). So the bare form does NOT resolve; the
-  namespaced forms are the real ones: `/sessions:session continue PLAN-001`, aliases
-  `/sessions:session-start` … `/sessions:session-close`. Left: (a) Peter confirms the namespaced form
-  renders the three injected lines and `open` writes the part status; (b) every doc that says bare
-  `/session` is corrected to the namespaced form — this repo's `.claude/CLAUDE.md` ("the bare `/session …`
-  works interactively" is false), `README.md`, the skill description and its alias text, env-setup's
-  CLAUDE.md/README/OVERVIEW/sessions README, `~/CLAUDE.md` §1 mention. Original task: verify interactively what headless could not: bare `/session start PLAN-001` and
-  `/session continue` resolve from the plugin in env-setup (headless resolved only
-  `/sessions:session …`); the injected Branch/Tree/Sessions lines render; the `open` outcome
-  writes `> Status: in progress (session SES-NNN)` under the part.
-- [ ] Task 5 (added 2026-08-31 — the original intention, from the prompt that started this stream: "Should
-  the name of the plugin and plugin skill be `sessions` instead of `session`?" — the plugin is `sessions`,
-  the skill `session`, and Peter types `/session start`, `/session continue PLAN-NNN`; a namespaced
-  `/sessions:session` is NOT the intended interface). Make the bare `/session` resolve interactively.
-  Order: (1) research with the `claude-code-guide` agent whether Claude Code resolves a unique bare
-  plugin skill or command name (a setting, a version, or the plugin/skill naming — e.g. would a plugin
-  named `session` with skill `session` resolve as `/session`?); (2) if nothing does, a personal shim
-  skill `~/.claude/skills/session/SKILL.md` — typed-only (`disable-model-invocation: true`), body: call
-  the Skill tool with `skill: sessions:session`, `args: $ARGUMENTS`, the shape the five aliases use —
-  installed on every machine by env-setup's `claude-settings` item; (3) verify interactively that the
-  hop renders the three injected lines and the brief; (4) Task 3 (b)'s doc sweep then states the real
-  interface. Decide (1) vs (2) with Peter before building.
+- [x] Task 3 (2026-08-31, `7bd6782`): the interface is measured and the docs state it. On CLI 2.1.251, in a
+  clean scratch repo: bare `/session` → `/session isn't available in this environment.`; bare
+  `/session-start` → `Unknown command: /session-start`; `/sessions:session start` and
+  `/sessions:session-start` both run the whole procedure. So **every form is namespaced**, aliases
+  included — an alias buys a `/` menu slot, not brevity. (b) is done in this repo: `README.md`,
+  `.claude/CLAUDE.md`, `CONTEXT.md`, `docs/plan/README.md`, both manifests, the five alias
+  descriptions and the skill's own description and examples. A `claude --plugin-dir . -p` render
+  confirmed the injected lines and the brief. Left, outside this repo: env-setup's
+  CLAUDE.md/README/OVERVIEW/sessions README and `~/CLAUDE.md` §1 (one mention, line 41); and
+  env-setup's ADR-023 Consequences says "interactively the bare `/session` works when nothing else
+  claims the name", now measurably false — a settled ADR, so it needs a superseding ADR, not an edit.
+- [x] Task 5 (2026-08-31, `7bd6782` — **dropped, not built**): the original question was whether the bare
+  `/session` should be made to work (a personal shim skill, since research found no native fallback:
+  Claude Code's docs claim a unique plugin skill gets a bare form, and the measurement contradicts
+  them). Peter's call: "if it's in a plugin we should involk it properly" — so no shim, and the
+  namespaced form is the interface. Two findings kept: a personal `session` skill would have
+  *shadowed* the plugin's bare name (skills.md line 240), so the shim would have blocked the very
+  thing it was meant to provide; and a stale orphaned `session` plugin sits in the cache
+  (`~/.claude/plugins/cache/ACMElabs/session/0.1.0/`, pre-rename, its description still on
+  `start | record | end`) — not installed, not the cause of anything, worth deleting.
 - [x] Task 4 (2026-08-31, env-setup SES-007 `afc9dca`, PR #45 merged `1c81476`; the check enforces only `_Avoid_` items marked `(former name, …)` — a prototype showed 93 of 130 items are sense restrictions): ANA-010's four implications for envsetup (an `_Avoid_`-list check over agent-facing
   prose; `## Relationships` and `## Flagged ambiguities` in `CONTEXT.md`; the domain.md
   equivalent is covered; the success test "CONTEXT.md changes during the conversation").
@@ -238,5 +234,7 @@ given (so layouts survive a crash), and `--tier-study` replacing `--model` on
 
 ## Open questions
 
-- Part 3's three design points were answered on 2026-08-31 (all kept as they are). Open now: Part 1
-  Task 3 (the interactive check) and Part 5 Task 3 (the glossary words) — both Peter's.
+- Part 3's three design points were answered on 2026-08-31 (all kept as they are). Part 1 Task 3 is
+  answered by measurement and Task 5 by Peter's call (`7bd6782`): every `/session` form is
+  namespaced and no shim is built. Open now: Part 5 Task 3 (the glossary words) — Peter's; and the
+  three iteration-7 points in Part 4 Task 7, which need his decision before any edit.
