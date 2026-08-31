@@ -105,7 +105,7 @@ then stopped at Peter's instruction) and no disclosure recall figure (runs 1–4
 the harness, not the skill: a false fixture, permission denials with no human at the prompt, a
 grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
 
-- [ ] Task 1 (running since 2026-08-31 ~02:30, `evals/results/description-2/`; its log shows queries timing out at 180s and scored as non-triggers — read the count before trusting a score): run the description loop with only its inputs, detached (`SKILL_CREATOR_NO_OPEN=1`;
+- [x] Task 1 (2026-08-31, `evals/results/description-2/2026-08-31_023852/`, **nothing adopted**: incumbent 13/14 train, 6/9 held-out; the best candidates score 7/9 by flipping one held-out query each — different queries, one by a single attempt (2/3 vs 1/3) — and the iteration-2 one is 1,027 characters, over the 1,024 the loader keeps; 9 queries timed out during the run and the tool records neither which query nor which iteration, so a one-query gap is inside the noise; held-out holds only 4 should-trigger queries): run the description loop with only its inputs, detached (`SKILL_CREATOR_NO_OPEN=1`;
   read `shared/references/running-detached.md` first):
   `bun ~/Dev/ACMElabs/plugin-kit/shared/operations/optimize-description.ts --eval-set skills/session/evals/trigger-eval.json --target-path skills/session --results-dir skills/session/evals/results/description-2`.
   Adopt `best_description` only if its held-out score beats the incumbent; re-measure on the
