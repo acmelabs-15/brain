@@ -10,7 +10,8 @@
   A shape shown anywhere else is a pointer to that command, not a copy.
 - Parsing, session selection, the gate's counting, plan matching: `scripts/session-lib.ts`, tested
   in `scripts/__tests__/`. The tool itself: `scripts/session.ts`; repo and path resolution: `scripts/paths.ts`.
-- The five aliases: `../../commands/session-*.md`, each delegating with `skill: sessions:session`.
+- The three aliases: `../../commands/session-{start,log,close}.md`, each delegating one act with
+  `skill: brain:session` and that act's arguments.
 
 ## Gotchas when editing SKILL.md
 
@@ -24,7 +25,7 @@
 - `allowed-tools` costs every headless run: `claude -p` must pass `--allowedTools Skill` or the skill
   never loads.
 - `git add` and `git commit` are left out of `allowed-tools` on purpose: every commit the ritual
-  makes is a permission checkpoint for the user. Adding them removes two prompts per mode; that is
+  makes is a permission checkpoint for the user. Adding them removes two prompts per act; that is
   the trade; Peter decided it on 2026-08-31: keep the prompts — a `Bash(git add:*)` grant would also pass
   `git add -A`, the command that once swept a stray session file into a commit.
 

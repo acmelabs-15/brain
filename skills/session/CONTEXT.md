@@ -2,7 +2,8 @@
 
 The vocabulary of the record the plugin produces: what a session is, what an entry holds, what the
 gate counts, how a plan part points at a session. These are the words used *in a repo that
-installed the plugin* — this repo keeps no `docs/sessions/` of its own.
+installed the plugin* — and in this repo's own `docs/sessions/`, which the tool it ships gates
+(ADR-003).
 
 **The definitions live in one file and are not repeated here:**
 `scripts/templates.ts` (`contextSection`, printed by `session template context`) — the section

@@ -1,10 +1,10 @@
 {
-  "name": "sessions",
-  "description": "Keeps a session log that a fresh Claude Code conversation rehydrates from: /sessions:session start reads the docs system and joins or opens the session serving a plan part, /sessions:session entry records each commit and updates what it made stale, /sessions:session end leaves a handoff, /sessions:session close finishes a session and its plan part; a tool gates every commit against the log and scaffolds the docs a repo needs",
-  "version": "0.2.0",
+  "name": "brain",
+  "description": "Keeps a repo's session log — the record of every commit that reached main and the story around it — through three acts: /brain:session start creates a session from a description, /brain:session log records a commit and updates what it made stale, /brain:session close finishes a session and its plan part; a tool gates every commit against the log and scaffolds the docs a repo needs. The one plugin that will carry the whole toolset (ADR-002).",
+  "version": "0.3.0",
   "author": { "name": "Peter Kloss", "email": "pkloss@gmail.com" },
-  "homepage": "https://github.com/acmelabs-15/sessions",
-  "repository": "https://github.com/acmelabs-15/sessions",
+  "homepage": "https://github.com/acmelabs-15/brain",
+  "repository": "https://github.com/acmelabs-15/brain",
   "license": "MIT",
-  "keywords": ["session-log", "rehydration", "docs-system", "plans", "adr", "claude-code", "plugin"]
+  "keywords": ["session-log", "docs-system", "plans", "adr", "claude-code", "plugin"]
 }

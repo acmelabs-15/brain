@@ -50,7 +50,7 @@ commit log cannot hold: what was asked, tried, abandoned, verified. A new conver
 to pick up exactly where the last one stopped: the plan says what is next, the entries say what
 was verified and what was not.
 
-The procedure that writes them is the \`session\` skill (the \`sessions\` plugin), three acts:
+The procedure that writes them is the \`session\` skill (the \`brain\` plugin), three acts:
 \`start\` creates a session from a description when a stream of work begins, \`log\` records a
 commit right after it lands, \`close\` finishes a session whose Goal is done. Where a plan stands
 and what comes next is \`/plan PLAN-NNN\`'s to say. The rules — what an entry holds, which commits

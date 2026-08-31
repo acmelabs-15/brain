@@ -1,16 +1,17 @@
-# Authoring — building the session plugin
+# Authoring — building the brain plugin
 
-The words for changing this repo: the plugin as an artefact, its parts, and the evidence that it
-works. The vocabulary of the record it *produces* is a separate context —
-[skills/session/CONTEXT.md](./skills/session/CONTEXT.md), and
-[CONTEXT-MAP.md](./CONTEXT-MAP.md) says how the two meet.
+The words for changing this repo's code: the plugin as an artefact, its parts, and the evidence
+that it works. The vocabulary of the record it *produces* is a separate context —
+[skills/session/CONTEXT.md](./skills/session/CONTEXT.md), whose definitions `session init` also
+wrote into this file's last section — and [CONTEXT-MAP.md](./CONTEXT-MAP.md) says how the two meet.
 
 ## The artefact
 
 **Plugin**:
-This repo as Claude Code installs it — the manifest, one skill, five commands. The unit a
-marketplace lists and a version tags.
-_Avoid_: package, extension, add-on
+This repo as Claude Code installs it — `brain`: the manifest, one skill, three commands, and (from
+PLAN-001 Part 5) every skill, command and agent of the toolset. The unit a marketplace lists and
+a version tags.
+_Avoid_: package, extension, add-on, the sessions plugin (its name before 2026-08-31)
 
 **Skill**:
 The directory `skills/session/` and everything under it. When the subject is the procedure file
@@ -22,21 +23,23 @@ _Avoid_: the command, the agent
 in prose. It is run, never read by the model.
 _Avoid_: the script, the CLI, the binary
 
-**Mode**:
-One of the five things the skill does: `start`, `continue`, `entry`, `end`, `close`. A mode is a section of
-SKILL.md with its own progress list and completion criterion.
-_Avoid_: subcommand (that is the tool's), phase, step, action
+**Act**:
+One of the three things the skill does: `start`, `log`, `close` — the same word the shipped
+glossary uses. An act is a section of SKILL.md with its own progress list and completion criterion;
+the act is inferred from the arguments, and `close` is always named.
+_Avoid_: mode (the word before 2026-08-31), subcommand (that is the tool's), phase, step, action
 
 **Subcommand**:
-One of the tool's nine verbs: `help`, `init`, `template`, `list`, `new`, `append`, `check`, `close`, `current`. A
-mode calls subcommands; the two vocabularies do not overlap even where the word matches
-(`close` is both, and they are not the same act).
+One of the tool's nine verbs: `help`, `init`, `template`, `list`, `new`, `append`, `check`, `close`, `current`. An
+act calls subcommands; the two vocabularies do not overlap even where the word matches
+(`close` is both, and they are not the same thing).
 _Avoid_: command (that is the alias), flag, option
 
 **Alias**:
-One of the five files in `commands/` (`/sessions:session-start` … `/sessions:session-close`) that
-invokes a mode. Typed only — `disable-model-invocation: true` — and carrying no procedure of its
-own. The prefix is not optional: a bare `/session-start` resolves to nothing.
+One of the three files in `commands/` (`/brain:session-start`, `/brain:session-log`,
+`/brain:session-close`) that invokes one act with that act's arguments. Typed only —
+`disable-model-invocation: true` — and carrying no procedure of its own. The prefix is not
+optional: a bare `/session-start` resolves to nothing.
 _Avoid_: slash command, shortcut, wrapper
 
 ## Bundled files, named by load mode
@@ -101,7 +104,8 @@ _Avoid_: call, run, execution
 
 **Description**:
 The frontmatter field Claude matches to decide whether to load a skill. Measured against a
-1,024-character limit, never eyeballed. The five aliases have their own, and all seven must agree.
+1,024-character limit, never eyeballed. The three aliases and the manifest have their own, and all
+five must agree.
 _Avoid_: summary, blurb
 
 ## What the tool emits
@@ -121,10 +125,11 @@ The tool declining to act: one `session: …` line on stderr and exit 1, never a
 has a named cause and states its remedy in the line itself.
 _Avoid_: error, failure, crash, exception
 
-**Brief**:
-The reply `/sessions:session start` and `/sessions:session continue` post — the fixed template of Released / Unreleased / Parked /
-Findings / Plan / Next / Session / read-in-full lines, under ~1,200 characters.
-_Avoid_: summary, report, standup
+**Reply line**:
+The one line `start` and `close` post as the entire reply (`started SES-NNN — …`,
+`closed SES-NNN — done — …`). The brief — the rehydration reply — is `/plan`'s since ADR-001,
+not this skill's.
+_Avoid_: brief (for this), summary, report, closing note
 
 ## Evidence
 
@@ -174,8 +179,8 @@ and the narrative around it — what a conversation reads to rehydrate.
 _Avoid_: ledger, history, changelog (that is the generated one)
 
 **Session**:
-A bounded stream of work toward one Goal, recorded in one `docs/sessions/SES-NNN` file; **open**
-from the moment it is opened until it is **closed** with its Outcome written. It may span any
+A bounded stream of work toward one Goal, recorded in one `docs/sessions/SES-NNN` file;
+`in progress` from `start` until `close` writes `done` with its Outcome. It may span any
 number of conversations and may serve a plan part (its `Plan:` line).
 _Avoid_: conversation (for this), sitting, chat, the newest file (as the definition of current)
 
@@ -192,12 +197,12 @@ whether the Goal was met or abandoned; nothing is appended to a done session. A 
 `in progress` or `done`. Tickets and ADRs carry their own words (triage roles; Accepted / Superseded).
 _Avoid_: open, closed (the pre-ADR-024 session words, still read), active, current, finished, complete (as a status)
 
-**Join** / **Open** / **Leave** / **Close** (a conversation's moves):
-Join — take an open session as yours because you will record entries into it and its Goal is your
-work; never a session another conversation owns. Open — start a new session for new work. Leave —
-stop for now with the log complete and a handoff written; the session stays open. Close — the
-Goal is done: Outcome written, status flipped to closed.
-_Avoid_: end (for close), finish, resume (for join), create (for open)
+**Start** / **Log** / **Close** (the three acts of the session skill):
+Start — a new session from a description: its Goal, its `Plan:` line, its plan part marked in
+progress. Log — a commit's entry into a session in progress, with everything the change made
+stale. Close — the Goal is done: Outcome written, status `done`, the plan part done. The act is
+inferred from the arguments; close is always named. A conversation that stops does nothing.
+_Avoid_: join, open, leave, end, add, record, entry (as the act name)
 
 **Plan part**:
 One `### Part N` of a plan in `docs/plan/`, with its own status line — `planned`, `in progress
@@ -212,7 +217,7 @@ _Avoid_: check (as the noun), lint, validation
 
 **Entry**:
 The block a change worth reading about gets in a session file — Summary, Why, one line per
-touched file, Notes — written by `/session entry` right after the commit. The session log holds
+touched file, Notes — written by the `log` act right after the commit. The session log holds
 value only: a fix-up commit gets no entry and is vouched for by its parent's `Also:` line; a commit
 with nothing to record says so itself (`Session-entry: none`) and gets none.
 _Avoid_: log entry, note, update, record (as the noun), commit (as the unit — a commit is git's)
