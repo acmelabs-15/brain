@@ -227,7 +227,7 @@ form is `brain:`-namespaced and `commands/` is the typed surface.
 
 ### Part 3: the three commands, the shipped surface, the one reinstall
 
-> Status: planned
+> Status: done (session SES-003, `f70eaaf`)
 
 ```text
 Task 1 (three commands, done) ──┐
@@ -250,14 +250,21 @@ Task 2 (shipped surface, done) ─┼──> Task 3 (the reinstall at 0.4.0; nee
   hands over), the manifest descriptions. Acceptance: no file in this repo says `start [PLAN-NNN]`,
   `continue`, `end`, join, open or `Open at end` except as history in `docs/sessions/`.
   Verification: grep.
-- [ ] Task 3 (state 2026-08-31: version 0.3.0 in both manifests, `b45bda7`; the marketplace
-  regenerated with `brain` listed; Part 2 raises the version to 0.4.0 with the toolset copied in):
+- [x] Task 3 (2026-08-31, SES-003: the marketplace regenerated at 0.4.0, `sessions@ACMElabs`
+  uninstalled, `brain@ACMElabs` 0.4.0 installed and enabled; the installed `skills/session/SKILL.md`
+  and `cli.ts` byte-identical to `main`; a fresh headless conversation with no `--plugin-dir` lists
+  43 `brain:` names, `brain:session` and `brain:plan` among them. State earlier: version 0.3.0 in
+  both manifests, `b45bda7`; Part 2 raised it to 0.4.0 with the toolset copied in):
   the reinstall, once — `claude plugin uninstall sessions@ACMElabs`, `claude plugin install
   brain@ACMElabs`, `/reload-plugins` (Peter's); the installed `skills/session/SKILL.md`
   byte-identical to `main`; a fresh conversation resolves `/brain:session` and `/brain:plan`.
   Acceptance: `claude plugin list` shows `brain` 0.4.0.
-- [ ] Task 4 (moved here from the docs sweep, its commit task and the namespace half of its docs task —
-  ANA-003 F2): env-setup on the installed plugin. (a) Its overdue commits, through env-setup's own ritual
+- [x] Task 4 (2026-08-31, env-setup `1ae9a7e` ADR-024/ANA-011, `d9398d7` the repo specs, `260a510`
+  the docs, each recorded there by the installed `/brain:session-log` in SES-008 — `71f9948`,
+  `83d0881`; `~/CLAUDE.md` line 47 by hand; the second log run restored a `CONTEXT.md` tail my hand
+  regeneration had cut and swept `CONTRIBUTING.md`, `CLAUDE.md` § Commands and the run skills too —
+  the cause fixed in brain as `session init --refresh`, `fe60256`. Moved here from the docs sweep,
+  its commit task and the namespace half of its docs task — ANA-003 F2): env-setup on the installed plugin. (a) Its overdue commits, through env-setup's own ritual
   (`/brain:session log` there): ADR-024 and ANA-011 with their index rows; the `repo-brain` spec in
   `src/items/repos/repo-factory.ts`; `repo-sessions` removed from `ACMELABS_REPOS` once the
   sessions repo is archived, the marketplace regenerated; ADR-023's Consequences sentence about the
@@ -267,8 +274,10 @@ Task 2 (shipped surface, done) ─┼──> Task 3 (the reinstall at 0.4.0; nee
   order until Part 4 gives it `/brain:plan` to delegate to; `~/CLAUDE.md` §1 line 41 likewise.
   Acceptance: env-setup's `docs/decisions/README.md` and `docs/analysis/README.md` list ADR-024
   and ANA-011; `grep -rn 'sessions:session' ~/Dev/env-setup ~/CLAUDE.md` returns history only.
-- [ ] Checkpoint: Task 4's conversation in env-setup — a real one — ran `/brain:session-log SES-NNN`
-  after a commit and `/brain:session-close` with no id and got the question.
+- [x] Checkpoint (2026-08-31): Task 4's conversation in env-setup — real, the installed plugin,
+  headless — ran `/brain:session-log SES-008` after each commit (entries filled, stale docs
+  updated, gate green, `docs(session)` commits) and `/brain:session-close` with no id, which
+  stopped before step 1 with the question over SES-005 and SES-008 and wrote nothing.
 
 ### Part 4: rehydration moves to `/plan`
 
