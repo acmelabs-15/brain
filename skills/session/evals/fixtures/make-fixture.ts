@@ -42,7 +42,10 @@ const tool = (cwd: string, ...a: string[]) => run(["bun", TOOL, ...a], cwd, { CL
 if (existsSync(out)) rmSync(out, { recursive: true, force: true });
 run(["git", "clone", "-q", "--no-hardlinks", String(source), out], process.cwd());
 run(["git", "checkout", "-q", PIN], out);
-run(["git", "switch", "-q", "-c", "main"], out); // the run sees a `main`, as a real checkout would
+// The run sees a `main` at the pin, as a real checkout would. `-C` resets a `main` the clone
+// already carries (env-setup's default branch since PR #44); `-c` died on it and left a
+// half-built fixture behind.
+run(["git", "switch", "-q", "-C", "main"], out);
 run(["git", "config", "user.name", "Fixture"], out);
 run(["git", "config", "user.email", "fixture@example.invalid"], out);
 
