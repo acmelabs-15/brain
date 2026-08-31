@@ -11,7 +11,7 @@ What the record is made of and the rules that keep it readable: how a plan point
 - [Which commits get no entry](#which-commits-get-no-entry)
 - [What the gate counts](#what-the-gate-counts)
 - [Release markers](#release-markers)
-- [The Narrative and the handoff](#the-narrative-and-the-handoff)
+- [The Narrative and the Outcome](#the-narrative-and-the-outcome)
 - [What is never rewritten](#what-is-never-rewritten)
 - [The words](#the-words)
 
@@ -30,9 +30,9 @@ docs/plan/PRD-NNN-<product>.md     ## Plans table — every plan implementing it
 
 The plan says where the work stands and which session holds the story of each part; the session says what was done, why, and what is next. Progress is read from the session's entries, not tracked twice: a plan's task ticks cite the entry sha that did them, and nothing else about progress is written into the plan.
 
-**One session per part.** A part is the unit a session serves; a second conversation on the same part joins that part's session rather than opening another. A session may outlive many conversations and stays open until its Goal is done.
+**One session per part.** A part is the unit a session serves; a second conversation on the same part logs into that part's session rather than starting another. A session may outlive many conversations and stays `in progress` until its Goal is done.
 
-Unplanned work — a fix, a chore, a question that turned into a change — opens a session with `Plan: —`. It still gets entries; it simply has no part pointing at it.
+Unplanned work — a fix, a chore, a question that turned into a change — starts a session with `Plan: —`. It still gets entries; it simply has no part pointing at it.
 
 ---
 
@@ -42,8 +42,8 @@ Each `### Part N` heading in a plan carries one blockquote line under it, after 
 
 | Status | Written by | Meaning |
 | --- | --- | --- |
-| `> Status: planned` | the plan's author | no session serves it yet; `start` or `continue` on this part opens one |
-| `> Status: in progress (session SES-NNN)` | the skill, when it opens the part's session | SES-NNN is the session to join for this part; stays this way across every conversation until the part is done |
+| `> Status: planned` | the plan's author | no session serves it yet; `start … --plan "PLAN-NNN · part N"` creates one |
+| `> Status: in progress (session SES-NNN)` | `start`, when it creates the part's session | SES-NNN is the session every `log` on this part writes into; stays this way across every conversation until the part is done |
 | `> Status: done (session SES-NNN, <sha>)` | `close` | finished; the sha is the entry that finished it, so the line is never self-referential |
 
 The plan's own top status (`> Status: planned | in progress | done — shipped in vX.Y.Z (session SES-NNN)`) changes only when every part is done, and the PRD's `## Plans` row says the same thing as the plan's top status.
@@ -166,11 +166,11 @@ There is no handoff line (ADR-024). What the next conversation picks up first is
 
 - **Old entries and old sessions.** A mistake is corrected with a new entry or a dated note, never by editing history; `git show <sha>` must keep agreeing with the record.
 - **Another conversation's session.** Its placeholders are that conversation's to fill; the gate reports them as warnings and you leave the file alone, whatever its title says.
-- **A closed session's Changes.** Nothing is appended to it. Reopening one means editing its `Status:` line back to `open` with a dated note in the Narrative saying why — a rare, deliberate act.
+- **A done session's Changes.** Nothing is appended to it. Reopening one means editing its `Status:` line back to `in progress` with a dated note in the Narrative saying why — a rare, deliberate act.
 - **Merge history.** PRs are merged with merge commits, not squashed, so every sha an entry cites stays valid.
 
 ---
 
 ## The words
 
-The repo's `CONTEXT.md` carries the glossary section `init` writes (`session template context` prints it): **Session log**, **Session**, **Conversation**, **Open / Closed**, **Join / Open / Leave / Close**, **Plan part**, **Handoff**, **Gate**, **Entry**, **Record**, each with the synonyms to avoid. Use those words in entries, commits, docs and replies; a term that needs sharpening goes into `CONTEXT.md` in the same step as the entry that needed it.
+The repo's `CONTEXT.md` carries the glossary section `init` writes (`session template context` prints it): **Session log**, **Session**, **Conversation**, **Status**, **Start / Log / Close**, **Plan part**, **Gate**, **Entry**, **Record**, each with the synonyms to avoid. Use those words in entries, commits, docs and replies; a term that needs sharpening goes into `CONTEXT.md` in the same step as the entry that needed it.

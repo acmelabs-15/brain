@@ -24,8 +24,10 @@ describe("templates", () => {
 
   test("the glossary section names every term the skill uses, each with an Avoid line", () => {
     const c = contextSection();
-    for (const term of ["Session log", "Session", "Conversation", "Plan part", "Gate", "Entry", "Record"]) expect(c).toContain(`**${term}**`);
+    for (const term of ["Session log", "Session", "Conversation", "Status", "Start", "Log", "Close", "Plan part", "Gate", "Entry", "Record"]) expect(c).toContain(`**${term}**`);
+    // the acts entry is one glossary entry (Start / Log / Close), so nine _Avoid_ lines for nine entries
     expect(c.match(/_Avoid_/g)?.length).toBe(9);
+    for (const retired of ["**Join**", "**Leave**", "**Handoff**", "Open at end"]) expect(c).not.toContain(retired);
   });
 
   test("every template name prints something", () => {

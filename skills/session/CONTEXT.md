@@ -14,7 +14,7 @@ installed the plugin* — this repo keeps no `docs/sessions/` of its own.
 | **Session** | one bounded stream of work toward one Goal |
 | **Conversation** | one exchange with Claude; many may share a session |
 | **Status** | one vocabulary: a session is `in progress` or `done`; a plan part `planned` / `in progress (session SES-NNN)` / `done (session SES-NNN, sha)`; a plan `planned` / `in progress` / `done` |
-| **Join** / **Open** / **Leave** / **Close** | what a conversation does to a session |
+| **Start** / **Log** / **Close** | the three acts: a session from a description; a commit's entry; the Goal done |
 | **Plan part** | the unit of a plan a session serves |
 | **Gate** | `session check` — its exit status is the verdict |
 | **Entry** | one commit's block in a session file |

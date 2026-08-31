@@ -1,40 +1,41 @@
 ---
 name: session
-argument-hint: "start [PLAN-NNN] | continue [PLAN-NNN] | entry | end | close"
+argument-hint: "start <description> [--plan \"PLAN-NNN · part N\"] | log [SES-NNN] | close SES-NNN"
 allowed-tools: Bash(git status:*), Bash(git branch:*), Bash(git show:*), Bash(git log:*), Bash(gh pr list:*), Bash(bun "${CLAUDE_SKILL_DIR}/scripts/session.ts" *)
 license: MIT
-compatibility: "Claude Code (the injected state lines and the plugin-root anchor do nothing elsewhere). Needs Bun on PATH and git; `gh` only for the open-PR check at the end of a conversation."
-description: "Runs the session ritual of a repo's docs system and produces its artifacts: `/sessions:session start [PLAN-NNN]` and `/sessions:session continue [PLAN-NNN]` read the docs system in full (OVERVIEW, plan, PRD, the open docs/sessions/SES-NNN serving it, CONTEXT.md), join the session the plan part names or open one and mark the part in progress, and post a brief (`continue` alone asks which plan in progress); `entry` after every commit appends and fills the commit's entry, updates what it made stale (plan ticks, OVERVIEW, ADR, PRD, CONTEXT.md) and commits it as docs(session); `end` leaves the session open with a handoff; `close` closes a session whose Goal is done and marks its plan part done. Use at the start of a conversation in a repo with docs/sessions (or to set one up), after each commit, and before finishing — \"catch me up\", \"record that commit\", \"write the handoff\". Not for authoring an ADR, a PRD or CONTEXT.md, for changing the session tool itself, or for a changelog of recent commits."
+compatibility: "Claude Code (the injected state lines and the plugin-root anchor do nothing elsewhere). Needs Bun on PATH and git."
+description: "Keeps a repo's session log — the record of every commit that reached `main` and the story around it — through three acts: `start` creates a session from a description and marks its plan part in progress; `log` appends and fills a commit's entry, ticks the plan, updates what the change made stale and commits it as docs(session); `close` writes the Outcome and marks the session and its plan part done. The act is inferred from the arguments (`SES-NNN` and a landed commit → log; a description → start); `close` is always named. Use right after a commit in a repo with docs/sessions, when a plan part's work begins, and when a stream of work is finished — \"record that commit\", \"log this\", \"the append says up to date\", \"the gate says NOT ready\", \"a skeleton for a commit I didn't make\", \"close SES-004\", \"start a session for the finder fix\". Not for finding where a plan stands or what to work on next (`/plan PLAN-NNN`), for authoring an ADR, a PRD or CONTEXT.md, or for a changelog of recent commits."
 ---
 
-# Session — start, continue, entry, end, close
+# Session — start · log · close
 
-A **session** is a stream of work toward one Goal, open until closed, that may outlive many
-conversations; it usually serves one **part** of a plan, and that part's status line names it. A
-conversation joins a session or opens one before its first commit; one that changes nothing needs
-none. `references/session-log.md` holds the rules of the record: read it when a skeleton is a fix-up
-or a valueless commit (§ Which commits get no entry), or a closed session must be reopened (§ What
-is never rewritten).
+A **session** is a stream of work toward one Goal, `in progress` until `done`; it usually serves
+one **part** of a plan, and that part's status line names it. This skill keeps the record only,
+through three acts: **start** creates a session from a description, **log** records a commit into
+one, **close** finishes one. A conversation that stops does nothing — the session stays
+`in progress`. Where a plan stands and what comes next is `/plan PLAN-NNN`'s to say; the
+`SES-NNN` it hands over is the session every `log` here writes into. `references/session-log.md`
+holds the rules of the record: read it when a skeleton is a fix-up or a valueless commit (§ Which
+commits get no entry), or a done session must be reopened (§ What is never rewritten).
 
 ## Workflow
 
-1. Determine the mode from the arguments — **$ARGUMENTS** — a mode word and, for `start` and
-   `continue`, an optional `PLAN-NNN` (the aliases `/sessions:session-start` …
-   `/sessions:session-close` pass the same words):
+1. Determine the act from the arguments — **$ARGUMENTS**. An act word wins when present; otherwise
+   the shape of the arguments decides. `close` is never inferred:
 
-   **`start` or `continue`, with or without a plan id?** → Follow "start and continue" below
-   **A bare `PLAN-NNN`, no mode word?** → `docs/plan/PLAN-NNN-*.md` exists → "start and continue" as `continue`; no such file → as `start`
-   **Nothing, and no session joined or opened in this conversation?** → "start and continue" as `start`
-   **`entry`, or a commit just landed?** → Follow "entry" below
-   **`end`, or wrapping up with the Goal not done?** → Follow "end" below
-   **`close`, or the Goal done?** → Follow "close" below
+   | Arguments | Act |
+   | --- | --- |
+   | `start <description> [--plan "PLAN-NNN · part N"]`, or a description and no `SES-NNN` | **start** |
+   | `log [SES-NNN]`, or `SES-NNN` alone, or nothing — and the Sessions line shows `unrecorded:` | **log** |
+   | `close SES-NNN`, or `close` alone | **close** |
+   | nothing, and no `unrecorded:` line | say `up to date` — the entire reply |
 
-   **Example 1:** Input: `/sessions:session PLAN-003`, and `docs/plan/PLAN-003-search.md` exists → Output: "start and continue" as `continue PLAN-003`
-   **Example 2:** Input: `/sessions:session PLAN-009`, no such file → Output: "start and continue" as `start PLAN-009`
-   **Example 3:** Input: `/sessions:session` right after `git commit` → Output: "entry"
+   **Example 1:** Input: `the finder favourites fix --plan "PLAN-003 · part 2"` → Output: start, the Goal drawn from the description and the part
+   **Example 2:** Input: `SES-004`, and the Sessions line shows `unrecorded: 9c1d2e3 fix(finder): …` → Output: log, `--session SES-004`
+   **Example 3:** Input: `close` → Output: close, asking which session `in progress` (never inferred, never guessed)
 
-2. Run that mode to its **Done when** line. Each mode opens with a progress checklist: copy it into
-   the reply and tick it as you go.
+2. Run that act to its **Done when** line. Each act opens with a progress list: copy it into the
+   reply and tick it as you go.
 
 The tool is one exact command, always written this way — quoted path, then the subcommand — and
 `session <subcommand>` below:
@@ -64,12 +65,12 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
   `session init` (writes `docs/sessions/README.md` and the session-log section of `CONTEXT.md`;
   keeps any file that exists; `docs/plan/` is the plan skill's to create), commit that, continue.
 - **No sampling.** Every file a step names is read to its last line (continue with `offset`).
-- **Your session is the one you joined or opened, never "the newest".** Another conversation may
-  share this checkout with its own open session, so every `session append`, `check` and `close`
-  takes `--session SES-NNN`; with two open the tool refuses to guess. Placeholders in any other
-  session are that conversation's: the gate reports them as warnings; leave that file untouched.
-  A closed session takes nothing; reopening one is `references/session-log.md` § What is never
-  rewritten.
+- **Your session is the one named, never "the newest".** `/plan` hands over the `SES-NNN` of the
+  part in progress, or the user names one; with neither, the tool takes the single session
+  `in progress` and refuses between several — then ask which. Every `append`, `check` and `close`
+  carries `--session SES-NNN`. Placeholders in any other session are that conversation's: the gate
+  reports them as warnings; leave that file untouched. A done session takes nothing; reopening one
+  is `references/session-log.md` § What is never rewritten.
 - **The gate's exit status is the gate.** Run `session check --session SES-NNN` bare and read its
   exit; pipe it through nothing (a `| tail` once hid a failure and a PR merged with an unfilled
   entry). Stage by named file; `git add -A` once swept in a stray file.
@@ -78,114 +79,56 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
 - **`docs(session): …` commits are skipped by the tool** — the entry-writing commit needs no entry.
 - **The gate counts entries, the Goal and the Narrative; `Outcome` only at `close`.** A session
   in progress carries it as a placeholder; do not invent an Outcome early.
-- **`new` opens a session for a stream of work, not for a conversation.** One session per plan
-  part; a conversation continuing that part joins with `--session`.
+- **`new` starts a session for a stream of work, not for a conversation.** One session per plan
+  part; a conversation continuing that part logs into it with `--session`.
 - **A release marker lands only when the release commit's entry is appended.** Tag first, then
   `session append`; if the entry already exists, add `> **Released vX.Y.Z** — tag on this commit.`
   under it by hand.
 
-## start and continue
+## start
 
-With a plan id the two modes are one procedure: the part you take is the plan's `in progress` part
-if it has one, else the first `planned` part. The mode word changes only the decision in step 2.
+From a description and, for planned work, `--plan "PLAN-NNN · part N"`.
 
 ```text
-Progress:
-- [ ] 1 OVERVIEW read to the end
-- [ ] 2 the plan read to the end (+ the PRD it cites) — chosen or written as step 2 says
-- [ ] 3 sessions index + every open SES serving the plan (else every open SES) read to the end
-- [ ] 4 CONTEXT.md read to the end
-- [ ] 5 injected state read as findings (branch, tree, sessions)
-- [ ] 6 the ADRs / ANAs the plan cites read
-- [ ] 7 session joined, opened (Goal set, Plan line set), or "none" stated; the part marked in progress
-- [ ] 8 brief posted in the template
+Start progress:
+- [ ] 1 slug, title and Goal derived from the description; the named part read
+- [ ] 2 what the description cannot supply asked; the rest filled
+- [ ] 3 session new run; title, Goal and the opening Narrative written
+- [ ] 4 the part's status line → in progress (session SES-NNN)
+- [ ] 5 the one-line reply posted
 ```
 
-1. `docs/OVERVIEW.md` — all of it; hold **Status**, **Next up**, **Key empirical facts**. (No
-   OVERVIEW: the README's status section, and say so in the brief.)
-2. Determine which plan, then read it:
-
-   **`PLAN-NNN` given and `docs/plan/PLAN-NNN-*.md` exists?** → Follow "Read the plan" below
-   **`continue` with no id?** → Follow "Choose the plan" below, then "Read the plan"
-   **A `PLAN-NNN` with no file?** (`start` with a new id, or `continue` on a session whose `Plan:` line names a plan never written) → Follow "Write the plan" below, then "Read the plan"
-   **No plan at all?** → OVERVIEW's **Next up** names the item; if it points at a plan, "Read the plan"
-
-   - **Read the plan** → read it in full — each part's
-     status line (`planned | in progress (session SES-NNN) | done (session SES-NNN, sha)`) says
-     where the plan stands and which session holds each part — then the PRD its Overview cites.
-   - **Choose the plan** → the injected Sessions line (it is `list --brief`) names every
-     open session and the plan part it serves; those plans are in progress. One → take it.
-     Several → one question (the `ask-user-question` skill if installed, else the AskUserQuestion
-     tool), each option a plan with its in-progress part and that session's Goal. None → say so
-     and run `start`.
-   - **Write the plan** → finish steps 1, 3–6 first, say the plan does not
-     exist, invoke `planning-and-task-breakdown` (Skill tool) to write it in `docs/plan/` under
-     that number if free, else the next free one, every part `> Status: planned`; add it to the
-     PRD's Plans table. Skill not installed → stop after the brief, say so.
-3. `docs/sessions/README.md` (the index), then the sessions: `session list --plan PLAN-NNN` names
-   the ones serving the plan — every **open** one in full, and the closed one of the part you
-   take, if any. No plan: every open session, then earlier ones back to the last
-   `> **Released vX.Y.Z**` marker. Collect: unreleased on `main`, parked branches, what was tried
-   and abandoned, what was verified and how.
-4. `CONTEXT.md` — its words from here on, in code labels, prompts, commits, docs.
-5. The injected lines are findings for the brief (an unexpected branch, a dirty tree, a second
-   open session, another session's unfilled placeholders, an `unrecorded:` commit no session
-   accounts for). Report them; tidy nothing.
-6. Every `ADR-NNN` the plan cites (settled — a change needs a superseding ADR); the `ANA-NNN` it
-   cites; search `docs/sessions/` with the Grep tool for the file or keyword. A directory's own
-   `CLAUDE.md` loads when you read files there.
-7. Determine the session outcome:
-
-   **The part is `in progress (session SES-NNN)` and that session is open?** → join
-   **No part, but an open session's Goal covers this work, its Goal and Narrative filled?** → join
-   **A fix or a follow-up that an open session's own work turned up?** → join it — the Goal covers what its work finds, whatever file that lands in
-   **The part is `planned`?** → open, however many sessions are already open — one session per part is the model
-   **Unplanned work, and no open Goal covers it?** → open, and say in one clause what makes it a separate stream
-   **A question, a review, a check — nothing will change?** → none (a question opens nothing, even when Next up names work; open a session only when the user asks for a change)
-
-   - **join** — the part is `in progress (session SES-NNN)` and that session is open, or an open
-     session's Goal covers the work (a fix the session's own work found is its work; a Goal that
-     only reads or verifies covers no change): it is yours (`--session SES-NNN`); say so in the brief. A session another conversation owns —
-     placeholders unfilled, Outcome not yours — is never joined: when the user wants work on that
-     part, post the brief with a Question line (wait for that conversation, or take its session
-     over — fill its placeholders from `git show`, say so in its Narrative) and change nothing
-     until answered;
-   - **open** — the part is `planned`, or unplanned work no open Goal covers: `session new <slug>
-     --plan "PLAN-NNN · part N"` (slug = the work ahead, kebab-case; omit `--plan` only for
-     unplanned work); set the title and `Goal` in the file it names; then the part's status line,
-     ALWAYS this exact form: `> Status: in progress (session SES-NNN)` — how the next conversation
-     finds this session. Sessions run in parallel by design, one per part. On **unplanned** work
-     `new` answers with `note: also in progress — SES-…`: read that as a question — is this a separate
-     stream, or the open session's own work? — and join instead when it is the latter;
-   - **none** — a question, a review, a check; nothing will change. Say so. The moment the work
-     turns into a change, run this step alone before the first commit.
-8. Post the brief — the whole reply, nothing before it or after it. ALWAYS use this exact template
-   structure — square brackets mark what you write, every line present, under ~1,200 characters (one clause per line; the session
-   file and the Narrative hold the detail):
+1. From the description: the slug (the work ahead, kebab-case), the title, and the Goal (what this
+   stream of work sets out to deliver, one or two lines). With `--plan`, read that part only —
+   `docs/plan/PLAN-NNN-*.md` from its `### Part N` heading to the next part's: its status line and
+   its tasks are the Goal's material. The rest of the plan is `/plan`'s walk, not this act's.
+2. Ask only for what the description cannot supply — a bare noun ("the finder fix") names no
+   Goal — with the `ask-user-question` skill: one question, its options drawn from the part or the
+   repo. Everything else you fill yourself.
+3. `session new <slug> [--plan "PLAN-NNN · part N"]` prints `started SES-NNN-<slug>.md`. In that
+   file write the H1 title, the Goal line, and the Narrative's first lines — what was asked, by
+   whom. On unplanned work `note: also in progress — SES-…` is a question: is this a separate
+   stream, or that session's own work? The latter → `log` into it and start nothing.
+4. The part's status line, ALWAYS this exact form: `> Status: in progress (session SES-NNN)` — the
+   pointer `/plan` follows. Unplanned work has no part to mark.
+5. Reply one line — the entire reply:
 
    ```text
-   Released: [vX.Y.Z (date, sha)]
-   Unreleased on main: [commits since the last release marker]
-   Parked: [branch — what, verified or not]
-   Findings: [branch/tree/sessions observations, or "clean"]
-   Open / unverified: [what the log names as unverified]
-   Plan: [PLAN-NNN · part — its status before this conversation] | none
-   Next: [item] — first step: [the first move]
-   Question: [one clause, at most one question, or omit the line]
-   Session: [SES-NNN joined | SES-NNN opened — its Goal] | none — nothing to record yet
-   read in full: [every file from steps 1–4 and 6]
+   started SES-NNN — [the Goal, one clause] — [PLAN-NNN · part N | unplanned]
    ```
 
-**Done when** the brief is posted in that shape and is the entire reply, and the session is joined,
-opened with its Goal set and its part marked in progress, or stated as none. A question is answered
-from what you read; the session opens before the first change, not before the answer.
+**Done when** the file exists with its title, Goal and opening Narrative, the part's status line
+names it (or the work is unplanned), and the one line is the entire reply. The file and the plan
+edit travel with the first `log`'s `docs(session)` commit.
 
-## entry
+## log
 
-Right after every commit — cheapest while the change is in front of you.
+Right after every commit — cheapest while the change is in front of you. `SES-NNN` is the session
+`/plan` handed over or the user named; with none, the tool takes the single session `in progress`
+and refuses between several — then ask which (the `ask-user-question` skill) and pass it.
 
 ```text
-Entry progress:
+Log progress:
 - [ ] 1 session append (--session yours) appended the skeleton(s)
 - [ ] 2 every placeholder filled; Notes say what was verified and how
 - [ ] 3 everything the change made stale updated, citing the sha (the plan's ticks first)
@@ -193,18 +136,14 @@ Entry progress:
 - [ ] 5 gate green (bare command, exit read), then named-file stage + docs(session) commit
 ```
 
-1. `session append --session SES-NNN` — `SES-NNN` is the session you joined or opened in this
-   conversation. None yet (the commit is this conversation's first move)? Run "start and continue"
-   step 7 first: join the open session whose Goal covers the commit, else open one; a session whose
-   Goal or Narrative still reads `_(fill in)_` is another conversation's and is never appended to,
-   whatever its title. One skeleton per commit not yet accounted for (`Summary` /
+1. `session append --session SES-NNN`. One skeleton per commit not yet accounted for (`Summary` /
    `Why` placeholders, one line per touched file with +/− counts — every file, a rename as two
    lines, none trimmed; `session current --session SES-NNN` lists them by line). A skeleton for a
    commit you did not make is a finding: fill what `git show <sha>` supports and say in Notes it
    was not verified, or ask. **The log holds value only:** a fix-up's skeleton is deleted and its
    parent entry gets `- Also: <sha> — <what it fixed>` under `Why`; a commit with nothing to
    record carries the trailer `Session-entry: none` (write it yourself on such commits). The table
-   is in `references/session-log.md`.
+   is in `references/session-log.md` § Which commits get no entry.
 2. Fill every placeholder. ALWAYS use this exact entry structure (the tool wrote the headings and
    the file lines; you write what follows each dash):
 
@@ -223,11 +162,11 @@ Entry progress:
    or "changes" is not a phrase. Two worked examples (a Files line, a Summary and Why):
    `references/session-log.md` § The entry.
 3. Same step, citing the sha: tick the plan part's tasks (`- [x] … — <sha>`; its status line stays
-   `in progress`); OVERVIEW **Status** / **Next up**; a decision → an ADR (`documentation-and-adrs`
-   if installed, else the decisions README template); a changed requirement → the PRD; a finding →
-   an analysis; a new or sharpened term → `CONTEXT.md` (`domain-modeling` if installed); a
-   directory convention → its `CLAUDE.md`; any doc the commit made false (grep the old claim); the
-   README index for a new doc.
+   `in progress`); OVERVIEW **Status** / **Next up** where the repo has one; a decision → an ADR
+   (`documentation-and-adrs` if installed, else the decisions README template); a changed
+   requirement → the PRD; a finding → an analysis; a new or sharpened term → `CONTEXT.md`
+   (`domain-modeling` if installed); a directory convention → its `CLAUDE.md`; any doc the commit
+   made false (grep the old claim); the README index for a new doc.
 4. Narrative: what the entry cannot hold — the request, a dead end, a false lead, a verification.
 5. Gate and commit, three commands in this order, each on its own:
 
@@ -241,85 +180,49 @@ Entry progress:
    prints `complete`.
 
 **Done when** the gate printed `session: complete` for your session, the `docs(session)` commit
-exists, no placeholder is left in your file, and every stale doc is updated or named in
-`Open at end`.
-
-## end
-
-Leaving: the conversation stops, the session stays open for the next one.
-
-```text
-End progress:
-- [ ] 1 log complete for your session (append → up to date; check → complete)
-- [ ] 2 Open at end = the handoff: what to pick up first, what is unverified; Narrative whole
-- [ ] 3 OVERVIEW Status / Next up match reality; top of Next up = first thing next time
-- [ ] 4 handoff committed: docs(session): handoff SES-NNN
-- [ ] 5 tree clean on main, or every departure named
-- [ ] 6 closing note posted
-```
-
-1. `session append --session SES-NNN` (expect `up to date`), then the gate (expect
-   `session: complete (SES-NNN, in progress)`).
-2. `Open at end` = what the next conversation picks up first and what is unverified; the Narrative
-   whole; every entry's `Notes` says what was verified. `Outcome` stays its placeholder; the plan
-   part stays `in progress (session SES-NNN)` — the pointer `continue` follows.
-3. OVERVIEW Status (released / unreleased on `main` / parked, with branch names) and Next up match
-   reality and cite shas; the top of Next up is the next conversation's first move.
-4. `git add docs/sessions/SES-NNN-<slug>.md docs/sessions/README.md docs/OVERVIEW.md` →
-   `git commit -m "docs(session): handoff SES-NNN"`.
-5. The tree:
-
-   ```bash
-   git status --short             # nothing uncommitted; WIP lives on a named branch cited in Status
-   git branch --show-current      # main, after the last PR merged
-   gh pr list --state open        # none dangling, or each named in Open at end (no GitHub origin: say so)
-   ```
-
-6. The closing note — the whole reply, nothing before it or after it; what you did is in the
-   session file, not here. ALWAYS use this exact template, at most ~60 words:
-
-   ```text
-   Shipped: [what landed this conversation — PRs/commits, one line]
-   Next time: [the first thing to do, one line]  (SES-NNN stays open)
-   Departures: [a dirty tree, another open session, an open PR — one line, or omit the line]
-   ```
-
-**Done when** the gate is green, the handoff commit exists, the tree is clean on `main` (or every
-departure is named in `Open at end` and in Status), and the closing note is the entire reply.
+exists, no placeholder is left in your file, and every stale doc is updated or named as a
+follow-up in the entry's Notes.
 
 ## close
 
-The Goal is done: everything `end` checks, plus the Outcome and the plan; then the status flips.
+Always named. `SES-NNN` is required: with none, the injected Sessions line names the sessions
+`in progress` — ask which with the `ask-user-question` skill, one option per session with its
+Goal; none in progress → say so and stop.
 
 ```text
 Close progress:
-- [ ] 1 end's steps 1–3 done
-- [ ] 2 Outcome written as the stream actually ended; Open at end = what it leaves behind
-- [ ] 3 the plan part → done (session SES-NNN, sha); the plan's own status when every part is; PRD Plans row
-- [ ] 4 session close --session SES-NNN printed: session: closed SES-NNN
-- [ ] 5 docs(session) commit; tree clean (end step 5); closing note posted
+- [ ] 1 append → up to date; gate → complete
+- [ ] 2 Outcome written from the log and this transcript
+- [ ] 3 the plan part → done (session SES-NNN, sha); the plan's own status and the PRD row when every part is; OVERVIEW Status
+- [ ] 4 session close printed: session: closed SES-NNN — done
+- [ ] 5 named-file stage; docs(session): close SES-NNN; the one-line reply posted
 ```
 
-1. `end` steps 1–3.
+1. `session append --session SES-NNN` (expect `session: up to date` — a skeleton instead means a
+   commit is unrecorded: run `log` first), then `session check --session SES-NNN` (expect
+   `session: complete`).
 2. `Outcome` = what the session delivered (releases, merged PRs, what was verified) — only work
    the log or this transcript shows. Work the user reports is recorded with them as its source
-   ("Peter reports the ADR pass found nothing; not verified here");
-   `Open at end` = what it leaves for a later session, or "nothing".
+   ("Peter reports the ADR pass found nothing; not verified here").
 3. The plan on the session's `Plan:` line: the part's status line →
    `done (session SES-NNN, <sha of the entry that finished it>)`, remaining ticks cite entry shas;
    every part done → the plan's top status `done — shipped in vX.Y.Z (session SES-NNN)` and the
-   PRD's **Plans** row say the same; OVERVIEW Status names the session as closed.
-4. `session close --session SES-NNN` — the gate again, now counting `Outcome`;
-   prints `session: closed SES-NNN — done` (a `still in progress: …` suffix names other conversations'
-   sessions). Then `git add` your session file, the index, OVERVIEW and every plan or PRD step 3
-   touched — by name, never `-A` — commit `docs(session): close SES-NNN`, and run `end` step 5.
-5. The closing note as in `end` — the whole reply — with `(SES-NNN closed)` on the second line.
+   PRD's **Plans** row say the same; `docs/OVERVIEW.md` Status, where the repo has one, names the
+   session as done. Unplanned work has nothing to mark.
+4. `session close --session SES-NNN` — the gate again, now counting `Outcome`; prints
+   `session: closed SES-NNN — done` (a `still in progress: …` suffix names other sessions).
+5. `git add` your session file, the index and every plan or PRD step 3 touched — by name, never
+   `-A`; `git commit -m "docs(session): close SES-NNN"`. Reply one line — the entire reply:
+
+   ```text
+   closed SES-NNN — done — [the Outcome, one clause]
+   ```
 
 **A step that cannot be satisfied stops the close** — the gate stays red after the entries are
 filled, a task the part names is visibly unfinished, the log contradicts what you were told. Say
-which step stopped and what would satisfy it; the session stays open and nothing is rewritten.
-Where the answer is the user's to give, ask as step 2 of "Choose the plan" does.
+which step stopped and what would satisfy it; the session stays `in progress` and nothing is
+rewritten. Where the answer is the user's to give, ask with the `ask-user-question` skill.
 
-**Done when** the tool printed `session: closed SES-NNN`, the `docs(session)` commit exists, the
-tree is clean, the plan part, the plan and OVERVIEW say the same thing as the Outcome, and the
-closing note is the entire reply.
+**Done when** the tool printed `session: closed SES-NNN — done`, the `docs(session): close` commit
+exists, the plan part and the PRD say the same thing as the Outcome, and the one line is the
+entire reply.
