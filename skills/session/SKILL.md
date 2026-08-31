@@ -73,8 +73,9 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
   exit; pipe it through nothing (a `| tail` once hid a failure and a PR merged with an unfilled
   entry). Stage by named file; `git add -A` once swept in a stray file.
 - **Merge PRs with merge commits.** A squash replaces every sha the entries cite with one new
-  commit, which the gate then reports as `missing:`. An archived log under `docs/sessions/archive/`
-  (a merged-in repository's sessions) accounts for its commits too; the tool reads it, never lists it.
+  commit, which the gate then reports as `missing:`. A merge of another repository's history
+  (`--allow-unrelated-histories`) accounts for every commit it brought in — that repository's own
+  log, archived under `docs/sessions/archive/`, is their record; the tool reads it, never lists it.
 - **`docs(session): …` commits are skipped by the tool** — the entry-writing commit needs no entry.
 - **The gate counts entries, the Goal and the Narrative; `Outcome` only at `close`.** A session
   in progress carries it as a placeholder; do not invent an Outcome early.

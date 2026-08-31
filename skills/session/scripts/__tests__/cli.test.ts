@@ -67,3 +67,52 @@ describe("an archived log (docs/sessions/archive/**) accounts for its commits", 
     expect(session(root, "append").out).toContain("up to date");
   });
 });
+
+describe("a merge of unrelated histories accounts for the history it brought in", () => {
+  test("the merged-in repository's commits are not missing; an ordinary merge's commits still are", async () => {
+    const root = mkdtempSync(join(tmpdir(), "session-foreign-"));
+    git(root, "init", "-q", "-b", "main");
+    git(root, "config", "user.email", "t@t");
+    git(root, "config", "user.name", "t");
+    writeFileSync(join(root, "README.md"), "# ours\n");
+    git(root, "add", "README.md");
+    git(root, "commit", "-q", "-m", "chore: scaffold");
+    const scaffold = git(root, "rev-parse", "--short", "HEAD");
+    expect(session(root, "init").code).toBe(0);
+    expect(session(root, "new", "work").code).toBe(0);
+    await fillLive(root);
+    // The scaffold gets its entry, so the live log is complete.
+    const live = join(root, "docs", "sessions", "SES-001-work.md");
+    writeFileSync(live, (await Bun.file(live).text()) + `\n### 2026-01-01 · chore: scaffold · ${scaffold}\n\n- Summary: s\n- Why: w\n- Files:\n  - \`README.md\` (+1/−0) — f\n`);
+    expect(session(root, "check", "--session", "SES-001").code).toBe(0);
+
+    // Another repository, with two commits of its own, merged in with its history.
+    const other = mkdtempSync(join(tmpdir(), "session-foreign-other-"));
+    git(other, "init", "-q", "-b", "main");
+    git(other, "config", "user.email", "o@o");
+    git(other, "config", "user.name", "o");
+    writeFileSync(join(other, "tool.ts"), "export const x = 1;\n");
+    git(other, "add", "tool.ts");
+    git(other, "commit", "-q", "-m", "feat: the tool");
+    writeFileSync(join(other, "tool.ts"), "export const x = 2;\n");
+    git(other, "add", "tool.ts");
+    git(other, "commit", "-q", "-m", "fix: two");
+    git(root, "fetch", "-q", other, "main");
+    git(root, "merge", "-q", "--allow-unrelated-histories", "-m", "Merge other", "FETCH_HEAD");
+    const after = session(root, "check", "--session", "SES-001");
+    expect(after.out).not.toContain("missing:");
+    expect(after.code).toBe(0);
+
+    // An ordinary branch merge: its commit is ours to record.
+    git(root, "switch", "-q", "-c", "topic");
+    writeFileSync(join(root, "topic.md"), "t\n");
+    git(root, "add", "topic.md");
+    git(root, "commit", "-q", "-m", "feat: topic work");
+    git(root, "switch", "-q", "main");
+    git(root, "merge", "-q", "--no-ff", "-m", "Merge topic", "topic");
+    const branchMerge = session(root, "check", "--session", "SES-001");
+    expect(branchMerge.out).toContain("missing:");
+    expect(branchMerge.out).toContain("feat: topic work");
+    expect(branchMerge.code).toBe(1);
+  });
+});

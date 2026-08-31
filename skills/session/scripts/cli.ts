@@ -84,7 +84,9 @@ the git toplevel, else the working directory. Accounted for: an entry heading wi
 entry's "- Also: <sha>" line, the trailer "Session-entry: none" in the commit message, or a
 docs(session)/docs(ledger) subject — in a session here or in an archived log under
 docs/sessions/archive/ (a merged-in repository's sessions, which keep their numbers and are never
-listed or written). Every refusal is one "session: …" line on stderr and exit 1.`;
+listed or written). The history a merge of unrelated repositories brought in (git merge-base finds
+no common ancestor) is accounted for by that merge. Every refusal is one "session: …" line on
+stderr and exit 1.`;
 type Command = (typeof COMMANDS)[number];
 
 function git(...args: string[]): string {
@@ -295,14 +297,37 @@ async function archivedShas(): Promise<string[]> {
 const archived = await archivedShas().catch(refuse);
 
 /**
+ * Commits that arrived with a merged-in repository. A merge whose two parents share no
+ * ancestor (`git merge-base` exits 1) joined an unrelated history — another repository's
+ * whole past, recorded in that repository's own log, now archived here (ADR-003). Every
+ * commit reachable from the foreign parent is that repository's to have recorded, not
+ * this log's, so the merge accounts for them all.
+ */
+function foreignShas(): Set<string> {
+  const foreign = new Set<string>();
+  const merges = git("log", "--merges", "--format=%H %P").trim();
+  for (const line of merges ? merges.split("\n") : []) {
+    const [merge, ours, theirs] = line.split(" ");
+    if (!merge || !ours || !theirs) continue;
+    const base = Bun.spawnSync(["git", "merge-base", ours, theirs], { cwd: ROOT });
+    if (base.exitCode === 0) continue; // an ordinary merge: its commits are ours to record
+    for (const sha of git("rev-list", theirs).split("\n")) if (sha) foreign.add(sha);
+  }
+  return foreign;
+}
+
+/**
  * Commits on this branch that no session accounts for. Excluded: the log updates
  * themselves, commits whose message carries `Session-entry: none`, commits a
- * parent entry vouches for on an `- Also:` line, and commits an archived log records.
+ * parent entry vouches for on an `- Also:` line, commits an archived log records, and
+ * the history a merge of unrelated repositories brought in.
  */
 function missingCommits(): Commit[] {
   const known = [...all.flatMap((s) => knownShas(s.text)), ...archived];
+  const foreign = foreignShas();
   return commits().filter(
     (c) =>
+      !foreign.has(c.sha) &&
       !SKIP_PREFIXES.some((p) => c.subject.startsWith(p)) &&
       !declinesEntry(c.body) &&
       !known.some((k) => c.sha.startsWith(k)),
