@@ -20,7 +20,7 @@
  */
 import { existsSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { contextFile, projectDir, sessionsDir } from "./paths";
+import { archiveDir, contextFile, projectDir, sessionsDir } from "./paths";
 import { CONTEXT_SECTION_HEADING, contextSection, sessionsReadme, TEMPLATES, type TemplateName } from "./templates";
 import {
   declinesEntry,
@@ -40,6 +40,7 @@ import {
 
 const ROOT = projectDir();
 const DIR = sessionsDir(ROOT);
+const ARCHIVE = archiveDir(ROOT);
 const INDEX = join(DIR, "README.md");
 // A skeleton lists every touched file; past 80 a commit is a mass move or a generated tree, and one
 // "… +N more" line plus `git show --stat` serves a reader better than a page of identical phrases.
@@ -73,7 +74,9 @@ in progress; none or several in progress is a refusal that says what to do. A se
 or "done" — the words a plan and a plan part use; the older "open" / "closed" are still read. The repo is CLAUDE_PROJECT_DIR, else
 the git toplevel, else the working directory. Accounted for: an entry heading with the sha, a parent
 entry's "- Also: <sha>" line, the trailer "Session-entry: none" in the commit message, or a
-docs(session)/docs(ledger) subject. Every refusal is one "session: …" line on stderr and exit 1.`;
+docs(session)/docs(ledger) subject — in a session here or in an archived log under
+docs/sessions/archive/ (a merged-in repository's sessions, which keep their numbers and are never
+listed or written). Every refusal is one "session: …" line on stderr and exit 1.`;
 type Command = (typeof COMMANDS)[number];
 
 interface Touched {
@@ -306,12 +309,29 @@ const all = await sessions().catch((error: unknown) => {
 });
 
 /**
+ * The shas an archived log accounts for. `docs/sessions/archive/**` holds the session
+ * files of a repository whose history was merged into this one (ADR-003): they keep
+ * their own numbers, so they are never listed, selected or appended to — but every
+ * commit they record is on this branch, and the gate must not report it missing.
+ */
+async function archivedShas(): Promise<string[]> {
+  if (!existsSync(ARCHIVE)) return [];
+  const shas: string[] = [];
+  for (const rel of readdirSync(ARCHIVE, { recursive: true }) as string[]) {
+    if (!/(^|\/)SES-\d{3}-.+\.md$/.test(rel)) continue;
+    shas.push(...knownShas(await Bun.file(join(ARCHIVE, rel)).text()));
+  }
+  return shas;
+}
+const archived = await archivedShas().catch(refuse);
+
+/**
  * Commits on this branch that no session accounts for. Excluded: the log updates
- * themselves, commits whose message carries `Session-entry: none`, and commits a
- * parent entry vouches for on an `- Also:` line.
+ * themselves, commits whose message carries `Session-entry: none`, commits a
+ * parent entry vouches for on an `- Also:` line, and commits an archived log records.
  */
 function missingCommits(): Commit[] {
-  const known = all.flatMap((s) => knownShas(s.text));
+  const known = [...all.flatMap((s) => knownShas(s.text)), ...archived];
   return commits().filter(
     (c) =>
       !SKIP_PREFIXES.some((p) => c.subject.startsWith(p)) &&

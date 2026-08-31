@@ -30,6 +30,14 @@ export function sessionsDir(root = projectDir()): string {
   return join(root, "docs", "sessions");
 }
 
+/**
+ * Archived logs: the session files of a repository whose history was merged into this one
+ * (ADR-003). Read for the commits they account for; never listed, selected or written.
+ */
+export function archiveDir(root = projectDir()): string {
+  return join(sessionsDir(root), "archive");
+}
+
 export function planDir(root = projectDir()): string {
   return join(root, "docs", "plan");
 }

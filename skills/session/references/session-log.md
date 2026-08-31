@@ -141,7 +141,7 @@ Decide at commit time. A valueless commit already pushed without the trailer is 
 
 `session check` (and `close`, which runs it first) is green only when both hold:
 
-- **Every commit on the current branch is accounted for** — by an entry heading carrying its sha, by a parent entry's `Also:` line, by the `Session-entry: none` trailer, or by a `docs(session)` subject. Merges are excluded, and a rename shows as a delete plus an add. Anything else prints `missing: <sha> <subject>`.
+- **Every commit on the current branch is accounted for** — by an entry heading carrying its sha, by a parent entry's `Also:` line, by the `Session-entry: none` trailer, or by a `docs(session)` subject. Merges are excluded, and a rename shows as a delete plus an add. Anything else prints `missing: <sha> <subject>`. An **archived log** — the session files of a repository whose history was merged into this one, kept with their own numbers under `docs/sessions/archive/<repo>/` — accounts for its commits the same way; the tool reads those files for their shas and never lists, selects or writes them.
 - **Your session has no placeholder the gate counts** — `_(fill in)_` on an entry line, the Goal, or the Narrative. `Outcome` is counted only by `close`. Placeholders in any other session print as warnings and are that conversation's to fill.
 
 Which session is "yours": `--session SES-NNN` (or the number, or the file name); with no flag, the single session in progress; none or several in progress is a refusal that says what to do.
