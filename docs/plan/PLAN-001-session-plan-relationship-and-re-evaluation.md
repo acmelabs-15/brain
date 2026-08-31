@@ -96,9 +96,10 @@ Validated with plugin-kit's validator.
   `session` is a bare noun typed as a command. Flagged, not decided.
 - [x] Task 3 (decided 2026-08-31: keep the prompts): `git add`/`git commit` are left out of `allowed-tools` on purpose (every ritual
   commit is a permission checkpoint); `skills/session/CLAUDE.md` records the trade. Decide it.
-- [ ] Task 4: bump `version` in `.claude-plugin/plugin.json` when the next change ships — the
-  installed cache is a snapshot and `plugin update` says "already at the latest version"
-  otherwise (`.claude/CLAUDE.md`).
+- [x] Task 4 (2026-08-31, `cc3bd05`): `version` 0.1.0 → 0.2.0 in the manifest and the marketplace
+  entry, shipped with the `close` stop condition. Not yet reinstalled on this machine, so the
+  installed copy is still 0.1.0 until
+  `claude plugin uninstall sessions@ACMElabs && claude plugin install sessions@ACMElabs` runs.
 
 ### Part 4: re-evaluate the skill on plugin-kit's loops (progressive disclosure and description)
 
