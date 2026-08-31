@@ -78,6 +78,10 @@ Task 4: User can view task list (query + API + UI for list view)
 
 Each vertical slice delivers working, testable functionality.
 
+**Tracer-bullet rules**, per slice: a narrow but COMPLETE path through every layer — schema, API, UI, tests — never a horizontal slice of one layer; demoable or verifiable on its own; sized to fit in a single fresh context window. Prefactor first where it makes the slices easier: "make the change easy, then make the easy change."
+
+**Wide refactors are the exception to vertical slicing.** A **wide refactor** is one mechanical change (rename a column, retype a shared symbol) whose **blast radius** fans across the whole codebase, so a single edit breaks thousands of call sites at once and no vertical slice can land green. Don't force it into a tracer bullet; sequence it as **expand–contract**. First expand: add the new form beside the old so nothing breaks. Then migrate the call sites over in batches sized by blast radius (per package, per directory), each batch its own task blocked by the expand, keeping CI green batch to batch because the old form still exists. Finally contract: delete the old form once no caller remains, in a task blocked by every migrate batch. When even the batches can't stay green alone, keep the sequence but let them share an integration branch that all block a final integrate-and-verify task; green is promised only there.
+
 ### Step 4: Write Tasks
 
 Each task follows this structure, whether it lands in the markdown task list or as an item in an external tracker (see Output Files):
@@ -85,7 +89,7 @@ Each task follows this structure, whether it lands in the markdown task list or 
 ```markdown
 ## Task [N]: [Short descriptive title]
 
-**Description:** One paragraph explaining what this task accomplishes.
+**Description:** One paragraph explaining what this task accomplishes — the end-to-end behaviour it makes work, from the user's perspective, not a layer-by-layer implementation list.
 
 **Acceptance criteria:**
 - [ ] [Specific, testable condition]
@@ -104,6 +108,8 @@ Each task follows this structure, whether it lands in the markdown task list or 
 
 **Estimated scope:** [Small: 1-2 files | Medium: 3-5 files | Large: 5+ files]
 ```
+
+**The freshness dial — state it once per plan.** Tasks executed immediately (this session, this week) may name exact files; the paths are fresh. Tasks that may sit — a tracker backlog, another agent, weeks later — follow the agent-brief durability rules: behavioral, not procedural; interfaces, types and contracts, never file paths or line numbers (`triage`'s AGENT-BRIEF.md carries the full rules, and the prototype-snippet exception: a snippet that encodes a decision more precisely than prose can may be inlined, trimmed to the decision-rich part). "Files likely touched" is for the immediate horizon only.
 
 ### Step 5: Order and Checkpoint
 
@@ -124,6 +130,10 @@ Add explicit checkpoints to the task list target:
 - [ ] Review with human before proceeding
 ```
 
+### Step 6: Quiz the User
+
+Present the breakdown as a numbered list — for each task: its title, what it delivers end-to-end, and what blocks it. Then put the approval to the user through `brain:ask-user-question`, the three checks as the question's context: does the granularity feel right (too coarse / too fine), is every blocking edge a genuine gate, should any tasks merge or split. Fold the answer in and re-present; iterate until approved. Nothing is published or implemented from an unapproved breakdown.
+
 ## Task Sizing Guidelines
 
 | Size | Files | Scope | Example |
@@ -135,6 +145,8 @@ Add explicit checkpoints to the task list target:
 | **XL** | 8+ | **Too large — break it down further** | — |
 
 If a task is L or larger, it should be broken into smaller tasks. An agent performs best on S and M tasks.
+
+A second ruler agrees with the first: a task should fit in **one fresh context window** — implementable, testable and verifiable without carrying context from a previous task. When the two rulers disagree, the smaller verdict wins.
 
 **When to break a task down further:**
 - It would take more than one focused session (roughly 2+ hours of agent work)
@@ -153,8 +165,11 @@ Create the `tasks/` directory if it does not exist.
 
 The task list target is where tasks and checkpoints are recorded. It is defined once, here; every other reference in this skill defers to it.
 
-- **Default: a checklist-style markdown file at `tasks/todo.md`.** This is the convention the `/build` command and other downstream tooling expect. Use it unless the project says otherwise.
-- **External tracker:** if the project's agent rules (`CLAUDE.md`, `AGENTS.md`, etc.) or the user designate an issue tracker (e.g. GitHub Issues, Jira, Linear, `bd`/beads), create one tracker item per task instead of writing `tasks/todo.md`. Map the Step 4 structure onto the tracker's fields: acceptance criteria and verification steps in the item body, dependencies via the tracker's linking mechanism (`bd dep add`, "blocked by", etc.). Record Step 5 checkpoints as tracker items too, or as a checklist in the plan document if the tracker has no natural equivalent.
+Resolve it once — first hit wins: the repo's own `docs/agents/issue-tracker.md`; else the repo's evident convention (a populated `docs/plan/` series, a `CLAUDE.md` naming where work items live, a tracker already in use); else the default below (`~/.claude/references/issue-tracker.md` carries the same order and the triage label roles).
+
+- **Default: a checklist-style markdown file at `tasks/todo.md`.** This is the convention the `/build` command and other downstream tooling expect. Use it when nothing above resolves differently.
+- **Per-ticket files** (the local tracker rendering): one file per ticket under `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01` in dependency order, blockers first — never a single combined file. Each file carries **What to build** (the end-to-end behaviour, from the user's perspective), the acceptance criteria, `Status: ready-for-agent`, and **Blocked by**: the numbers/titles that gate it, or "None (can start immediately)".
+- **A real issue tracker** (GitHub, Linear, `bd`/beads, …): one item per task in dependency order so blocking edges reference real identifiers; use the platform's **native** blocking / sub-issue relationship where it has one, otherwise a "Blocked by" list in the body; map the Step 4 structure onto the tracker's fields and apply the `ready-for-agent` triage label unless instructed otherwise — the tickets are agent-grabbable by construction. Record Step 5 checkpoints as tracker items too, or as a checklist in the plan document if the tracker has no natural equivalent. Downstream agents work the **frontier**: any ticket whose blockers are all done. Do not close or modify any parent issue.
 
 When using an external tracker, note it in `tasks/plan.md` (e.g. "Tasks tracked in Linear project FOO") so downstream steps and future sessions know where to look, and keep the plan document's Task List section as an ordered index of tracker item IDs or links rather than a duplicate checklist.
 
