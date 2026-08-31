@@ -1,0 +1,10 @@
+{
+  "name": "session",
+  "description": "Keeps a session log that a fresh Claude Code conversation rehydrates from: /session start reads the docs system and joins or opens the session serving a plan part, /session entry records each commit and updates what it made stale, /session end leaves a handoff, /session close finishes a session and its plan part; a tool gates every commit against the log and scaffolds the docs a repo needs",
+  "version": "0.1.0",
+  "author": { "name": "Peter Kloss", "email": "pkloss@gmail.com" },
+  "homepage": "https://github.com/acmelabs-15/session",
+  "repository": "https://github.com/acmelabs-15/session",
+  "license": "MIT",
+  "keywords": ["session-log", "rehydration", "docs-system", "plans", "adr", "claude-code", "plugin"]
+}

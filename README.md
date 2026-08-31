@@ -1,0 +1,102 @@
+# session
+
+A Claude Code plugin: one skill, `/session`, that keeps a **session log** a fresh conversation can
+rehydrate from — and the tool that gates every commit against it.
+
+The problem it solves: a conversation starts from nothing but the repo. Git says *what* changed;
+nothing says what was asked, what was tried and abandoned, what was verified, or what to do next.
+The session log does, and the plan points at it:
+
+```text
+PRD  →  plan  →  part (status: in progress (session SES-006))  →  docs/sessions/SES-006-….md
+```
+
+so "work on PLAN-003" is enough for a new conversation to find where the work stands and the
+whole story of how it got there.
+
+## What it produces
+
+| You type | It does |
+| --- | --- |
+| `/session start [PLAN-NNN]` | reads the docs system in full (OVERVIEW → the plan and its PRD → every open session serving it → `CONTEXT.md` → the ADRs it cites), joins the open session serving the plan part or opens one and marks the part `in progress (session SES-NNN)`, posts a brief |
+| `/session entry` | right after every commit: appends the commit's entry (Summary, Why, a line per touched file), fills it, updates what the change made stale (plan ticks, OVERVIEW, ADR, PRD, `CONTEXT.md`), gates, commits `docs(session): …` |
+| `/session end` | leaving: log complete, handoff written in `Open at end`, tree clean; the session stays open |
+| `/session close` | the Goal is done: Outcome written, plan part `done (session SES-NNN, sha)`, `Status: closed` |
+
+`/session-start`, `/session-entry`, `/session-end`, `/session-close` are typed-only aliases of the
+four modes. The skill is also invoked by Claude itself when a conversation in a repo with
+`docs/sessions/` is about to commit.
+
+A **session** is a bounded stream of work toward one Goal, open until closed, spanning any number
+of conversations; a conversation joins one or opens one before its first commit, and one that
+changes nothing needs none. The log holds value only: a fix-up commit gets no entry (its parent's
+`Also:` line vouches for it) and a commit with nothing to record carries the trailer
+`Session-entry: none`.
+
+## Install
+
+This repo is its own marketplace (`.claude-plugin/marketplace.json`), so:
+
+```bash
+claude plugin marketplace add acmelabs-15/session   # or, in a session: /plugin marketplace add acmelabs-15/session
+claude plugin install session@acmelabs-session
+```
+
+It is also listed in Peter's ACMElabs marketplace, which `envsetup` generates over the ACMElabs
+repos it clones. Either way the plugin needs [Bun](https://bun.sh) on `PATH` and git; the tool is
+a Bun script, no `node`, no install step.
+
+In a repo that has no session log yet, type `/session start`: its Sessions line says
+`no session log at …`, and the skill runs `session init`, which writes `docs/sessions/README.md`
+(purpose, index, the session file template), `docs/plan/README.md` (the PRD and plan templates
+with the per-part status lines) and the session-log section of `CONTEXT.md`, keeping any file that
+already exists. The templates are `skills/session/assets/`; the rules they point back at are the
+skill's (`skills/session/references/docs-system.md`), so a rule has one home.
+
+## The tool
+
+`skills/session/scripts/session.ts` — `session` below; the skill runs it as
+`bun "${CLAUDE_PLUGIN_ROOT}/skills/session/scripts/session.ts"`, and by hand it is
+`bun <this checkout>/skills/session/scripts/session.ts`. It finds the repo from
+`CLAUDE_PROJECT_DIR`, else the git toplevel, else the working directory (`scripts/paths.ts`).
+Every output and every refusal, with its cause, is `skills/session/references/tool.md`.
+
+```bash
+session init                             # scaffold docs/sessions, docs/plan, the CONTEXT.md section (keeps existing files)
+session list [--plan PLAN-NNN] [--brief] # SES-NNN  open|closed  title · plan, its Goal (--brief: no Goal line); then "open: …"
+session new <slug> [--plan "PLAN-NNN · part"]   # open SES-<next>-<slug>.md (Status: open) and regenerate the index
+session append --session SES-NNN         # skeletons for commits no session accounts for → "session: up to date" when none
+session current --session SES-NNN        # the file, status, Goal, every placeholder with its line number
+session check --session SES-NNN          # the gate: exit 0 + "session: complete (SES-NNN, open)"; exit 1 + missing:/unfilled: lines
+session close --session SES-NNN          # gate (now counting Outcome / Open at end), then Status: closed
+```
+
+What it reads as accounted for: an entry heading `### date · subject · sha`, a parent entry's
+`- Also: <sha>` line, the trailer `Session-entry: none` in a commit's message; `docs(session): …`
+commits are skipped outright. It uses `git log --no-renames` (a rename is a delete + an add),
+orders sessions by their `SES-NNN` number, requires the H1 `# YYYY-MM-DD HH:MM · Title` line,
+reads a file without a `Status:` line as open, and never guesses which session a run acts on:
+`--session` wins, else the single open session, else a refusal that says what to do.
+Placeholders in a session other than the target are warnings, never errors — that file belongs to
+another conversation.
+
+## Developing
+
+```bash
+bun install
+bun test              # scripts/__tests__/ — header parsing, selection, the gate's counting, plan matching, paths
+bun run typecheck
+bun run validate      # claude plugin validate . --strict
+claude --plugin-dir . # load it from this checkout; /help lists /session and the four aliases
+```
+
+`skills/session/evals/` holds the skill-creator evidence (eval prompts, four measured iterations,
+the trigger set); results are committed, fixture repositories are not — its README says what each
+iteration measured. Two things the layout decides: the skill's `allowed-tools` means a headless
+run (`claude -p`) must pass `--allowedTools Skill` or the skill never loads; and the repo's
+developer guidance is `.claude/CLAUDE.md` rather than a root `CLAUDE.md`, because
+`claude plugin validate --strict` rejects the latter.
+
+## Licence
+
+MIT — see [LICENSE](LICENSE).
