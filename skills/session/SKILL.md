@@ -15,16 +15,21 @@ conversation joins a session or opens one before its first commit; one that chan
 none. The rules of the record are `references/session-log.md`; `session template <name>` prints
 the documents themselves.
 
-Arguments: **$ARGUMENTS** — a mode and, for `start` and `continue`, an optional `PLAN-NNN`.
-Decide the mode when it is missing:
+## Workflow
 
-- **A bare `PLAN-NNN`?** → `continue` when `docs/plan/PLAN-NNN-*.md` exists, else `start`.
-- **Nothing, and no session joined or opened in this conversation?** → `start`.
-- **A commit just landed?** → `entry`.
-- **Wrapping up, Goal not done?** → `end`. **Goal done?** → `close`.
+1. Determine the mode from the arguments — **$ARGUMENTS** — a mode word and, for `start` and
+   `continue`, an optional `PLAN-NNN` (the aliases `/session-start` … `/session-close` pass the
+   same words):
 
-The aliases `/session-start`, `/session-continue`, `/session-entry`, `/session-end`,
-`/session-close` invoke the same modes.
+   **`start` or `continue`, with or without a plan id?** → Follow "start and continue" below
+   **A bare `PLAN-NNN`, no mode word?** → `docs/plan/PLAN-NNN-*.md` exists → "start and continue" as `continue`; no such file → as `start`
+   **Nothing, and no session joined or opened in this conversation?** → "start and continue" as `start`
+   **`entry`, or a commit just landed?** → Follow "entry" below
+   **`end`, or wrapping up with the Goal not done?** → Follow "end" below
+   **`close`, or the Goal done?** → Follow "close" below
+
+2. Run that mode to its **Done when** line. Each mode opens with a progress checklist: copy it into
+   the reply and tick it as you go.
 
 The tool is one exact command, always written this way — quoted path, then the subcommand — and
 `session <subcommand>` below:
@@ -79,7 +84,7 @@ Injected state (the harness ran these at load; findings, not commands to re-run)
 ## start and continue
 
 With a plan id the two modes are one procedure: the part you take is the plan's `in progress` part
-if it has one, else the first `planned` part. The mode word changes only step 2.
+if it has one, else the first `planned` part. The mode word changes only the decision in step 2.
 
 ```text
 Progress:
@@ -95,21 +100,25 @@ Progress:
 
 1. `docs/OVERVIEW.md` — all of it; hold **Status**, **Next up**, **Key empirical facts**. (No
    OVERVIEW: the README's status section, and say so in the brief.)
-2. The plan, by case:
-   - **`PLAN-NNN` given and `docs/plan/PLAN-NNN-*.md` exists?** → read it in full — each part's
+2. Determine which plan, then read it:
+
+   **`PLAN-NNN` given and `docs/plan/PLAN-NNN-*.md` exists?** → Follow "Read the plan" below
+   **`continue` with no id?** → Follow "Choose the plan" below, then "Read the plan"
+   **A `PLAN-NNN` with no file?** (`start` with a new id, or `continue` on a session whose `Plan:` line names a plan never written) → Follow "Write the plan" below, then "Read the plan"
+   **No plan at all?** → OVERVIEW's **Next up** names the item; if it points at a plan, "Read the plan"
+
+   - **Read the plan** → read it in full — each part's
      status line (`planned | in progress (session SES-NNN) | done (session SES-NNN, sha)`) says
      where the plan stands and which session holds each part — then the PRD its Overview cites.
-   - **`continue` with no id?** → the injected Sessions line (it is `list --brief`) names every
+   - **Choose the plan** → the injected Sessions line (it is `list --brief`) names every
      open session and the plan part it serves; those plans are in progress. One → take it.
      Several → one question (the `ask-user-question` skill if installed, else the AskUserQuestion
      tool), each option a plan with its in-progress part and that session's Goal. None → say so
-     and run `start`. Then read the chosen plan as above.
-   - **A `PLAN-NNN` with no file?** (`start` with a new id, or `continue` on a session whose
-     `Plan:` line names a plan never written) → finish steps 1, 3–6 first, say the plan does not
+     and run `start`.
+   - **Write the plan** → finish steps 1, 3–6 first, say the plan does not
      exist, invoke `planning-and-task-breakdown` (Skill tool) to write it in `docs/plan/` under
      that number if free, else the next free one, every part `> Status: planned`; add it to the
-     PRD's Plans table; then read it as above. Skill not installed → stop after the brief, say so.
-   - **No plan?** → OVERVIEW's **Next up** names the item; if it points at a plan, read that plan.
+     PRD's Plans table. Skill not installed → stop after the brief, say so.
 3. `docs/sessions/README.md` (the index), then the sessions: `session list --plan PLAN-NNN` names
    the ones serving the plan — every **open** one in full, and the closed one of the part you
    take, if any. No plan: every open session, then earlier ones back to the last
@@ -121,7 +130,12 @@ Progress:
 6. Every `ADR-NNN` the plan cites (settled — a change needs a superseding ADR); the `ANA-NNN` it
    cites; search `docs/sessions/` with the Grep tool for the file or keyword. A directory's own
    `CLAUDE.md` loads when you read files there.
-7. The session, one of three outcomes:
+7. Determine the session outcome:
+
+   **The part is `in progress (session SES-NNN)` and that session is open?** → join
+   **The part is `planned`, or the work has no plan?** → open
+   **A question, a review, a check — nothing will change?** → none
+
    - **join** — the part is `in progress (session SES-NNN)` and that session is open: it is yours
      (`--session SES-NNN`); say so in the brief. A session another conversation owns —
      placeholders unfilled, Outcome not yours — is never joined: when the user wants work on that
