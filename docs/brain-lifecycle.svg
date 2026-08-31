@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="880" viewBox="0 0 1660 880" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">The brain plugin's lifecycle</title>
+  <desc id="d">Five stages — Define, Plan, Build, Review, Release — the skills and commands at each, the cross-cutting skills every stage calls, and the record that ties them together: PRD to plan to part to session, gated by the Definition of Done.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9 z" fill="#898781"/></marker></defs>
+  <rect width="1660" height="880" fill="#fcfcfb"/>
+  <text x="40" y="44" font-size="20" font-weight="600" fill="#0b0b0b">The brain plugin — the lifecycle, as composed (PLAN-005, 2026-08-31)</text>
+  <text x="40" y="66" font-size="13" fill="#52514e">Five stages left to right; the skills and commands at each; what every stage calls; the record every stage writes into.</text>
+  <rect x="40" y="92" width="300" height="20" rx="4" fill="#2a78d6"/>
+  <text x="48" y="106" font-size="12" font-weight="600" fill="#ffffff">DEFINE</text>
+  <text x="40" y="132" font-size="12" fill="#898781">clarify what to build before a line of code</text>
+  <rect x="360" y="92" width="300" height="20" rx="4" fill="#eb6834"/>
+  <text x="368" y="106" font-size="12" font-weight="600" fill="#ffffff">PLAN</text>
+  <text x="360" y="132" font-size="12" fill="#898781">break the spec into ordered, verifiable work</text>
+  <rect x="680" y="92" width="300" height="20" rx="4" fill="#1baf7a"/>
+  <text x="688" y="106" font-size="12" font-weight="600" fill="#ffffff">BUILD</text>
+  <text x="680" y="132" font-size="12" fill="#898781">implement in verified increments</text>
+  <rect x="1000" y="92" width="300" height="20" rx="4" fill="#eda100"/>
+  <text x="1008" y="106" font-size="12" font-weight="600" fill="#0b0b0b">REVIEW</text>
+  <text x="1000" y="132" font-size="12" fill="#898781">as the skills stand today — a later plan</text>
+  <rect x="1320" y="92" width="300" height="20" rx="4" fill="#e87ba4"/>
+  <text x="1328" y="106" font-size="12" font-weight="600" fill="#0b0b0b">RELEASE</text>
+  <text x="1320" y="132" font-size="12" fill="#898781">as the skills stand today — a later plan</text>
+  <line x1="342" y1="102" x2="358" y2="102" stroke="#898781" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <line x1="662" y1="102" x2="678" y2="102" stroke="#898781" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <line x1="982" y1="102" x2="998" y2="102" stroke="#898781" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <line x1="1302" y1="102" x2="1318" y2="102" stroke="#898781" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <g>
+    <rect x="40" y="144" width="300" height="76" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="40" y="144" width="4" height="76" rx="2" fill="#2a78d6"/>
+    <text x="54" y="162" font-size="13" font-weight="600" fill="#0b0b0b">interview-me</text>
+    <text x="54" y="180" font-size="12" fill="#52514e">intent mode · artifact mode (the design tree)</text>
+    <text x="54" y="196" font-size="12" fill="#52514e">one question at a time, recommendation attached</text>
+    <text x="54" y="212" font-size="12" fill="#898781">first line: brain:ask-user-question</text>
+  </g>
+  <line x1="190" y1="222" x2="190" y2="238" stroke="#898781" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <text x="200" y="234" font-size="11" fill="#898781">vague → diverge</text>
+  <g>
+    <rect x="40" y="240" width="300" height="60" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="40" y="240" width="4" height="60" rx="2" fill="#2a78d6"/>
+    <text x="54" y="258" font-size="13" font-weight="600" fill="#0b0b0b">idea-refine</text>
+    <text x="54" y="276" font-size="12" fill="#52514e">divergence: lenses, hidden assumptions,</text>
+    <text x="54" y="292" font-size="12" fill="#52514e">the Not-Doing list · a one-pager</text>
+  </g>
+  <line x1="190" y1="302" x2="190" y2="318" stroke="#898781" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <text x="200" y="314" font-size="11" fill="#898781">a direction chosen</text>
+  <g>
+    <rect x="40" y="320" width="300" height="76" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="40" y="320" width="4" height="76" rx="2" fill="#2a78d6"/>
+    <text x="54" y="338" font-size="13" font-weight="600" fill="#0b0b0b">writing-specs</text>
+    <text x="54" y="356" font-size="12" fill="#52514e">the requirements document: a PRD in docs/plan,</text>
+    <text x="54" y="372" font-size="12" fill="#52514e">or a tracker spec · a capability map first</text>
+    <text x="54" y="388" font-size="12" fill="#898781">/brain:spec · interview or synthesis intake</text>
+  </g>
+  <g>
+    <rect x="360" y="144" width="300" height="108" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="360" y="144" width="4" height="108" rx="2" fill="#eb6834"/>
+    <text x="374" y="162" font-size="13" font-weight="600" fill="#0b0b0b">planning-and-task-breakdown</text>
+    <text x="374" y="180" font-size="12" fill="#52514e">a plan of parts, each with its status line</text>
+    <text x="374" y="196" font-size="12" fill="#52514e">tasks: What · Acceptance · Verify · Blocked by</text>
+    <text x="374" y="212" font-size="12" fill="#52514e">tracer bullets · expand–contract · the quiz round</text>
+    <text x="374" y="228" font-size="12" fill="#52514e">renders the plan doc, or tickets with blocking links</text>
+    <text x="374" y="244" font-size="12" fill="#898781">/brain:plan &lt;description&gt;</text>
+  </g>
+  <g>
+    <rect x="360" y="264" width="300" height="76" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="360" y="264" width="4" height="76" rx="2" fill="#eb6834"/>
+    <text x="374" y="282" font-size="13" font-weight="600" fill="#0b0b0b">§ Continuing a plan — rehydration</text>
+    <text x="374" y="300" font-size="12" fill="#52514e">"work on PLAN-NNN": the part in progress, its</text>
+    <text x="374" y="316" font-size="12" fill="#52514e">session, what was left unverified → the brief</text>
+    <text x="374" y="332" font-size="12" fill="#898781">/brain:plan PLAN-NNN — the daily door</text>
+  </g>
+  <g>
+    <rect x="680" y="144" width="300" height="76" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="680" y="144" width="4" height="76" rx="2" fill="#1baf7a"/>
+    <text x="694" y="162" font-size="13" font-weight="600" fill="#0b0b0b">implement</text>
+    <text x="694" y="180" font-size="12" fill="#52514e">thin slices: implement → test → verify → commit</text>
+    <text x="694" y="196" font-size="12" fill="#52514e">simplicity, scope, safe landing; the DoD at the tick</text>
+    <text x="694" y="212" font-size="12" fill="#898781">consumes the plan, or the tickets</text>
+  </g>
+  <g>
+    <rect x="680" y="232" width="300" height="92" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="680" y="232" width="4" height="92" rx="2" fill="#1baf7a"/>
+    <text x="694" y="250" font-size="13" font-weight="600" fill="#0b0b0b">/brain:build</text>
+    <text x="694" y="268" font-size="12" fill="#52514e">the loop per task · the gates · converge at the close:</text>
+    <text x="694" y="284" font-size="12" fill="#52514e">every miss returns to the plan as a task</text>
+    <text x="694" y="300" font-size="12" fill="#52514e">auto: the whole plan after one approval</text>
+    <text x="694" y="316" font-size="12" fill="#898781">concurrent mode: measured first (Part 7)</text>
+  </g>
+  <g>
+    <rect x="680" y="336" width="300" height="60" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="680" y="336" width="4" height="60" rx="2" fill="#1baf7a"/>
+    <text x="694" y="354" font-size="13" font-weight="600" fill="#0b0b0b">test-driven-development</text>
+    <text x="694" y="372" font-size="12" fill="#52514e">RED → GREEN → refactor · Prove-It for bugs</text>
+    <text x="694" y="388" font-size="12" fill="#898781">/brain:test</text>
+  </g>
+  <g>
+    <rect x="680" y="408" width="300" height="60" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="680" y="408" width="4" height="60" rx="2" fill="#1baf7a"/>
+    <text x="694" y="426" font-size="13" font-weight="600" fill="#0b0b0b">diagnosing-bugs</text>
+    <text x="694" y="444" font-size="12" fill="#52514e">build the loop first; reproduce → localize →</text>
+    <text x="694" y="460" font-size="12" fill="#52514e">fix at the cause → guard with a regression test</text>
+  </g>
+  <g>
+    <rect x="680" y="480" width="300" height="60" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="680" y="480" width="4" height="60" rx="2" fill="#1baf7a"/>
+    <text x="694" y="498" font-size="13" font-weight="600" fill="#0b0b0b">doubt-driven-development</text>
+    <text x="694" y="516" font-size="12" fill="#52514e">high-risk decisions get a fresh-context</text>
+    <text x="694" y="532" font-size="12" fill="#52514e">adversarial review before they stand</text>
+  </g>
+  <line x1="678" y1="248" x2="662" y2="248" stroke="#898781" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <g>
+    <rect x="1000" y="144" width="300" height="60" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="1000" y="144" width="4" height="60" rx="2" fill="#eda100"/>
+    <text x="1014" y="162" font-size="13" font-weight="600" fill="#0b0b0b">code-review-and-quality · code-review</text>
+    <text x="1014" y="180" font-size="12" fill="#52514e">the five-axis review; the reviewer agents</text>
+    <text x="1014" y="196" font-size="12" fill="#898781">/brain:review</text>
+  </g>
+  <g>
+    <rect x="1000" y="216" width="300" height="60" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="1000" y="216" width="4" height="60" rx="2" fill="#eda100"/>
+    <text x="1014" y="234" font-size="13" font-weight="600" fill="#0b0b0b">code-simplification</text>
+    <text x="1014" y="252" font-size="12" fill="#52514e">less code, same behavior, tests between steps</text>
+    <text x="1014" y="268" font-size="12" fill="#898781">/brain:code-simplify</text>
+  </g>
+  <g>
+    <rect x="1320" y="144" width="300" height="60" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="1320" y="144" width="4" height="60" rx="2" fill="#e87ba4"/>
+    <text x="1334" y="162" font-size="13" font-weight="600" fill="#0b0b0b">shipping-and-launch</text>
+    <text x="1334" y="180" font-size="12" fill="#52514e">the full Definition of Done is the floor</text>
+    <text x="1334" y="196" font-size="12" fill="#898781">/brain:ship</text>
+  </g>
+  <g>
+    <rect x="1320" y="216" width="300" height="60" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+    <rect x="1320" y="216" width="4" height="60" rx="2" fill="#e87ba4"/>
+    <text x="1334" y="234" font-size="13" font-weight="600" fill="#0b0b0b">git-workflow-and-versioning</text>
+    <text x="1334" y="252" font-size="12" fill="#52514e">branches, releases, merge commits</text>
+  </g>
+  <text x="40" y="580" font-size="13" font-weight="600" fill="#0b0b0b">Every stage calls</text>
+  <rect x="40" y="590" width="1580" height="48" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/>
+  <text x="54" y="610" font-size="12" font-weight="600" fill="#0b0b0b">brain:ask-user-question</text>
+  <text x="54" y="626" font-size="12" fill="#52514e">every question a person answers — one at a time, the recommendation inside</text>
+  <text x="620" y="610" font-size="12" font-weight="600" fill="#0b0b0b">domain-modeling</text>
+  <text x="620" y="626" font-size="12" fill="#52514e">the glossary (CONTEXT.md) and the ADRs, written as terms and decisions settle</text>
+  <text x="1140" y="610" font-size="12" font-weight="600" fill="#0b0b0b">research · wayfinder</text>
+  <text x="1140" y="626" font-size="12" fill="#52514e">cited answers from primary sources · a map when work exceeds one session</text>
+  <text x="40" y="678" font-size="13" font-weight="600" fill="#0b0b0b">The record — the docs system every stage writes into (the session skill: start · log · close)</text>
+  <g><rect x="40" y="690" width="290" height="56" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/><text x="54" y="710" font-size="13" font-weight="600" fill="#0b0b0b">PRD-NNN</text><text x="54" y="728" font-size="12" fill="#52514e">the requirements; its Plans table is the way down</text></g>
+  <g><rect x="356" y="690" width="330" height="56" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/><text x="370" y="710" font-size="13" font-weight="600" fill="#0b0b0b">PLAN-NNN</text><text x="370" y="728" font-size="12" fill="#52514e">parts in dependency order; tasks ticked citing the sha</text></g>
+  <g><rect x="712" y="690" width="390" height="56" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/><text x="726" y="710" font-size="13" font-weight="600" fill="#0b0b0b">Part N</text><text x="726" y="728" font-size="12" fill="#52514e">Status: planned · in progress (SES-NNN) · done (SES-NNN, sha)</text></g>
+  <g><rect x="1128" y="690" width="492" height="56" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/><text x="1142" y="710" font-size="13" font-weight="600" fill="#0b0b0b">SES-NNN</text><text x="1142" y="728" font-size="12" fill="#52514e">one session per part: Goal, Narrative, an entry per commit, Outcome; the gate</text></g>
+  <line x1="332" y1="718" x2="354" y2="718" stroke="#898781" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <line x1="688" y1="718" x2="710" y2="718" stroke="#898781" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <line x1="1104" y1="718" x2="1126" y2="718" stroke="#898781" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <text x="40" y="786" font-size="13" font-weight="600" fill="#0b0b0b">The Definition of Done, in tiers — the gates /brain:build runs</text>
+  <g><rect x="40" y="798" width="500" height="48" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/><rect x="40" y="798" width="4" height="48" rx="2" fill="#1baf7a"/><text x="54" y="818" font-size="12" font-weight="600" fill="#0b0b0b">every task tick</text><text x="54" y="834" font-size="12" fill="#52514e">Correctness + Quality</text></g>
+  <g><rect x="560" y="798" width="500" height="48" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/><rect x="560" y="798" width="4" height="48" rx="2" fill="#1baf7a"/><text x="574" y="818" font-size="12" font-weight="600" fill="#0b0b0b">every part's close</text><text x="574" y="834" font-size="12" fill="#52514e">Integration + Documentation, beside the checkpoint</text></g>
+  <g><rect x="1080" y="798" width="500" height="48" rx="4" fill="#fcfcfb" stroke="#e1e0d9"/><rect x="1080" y="798" width="4" height="48" rx="2" fill="#1baf7a"/><text x="1094" y="818" font-size="12" font-weight="600" fill="#0b0b0b">the plan's close — converge</text><text x="1094" y="834" font-size="12" fill="#52514e">spec and plan re-read against the built work; the full checklist as floor</text></g>
+</svg>

@@ -8,6 +8,8 @@ references — the session skill and its Bun tool maintained here, the rest copi
 (PLAN-001 Part 2); this repo is also the docs system of record for that work (`docs/plan`, `docs/decisions`, `docs/analysis`,
 `docs/sessions`), and its own commits are gated by the log it ships.
 
+The lifecycle at a glance: [docs/brain-lifecycle.svg](docs/brain-lifecycle.svg) — five stages, the skills and commands at each, what every stage calls, and the record they write into.
+
 Start at [docs/plan/PRD-001-session-log-and-rehydration.md](docs/plan/PRD-001-session-log-and-rehydration.md),
 then the plan its Plans table names; `docs/sessions/` records every commit here.
 

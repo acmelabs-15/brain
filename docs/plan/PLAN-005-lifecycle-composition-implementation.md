@@ -20,8 +20,11 @@ typecheck`, `bun run validate`, plugin-kit's validator over every touched skill;
 changed description trigger-measured on the fixed tier against its old rate, hard negatives
 declined; every changed procedure headless-rendered in a scratch repo; a retired skill is
 deleted in the same commit that lands its replacement, every live reference retargeted — no
-stubs, no wrappers (ADR-007, superseding the stub rule this plan started with); the session
-ritual throughout; ADR-005's read-rule injection and the decrees inherited by every
+stubs, no wrappers (ADR-007, superseding the stub rule this plan started with); after every
+sweep and every render, `git status --short` lists no deletion (two `agents/openai.yaml` files
+vanished during Parts 4–6 by a mechanism still unnamed: the sweep tool's cleanup and a
+plugin-dir load were both tested and cleared — SES-012, SES-014); staging is by
+named file only; the session ritual throughout; ADR-005's read-rule injection and the decrees inherited by every
 rebuilt skill. Eval material (Peter, 2026-08-31): trigger positives and negatives draw on the
 Addy corpus (`~/Dev/reference/addy-osmani-agent-skills/evals/cases/<name>.json`) beside the
 Matt-side phrasings — independent wording, not copies of our descriptions; each rebuilt skill
