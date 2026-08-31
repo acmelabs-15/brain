@@ -153,10 +153,12 @@ still in progress is the next move. A task's number is its stable name.
 
 > Status: planned
 
-- [ ] Task 1: `/session-start`, `/session-log`, `/session-close` replace the five aliases — each
+- [x] Task 1 (2026-08-31, `6b486dd` + `b45bda7`, landed with Part 1 Task 6 (c) so 0.3.0 ships no
+  command pointing at a removed act; the three headless renders are still owed — Part 1 Task 5's
+  runs cover them): `/brain:session-start`, `/brain:session-log`, `/brain:session-close` replace the five aliases — each
   takes only its act's arguments (`argument-hint` says which) and infers as the skill does; each
-  delegates with `skill:`. Acceptance: `commands/` holds three files; each renders and reaches its
-  act headless. Verification: three `claude -p "/sessions:session-<act> …"` runs.
+  delegates with `skill: brain:session`. Acceptance: `commands/` holds three files; each renders and reaches its
+  act headless. Verification: three `claude -p "/brain:session-<act> …"` runs.
 - [ ] Task 2: the shipped surface — `README.md`, `.claude/CLAUDE.md`, `CONTEXT.md`,
   `skills/session/CONTEXT.md`, `CONTEXT-MAP.md` (the "Session log" context no longer describes
   rehydration; the relationship to the plan is the status line and the `SES-NNN` a `/plan`

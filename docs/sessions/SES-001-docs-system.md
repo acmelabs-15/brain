@@ -1,6 +1,6 @@
 # 2026-08-31 07:09 · The docs system — PRD-001, PLAN-001, the decisions and the analyses
 
-- Goal: Keep this repo's docs system — PRD-001, PLAN-001, ADR-001/002, ANA-001/002 and their READMEs — the copy of record while PLAN-001's code lands in acmelabs-15/sessions: every commit here gets its entry, and every claim a later commit makes stale is corrected in the same step.
+- Goal: Keep this repo's docs system — PRD-001, PLAN-001, the ADRs, the analyses and their READMEs — the copy of record, and from Part 1 Task 6 the session skill's code as well: every commit here gets its entry, and every claim a later commit makes stale is corrected in the same step.
 - Status: in progress
 - Plan: PLAN-001 · part 1
 - Outcome: _(fill in)_
@@ -14,6 +14,8 @@ Findings while recording: `e74d0d5` (ADR-002) left two claims stale — the root
 PLAN-001 Part 1 Task 4 landed in acmelabs-15/sessions (`0caa67c`, recorded in SES-002 there); the tick here cites it. The `templates.ts` change in that commit is the one this repo's `docs/sessions/README.md` and `CONTEXT.md` section wait for: regenerate both from `session template sessions-readme | context` once the plugin is reinstalled (Part 2 Task 3), so they say start · log · close.
 
 Then the order changed (ADR-003, `53c9213`): Peter saw the two-log split and asked for the work to be done in brain so the history is captured here; the sessions repo's history is merged in (Part 1 Task 6), its log archived under `docs/sessions/archive/` where the tool still reads it for the commits it accounts for, and every form becomes `/brain:session`. From Task 6 on this session records Part 1's code as well as its docs; the archived SES-002 holds Tasks 1–4.
+
+The merge itself is `5b89ce6` — a merge commit, which the gate excludes, so its story is here: `git fetch ~/Dev/ACMElabs/sessions main`, `git merge --allow-unrelated-histories --no-commit`, four add/add conflicts exactly as predicted (`README.md`, `CONTEXT.md`, `docs/plan/README.md`, `docs/sessions/README.md`); this repo's versions kept for three of them, `CONTEXT.md` resolved as the sessions repo's authoring glossary followed by this repo's session-log section; the sessions repo's four docs moved with their numbers to `docs/plan/archive/acmelabs-15-sessions/` and `docs/sessions/archive/acmelabs-15-sessions/`, each archive with its old README behind a pointer line; 70 commits on `main` afterwards. Then the tool's archive rule (`2322745`), then the rename (`6b486dd` + `b45bda7`, one change split by an aborted `git add` — the pathspec of an already-deleted file aborts the whole add, so the first commit carried only the `git rm` and `git mv`). Part 2 Task 1 landed with it: the five aliases would otherwise have shipped pointing at removed acts. Left of Task 6: (d) the marketplace regeneration and the reinstall, asked of Peter; (e) the sessions repo's pointer commit and archiving.
 
 ## Changes (one entry per commit, in order)
 
@@ -79,3 +81,49 @@ Then the order changed (ADR-003, `53c9213`): Peter saw the two-log split and ask
   - `docs/plan/PLAN-001-record-and-rehydration-split.md` (+46/−22) — Overview: the sequencing sentence; Decisions: ADR-003; Part 1 Task 6 with steps (a)–(e), acceptance and verification, placed before Task 5 in file order; Task 5 names `/brain:session`; Part 5's preamble, Tasks 1–3 rescoped to what still moves; the open question on bare names struck through
   - `docs/plan/PRD-001-session-log-and-rehydration.md` (+3/−1) — requirement 11: built and recorded here from 2026-08-31, `brain:`-namespaced, `commands/` the typed surface
 - Notes: The tool's archive rule comes from reading `session.ts`: `commits()` walks every non-merge commit on the branch and `sessions()` reads only the top level of `docs/sessions/`, so a merged-in history needs its log readable from an archive path or the gate reports 50-odd `missing:` lines. Unverified until Task 6 runs: the merge's conflict set (expected: `README.md`, `CONTEXT.md`, `docs/plan/README.md`, `docs/sessions/README.md`).
+
+### 2026-08-31 · feat(tool): an archived log under docs/sessions/archive/ accounts for its commits — read for shas, never listed or written (ADR-003) · 2322745
+
+- Summary: The tool reads every `SES-*.md` under `docs/sessions/archive/` for the shas it accounts for, so a merged-in repository's log keeps vouching for its commits while never being listed, selected or appended to.
+- Why: ADR-003's archive rule. `commits()` walks every non-merge commit on the branch and `sessions()` read only the top level of `docs/sessions/`, so after the merge (`5b89ce6`) the gate reported 23 `missing:` lines for commits the archived SES-001/SES-002 already record. PLAN-001 Part 1 Task 6 (b).
+- Files:
+  - `skills/session/references/session-log.md` (+1/−1) — § What the gate counts: an archived log accounts for its commits the same way; read for shas, never listed or written
+  - `skills/session/scripts/__tests__/session.test.ts` (+69/−0) — new: the CLI end to end in a throwaway repo — the gate reports the scaffold commit missing, an archived `SES-001-old.md` (the same number as the live session) makes it green, `list` shows only the live session, `append` says up to date
+  - `skills/session/scripts/paths.ts` (+8/−0) — `archiveDir(root)` = `docs/sessions/archive`
+  - `skills/session/scripts/session.ts` (+25/−5) — `archivedShas()` walks the archive recursively (`readdirSync` recursive) for `SES-NNN-*.md` and collects `knownShas`; `missingCommits()` counts them; USAGE says so
+- Notes: Verified: `bun test` 25/0 (the new CLI test included), `tsc`, `bun run validate`; the gate here green over the 70 merged commits. The test spawns the tool with `CLAUDE_PROJECT_DIR` set to the temp repo, the same way a plugin install runs it.
+
+### 2026-08-31 · feat(plugin): brain 0.3.0 — the plugin renamed; every form /brain:session; three commands (start · log · close) replace the five aliases; the shipped surface says the three acts; this repo's init-written docs regenerated (ADR-003) · 6b486dd
+
+- Summary: The five aliases become three: `session-continue.md` and `session-end.md` go (their acts no longer exist), `session-entry.md` is renamed `session-log.md`. The rest of this change is `b45bda7` — the two are one change split by an aborted `git add`.
+- Why: ADR-003 (the plugin's `commands/` is the typed surface, one file per act) and PLAN-001 Part 2 Task 1 (three commands replace the five aliases), landed here because shipping `brain` 0.3.0 with commands pointing at removed acts would have been a broken surface.
+- Files:
+  - `commands/session-continue.md` (+0/−14) — deleted: the `continue` mode is `/plan`'s now
+  - `commands/session-end.md` (+0/−9) — deleted: no leave act (ADR-001)
+  - `commands/session-entry.md` (+0/−9) — renamed to `session-log.md` (git shows the rename as a delete plus an add)
+  - `commands/session-log.md` (+9/−0) — the renamed file, its content still the old `entry` text at this commit; rewritten in `b45bda7`
+- Notes: The commit's message describes the whole of (c) because `git add … commands/session-continue.md …` aborted on that already-deleted path and left only the `git rm` and `git mv` staged; nothing else was in it. Not a fix-up of another entry, so it keeps its own.
+
+### 2026-08-31 · feat(plugin): brain 0.3.0 — the manifests, package.json and the three commands say /brain:session; README, .claude/CLAUDE.md, CONTEXT.md (Act, Alias, Reply line), CONTEXT-MAP.md and the skill's CLAUDE/CONTEXT say the three acts; this repo's init-written docs regenerated (ADR-003) · b45bda7
+
+- Summary: The plugin is `brain` 0.3.0: manifests, `package.json` and the three commands say `/brain:session`; the shipped surface — `README.md`, `.claude/CLAUDE.md`, the authoring `CONTEXT.md` and `CONTEXT-MAP.md`, the skill's `CLAUDE.md` and `CONTEXT.md`, the sessions-README template — says the three acts; this repo's `docs/sessions/README.md` and the session-log section of `CONTEXT.md` are regenerated from the new templates.
+- Why: ADR-003 — every typed form is `brain:`-namespaced, `commands/` the typed surface; PLAN-001 Part 1 Task 6 (c) with Part 2 Task 2's sweep of the shipped surface done here at the move, and Part 2 Task 1's three commands finished (the deletions are `6b486dd`).
+- Files:
+  - `.claude-plugin/marketplace.json` (+5/−5) — `acmelabs-brain`, the plugin `brain` 0.3.0 with the three-act description
+  - `.claude-plugin/plugin.json` (+6/−6) — name `brain`, version 0.3.0, description in the new words (the acts, the tool, ADR-002's promise), homepage and repository at acmelabs-15/brain
+  - `.claude/CLAUDE.md` (+25/−18) — the plugin's name and the three commands; the checks gain the render after `session init` and the rule that this repo's own log gates its commits; the conventions say `brain:`, the `commands/` layout as the typed surface, the reinstall route with the marketplace regeneration, merge commits and named-file staging
+  - `CONTEXT-MAP.md` (+17/−12) — this repo is a consumer of the shipped words too (its `docs/sessions/`); the shared word **act** in both contexts, *mode* retired; the docs system's vocabularies
+  - `CONTEXT.md` (+37/−32) — title "building the brain plugin"; **Plugin** names `brain` and the toolset to come; **Mode** → **Act** (start · log · close, with *mode* on the `_Avoid_` line); **Alias** is three files; **Description** counts five that must agree; **Brief** → **Reply line** (the brief is `/plan`'s); the session-log section regenerated from `session template context`
+  - `README.md` (+54/−5) — rewritten for the plugin: install, the three-act table, `/brain:session` and the three commands, the tool and the gate (archived logs included), working on this repo, where the pre-merge history came from
+  - `commands/session-close.md` (+10/−5) — `/brain:session close`; `argument-hint: "SES-NNN"`; passes the id through, or `close` alone so the skill asks
+  - `commands/session-log.md` (+9/−5) — `/brain:session log`; `argument-hint: "[SES-NNN]"`; passes the id through
+  - `commands/session-start.md` (+6/−7) — `/brain:session start`; `argument-hint: "<description> [--plan \"PLAN-NNN · part N\"]"`; passes the description and the plan flag through
+  - `docs/plan/PLAN-001-record-and-rehydration-split.md` (+14/−13) — Part 1's status line names SES-001 with the archived SES-002 for Tasks 1–4; § State: reading-list items 3 and 4 point at the archive and this repo, the reinstall route says `brain@ACMElabs`, the installed-state paragraph describes 0.2.0 → 0.3.0
+  - `docs/plan/PRD-001-session-log-and-rehydration.md` (+1/−1) — the Plans row: `(session SES-001)`
+  - `docs/plan/README.md` (+2/−1) — PLAN-001's row: `(session SES-001)`; an index row for the archived sessions repo plans
+  - `docs/sessions/README.md` (+6/−6) — regenerated from `session template sessions-readme`: the three acts, `/plan PLAN-NNN`, the `brain` plugin; the index block the tool regenerates
+  - `package.json` (+2/−2) — `@acmelabs/brain` 0.3.0
+  - `skills/session/CLAUDE.md` (+3/−2) — three aliases delegating with `skill: brain:session`; "per act"
+  - `skills/session/CONTEXT.md` (+2/−1) — this repo keeps its own `docs/sessions/` now, gated by the tool it ships
+  - `skills/session/scripts/templates.ts` (+1/−1) — the sessions-README paragraph names the `brain` plugin
+- Notes: Verified: `bun test` 25/0, `tsc`, `bun run validate` (`claude plugin validate . --strict` on the renamed manifest); plugin-kit's validator over `skills/session` in its new home — structure clean, no collisions, the same 1 error / 27 warnings from transcripts under `evals/results/**`; `grep` for `sessions:session`, the `sessions` plugin, `session-entry`, `session-continue`, `session-end` and the five-mode phrases over the repo returns only history (the docs, the archives, `evals/`) and one test string (`declinesEntry("session-entry: NONE")`, a trailer, not an alias). Not yet done: Task 6 (d) — the marketplace regeneration and the reinstall (Peter asked first) — and (e), the sessions repo's pointer commit and archiving; `evals/evals.json` and `make-fixture.ts` still describe the five modes (Part 5 Task 4); `skills/session/evals/README.md` and `skills/session/CLAUDE.md` § Evals still name the old iteration numbering (Part 5).
