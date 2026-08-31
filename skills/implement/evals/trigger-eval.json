@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Implement the next task from the plan as a small verifiable slice",
+    "should_trigger": true
+  },
+  {
+    "query": "Build this feature step by step, committing after each working increment",
+    "should_trigger": true
+  },
+  {
+    "query": "Ship this change behind a feature flag in thin slices",
+    "should_trigger": true
+  },
+  {
+    "query": "implement the spec from these tickets",
+    "should_trigger": true
+  },
+  {
+    "query": "pick up the next ready-for-agent ticket and build it",
+    "should_trigger": true
+  },
+  {
+    "query": "start on task 3 from the plan",
+    "should_trigger": true
+  },
+  {
+    "query": "the plan is approved \u2014 start building",
+    "should_trigger": true
+  },
+  {
+    "query": "Implement CSV export for the reports page, working from the existing task plan",
+    "should_trigger": true
+  },
+  {
+    "query": "implement this feature without breaking the build between steps",
+    "should_trigger": true
+  },
+  {
+    "query": "build out the notifications feature from the approved breakdown",
+    "should_trigger": true
+  },
+  {
+    "query": "Break this spec into small verifiable tasks with acceptance criteria",
+    "should_trigger": false
+  },
+  {
+    "query": "Write a spec for the new billing feature before we write any code",
+    "should_trigger": false
+  },
+  {
+    "query": "The app crashes with a TypeError when I click save, help me find the root cause",
+    "should_trigger": false
+  },
+  {
+    "query": "Write a failing test for this bug before fixing it",
+    "should_trigger": false
+  },
+  {
+    "query": "Interview me to figure out the real requirements",
+    "should_trigger": false
+  },
+  {
+    "query": "review this PR before merge",
+    "should_trigger": false
+  },
+  {
+    "query": "What alerts should we page on for the new service?",
+    "should_trigger": false
+  },
+  {
+    "query": "Simplify this working function for readability",
+    "should_trigger": false
+  },
+  {
+    "query": "Deploy the current build to staging",
+    "should_trigger": false
+  },
+  {
+    "query": "what's next on the plan? catch me up",
+    "should_trigger": false
+  }
+]

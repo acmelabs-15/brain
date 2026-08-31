@@ -1,2 +1,4 @@
 [test]
 coveragePathIgnorePatterns = ["**/__tests__/**", "**/evals/**"]
+# eval fixtures carry their own test files for materialized throwaway repos; never run them here
+pathIgnorePatterns = ["**/evals/fixtures/**"]

@@ -1,0 +1,191 @@
+{
+  "skill_name": "implement",
+  "description": "Implements work from a plan or tickets in small verified increments: thin vertical slices, each tested, built and committed before the next; simplicity and scope discipline at the point of writing code; the Definition of Done's Correctness and Quality checks at every task tick. Use when implementing any feature or change that touches more than one file, when picking up the next task from a plan or a ready-for-agent ticket, when about to write a large amount of code at once, or when told 'implement this', 'build the next task', or 'ship it in thin slices behind a feature flag'.",
+  "results": [
+    {
+      "query": "Implement the next task from the plan as a small verifiable slice",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Build this feature step by step, committing after each working increment",
+      "should_trigger": true,
+      "trigger_rate": 0.3333333333333333,
+      "triggers": 1,
+      "runs": 3,
+      "pass": false,
+      "early_stopped": false
+    },
+    {
+      "query": "Ship this change behind a feature flag in thin slices",
+      "should_trigger": true,
+      "trigger_rate": 0.6666666666666666,
+      "triggers": 2,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "implement the spec from these tickets",
+      "should_trigger": true,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": false,
+      "early_stopped": false
+    },
+    {
+      "query": "pick up the next ready-for-agent ticket and build it",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "start on task 3 from the plan",
+      "should_trigger": true,
+      "trigger_rate": 0.6666666666666666,
+      "triggers": 2,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "the plan is approved — start building",
+      "should_trigger": true,
+      "trigger_rate": 0.3333333333333333,
+      "triggers": 1,
+      "runs": 3,
+      "pass": false,
+      "early_stopped": false
+    },
+    {
+      "query": "Implement CSV export for the reports page, working from the existing task plan",
+      "should_trigger": true,
+      "trigger_rate": 1,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "implement this feature without breaking the build between steps",
+      "should_trigger": true,
+      "trigger_rate": 0.3333333333333333,
+      "triggers": 1,
+      "runs": 3,
+      "pass": false,
+      "early_stopped": false
+    },
+    {
+      "query": "build out the notifications feature from the approved breakdown",
+      "should_trigger": true,
+      "trigger_rate": 0.3333333333333333,
+      "triggers": 1,
+      "runs": 3,
+      "pass": false,
+      "early_stopped": false
+    },
+    {
+      "query": "Break this spec into small verifiable tasks with acceptance criteria",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Write a spec for the new billing feature before we write any code",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "The app crashes with a TypeError when I click save, help me find the root cause",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Write a failing test for this bug before fixing it",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Interview me to figure out the real requirements",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "review this PR before merge",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "What alerts should we page on for the new service?",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Simplify this working function for readability",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "Deploy the current build to staging",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    },
+    {
+      "query": "what's next on the plan? catch me up",
+      "should_trigger": false,
+      "trigger_rate": 0,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "early_stopped": false
+    }
+  ],
+  "summary": {
+    "total": 20,
+    "passed": 15,
+    "failed": 5
+  }
+}
