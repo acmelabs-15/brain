@@ -127,7 +127,8 @@ Adopt this incrementally — a directory and its README when the second artifact
 appears, not scaffolded up front for a project that has one ADR.
 
 **Templates already live in the skills — use those, don't rewrite them.** `documentation-and-adrs`
-carries the ADR template, `domain-modeling` has `ADR-FORMAT.md` and `CONTEXT-FORMAT.md`,
+carries the ADR template (its one home since 2026-08-31; `domain-modeling`'s `ADR-FORMAT.md`
+points at it and keeps the when-to-offer rule), `domain-modeling` has `CONTEXT-FORMAT.md`,
 `spec-driven-development` the spec, `planning-and-task-breakdown` the task shape, `to-tickets` the
 ticket, `triage` the agent brief. Copy from the skill, then keep the project's filled-in copy in the
 directory README so the next run matches it.

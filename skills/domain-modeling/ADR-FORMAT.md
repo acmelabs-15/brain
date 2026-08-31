@@ -6,21 +6,13 @@ Create the ADR directory lazily: only when the first ADR is needed.
 
 ## Template
 
-```md
-# {Short title of the decision}
-
-{1-3 sentences: what's the context, what did we decide, and why.}
-```
-
-That's it. An ADR can be a single paragraph. The value is in recording *that* a decision was made and *why*, not in filling out sections.
-
-## Optional sections
-
-Only include these when they add genuine value. Most ADRs won't need them.
-
-- **Status** frontmatter (`proposed | accepted | deprecated | superseded by ADR-NNNN`): useful when decisions are revisited
-- **Considered Options**: only when the rejected alternatives are worth remembering
-- **Consequences**: only when non-obvious downstream effects need to be called out
+The ADR template has one home: `documentation-and-adrs` (its SKILL.md, § ADR Template — Status,
+Date, Context, Decision, Alternatives Considered with the pros, cons and rejection reason per
+option, Consequences; lifecycle PROPOSED → ACCEPTED → SUPERSEDED, old ADRs never deleted). Use
+that shape; a project's own decisions README overrides it as always. Decided 2026-08-31
+(acmelabs-15/brain PLAN-001 Part 5 Task 2): every ADR written under this toolset follows the full
+shape, and the value has repeatedly been in the Alternatives section — so the minimal
+template that lived here is retired rather than kept as a second home.
 
 ## Numbering
 
