@@ -127,4 +127,5 @@ rules, index and template. Simplified Technical English, glossary words.
 | Plan | Implements | Status |
 | --- | --- | --- |
 | [PLAN-001-record-and-rehydration-split.md](PLAN-001-record-and-rehydration-split.md) | requirements 1–12 (1–2 via Part 4; 12 via Parts 2 and 6 — the copy, then the retirement) | in progress — Parts 1–4 done (sessions SES-001–004); Part 5 in progress (SES-005) |
-| [PLAN-002-consult-skills-integration.md](PLAN-002-consult-skills-integration.md) | no numbered requirement — requirement 12's one-toolset goal: `domain-modeling` and `codebase-design` evaluated against the Addy lifecycle, integration decided by ADR (see its Open questions for a requirement 13) | planned |
+| [PLAN-002-consult-skills-integration.md](PLAN-002-consult-skills-integration.md) | no numbered requirement — requirement 12's one-toolset goal: `domain-modeling` and `codebase-design` evaluated against the Addy lifecycle, integration decided by ADR-005 | in progress — Parts 1–4 done (SES-006); Part 5 partly waits on PLAN-003 |
+| [PLAN-003-define-plan-synthesis.md](PLAN-003-define-plan-synthesis.md) | no numbered requirement — requirement 12's one-toolset goal: the Define/Plan overlap between both lineages mapped (ANA-008), the best parts composed into a new skill set (ANA-009), decided by ADR (Peter, 2026-08-31) | planned |
