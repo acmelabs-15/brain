@@ -54,7 +54,7 @@ still in progress is the next move. A task's number is its stable name.
   the last entries"). `Outcome` stays. Acceptance: `session close` gates on Goal, Narrative,
   entries and Outcome only; `session template session` has no `Open at end`. Verification: tests;
   SES-001's line is left as history, not deleted.
-- [ ] Task 4: the three acts in `SKILL.md`. Read first, in full: `~/Dev/ACMElabs/plugin-kit/skills/skill-creator/SKILL.md`,
+- [x] Task 4 (2026-08-31, acmelabs-15/sessions `0caa67c`; body 221 lines, description 1,003 characters; the four renders reached their acts; the retired words left in the shipped surface — README, `.claude/CLAUDE.md`, `CONTEXT.md`, `CONTEXT-MAP.md`, the aliases, `skills/session/CLAUDE.md` — are Part 2 Task 2): the three acts in `SKILL.md`. Read first, in full: `~/Dev/ACMElabs/plugin-kit/skills/skill-creator/SKILL.md`,
   `~/Dev/ACMElabs/plugin-kit/shared/references/description-writing.md` (four criteria: a deliverable
   clause, a negative clause, negatives sharing vocabulary with positives, no "whenever the user
   mentions" pushiness; 1,024-character cliff; ~500 is where each clause must earn its place),
