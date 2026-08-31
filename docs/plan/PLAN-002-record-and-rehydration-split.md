@@ -50,14 +50,70 @@ still in progress is the next move. A task's number is its stable name.
   the last entries"). `Outcome` stays. Acceptance: `session close` gates on Goal, Narrative,
   entries and Outcome only; `session template session` has no `Open at end`. Verification: tests;
   SES-001's line is left as history, not deleted.
-- [ ] Task 4: the three acts in `SKILL.md` — **start** (from a description; asks only for what
-  the description lacks; sets the plan part's status line when a part is named), **log** (today's
-  `entry`, taking `SES-NNN` explicitly), **close** (explicit; `SES-NNN` required; none → the
-  sessions `in progress` through `ask-user-question`; none `in progress` → say so). `start`
-  (the walk), `continue`, `end` and step 7's join/open leave. Acceptance: the body has three mode
-  sections, each with a progress list and a Done-when; no reading of OVERVIEW, plan or PRD remains
-  in the skill. Verification: a `--plugin-dir` render of each act in a scratch repo; the body under
-  500 lines; the description under 1,024 characters with room left.
+- [ ] Task 4: the three acts in `SKILL.md`. Read first, in full: `~/Dev/ACMElabs/plugin-kit/skills/skill-creator/SKILL.md`,
+  `~/Dev/ACMElabs/plugin-kit/shared/references/description-writing.md` (four criteria: a deliverable
+  clause, a negative clause, negatives sharing vocabulary with positives, no "whenever the user
+  mentions" pushiness; 1,024-character cliff; ~500 is where each clause must earn its place),
+  `~/.claude/skills/writing-for-agents/SKILL.md`, `skills/session/CLAUDE.md`, and the current
+  `SKILL.md` and `references/session-log.md`. Then:
+  - **Frontmatter.** `argument-hint: "start <description> [--plan \"PLAN-NNN · part N\"] | log [SES-NNN] | close SES-NNN"`;
+    `allowed-tools` unchanged; the three injected state lines (Branch, Tree, Sessions) stay — `log`
+    and `close` read them. **Description** (draft to measure, not to keep blind): "Keeps a repo's
+    session log — the record of every commit that reached `main` and the story around it — through
+    three acts: `start` opens a session from a description (Goal, Plan line, the plan part marked
+    in progress); `log` appends and fills a commit's entry, ticks the plan, updates what the change
+    made stale and commits it as docs(session); `close` writes the Outcome and marks the session
+    and its plan part done. The act is inferred from the arguments (`SES-NNN` and a landed commit →
+    log; a description → start); `close` is always named. Use right after a commit in a repo with
+    docs/sessions, when a plan part's work begins, and when a stream of work is finished — \"record
+    that commit\", \"log this\", \"the append says up to date\", \"the gate says NOT ready\", \"a
+    skeleton for a commit I didn't make\", \"close SES-004\", \"start a session for the finder
+    fix\". Not for finding where a plan stands or what to work on next (`/plan PLAN-NNN`), for
+    authoring an ADR, a PRD or CONTEXT.md, or for a changelog of recent commits."
+  - **Body** (target under 200 lines): intro — a session is `in progress` until `done`, the record
+    only, no handoff, rehydration is `/plan`'s; Workflow step 1 = the inference table with one
+    example per act (Task 5); step 2 = run the act to its Done-when with its progress list; the
+    tool command line; the injected state; Gotchas trimmed to those that survive (the three lines
+    arrive as output; `no session log` → `session init`; no sampling; your session is the one
+    named, the tool refuses to guess between several in progress; the gate's exit is the gate,
+    pipe nothing, stage by name; merge commits; `docs(session)` skipped; the gate counts entries,
+    Goal, Narrative, Outcome only at close; `new` is for a stream of work not a conversation; the
+    release marker; a done session takes nothing — reopening is § What is never rewritten).
+  - **start**: from a description and an optional `--plan "PLAN-NNN · part N"`: derive slug, title
+    and Goal from the description; if it names a plan part, read that part only; ask with the
+    `ask-user-question` skill for what the description cannot supply (a Goal when the description
+    is a bare noun), fill the rest yourself; `session new <slug> [--plan …]`; set title and Goal in
+    the file; the part's status line → `> Status: in progress (session SES-NNN)`; reply one line —
+    the id, the Goal, the part — the entire reply. Done when the file exists with its Goal and the
+    part points at it.
+  - **log**: today's `entry`, steps 1–5 unchanged (append → fill the exact entry template →
+    update what the change made stale, plan ticks first → Narrative → gate bare, stage by name,
+    `docs(session)` commit), with `--session SES-NNN` explicit: the id `/plan` handed over or the
+    user named; one session in progress → the tool selects it; several → the tool refuses → ask.
+    Done-when without `Open at end`. The fix-up / `Session-entry: none` rules and the pointer to
+    `references/session-log.md` § The entry stay.
+  - **close**: always named; `SES-NNN` required — none given → the `ask-user-question` skill over
+    the sessions `in progress` (from the injected Sessions line); none in progress → say so and
+    stop. Steps: append → up to date; Outcome (only work the log or this transcript shows; work the
+    user reports recorded with them as its source); the plan part → `done (session SES-NNN, <sha
+    of the entry that finished it>)`, the plan's top status and the PRD Plans row when every part
+    is done, OVERVIEW Status; `session close --session SES-NNN` → `closed SES-NNN — done`; `git add`
+    by name, commit `docs(session): close SES-NNN`; reply one line — the entire reply. Keep the
+    stop condition ("a step that cannot be satisfied stops the close … ask where the answer is the
+    user's"). Done when the tool printed `closed … — done` and the commit exists.
+  - **Removed**: the `start`/`continue` walk (OVERVIEW → plan → PRD → sessions → CONTEXT → ADRs),
+    step 7's join/open table, the brief template, the `end` mode and its closing note, every
+    `Open at end`. **Glossary**: in `scripts/templates.ts` the **Join / Open / Leave / Close** entry
+    becomes **Start / Log / Close** (the acts, with `_Avoid_`: join, open, leave, end, add, record,
+    entry (as the act name)); `skills/session/CONTEXT.md` row 17 likewise;
+    `scripts/__tests__/templates.test.ts` term list and `_Avoid_` count follow.
+  - **Verification**: `bun ~/Dev/ACMElabs/plugin-kit/shared/validate/validate.ts --target-type skill
+    skills/session --extended --with-environment` (the `evals/results/**` noise is PLAN-001 Part 5
+    Task 6, not this skill); the description measured under 1,024 characters; `bun test`,
+    typecheck, `bun run validate`; a `--plugin-dir` render of each act in a scratch repo
+    (`start` with a description; `log` after a commit; `close` with and without an id); body under
+    500 lines. The `plugin-kit:skill-reviewer` agent may be run if Peter asks for it. Peter reads
+    the new `SKILL.md` before the part's checkpoint.
 - [ ] Task 5: argument inference for `/session` — `SES-NNN` + a commit → log; a description → start;
   `close` only when named. Acceptance: the mode table in `SKILL.md` step 1 is the inference rule,
   with an example per act. Verification: three headless runs (`claude -p`) with the three argument
@@ -151,6 +207,60 @@ before Task 1.
   they describe the old layout.
 - [ ] Checkpoint: a fresh conversation on a second machine (env-setup bootstrap) has `/plan` and
   `/session` without the marketplace.
+
+## State at 2026-08-31 and the reading list for a fresh conversation
+
+Read in full, in this order, before touching a part:
+
+1. `~/Dev/env-setup/docs/analysis/ANA-011-rehydration-ownership.md` — findings F1–F8, the refuted
+   alternatives, § Decisions, the per-file change table, the eight-step rehydration procedure.
+2. `~/Dev/env-setup/docs/decisions/ADR-024-rehydration-belongs-to-the-plan.md` — the decision;
+   then ADR-019, ADR-020, ADR-021, ADR-022, ADR-023 beside it (what stands, what is superseded).
+3. This plan; `docs/plan/PLAN-001-session-plan-relationship-and-re-evaluation.md` (Part 1 Task 6
+   and Part 5 are still open there, not here); `docs/sessions/SES-002-record-model.md` and
+   `SES-001-handoff-session-plan-relationship.md`.
+4. `CONTEXT-MAP.md`, `CONTEXT.md`, `skills/session/CONTEXT.md`, `skills/session/CLAUDE.md`,
+   `.claude/CLAUDE.md` — the words and the checks.
+5. For Part 3: `~/.claude/skills/planning-and-task-breakdown/SKILL.md`, `~/.claude/commands/plan.md`,
+   `~/.claude/commands/build.md`, `~/.claude/skills/using-agent-skills/SKILL.md`,
+   `~/.claude/skills/context-engineering/SKILL.md`, `~/.claude/skills/choosing-a-skill/SKILL.md`,
+   `~/.claude/references/project-docs-conventions.md`, `~/.claude/skills/LOCAL-CHANGES.md`.
+
+**Uncommitted at handoff — secure these first:**
+
+- `~/Dev/env-setup/docs/analysis/ANA-011-rehydration-ownership.md` and
+  `docs/analysis/README.md` (index row); `docs/decisions/ADR-024-rehydration-belongs-to-the-plan.md`
+  and `docs/decisions/README.md` (index row). env-setup has its own session log and gate: commit
+  them there through its session skill (an entry in an env-setup session), not with a bare commit.
+  Part 4 Task 2 is that commit.
+- `~/CLAUDE.md` §1 gained a first bullet on 2026-08-31 ("A decision that is Peter's goes through
+  `ask-user-question`"). `~/CLAUDE.md` is not in a repo; if env-setup's `claude-settings` item
+  templates it, the bullet must land in that template too.
+- `~/Dev/ACMElabs/.claude-plugin/marketplace.json` was regenerated by env-setup's
+  `generateMarketplace` (0.2.0) — generated, not tracked; it regenerates again at Part 2 Task 3.
+
+**Installed state:** the plugin installed is `sessions@ACMElabs` 0.2.0, taken from `main` at
+`1ac975d`; `main` is ahead by everything since. The installed skill still has `start`/`continue`
+and the old words until Part 2 Task 3 reinstalls 0.3.0. Stale caches to delete (Part 5 Task 2):
+`~/.claude/plugins/cache/ACMElabs/session/` (pre-rename plugin) and `sessions/0.1.0`.
+
+**Decisions taken this day and where each is recorded** — the plan cites, ADR-024 decides,
+ANA-011 argues: the split (ADR-024 § Decision); three acts start · log · close (ADR-024; `log` was
+Peter's word, ANA-011 § Decisions 2); no join/open/leave and no `Open at end` (ADR-024; ANA-011
+§ Consequences); argument inference and three scoped commands (ADR-024; ANA-011 change table);
+`in progress | done` (ADR-024 decision 4; Peter's choice between `done` and `closed`, SES-002
+entry `151c456`); home `~/.claude/skills`, git question deferred (ADR-024 § Home and order);
+build here, move last (same); evals tossed and redone (ADR-024 decision 6); `disable-model-invocation`
+is ours to remove (ANA-011 F5(c)); Matt's `handoff` not imported (ANA-011 F8); the Brain plugin's
+`skills:plan` is ignored (Peter, 2026-08-31 — not a design input); duplicated shapes standardised
+(Part 4 Task 3); `session init` writes nothing under `docs/plan/` (`f80af22`); every `/session` form
+is namespaced in the plugin and bare `/session` fails (PLAN-001 Part 1 Task 3, `7bd6782`) — the
+reason the personal-skill home wins.
+
+**Peter's working rules learned this day, beyond `~/CLAUDE.md`:** validate a finding with him
+before an edit; a decision that is his goes through `ask-user-question`, one call, recommendation
+inside; when a task finishes, the plan's next unticked task is the next move — the conversation
+does not stop and report; read every named file to its last line.
 
 ## Risks and mitigations
 

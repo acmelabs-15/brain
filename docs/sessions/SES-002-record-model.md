@@ -4,11 +4,11 @@
 - Status: in progress
 - Plan: PLAN-002 · part 1
 - Outcome: _(fill in)_
-- Open at end: PLAN-002 Part 1 Task 2 is next — the status vocabulary (`in progress | done`, the header, the tool's words, the glossary, `parseHeader` reading both old and new for one release). Unverified: nothing yet in this session. (This line is retired by Task 3 of this part; it stays until then.)
+- Open at end: (line kept as history — ADR-024) Next: PLAN-002 Part 1 Task 4, whose full design is in the plan; nothing of it is written yet. Uncommitted outside this repo: ANA-011, ADR-024 and their index rows in env-setup; the `~/CLAUDE.md` bullet. PLAN-002 § State at 2026-08-31 lists all of it.
 
 ## Narrative
 
-Opened 2026-08-31 from SES-001, after ANA-011 and ADR-024 (env-setup, both uncommitted awaiting Peter's review) settled the split: rehydration to `/plan`, the record here. Peter's decisions that day, all via AskUserQuestion: no join/open/leave — a session has a status and nothing happens when a conversation stops; three acts, the third the only one named explicitly; `log` rather than `record` for the second; three scoped commands; one status vocabulary across session, plan and part; build here, move last. The first commit of this part is the `init` change made earlier the same day (the plan's shape has one home, `planning-and-task-breakdown`), held until the design was decided (`f80af22`).
+Opened 2026-08-31 from SES-001, after ANA-011 and ADR-024 (env-setup, both uncommitted awaiting Peter's review) settled the split: rehydration to `/plan`, the record here. Peter's decisions that day, all via AskUserQuestion: no join/open/leave — a session has a status and nothing happens when a conversation stops; three acts, the third the only one named explicitly; `log` rather than `record` for the second; three scoped commands; one status vocabulary across session, plan and part; build here, move last. The first commit of this part is the `init` change made earlier the same day (the plan's shape has one home, `planning-and-task-breakdown`), held until the design was decided (`f80af22`). Tasks 2 and 3 followed the same day (`151c456`, `3bbcf8c`). Task 4's design was worked out in this conversation and written into the plan when the context ran low, before any of it was coded; a fresh conversation writes the skill from the plan.
 
 ## Changes (one entry per commit, in order)
 
