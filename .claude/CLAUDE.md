@@ -1,8 +1,6 @@
 # brain — the plugin repo
 
-The Claude Code plugin that keeps a session log: one skill (`/brain:session`), three typed-only
-commands in `commands/`, and the Bun tool the skill runs — and the docs system of record for that
-work (`docs/`). `README.md` is the human-facing description; `skills/session/CLAUDE.md` loads when
+The Claude Code plugin that carries the whole toolset: 47 skills (`/brain:session` and `ask-user-question` maintained here, 45 copied in as they stand), 11 commands in `commands/` (3 typed-only session acts, 8 model-invocable), 4 agents, 9 references, the Bun tool the session skill runs — and the docs system of record for that work (`docs/`). `README.md` is the human-facing description; `skills/session/CLAUDE.md` loads when
 you work inside the skill and carries what editing it needs.
 
 ## Checks before finishing
@@ -23,8 +21,7 @@ you work inside the skill and carries what editing it needs.
   `/brain:session-log`, `/brain:session-close`. Bare `/session` and bare `/session-start` both fail
   (measured 2026-08-31 on CLI 2.1.251: `/session isn't available in this environment.`,
   `Unknown command: /session-start`), so no document here promises a bare form (ADR-003).
-- `commands/` is a legacy plugin layout kept on purpose: it is the typed surface, one file per
-  act, and `~/.claude/commands` joins it at PLAN-001 Part 2. A command buys a `/` menu slot, not
+- `commands/` is a legacy plugin layout kept on purpose: the typed surface (the three session acts, typed-only) and the eight lifecycle commands copied from `~/.claude/commands` at PLAN-001 Part 2 (model-invocable as they stand — Part 6 decides the flag). A command buys a `/` menu slot, not
   brevity — `/brain:session-log` is longer than `/brain:session log`.
 - This file lives under `.claude/` because `claude plugin validate --strict` rejects a root `CLAUDE.md`.
 - The installed copy (`~/.claude/plugins/cache/ACMElabs/brain/<version>/`) is a snapshot: after a

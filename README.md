@@ -3,8 +3,9 @@
 The Claude Code plugin that keeps a repo's **session log** — the record of every commit that
 reached `main` and the story around it — and, by [ADR-002](docs/decisions/ADR-002-brain-is-the-plugin-for-the-whole-toolset.md),
 the one plugin that will carry Peter's whole toolset: every skill, command and agent. Today it
-ships the `session` skill, its three typed commands and the Bun tool the skill runs; this repo is
-also the docs system of record for that work (`docs/plan`, `docs/decisions`, `docs/analysis`,
+ships 47 skills, 11 commands (3 typed-only for the session acts, 8 model-invocable), 4 agents and 9
+references — the session skill and its Bun tool maintained here, the rest copied in as they stand
+(PLAN-001 Part 2); this repo is also the docs system of record for that work (`docs/plan`, `docs/decisions`, `docs/analysis`,
 `docs/sessions`), and its own commits are gated by the log it ships.
 
 Start at [docs/plan/PRD-001-session-log-and-rehydration.md](docs/plan/PRD-001-session-log-and-rehydration.md),

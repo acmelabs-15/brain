@@ -23,7 +23,7 @@ Pick the next pending task from the plan. Then:
 6. Run the build to verify compilation
 7. Commit with a descriptive message
 8. Mark the task complete and stop — tick it; where the repo keeps a session log, the tick cites the
-   commit's sha and lands in the `docs(session)` commit that `/session entry` makes right after
+   commit's sha and lands in the `docs(session)` commit that `/brain:session log` makes right after
 
 ## Autonomous: the whole plan (`/build auto`)
 

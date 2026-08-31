@@ -6,7 +6,7 @@
   "scripts": {
     "test": "bun test",
     "typecheck": "tsc --noEmit",
-    "validate": "claude plugin validate . --strict"
+    "validate": "claude plugin validate .claude-plugin/plugin.json --strict && claude plugin validate . --strict"
   },
   "devDependencies": {
     "@types/bun": "^1.3.14",

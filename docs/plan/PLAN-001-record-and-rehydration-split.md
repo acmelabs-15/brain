@@ -219,8 +219,11 @@ form is `brain:`-namespaced and `commands/` is the typed surface.
   rewritten on the way in (PRD-001 non-goals). Acceptance: `claude plugin validate --strict` green;
   a headless `--plugin-dir` load lists every model-invocable skill and every command as `brain:…`;
   the version is 0.4.0 in both manifests. Verification: the load; `bun test`, typecheck.
-- [ ] Checkpoint: `validate --strict` green over the whole plugin; `plugin-kit:plugin-reviewer`
-  run once, its Critical findings fixed or given a reason, the rest listed for Part 6.
+- [x] Checkpoint (2026-08-31): `validate --strict` green over the whole plugin (both manifests, the
+  script now validates each); `plugin-kit:plugin-reviewer` run once on 0.4.0 — no Critical finding;
+  its High items are Part 6 Task 1's sweep and are written there with its numbers; its cheap
+  findings fixed the same day (SES-002 entry); Peter's call on the eight commands' invocation flag
+  listed for Part 6.
 
 ### Part 3: the three commands, the shipped surface, the one reinstall
 
@@ -379,7 +382,27 @@ them back.
   agents into `~/.claude` and installs the plugin instead (ADR-002's consequence; without it the
   next bootstrap restores the copies), committed there through its ritual; then `~/.claude/skills`,
   `commands`, `agents` and `references` emptied of what moved, and a fresh conversation resolves
-  `/brain:plan` and `/brain:session` with nothing shadowing them.
+  `/brain:plan` and `/brain:session` with nothing shadowing them. The sweep, as `plugin-reviewer`
+  measured it on 0.4.0 (2026-08-31; SES-002): (H1) every pointer to `references/` goes through
+  `~/.claude/references/…` — 27 component files — and must become `"${CLAUDE_PLUGIN_ROOT}/references/<name>.md"`
+  (measure whether the anchor substitutes inside an agent body: one render); (H2) `/ship` and
+  `/webperf` dispatch subagents by bare name — `brain:code-reviewer` etc., and their "installed in
+  `~/.claude/agents`" and "persona resolution" clauses go; (H3) 153 bare sibling references across
+  45 skill names plus the 8 command names as `/build` … `/code-simplify` in 30 files (largest:
+  `domain-modeling` 25 files) — `brain:X` where the reference is to a sibling; (M2) three
+  relative-path anchors the `~/.claude` grep misses (`idea-refine` `bash skills/…`,
+  `diagnosing-bugs` `scripts/hitl-loop.template.sh`, `setup-ts-deep-modules` `./dependency-cruiser.config.cjs`)
+  — `"${CLAUDE_SKILL_DIR}/…"`; (M3) `choosing-a-skill` is a router for the `~/.claude` collection
+  and is a rewrite item of its own (ADR-002 said so); (M4) `/code-simplify` cites `~/CLAUDE.md` §4
+  — keep the reason inline; (M5) `references/orchestration-patterns.md` and
+  `project-docs-conventions.md` describe the `~/.claude` world; (L4) the eight commands carry no
+  `disable-model-invocation` and no `argument-hint` — Peter decides flag or wording; (L5) 6.8 MB of
+  `skills/` is `evals/` (672 files) and plugin-kit's validator scans it — the reason it stays is
+  that a number nobody can re-derive is not evidence, and the redo (Task 2) says which results
+  survive; (L7) `ask-user-question`'s body is ~5,800 tokens against a 5,000 target — its next edit.
+  Acceptance adds: `grep -rn '~/.claude/' skills commands agents references` returns nothing
+  outside evals and `LOCAL-CHANGES.md`; the 153 references and the 8 command names resolve as
+  `brain:…`; the three relative anchors are `${CLAUDE_SKILL_DIR}`-anchored.
 - [ ] Task 2 (the eval redo; was Part 5 Task 4 before the reorder of 2026-08-31): evals redone against the plugin layout — trigger sets and
   disclosure scenarios from real usage of `/brain:plan PLAN-NNN`, `/brain:session-log`,
   `/brain:session-close`; measured with plugin-kit pointed at the new homes; the old
