@@ -1,6 +1,6 @@
 # Plan: the record with three acts, and rehydration moved to the plan
 
-> This plan is the copy of record. It began as PLAN-002 in acmelabs-15/sessions (commits `3cd33b7`, `0439e58`), where Part 1's session SES-002 and its entries live; that copy is marked superseded by this one. Work on the code still lands in acmelabs-15/sessions until Part 5 (build here, move last).
+> This plan is the copy of record. It began as PLAN-002 in acmelabs-15/sessions (commits `3cd33b7`, `0439e58`), where Part 1 Tasks 1–4 were recorded (SES-002, now archived under `docs/sessions/archive/acmelabs-15-sessions/`); that copy is marked superseded by this one. Since ADR-003 (Part 1 Task 6) the code lives here too, and every commit is recorded in this repo's own log.
 
 > Status: in progress · Peter, 2026-08-31 · implements [PRD-001](PRD-001-session-log-and-rehydration.md) requirements 3–11 · decided in [ADR-001](../decisions/ADR-001-rehydration-belongs-to-the-plan.md), argued in [ANA-001](../analysis/ANA-001-rehydration-ownership.md)
 
