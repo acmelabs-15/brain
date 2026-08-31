@@ -20,6 +20,7 @@ Task arrives
     ├── Have a rough concept, need variants? → idea-refine
     ├── New project/feature/change? ──→ spec-driven-development
     ├── Have a spec, need tasks? ──────→ planning-and-task-breakdown
+    ├── "Work on PLAN-NNN", "catch me up"? → planning-and-task-breakdown § Continuing a plan (`/brain:plan PLAN-NNN`); the session skill only records
     ├── Implementing code? ────────────→ incremental-implementation
     │   ├── UI work? ─────────────────→ frontend-ui-engineering
     │   ├── API work? ────────────────→ api-and-interface-design

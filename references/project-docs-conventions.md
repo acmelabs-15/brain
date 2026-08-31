@@ -74,7 +74,9 @@ That is exactly the boundary the skills already draw, which is why they slot in 
 A fourth kind, `docs/sessions/` (`SES-NNN`, one per stream of work toward one Goal), is the
 **session log** the `session` plugin keeps: the plan's part status line names the session serving
 it, the session's `Plan:` line points back, and the PRD's Plans table names the plan — so "work on
-PLAN-NNN" is enough for a conversation that starts from nothing. `session init` (the plugin's
+PLAN-NNN" is enough for a conversation that starts from nothing — `/brain:plan PLAN-NNN` is the way
+in (`planning-and-task-breakdown` § Continuing a plan), and the session skill is the record only. A
+**session** carries `in progress | done`, the same words as a plan and a plan part. `session init` (the plugin's
 tool) scaffolds `docs/sessions/README.md` and nothing else: the PLAN and PRD shapes are the plan
 skills' (`planning-and-task-breakdown`, `spec-driven-development`), and `CONTEXT.md` is
 `domain-modeling`'s — the record's own words are defined in the plugin (brain ADR-004), and the

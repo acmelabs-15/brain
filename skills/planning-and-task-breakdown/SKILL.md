@@ -212,6 +212,98 @@ cost nothing and the plan still says where it stands.
 
 When tasks live in an external tracker, keep the Task List section above as an ordered index of tracker item IDs or links instead of a duplicate checklist.
 
+## Continuing a plan
+
+"Work on PLAN-NNN" is enough for a conversation that starts from nothing but the repo, when the
+repo keeps a session log (`docs/sessions/`, the `brain` plugin's `session` skill). The plan says
+where the work stands — the first part `in progress` and its first unticked task — and the session
+that part's status line names says what the last conversation did and left unverified. This
+section is that walk. The session skill records; it does not rehydrate.
+
+Copy this checklist and tick it as you go:
+
+```
+Rehydration progress:
+- [ ] Step 1: Arguments — continue, or create
+- [ ] Step 2: Order — the repo's read order found
+- [ ] Step 3: Where it stands — the part and the task
+- [ ] Step 4: What happened — the session read, the unverified named
+- [ ] Step 5: What comes next — the task's own files read
+- [ ] Step 6: The session for this conversation — SES-NNN in hand
+- [ ] Step 7: The brief — posted, the entire reply
+- [ ] Step 8: Route
+```
+
+**Step 1: Arguments.** `PLAN-NNN` and `docs/plan/PLAN-NNN-*.md` exists → continue with it.
+`PLAN-NNN` and no such file, or a description and no id → a new plan: run the Planning Process
+above, write it where the project keeps plans with every part `> Status: planned`, add it to the
+PRD's Plans table, and stop — nothing below applies until a part starts. Nothing at all →
+`docs/sessions/README.md`'s index names the sessions `in progress` and the plan part each serves:
+one → continue with that plan; several → ask which with the `ask-user-question` skill, one option
+per plan with its part and that session's Goal; none → say so and ask what to plan. Done when one
+plan file is in hand, or a new plan is written.
+
+**Step 2: Order.** The root `CLAUDE.md`'s rehydrate section, where the repo has one, names the
+files and the order; otherwise: `docs/OVERVIEW.md` (or the README's status section) → the plan →
+the PRD its status line cites → the session → `CONTEXT.md` (`CONTEXT-MAP.md` first when there is
+one). Every file named is read to its last line; a truncated read continues with `offset`. Done
+when the order is known and its first file is read.
+
+**Step 3: Where it stands.** Read the plan in full, then the PRD it cites. The first part whose
+status line says `in progress` is the part; with none, the first `planned` part. Its first
+unticked task is the next move — tasks are listed in execution order, and a task's number is its
+name, so file order wins over number. Done when the part, the task and the status line's
+`SES-NNN` (if any) are named.
+
+**Step 4: What happened.** The part's status line names `SES-NNN`. Read
+`docs/sessions/SES-NNN-*.md` in full: the Narrative, then the entries newest-first, then every
+file the last entries name. What is unverified is what the entries' `Notes` lines say is
+unverified; what was tried and abandoned is in the Narrative. A part still `planned` has no
+session; the previous part's session, if any, says how things were left. Done when the last
+entry's sha, its Notes and the Narrative's last paragraph are in hand.
+
+**Step 5: What comes next.** Everything the next task names: the ADRs (settled — a change needs
+a superseding ADR), the analyses, the files, the directory's own `CLAUDE.md`. Done when every
+file the task names is read to its last line.
+
+**Step 6: The session for this conversation.** The part `in progress` → its `SES-NNN` is the id
+every `log` in this conversation uses (`/brain:session log SES-NNN`). The part `planned` → start
+one: call the Skill tool with `skill: brain:session` and `args: start <a description drawn from
+the part> --plan "PLAN-NNN · part N"`; the skill writes the file and the part's status line. A
+question, a review, a check — nothing will change — starts nothing. Done when `SES-NNN` is in
+hand, or "none" is stated with the reason.
+
+**Step 7: The brief** — the whole reply, nothing before it or after it. ALWAYS use this exact
+template structure — square brackets mark what you write, every line present, under ~1,200
+characters (one clause per line; the session file and the Narrative hold the detail):
+
+```text
+Released: [vX.Y.Z (date, sha)]
+Unreleased on main: [commits since the last release marker]
+Parked: [branch — what, verified or not]
+Findings: [branch/tree/sessions observations, or "clean"]
+Open / unverified: [what the log names as unverified]
+Plan: [PLAN-NNN · part — its status before this conversation] | none
+Next: [item] — first step: [the first move]
+Question: [one clause, at most one question, or omit the line]
+Session: [SES-NNN — its Goal | SES-NNN started — its Goal] | none — nothing to record yet
+read in full: [every file from steps 2–5]
+```
+
+Findings come from `git branch --show-current`, `git status --short` and the sessions index — an
+unexpected branch, a dirty tree, another session's unfilled placeholders, a commit newer than the
+last entry with no entry. Report them; tidy nothing.
+
+**Step 8: Route.** The next task → `/brain:build` with the plan's path; a decision the task needs
+→ `/brain:grill-with-docs`; a question → answer it from what you read, and start no session.
+
+### Verification
+
+- [ ] Every file named in steps 2–5 was read to its last line
+- [ ] The part and task in the brief are the first `in progress` part and its first unticked task
+- [ ] `SES-NNN` in the brief is the one the part's status line names, or the one just started
+- [ ] The brief is the entire reply
+
 ## Parallelization Opportunities
 
 When multiple agents or sessions are available:
@@ -228,6 +320,7 @@ When multiple agents or sessions are available:
 | "The tasks are obvious" | Write them down anyway. Explicit tasks surface hidden dependencies and forgotten edge cases. |
 | "Planning is overhead" | Planning is the task. Implementation without a plan is just typing. |
 | "I can hold it all in my head" | Context windows are finite. Written plans survive session boundaries and compaction. |
+| "I'll read `git log` to see where things stand" | Git says what changed. The plan says where the work stands and the session says what was verified and what was abandoned. Read those; a sha is the join key, not the story. |
 
 ## Red Flags
 

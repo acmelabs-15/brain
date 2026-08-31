@@ -34,6 +34,7 @@ needed twenty minutes. Skipping a skill is a normal decision, not a violation.
 | The job | Route |
 | --- | --- |
 | Answer a question, read code, one-line fix | **Nothing.** Just do it. |
+| "Work on PLAN-NNN", "catch me up", "where were we" — a repo with `docs/plan/` and a session log | `planning-and-task-breakdown` § Continuing a plan (`/brain:plan PLAN-NNN`): the walk from the plan to the part, the task, the session and the brief. The `session` skill is the record only — `start · log · close`, never the walk |
 | A contained change you already understand | `test-driven-development`, then commit |
 | Something is broken and you don't know why | `diagnosing-bugs` |
 | A real feature, spec unclear | `grilling` → `to-spec` → `to-tickets` → `implement-spec` |

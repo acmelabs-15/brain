@@ -11,7 +11,9 @@ Feed agents the right information at the right time. Context is the single bigge
 
 ## When to Use
 
-- Starting a new coding session
+- Starting a new coding session — in a repo with a plan and a session log, the walk that loads
+  the right context is `planning-and-task-breakdown` § Continuing a plan (`/brain:plan PLAN-NNN`);
+  this skill is the reference for what belongs in context, not that procedure
 - Agent output quality is declining (wrong patterns, hallucinated APIs, ignoring conventions)
 - Switching between different parts of a codebase
 - Setting up a new project for AI-assisted development
