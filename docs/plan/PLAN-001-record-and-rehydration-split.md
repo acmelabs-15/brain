@@ -190,25 +190,36 @@ Outside this repo (`~/.claude`, not a repo): each edit is recorded in
 - [ ] Checkpoint: `grep -rn "/session start\|Open at end\|session end"` over env-setup docs,
   `~/CLAUDE.md` and `~/.claude` returns history only.
 
-### Part 5: the move and the eval redo
+### Part 5: the move into the `brain` plugin, and the eval redo
 
 > Status: planned
 
-Blocked on the deferred question: does `~/.claude/skills` become a git repo? Decide it with Peter
-before Task 1.
+Decided 2026-08-31 (PRD-001 requirement 12): the deferred question is answered — `brain` (this repo)
+becomes **one plugin holding the whole toolset**. Sources to move, each as it stands with its
+local edits: the `ask-user-question` skill from `~/Dev/ACMElabs/ask-user-question`; the `session`
+skill from `~/Dev/ACMElabs/sessions/skills/session` (after Parts 1–2); every skill under
+`~/.claude/skills` (24 Addy, 20 Matt, 2 local — `LOCAL-CHANGES.md` records their edits; git history
+takes over that job here); every command under `~/.claude/commands`; every agent under
+`~/.claude/agents`; the references under `~/.claude/references` that those skills point at. Read
+`~/Dev/ACMElabs/plugin-kit/skills/plugin-creator/SKILL.md` first — layout, path anchoring,
+`claude plugin validate --strict`, one plugin's namespace (`brain:<skill>`) — and decide with Peter
+how bare `/session` and `/plan` are kept (a plugin skill is namespaced; see acmelabs-15/sessions
+PLAN-001 Part 1 Task 3).
 
-- [ ] Task 1: copy `skills/session/` to `~/.claude/skills/session/` (the tool inside via
-  `${CLAUDE_SKILL_DIR}`); the three commands to `~/.claude/commands/`; bare `/session` and
-  `/session-start` resolve. Acceptance: `claude -p "/session"` in a scratch repo runs the skill.
-- [ ] Task 2: uninstall `sessions@ACMElabs`; remove the plugin from the ACMElabs marketplace
-  generator's repo list or archive this repo with a pointer; delete the stale caches
-  (`~/.claude/plugins/cache/ACMElabs/session/`, `sessions/0.1.0`, `0.2.0`).
-- [ ] Task 3: evals redone against the new layout — a trigger set and disclosure scenarios written
-  from real usage of `/plan PLAN-NNN`, `/session-log`, `/session-close`; measured with plugin-kit
-  pointed at the new homes; the old `evals/results/` kept as history with a README line saying
-  they describe the old layout.
-- [ ] Checkpoint: a fresh conversation on a second machine (env-setup bootstrap) has `/plan` and
-  `/session` without the marketplace.
+- [ ] Task 1: plugin skeleton — `.claude-plugin/plugin.json`, marketplace entry in
+  `~/Dev/ACMElabs/.claude-plugin/marketplace.json` (env-setup's generator reads `plugin.json`),
+  `claude plugin validate --strict` green on an empty component set.
+- [ ] Task 2: move the skills, commands, agents and references in; a `session init` here for this
+  repo's own log; `LOCAL-CHANGES.md` retired into git history with a pointer.
+- [ ] Task 3: retire the sources — `sessions@ACMElabs` and `ask-user-question@ACMElabs` uninstalled,
+  their repos archived with a pointer, the stale caches deleted (`~/.claude/plugins/cache/ACMElabs/
+  session/`, `sessions/0.1.0`, `0.2.0`); `~/.claude/skills`, `commands`, `agents` emptied of what
+  moved once the plugin is installed and a fresh conversation resolves `/plan` and `/session`.
+- [ ] Task 4: evals redone against the plugin layout — trigger sets and disclosure scenarios from
+  real usage of `/plan PLAN-NNN`, `/session-log`, `/session-close`; measured with plugin-kit pointed
+  at the new homes; the old `evals/results/` kept as history with a README line.
+- [ ] Checkpoint: a second machine bootstrapped by env-setup has the `brain` plugin and nothing
+  under `~/.claude/skills` that the plugin also ships.
 
 ## State at 2026-08-31 and the reading list for a fresh conversation
 
@@ -275,5 +286,5 @@ does not stop and report; read every named file to its last line.
 
 ## Open questions
 
-- Part 5: does `~/.claude/skills` become a git repo (Peter deferred it on 2026-08-31)?
+- ~~Part 5: does `~/.claude/skills` become a git repo?~~ Answered: `brain` is the plugin home (PRD-001 req. 12). Open: how bare `/session` and `/plan` are kept when every skill is namespaced `brain:`.
 - Part 4 Task 3: which copy of each duplicated shape survives — Peter's, per shape.

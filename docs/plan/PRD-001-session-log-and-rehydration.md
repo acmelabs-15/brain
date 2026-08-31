@@ -61,8 +61,11 @@ typed command and its first commit is recorded without being told to.
    line) is still read correctly and never rewritten.
 10. Every mode's reply is the template alone (the brief, the one-line confirmations); a step that
     cannot be satisfied stops the act, names itself, and asks where the answer is the user's.
-11. The skill and commands live in `~/.claude/skills` and `~/.claude/commands` (bare `/session`,
-    `/plan` resolve); until the move they are built and recorded in acmelabs-15/sessions.
+11. Until the move the skill and commands are built and recorded in acmelabs-15/sessions.
+12. **The `brain` plugin** (this repo) is the single home of the whole toolset: the `ask-user-question`
+    skill, the `session` skill, all 46 skills now under `~/.claude/skills`, the 8 commands under
+    `~/.claude/commands` and the 4 agents under `~/.claude/agents` move into it as one plugin, with
+    its evidence (`evals/`) and this docs system. Peter, 2026-08-31; the details are a part of PLAN-001.
 
 ## Tech stack · Project structure · Code style · Testing strategy
 
@@ -101,7 +104,7 @@ rules, index and template. Simplified Technical English, glossary words.
 
 ## Open questions
 
-- Does `~/.claude/skills` become a git repo, and is this repo (`brain`) its future home?
+- ~~Does `~/.claude/skills` become a git repo, and is this repo (`brain`) its future home?~~ Decided 2026-08-31: **`brain` is the plugin that holds everything** — the `ask-user-question` skill (`~/Dev/ACMElabs/ask-user-question`), the `session` skill (`~/Dev/ACMElabs/sessions`), every skill in `~/.claude/skills`, every command in `~/.claude/commands`, every agent in `~/.claude/agents`. Requirement 12.
 - Which copy of each duplicated shape survives (ADR template, spec template, ticket shape)?
 
 ## Plans
