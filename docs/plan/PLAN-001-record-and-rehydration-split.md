@@ -166,15 +166,21 @@ still in progress is the next move. A task's number is its stable name.
   takes only its act's arguments (`argument-hint` says which) and infers as the skill does; each
   delegates with `skill: brain:session`. Acceptance: `commands/` holds three files; each renders and reaches its
   act headless. Verification: three `claude -p "/brain:session-<act> …"` runs.
-- [ ] Task 2: the shipped surface — `README.md`, `.claude/CLAUDE.md`, `CONTEXT.md`,
+- [x] Task 2 (2026-08-31, done at Part 1 Task 6 (c): `b45bda7`, `e20f7fa`; the acceptance grep
+  returns history — `docs/**/archive/`, the ADRs and analyses, SES-001 — and the evals
+  (`evals.json`, `evals/README.md`, `fixtures/make-fixture.ts`), which ADR-001 tosses and Part 5
+  Task 4 redoes): the shipped surface — `README.md`, `.claude/CLAUDE.md`, `CONTEXT.md`,
   `skills/session/CONTEXT.md`, `CONTEXT-MAP.md` (the "Session log" context no longer describes
   rehydration; the relationship to the plan is the status line and the `SES-NNN` a `/plan`
   hands over), the manifest descriptions. Acceptance: no file in this repo says `start [PLAN-NNN]`,
   `continue`, `end`, join, open or `Open at end` except as history in `docs/sessions/`.
   Verification: grep.
-- [ ] Task 3: version 0.3.0; marketplace regenerated (`generateMarketplace` in env-setup);
+- [ ] Task 3 (state 2026-08-31: version 0.3.0 in both manifests, `b45bda7`; the marketplace
+  regenerated with `brain` listed — Part 1 Task 6 (d); the reinstall and `/reload-plugins` are
+  Peter's, by his choice; the byte-identity check follows them): version 0.3.0; marketplace
+  regenerated (`generateMarketplace` in env-setup);
   reinstall; the installed `SKILL.md` byte-identical to `main`; `/reload-plugins`. Acceptance:
-  `claude plugin list` shows 0.3.0.
+  `claude plugin list` shows `brain` 0.3.0.
 - [ ] Checkpoint: a real conversation in env-setup runs `/sessions:session-log SES-NNN` after a
   commit and `/sessions:session-close` with no id and gets the question.
 

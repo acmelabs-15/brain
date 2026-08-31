@@ -23,6 +23,8 @@ Task 5 ran as three headless `claude --plugin-dir . -p '/brain:session …'` run
 
 Then Peter, having the best-practices page read to the last line (1,186 lines): the conditional-workflow pattern was missing from `SKILL.md`; `references/` probably unnecessary; four script files too many. Two decisions by AskUserQuestion — fold the reference (a small fresh one allowed where something matters; none was needed), two script files with standard names — landed as `e20f7fa`. The tests folded to two files; the test that pinned the reference's template to the code now pins `SKILL.md`'s entry template to `render()`. One `--plugin-dir` render of `start` against the folded body, in a fresh scratch repo: SES-001 created with title, Goal and opening Narrative, `Plan: —`, the one-line reply — the same outcome as before the fold.
 
+Part 2 Task 2's acceptance grep, run after `e20f7fa`: outside history and the evals, nothing — the shipped surface says the three acts and `/brain:session` everywhere. Ticked; Task 3 waits on the reinstall. What Part 1 and Part 2 still need is Peter's: the uninstall and install, `/reload-plugins`, the sessions repo's push and archive, the env-setup commit, his read of the new `SKILL.md` (Part 1's checkpoint), and a real conversation in env-setup (Part 2's checkpoint).
+
 ## Changes (one entry per commit, in order)
 
 ### 2026-08-31 · docs: the session-log and rehydration docs system — PRD-001, PLAN-001, ADR-001, ANA-001 with their READMEs · 4c0c5c2
