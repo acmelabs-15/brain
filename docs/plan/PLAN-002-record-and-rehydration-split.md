@@ -39,7 +39,7 @@ still in progress is the next move. A task's number is its stable name.
   context`; a fresh `init` creates `docs/sessions/README.md` and the `CONTEXT.md` section only.
   Verification: `bun test`, a `--plugin-dir` render in a scratch repo; `README.md`, `SKILL.md`,
   `CONTEXT.md`, `references/session-log.md` say the same.
-- [ ] Task 2: status vocabulary. A session is `in progress | done`; `open`/`closed` leave the
+- [x] Task 2 (2026-08-31, `151c456`): status vocabulary. A session is `in progress | done`; `open`/`closed` leave the
   header, the tool (`list`, `check`, `close`, `new`), the templates, the glossary section, the
   reference and the tests. Acceptance: `session list` prints `in progress`/`done`; `parseHeader`
   reads both old and new words for one release (existing files say `open`); the glossary's

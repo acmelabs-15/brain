@@ -36,3 +36,22 @@ Opened 2026-08-31 from SES-001, after ANA-011 and ADR-024 (env-setup, both uncom
   - `skills/session/scripts/session.ts` (+12/−11) — `init` writes one file plus the section; help text says why `docs/plan/` is not scaffolded; `planDir` import dropped
   - `skills/session/scripts/templates.ts` (+0/−101) — `planReadme()` and its `TEMPLATES` entry removed
 - Notes: Verified: `bun test` 23/0 (one test removed with the template), typecheck, `bun run validate`; a `claude --plugin-dir . -p "/sessions:session start"` render in an empty scratch repo wrote `docs/sessions/README.md` and `CONTEXT.md` and nothing under `docs/plan/`, then posted the brief. `project-docs-conventions.md` still says `init` writes `docs/plan/README.md` — PLAN-002 Part 3 Task 4. Held uncommitted for several hours while the design that motivated it was decided; committed once PLAN-002 existed to own it.
+
+### 2026-08-31 · feat(tool): a session is `in progress | done` — one status vocabulary with plans and parts (ADR-024) · 151c456
+
+- Summary: A session's status is `in progress | done` — the words plans and parts already use — read and written by the tool, shown in the template, defined once in the glossary; `open`/`closed` are still read from older files and never written.
+- Why: ADR-024, decision 4 — one status vocabulary across session, plan and plan part; Peter chose `in progress | done` over `in progress | closed` (AskUserQuestion, 2026-08-31) so the three artefacts read alike. PLAN-002 Part 1 Task 2.
+- Files:
+  - `README.md` (+7/−7) — the five-mode table, the session definition and the tool synopsis say `in progress` / `done`
+  - `docs/sessions/SES-001-handoff-session-plan-relationship.md` (+1/−1) — header `- Status: in progress` (was `open`)
+  - `docs/sessions/SES-002-record-model.md` (+1/−1) — header `- Status: in progress` (was `open`)
+  - `skills/session/CONTEXT.md` (+1/−1) — the **Open**/**Closed** row becomes **Status** with all three vocabularies
+  - `skills/session/SKILL.md` (+4/−4) — only the quoted tool outputs (`complete (SES-NNN, in progress)`, `closed SES-NNN — done`, `note: also in progress`); the prose is Task 4's
+  - `skills/session/evals/evals.json` (+6/−6) — expectation wording (`Status: done`, `stays in progress`) so the evals match the tool until Part 5 redoes them
+  - `skills/session/references/session-log.md` (+4/−4) — the header rule: `in progress` until close writes `done`; old words read, never written
+  - `skills/session/scripts/__tests__/session-lib.test.ts` (+30/−25) — every status literal and message; a new test that `open`/`closed` read as `in progress`/`done`
+  - `skills/session/scripts/__tests__/templates.test.ts` (+2/−2) — the template's status line
+  - `skills/session/scripts/session-lib.ts` (+29/−21) — `STATUSES`, a `LEGACY_STATUS` map read by `parseHeader` (the regex now takes a two-word status), the template line, `selectSession`'s words and messages
+  - `skills/session/scripts/session.ts` (+25/−24) — USAGE, `inProgressIds`, `list` (`in progress: …`, wider column), `new` (`started`, `also in progress`), `close` (`already done`, `closed SES-NNN — done; still in progress`), `append`'s refusal on a done session
+  - `skills/session/scripts/templates.ts` (+9/−7) — the session template's Status line; the glossary **Status** entry replacing Open/Closed; the Conversation entry no longer says join/open
+- Notes: Verified: `bun test` 24/0 (one legacy-words test added), `tsc`, `bun run validate`; `session list --brief` prints both sessions as `in progress`; a `--plugin-dir` render in an empty scratch repo scaffolded a README whose template says `- Status: in progress` and a glossary with the **Status** entry, then posted the brief. Not done here: the skill's prose still says "open session" throughout — Task 4 rewrites the skill around the three acts; the plan-part status line and the plan's own status were already `planned | in progress | done` and did not change.
