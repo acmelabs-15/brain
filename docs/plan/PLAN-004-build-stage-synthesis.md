@@ -93,9 +93,9 @@ Part 1 (evidence) ──> Part 2 (ANA-010, the overlap) ──> Part 3 (ANA-011,
 
 ### Part 3: the synthesis (ANA-011)
 
-> Status: in progress (session SES-007)
+> Status: done (session SES-007, `b3aa66b`)
 
-- [ ] Task 1: ANA-011 — the same three layers as ANA-009: (a) what Build most needs, ranked;
+- [x] Task 1 (2026-08-31, `b3aa66b`): ANA-011 — the same three layers as ANA-009: (a) what Build most needs, ranked;
   (b) the granular parts chosen from each side with provenance and the reason each wins;
   (c) the composition — how the Build surface is shaped (one skill, a skill+command pair, or
   the command alone; the sequential and the concurrent execution modes; where TDD, debugging
@@ -105,11 +105,11 @@ Part 1 (evidence) ──> Part 2 (ANA-010, the overlap) ──> Part 3 (ANA-011,
   join). Open decisions for Part 4, each priced. No verdict anywhere. Acceptance: every
   selected part carries provenance; every open decision carries its price; saved as
   `docs/analysis/ANA-011-…md` with its index row.
-- [ ] Checkpoint: ANA-011 committed and its entry logged.
+- [x] Checkpoint (2026-08-31): ANA-011 committed (`b3aa66b`); the entry logged in the docs(session) commit carrying these ticks.
 
 ### Part 4: the decisions and the ADR
 
-> Status: planned
+> Status: in progress (session SES-007)
 
 - [ ] Task 1: the decisions — Peter's, `ask-user-question`, one at a time, ANA-011's options
   verbatim with one recommendation each; the deferred PRD-home question (PLAN-003's) is asked

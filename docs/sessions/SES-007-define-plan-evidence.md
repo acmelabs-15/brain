@@ -44,3 +44,11 @@ Started 2026-08-31 right after SES-006 closed (PLAN-002 Parts 1–4 done). Peter
   - `docs/analysis/ANA-010-build-stage-overlap.md` (+129/−0) — the four surfaces, the overlap map, the loop step table, the DoD-tier gap table, the orchestration contrast, two refuted framings
   - `docs/analysis/README.md` (+1/−0) — ANA-010's index row
   - `docs/plan/PLAN-004-build-stage-synthesis.md` (+4/−2) — diagnosing-bugs added to the roster and Part 1's read list
+
+### 2026-08-31 · docs(analysis): ANA-011 — the Build synthesis: eight ranked functions, eighteen parts with provenance, the composed shape (S4 + /brain:build modes + the merged loop-first debugging skill + the DoD rewritten to brain's structures), five open decisions priced (PLAN-004 Part 3) · b3aa66b
+
+- Summary: ANA-011 lands PLAN-004 Part 3 — the Build synthesis: eight ranked functions (the recording loop as spine; the DoD tiers as real gates against ANA-010's nothing-gates-them table; S3's both renderings consumed under the AGENT-BRIEF contract; loop-first debugging; bounded doubt; code-point discipline; concurrency with its safety story; the repo's own commands), eighteen granular parts each with file:line provenance and the reason it wins, and the composed shape — S4 the implementation skill, /brain:build keeping step 8 verbatim and gaining aligned artifact discovery and a possible concurrent mode, the merged loop-first debugging skill, implement and implement-spec retiring to stubs, definition-of-done rewritten to name the tick / the part checkpoint / the plan-close converge. Slicing deliberately left in S3 (one home). Five open decisions priced, the deferred PRD-home question among them. No verdict anywhere.
+- Why: PLAN-004 Part 3 Task 1 — deliverable two of Peter's Build-stage ask, built on ANA-010's map.
+- Files:
+  - `docs/analysis/ANA-011-build-stage-composition.md` (+147/−0) — the ranking, the eighteen-part provenance table, the composed shape, the reference updates named, the five priced decisions
+  - `docs/analysis/README.md` (+1/−0) — ANA-011's index row
