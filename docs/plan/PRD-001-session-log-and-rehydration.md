@@ -123,4 +123,4 @@ rules, index and template. Simplified Technical English, glossary words.
 
 | Plan | Implements | Status |
 | --- | --- | --- |
-| [PLAN-001-record-and-rehydration-split.md](PLAN-001-record-and-rehydration-split.md) | requirements 1–12 (1–2 via Part 4; 12 via Parts 2 and 6 — the copy, then the retirement) | in progress — part 1 (session SES-001) |
+| [PLAN-001-record-and-rehydration-split.md](PLAN-001-record-and-rehydration-split.md) | requirements 1–12 (1–2 via Part 4; 12 via Parts 2 and 6 — the copy, then the retirement) | in progress — Part 1 done (session SES-001); Part 2 next |

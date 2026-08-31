@@ -1,9 +1,9 @@
 # 2026-08-31 07:09 · The docs system — PRD-001, PLAN-001, the decisions and the analyses
 
 - Goal: Keep this repo's docs system — PRD-001, PLAN-001, the ADRs, the analyses and their READMEs — the copy of record, and from Part 1 Task 6 the session skill's code as well: every commit here gets its entry, and every claim a later commit makes stale is corrected in the same step.
-- Status: in progress
+- Status: done
 - Plan: PLAN-001 · part 1
-- Outcome: _(fill in)_
+- Outcome: PLAN-001 Part 1 done. Delivered: this repo's docs system opened and kept the copy of record (PRD-001, PLAN-001, ADR-001–003, ANA-001–003, their READMEs, this log); the session skill's three acts (`start` · `log` · `close`) with argument inference, its glossary and its tool (ADR-001, Tasks 1–4, 6); the sessions repo merged in with its 57 commits, its docs archived, the tool reading archived logs, the plugin renamed `brain` 0.3.0 with three commands and `/brain:session` everywhere (ADR-003, Task 5); the skill folded to one `SKILL.md` in the conditional-workflow pattern and two scripts `cli.ts` / `core.ts`; the sessions repo pushed and archived on GitHub; PLAN-001 reordered and renumbered from a dependency analysis (ANA-003) with graphs at both levels. Verified along the way: `bun test` 27/0, typecheck, `validate --strict`, plugin-kit's validator, four `--plugin-dir` renders and three inference runs, the gate green over the merged history. Not verified: the installed plugin is still `sessions` 0.2.0 — the reinstall is Part 3 Task 3; Peter waived his read of the new `SKILL.md`.
 
 ## Narrative
 
@@ -34,6 +34,8 @@ What stands open, all Peter's: Part 1 Task 6 (d) `claude plugin uninstall sessio
 Then Peter asked for the plan's order to be evaluated comprehensively (ANA-003, `1c38a80`). The analysis found the reinstall owned twice, Part 2's checkpoint impossible to meet as written (env-setup's docs would send a fresh conversation to a mode 0.3.0 no longer has), a rehydration gap between the reinstall and Part 3, the docs sweep and the duplicated shapes placed before the move they depend on, and env-setup's `claude-settings` change in no task. It framed one fork — rehydrate before the move or after — and Peter chose "before"; then, before that was applied, he reframed the move: copy the toolset in sooner, nothing has to be deleted. Measured on a scratch clone, the copy is one commit that validates and loads; the cost is all in the retirement. The order is now 1 → 5 → 2 → 3 → 4 → 6, the copy first so the reinstall happens once with everything.
 
 Then Peter: the names must match the sequence, parts and tasks, in every document, with dependency graphs at both levels. PLAN-001 was renumbered in execution order and every citation outside history updated; the entries above and this Narrative keep the numbers of their day. Read them through ANA-003 § Renumbering: Part 1 Task 6 (the move in) is now Part 1 Task 5 and the inference task Part 1 Task 6; the copy is Part 2; the reinstall part (was Part 2) is Part 3; rehydration (was Part 3) is Part 4; the docs sweep (was Part 4) is Part 5, its shapes task now Task 2 and its commit task moved to Part 3 Task 4 (a); retirement and the eval redo (were Part 5 Tasks 3–4) are Part 6 Tasks 1–2.
+
+Closing. Peter, on the items marked his: "I'm not doing that. I'd like you to do it" — so the sessions repo was pushed (`fa93a4d..ff756dd`, 27 commits) and archived on GitHub (`gh repo archive`, `isArchived: true`), and his read of the new `SKILL.md` is waived; the reinstall and env-setup's commits are Part 3's, in the next sessions. Part 1 is done at `5507002`, the last entry here; Part 2 (the copy) opens its own session next, one part at a time.
 
 ## Changes (one entry per commit, in order)
 

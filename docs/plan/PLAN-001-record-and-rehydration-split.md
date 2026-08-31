@@ -58,7 +58,7 @@ Part 5 Task 1 → Part 6 Task 1.
 
 ### Part 1: the record's model — status, three acts, no handoff
 
-> Status: in progress (session SES-001; Tasks 1–4 recorded in the archived acmelabs-15/sessions SES-002, `docs/sessions/archive/`)
+> Status: done (session SES-001, `5507002`; Tasks 1–4 recorded in the archived acmelabs-15/sessions SES-002, `docs/sessions/archive/`)
 
 ```text
 Task 1 ──> Task 2 ──> Task 3 ──> Task 4 ──┬──> Task 5 (the move in; (d) (e) Peter's) ──┐
@@ -147,8 +147,10 @@ Task 1 ──> Task 2 ──> Task 3 ──> Task 4 ──┬──> Task 5 (the
     (`start` with a description; `log` after a commit; `close` with and without an id); body under
     500 lines. The `plugin-kit:skill-reviewer` agent may be run if Peter asks for it. Peter reads
     the new `SKILL.md` before the part's checkpoint.
-- [ ] Task 5 (added 2026-08-31 as Task 6, ADR-003; renumbered the same day when the plan's numbers were
-  made to match its sequence — ANA-003 § Renumbering. State 2026-08-31: (a) `5b89ce6`, (b) `2322745`, (c) `6b486dd` + `b45bda7`
+- [x] Task 5 (2026-08-31, done: (a) `5b89ce6`, (b) `2322745`, (c) `6b486dd` + `b45bda7`, (d) the
+  marketplace regenerated, (e) acmelabs-15/sessions pushed to `ff756dd` and archived on GitHub —
+  Peter: "I'd like you to do it". Added 2026-08-31 as Task 6, ADR-003; renumbered the same day when the plan's numbers were
+  made to match its sequence — ANA-003 § Renumbering. State earlier that day: (a) `5b89ce6`, (b) `2322745`, (c) `6b486dd` + `b45bda7`
   done; (d) reduced to the marketplace regeneration, done — the reinstall itself is Part 3 Task 3's,
   one owner (ANA-003 F1); (e) the sessions repo's pointer commit is `ff756dd` there, local — the push and the GitHub
   archive are Peter's): the session skill moves into this repo with its history. (a) `git merge
@@ -175,9 +177,10 @@ Task 1 ──> Task 2 ──> Task 3 ──> Task 4 ──┬──> Task 5 (the
   `close` only when named. Acceptance: the mode table in `SKILL.md` step 1 is the inference rule,
   with an example per act. Verification: three headless runs (`claude -p`) with the three argument
   shapes each reach the right act.
-- [ ] Checkpoint: `bun test`, typecheck, `bun run validate` green (done); the glossary and the
-  skill use the same words for status and acts (done — the reference is folded in); Peter has read
-  the new `SKILL.md`; the sessions repo pushed and archived (Task 5 (e)). SES-001 closes here.
+- [x] Checkpoint (2026-08-31): `bun test`, typecheck, `bun run validate` green; the glossary and the
+  skill use the same words for status and acts (the reference is folded in); the sessions repo
+  pushed and archived (Task 5 (e)); the read of the new `SKILL.md` waived by Peter ("I'm not doing
+  that") — the four renders and the three inference runs stand in for it. SES-001 closes here.
 
 ### Part 2: the toolset copied into the plugin
 
