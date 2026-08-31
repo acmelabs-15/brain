@@ -105,12 +105,12 @@ then stopped at Peter's instruction) and no disclosure recall figure (runs 1–4
 the harness, not the skill: a false fixture, permission denials with no human at the prompt, a
 grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
 
-- [ ] Task 1: run the description loop with only its inputs, detached (`SKILL_CREATOR_NO_OPEN=1`;
+- [ ] Task 1 (running since 2026-08-31 ~02:30, `evals/results/description-2/`): run the description loop with only its inputs, detached (`SKILL_CREATOR_NO_OPEN=1`;
   read `shared/references/running-detached.md` first):
   `bun ~/Dev/ACMElabs/plugin-kit/shared/operations/optimize-description.ts --eval-set skills/session/evals/trigger-eval.json --target-path skills/session --results-dir skills/session/evals/results/description-2`.
   Adopt `best_description` only if its held-out score beats the incumbent; re-measure on the
   tiers set (`measure-triggering.ts`, no flags beyond the inputs) and commit the results.
-- [ ] Task 2: run the disclosure measurement: build the fixture
+- [ ] Task 2 (running since 2026-08-31 ~02:30, scratch `disclosure-5/`): run the disclosure measurement: build the fixture
   (`bun skills/session/evals/fixtures/make-fixture.ts <scratch>/fixture-envsetup`), then
   `bun ~/Dev/ACMElabs/plugin-kit/shared/operations/measure-disclosure.ts --skill-path skills/session --scenarios skills/session/evals/evals.json --fixture <scratch>/fixture-envsetup --allowed-tools Bash --results-dir <outside the skill>`.
   Read `shared/references/disclosure-optimization.md` for the verdict table; the reference's
@@ -133,17 +133,15 @@ tool trace), PR #4 (the install-conflict warning in both loops, train-first gati
 description loop). `~/Dev/ACMElabs/plugin-kit` is on `main` at `be440cb`; Peter's untracked
 `CLAUDE.md`, `CONTEXT.md`, `shared/CLAUDE.md`, `skills/CLAUDE.md` and ADR-002 are his.
 
-In flight on branch `feat/disclosure-resume` (worktree `~/Dev/ACMElabs/plugin-kit-resume-wt`;
-tsc clean; **no tests yet**): `--resume-from` for `optimize-disclosure.ts` (`readResumeState`
+Landed in PR #5 (`0ababec`): `--resume-from` for `optimize-disclosure.ts` (`readResumeState`
 rebuilds iterations, `alreadyTried`, baseline and current from `results.json`; `best_layout_path`
 must exist on disk), the candidate workspace under `<results-dir>/workspace` when a results dir is
 given (so layouts survive a crash), and `--tier-study` replacing `--model` on
 `optimize-disclosure.ts` with the envelope's TIER STUDY cap.
 
-- [ ] Task 1: finish that branch — tests for `readResumeState` (a valid file; a missing
-  `best_layout_path`; a gated record), the full suite, PR, merge with a merge commit, pull, delete
-  the branch and the worktree.
-- [ ] Task 2: the rest of the staleness sweep (grep `--model`, `user's configured`, `default 10`,
+- [x] Task 1: finish that branch — tests for `readResumeState`, the full suite (1,756), PR #5 merged
+  with a merge commit (`0ababec`), pulled, branch and worktree deleted.
+- [x] Task 2 (`0ababec`): the rest of the staleness sweep (grep `--model`, `user's configured`, `default 10`,
   `not yet write` outside `docs/` and `evals/results`): `propose-description.ts`
   (`requireFlag("model")`, "Model for improvement" → default `MEASUREMENT_MODEL`),
   `synthesize-scenarios.ts:1717` ("default: user's configured"), `schemas.md:561` (run.model
@@ -157,7 +155,7 @@ given (so layouts survive a crash), and `--tier-study` replacing `--model` on
   `--fixture` copies into a throwaway root — "fixture" already means the invalid validator
   fixtures under `shared/` (`CLAUDE.md` § Tests), so the flag's name collides; propose
   **scenario repo** and rename the flag if Peter agrees.
-- [ ] Task 4: plugin-kit's `docs/sessions/` has its own note convention
+- [x] Task 4 (`0ababec`, `docs/sessions/SESSION-2026-08-31_01-loop-parity-and-harness-fixes.md`): plugin-kit's `docs/sessions/` has its own note convention
   (`SESSION-YYYY-MM-DD_NN-title.md`); write today's note there pointing at this plan.
 
 ## Risks and mitigations
