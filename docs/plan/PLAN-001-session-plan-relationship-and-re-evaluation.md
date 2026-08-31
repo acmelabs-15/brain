@@ -121,6 +121,21 @@ grader that could not see Bash output — all fixed in plugin-kit PRs #2–#4).
   something to `references/session-log.md`.
 - [ ] Task 4: iteration 5 of the outcome evals with the fixture (baseline
   `evals/results/skill-snapshot/`), per skill-creator; `evals/README.md` gains its row.
+- [ ] Task 5 (added 2026-08-31 after the transcript re-read — these failures survived iteration 5
+  and had no task): iteration 6 on the disclosure-2 residuals, measured with
+  `measure-disclosure.ts` on the fixture as in Task 2. Failing still: `entry` opens a new session
+  instead of appending to the open one (2/2 runs — the iteration-5 wording did not land); the closing
+  note runs over 60 words (4/4); the reply is not the template alone (5 runs);
+  `references/session-log.md` recall 0/2 (the pointer is never followed — decide whether the two
+  rules eval 2 needs move into the body or the pointer names the situation). Read
+  `evals/results/disclosure-2/logs/` in full before changing a line.
+- [ ] Task 6 (added 2026-08-31, same reason): the description. The loop adopted nothing (Task 1),
+  so the trigger rates are unchanged: Haiku 2/10, Sonnet 5/10 should-fire. The skill-reviewer's
+  hypothesis — a clause naming the tool situations in the user's words (append says up to date; gate
+  stays NOT ready; a warning about another session's file; the released marker; a skeleton for a
+  commit you did not make; "was X verified"; "stepping away"; "catch me up") — is untested. Write it
+  by hand within 1,024 characters, measure on `evals/trigger-eval.json` with
+  `measure-triggering.ts` (Haiku and Sonnet, inputs only), keep it only if held-out improves.
 
 ### Part 5: plugin-kit — finish the parity branch and the staleness sweep
 
@@ -130,7 +145,7 @@ Merged today: PR #2 (`--fixture`), PR #3 (`evals/` out of the inventory, `--allo
 `MEASUREMENT_MODEL` + `DEFAULT_NUM_WORKERS` in `shared/util/measurement.ts`, `--tier-study`
 replacing `--model` on the triggering/description loops, the worker-cliff warning, the grader's
 tool trace), PR #4 (the install-conflict warning in both loops, train-first gating in the
-description loop). `~/Dev/ACMElabs/plugin-kit` is on `main` at `be440cb`; Peter's untracked
+description loop). `~/Dev/ACMElabs/plugin-kit` is on `main` at `6968d28` (PRs #5–#7 merged since); Peter's untracked
 `CLAUDE.md`, `CONTEXT.md`, `shared/CLAUDE.md`, `skills/CLAUDE.md` and ADR-002 are his.
 
 Landed in PR #5 (`0ababec`): `--resume-from` for `optimize-disclosure.ts` (`readResumeState`
@@ -150,7 +165,6 @@ given (so layouts survive a crash), and `--tier-study` replacing `--model` on
   sonnet` in the snippet) and `:44` ("optimize-disclosure still takes --model"). The CLAUDE.md
   files were read in full for this sweep: they carry nothing about models or workers, so nothing
   in them is stale from this change.
-- [ ] Task 5 (plugin-kit, open, recorded in its session file as T-07 and T-10): a resume never compares the dead run's `envelope.json` with the current inputs; a timed-out query leaves no trace in `results.json` (no `timed_out` on the row, the warning names no query), so a one-query gap between candidates cannot be told from a timeout.
 - [ ] Task 3: glossary gaps to raise in plugin-kit's `CONTEXT.md` (a gap is raised, not a synonym
   coined): **tier study**, **measurement model**, **tool trace**, and a word for the repository
   `--fixture` copies into a throwaway root — "fixture" already means the invalid validator
@@ -158,6 +172,10 @@ given (so layouts survive a crash), and `--tier-study` replacing `--model` on
   **scenario repo** and rename the flag if Peter agrees.
 - [x] Task 4 (`0ababec`, `docs/sessions/SESSION-2026-08-31_01-loop-parity-and-harness-fixes.md`): plugin-kit's `docs/sessions/` has its own note convention
   (`SESSION-YYYY-MM-DD_NN-title.md`); write today's note there pointing at this plan.
+- [ ] Task 5 (plugin-kit, open, recorded in its session file as T-07 and T-10): a resume never
+  compares the dead run's `envelope.json` with the current inputs; a timed-out query leaves no
+  trace in `results.json` (no `timed_out` on the row, the warning names no query), so a one-query
+  gap between candidates cannot be told from a timeout.
 
 ## Risks and mitigations
 
@@ -165,8 +183,9 @@ given (so layouts survive a crash), and `--tier-study` replacing `--model` on
 | --- | --- | --- |
 | A loop launched with `--model` or `--num-workers` | numbers not of record | the tools own both now; the flags are gone or study-only |
 | A fixture whose premise is false | the skill refuses; the run measures the refusal | `make-fixture.ts` checks the asset with the finder driver |
-| The three repos drift while PR #44 is open | env-setup's project copy of the skill shadows the plugin | merge #44 first (Part 1) |
+| The installed plugin cache is a snapshot | a skill change reaches no user until `version` is bumped | Part 3 Task 4 |
 
 ## Open questions
 
-- Part 3's three design points are Peter's to answer.
+- Part 3's three design points were answered on 2026-08-31 (all kept as they are). Open now: Part 1
+  Task 3 (the interactive check) and Part 5 Task 3 (the glossary words) — both Peter's.
