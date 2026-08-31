@@ -1,9 +1,9 @@
 # 2026-08-31 13:06 · The Define/Plan evidence completed — PLAN-003 Part 1
 
 - Goal: PLAN-003 Parts 1–3 — the Matt collection read to its last line (the twelve remaining skills with every bundled file), Peter's four most-important references, and the upstream diffs (the phase→part drift quoted verbatim); then ANA-008 (the cross-package overlap at Define/Plan depth with external comparanda) and ANA-009 (the granular synthesis composed into a proposed new skill set), his decisions to follow in Part 4.
-- Status: in progress
+- Status: done
 - Plan: PLAN-003 · part 1
-- Outcome: _(fill in)_
+- Outcome: PLAN-003 and PLAN-004 done end to end in one session: the evidence read to its last lines (both lineages' Define/Plan/Build skills, the four references, the upstream diffs), the four analyses (ANA-008–011), both ask-user-question rounds one question at a time (Peter's best-decision rule reshaping three recommendations mid-round), ADR-006's eight decisions, PRD-002 as the program's contract, and PLAN-005 as the single implementation plan. The composed set: interview-me (interrogation, two modes), a renamed requirements skill, planning-and-task-breakdown (union template, § Continuing a plan intact), implement, diagnosing-bugs, /brain:build with the DoD tier gates and a verify-first concurrent mode. Next: PLAN-005 Part 1 in a fresh session.
 
 ## Narrative
 
