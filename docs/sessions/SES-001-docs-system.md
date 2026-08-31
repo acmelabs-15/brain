@@ -25,6 +25,8 @@ Then Peter, having the best-practices page read to the last line (1,186 lines): 
 
 Part 2 Task 2's acceptance grep, run after `e20f7fa`: outside history and the evals, nothing — the shipped surface says the three acts and `/brain:session` everywhere. Ticked; Task 3 waits on the reinstall. What Part 1 and Part 2 still need is Peter's: the uninstall and install, `/reload-plugins`, the sessions repo's push and archive, the env-setup commit, his read of the new `SKILL.md` (Part 1's checkpoint), and a real conversation in env-setup (Part 2's checkpoint).
 
+The script names went one more round (`6113d79`): `session-log.ts` was not the community's word; Peter set the bar (`cli.ts`; `index.ts` only for exports; else `core.ts`), and the pair is `cli.ts` + `core.ts`. In the same exchange his IDE showed `Cannot find name 'process'`/`'Bun'` — the repo resolves both (`tsc` clean, `@types/bun` and `@types/node` installed), so the finding is a stale TypeScript server in the editor, started before this repo had `node_modules`; a restart is his to do, and this is unverified until then. The errors then grew to `'node:path'` and `'node:fs'` — module names reported as missing *names*, which no project-aware check produces; `@types/node` was made explicit anyway (`c5df051`) so the repo needs nothing indirect.
+
 ## Changes (one entry per commit, in order)
 
 ### 2026-08-31 · docs: the session-log and rehydration docs system — PRD-001, PLAN-001, ADR-001, ANA-001 with their READMEs · 4c0c5c2
@@ -159,3 +161,35 @@ Part 2 Task 2's acceptance grep, run after `e20f7fa`: outside history and the ev
   - `skills/session/scripts/session.ts` (+18/−49) — imports from `session-log`; the types, `MAX_FILES`, `stat` and `render` moved out; the header comment says what it is
   - `skills/session/scripts/templates.ts` (+0/−140) — folded into `session-log.ts`
 - Notes: Verified: `bun test` 27/0 (two files), `tsc`, `bun run validate`, plugin-kit's validator (structure clean, the same `evals/results/**` noise), description 1,003 characters, body 263 lines, grep for the old file names and `references/` over the repo returns only history; the gate here green. Left in `session.ts`'s header comment: nothing stale. The names: `session.ts` stays because the command is `session` and an executable named for its command is the convention; `session-log.ts` is the domain the module models, the glossary's own word, with no `-lib` suffix. Not measured yet: whether the folded body changes the disclosure figures — Part 5 Task 4's redo; one `--plugin-dir` render of `start` against this body ran after the commit (its result is in the Narrative).
+
+### 2026-08-31 · refactor(tool): scripts are cli.ts and core.ts — the names the community reaches for; every pointer, the allowed-tools grant and the fixture builder follow · 6113d79
+
+- Summary: The two scripts are `cli.ts` (the tool) and `core.ts` (the model it imports), their tests `cli.test.ts` and `core.test.ts`; the tool line and the `allowed-tools` grant in `SKILL.md`, the injected Sessions line, the fixture builder and every CONTEXT/CLAUDE/README pointer name the new files.
+- Why: Peter, on the names `session.ts` / `session-log.ts` from `e20f7fa`: with more than one script the names "had to be significantly better … aligned with frequently used language in the community". His answer to the naming question: `cli.ts` is fine; `index.ts` only if it exports and nothing else; otherwise `core.ts` (or `utils.ts`, `parse.ts`). Task 6's naming, finished.
+- Files:
+  - `CONTEXT-MAP.md` (+1/−1) — the glossary section's code lives in `core.ts`
+  - `CONTEXT.md` (+4/−4) — **Tool** and **Script** name `cli.ts` and `core.ts`; **Asset** points at `core.ts`; **Invocation** no longer says the references are separate files (there are none)
+  - `README.md` (+1/−1) — the tool line names `scripts/cli.ts`
+  - `skills/session/CLAUDE.md` (+4/−4) — the model is `core.ts` tested by `core.test.ts`, the CLI `cli.ts` tested by `cli.test.ts`
+  - `skills/session/CONTEXT.md` (+2/−2) — the shapes' home is `core.ts`
+  - `skills/session/SKILL.md` (+3/−3) — the `allowed-tools` grant, the tool line and the injected Sessions line: `scripts/cli.ts`
+  - `skills/session/evals/fixtures/make-fixture.ts` (+2/−2) — the tool it runs is `../../scripts/cli.ts` (a path that runs, so it had to follow)
+  - `skills/session/scripts/__tests__/cli.test.ts` (+69/−0) — `session.test.ts` renamed; `TOOL` points at `../cli.ts`
+  - `skills/session/scripts/__tests__/core.test.ts` (+287/−0) — `session-log.test.ts` renamed; imports from `../core`
+  - `skills/session/scripts/__tests__/session-log.test.ts` (+0/−287) — renamed to `core.test.ts`
+  - `skills/session/scripts/__tests__/session.test.ts` (+0/−69) — renamed to `cli.test.ts`
+  - `skills/session/scripts/cli.ts` (+463/−0) — `session.ts` renamed; imports from `./core`; USAGE names `scripts/cli.ts`
+  - `skills/session/scripts/core.ts` (+410/−0) — `session-log.ts` renamed; its header names `core.test.ts`
+  - `skills/session/scripts/session-log.ts` (+0/−410) — renamed to `core.ts`
+  - `skills/session/scripts/session.ts` (+0/−463) — renamed to `cli.ts`
+- Notes: Verified: `bun test` 27/0, `tsc`, `bun run validate`, plugin-kit's validator (structure clean), the gate here green with the renamed tool, and a grep for the old names over the repo returning only history and the eval prompts (Part 5's redo). Git shows each rename as a delete plus an add, as the skeleton lists them. Also this hour: Peter's IDE reports `Cannot find name 'process'` / `'Bun'` in these files; `node_modules/@types` holds `bun` and `node`, `tsconfig.json` has `types: ["bun"]` and `tsc` passes, so the repo is right and the editor's TypeScript server predates this repo's `bun install` (it had no `package.json` before the merge) — a TS-server restart is the fix; unverified until he does it.
+
+### 2026-08-31 · chore(ts): @types/node explicit beside @types/bun; tsconfig types bun and node · c5df051
+
+- Summary: `@types/node` is a devDependency in its own right beside `@types/bun`, and `tsconfig.json` names both under `types`.
+- Why: Peter's editor reports `Cannot find name 'process'`, `'Bun'`, `'node:path'` and `'node:fs'` in the scripts while `tsc` from this repo is clean; `bun-types` reaches `@types/node` only through its own dependency, and naming both removes one way an editor's TypeScript server can miss them. The message the editor shows suggests exactly this.
+- Files:
+  - `bun.lock` (+1/−0) — `@types/node` 26.4.0 pinned
+  - `package.json` (+1/−0) — `"@types/node": "^26.4.0"` in devDependencies
+  - `tsconfig.json` (+1/−1) — `"types": ["bun", "node"]`
+- Notes: Verified: `bun run typecheck` clean, `bun test` 27/0 after the change. Unverified: whether it clears the editor's errors — three names reported "not found" at once, module specifiers included, is the signature of a file checked with no project applied (no `tsconfig.json` found, or a TypeScript server started before this repo had `node_modules`), which a restart of the editor's TS server or the right root folder fixes, not the repo.
