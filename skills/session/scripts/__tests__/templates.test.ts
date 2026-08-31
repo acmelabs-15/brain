@@ -17,7 +17,9 @@ describe("templates", () => {
       expect(sessionFileTemplate()).toContain(line);
       expect(written).toContain(line);
     }
-    expect(sessionFileTemplate()).toContain("- Also: <sha>");
+    // `[sha]` is the template's own slot form, as in `[what that fix-up fixed]` beside it;
+    // `<sha>` is the prose form the rules use (SKILL.md, references/session-log.md).
+    expect(sessionFileTemplate()).toContain("- Also: [sha]");
   });
 
   test("the plan README carries the per-part status line in all three states and the PRD Plans table", () => {
