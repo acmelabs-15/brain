@@ -66,22 +66,21 @@ Part 1 (evidence) ──> Part 2 (ANA-010, the overlap) ──> Part 3 (ANA-011,
 
 ### Part 1: the evidence completed
 
-> Status: in progress (session SES-007)
+> Status: done (session SES-007, `0ab0694` — the durable record is ANA-010's cites)
 
-- [ ] Task 1: the in-scope roster read in full — `implement`, `implement-spec` (+ their
+- [x] Task 1 (2026-08-31): the in-scope roster read in full — `implement`, `implement-spec` (+ their
   `agents/openai.yaml`), `incremental-implementation`, `test-driven-development`,
   `doubt-driven-development`, `debugging-and-error-recovery`, `commands/build.md`,
   `commands/test.md`, `references/definition-of-done.md`, `references/testing-patterns.md`,
   `triage`'s AGENT-BRIEF, `diagnosing-bugs`; upstream diffs for the three named skills enumerated. Acceptance:
   every file read to its last line; the diffs enumerated; recorded as ANA-010 cites.
-- [ ] Checkpoint: the read list is done and the drift is enumerated (expected: only the
-  ledgered read-rule and DoD-pointer hunks — verify, do not assume).
+- [x] Checkpoint (2026-08-31): every roster file read to its last line; drift verified by diff — only the ledgered read-rule hunks and `incremental-implementation:251`'s DoD pointer path.
 
 ### Part 2: the overlap analysis (ANA-010)
 
-> Status: planned
+> Status: done (session SES-007, `0ab0694`)
 
-- [ ] Task 1: ANA-010 — the Build-stage overlap map: the four-way triangle (`/brain:build` ·
+- [x] Task 1 (2026-08-31, `0ab0694`): ANA-010 — the Build-stage overlap map: the four-way triangle (`/brain:build` ·
   `implement` · `implement-spec` · `incremental-implementation`) cell by cell, each classed
   same-differently / unique-to-one / composed-differently with file:line cites; the DoD-tier
   mapping against what each skill actually gates today; the seam with S3's renderings (which
@@ -90,11 +89,11 @@ Part 1 (evidence) ──> Part 2 (ANA-010, the overlap) ──> Part 3 (ANA-011,
   executing-plans and spec-kit's implement/converge as comparanda (ANA-008 carries the base
   facts — cite, do not restate). Acceptance: every claim cites file:line or ANA-008; Refuted
   and Unverifiable sections present; saved as `docs/analysis/ANA-010-…md` with its index row.
-- [ ] Checkpoint: ANA-010 committed and its entry logged.
+- [x] Checkpoint (2026-08-31): ANA-010 committed (`0ab0694`); the entry logged in the docs(session) commit carrying these ticks.
 
 ### Part 3: the synthesis (ANA-011)
 
-> Status: planned
+> Status: in progress (session SES-007)
 
 - [ ] Task 1: ANA-011 — the same three layers as ANA-009: (a) what Build most needs, ranked;
   (b) the granular parts chosen from each side with provenance and the reason each wins;

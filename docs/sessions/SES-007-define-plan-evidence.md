@@ -35,3 +35,12 @@ Started 2026-08-31 right after SES-006 closed (PLAN-002 Parts 1–4 done). Peter
   - `docs/plan/PLAN-003-define-plan-synthesis.md` (+11/−2) — Part 4 in progress with the five settled decisions; the deferral; open questions updated (wayfinder settled, decision 6 → PLAN-004)
   - `docs/plan/PLAN-004-build-stage-synthesis.md` (+141/−0) — the Build-stage plan: five parts, the roster in and out, the references-as-artifacts rule, ANA-010/011 acceptance
   - `docs/plan/PRD-001-session-log-and-rehydration.md` (+2/−1) — PLAN-003's row updated; PLAN-004's row added under requirement 12's umbrella
+
+### 2026-08-31 · docs(analysis): ANA-010 — the Build-stage overlap map: three grains of one loop, worktree-isolation vs sequence under one orchestration law, the failure-path pairing, the ungated DoD tiers, the S3 seam; diagnosing-bugs added to PLAN-004's roster (PLAN-004 Part 2) · 0ab0694
+
+- Summary: ANA-010 lands PLAN-004 Parts 1–2: the four Build surfaces mapped cell by cell (fourteen functions classed same-differently / unique / composed-differently, every cell cited) — three grains of one execution loop that never contradict; concurrency as opposite geometry under one orchestration law (implement-spec's worktree isolation in space vs /build auto's sequence in time, neither citing the other's trade); the failure-path pairing as the stage's deepest same-differently (Addy's triage breadth vs diagnosing-bugs' feedback-loop depth, /build citing only the Addy side); the DoD tier table showing Quality and the whole per-feature tier gated by nothing today; the S3 consumption seam. Drift verified by diff: only the ledgered hunks. diagnosing-bugs added to the roster — the counterpart the initial scoping missed.
+- Why: PLAN-004 Part 2 Task 1, on Part 1's completed reads; Peter's re-sent ask with the initial-prompt reference confirmed the shape (overlap map first, synthesis second).
+- Files:
+  - `docs/analysis/ANA-010-build-stage-overlap.md` (+129/−0) — the four surfaces, the overlap map, the loop step table, the DoD-tier gap table, the orchestration contrast, two refuted framings
+  - `docs/analysis/README.md` (+1/−0) — ANA-010's index row
+  - `docs/plan/PLAN-004-build-stage-synthesis.md` (+4/−2) — diagnosing-bugs added to the roster and Part 1's read list
