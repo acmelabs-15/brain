@@ -191,5 +191,6 @@ Part 5 (diagnosing-bugs) ──────────────────�
   built from the same source (https://claude.ai/code/artifact/339710f7-5d62-40a4-aac5-d2c9c3ec2f76).
   Source and build steps under `docs/lifecycle/` (its README is the handover). Define is the
   reference stage — Idea → interview-me (Needs refinement) → idea-refine / writing-specs (Several
-  capabilities · Still fog) → the PLAN pill; INPUT / OUTPUT rows are on Define and the planner only,
-  carrying them through the other stages is the open thread. Placement stays Part 8's call.
+  capabilities · Still fog) → the PLAN pill; INPUT / OUTPUT rows run through every stage's cards since
+  2026-09-01 (the cards widened to 284, Build on three rows; the concurrent view waits on Task 2).
+  Placement stays Part 8's call.

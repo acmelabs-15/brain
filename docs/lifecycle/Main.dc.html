@@ -263,6 +263,10 @@ class Component extends DCLogic {
   // ---------- the model of one view ----------
   // N(id, kind, x, y, w, h, title, sub, extra)
   static get ROWGAP() { return 16; }
+  // the stage cards: one width, three columns, the gap between them (Define's 315-wide cards are the reference; 284 is the widest three-across beside the panel)
+  static get CW() { return 284; }
+  static get GAP() { return 36; }
+  static get COLS() { return [24, 24 + 284 + 36, 24 + 2 * (284 + 36)]; }
   N(id, kind, x, y, w, h, title, sub, extra) {
     const ex = extra || {};
     const rows = (ex.toggles || []).length + (ex.choice ? ex.choice[1].length : 0);
@@ -397,14 +401,16 @@ class Component extends DCLogic {
   viewPlan() {
     const C = Component.C, N = this.N.bind(this), E = this.E.bind(this);
     const mode = this.state.planMode;
+    const W = Component.CW, gap = Component.GAP;
     const n = {}, cy = 215;
     n.entry = N('prd-in', 'entry', 24, 0, 176, 0, mode === 'new' ? 'the document' : '/brain:plan', mode === 'new' ? 'PRD · or a tracker spec' : 'PLAN-NNN · “where were we”', { icon: mode === 'new' ? 'file' : 'cmd', cy, toggles: [['exists', 'a plan exists', 'c:exists']] });
+    const x1 = 24 + 176 + gap, x2 = x1 + W + gap, x3 = x2 + W + gap;
     const nodes = [n.entry], edges = [];
     if (mode === 'new') {
-      n.pl = N('planning', 'skill', 236, 0, 260, 0, 'planning-and-task-breakdown', '', { cy, io: [['input', 'docs/plan/PRD-NNN.md'], ['output', 'docs/plan/PLAN-NNN.md']], toggles: [['fits', 'fits one window', 'c:fits']] });
-      n.quiz = N('quiz', 'skill', 532, 0, 196, 0, 'the quiz round', 'granularity · edges · merge / split', { cy, toggles: [['approved', 'approved', 'c:approved']] });
-      n.out = N('to-build', 'jump', 764, cy - 18, 108, 36, 'Build', '', { lead: C.hue.build, view: 'build', when: (s) => s.approved });
-      n.wait = N('waits', 'note', 764, n.out.y + n.out.h + 36, 220, 0, 'waits', 'every part planned, until a conversation picks one up', { plain: true, when: (s) => s.approved });
+      n.pl = N('planning', 'skill', x1, 0, W, 0, 'planning-and-task-breakdown', '', { cy, io: [['input', 'docs/plan/PRD-NNN.md'], ['output', 'docs/plan/PLAN-NNN.md']], toggles: [['fits', 'fits one window', 'c:fits']] });
+      n.quiz = N('quiz', 'skill', x2, 0, W, 0, 'the quiz round', '', { cy, io: [['input', 'the breakdown, numbered'], ['output', 'approval']], toggles: [['approved', 'approved', 'c:approved']] });
+      n.out = N('to-build', 'jump', x3, cy - 18, 108, 36, 'Build', '', { lead: C.hue.build, view: 'build', when: (s) => s.approved });
+      n.wait = N('waits', 'note', x3, n.out.y + n.out.h + 36, 1032 - x3, 0, 'waits', 'every part planned, until a conversation picks one up', { plain: true, when: (s) => s.approved });
       nodes.push(n.pl, n.quiz, n.out, n.wait);
       const below = Math.max(n.pl.y + n.pl.h, n.quiz.y + n.quiz.h) + 26;
       edges.push(
@@ -416,23 +422,26 @@ class Component extends DCLogic {
         E('to-build', 'waits', [this.B(n.out), this.T(n.wait)], { when: (s) => s.approved, color: C.dim })
       );
     } else {
-      n.walk = N('walk', 'skill', 236, 0, 200, 0, 'Continuing a plan', 'the rehydration walk · eight steps', { cy, toggles: [['partip', 'a part in progress', 'c:partip']] });
-      n.read = N('read-session', 'note', 472, 0, 176, 0, 'read its session', 'Narrative · entries · unverified', { cy, icon: 'log', when: (s) => s.partip });
-      n.start = N('session-start', 'cmd', 472, n.walk.y + n.walk.h + 44, 176, 0, '/brain:session start', 'writes SES-NNN · flips the status line', { when: (s) => !s.partip });
-      n.brief = N('brief', 'entry', 684, 0, 176, 0, 'the brief', 'the entire reply', { cy, icon: 'art', choice: ['next', [['task', 'the next task'], ['decision', 'a decision'], ['question', 'a question']], 'c:next'] });
-      n.build = N('to-build', 'jump', 896, cy - 18, 108, 36, 'Build', '', { lead: C.hue.build, view: 'build', when: (s) => s.next === 'task' });
-      n.dec = N('to-interview', 'jump', 896, cy - 18, 108, 36, 'Define', '', { lead: C.hue.define, view: 'define', when: (s) => s.next === 'decision' });
-      n.q = N('answer', 'note', 896, 0, 136, 0, 'answer it', 'no session starts', { cy, plain: true, when: (s) => s.next === 'question' });
+      n.walk = N('walk', 'skill', x1, 0, W, 0, 'Continuing a plan', '', { cy, io: [['input', 'docs/plan/PLAN-NNN.md'], ['output', 'the brief']], toggles: [['partip', 'a part in progress', 'c:partip']] });
+      n.read = N('read-session', 'note', x2, 0, W, 0, 'read its session', '', { cy, icon: 'log', io: [['input', 'docs/sessions/SES-NNN.md'], ['output', 'the unverified']], when: (s) => s.partip });
+      n.start = N('session-start', 'cmd', x2, n.walk.y + n.walk.h + 44, W, 0, '/brain:session start', '', { io: [['input', 'the first planned part'], ['output', 'sessions/SES-NNN.md']], when: (s) => !s.partip });
+      const bw = 1032 - x3;
+      n.brief = N('brief', 'entry', x3, 0, bw, 0, 'the brief', 'the entire reply', { cy, icon: 'art', choice: ['next', [['task', 'the next task'], ['decision', 'a decision'], ['question', 'a question']], 'c:next'] });
+      const ry = n.brief.y + n.brief.h + 44;
+      n.build = N('to-build', 'jump', x3 + bw / 2 - 54, ry, 108, 36, 'Build', '', { lead: C.hue.build, view: 'build', when: (s) => s.next === 'task' });
+      n.dec = N('to-interview', 'jump', x3 + bw / 2 - 54, ry, 108, 36, 'Define', '', { lead: C.hue.define, view: 'define', when: (s) => s.next === 'decision' });
+      n.q = N('answer', 'note', x3, ry, bw, 0, 'answer it', 'no session starts', { plain: true, when: (s) => s.next === 'question' });
       nodes.push(n.walk, n.read, n.start, n.brief, n.build, n.dec, n.q);
+      const sx = x3 - 18;
       edges.push(
         E('prd-in', 'walk', [this.R(n.entry), this.L(n.walk)], {}),
         E('walk', 'read-session', [this.R(n.walk), this.L(n.read)], { when: (s) => s.partip }),
         E('walk', 'session-start', [this.B(n.walk), [this.B(n.walk)[0], this.L(n.start)[1]], this.L(n.start)], { label: 'the first planned part', at: [this.B(n.walk)[0] + 62, this.L(n.start)[1] - 14], when: (s) => !s.partip }),
         E('read-session', 'brief', [this.R(n.read), this.L(n.brief)], { when: (s) => s.partip }),
-        E('session-start', 'brief', [this.R(n.start), [this.B(n.brief)[0], this.R(n.start)[1]], this.B(n.brief)], { when: (s) => !s.partip }),
-        E('brief', 'to-build', [this.R(n.brief), this.L(n.build)], { when: (s) => s.next === 'task' }),
-        E('brief', 'to-interview', [this.R(n.brief), this.L(n.dec)], { when: (s) => s.next === 'decision' }),
-        E('brief', 'answer', [this.R(n.brief), this.L(n.q)], { when: (s) => s.next === 'question' })
+        E('session-start', 'brief', [this.R(n.start), [sx, this.R(n.start)[1]], [sx, this.L(n.brief)[1]], this.L(n.brief)], { when: (s) => !s.partip }),
+        E('brief', 'to-build', [this.B(n.brief), this.T(n.build)], { when: (s) => s.next === 'task' }),
+        E('brief', 'to-interview', [this.B(n.brief), this.T(n.dec)], { when: (s) => s.next === 'decision' }),
+        E('brief', 'answer', [this.B(n.brief), this.T(n.q)], { when: (s) => s.next === 'question' })
       );
     }
     return { nodes, edges, subtitle: mode === 'new' ? 'One skill, two doors. No plan yet runs the Planning Process: the document becomes parts and tasks, approved before publication.' : 'One skill, two doors. A plan on disk runs the rehydration walk: it reads the plan and its session, posts the brief, and routes.' };
@@ -443,43 +452,47 @@ class Component extends DCLogic {
     const mode = this.state.buildMode;
     if (mode === 'concurrent') return this.viewBuildConcurrent();
     const auto = mode === 'auto';
-    const n = {}, cy = 215;
-    n.build = N('build', 'cmd', 24, 0, 170, 0, auto ? '/brain:build auto' : '/brain:build', auto ? 'one approval, then every task' : 'by the resolution order', { cy });
-    n.impl = N('implement', 'skill', 230, 0, 160, 0, 'implement', 'the doctrine · picks the task', { cy, toggles: [['risk', 'high-risk task', 'c:risk']] });
-    n.tdd = N('tdd', 'skill', 426, 0, 176, 0, 'test-driven-development', 'RED → GREEN at the seam', { cy });
-    n.suite = N('suite', 'note', 638, 0, 176, 0, 'suite + build', 'the repo’s own commands', { cy, icon: 'loop', toggles: [['green', 'green', 'c:green']] });
-    n.commit = N('commit', 'entry', 850, 0, 182, 0, 'commit → sha', 'one per task', { cy, icon: 'art', toggles: [['gate', 'the gate holds', 'c:gate']] });
-    const r1 = n.suite.y + n.suite.h + 44;
-    n.doubt = N('doubt', 'skill', 626, r1, 200, 0, 'doubt-driven-development', 'a fresh-context review · sign-off', { when: (s) => s.green && s.risk });
-    n.diag = N('diagnosing-bugs', 'skill', 626, r1, 200, 0, 'diagnosing-bugs', 'stop the line; the loop first', { when: (s) => !s.green });
-    const cy2 = 520;
-    n.log = N('tick-log', 'cmd', 850, 0, 182, 0, 'tick · session log', 'the sha in both files', { cy: cy2, toggles: [['closed', 'closes a part', 'c:closed']] });
-    n.close = N('part-close', 'cmd', 620, 0, 160, 0, 'part close', 'checkpoint + Integration + Documentation', { cy: cy2, when: (s) => s.closed, toggles: [['last', 'the last part', 'c:last']] });
-    n.conv = N('converge', 'skill', 384, 0, 200, 0, 'converge', 'spec and plan re-read; the full DoD', { cy: cy2, when: (s) => s.closed && s.last, toggles: [['misses', 'misses', 'c:misses']] });
-    n.out = N('to-review', 'jump', 384 + 100 - 54, n.conv.y + n.conv.h + 44, 108, 36, 'Review', '', { lead: C.hue.review, view: 'review', when: (s) => s.closed && s.last && !s.misses });
+    const W = Component.CW, X = Component.COLS;
+    const cy1 = 196, cy2 = 420, cy3 = 640, RC = 990;
+    const n = {};
+    // row 1, left to right: the command, the doctrine, the test
+    n.build = N('build', 'cmd', X[0], 0, W, 0, auto ? '/brain:build auto' : '/brain:build', '', { cy: cy1, io: [['input', 'docs/plan/PLAN-NNN.md'], ['output', auto ? 'every task in turn' : 'the next unticked task']] });
+    n.impl = N('implement', 'skill', X[1], 0, W, 0, 'implement', '', { cy: cy1, io: [['input', 'the task'], ['output', 'a slice']], toggles: [['risk', 'high-risk task', 'c:risk']] });
+    n.tdd = N('tdd', 'skill', X[2], 0, W, 0, 'test-driven-development', '', { cy: cy1, io: [['input', 'a slice'], ['output', 'RED → GREEN']] });
+    // row 2, right to left: the suite, the commit, the tick
+    n.suite = N('suite', 'note', X[2], 0, W, 0, 'suite + build', '', { cy: cy2, icon: 'loop', io: [['input', 'the increment'], ['output', 'green, or red']], toggles: [['green', 'green', 'c:green']] });
+    n.commit = N('commit', 'entry', X[1], 0, W, 0, 'commit → sha', 'one per task', { cy: cy2, icon: 'art', toggles: [['gate', 'the gate holds', 'c:gate']] });
+    n.log = N('tick-log', 'cmd', X[0], 0, W, 0, 'tick · session log', '', { cy: cy2, io: [['input', 'the sha'], ['output', 'the tick + the entry']], toggles: [['closed', 'closes a part', 'c:closed']] });
+    // row 3: the part's close and the converge, left to right; the branch off the suite under it
+    n.close = N('part-close', 'cmd', X[0], 0, W, 0, 'part close', '', { cy: cy3, io: [['input', 'a closed part'], ['output', 'done (SES-NNN, sha)']], when: (s) => s.closed, toggles: [['last', 'the last part', 'c:last']] });
+    n.conv = N('converge', 'skill', X[1], 0, W, 0, 'converge', '', { cy: cy3, io: [['input', 'the built work'], ['output', 'a clean converge']], when: (s) => s.closed && s.last, toggles: [['misses', 'misses', 'c:misses']] });
+    n.doubt = N('doubt', 'skill', X[2], 0, W, 0, 'doubt-driven-development', '', { cy: cy3, io: [['input', 'a high-risk task'], ['output', 'explicit sign-off']], when: (s) => s.green && s.risk });
+    n.diag = N('diagnosing-bugs', 'skill', X[2], 0, W, 0, 'diagnosing-bugs', '', { cy: cy3, io: [['input', 'red, no obvious fix'], ['output', 'a root-cause fix']], when: (s) => !s.green });
+    n.out = N('to-review', 'jump', X[1] + W / 2 - 54, n.conv.y + n.conv.h + 44, 108, 36, 'Review', '', { lead: C.hue.review, view: 'review', when: (s) => s.closed && s.last && !s.misses });
     const nodes = Object.values(n);
-    const nextLabel = auto ? 'the next task, without stopping' : 'the next task — stop, then /brain:build again';
-    const tddY = this.R(n.tdd)[1], implY = this.R(n.impl)[1], buildY = this.L(n.build)[1], commitY = this.L(n.commit)[1];
-    const top0 = Math.min(n.build.y, n.impl.y, n.tdd.y, n.suite.y, n.commit.y);
-    const bottom2 = Math.max(n.log.y + n.log.h, n.close.y + n.close.h, n.conv.y + n.conv.h) + 60;
+    const nextLabel = auto ? 'the next task,\nwithout stopping' : 'the next task —\nstop, then /brain:build again';
+    const cor1 = Math.round((Math.max(n.build.y + n.build.h, n.impl.y + n.impl.h, n.tdd.y + n.tdd.h) + Math.min(n.suite.y, n.commit.y, n.log.y)) / 2);
+    const cor2 = Math.round((n.suite.y + n.suite.h + Math.min(n.doubt.y, n.diag.y)) / 2);
+    const bottom = Math.max(n.close.y + n.close.h, n.conv.y + n.conv.h, n.doubt.y + n.doubt.h, n.diag.y + n.diag.h, n.out.y + n.out.h) + 22;
+    const gapX = X[2] - 18;
     const edges = [
       E('build', 'implement', [this.R(n.build), this.L(n.impl)], {}),
       E('implement', 'tdd', [this.R(n.impl), this.L(n.tdd)], {}),
-      E('tdd', 'suite', [this.R(n.tdd), this.L(n.suite)], {}),
-      E('suite', 'commit', [this.R(n.suite), this.L(n.commit)], { when: (s) => s.green && !s.risk }),
-      E('suite', 'doubt', [this.B(n.suite), this.T(n.doubt)], { label: 'high-risk', at: [this.B(n.suite)[0] + 44, this.B(n.suite)[1] + 22], when: (s) => s.green && s.risk }),
-      E('doubt', 'commit', [this.R(n.doubt), [838, this.R(n.doubt)[1]], [838, commitY], this.L(n.commit)], { label: 'explicit sign-off', at: [838, (this.R(n.doubt)[1] + commitY) / 2], color: C.mid, when: (s) => s.green && s.risk }),
-      E('suite', 'tdd', [[n.suite.x + 140, n.suite.y], [n.suite.x + 140, top0 - 24], [620, top0 - 24], [620, tddY - 6]], { label: 'fix the slice, retry', at: [700, top0 - 24], when: (s) => !s.green, loop: true }),
-      E('suite', 'diagnosing-bugs', [this.B(n.suite), this.T(n.diag)], { label: 'no obvious fix', at: [this.B(n.suite)[0] + 56, this.B(n.suite)[1] + 22], when: (s) => !s.green }),
-      E('diagnosing-bugs', 'tdd', [this.L(n.diag), [620, this.L(n.diag)[1]], [620, tddY + 6]], { label: 'back at the slice that broke', at: [512, (this.L(n.diag)[1] + n.tdd.y + n.tdd.h) / 2], color: C.mid, when: (s) => !s.green, loop: true }),
-      E('commit', 'tick-log', [this.B(n.commit), this.T(n.log)], { when: (s) => s.gate }),
-      E('commit', 'tdd', [[n.commit.x + 40, n.commit.y], [n.commit.x + 40, top0 - 46], [408, top0 - 46], [408, implY - 6]], { label: 'back to the slice', at: [600, top0 - 46], when: (s) => !s.gate, loop: true }),
-      E('tick-log', 'part-close', [this.L(n.log), this.R(n.close)], { when: (s) => s.closed }),
-      E('tick-log', 'implement', [this.B(n.log), [this.B(n.log)[0], bottom2], [212, bottom2], [212, buildY + 6]], { label: nextLabel, at: [560, bottom2], when: (s) => !s.closed, loop: true }),
-      E('part-close', 'converge', [this.L(n.close), this.R(n.conv)], { when: (s) => s.closed && s.last }),
-      E('part-close', 'implement', [this.B(n.close), [this.B(n.close)[0], bottom2], [212, bottom2], [212, buildY + 6]], { label: nextLabel, at: [470, bottom2], when: (s) => s.closed && !s.last, loop: true }),
+      E('tdd', 'suite', [this.B(n.tdd, -30), this.T(n.suite, -30)], {}),
+      E('suite', 'commit', [this.L(n.suite), this.R(n.commit)], { when: (s) => s.green && !s.risk }),
+      E('suite', 'doubt', [this.B(n.suite), this.T(n.doubt)], { label: 'high-risk', at: [this.B(n.suite)[0] + 44, cor2], when: (s) => s.green && s.risk }),
+      E('doubt', 'commit', [this.L(n.doubt), [gapX, this.L(n.doubt)[1]], [gapX, this.R(n.commit)[1]], this.R(n.commit)], { label: 'explicit sign-off', at: [gapX, (this.L(n.doubt)[1] + this.R(n.commit)[1]) / 2], color: C.mid, when: (s) => s.green && s.risk }),
+      E('suite', 'tdd', [this.T(n.suite, 30), this.B(n.tdd, 30)], { label: 'fix the slice, retry', at: [this.T(n.suite)[0] + 30 + 70, cor1], when: (s) => !s.green, loop: true }),
+      E('suite', 'diagnosing-bugs', [this.B(n.suite), this.T(n.diag)], { label: 'no obvious fix', at: [this.B(n.suite)[0] + 56, cor2], when: (s) => !s.green }),
+      E('diagnosing-bugs', 'tdd', [this.R(n.diag), [RC, this.R(n.diag)[1]], [RC, this.R(n.tdd)[1]], this.R(n.tdd)], { label: 'back at the\nslice that broke', at: [RC, cor2], color: C.mid, when: (s) => !s.green, loop: true }),
+      E('commit', 'tick-log', [this.L(n.commit), this.R(n.log)], { when: (s) => s.gate }),
+      E('commit', 'tdd', [this.T(n.commit, 100), [this.T(n.commit, 100)[0], cor1], [gapX, cor1], [gapX, this.L(n.tdd)[1] + 30], this.L(n.tdd, 30)], { label: 'back to the slice', at: [this.T(n.commit, 100)[0] - 44, cor1 - 16], when: (s) => !s.gate, loop: true }),
+      E('tick-log', 'build', [this.T(n.log, 60), this.B(n.build, 60)], { label: nextLabel, at: [this.T(n.log)[0] + 60 + 96, cor1], when: (s) => !s.closed, loop: true }),
+      E('tick-log', 'part-close', [this.B(n.log), this.T(n.close)], { when: (s) => s.closed }),
+      E('part-close', 'converge', [this.R(n.close), this.L(n.conv)], { when: (s) => s.closed && s.last }),
+      E('part-close', 'build', [this.B(n.close, -60), [this.B(n.close, -60)[0], bottom], [8, bottom], [8, this.L(n.build)[1]], this.L(n.build)], { label: nextLabel, at: [230, bottom + 20], when: (s) => s.closed && !s.last, loop: true }),
       E('converge', 'to-review', [this.B(n.conv), this.T(n.out)], { when: (s) => s.closed && s.last && !s.misses }),
-      E('converge', 'build', [this.L(n.conv), [8, this.L(n.conv)[1]], [8, buildY], this.L(n.build)], { label: 'appended as tasks — built by the next run', at: [214, this.L(n.conv)[1] - 14], when: (s) => s.closed && s.last && s.misses, loop: true })
+      E('converge', 'build', [this.B(n.conv, -80), [this.B(n.conv, -80)[0], bottom], [8, bottom], [8, this.L(n.build)[1]], this.L(n.build)], { label: 'appended as tasks — built by the next run', at: [230, bottom + 20], when: (s) => s.closed && s.last && s.misses, loop: true })
     ];
     return { nodes, edges, subtitle: auto ? 'The same loop, once per task, after a single unambiguous approval — it removes the stepping between tasks, not the verification. Flip a switch to see the other branch.' : 'One loop per task, with four ways out of it. implement is the doctrine; /brain:build executes it; flip a switch on a card to see the branch it takes.' };
   }
@@ -514,42 +527,45 @@ class Component extends DCLogic {
 
   viewReview() {
     const C = Component.C, N = this.N.bind(this), E = this.E.bind(this);
+    const W = Component.CW, X = Component.COLS;
     const n = {}, cy = 215;
-    n.rv = N('review', 'cmd', 24, 0, 170, 0, '/brain:review', 'the five-axis review', { cy });
-    n.crq = N('code-review-and-quality', 'skill', 230, 0, 220, 0, 'code-review-and-quality', 'five axes · the reviewer agents', { cy, toggles: [['findings', 'findings', 'c:findings']] });
-    n.simp = N('code-simplification', 'skill', 486, 0, 220, 0, 'code-simplification', '/brain:code-simplify · optional', { cy, when: (s) => !s.findings });
-    n.out = N('to-release', 'jump', 742, cy - 18, 118, 36, 'Release', '', { lead: C.hue.release, view: 'release', when: (s) => !s.findings });
-    n.fix = N('fixes', 'note', 486, n.crq.y + n.crq.h + 44, 220, 0, 'fixes are work', 'each runs through Build’s loop: commit, gate, tick, entry', { icon: 'loop', when: (s) => s.findings });
-    n.fixTo = N('to-build', 'jump', 742, this.L(n.fix)[1] - 18, 108, 36, 'Build', '', { lead: C.hue.build, view: 'build', when: (s) => s.findings });
-    n.note = N('as-stands', 'note', 24, n.crq.y + n.crq.h + 44, 426, 0, 'as the skills stand today', 'not rebuilt yet; a later plan gives this stage the same treatment.', { plain: true, icon: 'note' });
+    n.rv = N('review', 'cmd', X[0], 0, W, 0, '/brain:review', '', { cy, io: [['input', 'a clean converge'], ['output', 'findings, or none']] });
+    n.crq = N('code-review-and-quality', 'skill', X[1], 0, W, 0, 'code-review-and-quality', '', { cy, io: [['input', 'the built work'], ['output', 'findings on five axes']], toggles: [['findings', 'findings', 'c:findings']] });
+    n.simp = N('code-simplification', 'skill', X[2], 0, W, 0, 'code-simplification', '', { cy, io: [['input', 'no findings'], ['output', 'less code, same tests']], when: (s) => !s.findings });
+    n.out = N('to-release', 'jump', X[2] + W / 2 - 59, n.simp.y + n.simp.h + 44, 118, 36, 'Release', '', { lead: C.hue.release, view: 'release', when: (s) => !s.findings });
+    n.fix = N('fixes', 'note', X[2], 0, W, 0, 'fixes are work', '', { cy, icon: 'loop', io: [['input', 'findings'], ['output', 'commits, via the loop']], when: (s) => s.findings });
+    n.fixTo = N('to-build', 'jump', X[2] + W / 2 - 54, n.fix.y + n.fix.h + 44, 108, 36, 'Build', '', { lead: C.hue.build, view: 'build', when: (s) => s.findings });
+    n.note = N('as-stands', 'note', X[0], n.crq.y + n.crq.h + 44, X[1] + W - X[0], 0, 'as the skills stand today', 'not rebuilt yet; a later plan gives this stage the same treatment.', { plain: true, icon: 'note' });
     const nodes = Object.values(n);
     const edges = [
       E('review', 'code-review-and-quality', [this.R(n.rv), this.L(n.crq)], {}),
-      E('code-review-and-quality', 'fixes', [this.B(n.crq), [this.B(n.crq)[0], this.L(n.fix)[1]], this.L(n.fix)], { when: (s) => s.findings }),
+      E('code-review-and-quality', 'fixes', [this.R(n.crq), this.L(n.fix)], { when: (s) => s.findings }),
       E('code-review-and-quality', 'code-simplification', [this.R(n.crq), this.L(n.simp)], { when: (s) => !s.findings }),
-      E('code-simplification', 'to-release', [this.R(n.simp), this.L(n.out)], { when: (s) => !s.findings }),
-      E('fixes', 'to-build', [this.R(n.fix), this.L(n.fixTo)], { when: (s) => s.findings })
+      E('code-simplification', 'to-release', [this.B(n.simp), this.T(n.out)], { when: (s) => !s.findings }),
+      E('fixes', 'to-build', [this.B(n.fix), this.T(n.fixTo)], { when: (s) => s.findings })
     ];
     return { nodes, edges, subtitle: 'A clean converge enters; no findings leaves. Findings do not become a report — they run back through Build’s loop.' };
   }
 
   viewRelease() {
     const C = Component.C, N = this.N.bind(this), E = this.E.bind(this);
+    const W = Component.CW, X = Component.COLS;
     const n = {}, cy = 215;
-    n.ship = N('ship', 'cmd', 24, 0, 170, 0, '/brain:ship', 'the pre-launch checklist', { cy });
-    n.sl = N('shipping-and-launch', 'skill', 230, 0, 220, 0, 'shipping-and-launch', 'the full Definition of Done as the floor', { cy, toggles: [['dod', 'the full DoD holds', 'c:dod']] });
-    n.rel = N('released', 'art', 486, cy - 20, 140, 40, 'released', '', { icon: 'flag', when: (s) => s.dod });
-    n.rec = N('rec-done', 'file', 662, 0, 224, 0, 'the record closed', 'the plan done; the PRD row says “shipped in vX.Y.Z”', { cy, icon: 'file', when: (s) => s.dod });
-    n.recTo = N('to-record', 'jump', 922, cy - 18, 108, 36, 'Record', '', { lead: C.hue.record, view: 'record', when: (s) => s.dod });
-    n.git = N('git-workflow-and-versioning', 'skill', 230, n.sl.y + n.sl.h + 44, 220, 0, 'git-workflow-and-versioning', 'tag · changelog · merge commits', {});
-    n.note = N('as-stands', 'note', 486, n.sl.y + n.sl.h + 44, 406, 0, 'as the skills stand today', 'not rebuilt yet; a later plan gives Review and Release the same treatment.', { plain: true, icon: 'note' });
+    n.ship = N('ship', 'cmd', X[0], 0, W, 0, '/brain:ship', '', { cy, io: [['input', 'no findings'], ['output', 'go / no-go']] });
+    n.sl = N('shipping-and-launch', 'skill', X[1], 0, W, 0, 'shipping-and-launch', '', { cy, io: [['input', 'the reviewed work'], ['output', 'the release']], toggles: [['dod', 'the full DoD holds', 'c:dod']] });
+    n.rel = N('released', 'art', X[2], cy - 20, 140, 40, 'released', '', { icon: 'flag', when: (s) => s.dod });
+    const r2 = n.sl.y + n.sl.h + 44;
+    n.rec = N('rec-done', 'file', X[2], r2, W, 0, 'the record closed', '', { icon: 'file', io: [['input', 'the release'], ['output', 'shipped in vX.Y.Z']], when: (s) => s.dod });
+    n.recTo = N('to-record', 'jump', X[2] + W / 2 - 54, n.rec.y + n.rec.h + 44, 108, 36, 'Record', '', { lead: C.hue.record, view: 'record', when: (s) => s.dod });
+    n.git = N('git-workflow-and-versioning', 'skill', X[1], r2, W, 0, 'git-workflow-and-versioning', '', { io: [['input', 'the merged branch'], ['output', 'tag · changelog']] });
+    n.note = N('as-stands', 'note', X[0], r2, W, 0, 'as the skills stand today', 'not rebuilt yet; a later plan gives Review and Release the same treatment.', { plain: true, icon: 'note' });
     const nodes = Object.values(n);
     const edges = [
       E('ship', 'shipping-and-launch', [this.R(n.ship), this.L(n.sl)], {}),
       E('shipping-and-launch', 'released', [this.R(n.sl), this.L(n.rel)], { when: (s) => s.dod }),
       E('shipping-and-launch', 'shipping-and-launch', [[n.sl.x + 150, n.sl.y], [n.sl.x + 150, n.sl.y - 24], [n.sl.x + 70, n.sl.y - 24], [n.sl.x + 70, n.sl.y]], { label: 'back', at: [n.sl.x + 110, n.sl.y - 24], when: (s) => !s.dod, loop: true }),
-      E('released', 'rec-done', [this.R(n.rel), this.L(n.rec)], { when: (s) => s.dod }),
-      E('rec-done', 'to-record', [this.R(n.rec), this.L(n.recTo)], { when: (s) => s.dod }),
+      E('released', 'rec-done', [this.B(n.rel), this.T(n.rec)], { when: (s) => s.dod }),
+      E('rec-done', 'to-record', [this.B(n.rec), this.T(n.recTo)], { when: (s) => s.dod }),
       E('shipping-and-launch', 'git-workflow-and-versioning', [this.B(n.sl), this.T(n.git)], { label: 'calls', at: [this.B(n.sl)[0] + 26, this.B(n.sl)[1] + 22], color: C.mid })
     ];
     return { nodes, edges, subtitle: 'No findings enters; a release leaves, and the record closes behind it.' };

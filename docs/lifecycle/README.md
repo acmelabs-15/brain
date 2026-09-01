@@ -42,6 +42,13 @@ the page as a plain publish. Favicons: canvas 🧠, page 🗺️. Keep the built
 
 - A **view** builds `{ nodes, edges, subtitle }`: `overview`, `define`, `plan` (two doors via
   `planMode`), `build` (`buildMode`: one / auto / concurrent), `review`, `release`, `record`.
+- The stage cards share one width, `CW` (284 px — the widest three-across beside the panel, and the
+  narrowest that holds `docs/plan/PLAN-NNN.md` in a chip: a chip's text room is the card width less 140 px
+  at 6 px a character), three columns `COLS` and a `GAP` of 36. Define keeps its 315s (two across). Build
+  runs three rows: the forward path, the suite → commit → tick row right-to-left, the part close and
+  converge with the suite's branch (doubt / diagnosing-bugs) under the suite; the return loops ride the
+  corridors between rows and the strip right of the third column. Entries (Idea, the document, the brief,
+  the commit) keep their subtitles; every other card carries INPUT / OUTPUT rows.
 - `N(id, kind, x, y, w, h, title, sub, extra)` — kinds `entry · skill · cmd · file · note · art · jump ·
   group · row`. Card heights come from the header: measured after paint (`state.hh`, `offsetHeight`,
   scheduled from `renderVals` by a timer — never from lifecycle overrides, the runtime owns those),
@@ -66,7 +73,6 @@ trust the scripted state over the picture when they disagree.
 
 ## Open threads
 
-- INPUT / OUTPUT rows exist on Define's cards and the planner only; Plan (rest), Build, Review, Release
-  still carry subtitles.
-- `tick · session log` wraps to two lines at its column width (rename, or widen).
+- The concurrent Build view keeps its subtitles: its four columns cannot take 284-wide cards, and the mode
+  is pending (PLAN-005 Part 7 Task 2). Rows there wait on the landing call.
 - The canvas's editor is a preview: pinned runtime, read-only where saving isn't granted.
