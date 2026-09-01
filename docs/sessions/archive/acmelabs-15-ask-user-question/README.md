@@ -1,1 +1,0 @@
-> Archived 2026-08-31 (PLAN-001 Part 2): the session note of acmelabs-15/ask-user-question (its own convention, SESSION-YYYY-MM-DD_NN), merged into this repository with its history. The merge that brought that history in accounts for its commits; nothing here is listed or written by the tool.

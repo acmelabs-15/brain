@@ -1,1 +1,0 @@
-> Archived 2026-08-31 (PLAN-001 Part 2, ADR-003's method): the analyses and the skill-learnings note of acmelabs-15/ask-user-question as they stood at its last commit `afa3440`, merged into this repository with its 196 commits. Their numbering (ANALYSIS-NNN) is that repo's; this repo's analyses are `../../ANA-NNN-*.md`.

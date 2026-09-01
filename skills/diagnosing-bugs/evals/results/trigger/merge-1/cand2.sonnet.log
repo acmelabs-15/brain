@@ -1,3 +1,0 @@
-
-WARNING: `measure-triggering` needs the target NOT to be installed, and it is (installed). Content served through the skill system never produces a `Read`, so pull rates measured under this condition are floored at zero and the file verdicts below cannot be trusted.
-Envelope written to: skills/diagnosing-bugs/evals/results/trigger/merge-1/cand2.sonnet.envelope.json

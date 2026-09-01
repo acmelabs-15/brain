@@ -1,4 +1,0 @@
-
-WARNING: `measure-triggering` needs the target NOT to be installed, and it is (installed). Content served through the skill system never produces a `Read`, so pull rates measured under this condition are floored at zero and the file verdicts below cannot be trusted.
-TIER STUDY: sweeping on haiku instead of sonnet. This run is NOT a measurement of record: its rates are comparable only with other runs on that model, and the envelope says so.
-Envelope written to: skills/planning-and-task-breakdown/evals/results/trigger/continue-1/cand3.haiku.envelope.json

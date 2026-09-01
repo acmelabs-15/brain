@@ -1,2 +1,0 @@
-Warning: query timed out after 180s and is scored as a non-trigger. If this recurs, raise --timeout: measured calls reached 124s.
-Envelope written to: evals/results/trigger/tiers-2/sonnet.envelope.json
