@@ -45,3 +45,7 @@ coverage/
 .AppleDouble
 .LSOverride
 ._*
+
+# The lifecycle map (docs/lifecycle): the built artifacts are rebuilt from Main.dc.html — see its README.
+docs/lifecycle/brain-lifecycle.html
+docs/lifecycle/lifecycle-map.html
