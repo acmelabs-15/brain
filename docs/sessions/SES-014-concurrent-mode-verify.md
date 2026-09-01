@@ -70,3 +70,16 @@ A second stream, 2026-08-31 into 09-01, with no repo commit until the one that c
 - Files:
   - `docs/analysis/ANA-012-concurrent-mode-measurements.md` (+59/−0) — the three findings, the mapping, what stays unverifiable
   - `docs/analysis/README.md` (+1/−0) — ANA-012's index row
+
+### 2026-09-01 · docs(lifecycle): the interactive lifecycle map's source — Main.dc.html (the one model: views, switches, upstream highlighting, measured cards), build-page.mjs (the full-page artifact over Preact), canvas.json, a README with the rebuild/seed/publish steps and what the canvas runtime taught; PLAN-005's open questions and SES-014's narrative record the two artifacts and the open threads · f5d041f
+
+- Summary: the interactive lifecycle map's source moves into the repo — `Main.dc.html` is the one model behind two artifacts (the design canvas https://claude.ai/code/artifact/f5e4791d-df1e-425c-a020-80b6dfacf371 and the full-page map https://claude.ai/code/artifact/339710f7-5d62-40a4-aac5-d2c9c3ec2f76): the views, the switch rows that draw one branch at a time, the INPUT / OUTPUT rows, the measured cards, the upstream highlighting; `build-page.mjs` builds the page from it; the README is the handover. PLAN-005's Open questions and this session's Narrative record the artifacts and the open threads.
+- Why: Peter, 2026-09-01: update the plan, the session and any other notes so a new conversation can pick up where this one left off — the source had lived only in a session-scoped scratch directory.
+- Files:
+  - `docs/lifecycle/Main.dc.html` (+915/−0) — the artboard: template plus logic class — seven views, `N()` with measured heights and centre-line rows, `E()` with rounded orthogonal routes, switches, upstream highlighting, the anatomy panel text
+  - `docs/lifecycle/README.md` (+72/−0) — the two URLs, the files, rebuild / seed / publish steps, the model in one screen, how it was verified, what the canvas runtime taught, the open threads
+  - `docs/lifecycle/build-page.mjs` (+95/−0) — builds `lifecycle-map.html`: a ~70-line renderer for the Design Components template over Preact 10.19.3 (cdnjs), vnodes keyed by template position, the board scaled to fit the window
+  - `docs/lifecycle/canvas.json` (+6/−0) — one 1440×900 interactive artboard, launched focused
+  - `docs/plan/PLAN-005-lifecycle-composition-implementation.md` (+8/−0) — Open questions gain the interactive map: the two URLs, the source's home, Define as the reference stage, the INPUT / OUTPUT thread, placement still Part 8's call
+  - `docs/sessions/SES-014-concurrent-mode-verify.md` (+2/−0) — Narrative: the second stream, its rounds and what the runtime taught
+- Notes: verified — `node build-page.mjs` and the canvas seed + `--check` run clean from the copied files; both artifacts republished from those files this session and the page checked in Chrome by script (view, switch, selection and panel state read back from the component). Unverified — nothing; no plugin file changed, so the plugin checks were not run. Follow-ups: the INPUT / OUTPUT rows on the remaining stages; `tick · session log` wrapping; where the map lives (Part 8).
