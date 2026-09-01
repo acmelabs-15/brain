@@ -435,7 +435,9 @@ After Part 4 and Part 2; ANA-003 F5.
 
 ### Part 6: retire the sources, and the eval redo
 
-> Status: planned
+> Status: planned — ADR-007 (2026-08-31) removed the pointer stubs from this part's scope: every
+> retired skill is deleted in the commit that lands its replacement; what remains here is the
+> `~/.claude` copies and the eval redo, and it runs after PLAN-005.
 
 ```text
 Part 4 and Part 5 (every tracked copy edited) ──> Task 1 (the sweep, the retirements, env-setup) ──> Checkpoint (a second machine)

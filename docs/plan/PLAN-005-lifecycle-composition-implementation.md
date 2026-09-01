@@ -132,11 +132,13 @@ Part 5 (diagnosing-bugs) ──────────────────�
 
 > Status: in progress (session SES-014)
 
-- [ ] Task 1: measure with strong oracles — (a) implementer subagents in git worktrees as
-  implement-spec writes it, (b) Claude Code tasks carrying native dependencies as the
-  frontier, (c) whether agent teams consume those dependencies (Peter's rider, unverified).
-  Recorded as an ANA with the invocations and outputs.
-- [ ] Task 2: only where Task 1 is green — the concurrent mode lands in `/brain:build`
+- [x] Task 1 (2026-08-31, `a68b5b2`): ANA-012 — (a) worktree subagents live-verified on git's
+  own state; (b) native task dependencies exist only in agent teams' shared task list
+  (documented, behind `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`); (c) teams claim unblocked
+  tasks themselves (documented, not executed here).
+- [ ] Task 2 — **waits on Peter's landing call** (asked, dialog dismissed twice, still open:
+  land the mode now with the experimental flag named, or hold it for a live team run):
+  only where Task 1 is green — the concurrent mode lands in `/brain:build`
   (worktree implementers, mergers, one PR per spec, the deps-graph frontier); `implement-spec`
   is deleted in that commit. Where Task 1 fails, the ANA records what and why, the mode is
   dropped, and `implement-spec` is still deleted (its parts live in the ANA for a future run).
@@ -165,3 +167,21 @@ Part 5 (diagnosing-bugs) ──────────────────�
 | § Continuing a plan drifts in the rebuild | the daily door breaks | byte-identical diff in Part 3's acceptance |
 | The concurrent mode lands unverified | /build breaks on real work | Part 7's ordering: measure first, land second, drop honestly |
 | Two plans' Part 5s and this plan drift | contradictory record | PLAN-003/004 Part 5s are superseded pointers to this plan |
+
+## Open questions (the cold-start list — Peter's, in his words)
+
+- **Part 7 Task 2, the landing call**: land the concurrent mode now (its design maps onto
+  documented machinery; the flag named in `/brain:build`; the first real team run is the
+  verification at Part 8's checkpoint) — or hold it for a live team run first. My
+  recommendation: land it, flag named.
+- **wayfinder's fate**: keep it as the outrider for work bigger than one session (recorded in
+  ADR-006 D2; my recommendation — its map with claiming and fog has no home elsewhere), or
+  retire it into the planner (a map becomes a plan of decision tickets; the directory is
+  deleted under ADR-007; a new part here).
+- **The three lifecycle pages** (artifacts, private): the outline with three levels of
+  disclosure — https://claude.ai/code/artifact/88a4bd9c-1a97-4227-a171-6bb8e7170f9a — is the
+  one Peter's feedback shaped; the flow diagrams
+  (https://claude.ai/code/artifact/46440e7d-5f86-4b34-b0a9-9c6c4e14380a) and the step-by-step
+  trace (https://claude.ai/code/artifact/0485571a-4c06-4a33-9fe6-bcda0c1f756a) are its
+  companions; `docs/brain-lifecycle.svg` is the still. Whether any page is saved into `docs/`
+  is Part 8's closure call.
