@@ -1,0 +1,915 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+  <style>
+    body { margin: 0; background: #0a0a0a; font-family: "Google Sans", sans-serif; color: #ededed; }
+    a { color: #8ab8ff; } a:hover { color: #b3d0ff; }
+    .root * { box-sizing: border-box; }
+    .node.clickable:not(.sel):not(.up):not(.pill):hover { border-color: #4a4a4a !important; }
+    .node.clickable { cursor: pointer; }
+    .strip:hover { color: #ededed !important; }
+    .btn:hover { border-color: #4a4a4a !important; color: #ededed !important; }
+    .trow:hover { background: rgba(255,255,255,0.05); }
+    .chipbtn:hover { border-color: #8ab8ff !important; color: #ededed !important; }
+    .panel::-webkit-scrollbar { width: 6px; } .panel::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+  </style>
+</helmet>
+<div class="root" style="position: relative; width: 1440px; height: 900px; overflow: hidden; background-color: #0a0a0a; background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px); background-size: 24px 24px; color: #ededed;">
+
+  <!-- header: crumb, title, the stage strip -->
+  <div style="position: absolute; left: 32px; top: 22px; display: flex; align-items: center; gap: 12px; height: 32px;">
+    <sc-if value="{{showBack}}" hint-placeholder-val="{{false}}">
+      <div class="btn" onClick="{{goOverview}}" style="display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border: 1px solid #2e2e2e; border-radius: 6px; color: #8f8f8f; font-size: 12px; cursor: pointer; background: #0f0f0f;">
+        <svg width="12" height="12" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-width: 2;"><path d="M15 5 L8 12 L15 19"></path></svg>
+        <span>Lifecycle</span>
+      </div>
+    </sc-if>
+    <div style="font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6a6a6a;">brain</div>
+    <div style="font-size: 18px; font-weight: 600; letter-spacing: -0.01em;">{{title}}</div>
+    <sc-if value="{{hasBadge}}" hint-placeholder-val="{{false}}">
+      <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10.5px; padding: 3px 8px; border: 1px solid rgba(245,165,36,0.5); color: #f5a524; border-radius: 999px;">{{badge}}</span>
+    </sc-if>
+  </div>
+  <div style="position: absolute; right: 32px; top: 22px; height: 32px; display: flex; align-items: center; gap: 0;">
+    <sc-for list="{{strip}}" as="s" hint-placeholder-count="5">
+      <div class="strip" onClick="{{s.pick}}" style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: {{s.color}};">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: {{s.dot}}; box-shadow: {{s.glow}};"></span>
+        <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em;">{{s.label}}</span>
+        <span style="display: block; width: 26px; height: 1px; background: #2e2e2e; margin: 0 8px; opacity: {{s.lineOpacity}};"></span>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- sub-header: modes and the one-line subtitle -->
+  <div style="position: absolute; left: 32px; top: 72px; height: 30px; display: flex; align-items: center; gap: 14px;">
+    <sc-if value="{{hasModes}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; align-items: center; border: 1px solid #2e2e2e; border-radius: 7px; background: #0f0f0f; padding: 2px; gap: 2px;">
+        <sc-for list="{{modes}}" as="m" hint-placeholder-count="2">
+          <div onClick="{{m.pick}}" style="height: 24px; padding: 0 10px; display: flex; align-items: center; border-radius: 5px; font-size: 12px; cursor: pointer; background: {{m.bg}}; color: {{m.color}}; font-family: 'Geist Mono', ui-monospace, monospace;">{{m.label}}</div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <div style="font-size: 12.5px; color: #8f8f8f; max-width: 860px;">{{subtitle}}</div>
+  </div>
+
+  <!-- the diagram: edges (svg) then nodes (html), all absolutely placed -->
+  <svg width="1440" height="900" style="position: absolute; left: 0; top: 0; pointer-events: none;">
+    <sc-for list="{{edges}}" as="e" hint-placeholder-count="4">
+      <path d="{{e.d}}" style="fill: none; stroke: {{e.stroke}}; stroke-width: {{e.sw}}; stroke-dasharray: {{e.dash}};"></path>
+      <path d="{{e.head}}" style="fill: {{e.stroke}}; stroke: none;"></path>
+    </sc-for>
+  </svg>
+
+  <sc-for list="{{nodes}}" as="n" hint-placeholder-count="6">
+    <div class="{{n.cls}}" onClick="{{n.pick}}" style="position: absolute; {{n.box}}">
+      <div data-hh="{{n.id}}" style="display: flex; align-items: flex-start; gap: 9px; width: 100%; {{n.headStyle}}">
+        <sc-if value="{{n.hasLead}}" hint-placeholder-val="{{false}}"><span style="flex: 0 0 8px; width: 8px; height: 8px; border-radius: 50%; background: {{n.lead}}; margin-top: 4px;"></span></sc-if>
+        <sc-if value="{{n.hasIcon}}" hint-placeholder-val="{{false}}">
+          <svg width="16" height="16" viewBox="0 0 24 24" style="flex: 0 0 16px; margin-top: 2px; fill: none; stroke: {{n.iconColor}}; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;"><path d="{{n.icon}}"></path></svg>
+        </sc-if>
+        <div style="min-width: 0; flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px;">
+          <div style="{{n.titleStyle}}">{{n.title}}</div>
+          <sc-if value="{{n.hasSub}}" hint-placeholder-val="{{false}}"><div style="{{n.subStyle}}">{{n.sub}}</div></sc-if>
+          <sc-for list="{{n.io}}" as="k" hint-placeholder-count="0">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: {{k.mt}}px;">
+              <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #6a6a6a; flex: 0 0 auto;">{{k.label}}</span>
+              <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10px; color: #d6d6d6; background: #1f1f1f; border-radius: 6px; padding: 3px 7px; flex: 0 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{k.value}}</span>
+            </div>
+          </sc-for>
+          <sc-if value="{{n.hasTagBelow}}" hint-placeholder-val="{{false}}"><span style="{{n.tagStyle}}">{{n.tag}}</span></sc-if>
+        </div>
+        <sc-if value="{{n.hasTag}}" hint-placeholder-val="{{false}}"><span style="{{n.tagStyle}}">{{n.tag}}</span></sc-if>
+        <sc-if value="{{n.hasArrow}}" hint-placeholder-val="{{false}}"><svg width="18" height="18" viewBox="0 0 24 24" style="flex: 0 0 18px; fill: none; stroke: {{n.lead}}; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;"><path d="M5 12h13 M13 6l6 6-6 6"></path></svg></sc-if>
+        <sc-if value="{{n.hasDot}}" hint-placeholder-val="{{false}}"><span style="flex: 0 0 10px; width: 10px; height: 10px; border-radius: 50%; margin-left: 6px; margin-top: 3px; background: #0072f5; box-shadow: 0 0 0 4px rgba(0,114,245,0.22); opacity: {{n.dotOpacity}};"></span></sc-if>
+      </div>
+    </div>
+  </sc-for>
+
+  <sc-for list="{{trows}}" as="r" hint-placeholder-count="2">
+    <div class="trow" onClick="{{r.pick}}" style="position: absolute; left: {{r.x}}px; top: {{r.y}}px; width: {{r.w}}px; height: 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; border-radius: 5px; padding: 0 4px; box-sizing: border-box;">
+      <span style="font-size: 12px; color: {{r.color}}; flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{r.label}}</span>
+      <div style="position: relative; flex: 0 0 {{r.tw}}px; width: {{r.tw}}px; height: {{r.th}}px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid {{r.stroke}}; background: {{r.fill}}; transition: background-color 0.18s ease, border-color 0.18s ease;">
+        <div style="position: absolute; top: {{r.kt}}px; left: {{r.kl}}px; width: {{r.kd}}px; height: {{r.kd}}px; border-radius: 50%; background: {{r.knob}}; transition: left 0.18s ease, top 0.18s ease, width 0.18s ease, height 0.18s ease, background-color 0.18s ease;"></div>
+      </div>
+    </div>
+  </sc-for>
+
+  <sc-for list="{{labels}}" as="l" hint-placeholder-count="4">
+    <div style="position: absolute; left: {{l.x}}px; top: {{l.y}}px; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 6px; white-space: nowrap; pointer-events: none;">
+      <sc-if value="{{l.hasChip}}" hint-placeholder-val="{{false}}"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.04em; padding: 1px 6px; border-radius: 4px; border: 1px solid {{l.chipBorder}}; color: {{l.chipColor}}; background: #0a0a0a;">{{l.chip}}</span></sc-if>
+      <sc-if value="{{l.hasText}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; line-height: 1.25; text-align: center; color: {{l.color}}; background: #0a0a0a; padding: 1px 5px; border-radius: 4px; white-space: pre-line;">{{l.text}}</span></sc-if>
+    </div>
+  </sc-for>
+
+  <!-- the panel: level 2 -->
+  <sc-if value="{{hasPanel}}" hint-placeholder-val="{{false}}">
+    <div class="panel" style="position: absolute; left: 1056px; top: 112px; width: 352px; height: 760px; border: 1px solid #2e2e2e; border-radius: 10px; background: #0f0f0f; overflow: auto; display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #222; background: #121212; border-radius: 10px 10px 0 0; position: sticky; top: 0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" style="flex: 0 0 14px; fill: none; stroke: #8f8f8f; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;"><path d="{{p.icon}}"></path></svg>
+        <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; font-weight: 500; color: #ededed; flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{p.name}}</span>
+        <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.06em; padding: 2px 7px; border: 1px solid #2e2e2e; border-radius: 999px; color: #8f8f8f;">{{p.kind}}</span>
+        <sc-if value="{{p.closable}}" hint-placeholder-val="{{false}}"><span class="btn" onClick="{{clearSel}}" style="cursor: pointer; color: #6a6a6a; font-size: 14px; line-height: 1; padding: 2px 4px; border: 1px solid transparent; border-radius: 4px;">×</span></sc-if>
+      </div>
+      <div style="padding: 12px 14px 16px; display: flex; flex-direction: column; gap: 12px; font-size: 12.5px; line-height: 1.5; color: #c9c9c9;">
+        <sc-if value="{{p.hasPath}}" hint-placeholder-val="{{false}}"><div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: #6a6a6a; word-break: break-all;">{{p.path}}</div></sc-if>
+        <div style="color: #ededed;">{{p.one}}</div>
+        <sc-for list="{{p.rows}}" as="r" hint-placeholder-count="3">
+          <div style="display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: 10px; align-items: start;">
+            <div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #6a6a6a; padding-top: 3px;">{{r.k}}</div>
+            <div style="white-space: pre-line;">{{r.v}}</div>
+          </div>
+        </sc-for>
+        <sc-if value="{{p.hasCalls}}" hint-placeholder-val="{{false}}">
+          <div style="display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: 10px; align-items: start;">
+            <div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #6a6a6a; padding-top: 3px;">calls</div>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <sc-for list="{{p.calls}}" as="c" hint-placeholder-count="2">
+                <div style="display: flex; flex-direction: column; gap: 1px;">
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <sc-if value="{{c.jumpable}}" hint-placeholder-val="{{false}}"><span class="chipbtn" onClick="{{c.pick}}" style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; padding: 1px 7px; border: 1px solid #2e2e2e; border-radius: 999px; color: #c9c9c9; cursor: pointer; background: #0a0a0a;">{{c.name}} →</span></sc-if>
+                    <sc-if value="{{c.plain}}" hint-placeholder-val="{{true}}"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; padding: 1px 7px; border: 1px solid #2e2e2e; border-radius: 999px; color: #c9c9c9; background: #0a0a0a;">{{c.name}}</span></sc-if>
+                  </div>
+                  <div style="font-size: 11.5px; color: #8f8f8f;">{{c.when}}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{p.hasList}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid #222; padding-top: 10px;">
+            <div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #6a6a6a;">{{p.listTitle}}</div>
+            <sc-for list="{{p.list}}" as="i" hint-placeholder-count="3">
+              <div class="chipbtn" onClick="{{i.pick}}" style="display: flex; align-items: baseline; gap: 8px; padding: 5px 8px; border: 1px solid transparent; border-radius: 6px; cursor: pointer; color: #c9c9c9;">
+                <span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11.5px; font-weight: 500; color: #ededed; white-space: nowrap;">{{i.name}}</span>
+                <span style="font-size: 11.5px; color: #8f8f8f;">{{i.one}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{p.hasTrace}}" hint-placeholder-val="{{false}}">
+          <div style="border-top: 1px solid #222; padding-top: 10px; font-size: 11.5px; color: #8f8f8f;">See it happen: <a href="{{p.traceUrl}}" target="_blank">{{p.traceLabel}}</a></div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- the legend, bottom-left -->
+  <div style="position: absolute; left: 32px; bottom: 14px; display: flex; align-items: center; gap: 18px; font-size: 11px; color: #6a6a6a;">
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 18px; height: 11px; border: 1px solid #3a3a3a; border-radius: 3px;"></span>a skill</span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 18px; height: 11px; border: 1px dashed #4a4a4a; border-radius: 3px;"></span>a typed command</span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 18px; height: 11px; border: 1px solid #3a3a3a; border-radius: 999px;"></span>an artifact that moves on</span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="position: relative; display: inline-block; width: 28px; height: 16px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid #39af46; background: #39af46;"><span style="position: absolute; top: 1.5px; left: 14.5px; width: 10px; height: 10px; border-radius: 50%; background: #ffffff;"></span></span>a condition — flip it to draw the other branch</span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #0072f5; box-shadow: 0 0 0 3px rgba(0,114,245,0.22);"></span>selected</span>
+    <span>{{hint}}</span>
+  </div>
+</div>
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { view: 'overview', sel: null, planMode: 'new', buildMode: 'one', t: { refine: false, caps: false, fog: false, fits: true, approved: true, partip: true, next: 'task', green: true, risk: false, gate: true, closed: true, last: true, misses: false, findings: false, dod: true } };
+  }
+
+  // ---------- palette, icons ----------
+  static get C() {
+    return {
+      ground: '#0a0a0a', card: '#111111', hair: '#2e2e2e', ink: '#ededed', mid: '#8f8f8f', dim: '#6a6a6a',
+      blue: '#0072f5', yes: '#3ecf8e', on: '#39af46', no: '#f5a524', edge: '#4a4a4a',
+      hue: { define: '#4cc9f0', plan: '#f5a524', build: '#a78bfa', review: '#f472b6', release: '#3ecf8e', record: '#8ab8ff' },
+      lanes: ['#3fb8af', '#e0a458', '#d97a8c']
+    };
+  }
+  static get I() {
+    return {
+      skill: 'M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z M4 20.5V5.5 M8 7h8 M8 11h6',
+      cmd: 'M4 5h16v14H4z M7 9l3 3-3 3 M12 15h5',
+      cond: 'M6 3v6a4 4 0 0 0 4 4h4a4 4 0 0 1 4 4v4 M6 21v-8 M18 3v6',
+      art: 'M12 3l2.4 5 5.6.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9L9.6 8z',
+      file: 'M6 3h8l4 4v14H6z M14 3v4h4 M9 13h6 M9 17h6',
+      note: 'M5 5h14v14H5z M8 9h8 M8 13h5',
+      user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M4 21a8 8 0 0 1 16 0',
+      flag: 'M5 21V4 M5 4h12l-2 4 2 4H5',
+      check: 'M12 22s7-4 7-11V5l-7-2-7 2v6c0 7 7 11 7 11z M9 12l2 2 4-4',
+      loop: 'M4 12a8 8 0 0 1 14-5.3L20 9 M20 4v5h-5 M20 12a8 8 0 0 1-14 5.3L4 15 M4 20v-5h5',
+      folder: 'M3 6h6l2 2h10v11H3z',
+      log: 'M5 4h10l4 4v12H5z M8 12h8 M8 16h8',
+      team: 'M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M2 20a7 7 0 0 1 14 0 M16 5a3 3 0 0 1 0 6 M22 20a7 7 0 0 0-5-6.7',
+      branch: 'M6 3v12 M6 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6z M18 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 6a6 6 0 0 1-6 6H9',
+      merge: 'M6 21V9 M6 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M18 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6z M6 9c0 6 12 3 12 9',
+      pen: 'M4 20h4l11-11-4-4L4 16z M13 7l4 4',
+      queue: 'M4 6h16v5H4z M4 13h16v5H4z',
+      link: 'M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1 M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1'
+    };
+  }
+
+  // ---------- geometry ----------
+  static snap(pts) {
+    if (pts.length < 3) return pts;
+    const p = pts.map((q) => [q[0], q[1]]);
+    const fix = (a, b) => { // b is the waypoint next to endpoint a: keep the first segment straight
+      if (Math.abs(b[1] - a[1]) < 40 && b[0] !== a[0]) b[1] = a[1];
+      else if (Math.abs(b[0] - a[0]) < 40 && b[1] !== a[1]) b[0] = a[0];
+    };
+    fix(p[0], p[1]); fix(p[p.length - 1], p[p.length - 2]);
+    return p;
+  }
+  static pathFrom(pts) {
+    const R = 12;
+    if (pts.length === 2) {
+      const [a, b] = pts; const dx = b[0] - a[0], dy = b[1] - a[1];
+      if (dx === 0 || dy === 0) return 'M' + a[0] + ' ' + a[1] + ' L' + b[0] + ' ' + b[1];
+      if (Math.abs(dx) >= Math.abs(dy)) { const mx = a[0] + dx / 2; pts = [a, [mx, a[1]], [mx, b[1]], b]; }
+      else { const my = a[1] + dy / 2; pts = [a, [a[0], my], [b[0], my], b]; }
+    }
+    let d = 'M' + pts[0][0] + ' ' + pts[0][1];
+    for (let i = 1; i < pts.length; i++) {
+      const p0 = pts[i - 1], p1 = pts[i];
+      if (i < pts.length - 1) {
+        const p2 = pts[i + 1];
+        const dx1 = Math.sign(p1[0] - p0[0]), dy1 = Math.sign(p1[1] - p0[1]);
+        const dx2 = Math.sign(p2[0] - p1[0]), dy2 = Math.sign(p2[1] - p1[1]);
+        const l1 = Math.abs(p1[0] - p0[0]) + Math.abs(p1[1] - p0[1]);
+        const l2 = Math.abs(p2[0] - p1[0]) + Math.abs(p2[1] - p1[1]);
+        const r = Math.max(0, Math.min(R, l1 / 2, l2 / 2));
+        d += ' L' + (p1[0] - dx1 * r) + ' ' + (p1[1] - dy1 * r) + ' Q' + p1[0] + ' ' + p1[1] + ' ' + (p1[0] + dx2 * r) + ' ' + (p1[1] + dy2 * r);
+      } else {
+        d += ' L' + p1[0] + ' ' + p1[1];
+      }
+    }
+    return d;
+  }
+  static head(pts) {
+    const a = pts[pts.length - 2], b = pts[pts.length - 1];
+    let dx = Math.sign(b[0] - a[0]), dy = Math.sign(b[1] - a[1]);
+    if (pts.length === 2 && dx && dy) { if (Math.abs(b[0] - a[0]) >= Math.abs(b[1] - a[1])) dy = 0; else dx = 0; }
+    if (!dx && !dy) return '';
+    if (dx) return 'M' + b[0] + ' ' + b[1] + ' L' + (b[0] - dx * 8) + ' ' + (b[1] - 3.5) + ' L' + (b[0] - dx * 8) + ' ' + (b[1] + 3.5) + ' Z';
+    return 'M' + b[0] + ' ' + b[1] + ' L' + (b[0] - 3.5) + ' ' + (b[1] - dy * 8) + ' L' + (b[0] + 3.5) + ' ' + (b[1] - dy * 8) + ' Z';
+  }
+  static mid(pts) {
+    let best = 0, bi = 0;
+    for (let i = 1; i < pts.length; i++) { const l = Math.abs(pts[i][0] - pts[i - 1][0]) + Math.abs(pts[i][1] - pts[i - 1][1]); if (l > best) { best = l; bi = i; } }
+    return [(pts[bi][0] + pts[bi - 1][0]) / 2, (pts[bi][1] + pts[bi - 1][1]) / 2];
+  }
+
+  // ---------- the model of one view ----------
+  // N(id, kind, x, y, w, h, title, sub, extra)
+  static get ROWGAP() { return 16; }
+  N(id, kind, x, y, w, h, title, sub, extra) {
+    const ex = extra || {};
+    const rows = (ex.toggles || []).length + (ex.choice ? ex.choice[1].length : 0);
+    const card = kind === 'skill' || kind === 'cmd' || kind === 'file' || kind === 'note' || kind === 'entry';
+    if (card && ex.wrap === undefined) ex.wrap = true;
+    let hh = 0;
+    if (card) {
+      hh = this.headerHeight(id, w, title, sub || '', ex);
+      h = 12 + hh + (rows ? Component.ROWGAP + rows * 26 - 2 : 0) + 12;
+    }
+    if (ex.cy !== undefined) y = Math.round(ex.cy - h / 2);
+    return Object.assign({ id, kind, x, y, w, h, title, sub: sub || '', hh, rowCount: rows }, ex);
+  }
+  // the header's height: measured after render (state.hh), estimated for the first paint
+  headerHeight(id, w, title, sub, ex) {
+    const m = this.state.hh && this.state.hh[id];
+    if (m) return m;
+    const avail = Math.max(60, w - 28 - 25 - 16);
+    const tl = ex.wrap ? Math.max(1, Math.ceil(title.length * 7.5 / avail)) : 1;
+    let sl = 0;
+    if (sub) sl = ex.subNowrap ? 1 : sub.split('\n').reduce((a, line) => a + Math.max(1, Math.ceil(line.length * 5.7 / avail)), 0);
+    return Math.round(tl * 16 + (sub ? 2 + sl * 14.3 : 0) + (ex.io ? ex.io.length * 30 : 0) + (ex.tag && ex.tagBelow ? 2 + 22 : 0));
+  }
+  AY(n) { return n.h / 2; }
+  // measured after each paint, without touching the runtime's own lifecycle hooks
+  scheduleMeasure() {
+    if (typeof setTimeout === 'undefined' || typeof document === 'undefined') return;
+    if (this._mt) clearTimeout(this._mt);
+    this._mt = setTimeout(() => this.measure(), 40);
+  }
+  measure() {
+    if (typeof document === 'undefined') return;
+    const m = {};
+    document.querySelectorAll('[data-hh]').forEach((el) => { m[el.getAttribute('data-hh')] = Math.round(el.offsetHeight); });
+    const cur = this.state.hh || {};
+    let changed = false;
+    Object.keys(m).forEach((k) => { if (m[k] > 0 && Math.abs((cur[k] || 0) - m[k]) > 1) changed = true; });
+    if (changed) this.setState({ hh: Object.assign({}, cur, m) });
+  }
+  // anchors
+  L(n, o) { return [n.x, n.y + this.AY(n) + (o || 0)]; }
+  R(n, o) { return [n.x + n.w, n.y + this.AY(n) + (o || 0)]; }
+  T(n, o) { return [n.x + n.w / 2 + (o || 0), n.y]; }
+  B(n, o) { return [n.x + n.w / 2 + (o || 0), n.y + n.h]; }
+  // E(from, to, pts, {label, chip, at:[x,y], dash, color})
+  E(from, to, pts, opts) { return Object.assign({ from, to, pts }, opts || {}); }
+
+  // ---------- views ----------
+  viewOverview() {
+    const C = Component.C, N = this.N.bind(this), E = this.E.bind(this);
+    const nodes = [], edges = [];
+    const gy = 132, gh = 386, gw = 200, gap = 48, gx0 = 124;
+    const stages = [
+      ['define', 'DEFINE', 'an ask → the approved document', ['interview-me', 'idea-refine', 'writing-specs'], ['skill', 'skill', 'skill'], ['intent · artifact mode', 'diverge → a direction', '/brain:spec · the PRD']],
+      ['plan', 'PLAN', 'the document → a plan of parts', ['planning-and-task-breakdown', 'Continuing a plan'], ['skill', 'skill'], ['/brain:plan <description>', '/brain:plan PLAN-NNN']],
+      ['build', 'BUILD', 'every task built, gated, recorded', ['/brain:build', 'implement', 'test-driven-development', 'diagnosing-bugs', 'doubt-driven-development'], ['cmd', 'skill', 'skill', 'skill', 'skill'], ['one task · auto · team', 'the doctrine', 'RED → GREEN', 'stop the line', 'high-risk: sign-off']],
+      ['review', 'REVIEW', 'as it stands today', ['code-review-and-quality', 'code-simplification'], ['skill', 'skill'], ['/brain:review · five axes', '/brain:code-simplify']],
+      ['release', 'RELEASE', 'as it stands today', ['shipping-and-launch', 'git-workflow-and-versioning'], ['skill', 'skill'], ['/brain:ship · the DoD whole', 'tag · notes · merges']]
+    ];
+    const gnodes = {};
+    stages.forEach((s, i) => {
+      const gx = gx0 + i * (gw + gap);
+      const g = N('g:' + s[0], 'group', gx, gy, gw, gh, s[1], s[2], { hue: C.hue[s[0]], view: s[0] });
+      gnodes[s[0]] = g; nodes.push(g);
+      s[3].forEach((name, j) => {
+        const fits = name.length * 7.2 <= (gw - 24) - 53;
+        nodes.push(N('ov:' + s[0] + ':' + j, s[4][j], gx + 12, gy + 60 + j * 64, gw - 24, 0, name, fits ? s[5][j] : '', { view: s[0], target: Component.OV_TARGET[name] || null, wrap: true, subNowrap: true }));
+      });
+    });
+    const ask = N('ask', 'art', 24, gy + 150, 88, 40, 'an ask', '', { icon: 'user', view: 'define' });
+    const rel = N('released', 'art', 1330, gy + 150, 86, 40, 'released', '', { icon: 'flag', view: 'release' });
+    nodes.push(ask, rel);
+    edges.push(E('ask', 'g:define', [this.R(ask), this.L(gnodes.define, -18)], {}));
+    const cross = [['define', 'plan', 'the approved\ndocument'], ['plan', 'build', 'the plan,\nor tickets'], ['build', 'review', 'a clean\nconverge'], ['review', 'release', 'no\nfindings']];
+    cross.forEach((c) => {
+      const a = gnodes[c[0]], b = gnodes[c[1]];
+      edges.push(E('g:' + c[0], 'g:' + c[1], [this.R(a, -18), this.L(b, -18)], { label: c[2], at: [a.x + a.w + gap / 2, gy + gh / 2 - 18 - 22] }));
+    });
+    edges.push(E('g:release', 'released', [this.R(gnodes.release, -18), this.L(rel)], {}));
+    // the two loops back
+    const bx = gnodes.build.x + gnodes.build.w / 2, px = gnodes.plan.x + gnodes.plan.w / 2;
+    edges.push(E('g:build', 'g:plan', [[bx - 30, gy + gh], [bx - 30, gy + gh + 34], [px, gy + gh + 34], [px, gy + gh]], { label: 'converge: every miss → a task appended to the plan, built next', at: [(bx + px) / 2 - 15, gy + gh + 34], color: C.mid }));
+    const rx = gnodes.review.x + gnodes.review.w / 2;
+    edges.push(E('g:review', 'g:build', [[rx, gy + gh], [rx, gy + gh + 62], [bx + 30, gy + gh + 62], [bx + 30, gy + gh]], { label: 'findings → fixes run through Build’s loop', at: [(rx + bx + 30) / 2, gy + gh + 62], color: C.mid }));
+    // the record
+    const ry = 604;
+    const rg = N('g:record', 'group', 124, ry, 1192, 138, 'THE RECORD · docs/', 'what every stage writes into — click to open', { hue: C.hue.record, view: 'record' });
+    nodes.push(rg);
+    const rec = [
+      ['docs/plan/PRD-NNN.md', 'the requirements · its Plans table\nwritten by writing-specs'],
+      ['docs/plan/PLAN-NNN.md', 'parts in order · ticks cite the sha\nby planning-and-task-breakdown'],
+      ['### Part N · > Status: …', 'planned · in progress · done\nflipped by session start · close'],
+      ['docs/sessions/SES-NNN.md', 'one per part · an entry per commit\nwritten by session start · log · close']
+    ];
+    const rw = 280, rgap = 24, rx0 = 140;
+    const rnodes = rec.map((r, i) => N('rec:' + i, 'file', rx0 + i * (rw + rgap), ry + 44, rw, 0, r[0], r[1], { view: 'record' }));
+    nodes.push(...rnodes);
+    for (let i = 0; i < 3; i++) edges.push(E('rec:' + i, 'rec:' + (i + 1), [this.R(rnodes[i]), this.L(rnodes[i + 1])], {}));
+    // cross-cutting
+    const cy = 760;
+    nodes.push(N('cc', 'group', 124, cy, 1192, 104, 'EVERY STAGE CALLS', 'the helpers — named in each skill’s panel', { hue: '#8f8f8f' }));
+    const helpers = [['brain:ask-user-question', 'every question — one at a time,\nthe recommendation inside', 'user'], ['domain-modeling', 'CONTEXT.md and the ADRs,\nas terms and decisions settle', 'pen'], ['research', 'cited answers from primary\nsources, via a subagent', 'note'], ['wayfinder', 'a map of decision tickets when\nthe work exceeds one session', 'branch'], ['brain:session', 'start · log · close —\nthe record itself', 'log']];
+    helpers.forEach((h, i) => nodes.push(N('cc:' + i, 'note', 136 + i * 236, cy + 44, 226, 0, h[0], h[1].replace('\n', ' '), { icon: h[2], helper: true, subNowrap: true })));
+    return { nodes, edges };
+  }
+
+  viewDefine() {
+    const C = Component.C, N = this.N.bind(this), E = this.E.bind(this), t = this.state.t;
+    const n = {}, cy = 222;
+    n.idea = N('ask', 'entry', 24, 0, 150, 0, 'Idea', 'User, via /brain:spec', { icon: 'user', cy });
+    n.im = N('interview-me', 'skill', 210, 0, 315, 0, 'interview-me', '', { cy, io: [['input', 'idea, or an artifact'], ['output', 'confirmed intent']], toggles: [['refine', 'needs refinement', 'c:scoped']] });
+    n.ws = N('writing-specs', 'skill', 561, 0, 315, 0, 'writing-specs', '', { cy, io: [['input', t.refine ? 'docs/ideas/IDEA-NNN-<slug>.md' : 'confirmed intent'], ['output', 'docs/plan/PRD-NNN.md']], toggles: [['caps', 'several capabilities', 'c:caps'], ['fog', 'still fog after intake', 'c:fog']] });
+    n.ir = N('idea-refine', 'skill', 210, n.im.y + n.im.h + 44, 315, 0, 'idea-refine', '', { io: [['input', 'confirmed intent'], ['output', 'docs/ideas/IDEA-NNN-<slug>.md']], when: (s) => s.refine });
+    n.map = N('capmap', 'file', 561, n.ws.y + n.ws.h + 44, 315, 0, 'Capability map', '', { icon: 'note', io: [['input', 'bundled ask, approved'], ['output', 'one PRD per module']], when: (s) => s.caps });
+    n.jump1 = N('to-plan', 'jump', 912, cy - 18, 108, 36, 'Plan', '', { lead: C.hue.plan, view: 'plan', when: (s) => !s.caps });
+    n.jump2 = N('to-plan', 'jump', 561 + 157 - 54, n.map.y + n.map.h + 44, 108, 36, 'Plan', '', { lead: C.hue.plan, view: 'plan', when: (s) => s.caps });
+    const nodes = Object.values(n);
+    const top = Math.min(n.im.y, n.ws.y) - 18;
+    const edges = [
+      E('ask', 'interview-me', [this.R(n.idea), this.L(n.im)], {}),
+      E('interview-me', 'writing-specs', [this.R(n.im), this.L(n.ws)], { when: (s) => !s.refine }),
+      E('interview-me', 'idea-refine', [this.B(n.im), this.T(n.ir)], { when: (s) => s.refine }),
+      E('idea-refine', 'writing-specs', [this.R(n.ir), [543, this.R(n.ir)[1]], [543, this.L(n.ws)[1]], this.L(n.ws)], { when: (s) => s.refine }),
+      E('writing-specs', 'interview-me', [[n.ws.x + 160, n.ws.y], [n.ws.x + 160, top], [n.im.x + 160, top], [n.im.x + 160, n.im.y]], { label: 'interview first, then back', at: [543, top], color: C.mid, when: (s) => s.fog, loop: true }),
+      E('writing-specs', 'capmap', [this.B(n.ws), this.T(n.map)], { when: (s) => s.caps }),
+      E('capmap', 'to-plan', [this.B(n.map), this.T(n.jump2)], { when: (s) => s.caps }),
+      E('writing-specs', 'to-plan', [this.R(n.ws), this.L(n.jump1)], { when: (s) => !s.caps })
+    ];
+    return { nodes, edges, subtitle: 'An idea in, the approved document out. Two of the three skills are conversations; the third writes the file. Flip a switch to see the other branch.' };
+  }
+
+  viewPlan() {
+    const C = Component.C, N = this.N.bind(this), E = this.E.bind(this);
+    const mode = this.state.planMode;
+    const n = {}, cy = 215;
+    n.entry = N('prd-in', 'entry', 24, 0, 176, 0, mode === 'new' ? 'the document' : '/brain:plan', mode === 'new' ? 'PRD · or a tracker spec' : 'PLAN-NNN · “where were we”', { icon: mode === 'new' ? 'file' : 'cmd', cy, toggles: [['exists', 'a plan exists', 'c:exists']] });
+    const nodes = [n.entry], edges = [];
+    if (mode === 'new') {
+      n.pl = N('planning', 'skill', 236, 0, 260, 0, 'planning-and-task-breakdown', '', { cy, io: [['input', 'docs/plan/PRD-NNN.md'], ['output', 'docs/plan/PLAN-NNN.md']], toggles: [['fits', 'fits one window', 'c:fits']] });
+      n.quiz = N('quiz', 'skill', 532, 0, 196, 0, 'the quiz round', 'granularity · edges · merge / split', { cy, toggles: [['approved', 'approved', 'c:approved']] });
+      n.out = N('to-build', 'jump', 764, cy - 18, 108, 36, 'Build', '', { lead: C.hue.build, view: 'build', when: (s) => s.approved });
+      n.wait = N('waits', 'note', 764, n.out.y + n.out.h + 36, 220, 0, 'waits', 'every part planned, until a conversation picks one up', { plain: true, when: (s) => s.approved });
+      nodes.push(n.pl, n.quiz, n.out, n.wait);
+      const below = Math.max(n.pl.y + n.pl.h, n.quiz.y + n.quiz.h) + 26;
+      edges.push(
+        E('prd-in', 'planning', [this.R(n.entry), this.L(n.pl)], {}),
+        E('planning', 'quiz', [this.R(n.pl), this.L(n.quiz)], { when: (s) => s.fits }),
+        E('planning', 'planning', [[n.pl.x + 150, n.pl.y], [n.pl.x + 150, n.pl.y - 24], [n.pl.x + 70, n.pl.y - 24], [n.pl.x + 70, n.pl.y]], { label: 'split it', at: [n.pl.x + 110, n.pl.y - 24], when: (s) => !s.fits, loop: true }),
+        E('quiz', 'to-build', [this.R(n.quiz), this.L(n.out)], { when: (s) => s.approved }),
+        E('quiz', 'planning', [this.B(n.quiz), [this.B(n.quiz)[0], below], [this.B(n.pl)[0], below], this.B(n.pl)], { label: 'revise, re-present', at: [(this.B(n.quiz)[0] + this.B(n.pl)[0]) / 2, below], when: (s) => !s.approved, loop: true }),
+        E('to-build', 'waits', [this.B(n.out), this.T(n.wait)], { when: (s) => s.approved, color: C.dim })
+      );
+    } else {
+      n.walk = N('walk', 'skill', 236, 0, 200, 0, 'Continuing a plan', 'the rehydration walk · eight steps', { cy, toggles: [['partip', 'a part in progress', 'c:partip']] });
+      n.read = N('read-session', 'note', 472, 0, 176, 0, 'read its session', 'Narrative · entries · unverified', { cy, icon: 'log', when: (s) => s.partip });
+      n.start = N('session-start', 'cmd', 472, n.walk.y + n.walk.h + 44, 176, 0, '/brain:session start', 'writes SES-NNN · flips the status line', { when: (s) => !s.partip });
+      n.brief = N('brief', 'entry', 684, 0, 176, 0, 'the brief', 'the entire reply', { cy, icon: 'art', choice: ['next', [['task', 'the next task'], ['decision', 'a decision'], ['question', 'a question']], 'c:next'] });
+      n.build = N('to-build', 'jump', 896, cy - 18, 108, 36, 'Build', '', { lead: C.hue.build, view: 'build', when: (s) => s.next === 'task' });
+      n.dec = N('to-interview', 'jump', 896, cy - 18, 108, 36, 'Define', '', { lead: C.hue.define, view: 'define', when: (s) => s.next === 'decision' });
+      n.q = N('answer', 'note', 896, 0, 136, 0, 'answer it', 'no session starts', { cy, plain: true, when: (s) => s.next === 'question' });
+      nodes.push(n.walk, n.read, n.start, n.brief, n.build, n.dec, n.q);
+      edges.push(
+        E('prd-in', 'walk', [this.R(n.entry), this.L(n.walk)], {}),
+        E('walk', 'read-session', [this.R(n.walk), this.L(n.read)], { when: (s) => s.partip }),
+        E('walk', 'session-start', [this.B(n.walk), [this.B(n.walk)[0], this.L(n.start)[1]], this.L(n.start)], { label: 'the first planned part', at: [this.B(n.walk)[0] + 62, this.L(n.start)[1] - 14], when: (s) => !s.partip }),
+        E('read-session', 'brief', [this.R(n.read), this.L(n.brief)], { when: (s) => s.partip }),
+        E('session-start', 'brief', [this.R(n.start), [this.B(n.brief)[0], this.R(n.start)[1]], this.B(n.brief)], { when: (s) => !s.partip }),
+        E('brief', 'to-build', [this.R(n.brief), this.L(n.build)], { when: (s) => s.next === 'task' }),
+        E('brief', 'to-interview', [this.R(n.brief), this.L(n.dec)], { when: (s) => s.next === 'decision' }),
+        E('brief', 'answer', [this.R(n.brief), this.L(n.q)], { when: (s) => s.next === 'question' })
+      );
+    }
+    return { nodes, edges, subtitle: mode === 'new' ? 'One skill, two doors. No plan yet runs the Planning Process: the document becomes parts and tasks, approved before publication.' : 'One skill, two doors. A plan on disk runs the rehydration walk: it reads the plan and its session, posts the brief, and routes.' };
+  }
+
+  viewBuild() {
+    const C = Component.C, N = this.N.bind(this), E = this.E.bind(this);
+    const mode = this.state.buildMode;
+    if (mode === 'concurrent') return this.viewBuildConcurrent();
+    const auto = mode === 'auto';
+    const n = {}, cy = 215;
+    n.build = N('build', 'cmd', 24, 0, 170, 0, auto ? '/brain:build auto' : '/brain:build', auto ? 'one approval, then every task' : 'by the resolution order', { cy });
+    n.impl = N('implement', 'skill', 230, 0, 160, 0, 'implement', 'the doctrine · picks the task', { cy, toggles: [['risk', 'high-risk task', 'c:risk']] });
+    n.tdd = N('tdd', 'skill', 426, 0, 176, 0, 'test-driven-development', 'RED → GREEN at the seam', { cy });
+    n.suite = N('suite', 'note', 638, 0, 176, 0, 'suite + build', 'the repo’s own commands', { cy, icon: 'loop', toggles: [['green', 'green', 'c:green']] });
+    n.commit = N('commit', 'entry', 850, 0, 182, 0, 'commit → sha', 'one per task', { cy, icon: 'art', toggles: [['gate', 'the gate holds', 'c:gate']] });
+    const r1 = n.suite.y + n.suite.h + 44;
+    n.doubt = N('doubt', 'skill', 626, r1, 200, 0, 'doubt-driven-development', 'a fresh-context review · sign-off', { when: (s) => s.green && s.risk });
+    n.diag = N('diagnosing-bugs', 'skill', 626, r1, 200, 0, 'diagnosing-bugs', 'stop the line; the loop first', { when: (s) => !s.green });
+    const cy2 = 520;
+    n.log = N('tick-log', 'cmd', 850, 0, 182, 0, 'tick · session log', 'the sha in both files', { cy: cy2, toggles: [['closed', 'closes a part', 'c:closed']] });
+    n.close = N('part-close', 'cmd', 620, 0, 160, 0, 'part close', 'checkpoint + Integration + Documentation', { cy: cy2, when: (s) => s.closed, toggles: [['last', 'the last part', 'c:last']] });
+    n.conv = N('converge', 'skill', 384, 0, 200, 0, 'converge', 'spec and plan re-read; the full DoD', { cy: cy2, when: (s) => s.closed && s.last, toggles: [['misses', 'misses', 'c:misses']] });
+    n.out = N('to-review', 'jump', 384 + 100 - 54, n.conv.y + n.conv.h + 44, 108, 36, 'Review', '', { lead: C.hue.review, view: 'review', when: (s) => s.closed && s.last && !s.misses });
+    const nodes = Object.values(n);
+    const nextLabel = auto ? 'the next task, without stopping' : 'the next task — stop, then /brain:build again';
+    const tddY = this.R(n.tdd)[1], implY = this.R(n.impl)[1], buildY = this.L(n.build)[1], commitY = this.L(n.commit)[1];
+    const top0 = Math.min(n.build.y, n.impl.y, n.tdd.y, n.suite.y, n.commit.y);
+    const bottom2 = Math.max(n.log.y + n.log.h, n.close.y + n.close.h, n.conv.y + n.conv.h) + 60;
+    const edges = [
+      E('build', 'implement', [this.R(n.build), this.L(n.impl)], {}),
+      E('implement', 'tdd', [this.R(n.impl), this.L(n.tdd)], {}),
+      E('tdd', 'suite', [this.R(n.tdd), this.L(n.suite)], {}),
+      E('suite', 'commit', [this.R(n.suite), this.L(n.commit)], { when: (s) => s.green && !s.risk }),
+      E('suite', 'doubt', [this.B(n.suite), this.T(n.doubt)], { label: 'high-risk', at: [this.B(n.suite)[0] + 44, this.B(n.suite)[1] + 22], when: (s) => s.green && s.risk }),
+      E('doubt', 'commit', [this.R(n.doubt), [838, this.R(n.doubt)[1]], [838, commitY], this.L(n.commit)], { label: 'explicit sign-off', at: [838, (this.R(n.doubt)[1] + commitY) / 2], color: C.mid, when: (s) => s.green && s.risk }),
+      E('suite', 'tdd', [[n.suite.x + 140, n.suite.y], [n.suite.x + 140, top0 - 24], [620, top0 - 24], [620, tddY - 6]], { label: 'fix the slice, retry', at: [700, top0 - 24], when: (s) => !s.green, loop: true }),
+      E('suite', 'diagnosing-bugs', [this.B(n.suite), this.T(n.diag)], { label: 'no obvious fix', at: [this.B(n.suite)[0] + 56, this.B(n.suite)[1] + 22], when: (s) => !s.green }),
+      E('diagnosing-bugs', 'tdd', [this.L(n.diag), [620, this.L(n.diag)[1]], [620, tddY + 6]], { label: 'back at the slice that broke', at: [512, (this.L(n.diag)[1] + n.tdd.y + n.tdd.h) / 2], color: C.mid, when: (s) => !s.green, loop: true }),
+      E('commit', 'tick-log', [this.B(n.commit), this.T(n.log)], { when: (s) => s.gate }),
+      E('commit', 'tdd', [[n.commit.x + 40, n.commit.y], [n.commit.x + 40, top0 - 46], [408, top0 - 46], [408, implY - 6]], { label: 'back to the slice', at: [600, top0 - 46], when: (s) => !s.gate, loop: true }),
+      E('tick-log', 'part-close', [this.L(n.log), this.R(n.close)], { when: (s) => s.closed }),
+      E('tick-log', 'implement', [this.B(n.log), [this.B(n.log)[0], bottom2], [212, bottom2], [212, buildY + 6]], { label: nextLabel, at: [560, bottom2], when: (s) => !s.closed, loop: true }),
+      E('part-close', 'converge', [this.L(n.close), this.R(n.conv)], { when: (s) => s.closed && s.last }),
+      E('part-close', 'implement', [this.B(n.close), [this.B(n.close)[0], bottom2], [212, bottom2], [212, buildY + 6]], { label: nextLabel, at: [470, bottom2], when: (s) => s.closed && !s.last, loop: true }),
+      E('converge', 'to-review', [this.B(n.conv), this.T(n.out)], { when: (s) => s.closed && s.last && !s.misses }),
+      E('converge', 'build', [this.L(n.conv), [8, this.L(n.conv)[1]], [8, buildY], this.L(n.build)], { label: 'appended as tasks — built by the next run', at: [214, this.L(n.conv)[1] - 14], when: (s) => s.closed && s.last && s.misses, loop: true })
+    ];
+    return { nodes, edges, subtitle: auto ? 'The same loop, once per task, after a single unambiguous approval — it removes the stepping between tasks, not the verification. Flip a switch to see the other branch.' : 'One loop per task, with four ways out of it. implement is the doctrine; /brain:build executes it; flip a switch on a card to see the branch it takes.' };
+  }
+
+  viewBuildConcurrent() {
+    const C = Component.C, N = this.N.bind(this), E = this.E.bind(this);
+    const n = {}, cy = 290;
+    n.build = N('build-lead', 'cmd', 24, 0, 196, 0, '/brain:build', 'the lead · a team session', { cy });
+    n.list = N('tasklist', 'note', 256, 0, 270, 0, 'the team’s shared task list', 'the plan’s tasks + their Blocked-by edges; the harness releases a task when its blockers complete', { cy, icon: 'queue' });
+    n.w1 = N('wt1', 'skill', 562, 0, 220, 0, 'Task 1 · worktree A', 'a teammate; the same loop per task', { cy: 190, icon: 'branch' });
+    n.w2 = N('wt2', 'skill', 562, 0, 220, 0, 'Task 2 · worktree B', 'a teammate; the same loop per task', { cy: 290, icon: 'branch' });
+    n.w3 = N('wt3', 'note', 562, 0, 220, 0, 'Task 3 · waits', 'blocked by Task 2 — released when it lands', { cy: 390, icon: 'branch', dimmed: true });
+    n.merge = N('merge', 'skill', 818, 0, 214, 0, 'the lead merges', 'finished branches → one PR', { cy, icon: 'merge' });
+    n.pr = N('to-review', 'jump', 818 + 107 - 54, n.merge.y + n.merge.h + 44, 108, 36, 'Review', '', { lead: C.hue.review, view: 'review' });
+    n.same = N('unchanged', 'note', 256, 500, 526, 0, 'unchanged per task', 'the tick cites the sha · the gate (Correctness + Quality) · the entry via /brain:session log — isolation in space replaces sequence in time', { plain: true, icon: 'check' });
+    n.pend = N('pending', 'note', 256, 600, 776, 0, 'pending — PLAN-005 Part 7 Task 2', 'documented machinery, live-verified in a scratch repo (ANA-012): worktree subagents on git’s own state; task dependencies exist only inside agent teams, behind CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1; a full team run not executed', { plain: true, icon: 'flag', warn: true });
+    const nodes = Object.values(n);
+    const L = C.lanes;
+    const ly = this.R(n.list)[1], w1y = this.L(n.w1)[1], w2y = this.L(n.w2)[1], w3y = this.L(n.w3)[1], my = this.L(n.merge)[1];
+    const edges = [
+      E('build-lead', 'tasklist', [this.R(n.build), this.L(n.list)], {}),
+      E('tasklist', 'wt1', [[526, ly - 22], [544, ly - 22], [544, w1y], [562, w1y]], { color: L[0], sw: 2 }),
+      E('tasklist', 'wt2', [[526, ly], [562, w2y]], { color: L[1], sw: 2 }),
+      E('tasklist', 'wt3', [[526, ly + 22], [544, ly + 22], [544, w3y], [562, w3y]], { color: L[2], sw: 2, dash: '4 4' }),
+      E('wt1', 'merge', [[782, w1y], [800, w1y], [800, my - 10], [818, my - 10]], { color: L[0], sw: 2 }),
+      E('wt2', 'merge', [[782, w2y], [818, my]], { color: L[1], sw: 2 }),
+      E('wt3', 'merge', [[782, w3y], [800, w3y], [800, my + 10], [818, my + 10]], { color: L[2], sw: 2, dash: '4 4', label: 'after Task 2 lands', at: [800, 450] }),
+      E('merge', 'to-review', [this.B(n.merge), this.T(n.pr)], {})
+    ];
+    return { nodes, edges, subtitle: 'The concurrent mode: an agent team whose shared task list is the plan’s tasks and their Blocked-by edges; one teammate per unblocked task in its own git worktree; the lead merges. Not landed yet.' };
+  }
+
+  viewReview() {
+    const C = Component.C, N = this.N.bind(this), E = this.E.bind(this);
+    const n = {}, cy = 215;
+    n.rv = N('review', 'cmd', 24, 0, 170, 0, '/brain:review', 'the five-axis review', { cy });
+    n.crq = N('code-review-and-quality', 'skill', 230, 0, 220, 0, 'code-review-and-quality', 'five axes · the reviewer agents', { cy, toggles: [['findings', 'findings', 'c:findings']] });
+    n.simp = N('code-simplification', 'skill', 486, 0, 220, 0, 'code-simplification', '/brain:code-simplify · optional', { cy, when: (s) => !s.findings });
+    n.out = N('to-release', 'jump', 742, cy - 18, 118, 36, 'Release', '', { lead: C.hue.release, view: 'release', when: (s) => !s.findings });
+    n.fix = N('fixes', 'note', 486, n.crq.y + n.crq.h + 44, 220, 0, 'fixes are work', 'each runs through Build’s loop: commit, gate, tick, entry', { icon: 'loop', when: (s) => s.findings });
+    n.fixTo = N('to-build', 'jump', 742, this.L(n.fix)[1] - 18, 108, 36, 'Build', '', { lead: C.hue.build, view: 'build', when: (s) => s.findings });
+    n.note = N('as-stands', 'note', 24, n.crq.y + n.crq.h + 44, 426, 0, 'as the skills stand today', 'not rebuilt yet; a later plan gives this stage the same treatment.', { plain: true, icon: 'note' });
+    const nodes = Object.values(n);
+    const edges = [
+      E('review', 'code-review-and-quality', [this.R(n.rv), this.L(n.crq)], {}),
+      E('code-review-and-quality', 'fixes', [this.B(n.crq), [this.B(n.crq)[0], this.L(n.fix)[1]], this.L(n.fix)], { when: (s) => s.findings }),
+      E('code-review-and-quality', 'code-simplification', [this.R(n.crq), this.L(n.simp)], { when: (s) => !s.findings }),
+      E('code-simplification', 'to-release', [this.R(n.simp), this.L(n.out)], { when: (s) => !s.findings }),
+      E('fixes', 'to-build', [this.R(n.fix), this.L(n.fixTo)], { when: (s) => s.findings })
+    ];
+    return { nodes, edges, subtitle: 'A clean converge enters; no findings leaves. Findings do not become a report — they run back through Build’s loop.' };
+  }
+
+  viewRelease() {
+    const C = Component.C, N = this.N.bind(this), E = this.E.bind(this);
+    const n = {}, cy = 215;
+    n.ship = N('ship', 'cmd', 24, 0, 170, 0, '/brain:ship', 'the pre-launch checklist', { cy });
+    n.sl = N('shipping-and-launch', 'skill', 230, 0, 220, 0, 'shipping-and-launch', 'the full Definition of Done as the floor', { cy, toggles: [['dod', 'the full DoD holds', 'c:dod']] });
+    n.rel = N('released', 'art', 486, cy - 20, 140, 40, 'released', '', { icon: 'flag', when: (s) => s.dod });
+    n.rec = N('rec-done', 'file', 662, 0, 224, 0, 'the record closed', 'the plan done; the PRD row says “shipped in vX.Y.Z”', { cy, icon: 'file', when: (s) => s.dod });
+    n.recTo = N('to-record', 'jump', 922, cy - 18, 108, 36, 'Record', '', { lead: C.hue.record, view: 'record', when: (s) => s.dod });
+    n.git = N('git-workflow-and-versioning', 'skill', 230, n.sl.y + n.sl.h + 44, 220, 0, 'git-workflow-and-versioning', 'tag · changelog · merge commits', {});
+    n.note = N('as-stands', 'note', 486, n.sl.y + n.sl.h + 44, 406, 0, 'as the skills stand today', 'not rebuilt yet; a later plan gives Review and Release the same treatment.', { plain: true, icon: 'note' });
+    const nodes = Object.values(n);
+    const edges = [
+      E('ship', 'shipping-and-launch', [this.R(n.ship), this.L(n.sl)], {}),
+      E('shipping-and-launch', 'released', [this.R(n.sl), this.L(n.rel)], { when: (s) => s.dod }),
+      E('shipping-and-launch', 'shipping-and-launch', [[n.sl.x + 150, n.sl.y], [n.sl.x + 150, n.sl.y - 24], [n.sl.x + 70, n.sl.y - 24], [n.sl.x + 70, n.sl.y]], { label: 'back', at: [n.sl.x + 110, n.sl.y - 24], when: (s) => !s.dod, loop: true }),
+      E('released', 'rec-done', [this.R(n.rel), this.L(n.rec)], { when: (s) => s.dod }),
+      E('rec-done', 'to-record', [this.R(n.rec), this.L(n.recTo)], { when: (s) => s.dod }),
+      E('shipping-and-launch', 'git-workflow-and-versioning', [this.B(n.sl), this.T(n.git)], { label: 'calls', at: [this.B(n.sl)[0] + 26, this.B(n.sl)[1] + 22], color: C.mid })
+    ];
+    return { nodes, edges, subtitle: 'No findings enters; a release leaves, and the record closes behind it.' };
+  }
+
+  viewRecord() {
+    const C = Component.C, N = this.N.bind(this), E = this.E.bind(this);
+    const nodes = [], edges = [];
+    const tx = 24, ty = 120, tw = 520, rh = 52;
+    const rows = [
+      ['docs/', 0, 'folder', 'r:docs'],
+      ['plan/', 1, 'folder', 'r:plan'],
+      ['PRD-NNN-<slug>.md', 2, 'file', 'r:prd'],
+      ['PLAN-NNN-<slug>.md', 2, 'file', 'r:planfile'],
+      ['### Part N: <title>', 3, 'note', 'r:part'],
+      ['> Status: in progress (SES-NNN)', 4, 'pen', 'r:status'],
+      ['- [x] Task 1 (date, a1b2c3d): …', 4, 'check', 'r:tick'],
+      ['sessions/', 1, 'folder', 'r:sessions'],
+      ['README.md', 2, 'file', 'r:index'],
+      ['SES-NNN-<slug>.md', 2, 'file', 'r:ses'],
+      ['### date · subject · a1b2c3d', 3, 'log', 'r:entry']
+    ];
+    nodes.push(N('tree', 'group', tx, ty, tw, rows.length * rh + 44, 'THE RECORD', 'one repo, two directories, four levels', { hue: C.hue.record, solid: true }));
+    const rn = {};
+    rows.forEach((r, i) => {
+      const id = r[3];
+      rn[id] = N(id, 'row', tx + 1, ty + 40 + i * rh, tw - 2, rh, r[0], '', { indent: r[1], icon: r[2], first: i === 0, dot: id === 'r:status' || id === 'r:tick' || id === 'r:entry', tag: (id === 'r:tick' || id === 'r:entry') ? 'the join key' : (id === 'r:status' ? 'the pointer' : ''), join: id === 'r:tick' || id === 'r:entry' });
+      nodes.push(rn[id]);
+    });
+    // writers, right column
+    const wx = 608, ww = 400;
+    const wr = {};
+    wr.ws = N('writing-specs', 'skill', wx, rn['r:prd'].y + 3, ww, 46, 'writing-specs', 'writes it · its Plans table is the way down to every plan');
+    wr.pl = N('planning', 'skill', wx, rn['r:planfile'].y + 3, ww, 46, 'planning-and-task-breakdown', 'parts in dependency order · a row in the PRD’s Plans table');
+    wr.st = N('session-start', 'cmd', wx, rn['r:status'].y + 3, ww, 46, '/brain:session start · close', 'start flips the line to in progress (SES-NNN); close to done (SES-NNN, sha)');
+    wr.lg = N('tick-log', 'cmd', wx, rn['r:tick'].y + 3, ww, 46, '/brain:session log', 'ticks the task citing the commit’s sha; the entry cites the same sha');
+    wr.ix = N('session-index', 'note', wx, rn['r:index'].y + 3, ww, 46, 'the tool regenerates it', 'every session, newest first, with its plan part and status', { icon: 'loop' });
+    wr.ss = N('session-file', 'cmd', wx, rn['r:ses'].y + 3, ww, 46, '/brain:session start', 'one session per part: Goal · Narrative · an entry per commit · Outcome');
+    wr.en = N('entry', 'cmd', wx, rn['r:entry'].y + 3, ww, 46, '/brain:session log', 'appends the skeleton, fills it, runs the gate, commits docs(session)');
+    Object.values(wr).forEach((w) => nodes.push(w));
+    const pairs = [['r:prd', 'writing-specs'], ['r:planfile', 'planning'], ['r:status', 'session-start'], ['r:tick', 'tick-log'], ['r:index', 'session-index'], ['r:ses', 'session-file'], ['r:entry', 'entry']];
+    pairs.forEach((p) => { const a = rn[p[0]], b = nodes.find((x) => x.id === p[1]); edges.push(E(p[0], p[1], [[tx + tw, a.y + a.h / 2], [b.x, b.y + b.h / 2]], {})); });
+    // the bracket: what /brain:plan PLAN-NNN reads
+    const b0 = rn['r:planfile'], b1 = rn['r:entry'];
+    nodes.push(N('walk-reads', 'bracket', 6, b0.y, 14, b1.y + b1.h - b0.y, '', '', {}));
+    nodes.push(N('walk-note', 'note', 24, ty + rows.length * rh + 44 + 22, tw, 64, '/brain:plan PLAN-NNN reads all of this', 'the plan → the part in progress → its session → what the last entries left unverified → the brief. The status line is the pointer; the sha is the join key.', { plain: true, icon: 'link' }));
+    return { nodes, edges, subtitle: 'The docs system every stage writes into — one file per level, and the skill that writes each. Click a row or a writer.' };
+  }
+
+  // ---------- details (level 2) ----------
+  static get D() {
+    const TR = 'https://claude.ai/code/artifact/0485571a-4c06-4a33-9fe6-bcda0c1f756a';
+    return {
+      'interview-me': { kind: 'skill', path: 'skills/interview-me/SKILL.md', one: 'Intent mode: one question at a time until the restate gets an explicit yes. Artifact mode: an existing plan, spec or decision stress-tested down its design tree, the frontier one question at a time.', rows: [['invoked by', 'the model, routing by its description (“an underspecified ask — build me X without for whom or why”), or typed as /brain:interview-me. Its first body line: “Call the Skill tool for brain:ask-user-question now, before anything else.”'], ['reads', 'CONTEXT.md and the ADRs (the read-rule is inlined at load); facts it needs come from subagents, never from the user.'], ['produces', 'the confirmed intent — Outcome · User · Why now · Success · Constraint · Out of scope, with an explicit yes. In context only, unless the user asks to persist it.'], ['then', 'a sentence in its own body decides: idea-refine when the intent is “I want X but I don’t know how to scope it”; writing-specs when the intent is concrete. The intent travels in context.']], calls: [['brain:ask-user-question', 'every question, one at a time, the recommendation inside'], ['research', 'a fact the next question needs, via a subagent'], ['domain-modeling', 'a term or decision the moment it settles'], ['wayfinder', 'when the thing is bigger than one session: chart a map instead']], trace: ['trace, steps 2–7', TR + '#step-2'] },
+      'idea-refine': { kind: 'skill', path: 'skills/idea-refine/SKILL.md', one: 'Divergence — lenses, hidden assumptions, the Not-Doing list — until a direction is chosen.', rows: [['invoked by', 'the sentence in interview-me’s body (Skill(idea-refine)), or typed, or routed by “ideate / refine this idea”.'], ['reads', 'the confirmed intent from context — never re-asks what it settled; the codebase when there is one.'], ['produces', 'a one-pager — Problem Statement, Recommended Direction, Key Assumptions, MVP Scope, Not Doing — saved to docs/ideas/ only after the user confirms.'], ['then', '“Hand the finished one-pager back toward writing-specs when a direction is chosen” — the same door a concrete intent uses.']], calls: [['brain:ask-user-question', 'the 3–5 sharpening questions, one at a time'], ['domain-modeling', 'terms as they settle']] },
+      'writing-specs': { kind: 'skill', path: 'skills/writing-specs/SKILL.md', one: 'The requirements document — one template pool, published where the repo keeps requirements.', rows: [['invoked by', 'interview-me’s handoff sentence (Skill(writing-specs)), the typed /brain:spec, or routing on “write a spec”, “draft a PRD”, “turn this conversation into a spec”.'], ['reads', 'the intent or the settled conversation; CONTEXT.md and the ADRs; the repo, to sketch the seam it will be tested at.'], ['produces', 'docs/plan/PRD-NNN.md — Objective, User Stories, Success Criteria, Implementation and Testing Decisions (no file paths), Boundaries, Out of Scope, Open Questions, a Plans table — or a tracker spec labelled ready-for-agent. Where: the resolution order.'], ['then', '“planning-and-task-breakdown: downstream, the canonical decomposition — hand the approved document there.” The document is a file; Plan finds it by the same order.']], calls: [['interview-me', 'still fog after intake → interview first, then back', 'interview-me'], ['brain:ask-user-question', 'the assumptions block (“correct me now”), the seam check, the capability-map approval'], ['domain-modeling', 'terms and decisions as they settle; an ADR when the trade-off is real'], ['codebase-design', 'the seam vocabulary']], trace: ['trace, steps 8–9', TR + '#step-8'] },
+      'planning': { kind: 'skill', path: 'skills/planning-and-task-breakdown/SKILL.md', one: 'The Planning Process — the document becomes parts and tasks, approved before publication.', rows: [['invoked by', 'typed /brain:plan <description>, or routing on “break this spec into tasks”, “turn the PRD into an ordered task list”.'], ['reads', 'the PRD in full (named, or found by the resolution order); the codebase for patterns; CONTEXT.md.'], ['produces', 'docs/plan/PLAN-NNN.md — parts in dependency order, each with a > Status: planned line, tasks with What · Acceptance · Verification · Blocked by, a checkpoint per part — plus a row in the PRD’s Plans table; or per-ticket files / tracker issues with native blocking links.'], ['doctrine', 'vertical slices as tracer bullets, prefactor first; a wide refactor as expand → migrate → contract in batches sized by blast radius; two sizing rulers (files, and one fresh context window); the freshness dial stated once per plan.'], ['then', 'nothing starts here: the plan waits with every part planned until a conversation picks a part up — by the other door.']], calls: [['brain:ask-user-question', 'the quiz round: granularity, blocking edges, merge / split'], ['domain-modeling', 'terms and decisions as they settle']], trace: ['trace, steps 10–11', TR + '#step-10'] },
+      'walk': { kind: 'skill', path: 'skills/planning-and-task-breakdown/SKILL.md Continuing a plan', one: 'The rehydration walk — the same skill; reads the plan and its session, posts the brief, routes.', rows: [['invoked by', 'typed /brain:plan PLAN-NNN, or routing on “work on PLAN-NNN”, “catch me up”, “where were we”.'], ['reads', 'the plan in full, the PRD it cites, the session the part’s status line names (Narrative, entries newest-first, the unverified), every file the next task names, CONTEXT.md.'], ['produces', 'the brief — Released · Unreleased · Parked · Findings · Open/unverified · Plan · Next · Question · Session · read in full — as the entire reply.'], ['then', 'by what comes next: the next task → /brain:build; a decision the task needs → interview-me (artifact mode); a question → answer it and start no session.']], calls: [['brain:session', 'the part planned → start one; it writes SES-NNN and flips the part’s status line to in progress', 'session-start'], ['brain:ask-user-question', 'several sessions in progress: which?']], trace: ['trace, steps 13–14', TR + '#step-13'] },
+      'quiz': { kind: 'step', one: 'The approval round: the breakdown presented as a numbered list — each task, what it delivers end-to-end, what blocks it — then one question with three checks inside it.', rows: [['asks', 'does the granularity feel right (too coarse / too fine) · is every blocking edge a genuine gate · should any tasks merge or split'], ['then', 'fold the answer in and re-present; nothing is published from an unapproved breakdown.']], calls: [['brain:ask-user-question', 'one call, the three checks as its context, the recommendation attached']] },
+      'session-start': { kind: 'act', path: 'skills/session/SKILL.md · start', one: 'Creates docs/sessions/SES-NNN from a description — title, Goal, opening Narrative — and marks the plan part in progress (session SES-NNN).', rows: [['invoked by', 'Continuing a plan, Step 6: “call the Skill tool with skill: brain:session and args: start … --plan “PLAN-NNN · part N””; or typed.'], ['writes', 'the session file, the index row, the part’s status line — the pointer every later conversation follows.'], ['reply', 'one line: started SES-NNN — …']] },
+      'read-session': { kind: 'step', one: 'Step 4 of the walk: the Narrative, then the entries newest-first, then every file the last entries name.', rows: [['finds', 'what is unverified (the entries’ Notes lines) and what was tried and abandoned (the Narrative).'], ['done when', 'the last entry’s sha, its Notes and the Narrative’s last paragraph are in hand.']] },
+      'brief': { kind: 'artifact', one: 'The whole reply, nothing before or after it: Released · Unreleased on main · Parked · Findings · Open / unverified · Plan · Next · Question · Session · read in full.', rows: [['findings', 'from git branch, git status and the sessions index — an unexpected branch, a dirty tree, another session’s placeholders, a commit with no entry. Reported; nothing tidied.'], ['lives', 'in context; the session file and the Narrative hold the detail.']] },
+      'to-build': { kind: 'command', path: 'commands/build.md', one: 'The route when the brief’s Next is a task: /brain:build with the plan’s path.', rows: [['then', 'the Build stage — open it from the strip above.']] },
+      'to-interview': { kind: 'skill', one: 'The route when the next task needs a decision: interview-me in artifact mode, the design tree and its frontier, domain-modeling recording.', rows: [['then', 'the settled decisions return to the plan; the task proceeds.']] },
+      'answer': { kind: 'step', one: 'A question, a review, a check — nothing will change — starts nothing: answer it from what was read; no session.', rows: [] },
+      'typed': { kind: 'command', path: 'commands/plan.md', one: '/brain:plan decides new-vs-continue from its arguments: a PLAN-NNN whose file exists → continue; a description or an id with no file → the Planning Process; nothing → the sessions index decides.', rows: [] },
+      'prd-in': { kind: 'artifact', one: 'The approved requirements document — a PRD under docs/plan/ with its Plans table, or a tracker spec labelled ready-for-agent. Found by the same resolution order the planner runs.', rows: [] },
+      'plan-out': { kind: 'artifact', one: 'A plan of parts — PLAN-NNN.md with every part > Status: planned and a row in the PRD’s Plans table; or per-ticket files / tracker issues with native blocking links, where the repo keeps tasks.', rows: [['renders', 'docs tree: the plan doc plus todo items · tracker: tickets in dependency order, blockers first, ready-for-agent']] },
+      'waits': { kind: 'state', one: 'Nothing starts in this door. The plan waits with every part planned until a conversation types /brain:plan PLAN-NNN — the walk finds the first planned part and starts its session.', rows: [] },
+      'build': { kind: 'command', path: 'commands/build.md', one: 'Implement tasks incrementally — build, test, verify, commit — gated by the Definition of Done. “auto” runs the whole plan in one approved pass.', rows: [['resolves', 'the spec and the plan, first hit wins: the repo’s docs/agents/issue-tracker.md → the docs/plan/ series (PRD-NNN the spec, PLAN-NNN the plan; the part in progress, its first unticked task) or a CLAUDE.md line → the known paths (SPEC.md, tasks/plan.md, tasks/todo.md).'], ['the gates', 'every task tick: Correctness + Quality · every part’s close: Integration + Documentation beside the checkpoint · the plan’s close: converge, the full checklist as the floor.'], ['stops for', 'a test that can’t pass or a build that breaks with no obvious fix → diagnosing-bugs · an ambiguity the spec doesn’t cover · a high-risk or irreversible task → doubt-driven-development and explicit sign-off.']], calls: [['implement', 'the doctrine the loop executes', 'implement'], ['planning-and-task-breakdown', 'auto with no plan → generate one'], ['brain:ask-user-question', 'auto’s single approval; the high-risk sign-off'], ['brain:session', 'log after every commit; close when a part ends', 'tick-log']], trace: ['trace, step 15', TR + '#step-15'] },
+      'implement': { kind: 'skill', path: 'skills/implement/SKILL.md', one: 'The doctrine — thin verified increments, the rules at the point of writing code, the DoD at the tick.', rows: [['invoked by', '/brain:build’s first line (“Invoke the implement skill”), or routing on “implement the next task from the plan”, “ship it in thin slices”.'], ['reads', 'the task under the consumption contract — its end-to-end behaviour, acceptance, what blocks it; the repo fresh (a stale ticket’s paths are not trusted); the repository’s own commands, discovered once.'], ['produces', 'commits — one per verified slice — and, through the loop, the tick and the entry.'], ['then', 'the loop, once per task.']], calls: [['test-driven-development', 'RED before GREEN, at the seams the spec pre-agreed', 'tdd'], ['diagnosing-bugs', 'anything unexpected: stop the line', 'diagnosing-bugs'], ['doubt-driven-development', 'a high-risk decision mid-task', 'doubt'], ['planning-and-task-breakdown', 'a task too big for its grain goes back'], ['domain-modeling', 'terms and decisions as they settle']], trace: ['trace, steps 15–18', TR + '#step-15'] },
+      'tdd': { kind: 'skill', path: 'skills/test-driven-development/SKILL.md', one: 'RED → GREEN → refactor, inside every task; Prove-It for bugs.', rows: [['invoked by', 'implement’s increment cycle; typed /brain:test; routing on “write a failing test first”.'], ['reads', 'how this repository tests — the framework, the focused-test and full-suite commands — before the first test.'], ['produces', 'a failing test seen failing, then the minimum that passes it.'], ['then', 'the suite and the build, with the repository’s own commands.']], calls: [['browser-testing-with-devtools', 'browser-facing changes: runtime verification']] },
+      'suite': { kind: 'step', one: 'Steps 5 and 6 of the loop: the full suite for regressions, the build for compilation — the repository’s own commands, discovered once.', rows: [] },
+      'diagnosing-bugs': { kind: 'skill', path: 'skills/diagnosing-bugs/SKILL.md', one: 'Stop the line; build a tight feedback loop first, then reproduce → localize → fix at the cause → guard.', rows: [['invoked by', '/brain:build’s stop rule (“a test can’t be made to pass or the build breaks without an obvious fix → follow the diagnosing-bugs skill”), or routing on “debug this”, “tests fail”, “worked yesterday”.'], ['reads', 'the evidence, preserved before anything else; common breakage through its triage trees; hard bugs through the six phases.'], ['produces', 'a red-capable loop, the minimised repro, a root-cause fix, a regression test at a correct seam, instrumentation cleaned up.'], ['then', 'back into the loop at the slice that broke.']], calls: [['brain:ask-user-question', 'the ranked hypotheses shown before testing'], ['research', 'a dependency’s documented behaviour']], trace: ['trace, step 19', TR + '#step-19'] },
+      'doubt': { kind: 'skill', path: 'skills/doubt-driven-development/SKILL.md', one: 'A fresh-context adversarial review before the decision stands, then an explicit sign-off.', rows: [['invoked by', '/brain:build’s stop rule for high-risk tasks; routing on “cross-examine every assumption”, “stress the plan for hidden failure modes”.'], ['reads', 'the artifact and its contract only — never the author’s claim.'], ['produces', 'findings classified (contract misread · actionable · trade-off · noise), within three cycles; a go or stop.'], ['then', 'continue only with the user’s explicit sign-off.']], calls: [['code-reviewer (agent)', 'the fresh-context reviewer'], ['brain:ask-user-question', 'the mandatory cross-model offer; the sign-off']] },
+      'commit': { kind: 'artifact', one: 'Step 7: one commit per task, staged by named file — the clean rollback point. Its sha is the join key: the plan’s tick cites it; the session’s entry cites it.', rows: [] },
+      'tick-log': { kind: 'act', path: 'skills/session/SKILL.md · log', one: 'Step 8: the gate held, so the task is ticked citing the sha; /brain:session log appends and fills the commit’s entry, runs the gate, and commits both as docs(session).', rows: [['the gate', 'session check — exit 0 only when every commit on the branch is accounted for and no placeholder is left.'], ['why two files', 'from either file a reader lands on the same commit: plan → session or session → plan.']], trace: ['trace, steps 17–18', TR + '#step-17'] },
+      'part-close': { kind: 'act', path: 'skills/session/SKILL.md · close', one: 'When the tick closes a part: the checkpoint items plus the Integration and Documentation sections; /brain:session close writes the Outcome and marks the part done (session SES-NNN, sha).', rows: [], trace: ['trace, step 20', TR + '#step-20'] },
+      'converge': { kind: 'step', path: 'commands/build.md · Converge', one: 'When the last part is done: re-read the spec and the plan against the built work with the full Definition of Done as the floor. Every promise not met becomes a task appended to the plan (a new part where the misses cluster) — the run ends with those tasks named, never with a bare “all done”.', rows: [['then', 'hand to the Review stage: /brain:review.']], trace: ['trace, step 21', TR + '#step-21'] },
+      'build-out': { kind: 'artifact', one: 'A clean converge: every part done, every promise met or named as a task. What crosses into Review.', rows: [] },
+      'build-lead': { kind: 'command', one: 'The lead session: reads the plan at both grains — parts and their tasks, each with its Blocked-by — and creates the team’s shared task list from them.', rows: [['requires', 'CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1; the Agent tool with a name creates teammates — independent sessions with their own context windows.']] },
+      'tasklist': { kind: 'mechanism', one: 'Agent teams’ shared task list: a pending task with unresolved dependencies cannot be claimed; when a teammate completes a task others depend on, the dependents unblock without any action from the lead. The only place native task dependencies exist (ANA-012 F2–F3).', rows: [['source', 'code.claude.com/docs/en/agent-teams · Assign and claim tasks']] },
+      'wt1': { kind: 'teammate', one: 'One teammate per unblocked task, in its own git worktree on its own branch — live-verified: a worktree subagent committed in .claude/worktrees/agent-… while main stayed put (ANA-012 F1).', rows: [['runs', 'the same loop: RED → GREEN → suite → build → commit → gate → tick; the entry via /brain:session log.']] },
+      'wt2': { kind: 'teammate', one: 'One teammate per unblocked task, in its own git worktree on its own branch.', rows: [['runs', 'the same loop per task; the tick, the gate and the entry unchanged.']] },
+      'wt3': { kind: 'teammate', one: 'A blocked task waits in the list: the harness holds it until its blockers complete, then a teammate claims it.', rows: [] },
+      'merge': { kind: 'step', one: 'The lead merges finished worktree branches into the PR branch — implement-spec’s merger step — then kicks off implementers for whatever the merge unblocked.', rows: [] },
+      'pr-out': { kind: 'artifact', one: 'One PR per plan; converge runs on the merged work, then the Review stage.', rows: [] },
+      'unchanged': { kind: 'invariant', one: 'Per task nothing changes: the commit’s sha, the tick that cites it, the gate (Correctness + Quality), the entry. What changes is the safety geometry — isolation in space instead of one commit at a time.', rows: [] },
+      'pending': { kind: 'status', one: 'PLAN-005 Part 7 Task 2 waits on the landing call: land the mode now with the experimental flag named in /brain:build, or hold it for a live team run. implement-spec is deleted in that commit either way (ADR-007).', rows: [['measured', 'ANA-012: worktree isolation live-verified; task dependencies documented inside agent teams only; a full team run not executed.']] },
+      'review': { kind: 'command', path: 'commands/review.md', one: '/brain:review invokes code-review-and-quality — the five-axis review, the reviewer agents.', rows: [], calls: [['code-reviewer · security-auditor (agents)', 'the five-axis review'], ['/brain:build', 'every fix is a task through the loop']] },
+      'code-review-and-quality': { kind: 'skill', path: 'skills/code-review-and-quality/SKILL.md', one: 'Multi-axis review before anything enters main: correctness, readability, architecture, security, performance. As it stands today.', rows: [['then', 'findings are work: each fix runs back through Build’s loop — a commit, the gate, a tick, an entry.']] },
+      'fixes': { kind: 'loop', one: 'Findings are not a file. They come back as work through the same loop: a new conversation, /brain:plan PLAN-NNN → a planned part → a session → /brain:build → each fix earns its commit, gate, tick and entry.', rows: [], trace: ['trace, step 22', TR + '#step-22'] },
+      'code-simplification': { kind: 'skill', path: 'skills/code-simplification/SKILL.md', one: 'Optional, when the review is clean: less code, same behaviour, the tests run between steps. Typed as /brain:code-simplify.', rows: [] },
+      'review-out': { kind: 'artifact', one: 'No findings — what crosses into Release.', rows: [] },
+      'ship': { kind: 'command', path: 'commands/ship.md', one: '/brain:ship invokes shipping-and-launch: the pre-launch checklist by parallel fan-out to the specialist personas, then a go / no-go.', rows: [], calls: [['definition-of-done (reference)', 'the full checklist'], ['git-workflow-and-versioning', 'tag, notes, merge commits', 'git-workflow-and-versioning']], trace: ['trace, step 23', TR + '#step-23'] },
+      'shipping-and-launch': { kind: 'skill', path: 'skills/shipping-and-launch/SKILL.md', one: 'The full Definition of Done is the floor — the same checklist Build ran in tiers, now whole — plus the deploy gates: monitoring, a staged rollout, a rollback strategy. As it stands today.', rows: [] },
+      'git-workflow-and-versioning': { kind: 'skill', path: 'skills/git-workflow-and-versioning/SKILL.md', one: 'The semantic version bump, the tag, the changelog; merge commits (a squash replaces every sha the entries cite).', rows: [] },
+      'released': { kind: 'artifact', one: 'The release: a tag, notes from the session entries. The plan and its PRD row marked done — shipped in vX.Y.Z.', rows: [] },
+      'rec-done': { kind: 'artifact', one: 'Every artifact cross-linked: PRD → PLAN → parts → sessions → shas → commits. A cold conversation next month types /brain:plan PLAN-NNN and gets: every part done; Released: vX.Y.Z.', rows: [] },
+      'as-stands': { kind: 'status', one: 'Review and Release are out of PRD-002’s contract — a later plan, entered through the same method. Their skills ship as copied in.', rows: [] },
+      'ask': { kind: 'entry', one: 'Someone wants something built — the idea arrives typed, in conversation, or through /brain:spec. The model reads its skill descriptions; interview-me’s matches an underspecified ask.', rows: [] },
+      'artifact-in': { kind: 'entry', one: 'A second entry, from any stage: an existing plan, spec or decision to stress-test → interview-me in artifact mode → the settled decisions go back to whoever sent it.', rows: [] },
+      'intent': { kind: 'artifact', one: 'The confirmed intent — Outcome · User · Why now · Success · Constraint · Out of scope — with an explicit yes. It exists only in the conversation; the next skill reads it from what was just said.', rows: [] },
+      'onepager': { kind: 'artifact', one: 'The one-pager: Problem Statement, Recommended Direction, Key Assumptions, MVP Scope, Not Doing — saved to docs/ideas/ only after the user confirms.', rows: [] },
+      'capmap': { kind: 'artifact', one: 'When the ask bundles several capabilities: a capability map first — gated on approval — then one document per module, in dependency order.', rows: [] },
+      'prd': { kind: 'artifact', one: 'The approved requirements document. Where it lives is the resolution order: the repo’s tracker doc → the docs/plan/ convention or a CLAUDE.md line → the default. Docs tree: PRD-NNN.md with its Plans table. Tracker: a spec labelled ready-for-agent.', rows: [] },
+      'c:intent': { kind: 'condition', one: 'Is the intent clear — who, why, what success looks like, the binding limit?', rows: [['yes', 'concrete → writing-specs, with no interview'], ['no', 'interview-me in intent mode']] },
+      'c:scoped': { kind: 'condition', one: 'Does the confirmed intent need refinement before it can be scoped?', rows: [['on', '“I want X but I don’t know how to scope it” → idea-refine, then writing-specs'], ['off', 'the intent is concrete → writing-specs']] },
+      'c:fog': { kind: 'condition', one: 'Still fog after intake? writing-specs sends the ask back through interview-me first rather than guessing.', rows: [['on', 'interview-me first, then back to writing-specs'], ['off', 'synthesis — no re-interview']] },
+      'c:caps': { kind: 'condition', one: 'Does the ask bundle several capabilities?', rows: [['yes', 'a capability map first — gated on approval — then one document per module in dependency order'], ['no', 'one document']] },
+      'c:exists': { kind: 'condition', one: 'Does a plan exist for it? The arguments to /brain:plan decide: PLAN-NNN with a file under docs/plan/ → continue; a description or an id with no file → the Planning Process.', rows: [['yes', 'Continuing a plan — the rehydration walk'], ['no', 'the Planning Process']] },
+      'c:fits': { kind: 'condition', one: 'Does each task fit one fresh context window — implementable, testable and verifiable without carrying context from a previous task? The second ruler: about five files.', rows: [['no', 'split it'], ['yes', 'on to the quiz']] },
+      'c:approved': { kind: 'condition', one: 'The quiz round — is the breakdown approved?', rows: [['no', 'revise and re-present; iterate until approved'], ['yes', 'publish where the task list target says']] },
+      'c:partip': { kind: 'condition', one: 'Is a part in progress? The first part whose status line says in progress is the part; with none, the first planned part.', rows: [['yes', 'read its session'], ['no', 'start a session for the first planned part — that call flips the status line']] },
+      'c:next': { kind: 'condition', one: 'Step 8, the route: what does the brief’s Next line name?', rows: [['the next task', '/brain:build with the plan’s path'], ['a decision', 'interview-me in artifact mode, domain-modeling recording'], ['a question', 'answer it from what was read; start no session']] },
+      'c:green': { kind: 'condition', one: 'Green — suite and build?', rows: [['no', 'fix the slice and retry'], ['no obvious fix', 'diagnosing-bugs: stop the line'], ['yes', 'on to the risk check']] },
+      'c:risk': { kind: 'condition', one: 'High-risk or irreversible — auth or permission changes, destructive migrations, payments, deletions, deploys, secrets, anything git revert cannot undo?', rows: [['yes', 'doubt-driven-development and explicit sign-off before continuing'], ['no', 'commit']] },
+      'c:gate': { kind: 'condition', one: 'Does the gate hold — the Definition of Done’s Correctness and Quality sections?', rows: [['no', 'back to the slice'], ['yes', 'the tick in the plan cites the sha; /brain:session log writes the entry that cites it too, in the docs(session) commit']] },
+      'c:closed': { kind: 'condition', one: 'Did that tick close a part?', rows: [['yes', 'the checkpoint items + Integration + Documentation; /brain:session close → done (SES-NNN, sha)'], ['no', 'the next task — one task then stop, or without stopping in auto']] },
+      'c:last': { kind: 'condition', one: 'Was that the last part?', rows: [['no', 'the next task'], ['yes', 'converge — the spec and plan re-read against the built work, the full checklist as the floor']] },
+      'c:misses': { kind: 'condition', one: 'Any promise not met?', rows: [['yes', 'each miss appended to the plan as a task — built by the next run'], ['no', 'exit: a clean converge → /brain:review']] },
+      'c:findings': { kind: 'condition', one: 'Findings?', rows: [['yes', 'each fix runs back through Build’s loop — a commit, the gate, a tick, an entry'], ['no', 'optionally /brain:code-simplify, then Release']] },
+      'c:dod': { kind: 'condition', one: 'Does the full Definition of Done hold — the same checklist Build ran in tiers, now whole, plus the deploy gates?', rows: [['no', 'back'], ['yes', 'released']] },
+      'g:define': { kind: 'stage', one: 'An ask → the approved requirements document. Two of the three skills are conversations; the third writes the file.', rows: [['leaves as', 'PRD-NNN.md in docs/plan/ (with its Plans table), or a tracker spec']] },
+      'g:plan': { kind: 'stage', one: 'The approved document → a plan of parts, or tickets. One skill entered by two doors.', rows: [['leaves as', 'PLAN-NNN.md with every part planned — and, by the other door, the brief']] },
+      'g:build': { kind: 'stage', one: 'A plan with a part in progress → every task built, gated, recorded. One loop per task with four ways out.', rows: [['leaves as', 'a clean converge — every part done, nothing owed']] },
+      'g:review': { kind: 'stage', one: 'A clean converge → no findings. As it stands today.', rows: [['leaves as', 'no findings']] },
+      'g:release': { kind: 'stage', one: 'No findings → released. As it stands today.', rows: [['leaves as', 'the release; the record closed']] },
+      'tree': { kind: 'directory', one: 'docs/ — the docs system of record. One repo, two directories, four levels: PRD → PLAN → Part → SES.', rows: [] },
+      'r:docs': { kind: 'directory', one: 'The docs system of record: docs/plan (PRDs and plans), docs/sessions (the log); decisions and analyses beside them.', rows: [] },
+      'r:plan': { kind: 'directory', one: 'docs/plan/ — requirements and plans side by side, numbered series; the evident convention the resolution order finds.', rows: [] },
+      'r:prd': { kind: 'file', path: 'docs/plan/PRD-NNN-<slug>.md', one: 'The requirements: Objective, User Stories, Success Criteria, Implementation and Testing Decisions, Boundaries, Out of Scope, Open Questions — and the Plans table, the way down to every plan that serves it.', rows: [['written by', 'writing-specs'], ['read by', 'the planner, the walk (Step 3), converge']] },
+      'r:planfile': { kind: 'file', path: 'docs/plan/PLAN-NNN-<slug>.md', one: 'Parts in dependency order, each with its status line and tasks; the tasks ticked citing the sha that did each.', rows: [['written by', 'planning-and-task-breakdown; then the session acts write the status lines and ticks'], ['read by', '/brain:plan PLAN-NNN first of all; /brain:build for the next task']] },
+      'r:part': { kind: 'heading', one: 'A part: one stream of work with its own checkpoint. Its status line directly under the heading is how a later conversation finds the work.', rows: [] },
+      'r:status': { kind: 'pointer', one: '> Status: planned → in progress (session SES-NNN) → done (session SES-NNN, sha). The session skill writes it; the walk reads it. Nothing else has to be remembered.', rows: [['start', 'flips planned → in progress (session SES-NNN)'], ['close', 'flips → done (session SES-NNN, sha)']] },
+      'r:tick': { kind: 'join key', one: 'A ticked task cites the commit’s sha. The session’s entry for that commit is headed by the same sha — two files, one key; a cold reader walks plan → session or session → plan and lands on the same commit.', rows: [['written by', '/brain:session log, in the docs(session) commit that follows the task’s own commit — so the task’s commit stays its own clean rollback point']] },
+      'r:sessions': { kind: 'directory', one: 'docs/sessions/ — the append-only record of every change that reached main, plus the narrative a commit log cannot hold.', rows: [] },
+      'r:index': { kind: 'file', path: 'docs/sessions/README.md', one: 'The index, newest first, regenerated by the session tool: each session with its status and the plan part it serves. Step 1 of the walk reads it when no plan is named.', rows: [] },
+      'r:ses': { kind: 'file', path: 'docs/sessions/SES-NNN-<slug>.md', one: 'One session per plan part: Goal · Status · Plan · Outcome; the Narrative (asked, tried, abandoned, verified); one entry per commit, in order.', rows: [['written by', 'start creates it; log appends; close writes the Outcome']] },
+      'r:entry': { kind: 'entry', one: 'One entry per commit: the subject and sha as the heading; Summary, Why, one line per touched file, Notes (verified how; unverified what). Never rewritten.', rows: [['the gate', 'session check: every commit on the branch accounted for, no placeholder left']] },
+      'session-index': { kind: 'tool', one: 'session list / new / append regenerate the index between the markers; the skill never edits it by hand.', rows: [] },
+      'session-file': { kind: 'act', one: 'start: creates docs/sessions/SES-NNN from a description — title, Goal, opening Narrative — and marks the plan part in progress.', rows: [] },
+      'entry': { kind: 'act', one: 'log: right after a commit — session append writes the skeleton, the model fills it, session check is the gate, the docs(session) commit carries the entry and the tick together.', rows: [] },
+      'walk-note': { kind: 'reader', one: 'Continuing a plan reads this record top-down: the plan → the PRD it cites → the session the part’s status line names → every file the next task names → the brief.', rows: [] },
+      'cc': { kind: 'helpers', one: 'The skills every stage calls.', rows: [] }
+    };
+  }
+  static get OV_TARGET() {
+    return { 'interview-me': 'interview-me', 'idea-refine': 'idea-refine', 'writing-specs': 'writing-specs', 'planning-and-task-breakdown': 'planning', 'Continuing a plan': 'walk', '/brain:build': 'build', 'implement': 'implement', 'test-driven-development': 'tdd', 'diagnosing-bugs': 'diagnosing-bugs', 'doubt-driven-development': 'doubt', 'code-review-and-quality': 'code-review-and-quality', 'code-simplification': 'code-simplification', 'shipping-and-launch': 'shipping-and-launch', 'git-workflow-and-versioning': 'git-workflow-and-versioning' };
+  }
+
+  // ---------- render ----------
+  renderVals() {
+    const C = Component.C, I = Component.I, D = Component.D;
+    const st = this.state, view = st.view, sel = st.sel;
+    const mono = "'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
+    const goto = (v, s, extra) => () => this.setState(Object.assign({ view: v, sel: s || null }, extra || {}));
+    let model;
+    if (view === 'overview') model = this.viewOverview();
+    else if (view === 'define') model = this.viewDefine();
+    else if (view === 'plan') model = this.viewPlan();
+    else if (view === 'build') model = this.viewBuild();
+    else if (view === 'review') model = this.viewReview();
+    else if (view === 'release') model = this.viewRelease();
+    else model = this.viewRecord();
+    const DX = 0, DY = 0;
+    const t = st.t;
+    const visibleNodes = model.nodes.filter((n) => !n.when || n.when(t));
+    const visibleIds = new Set(visibleNodes.map((n) => n.id));
+    const visibleEdges = model.edges.filter((e) => (!e.when || e.when(t)) && visibleIds.has(e.from) && visibleIds.has(e.to));
+    const flip = (id) => (ev) => {
+      if (ev && ev.stopPropagation) ev.stopPropagation();
+      if (id === 'exists') { this.setState({ planMode: this.state.planMode === 'new' ? 'continue' : 'new', sel: null }); return; }
+      const next = Object.assign({}, this.state.t); next[id] = !next[id]; this.setState({ t: next });
+    };
+    const choose = (id, value) => (ev) => {
+      if (ev && ev.stopPropagation) ev.stopPropagation();
+      const next = Object.assign({}, this.state.t); next[id] = value; this.setState({ t: next });
+    };
+    const trows = [];
+    const SW = { w: 28, h: 16, b: 1.5, on: 10, off: 7, pad: 1.5 }; // the switch: track width/height, border, knob diameters, knob inset
+    const rowOf = (label, on, answer, pick, first) => ({
+      label: label.charAt(0).toUpperCase() + label.slice(1), on, pick, color: '#dadada',
+      tw: SW.w, th: SW.h, fill: on ? C.on : 'transparent', stroke: on ? C.on : '#7a7a7a', knob: on ? '#ffffff' : '#8f8f8f',
+      kd: on ? SW.on : SW.off, kt: ((SW.h - 2 * SW.b) - (on ? SW.on : SW.off)) / 2, kl: on ? (SW.w - 2 * SW.b) - SW.pad - SW.on : SW.pad + (SW.on - SW.off) / 2,
+      answer: answer || ''
+    });
+
+    const cap = (str) => (str && !/^(docs\/|\/|\.|skills\/)/.test(str)) ? str.charAt(0).toUpperCase() + str.slice(1) : str;
+    // the path that leads to the selected node: every edge feeding it, return loops excluded
+    const upEdges = new Set(), upNodes = new Set();
+    if (sel) {
+      const queue = [sel]; const seen = new Set([sel]);
+      while (queue.length) {
+        const id = queue.shift();
+        visibleEdges.forEach((e) => { if (e.to === id && !e.loop && e.from !== e.to) { upEdges.add(e); if (!seen.has(e.from)) { seen.add(e.from); upNodes.add(e.from); queue.push(e.from); } } });
+      }
+    }
+    // nodes
+    const nodes = visibleNodes.map((n) => {
+      const isSel = sel === n.id;
+      const clickable = !!(n.view || D[n.id] || n.target);
+      const selCls = isSel ? ' sel' : (upNodes.has(n.id) ? ' up' : '');
+      let box = 'left: ' + (n.x + DX) + 'px; top: ' + (n.y + DY) + 'px; width: ' + n.w + 'px; height: ' + n.h + 'px; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; padding: 12px 14px; ';
+      let headStyle = '';
+      const rows = [];
+      (n.toggles || []).forEach((tg, k) => { const on = tg[0] === 'exists' ? st.planMode === 'continue' : !!t[tg[0]]; rows.push(rowOf(tg[1], on, on ? 'yes' : 'no', flip(tg[0]), k === 0)); });
+      if (n.choice) n.choice[1].forEach((opt, k) => rows.push(rowOf(opt[1], t[n.choice[0]] === opt[0], '', choose(n.choice[0], opt[0]), k === 0 && !(n.toggles || []).length)));
+      rows.forEach((r, k) => trows.push(Object.assign(r, { x: n.x + 10, y: n.y + 12 + n.hh + Component.ROWGAP - 1 + k * 26, w: n.w - 20 })));
+      let titleStyle = 'font-size: 12.5px; font-weight: 500; color: ' + C.ink + '; line-height: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
+      let subStyle = 'font-size: 11px; color: ' + C.mid + '; line-height: 1.3; white-space: ' + (n.subNowrap ? 'nowrap; overflow: hidden; text-overflow: ellipsis;' : 'pre-line;');
+      let textBox = '', iconName = n.icon || null, iconColor = C.mid, cls = 'node' + (clickable ? ' clickable' : '');
+      let tagStyle = '';
+      const border = isSel ? C.blue : (upNodes.has(n.id) ? C.blue : (n.warn ? 'rgba(245,165,36,0.5)' : C.hair));
+      if (n.wrap) titleStyle = 'font-size: ' + (view === 'overview' ? '12px' : '12.5px') + '; font-weight: 500; color: ' + C.ink + '; line-height: 16px; white-space: normal; overflow-wrap: break-word; word-break: normal;';
+      if (n.kind === 'entry') {
+        box += 'border: 1px solid ' + border + '; border-radius: 8px; background: ' + C.card + ';';
+        titleStyle = 'font-size: 13px; font-weight: 600; color: ' + C.ink + '; line-height: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
+        iconName = iconName || 'user'; iconColor = '#d6d6d6';
+      } else if (n.kind === 'group') {
+        box += 'border: 1px ' + (n.solid ? 'solid' : 'dashed') + ' ' + (isSel ? C.blue : '#3a3a3a') + '; border-radius: 12px; background: rgba(255,255,255,0.012);';
+        titleStyle = 'font-family: ' + mono + '; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; color: ' + n.hue + ';';
+        subStyle = 'font-size: 11px; color: ' + C.dim + '; margin-top: 2px;';
+        iconName = null; cls = 'node clickable';
+      } else if (n.kind === 'skill') {
+        box += 'border: 1px solid ' + border + '; border-radius: 8px; background: ' + C.card + ';';
+        titleStyle = 'font-family: ' + mono + '; ' + titleStyle;
+        iconName = iconName || 'skill';
+      } else if (n.kind === 'cmd') {
+        box += 'border: 1px dashed ' + ((isSel || upNodes.has(n.id)) ? C.blue : '#4a4a4a') + '; border-radius: 8px; background: ' + C.card + ';';
+        titleStyle = 'font-family: ' + mono + '; ' + titleStyle;
+        iconName = iconName || 'cmd';
+      } else if (n.kind === 'cond') {
+        box += 'border: 1px solid ' + border + '; border-radius: 8px; background: #0e0e12;';
+        titleStyle = titleStyle.replace('white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', '');
+        iconName = 'cond'; iconColor = '#8f8f8f';
+      } else if (n.kind === 'art') {
+        box += 'border: 1px solid ' + border + '; border-radius: 999px; background: #0f0f0f; padding: 0 14px; justify-content: center;';
+        titleStyle = 'font-family: ' + mono + '; font-size: 12px; font-weight: 500; color: #d6d6d6; white-space: nowrap;';
+        iconName = iconName || 'art';
+      } else if (n.kind === 'file') {
+        box += 'border: 1px solid ' + border + '; border-radius: 8px; background: ' + C.card + ';';
+        titleStyle = 'font-family: ' + mono + '; ' + titleStyle;
+        iconName = iconName || 'file';
+      } else if (n.kind === 'note') {
+        box += 'border: 1px solid ' + border + '; border-radius: 8px; background: ' + (n.plain ? 'transparent' : C.card) + ';' + (n.dimmed ? ' opacity: 0.55;' : '');
+        if (n.plain) { titleStyle = 'font-family: ' + mono + '; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: ' + (n.warn ? C.no : C.dim) + '; line-height: 16px;'; subStyle = 'font-size: 11.5px; color: ' + C.mid + '; line-height: 1.3; white-space: pre-line;'; }
+        if (n.helper) { titleStyle = 'font-family: ' + mono + '; font-size: 12px; font-weight: 500; color: ' + C.ink + '; white-space: nowrap; line-height: 16px;'; subStyle = 'font-size: 10.5px; color: ' + C.mid + '; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'; }
+        iconName = iconName || 'note';
+      } else if (n.kind === 'chip') {
+        box = 'left: ' + n.x + 'px; top: ' + n.y + 'px; width: ' + n.w + 'px; height: ' + n.h + 'px; display: flex; flex-direction: column; justify-content: center; padding: 0 10px; border: 1px solid ' + C.hair + '; border-radius: 999px; background: #0f0f0f;';
+        titleStyle = 'font-family: ' + mono + '; font-size: 11px; color: #d6d6d6; white-space: nowrap;'; iconName = null;
+        n.hasTip = true;
+      } else if (n.kind === 'row') {
+        box = 'left: ' + n.x + 'px; top: ' + n.y + 'px; width: ' + n.w + 'px; height: ' + n.h + 'px; display: flex; flex-direction: column; justify-content: center; padding: 0 12px 0 ' + (14 + n.indent * 20) + 'px; border-top: 1px solid ' + (n.first ? 'transparent' : '#1f1f1f') + '; background: ' + (isSel ? 'rgba(0,114,245,0.10)' : 'transparent') + ';';
+        titleStyle = 'font-family: ' + mono + '; font-size: 12px; color: ' + (n.dot ? C.ink : '#bdbdbd') + '; white-space: nowrap;';
+        iconColor = n.dot ? '#bdbdbd' : '#6a6a6a'; cls = 'node clickable';
+      } else if (n.kind === 'jump') {
+        box += 'border: 1px solid ' + n.lead + '; border-radius: 999px; background: ' + n.lead + '17; padding: 0 10px 0 14px; justify-content: center;';
+        titleStyle = 'font-size: 12.5px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: ' + n.lead + '; white-space: nowrap; line-height: 16px;';
+        headStyle = 'align-items: center;';
+        iconName = null; cls = 'node clickable pill';
+      } else if (n.kind === 'door') {
+        box += 'border: 1px dashed #3a3a3a; border-radius: 8px; background: transparent;';
+        titleStyle = 'font-family: ' + mono + '; font-size: 12px; color: ' + C.mid + '; white-space: nowrap;'; subStyle = 'font-size: 10.5px; color: ' + C.dim + '; margin-top: 1px;';
+        iconName = 'cond'; iconColor = C.dim; cls = 'node clickable';
+      } else if (n.kind === 'bracket') {
+        box = 'left: ' + n.x + 'px; top: ' + n.y + 'px; width: ' + n.w + 'px; height: ' + n.h + 'px; border: 1px solid #3a3a3a; border-right: none; border-radius: 6px 0 0 6px; padding: 0;';
+        iconName = null; cls = 'node';
+      }
+      if (n.tag) tagStyle = 'font-family: ' + mono + '; font-size: 10px; padding: 2px 7px; border-radius: 999px; border: 1px solid ' + (n.view || n.join ? 'rgba(138,184,255,0.45)' : C.hair) + '; color: ' + (n.view || n.join ? '#8ab8ff' : C.mid) + '; white-space: nowrap; flex: 0 0 auto;' + (n.kind === 'row' ? ' margin-left: auto;' : '');
+      const pick = () => {
+        if (n.pickOverride) { n.pickOverride(); return; }
+        if (view === 'overview') {
+          if (n.view) this.setState({ view: n.view, sel: n.target || null });
+          return;
+        }
+        if (n.view && !D[n.id]) { this.setState({ view: n.view, sel: null }); return; }
+        if (n.view && n.tag) { this.setState({ view: n.view, sel: null }); return; }
+        this.setState({ sel: sel === n.id ? null : n.id });
+      };
+      return {
+        id: n.id, cls: cls + selCls, box, headStyle, rows, titleStyle, subStyle, textBox, title: (n.kind === 'entry' || (n.kind === 'note' && !n.helper)) ? cap(n.title) : n.title, sub: cap(n.sub), hasSub: !!n.sub, hasIcon: !!iconName, icon: iconName ? I[iconName] : '', iconColor,
+        hasLead: false, lead: n.lead || '', hasArrow: n.kind === 'jump',
+        io: (n.io || []).map((k, i) => ({ label: k[0], value: k[1], mt: i === 0 ? 10 : 6 })),
+        hasDot: view !== 'overview' && (n.kind === 'skill' || n.kind === 'cmd' || n.kind === 'file' || n.kind === 'note' || n.kind === 'entry'), dotOpacity: isSel ? 1 : 0,
+        hasTag: !!n.tag && !n.tagBelow, hasTagBelow: !!n.tag && !!n.tagBelow, tag: n.tag || '', tagStyle: tagStyle + (n.tagBelow ? ' margin-top: 4px; display: inline-block; align-self: flex-start;' : ''), selected: isSel && n.kind !== 'row' && n.kind !== 'group', pick
+      };
+    });
+
+    // edges and their labels
+    const edges = [], labels = [];
+    visibleEdges.forEach((e) => {
+      const pts = Component.snap(e.pts.map((p) => [p[0] + DX, p[1] + DY]));
+      const touches = sel && (e.to === sel || upEdges.has(e) || (e.from === sel && e.loop));
+      const stroke = touches ? C.blue : (e.color && e.sw ? e.color : C.edge);
+      edges.push({ d: Component.pathFrom(pts), head: e.skipHead ? '' : Component.head(pts), stroke, sw: e.sw || (touches ? 2 : 1.5), dash: e.dash || 'none' });
+      if (e.label) {
+        const at = e.at ? [e.at[0] + DX, e.at[1] + DY] : Component.mid(pts);
+        labels.push({ x: at[0], y: at[1], hasChip: false, chip: '', chipColor: C.mid, chipBorder: C.hair, hasText: true, text: e.label, color: touches ? '#b3d0ff' : (e.color && !e.sw ? e.color : C.mid) });
+      }
+    });
+
+    // header
+    const titles = { overview: 'the lifecycle', define: 'Define', plan: 'Plan', build: 'Build', review: 'Review', release: 'Release', record: 'The record' };
+    const order = ['define', 'plan', 'build', 'review', 'release', 'record'];
+    const strip = order.map((v, i) => ({
+      label: v.toUpperCase(), pick: goto(v, null), color: view === v ? C.ink : C.dim, dot: view === v || view === 'overview' ? C.hue[v] : '#3a3a3a', glow: view === v ? '0 0 0 3px ' + C.hue[v] + '33' : 'none', lineOpacity: i < order.length - 1 ? 1 : 0
+    }));
+    let modes = [], hasModes = false;
+    const modeBtn = (label, on, pick) => ({ label, pick, bg: on ? '#1f1f1f' : 'transparent', color: on ? C.ink : C.dim });
+    if (view === 'plan') { hasModes = true; modes = [modeBtn('a new plan', st.planMode === 'new', () => this.setState({ planMode: 'new', sel: null })), modeBtn('continue PLAN-NNN', st.planMode === 'continue', () => this.setState({ planMode: 'continue', sel: null }))]; }
+    if (view === 'build') { hasModes = true; modes = [modeBtn('one task', st.buildMode === 'one', () => this.setState({ buildMode: 'one', sel: null })), modeBtn('auto', st.buildMode === 'auto', () => this.setState({ buildMode: 'auto', sel: null })), modeBtn('concurrent', st.buildMode === 'concurrent', () => this.setState({ buildMode: 'concurrent', sel: null }))]; }
+    const subtitle = view === 'overview' ? 'Five stages, four handoffs, two loops — and the record every stage writes into. Click a stage, a skill, or the record.' : (model.subtitle || '');
+
+    // the panel
+    const hasPanel = view !== 'overview';
+    let p = { icon: I.note, name: '', kind: '', closable: false, hasPath: false, path: '', one: '', rows: [], hasCalls: false, calls: [], hasList: false, listTitle: '', list: [], hasTrace: false, traceUrl: '', traceLabel: '' };
+    if (hasPanel) {
+      const d = sel ? D[sel] : null;
+      const node = sel ? visibleNodes.find((x) => x.id === sel) : null;
+      if (d) {
+        const kindIcon = { skill: I.skill, command: I.cmd, act: I.log, condition: I.cond, artifact: I.art, file: I.file, stage: I.folder, directory: I.folder, entry: I.log, 'join key': I.link, pointer: I.pen, teammate: I.branch, mechanism: I.queue, step: I.note, loop: I.loop, status: I.flag, invariant: I.check, helpers: I.team, reader: I.link, tool: I.loop, heading: I.note, state: I.note };
+        const ids = new Set(visibleNodes.map((x) => x.id));
+        p = {
+          icon: kindIcon[d.kind] || I.note, name: node ? node.title : sel, kind: d.kind, closable: true, hasPath: !!d.path, path: d.path || '', one: d.one,
+          rows: (d.rows || []).map((r) => ({ k: r[0], v: r[1] })).concat(((node && node.toggles) || []).map((tg) => { const cd = D[tg[2]] || { one: '', rows: [] }; return { k: 'decides', v: tg[1] + ' — ' + cd.one + '\n' + (cd.rows || []).map((r) => r[0] + ' → ' + r[1]).join('\n') }; })).concat(node && node.choice && D[node.choice[2]] ? [{ k: 'routes', v: D[node.choice[2]].one + '\n' + (D[node.choice[2]].rows || []).map((r) => r[0] + ' → ' + r[1]).join('\n') }] : []),
+          hasCalls: !!(d.calls && d.calls.length), calls: (d.calls || []).map((c) => { const target = c[2] && ids.has(c[2]) ? c[2] : null; return { name: c[0], when: c[1], jumpable: !!target, plain: !target, pick: target ? () => this.setState({ sel: target }) : () => {} }; }),
+          hasList: false, listTitle: '', list: [],
+          hasTrace: !!d.trace, traceUrl: d.trace ? d.trace[1] : '', traceLabel: d.trace ? d.trace[0] : ''
+        };
+      } else {
+        const summaries = {
+          define: ['An idea enters; the approved document leaves.', [['enters', 'someone wants something built — or an existing plan, spec or decision to stress-test'], ['leaves', 'PRD-NNN.md with its Plans table, or a tracker spec — by the resolution order'], ['decides', 'needs refinement · several capabilities · where requirements live']]],
+          plan: ['The approved document enters; a plan of parts leaves — or, by the other door, the brief.', [['enters', 'the document on disk, or a typed /brain:plan PLAN-NNN'], ['leaves', 'PLAN-NNN.md with every part planned; the brief, as the entire reply'], ['decides', 'a plan exists · fits one window · approved · a part in progress · what comes next']]],
+          build: ['A plan with a part in progress enters; a clean converge leaves.', [['enters', 'the part in progress and its first unticked task, by the resolution order'], ['leaves', 'every part done and nothing owed — or the misses appended as tasks'], ['gates', 'the tick: Correctness + Quality · the part’s close: Integration + Documentation · the plan’s close: converge']]],
+          review: ['A clean converge enters; no findings leaves.', [['enters', 'the built work'], ['leaves', 'no findings — the fixes having run through Build’s loop']]],
+          release: ['No findings enters; the release leaves.', [['enters', 'the reviewed work'], ['leaves', 'a tag, notes, the plan and PRD row marked done']]],
+          record: ['One file per level; the status line is the pointer; the sha is the join key.', [['levels', 'PRD → PLAN → Part → SES'], ['acts', 'start · log · close — the session skill writes the record; /brain:plan reads it']]]
+        };
+        const s = summaries[view];
+        const listable = visibleNodes.filter((x) => D[x.id] && (x.kind === 'skill' || x.kind === 'cmd' || x.kind === 'entry'));
+        p = {
+          icon: I.folder, name: titles[view], kind: view === 'record' ? 'docs/' : 'stage', closable: false, hasPath: false, path: '', one: s[0], rows: s[1].map((r) => ({ k: r[0], v: r[1] })),
+          hasCalls: false, calls: [], hasList: listable.length > 0 && view !== 'record', listTitle: view === 'record' ? 'the rows' : 'in this stage — click one', list: listable.map((x) => ({ name: x.title, one: D[x.id].one.length > 70 ? D[x.id].one.slice(0, 70).replace(/\s\S*$/, '') + '…' : D[x.id].one, pick: () => this.setState({ sel: x.id }) })),
+          hasTrace: false, traceUrl: '', traceLabel: ''
+        };
+      }
+    }
+
+    this.scheduleMeasure();
+    return {
+      title: titles[view], showBack: view !== 'overview', goOverview: goto('overview', null), hasBadge: view === 'build' && st.buildMode === 'concurrent', badge: 'pending · Part 7 Task 2',
+      strip, hasModes, modes, subtitle,
+      nodes, edges, labels, trows,
+      hasPanel, p, clearSel: () => this.setState({ sel: null }),
+      hint: view === 'overview' ? 'as built through PLAN-005 Part 6 · 2026-08-31' : 'click a card for its anatomy; flip a switch to draw the other branch'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -185,3 +185,11 @@ Part 5 (diagnosing-bugs) ──────────────────�
   trace (https://claude.ai/code/artifact/0485571a-4c06-4a33-9fe6-bcda0c1f756a) are its
   companions; `docs/brain-lifecycle.svg` is the still. Whether any page is saved into `docs/`
   is Part 8's closure call.
+- **The interactive lifecycle map** (2026-09-01, SES-014's second stream): the outline's content
+  rebuilt as an interactive flow diagram in the Vercel-docs idiom — a design canvas
+  (https://claude.ai/code/artifact/f5e4791d-df1e-425c-a020-80b6dfacf371) and a full-page artifact
+  built from the same source (https://claude.ai/code/artifact/339710f7-5d62-40a4-aac5-d2c9c3ec2f76).
+  Source and build steps under `docs/lifecycle/` (its README is the handover). Define is the
+  reference stage — Idea → interview-me (Needs refinement) → idea-refine / writing-specs (Several
+  capabilities · Still fog) → the PLAN pill; INPUT / OUTPUT rows are on Define and the planner only,
+  carrying them through the other stages is the open thread. Placement stays Part 8's call.
