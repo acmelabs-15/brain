@@ -88,23 +88,23 @@
 | references/performance-checklist.md | 13139 | doc | [x] |
 | references/orchestration-patterns.md | 18201 | doc | [x] |
 | references/testing-patterns.md | 7460 | doc | [x] |
-| references/security-checklist.md | 11881 | doc | [ ] |
-| references/accessibility-checklist.md | 5206 | doc | [ ] |
-| references/definition-of-done.md | 3798 | doc | [ ] |
-| .opencode/skills | 864 | file | [ ] |
-| .agents/plugins/marketplace.json | 535 | config | [ ] |
-| .claude/rules/skills-contributing.md | 988 | doc | [ ] |
-| .claude/commands/ship.md | 4601 | command | [ ] |
-| .claude/commands/constraints.md | 2762 | command | [ ] |
-| .claude/commands/code-simplify.md | 1068 | command | [ ] |
-| .claude/commands/build.md | 3959 | command | [ ] |
-| .claude/commands/plan.md | 805 | command | [ ] |
-| .claude/commands/spec.md | 913 | command | [ ] |
-| .claude/commands/review.md | 846 | command | [ ] |
-| .claude/commands/test.md | 665 | command | [ ] |
-| .claude/commands/webperf.md | 1974 | command | [ ] |
-| agents/code-reviewer.md | 3995 | agent | [ ] |
-| agents/test-engineer.md | 3275 | agent | [ ] |
+| references/security-checklist.md | 11881 | doc | [x] |
+| references/accessibility-checklist.md | 5206 | doc | [x] |
+| references/definition-of-done.md | 3798 | doc | [x] |
+| .opencode/skills | 864 | file | [x] |
+| .agents/plugins/marketplace.json | 535 | config | [x] |
+| .claude/rules/skills-contributing.md | 988 | doc | [x] |
+| .claude/commands/ship.md | 4601 | command | [x] |
+| .claude/commands/constraints.md | 2762 | command | [x] |
+| .claude/commands/code-simplify.md | 1068 | command | [x] |
+| .claude/commands/build.md | 3959 | command | [x] |
+| .claude/commands/plan.md | 805 | command | [x] |
+| .claude/commands/spec.md | 913 | command | [x] |
+| .claude/commands/review.md | 846 | command | [x] |
+| .claude/commands/test.md | 665 | command | [x] |
+| .claude/commands/webperf.md | 1974 | command | [x] |
+| agents/code-reviewer.md | 3995 | agent | [x] |
+| agents/test-engineer.md | 3275 | agent | [x] |
 | agents/web-performance-auditor.md | 12278 | agent | [ ] |
 | agents/security-auditor.md | 4992 | agent | [ ] |
 | docs/windsurf-setup.md | 1471 | doc | [ ] |
