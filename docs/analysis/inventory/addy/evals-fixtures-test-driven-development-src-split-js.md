@@ -1,0 +1,61 @@
+---
+package: addy
+path: evals/fixtures/test-driven-development/src/split.js
+type: file
+bytes: 181
+unit: inv-addy-2
+---
+
+# evals/fixtures/test-driven-development/src/split.js
+
+## Purpose — required, verbatim
+> "'use strict';\n\nfunction splitCents(totalCents, n) {\n  const share = Math.floor(totalCents / n);\n  return Array.from({ length: n }, () => share);\n}" — evals/fixtures/test-driven-development/src/split.js:1-6 (no explicit purpose statement)
+
+## Design intent — required
+Implements the initial defective implementation of `splitCents` in the `split-payment` fixture project. It computes `share = Math.floor(totalCents / n)` and creates an array filled uniformly with `share`, failing to distribute remainder cents (`totalCents % n`), providing the code target for the red-green-refactor TDD workflow during evaluations.
+
+## Phase — required
+`addy:VERIFY`
+
+## Inputs — required
+- Arguments to `splitCents(totalCents, n)`:
+  - `totalCents`: non-negative integer amount in cents
+  - `n`: positive integer count of participants
+
+## Outputs — required
+- Exported CommonJS function `splitCents(totalCents, n)` returning an array of integer cent allocations.
+
+## Invokes — required
+none
+
+## Invoked by — required
+- file `evals/fixtures/test-driven-development/test/split.test.js` — evals/fixtures/test-driven-development/test/split.test.js:5
+- config `evals/cases/test-driven-development.json` — evals/cases/test-driven-development.json:34-36, 48-50
+- script `scripts/run-evals.js` — scripts/run-evals.js:389-398
+
+## Concepts named — required, verbatim
+- `splitCents` — evals/fixtures/test-driven-development/src/split.js:3 — defined here
+
+## Structure
+- `function splitCents(totalCents, n)` — line 3
+- `module.exports = { splitCents }` — line 8
+
+## Scripts — required if type is script or the skill ships scripts
+- path: `evals/fixtures/test-driven-development/src/split.js`, language: JavaScript (CommonJS), lines: 9
+- documented invocation: none (imported by `test/split.test.js`)
+- **executed:** yes
+- actual command run: `node -e "const { splitCents } = require('./src/split'); console.log(splitCents(10000, 3));"` (in `sources/addy/evals/fixtures/test-driven-development`)
+- abridged stdout: `[ 3333, 3333, 3333 ]`
+- **actual exit code:** `0`
+- documented exit codes vs actual: none documented; returns array of integers.
+- for validators/gates: not a validator or gate.
+- does output match documentation: Yes, cleanly reproduces the remainder omission described in `BUG.md`.
+
+## Defects — required
+none
+
+## Observations
+The implementation discards `totalCents % n` remainder cents completely by filling every element with `Math.floor(totalCents / n)`.
+
+## Context cost
+181 bytes (~50 tokens) file size. Loaded as part of `evals/fixtures/test-driven-development/` (1,949 bytes total, ~490 tokens).

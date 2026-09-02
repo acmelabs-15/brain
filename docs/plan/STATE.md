@@ -11,8 +11,8 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `1` |
 | **phase_name** | Inventory |
 | **current_unit** | — |
-| **last_session** | 000 |
-| **next_action** | Claim first unit of Phase 1 |
+| **last_session** | 002 |
+| **next_action** | Process inv-addy-3 |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -62,8 +62,8 @@ Populated in Phase 0 (inventory units) and Phase 6 (build units). One row per un
 ### Phase 1 — Inventory units
 
 | Unit | Package | Files | Bytes | Status | Session | Output |
-| inv-addy-1 | addy | 28 | 49827 | pending | — | — |
-| inv-addy-2 | addy | 57 | 44728 | pending | — | — |
+| inv-addy-1 | addy | 28 | 49827 | complete | 002 | docs/analysis/inventory/addy/_units/inv-addy-1.md |
+| inv-addy-2 | addy | 57 | 44728 | complete | 002 | docs/analysis/inventory/addy/_units/inv-addy-2.md |
 | inv-addy-3 | addy | 3 | 38800 | pending | — | — |
 | inv-addy-4 | addy | 17 | 48135 | pending | — | — |
 | inv-addy-5 | addy | 6 | 41922 | pending | — | — |
@@ -431,7 +431,7 @@ Updated at every unit boundary.
 | Metric | Value |
 |---|---|
 | Manifest rows (addy / matt / rjm) | 215 / 167 / 1018 |
-| Rows inventoried (addy / matt / rjm) | 0 / 0 / 0 |
+| Rows inventoried (addy / matt / rjm) | 85 / 0 / 0 |
 | Concept cards (addy / matt / rjm) | 0 / 0 / 0 |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 0 |
 | Decisions (active / superseded / pending-peter) | 8 / 0 / 0 |
