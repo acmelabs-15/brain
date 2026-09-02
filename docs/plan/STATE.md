@@ -10,9 +10,9 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `1` |
 | **phase_name** | Inventory |
-| **current_unit** | `inv-addy-5` |
-| **last_session** | 004 |
-| **next_action** | Process inv-addy-5 |
+| **current_unit** | `inv-addy-6` |
+| **last_session** | 005 |
+| **next_action** | Process inv-addy-6 |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -66,7 +66,7 @@ Populated in Phase 0 (inventory units) and Phase 6 (build units). One row per un
 | inv-addy-2 | addy | 57 | 44728 | complete | 002 | docs/analysis/inventory/addy/_units/inv-addy-2.md |
 | inv-addy-3 | addy | 3 | 38800 | complete | 003 | docs/analysis/inventory/addy/_units/inv-addy-3.md |
 | inv-addy-4 | addy | 17 | 48135 | complete | 004 | docs/analysis/inventory/addy/_units/inv-addy-4.md |
-| inv-addy-5 | addy | 6 | 41922 | pending | — | — |
+| inv-addy-5 | addy | 6 | 41922 | complete | 005 | docs/analysis/inventory/addy/_units/inv-addy-5.md |
 | inv-addy-6 | addy | 5 | 42661 | pending | — | — |
 | inv-addy-7 | addy | 6 | 27981 | pending | — | — |
 | inv-addy-8 | addy | 5 | 49662 | pending | — | — |
@@ -431,7 +431,7 @@ Updated at every unit boundary.
 | Metric | Value |
 |---|---|
 | Manifest rows (addy / matt / rjm) | 215 / 167 / 1018 |
-| Rows inventoried (addy / matt / rjm) | 105 / 0 / 0 |
+| Rows inventoried (addy / matt / rjm) | 111 / 0 / 0 |
 | Concept cards (addy / matt / rjm) | 0 / 0 / 0 |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 0 |
 | Decisions (active / superseded / pending-peter) | 8 / 0 / 0 |

@@ -105,12 +105,12 @@
 | .claude/commands/webperf.md | 1974 | command | [x] |
 | agents/code-reviewer.md | 3995 | agent | [x] |
 | agents/test-engineer.md | 3275 | agent | [x] |
-| agents/web-performance-auditor.md | 12278 | agent | [ ] |
-| agents/security-auditor.md | 4992 | agent | [ ] |
-| docs/windsurf-setup.md | 1471 | doc | [ ] |
-| docs/commandcode-setup.md | 2437 | doc | [ ] |
-| docs/opencode-setup.md | 9547 | doc | [ ] |
-| docs/adoption-guide.md | 11197 | doc | [ ] |
+| agents/web-performance-auditor.md | 12278 | agent | [x] |
+| agents/security-auditor.md | 4992 | agent | [x] |
+| docs/windsurf-setup.md | 1471 | doc | [x] |
+| docs/commandcode-setup.md | 2437 | doc | [x] |
+| docs/opencode-setup.md | 9547 | doc | [x] |
+| docs/adoption-guide.md | 11197 | doc | [x] |
 | docs/comparison.md | 15362 | doc | [ ] |
 | docs/developer-onboarding.md | 7850 | doc | [ ] |
 | docs/getting-started.md | 7104 | doc | [ ] |
