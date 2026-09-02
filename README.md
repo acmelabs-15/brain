@@ -1,10 +1,25 @@
 # brain
 
-A fresh attempt at the combined lifecycle for Claude Code — Define, Plan, Build, Review, Release
-as one plugin. This branch (`lifecycle`) starts from an empty plugin: `agents/`, `commands/`,
-`skills/` and `docs/{analysis,decisions,plan}` are placeholders until the new set lands.
+A development lifecycle for Claude Code, delivered as one plugin.
 
-The previous attempt lives on `main` as it stood on 2026-09-01: the session skill and its tool, the
-composed Define/Plan/Build set (PLAN-005), the docs system of record and its session log, the
-lifecycle map under `docs/lifecycle/`. Nothing of it is installed any more; the ACMElabs marketplace
-lists this repo again only once a `.claude-plugin/plugin.json` exists here.
+## Layout
+
+```
+agents/       agent definitions
+commands/     slash commands
+skills/       skills, one directory each
+docs/
+  analysis/   source analysis and verification
+  decisions/  decision log
+  plan/       method, state, glossary, lifecycle specification
+```
+
+`agents/`, `commands/`, and `skills/` are populated as the lifecycle specification is implemented. The plugin is listed in the ACMElabs marketplace once `.claude-plugin/plugin.json` exists.
+
+## Toolchain
+
+Bun only. `bun install`, `bun test`, `bun run typecheck`. CI runs typecheck and tests on every pull request.
+
+## Working on the lifecycle
+
+See `docs/plan/METHOD.md`.

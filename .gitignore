@@ -46,3 +46,6 @@ coverage/
 .LSOverride
 ._*
 
+
+# pinned source clones, never committed
+sources/
