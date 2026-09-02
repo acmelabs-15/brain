@@ -85,9 +85,9 @@
 | evals/fixtures/documentation-and-adrs/decision-context.md | 757 | doc | [x] |
 | LICENSE | 1068 | file | [x] |
 | references/observability-checklist.md | 4931 | doc | [x] |
-| references/performance-checklist.md | 13139 | doc | [ ] |
-| references/orchestration-patterns.md | 18201 | doc | [ ] |
-| references/testing-patterns.md | 7460 | doc | [ ] |
+| references/performance-checklist.md | 13139 | doc | [x] |
+| references/orchestration-patterns.md | 18201 | doc | [x] |
+| references/testing-patterns.md | 7460 | doc | [x] |
 | references/security-checklist.md | 11881 | doc | [ ] |
 | references/accessibility-checklist.md | 5206 | doc | [ ] |
 | references/definition-of-done.md | 3798 | doc | [ ] |
