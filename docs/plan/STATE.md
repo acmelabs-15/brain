@@ -10,9 +10,9 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `1` |
 | **phase_name** | Inventory |
-| **current_unit** | batch inv-addy-36 to inv-addy-50 |
-| **last_session** | 009 |
-| **next_action** | Process batch inv-addy-36 to 50 (Experimental Run) |
+| **current_unit** | batch inv-addy-36 to inv-addy-50 (blocked) |
+| **last_session** | 010 |
+| **next_action** | Resolve contradictory batch scope before resuming |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -446,7 +446,7 @@ Anything the agent cannot resolve alone. Each row names what Peter needs to do.
 
 | Since | Unit / item | Reason | Needs |
 |---|---|---|---|
-| — | — | — | — |
+| 010 | batch inv-addy-36 to inv-addy-50 | Contradiction between handoff 009 (wants units up to 50) and STATE.md (addy ends at 41) | Clarification from Peter on how to build the 15-unit batch |
 
 ---
 
@@ -456,8 +456,8 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 
 | Check | Last run | Result |
 |---|---|---|
-| coverage.ts | 000 | 1400 unchecked rows |
-| glossary-lint.ts | 000 | clean |
-| last-unit verification | 000 | clean (N/A) |
+| coverage.ts | 010 | 1191 unchecked rows |
+| glossary-lint.ts | 010 | clean |
+| last-unit verification | 010 | clean (inv-addy-35 exists and is valid) |
 | decision consistency (4V) | — | — |
 | traceability | — | — |
