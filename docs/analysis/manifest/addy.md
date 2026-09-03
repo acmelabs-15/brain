@@ -111,36 +111,36 @@
 | docs/commandcode-setup.md | 2437 | doc | [x] |
 | docs/opencode-setup.md | 9547 | doc | [x] |
 | docs/adoption-guide.md | 11197 | doc | [x] |
-| docs/comparison.md | 15362 | doc | [ ] |
-| docs/developer-onboarding.md | 7850 | doc | [ ] |
-| docs/getting-started.md | 7104 | doc | [ ] |
-| docs/copilot-setup.md | 3496 | doc | [ ] |
-| docs/skill-anatomy.md | 8849 | doc | [ ] |
-| docs/cursor-setup.md | 8370 | doc | [ ] |
-| docs/antigravity-setup.md | 5041 | doc | [ ] |
-| docs/codex-setup.md | 1805 | doc | [ ] |
-| docs/agents.md | 6996 | doc | [ ] |
-| docs/gemini-cli-setup.md | 5640 | doc | [ ] |
-| plugin.json | 129 | config | [ ] |
-| README.md | 25223 | doc | [ ] |
-| CONTRIBUTING.md | 7179 | doc | [ ] |
-| hooks/SIMPLIFY-IGNORE.md | 3863 | doc | [ ] |
-| hooks/simplify-ignore.sh | 12173 | file | [ ] |
-| hooks/session-start-test.sh | 1224 | file | [ ] |
-| hooks/sdd-cache-post.sh | 4567 | file | [ ] |
-| hooks/sdd-cache-pre.sh | 4261 | file | [ ] |
-| hooks/session-start.sh | 1392 | file | [ ] |
-| hooks/simplify-ignore-test.sh | 8709 | file | [ ] |
-| hooks/SDD-CACHE.md | 8398 | doc | [ ] |
-| hooks/hooks.json | 364 | config | [ ] |
-| scripts/validate-reference-links-test.js | 5666 | script | [ ] |
-| scripts/validate-reference-links.js | 3832 | script | [ ] |
-| scripts/validate-artifact-paths.js | 4102 | script | [ ] |
-| scripts/validate-versions-test.js | 957 | script | [ ] |
-| scripts/run-evals.js | 24129 | script | [ ] |
-| scripts/validate-commands-test.js | 5471 | script | [ ] |
-| scripts/run-evals-test.js | 10378 | script | [ ] |
-| scripts/validate-skills.js | 2401 | script | [ ] |
+| docs/comparison.md | 15362 | doc | [x] |
+| docs/developer-onboarding.md | 7850 | doc | [x] |
+| docs/getting-started.md | 7104 | doc | [x] |
+| docs/copilot-setup.md | 3496 | doc | [x] |
+| docs/skill-anatomy.md | 8849 | doc | [x] |
+| docs/cursor-setup.md | 8370 | doc | [x] |
+| docs/antigravity-setup.md | 5041 | doc | [x] |
+| docs/codex-setup.md | 1805 | doc | [x] |
+| docs/agents.md | 6996 | doc | [x] |
+| docs/gemini-cli-setup.md | 5640 | doc | [x] |
+| plugin.json | 129 | config | [x] |
+| README.md | 25223 | doc | [x] |
+| CONTRIBUTING.md | 7179 | doc | [x] |
+| hooks/SIMPLIFY-IGNORE.md | 3863 | doc | [x] |
+| hooks/simplify-ignore.sh | 12173 | file | [x] |
+| hooks/session-start-test.sh | 1224 | file | [x] |
+| hooks/sdd-cache-post.sh | 4567 | file | [x] |
+| hooks/sdd-cache-pre.sh | 4261 | file | [x] |
+| hooks/session-start.sh | 1392 | file | [x] |
+| hooks/simplify-ignore-test.sh | 8709 | file | [x] |
+| hooks/SDD-CACHE.md | 8398 | doc | [x] |
+| hooks/hooks.json | 364 | config | [x] |
+| scripts/validate-reference-links-test.js | 5666 | script | [x] |
+| scripts/validate-reference-links.js | 3832 | script | [x] |
+| scripts/validate-artifact-paths.js | 4102 | script | [x] |
+| scripts/validate-versions-test.js | 957 | script | [x] |
+| scripts/run-evals.js | 24129 | script | [x] |
+| scripts/validate-commands-test.js | 5471 | script | [x] |
+| scripts/run-evals-test.js | 10378 | script | [x] |
+| scripts/validate-skills.js | 2401 | script | [x] |
 | scripts/lib/skill-lint.js | 11808 | script | [ ] |
 | scripts/lib/skill-lint-test.js | 4645 | script | [ ] |
 | scripts/validate-versions.js | 949 | script | [ ] |
