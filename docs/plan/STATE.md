@@ -12,7 +12,7 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase_name** | Inventory |
 | **current_unit** | `inv-addy-6` |
 | **last_session** | 006 |
-| **next_action** | Process batch inv-addy-11 to 15 |
+| **next_action** | Process batch inv-addy-16 to 20 |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -77,11 +77,11 @@ Populated in Phase 0 (inventory units) and Phase 6 (build units). One row per un
 | inv-addy-13 | addy | 4 | 48310 | complete | 006 | docs/analysis/inventory/addy/_units/inv-addy-13.md |
 | inv-addy-14 | addy | 4 | 46793 | complete | 006 | docs/analysis/inventory/addy/_units/inv-addy-14.md |
 | inv-addy-15 | addy | 4 | 38862 | complete | 006 | docs/analysis/inventory/addy/_units/inv-addy-15.md |
-| inv-addy-16 | addy | 2 | 41435 | pending | — | — |
-| inv-addy-17 | addy | 3 | 47761 | pending | — | — |
-| inv-addy-18 | addy | 3 | 44403 | pending | — | — |
-| inv-addy-19 | addy | 3 | 46205 | pending | — | — |
-| inv-addy-20 | addy | 5 | 34444 | pending | — | — |
+| inv-addy-16 | addy | 2 | 41435 | in-progress | 006 | — |
+| inv-addy-17 | addy | 3 | 47761 | in-progress | 006 | — |
+| inv-addy-18 | addy | 3 | 44403 | in-progress | 006 | — |
+| inv-addy-19 | addy | 3 | 46205 | in-progress | 006 | — |
+| inv-addy-20 | addy | 5 | 34444 | in-progress | 006 | — |
 | inv-addy-21 | addy | 2 | 48648 | pending | — | — |
 | inv-addy-22 | addy | 2 | 48438 | pending | — | — |
 | inv-addy-23 | addy | 2 | 48771 | pending | — | — |
