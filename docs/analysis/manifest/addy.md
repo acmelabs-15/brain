@@ -198,12 +198,12 @@
 | ../addy-external/incremental-implementation.md | 26461 | external-doc | [x] |
 | ../addy-external/api-and-interface-design.md | 26413 | external-doc | [x] |
 | ../addy-external/ci-cd-and-automation.md | 26179 | external-doc | [x] |
-| ../addy-external/context-engineering.md | 26352 | external-doc | [ ] |
-| ../addy-external/frontend-ui-engineering.md | 26596 | external-doc | [ ] |
-| ../addy-external/shipping-and-launch.md | 26336 | external-doc | [ ] |
-| ../addy-external/spec-driven-development.md | 25104 | external-doc | [ ] |
-| ../addy-external/constraint-driven-development.md | 0 | external-doc | [ ] (unavailable) |
-| ../addy-external/code-review-and-quality.md | 26687 | external-doc | [ ] |
+| ../addy-external/context-engineering.md | 26352 | external-doc | [x] |
+| ../addy-external/frontend-ui-engineering.md | 26596 | external-doc | [x] |
+| ../addy-external/shipping-and-launch.md | 26336 | external-doc | [x] |
+| ../addy-external/spec-driven-development.md | 25104 | external-doc | [x] |
+| ../addy-external/constraint-driven-development.md | 0 | external-doc | [x] (unavailable) |
+| ../addy-external/code-review-and-quality.md | 26687 | external-doc | [x] |
 | ../addy-external/security-and-hardening.md | 26475 | external-doc | [ ] |
 | ../addy-external/deprecation-and-migration.md | 26252 | external-doc | [ ] |
 | ../addy-external/observability-and-instrumentation.md | 26344 | external-doc | [ ] |

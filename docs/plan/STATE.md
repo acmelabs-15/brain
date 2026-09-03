@@ -10,9 +10,9 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `1` |
 | **phase_name** | Inventory |
-| **current_unit** | `inv-addy-22` |
-| **last_session** | 006 |
-| **next_action** | Process batch inv-addy-21 to 25 |
+| **current_unit** | batch inv-addy-31 to inv-addy-35 |
+| **last_session** | 008 |
+| **next_action** | Process batch inv-addy-31 to 35 |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -87,11 +87,11 @@ Populated in Phase 0 (inventory units) and Phase 6 (build units). One row per un
 | inv-addy-23 | addy | 2 | 48771 | complete | 007 | docs/analysis/inventory/addy/_units/inv-addy-23.md |
 | inv-addy-24 | addy | 1 | 26413 | complete | 007 | docs/analysis/inventory/addy/_units/inv-addy-24.md |
 | inv-addy-25 | addy | 1 | 26179 | complete | 007 | docs/analysis/inventory/addy/_units/inv-addy-25.md |
-| inv-addy-26 | addy | 1 | 26352 | pending | — | — |
-| inv-addy-27 | addy | 1 | 26596 | pending | — | — |
-| inv-addy-28 | addy | 1 | 26336 | pending | — | — |
-| inv-addy-29 | addy | 2 | 25104 | pending | — | — |
-| inv-addy-30 | addy | 1 | 26687 | pending | — | — |
+| inv-addy-26 | addy | 1 | 26352 | complete | 008 | docs/analysis/inventory/addy/_units/inv-addy-26.md |
+| inv-addy-27 | addy | 1 | 26596 | complete | 008 | docs/analysis/inventory/addy/_units/inv-addy-27.md |
+| inv-addy-28 | addy | 1 | 26336 | complete | 008 | docs/analysis/inventory/addy/_units/inv-addy-28.md |
+| inv-addy-29 | addy | 2 | 25104 | complete | 008 | docs/analysis/inventory/addy/_units/inv-addy-29.md |
+| inv-addy-30 | addy | 1 | 26687 | complete | 008 | docs/analysis/inventory/addy/_units/inv-addy-30.md |
 | inv-addy-31 | addy | 1 | 26475 | pending | — | — |
 | inv-addy-32 | addy | 1 | 26252 | pending | — | — |
 | inv-addy-33 | addy | 1 | 26344 | pending | — | — |
@@ -431,7 +431,7 @@ Updated at every unit boundary.
 | Metric | Value |
 |---|---|
 | Manifest rows (addy / matt / rjm) | 215 / 167 / 1018 |
-| Rows inventoried (addy / matt / rjm) | 198 / 0 / 0 |
+| Rows inventoried (addy / matt / rjm) | 204 / 0 / 0 |
 | Concept cards (addy / matt / rjm) | 0 / 0 / 0 |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 0 |
 | Decisions (active / superseded / pending-peter) | 8 / 0 / 0 |
