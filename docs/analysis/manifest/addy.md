@@ -204,11 +204,11 @@
 | ../addy-external/spec-driven-development.md | 25104 | external-doc | [x] |
 | ../addy-external/constraint-driven-development.md | 0 | external-doc | [x] (unavailable) |
 | ../addy-external/code-review-and-quality.md | 26687 | external-doc | [x] |
-| ../addy-external/security-and-hardening.md | 26475 | external-doc | [ ] |
-| ../addy-external/deprecation-and-migration.md | 26252 | external-doc | [ ] |
-| ../addy-external/observability-and-instrumentation.md | 26344 | external-doc | [ ] |
-| ../addy-external/interview-me.md | 24935 | external-doc | [ ] |
-| ../addy-external/code-simplification.md | 26320 | external-doc | [ ] |
+| ../addy-external/security-and-hardening.md | 26475 | external-doc | [x] |
+| ../addy-external/deprecation-and-migration.md | 26252 | external-doc | [x] |
+| ../addy-external/observability-and-instrumentation.md | 26344 | external-doc | [x] |
+| ../addy-external/interview-me.md | 24935 | external-doc | [x] |
+| ../addy-external/code-simplification.md | 26320 | external-doc | [x] |
 | ../addy-external/doubt-driven-development.md | 26502 | external-doc | [ ] |
 | ../addy-external/source-driven-development.md | 26358 | external-doc | [ ] |
 | ../addy-external/performance-optimization.md | 26603 | external-doc | [ ] |
