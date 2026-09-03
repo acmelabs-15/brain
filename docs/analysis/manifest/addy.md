@@ -174,22 +174,22 @@
 | skills/shipping-and-launch/SKILL.md | 10137 | skill | [x] |
 | skills/spec-driven-development/SKILL.md | 12163 | skill | [x] |
 | skills/constraint-driven-development/references/floor-guard.md | 5851 | reference | [x] |
-| skills/constraint-driven-development/SKILL.md | 20880 | skill | [ ] |
-| skills/code-review-and-quality/SKILL.md | 20555 | skill | [ ] |
-| skills/security-and-hardening/SKILL.md | 24192 | skill | [ ] |
-| skills/deprecation-and-migration/SKILL.md | 12516 | skill | [ ] |
-| skills/observability-and-instrumentation/SKILL.md | 11053 | skill | [ ] |
-| skills/interview-me/SKILL.md | 14359 | skill | [ ] |
-| skills/code-simplification/SKILL.md | 13545 | skill | [ ] |
-| skills/doubt-driven-development/SKILL.md | 16499 | skill | [ ] |
-| skills/source-driven-development/SKILL.md | 9949 | skill | [ ] |
-| skills/performance-optimization/SKILL.md | 21717 | skill | [ ] |
-| skills/browser-testing-with-devtools/SKILL.md | 14539 | skill | [ ] |
-| skills/git-workflow-and-versioning/SKILL.md | 14063 | skill | [ ] |
-| skills/documentation-and-adrs/SKILL.md | 9782 | skill | [ ] |
-| AGENTS.md | 5386 | doc | [ ] |
-| .codex-plugin/plugin.json | 1119 | config | [ ] |
-| CLAUDE.md | 4094 | doc | [ ] |
+| skills/constraint-driven-development/SKILL.md | 20880 | skill | [x] |
+| skills/code-review-and-quality/SKILL.md | 20555 | skill | [x] |
+| skills/security-and-hardening/SKILL.md | 24192 | skill | [x] |
+| skills/deprecation-and-migration/SKILL.md | 12516 | skill | [x] |
+| skills/observability-and-instrumentation/SKILL.md | 11053 | skill | [x] |
+| skills/interview-me/SKILL.md | 14359 | skill | [x] |
+| skills/code-simplification/SKILL.md | 13545 | skill | [x] |
+| skills/doubt-driven-development/SKILL.md | 16499 | skill | [x] |
+| skills/source-driven-development/SKILL.md | 9949 | skill | [x] |
+| skills/performance-optimization/SKILL.md | 21717 | skill | [x] |
+| skills/browser-testing-with-devtools/SKILL.md | 14539 | skill | [x] |
+| skills/git-workflow-and-versioning/SKILL.md | 14063 | skill | [x] |
+| skills/documentation-and-adrs/SKILL.md | 9782 | skill | [x] |
+| AGENTS.md | 5386 | doc | [x] |
+| .codex-plugin/plugin.json | 1119 | config | [x] |
+| CLAUDE.md | 4094 | doc | [x] |
 | ../addy-external/idea-refine.md | 24943 | external-doc | [ ] |
 | ../addy-external/debugging-and-error-recovery.md | 23705 | external-doc | [ ] |
 | ../addy-external/using-agent-skills.md | 21955 | external-doc | [ ] |
