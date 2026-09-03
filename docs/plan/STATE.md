@@ -10,7 +10,7 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `1` |
 | **phase_name** | Inventory |
-| **current_unit** | `inv-addy-21` |
+| **current_unit** | `inv-addy-22` |
 | **last_session** | 006 |
 | **next_action** | Process batch inv-addy-21 to 25 |
 | **human_approval** | `PENDING` |
@@ -82,11 +82,11 @@ Populated in Phase 0 (inventory units) and Phase 6 (build units). One row per un
 | inv-addy-18 | addy | 3 | 44403 | complete | 006 | docs/analysis/inventory/addy/_units/inv-addy-18.md |
 | inv-addy-19 | addy | 3 | 46205 | complete | 006 | docs/analysis/inventory/addy/_units/inv-addy-19.md |
 | inv-addy-20 | addy | 5 | 34444 | complete | 006 | docs/analysis/inventory/addy/_units/inv-addy-20.md |
-| inv-addy-21 | addy | 2 | 48648 | pending | — | — |
-| inv-addy-22 | addy | 2 | 48438 | pending | — | — |
-| inv-addy-23 | addy | 2 | 48771 | pending | — | — |
-| inv-addy-24 | addy | 1 | 26413 | pending | — | — |
-| inv-addy-25 | addy | 1 | 26179 | pending | — | — |
+| inv-addy-21 | addy | 2 | 48648 | complete | 007 | docs/analysis/inventory/addy/_units/inv-addy-21.md |
+| inv-addy-22 | addy | 2 | 48438 | complete | 007 | docs/analysis/inventory/addy/_units/inv-addy-22.md |
+| inv-addy-23 | addy | 2 | 48771 | complete | 007 | docs/analysis/inventory/addy/_units/inv-addy-23.md |
+| inv-addy-24 | addy | 1 | 26413 | complete | 007 | docs/analysis/inventory/addy/_units/inv-addy-24.md |
+| inv-addy-25 | addy | 1 | 26179 | complete | 007 | docs/analysis/inventory/addy/_units/inv-addy-25.md |
 | inv-addy-26 | addy | 1 | 26352 | pending | — | — |
 | inv-addy-27 | addy | 1 | 26596 | pending | — | — |
 | inv-addy-28 | addy | 1 | 26336 | pending | — | — |
@@ -431,7 +431,7 @@ Updated at every unit boundary.
 | Metric | Value |
 |---|---|
 | Manifest rows (addy / matt / rjm) | 215 / 167 / 1018 |
-| Rows inventoried (addy / matt / rjm) | 190 / 0 / 0 |
+| Rows inventoried (addy / matt / rjm) | 198 / 0 / 0 |
 | Concept cards (addy / matt / rjm) | 0 / 0 / 0 |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 0 |
 | Decisions (active / superseded / pending-peter) | 8 / 0 / 0 |

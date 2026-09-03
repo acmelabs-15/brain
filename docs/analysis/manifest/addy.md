@@ -190,14 +190,14 @@
 | AGENTS.md | 5386 | doc | [x] |
 | .codex-plugin/plugin.json | 1119 | config | [x] |
 | CLAUDE.md | 4094 | doc | [x] |
-| ../addy-external/idea-refine.md | 24943 | external-doc | [ ] |
-| ../addy-external/debugging-and-error-recovery.md | 23705 | external-doc | [ ] |
-| ../addy-external/using-agent-skills.md | 21955 | external-doc | [ ] |
-| ../addy-external/test-driven-development.md | 26483 | external-doc | [ ] |
-| ../addy-external/planning-and-task-breakdown.md | 22310 | external-doc | [ ] |
-| ../addy-external/incremental-implementation.md | 26461 | external-doc | [ ] |
-| ../addy-external/api-and-interface-design.md | 26413 | external-doc | [ ] |
-| ../addy-external/ci-cd-and-automation.md | 26179 | external-doc | [ ] |
+| ../addy-external/idea-refine.md | 24943 | external-doc | [x] |
+| ../addy-external/debugging-and-error-recovery.md | 23705 | external-doc | [x] |
+| ../addy-external/using-agent-skills.md | 21955 | external-doc | [x] |
+| ../addy-external/test-driven-development.md | 26483 | external-doc | [x] |
+| ../addy-external/planning-and-task-breakdown.md | 22310 | external-doc | [x] |
+| ../addy-external/incremental-implementation.md | 26461 | external-doc | [x] |
+| ../addy-external/api-and-interface-design.md | 26413 | external-doc | [x] |
+| ../addy-external/ci-cd-and-automation.md | 26179 | external-doc | [x] |
 | ../addy-external/context-engineering.md | 26352 | external-doc | [ ] |
 | ../addy-external/frontend-ui-engineering.md | 26596 | external-doc | [ ] |
 | ../addy-external/shipping-and-launch.md | 26336 | external-doc | [ ] |

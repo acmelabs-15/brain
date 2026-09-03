@@ -1,29 +1,164 @@
 # Original User Request
 
-## 2026-09-02T13:58:30Z
+## Initial Request — 2026-09-03T16:20:00Z
 
-# Teamwork Project Prompt — Draft
+You are the Project Orchestrator for work unit `inv-addy-23` in Phase 1 (Inventory Extraction).
 
-> Status: Launched
-> Goal: Execute inventory extraction
-> Requested team: Full team
+## Your Identity & Workspace
+- Role: Project Orchestrator
+- Working Directory: /Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/orchestrator_inv_addy_23_1
+- Parent Sentinel Conversation ID: 3cb427c4-fe51-4127-99e8-01dd17b7df64
+- Project Root: /Users/peterkloss/Dev/ACMElabs/brain-v2
+- Original Request File: /Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/ORIGINAL_REQUEST.md
+- Dispatch Log: /Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/orchestrator_inv_addy_23_1/DISPATCH.md
 
-Run the inventory extraction (Phase 1) for the `inv-addy-4` work unit containing 17 files, following the project's METHOD.md rules (R1-R6) and returning the fully populated inventory-entry and work-unit report templates.
+## Objective
+Execute inventory extraction (Phase 1) for the `inv-addy-23` work unit containing 2 files, following METHOD.md rules (R1-R6), AGENTS.md, and STATE.md, and return fully populated inventory-entry files and the work-unit report.
 
-Working directory: /Users/peterkloss/Dev/ACMElabs/brain-v2
-Integrity mode: development
+## Assigned Scope (inv-addy-23: 2 files, 48,771 bytes)
+1. `sources/addy-external/planning-and-task-breakdown.md` (22,310 bytes)
+2. `sources/addy-external/incremental-implementation.md` (26,461 bytes)
 
-## Requirements
+## Target Deliverables
+1. 2 inventory entries in `docs/analysis/inventory/addy/`:
+   - `external-planning-and-task-breakdown-md.md` (or exact naming convention per existing entries / METHOD.md)
+   - `external-incremental-implementation-md.md`
+2. `docs/analysis/inventory/addy/_units/inv-addy-23.md` (work-unit report)
+3. Updates to `docs/analysis/manifest/addy.md` (marking rows 197 and 198 checked `[x]`)
+4. Updates to `docs/plan/STATE.md` (unit `inv-addy-23` marked complete in session 007, output path, and update counts)
 
-### R1. Comprehensive File Extraction
-Read each of the assigned files in the `inv-addy-4` partition and extract the necessary information into the `inventory-entry.md` template exactly as specified in the project methodology.
+## Key Constraints & Methodology
+- Strictly follow `docs/plan/METHOD.md` §3, §4, §8, §10 and rules R1-R6.
+- All code in repository is Bun/TypeScript.
+- Maintain `progress.md` and `BRIEFING.md` in your working directory (`/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/orchestrator_inv_addy_23_1/`).
+- Decompose, dispatch specialists (explorers, workers, reviewers, challengers, forensic auditor), and synthesize results.
+- Do NOT write or modify code/docs directly — delegate to worker agents.
+- When all criteria are met and verified, deliver your victory report to your parent (Sentinel) via `send_message`.
 
-### R2. Script Execution and Verification
-Execute every script found in the scope using its documented example and record the output, exit codes, and whether the output matches the documentation.
+## Follow-up — 2026-09-03T17:24:12Z
 
-## Acceptance Criteria
+<USER_REQUEST>
+You are the Project Orchestrator for work unit `inv-addy-22`.
 
-### Execution Quality
-- [ ] Every assigned file has a completed inventory entry with no missing required fields.
-- [ ] Every script present in the scope was executed and its output verified.
-- [ ] Glossary conventions were applied correctly.
+Your working directory is:
+/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/orchestrator_inv_addy_22_2
+
+The workspace root is:
+/Users/peterkloss/Dev/ACMElabs/brain-v2
+
+Authoritative user request is recorded in:
+/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/ORIGINAL_REQUEST.md
+
+Dispatch specification is recorded in:
+/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/orchestrator_inv_addy_22_2/DISPATCH.md
+
+Mission:
+Execute inventory extraction (Phase 1) for work unit `inv-addy-22` containing 2 files totaling 48,438 bytes:
+1. `sources/addy-external/using-agent-skills.md` (21,955 bytes)
+2. `sources/addy-external/test-driven-development.md` (26,483 bytes)
+
+Deliverables:
+1. 2 inventory entries in `docs/analysis/inventory/addy/`:
+   - Inventory entry for `sources/addy-external/using-agent-skills.md`
+   - Inventory entry for `sources/addy-external/test-driven-development.md`
+2. 1 work-unit report: `docs/analysis/inventory/addy/_units/inv-addy-22.md`
+3. Manifest updates in `docs/analysis/manifest/addy.md`: mark rows for the 2 assigned files `[x]`.
+4. STATE updates in `docs/plan/STATE.md`: mark `inv-addy-22` as `complete`, session `007` (or current session), output path, update counts.
+
+Operating Rules:
+- Read `AGENTS.md`, `docs/plan/METHOD.md` (rules R1-R6, §4 checklist), `docs/plan/STATE.md`.
+- Comply strictly with DO-NOT-READ.md (v2 branch only, no pre-project git history).
+- Bun/TypeScript only for any scripts.
+- Verbatim extraction for required verbatim fields (R3).
+- Execute every script/command in scope with documented examples and capture real exit codes and outputs (R2).
+- GLOSSARY.md conventions (package prefix `addy:`).
+- Orchestrate via subagents (Explorers -> Worker -> Reviewers -> Challengers -> Forensic Auditor).
+- Maintain progress.md and BRIEFING.md in your working directory.
+- Report completion and handoff back to Sentinel via send_message upon unanimous approval across all review gates.
+</USER_REQUEST>
+
+## 2026-09-03T17:24:28Z
+
+<USER_REQUEST>
+The quota has been upgraded. Please kill the errored orchestrator and respawn a new orchestrator to resume the extraction.
+</USER_REQUEST>
+
+## Follow-up — 2026-09-03T17:24:30Z
+
+<USER_REQUEST>
+You are the Project Orchestrator for work unit `inv-addy-25`.
+
+Your working directory is:
+/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/orchestrator_inv_addy_25_1
+
+The workspace root is:
+/Users/peterkloss/Dev/ACMElabs/brain-v2
+
+Authoritative user request is recorded in:
+/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/ORIGINAL_REQUEST.md
+
+Detailed dispatch requirements are in:
+/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/orchestrator_inv_addy_25_1/DISPATCH.md
+
+Mission:
+Execute inventory extraction (Phase 1) for work unit `inv-addy-25` containing 1 file totaling 26,179 bytes (`sources/addy-external/ci-cd-and-automation.md`), following METHOD.md rules (R1-R6) and returning the fully populated inventory-entry template and work-unit report.
+
+Deliverables:
+1. 1 inventory entry in `docs/analysis/inventory/addy/`:
+   - Inventory entry for `sources/addy-external/ci-cd-and-automation.md` (e.g. `sources-addy-external-ci-cd-and-automation-md.md` or established project slug convention matching other inventory entries)
+2. 1 work-unit report: `docs/analysis/inventory/addy/_units/inv-addy-25.md`
+3. Manifest updates in `docs/analysis/manifest/addy.md`: mark row for `../addy-external/ci-cd-and-automation.md` as `[x]`.
+4. STATE updates in `docs/plan/STATE.md`: mark `inv-addy-25` as `complete`, session `006`, output path `docs/analysis/inventory/addy/_units/inv-addy-25.md`, update counts.
+
+Operating Rules:
+- Read `AGENTS.md`, `docs/plan/METHOD.md` (rules R1-R6, §4 checklist, §1.1 external docs rules), `docs/plan/STATE.md`.
+- Comply strictly with DO-NOT-READ.md (v2 branch only, no pre-project git history).
+- Bun/TypeScript only for any scripts.
+- Verbatim extraction for required verbatim fields (R3).
+- Execute every script/command in scope with documented examples and capture real exit codes and outputs (R2).
+- GLOSSARY.md conventions (package prefix `addy:`).
+- Orchestrate via subagents (Explorers -> Worker -> Reviewers -> Challengers -> Forensic Auditor). IMPORTANT: Specify Model: "flash" for all subagent invocations to avoid individual pro quota limits.
+- Maintain progress.md and BRIEFING.md in your working directory.
+- Report completion and handoff back to Sentinel upon unanimous approval across all review gates.
+</USER_REQUEST>
+
+## Follow-up — 2026-09-03T17:24:45Z
+
+<USER_REQUEST>
+You are the Project Orchestrator for work unit `inv-addy-21` (successor / generation 2).
+
+Your working directory is:
+/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/orchestrator_inv_addy_21_2
+
+The workspace root is:
+/Users/peterkloss/Dev/ACMElabs/brain-v2
+
+Authoritative user request is recorded in:
+/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/ORIGINAL_REQUEST.md
+
+Mission:
+Execute inventory extraction (Phase 1) for work unit `inv-addy-21` containing 2 files totaling 48,648 bytes, following METHOD.md rules (R1-R6) and returning the fully populated inventory-entry templates and work-unit report.
+
+Assigned files (from sources/addy-external/):
+1. `sources/addy-external/idea-refine.md` (24,943 bytes)
+2. `sources/addy-external/debugging-and-error-recovery.md` (23,705 bytes)
+
+Deliverables:
+1. 2 inventory entries in `docs/analysis/inventory/addy/`:
+   - Inventory entry for `sources/addy-external/idea-refine.md`
+   - Inventory entry for `sources/addy-external/debugging-and-error-recovery.md`
+2. 1 work-unit report: `docs/analysis/inventory/addy/_units/inv-addy-21.md`
+3. Manifest updates in `docs/analysis/manifest/addy.md`: mark rows 193 and 194 for the 2 assigned files `[x]`.
+4. STATE updates in `docs/plan/STATE.md`: mark `inv-addy-21` as `complete`, session `007`, output path, update counts.
+
+Operating Rules:
+- Read `AGENTS.md`, `docs/plan/METHOD.md` (rules R1-R6, §4 checklist), `docs/plan/STATE.md`.
+- Comply strictly with DO-NOT-READ.md (v2 branch only, no pre-project git history).
+- Bun/TypeScript only for any scripts.
+- Verbatim extraction for required verbatim fields (R3).
+- Execute every script/command in scope with documented examples and capture real exit codes and outputs (R2).
+- GLOSSARY.md conventions (package prefix `addy:`).
+- Orchestrate via subagents (Explorers -> Worker -> Reviewers -> Challengers -> Forensic Auditor).
+- Maintain progress.md and BRIEFING.md in your working directory.
+- Report completion and handoff back to Sentinel via send_message upon unanimous approval across all review gates.
+</USER_REQUEST>

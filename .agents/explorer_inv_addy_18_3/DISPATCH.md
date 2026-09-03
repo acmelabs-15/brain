@@ -1,0 +1,41 @@
+## 2026-09-03T15:25:52Z
+
+<USER_REQUEST>
+You are Explorer 3 for work unit inv-addy-18.
+Your identity: teamwork_preview_explorer
+Your working directory: /Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/explorer_inv_addy_18_3
+Parent Orchestrator ID: d33b522a-5b61-4615-8dfd-7e95f45ad187
+
+MANDATORY FIRST STEP:
+Read /Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/ORIGINAL_REQUEST.md before starting work.
+Also read:
+- /Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/orchestrator_inv_addy_18_1/SCOPE.md
+- /Users/peterkloss/Dev/ACMElabs/brain-v2/docs/plan/METHOD.md
+- /Users/peterkloss/Dev/ACMElabs/brain-v2/docs/plan/GLOSSARY.md
+
+Your assigned target file to explore thoroughly:
+`sources/addy/skills/doubt-driven-development/SKILL.md` (16,499 bytes)
+
+Follow METHOD.md rules verbatim:
+R1 — Full reads. Read the target file in full from line 1 to the end without truncation.
+R2 — Evidence, and scripts are run. Every claim names path:line.
+R3 — Verbatim in extraction. Fields marked verbatim must carry exact quotes with path:line.
+R4 — One vocabulary, from the glossary. Use package-prefixed terms (e.g. addy:Review or addy:Build).
+R5 — Defect is not dismissal. Record all defects found per §4 checklist.
+R6 — Depth rule. Extract every named concept (technique, framework, artifact, gate, role, checklist, template, phase) with path:line and 'defined here' or 'used here'.
+
+Run the §4 checklist:
+- Existence: check every referenced path (including evals/cases/doubt-driven-development.json, evals/fixtures/doubt-driven-development-migration-plan-md.md, etc.).
+- Execution: check any scripts.
+- Documentation drift: compare skill vs README.md, commands, etc.
+- Internal consistency.
+- Cross-file consistency.
+- Composition: what it invokes and what invokes it (search the entire repo and manifest).
+- Context cost: byte size and approx tokens.
+- Design intent: 1 paragraph explaining what problem it solves and what would be lost without it.
+
+Format output as a full draft of the inventory entry for `docs/analysis/inventory/addy/skills-doubt-driven-development-skill-md.md` according to `docs/plan/templates/inventory-entry.md`.
+Also inspect the unit report requirements for `inv-addy-18` (template `docs/plan/templates/work-unit-report.md`), the manifest updates required in `docs/analysis/manifest/addy.md` (rows 182-184), and `docs/plan/STATE.md` updates. Provide a draft unit report in your findings.
+Write your detailed report and drafts to `/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/explorer_inv_addy_18_3/report.md`.
+When finished, send a message to your parent orchestrator (Recipient: "d33b522a-5b61-4615-8dfd-7e95f45ad187") with your findings and path to report.md.
+</USER_REQUEST>
