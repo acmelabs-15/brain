@@ -141,39 +141,39 @@
 | scripts/validate-commands-test.js | 5471 | script | [x] |
 | scripts/run-evals-test.js | 10378 | script | [x] |
 | scripts/validate-skills.js | 2401 | script | [x] |
-| scripts/lib/skill-lint.js | 11808 | script | [ ] |
-| scripts/lib/skill-lint-test.js | 4645 | script | [ ] |
-| scripts/validate-versions.js | 949 | script | [ ] |
-| scripts/validate-commands.js | 7108 | script | [ ] |
-| scripts/validate-artifact-paths-test.js | 4572 | script | [ ] |
-| .claude-plugin/marketplace.json | 856 | config | [ ] |
-| .claude-plugin/plugin.json | 463 | config | [ ] |
-| commands/ship.toml | 4712 | command | [ ] |
-| commands/webperf.toml | 2031 | command | [ ] |
-| commands/planning.toml | 635 | command | [ ] |
-| commands/review.toml | 844 | command | [ ] |
-| commands/constraints.toml | 2775 | command | [ ] |
-| commands/build.toml | 3840 | command | [ ] |
-| commands/spec.toml | 911 | command | [ ] |
-| commands/code-simplify.toml | 1066 | command | [ ] |
-| commands/test.toml | 650 | command | [ ] |
-| skills/idea-refine/examples.md | 20284 | skill | [ ] |
-| skills/idea-refine/frameworks.md | 5404 | skill | [ ] |
-| skills/idea-refine/scripts/idea-refine.sh | 342 | script | [ ] |
-| skills/idea-refine/SKILL.md | 8111 | skill | [ ] |
-| skills/idea-refine/refinement-criteria.md | 5738 | skill | [ ] |
-| skills/debugging-and-error-recovery/SKILL.md | 10837 | skill | [ ] |
-| skills/using-agent-skills/SKILL.md | 10426 | skill | [ ] |
-| skills/test-driven-development/SKILL.md | 16483 | skill | [ ] |
-| skills/planning-and-task-breakdown/SKILL.md | 10564 | skill | [ ] |
-| skills/incremental-implementation/SKILL.md | 9507 | skill | [ ] |
-| skills/api-and-interface-design/SKILL.md | 14884 | skill | [ ] |
-| skills/ci-cd-and-automation/SKILL.md | 11332 | skill | [ ] |
-| skills/context-engineering/SKILL.md | 11070 | skill | [ ] |
-| skills/frontend-ui-engineering/SKILL.md | 10711 | skill | [ ] |
-| skills/shipping-and-launch/SKILL.md | 10137 | skill | [ ] |
-| skills/spec-driven-development/SKILL.md | 12163 | skill | [ ] |
-| skills/constraint-driven-development/references/floor-guard.md | 5851 | reference | [ ] |
+| scripts/lib/skill-lint.js | 11808 | script | [x] |
+| scripts/lib/skill-lint-test.js | 4645 | script | [x] |
+| scripts/validate-versions.js | 949 | script | [x] |
+| scripts/validate-commands.js | 7108 | script | [x] |
+| scripts/validate-artifact-paths-test.js | 4572 | script | [x] |
+| .claude-plugin/marketplace.json | 856 | config | [x] |
+| .claude-plugin/plugin.json | 463 | config | [x] |
+| commands/ship.toml | 4712 | command | [x] |
+| commands/webperf.toml | 2031 | command | [x] |
+| commands/planning.toml | 635 | command | [x] |
+| commands/review.toml | 844 | command | [x] |
+| commands/constraints.toml | 2775 | command | [x] |
+| commands/build.toml | 3840 | command | [x] |
+| commands/spec.toml | 911 | command | [x] |
+| commands/code-simplify.toml | 1066 | command | [x] |
+| commands/test.toml | 650 | command | [x] |
+| skills/idea-refine/examples.md | 20284 | skill | [x] |
+| skills/idea-refine/frameworks.md | 5404 | skill | [x] |
+| skills/idea-refine/scripts/idea-refine.sh | 342 | script | [x] |
+| skills/idea-refine/SKILL.md | 8111 | skill | [x] |
+| skills/idea-refine/refinement-criteria.md | 5738 | skill | [x] |
+| skills/debugging-and-error-recovery/SKILL.md | 10837 | skill | [x] |
+| skills/using-agent-skills/SKILL.md | 10426 | skill | [x] |
+| skills/test-driven-development/SKILL.md | 16483 | skill | [x] |
+| skills/planning-and-task-breakdown/SKILL.md | 10564 | skill | [x] |
+| skills/incremental-implementation/SKILL.md | 9507 | skill | [x] |
+| skills/api-and-interface-design/SKILL.md | 14884 | skill | [x] |
+| skills/ci-cd-and-automation/SKILL.md | 11332 | skill | [x] |
+| skills/context-engineering/SKILL.md | 11070 | skill | [x] |
+| skills/frontend-ui-engineering/SKILL.md | 10711 | skill | [x] |
+| skills/shipping-and-launch/SKILL.md | 10137 | skill | [x] |
+| skills/spec-driven-development/SKILL.md | 12163 | skill | [x] |
+| skills/constraint-driven-development/references/floor-guard.md | 5851 | reference | [x] |
 | skills/constraint-driven-development/SKILL.md | 20880 | skill | [ ] |
 | skills/code-review-and-quality/SKILL.md | 20555 | skill | [ ] |
 | skills/security-and-hardening/SKILL.md | 24192 | skill | [ ] |
