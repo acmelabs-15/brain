@@ -2,33 +2,21 @@
 unit: inv-addy-17
 phase: 1
 package: addy
-session: 006
+session: 014
 subagent_returned: complete
 ---
 
 # Unit inv-addy-17
 
 ## Files assigned
-- [x] `skills/security-and-hardening/SKILL.md` (24,192 bytes)
-- [x] `skills/deprecation-and-migration/SKILL.md` (12,516 bytes)
-- [x] `skills/observability-and-instrumentation/SKILL.md` (11,053 bytes)
+- [x] `external/git-workflow-and-versioning.md` (26,317 bytes)
 
 ## Outputs produced
-- `docs/analysis/inventory/addy/skills-security-and-hardening-skill-md.md` (19,974 bytes)
-- `docs/analysis/inventory/addy/skills-deprecation-and-migration-skill-md.md` (11,868 bytes)
-- `docs/analysis/inventory/addy/skills-observability-and-instrumentation-skill-md.md` (15,037 bytes)
-- `docs/analysis/inventory/addy/_units/inv-addy-17.md` (5,251 bytes)
+- `docs/analysis/inventory/addy/external-git-workflow-and-versioning-md.md` (17,944 bytes)
+- `docs/analysis/inventory/addy/_units/inv-addy-17.md` (4,124 bytes)
 
 ## Scripts executed
-- None shipped in assigned skills.
-- Repository validation and test suites executed:
-  - `bun scripts/synthesis/coverage.ts` — Exit code: `1` (Output: `Unchecked manifest rows: 1223\nEmpty required inventory fields: 0` — 1223 rows remaining across repository)
-  - `bun scripts/synthesis/glossary-lint.ts` — Exit code: `0` (Output: `Glossary lint: clean`)
-  - `sources/addy/scripts/validate-skills.js` — `cd sources/addy && bun scripts/validate-skills.js` — Exit code: `0` (Output: `25 skills checked — 0 error(s), 0 warning(s) — PASSED`)
-  - `sources/addy/scripts/validate-reference-links.js` — `cd sources/addy && bun scripts/validate-reference-links.js` — Exit code: `0` (Output: `25 skills checked — 0 error(s) — PASSED`)
-  - `sources/addy/scripts/validate-commands.js` — `cd sources/addy && bun scripts/validate-commands.js` — Exit code: `0` (Output: `9 commands checked — 0 error(s) — PASSED`)
-  - `sources/addy/scripts/validate-artifact-paths.js` — `cd sources/addy && bun scripts/validate-artifact-paths.js` — Exit code: `0` (Output: `7 files checked — 0 error(s) — PASSED`)
-  - Unit test suite — `cd sources/addy && bun test ./scripts/*-test.js` — Exit code: `0` (Output: `35 pass, 0 fail across 5 test files`)
+none
 
 ## Coverage self-check
 - [x] Every assigned file has an entry / card / artifact
@@ -38,25 +26,22 @@ subagent_returned: complete
 - [x] Glossary convention applied (package-prefixed before decision; canonical after)
 
 ## Cross-unit notes
-- **Lifecycle Phase Allocations:**
-  - `security-and-hardening` belongs canonically to `addy:Review` (`CLAUDE.md:25`, `README.md:369`, `skills/using-agent-skills/SKILL.md:185`, `sources/addy-external/security-and-hardening.md:5`). Note the documented philosophical tension at `SKILL.md:10` ("Security isn't a phase — it's a constraint on every line of code...").
-  - `deprecation-and-migration` belongs canonically to `addy:Ship` (`CLAUDE.md:26`, `README.md:373`, `skills/using-agent-skills/SKILL.md:189`, `sources/addy-external/deprecation-and-migration.md:5`).
-  - `observability-and-instrumentation` belongs canonically to `addy:Ship` (`CLAUDE.md:26`, `README.md:375`, `skills/using-agent-skills/SKILL.md:191`, `sources/addy-external/observability-and-instrumentation.md:5`).
-- **Command Discrepancies and Orphans:**
-  - `security-and-hardening` is directly embedded in composite command `/review` (`commands/review.toml:11`, `.claude/commands/review.md:12`) as axis 4, but lacks a dedicated standalone slash command (e.g. `/security`).
-  - `deprecation-and-migration` is not invoked by any command or slash tool in the repository. Although `sources/addy-external/deprecation-and-migration.md:12` claims `Command: /ship`, `/ship` (`commands/ship.toml:1-72`) invokes only `shipping-and-launch` and multi-agent reviewer personas.
-  - `observability-and-instrumentation` is likewise omitted from `/ship` and all other commands, despite `sources/addy-external/observability-and-instrumentation.md:12` asserting `Command: /ship`.
-  - `sources/addy/AGENTS.md:44-45` omits all three skills from its `Lifecycle Mapping (Implicit Commands)`, listing only `code-review-and-quality` for REVIEW and `shipping-and-launch` for SHIP.
-- **Cross-Skill Interconnections:**
-  - `security-and-hardening` and `observability-and-instrumentation` form a bidirectional policy link on telemetry PII leaks (`security-and-hardening/SKILL.md:369` cites observability; `observability-and-instrumentation/SKILL.md:91` cites security as a hard rule).
-  - `deprecation-and-migration` cites `incremental-implementation` (`SKILL.md:183`) for vertical slicing additive migration steps.
-  - Both `security-and-hardening` and `observability-and-instrumentation` have standalone checklist companions in `sources/addy/references/`: `security-checklist.md` (11,881 bytes) and `observability-checklist.md` (4,931 bytes), verified on disk.
-- **SSRF TOCTOU Gap:**
-  - `security-and-hardening/SKILL.md:220` documents an inherent TOCTOU risk with DNS re-resolution in HTTP fetch clients, requiring socket IP-pinning or reverse proxy agents for production hardening.
+- **Ship Phase Alignment vs Cross-Cutting Execution (inv-addy-17 vs inv-addy-28 / shipping-and-launch)**:
+  `external/git-workflow-and-versioning.md:5, 12` categorizes `git-workflow-and-versioning` under the `Ship phase`, aligning with `CLAUDE.md:26`, `README.md:371`, and `skills/using-agent-skills/SKILL.md:187`. However, the page itself explicitly defines the triggering condition as "Making any code change (always)." at `external/git-workflow-and-versioning.md:5`. In practice, git commit hygiene, branch isolation, and save points are cross-cutting habits that operate throughout Plan, Build, and Verify, rather than a step executed solely at the end of the lifecycle during final release.
+- **Command Binding Drift (/ship badge vs shipping-and-launch)**:
+  The external documentation page displays `Command /ship` in its sidebar badge (`external/git-workflow-and-versioning.md:12`). However, `/ship` (`commands/ship.toml:1-72`, `.claude/commands/ship.md:1-72`) specifically invokes `shipping-and-launch` ("Invoke the shipping-and-launch skill.") to run a parallel fan-out across three reviewer personas (`code-reviewer`, `security-auditor`, `test-engineer`) and synthesize a go/no-go launch decision with a rollback plan. The command neither executes nor mentions `git-workflow-and-versioning`. The repository provides no dedicated `/git` or `/commit` slash command.
+- **Implicit Lifecycle Mapping Gap in AGENTS.md**:
+  `sources/addy/AGENTS.md:45` specifies `SHIP → shipping-and-launch` in its implicit command mapping table for OpenCode, completely omitting `git-workflow-and-versioning` from the lifecycle sequence.
+- **Skill Anatomy Template vs Implementation Reality**:
+  The external page asserts a standardized 6-section skill anatomy template ("01 Overview", "02 When to Use", "03 Process", "04 Rationalizations", "05 Red Flags", "06 Verification"). However, the underlying repository skill `skills/git-workflow-and-versioning/SKILL.md` contains no section titled `Process`, providing instead 9 detailed workflow and domain sections: `Core Principles` (trunk-based development, commit early/often, atomic commits, descriptive messages, separate concerns, change sizing), `Branching Strategy`, `Working with Worktrees`, `The Save Point Pattern`, `Change Summaries`, `Pre-Commit Hygiene`, `Handling Generated Files`, `Using Git for Debugging`, and `Release & Versioning`. Additionally, the rationalizations section is titled `## Common Rationalizations` (line 313) rather than `Rationalizations`.
+- **Worktrees for Concurrent AI Coding**:
+  `skills/git-workflow-and-versioning/SKILL.md:147-171` provides concrete guidance on using `git worktree` to allow parallel agents to operate in isolated directory checkouts without colliding on branches or lockfiles.
+- **Vercel Skills CLI Distribution**:
+  The landing page emphasizes modular adoption via `npx skills add addyosmani/agent-skills --skill git-workflow-and-versioning` or full-pack installation (`npx skills add addyosmani/agent-skills`), making the skill available to non-Claude Code agent environments (Cursor, Codex, Antigravity).
 
 ## Blocked or uncertain
 none
 
 ## Time and size
-- Tokens of source read: ~11,940 tokens (47,761 bytes across 3 source files).
-- Tokens of output written: ~13,030 tokens across 3 inventory entries (46,879 bytes) and 1 unit report (5,251 bytes).
+- Approximate tokens of source read: ~6,579 tokens (26,317 bytes across 1 file).
+- Approximate tokens of output written: ~4,400 tokens across 1 inventory card and 1 unit report.

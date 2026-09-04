@@ -2,35 +2,21 @@
 unit: inv-addy-15
 phase: 1
 package: addy
-session: 006
+session: 014
 subagent_returned: complete
 ---
 
 # Unit inv-addy-15
 
 ## Files assigned
-- [x] `skills/frontend-ui-engineering/SKILL.md` (10,711 bytes)
-- [x] `skills/shipping-and-launch/SKILL.md` (10,137 bytes)
-- [x] `skills/spec-driven-development/SKILL.md` (12,163 bytes)
-- [x] `skills/constraint-driven-development/references/floor-guard.md` (5,851 bytes)
+- [x] `external/doubt-driven-development.md` (26,502 bytes)
 
 ## Outputs produced
-- `docs/analysis/inventory/addy/skills-frontend-ui-engineering-skill-md.md` (9,834 bytes)
-- `docs/analysis/inventory/addy/skills-shipping-and-launch-skill-md.md` (12,055 bytes)
-- `docs/analysis/inventory/addy/skills-spec-driven-development-skill-md.md` (12,519 bytes)
-- `docs/analysis/inventory/addy/skills-constraint-driven-development-references-floor-guard-md.md` (10,419 bytes)
-- `docs/analysis/inventory/addy/_units/inv-addy-15.md` (4,420 bytes)
+- `docs/analysis/inventory/addy/external-doubt-driven-development-md.md` (16,780 bytes)
+- `docs/analysis/inventory/addy/_units/inv-addy-15.md` (3,429 bytes)
 
 ## Scripts executed
-- Inlined `floor-guard.mjs` — `node floor-guard.mjs --base HEAD` — Exit code: `0` (Output: `floor-guard: clean`)
-- Inlined `floor-guard.mjs` — `node floor-guard.mjs --base non-existent-ref` — Exit code: `2` (Output: `fatal: Not a valid object name non-existent-ref\nfloor-guard: no merge base against non-existent-ref`)
-- Inlined `floor-guard.mjs` — `bun run floor-guard.mjs --base HEAD` — Exit code: `0` (Output: `floor-guard: clean`)
-- Inlined `floor-guard.mjs` — `node floor-guard.mjs --base main` (with injected violations: silenced checker, unfinished work, test skip, assertion removal, threshold lower, new exception) — Exit code: `1` (Output: 6 floor violation(s) flagged)
-- `sources/addy/scripts/validate-skills.js` — `cd sources/addy && bun scripts/validate-skills.js` — Exit code: `0` (Output: 25 skills checked — 0 error(s), 0 warning(s) — PASSED)
-- `sources/addy/scripts/validate-reference-links.js` — `cd sources/addy && bun scripts/validate-reference-links.js` — Exit code: `0` (Output: 25 skills checked — 0 error(s) — PASSED)
-- `sources/addy/scripts/validate-artifact-paths.js` — `cd sources/addy && bun scripts/validate-artifact-paths.js` — Exit code: `0` (Output: 7 files checked — 0 error(s) — PASSED)
-- `sources/addy/scripts/validate-commands.js` — `cd sources/addy && bun scripts/validate-commands.js` — Exit code: `0` (Output: 9 commands checked — 0 error(s) — PASSED)
-- Test suites in `sources/addy/scripts/` — `cd sources/addy && bun test ./scripts/run-evals-test.js ./scripts/validate-reference-links-test.js ./scripts/validate-commands-test.js ./scripts/validate-versions-test.js ./scripts/validate-artifact-paths-test.js` — Exit code: `0` (Output: 35 pass, 0 fail across 5 test suites)
+none
 
 ## Coverage self-check
 - [x] Every assigned file has an entry / card / artifact
@@ -40,26 +26,20 @@ subagent_returned: complete
 - [x] Glossary convention applied (package-prefixed before decision; canonical after)
 
 ## Cross-unit notes
-- **Lifecycle Phase Allocations:**
-  - `frontend-ui-engineering` belongs to `addy:Build` (`CLAUDE.md:23`, `AGENTS.md:32`, `README.md:362`).
-  - `shipping-and-launch` belongs to `addy:Ship` (`CLAUDE.md:26`, `AGENTS.md:45`, `README.md:376`).
-  - `spec-driven-development` belongs to `addy:Define` (`CLAUDE.md:21`, `AGENTS.md:26, 40`, `README.md:355`).
-  - `floor-guard.md` belongs to `addy:Define` as a reference for `constraint-driven-development` (`SKILL.md:216`, `.claude/commands/constraints.md:31`).
-- **Critical Implementation Bugs in `floor-guard.mjs`:**
-  1. *Untracked files dropped:* `git diff --no-index` exits 1 on diffs, causing `execFileSync` to throw in `git()`, which returns `null`. Thus untracked files with violations evaluate to `''` and are never scanned.
-  2. *Deleted test files undetected:* Deleted files have diff header `+++ /dev/null`, which is sliced by 6 characters to `v/null`, failing the regex match for test files (`/\.(test|spec)\.|_test\.|test_/.test(file)`). Deleted test files exit 0 undetected.
-  3. *Deleted constraint bullets undetected:* Line 82 looks for matching lines in `addedConstraints`. If a bullet is removed without a replacement, it is not matched and never flagged.
-  4. *Ignore file unimplemented:* `.constraintsignore` is documented on line 98 but has zero parsing or application logic in the script.
-- **Architectural / Orchestration Drift:**
-  - `/ship` (`commands/ship.toml:1-72`) defines an automated 3-subagent parallel fan-out (`code-reviewer`, `security-auditor`, `test-engineer`) synthesizing a GO / NO-GO decision, whereas `shipping-and-launch/SKILL.md` is strictly an operational manual checklist.
-  - `/spec` (`commands/spec.toml:1-55`, `.claude/commands/spec.md`) handles Phase 0 and Phase 1, whereas `spec-driven-development/SKILL.md` defines the full 4-phase sequential gated workflow.
-  - Multi-module spec artifact naming: `spec-driven-development/SKILL.md:65` prescribes `SPEC-<module-id>.md`, but `scripts/validate-artifact-paths.js:36-37` restricts spec filenames strictly to `SPEC.md` and `docs/SPEC.md`.
-- **Acronym Disambiguation:**
-  - `hooks/sdd-cache-*` and `hooks/SDD-CACHE.md` use the acronym "SDD" exclusively for `source-driven-development` (revalidating external docs), having no connection to `spec-driven-development`.
+- **Build Phase Placement vs Define Contradiction (inv-addy-15 vs inv-addy-18 / interview-me)**:
+  `external/doubt-driven-development.md:5, 12` explicitly positions `doubt-driven-development` in the `Build phase`, aligning with `CLAUDE.md:23`, `README.md:253, 361`, and `skills/using-agent-skills/SKILL.md:176`. However, `skills/interview-me/SKILL.md:14` contradicts this by categorizing `doubt-driven-development` alongside `idea-refine` and `spec-driven-development` as one of "The other Define-phase skills" that "stress-tests a plan after you've drafted one."
+- **Command Binding Ambiguity (/build vs inv-addy-23 incremental-implementation)**:
+  The external page displays `Command /build` for `doubt-driven-development` (`external/doubt-driven-development.md:12`). However, `/build` (`commands/build.toml:1-44`, `.claude/commands/build.md:1-44`) primarily executes `incremental-implementation` (`inv-addy-23`) alongside `test-driven-development` (`inv-addy-22`). It references `doubt-driven-development` solely as a conditional exception handler in autonomous mode (`/build auto`, line 38) when a task is high-risk or irreversible. The repository ships no dedicated `/doubt` slash command.
+- **Omission in AGENTS.md Lifecycle Mapping**:
+  `AGENTS.md:42` defines the implicit command lifecycle for OpenCode as `BUILD → incremental-implementation + test-driven-development`, completely omitting `doubt-driven-development`.
+- **Anatomy Template Drift**:
+  The external page asserts a rigid 6-part anatomy ("01 Overview", "02 When to Use", "03 Process", "04 Rationalizations", "05 Red Flags", "06 Verification"). In the underlying repository file `skills/doubt-driven-development/SKILL.md`, Section 03 is titled `## The Process` (line 49), Section 04 is titled `## Common Rationalizations` (line 193), and the file features an unrepresented major section `## Loading Constraints` (line 42) detailing the prohibition of running as a persona or inside subagents.
+- **Orchestration and Subagent Constraints**:
+  `skills/doubt-driven-development/SKILL.md:42-48` imposes a load-bearing architectural constraint: the skill must be run by the main-session orchestrator so that Step 3 (DOUBT) can spawn a fresh-context reviewer. Attaching the skill to a subagent persona is forbidden as an anti-pattern ("personas do not invoke other personas"), and running it in subagents forces a degraded self-questioning fallback.
 
 ## Blocked or uncertain
 none
 
 ## Time and size
-- Tokens of source read: ~9,715 tokens (38,862 bytes across 4 files).
-- Tokens of output written: ~11,200 tokens across 4 inventory entries and 1 unit report.
+- Approximate tokens of source read: ~6,625 tokens (26,502 bytes across 1 file).
+- Approximate tokens of output written: ~4,400 tokens across 1 inventory card and 1 unit report.

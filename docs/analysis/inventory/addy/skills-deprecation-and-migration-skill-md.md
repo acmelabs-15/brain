@@ -3,7 +3,7 @@ package: addy
 path: skills/deprecation-and-migration/SKILL.md
 type: skill
 bytes: 12516
-unit: inv-addy-17
+unit: inv-addy-36
 ---
 
 # skills/deprecation-and-migration/SKILL.md
@@ -36,18 +36,18 @@ addy:Ship
 - Decommissioning checklist verification (zero active consumers verified, legacy code, tests, docs, config, and deprecation notices purged) (`skills/deprecation-and-migration/SKILL.md:110-117, 233-241`)
 
 ## Invokes — required
-- skill skills/incremental-implementation/SKILL.md — skills/deprecation-and-migration/SKILL.md:183
+- skill incremental-implementation — skills/deprecation-and-migration/SKILL.md:183
 
 ## Invoked by — required
 - doc CLAUDE.md — CLAUDE.md:26
 - skill skills/git-workflow-and-versioning/SKILL.md — skills/git-workflow-and-versioning/SKILL.md:311
 - skill skills/api-and-interface-design/SKILL.md — skills/api-and-interface-design/SKILL.md:30
-- skill skills/using-agent-skills/SKILL.md — skills/using-agent-skills/SKILL.md:39, skills/using-agent-skills/SKILL.md:160, skills/using-agent-skills/SKILL.md:189
+- skill skills/using-agent-skills/SKILL.md — skills/using-agent-skills/SKILL.md:39
 - doc docs/adoption-guide.md — docs/adoption-guide.md:104
 - config evals/cases/performance-optimization.json — evals/cases/performance-optimization.json:29
-- config evals/cases/deprecation-and-migration.json — evals/cases/deprecation-and-migration.json:2, evals/cases/deprecation-and-migration.json:34
-- doc README.md — README.md:279, README.md:373
-- external-doc sources/addy-external/deprecation-and-migration.md — sources/addy-external/deprecation-and-migration.md:1, sources/addy-external/deprecation-and-migration.md:5, sources/addy-external/deprecation-and-migration.md:12
+- config evals/cases/deprecation-and-migration.json — evals/cases/deprecation-and-migration.json:2
+- doc README.md — README.md:279
+- doc external/deprecation-and-migration.md — external/deprecation-and-migration.md:1
 
 ## Concepts named — required, verbatim
 - `deprecation-and-migration` — skills/deprecation-and-migration/SKILL.md:2 — defined here
@@ -65,7 +65,7 @@ addy:Ship
 - `Step 1: Build the Replacement` — skills/deprecation-and-migration/SKILL.md:69 — defined here
 - `migration guides` — skills/deprecation-and-migration/SKILL.md:74 — defined here
 - `Step 2: Announce and Document` — skills/deprecation-and-migration/SKILL.md:77 — defined here
-- `Deprecation Notice` — skills/deprecation-and-migration/SKILL.md:79 — defined here
+- `Deprecation Notice` — skills/deprecation-and-migration/SKILL.md:80 — defined here
 - `Migration Guide` — skills/deprecation-and-migration/SKILL.md:88 — defined here
 - `Step 3: Migrate Incrementally` — skills/deprecation-and-migration/SKILL.md:94 — defined here
 - `The Churn Rule` — skills/deprecation-and-migration/SKILL.md:106 — defined here
@@ -81,7 +81,7 @@ addy:Ship
 - `MIGRATE` — skills/deprecation-and-migration/SKILL.md:169 — defined here
 - `CONTRACT` — skills/deprecation-and-migration/SKILL.md:169 — defined here
 - `backfill` — skills/deprecation-and-migration/SKILL.md:170 — defined here
-- `dual-write` — skills/deprecation-and-migration/SKILL.md:170 — defined here
+- `dual-write` — skills/deprecation-and-migration/SKILL.md:171 — defined here
 - `Dual-write` — skills/deprecation-and-migration/SKILL.md:178 — defined here
 - `Backfill` — skills/deprecation-and-migration/SKILL.md:179 — defined here
 - `Switch reads` — skills/deprecation-and-migration/SKILL.md:180 — defined here
@@ -99,21 +99,21 @@ addy:Ship
 - Overview (line 8)
 - When to Use (line 14)
 - Core Principles (line 23)
-  - Code Is a Liability (line 25)
-  - Hyrum's Law Makes Removal Hard (line 29)
-  - Deprecation Planning Starts at Design Time (line 33)
+- Code Is a Liability (line 25)
+- Hyrum's Law Makes Removal Hard (line 29)
+- Deprecation Planning Starts at Design Time (line 33)
 - The Deprecation Decision (line 37)
 - Compulsory vs Advisory Deprecation (line 58)
 - The Migration Process (line 67)
-  - Step 1: Build the Replacement (line 69)
-  - Step 2: Announce and Document (line 77)
-  - Step 3: Migrate Incrementally (line 94)
-  - Step 4: Remove the Old System (line 108)
+- Step 1: Build the Replacement (line 69)
+- Step 2: Announce and Document (line 77)
+- Step 3: Migrate Incrementally (line 94)
+- Step 4: Remove the Old System (line 108)
 - Migration Patterns (line 120)
-  - Strangler Pattern (line 122)
-  - Adapter Pattern (line 134)
-  - Feature Flag Migration (line 151)
-  - Database Schema Migrations (Expand/Contract) (line 164)
+- Strangler Pattern (line 122)
+- Adapter Pattern (line 134)
+- Feature Flag Migration (line 151)
+- Database Schema Migrations (Expand/Contract) (line 164)
 - Zombie Code (line 192)
 - Common Rationalizations (line 204)
 - Red Flags (line 218)
@@ -123,10 +123,10 @@ addy:Ship
 none
 
 ## Defects — required
-- doc-drift — AGENTS.md:24-32, 40-45 omits deprecation-and-migration from both the Intent → Skill Mapping and the Lifecycle Mapping (Implicit Commands), where only shipping-and-launch represents the SHIP phase.
-- doc-drift — sources/addy-external/deprecation-and-migration.md:12 associates the skill with command /ship in the sidebar (<code class="mono">/ship</code>), but commands/ship.toml runs shipping-and-launch via parallel fan-out to reviewer/security/test personas with zero mention of deprecation or migration.
-- doc-drift — sources/addy-external/deprecation-and-migration.md:8-10 displays a generic 6-section structure ("03 Process"), but skills/deprecation-and-migration/SKILL.md does not contain a "Process" heading, organizing its core procedure into "Core Principles", "The Deprecation Decision", "Compulsory vs Advisory Deprecation", "The Migration Process", "Migration Patterns", and "Zombie Code".
-- doc-drift — skills/deprecation-and-migration/SKILL.md:3 frontmatter description lists: "Manages deprecation and migration. Use when removing old systems, APIs, or features. Use when migrating users from one implementation to another. Use when deciding whether to maintain or sunset existing code." whereas README.md:279 describes it as "Code-as-liability mindset, compulsory vs advisory deprecation, migration patterns, zombie code removal", and sources/addy-external/deprecation-and-migration.md:1 combines both descriptions.
+- doc-drift · AGENTS.md:24-32, 40-45 · Omits deprecation-and-migration from both the Intent → Skill Mapping and the Lifecycle Mapping (Implicit Commands), where only shipping-and-launch represents the SHIP phase.
+- doc-drift · sources/addy-external/deprecation-and-migration.md:12 · Associates the skill with command /ship in the sidebar (<code class="mono">/ship</code>), but commands/ship.toml runs shipping-and-launch via parallel fan-out to reviewer/security/test personas with zero mention of deprecation or migration.
+- doc-drift · sources/addy-external/deprecation-and-migration.md:8-10 · Displays a generic 6-section structure ("03 Process"), but skills/deprecation-and-migration/SKILL.md does not contain a "Process" heading, organizing its core procedure into "Core Principles", "The Deprecation Decision", "Compulsory vs Advisory Deprecation", "The Migration Process", "Migration Patterns", and "Zombie Code".
+- doc-drift · skills/deprecation-and-migration/SKILL.md:3 · Frontmatter description lists: "Manages deprecation and migration. Use when removing old systems, APIs, or features. Use when migrating users from one implementation to another. Use when deciding whether to maintain or sunset existing code." whereas README.md:279 describes it as "Code-as-liability mindset, compulsory vs advisory deprecation, migration patterns, zombie code removal", and sources/addy-external/deprecation-and-migration.md:1 combines both descriptions.
 
 ## Observations
 - High-value architectural synthesis of Hyrum's Law and Martin Fowler's Strangler pattern adapted specifically for AI coding agents.

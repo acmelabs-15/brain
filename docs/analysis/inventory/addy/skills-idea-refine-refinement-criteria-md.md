@@ -3,7 +3,7 @@ package: addy
 path: skills/idea-refine/refinement-criteria.md
 type: skill
 bytes: 5738
-unit: inv-addy-12
+unit: inv-addy-38
 ---
 
 # skills/idea-refine/refinement-criteria.md
@@ -12,14 +12,14 @@ unit: inv-addy-12
 > "Use this rubric during Phase 2 (Evaluate & Converge) to stress-test idea directions. Not every criterion applies to every idea — use judgment about which dimensions matter most for the specific context." — skills/idea-refine/refinement-criteria.md:3
 
 ## Design intent — required
-Establishes an objective evaluative rubric for stress-testing candidate idea directions during Phase 2 (Evaluate & Converge). Prevents emotional attachment to weak concepts and halts ungrounded scope creep by evaluating candidate concepts across User Value (Painkiller vs. Vitamin distinction), Feasibility (technical stack, resources, time-to-value), and Differentiation (a 6-tier hierarchy from New capability down to Price). Mandates a 3-tier Assumption Audit (Must Be True dealbreakers, Should Be True adjustments, Might Be True nice-to-haves), a 2x2 Value/Feasibility decision matrix with differentiation as a tiebreaker, and five MVP scoping principles requiring radical pruning and an explicit "Not Doing" list.
+Provides an objective evaluation rubric and stress-testing framework for Phase 2 of ideation. It defines three core evaluation dimensions (User Value, Feasibility, Differentiation), a structured assumption audit (Must Be True, Should Be True, Might Be True), a 2x2 decision prioritization matrix, and five MVP scoping principles. Without it, an ideation agent or product builder relies on ungrounded optimism, fails to isolate fatal dealbreaker assumptions, conflates vitamins with painkillers, and under-scopes or over-engineers the initial version.
 
 ## Phase — required
 addy:Define
 
 ## Inputs — required
-- Candidate idea directions from Phase 1 expansion — skills/idea-refine/refinement-criteria.md:3
-- Identified technical architecture constraints and resource estimates — skills/idea-refine/refinement-criteria.md:31-41
+- Idea directions generated during Phase 1 (`skills/idea-refine/refinement-criteria.md:3, 77, 96, 107`)
+- Contextual user and domain constraints (`skills/idea-refine/refinement-criteria.md:3, 38-40, 80-92`)
 
 ## Outputs — required
 none
@@ -28,8 +28,7 @@ none
 none
 
 ## Invoked by — required
-- skill `skills/idea-refine/SKILL.md` — skills/idea-refine/SKILL.md:97
-- reference `skills/idea-refine/examples.md` — skills/idea-refine/examples.md:49-84
+- skill skills/idea-refine/SKILL.md — skills/idea-refine/SKILL.md:97
 
 ## Concepts named — required, verbatim
 - `Refinement & Evaluation Criteria` — skills/idea-refine/refinement-criteria.md:1 — defined here
@@ -65,7 +64,6 @@ none
 - `Time-box, not feature-list` — skills/idea-refine/refinement-criteria.md:111 — defined here
 - `The 'Not Doing' list is mandatory` — skills/idea-refine/refinement-criteria.md:112 — defined here
 - `If it's not embarrassing, you waited too long` — skills/idea-refine/refinement-criteria.md:113 — defined here
-- `Not Doing list` — skills/idea-refine/refinement-criteria.md:112 — used here
 
 ## Structure
 - `# Refinement & Evaluation Criteria` (line 1)
@@ -87,7 +85,8 @@ none
 none
 
 ## Observations
-- Explicitly formalizes a 6-tier differentiation hierarchy (New capability > 10x improvement > New audience > New context > Better UX > Cheaper) and ties the 2x2 prioritization matrix directly to differentiation as the deciding factor.
+- Classifies differentiation types into a clear hierarchy from strongest (New capability, 10x improvement) to weakest (Cheaper, easily competed away) (`skills/idea-refine/refinement-criteria.md:62-69`).
+- Features a concise 2x2 prioritization matrix pairing Value against Feasibility with Differentiation acting as tiebreaker (`skills/idea-refine/refinement-criteria.md:98-103`).
 
 ## Context cost
-5,738 bytes (~1,435 tokens).
+5,738 bytes (~1,434 tokens).

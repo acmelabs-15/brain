@@ -3,7 +3,7 @@ package: addy
 path: skills/idea-refine/frameworks.md
 type: skill
 bytes: 5404
-unit: inv-addy-12
+unit: inv-addy-38
 ---
 
 # skills/idea-refine/frameworks.md
@@ -18,7 +18,7 @@ Provides a curated reference catalog of creative problem-solving and lateral thi
 addy:Define
 
 ## Inputs — required
-- Raw idea concepts and problem definitions from user turns — skills/idea-refine/frameworks.md:3, 19, 41
+- Raw idea concepts and problem definitions from user turns (`skills/idea-refine/frameworks.md:3, 19, 41`)
 
 ## Outputs — required
 none
@@ -27,8 +27,7 @@ none
 none
 
 ## Invoked by — required
-- skill `skills/idea-refine/SKILL.md` — skills/idea-refine/SKILL.md:84
-- reference `skills/idea-refine/examples.md` — skills/idea-refine/examples.md:29-42, 154-165, 198-211
+- skill skills/idea-refine/SKILL.md — skills/idea-refine/SKILL.md:84
 
 ## Concepts named — required, verbatim
 - `Ideation Frameworks Reference` — skills/idea-refine/frameworks.md:1 — defined here

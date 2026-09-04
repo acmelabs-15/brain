@@ -3,7 +3,7 @@ package: addy
 path: skills/incremental-implementation/SKILL.md
 type: skill
 bytes: 9507
-unit: inv-addy-14
+unit: inv-addy-38
 ---
 
 # skills/incremental-implementation/SKILL.md
@@ -83,7 +83,7 @@ addy:Build
 - `Config-driven form builder` — skills/incremental-implementation/SKILL.md:109 — used here
 - `premature abstraction` — skills/incremental-implementation/SKILL.md:113 — used here
 - `Rule 0.5: Scope Discipline` — skills/incremental-implementation/SKILL.md:115 — defined here
-- `NOTICED BUT NOT TOUCHING` — skills/incremental-implementation/SKILL.md:128 — defined here
+- `NOTICED BUT NOT TOUCHING` — skills/incremental-implementation/SKILL.md:129 — defined here
 - `Rule 1: One Thing at a Time` — skills/incremental-implementation/SKILL.md:135 — defined here
 - `Rule 2: Keep It Compilable` — skills/incremental-implementation/SKILL.md:143 — defined here
 - `Rule 3: Feature Flags for Incomplete Features` — skills/incremental-implementation/SKILL.md:147 — defined here
@@ -98,31 +98,30 @@ addy:Build
 - `Red Flags` — skills/incremental-implementation/SKILL.md:224 — defined here
 - `Verification` — skills/incremental-implementation/SKILL.md:237 — defined here
 - `Definition of Done` — skills/incremental-implementation/SKILL.md:249 — used here
-- `acceptance criteria` — skills/incremental-implementation/SKILL.md:249 — used here
 
 ## Structure
-# Incremental Implementation
-## Overview
-## When to Use
-## The Increment Cycle
-## Slicing Strategies
-### Vertical Slices (Preferred)
-### Contract-First Slicing
-### Risk-First Slicing
-## Implementation Rules
-### Rule 0: Simplicity First
-### Rule 0.5: Scope Discipline
-### Rule 1: One Thing at a Time
-### Rule 2: Keep It Compilable
-### Rule 3: Feature Flags for Incomplete Features
-### Rule 4: Safe Defaults
-### Rule 5: Rollback-Friendly
-## Working with Agents
-## Increment Checklist
-## Common Rationalizations
-## Red Flags
-## Verification
-## See Also
+- `# Incremental Implementation` (line 6)
+- `## Overview` (line 8)
+- `## When to Use` (line 12)
+- `## The Increment Cycle` (line 21)
+- `## Slicing Strategies` (line 44)
+  - `### Vertical Slices (Preferred)` (line 46)
+  - `### Contract-First Slicing` (line 66)
+  - `### Risk-First Slicing` (line 77)
+- `## Implementation Rules` (line 89)
+  - `### Rule 0: Simplicity First` (line 91)
+  - `### Rule 0.5: Scope Discipline` (line 115)
+  - `### Rule 1: One Thing at a Time` (line 135)
+  - `### Rule 2: Keep It Compilable` (line 143)
+  - `### Rule 3: Feature Flags for Incomplete Features` (line 147)
+  - `### Rule 4: Safe Defaults` (line 162)
+  - `### Rule 5: Rollback-Friendly` (line 174)
+- `## Working with Agents` (line 183)
+- `## Increment Checklist` (line 199)
+- `## Common Rationalizations` (line 213)
+- `## Red Flags` (line 224)
+- `## Verification` (line 237)
+- `## See Also` (line 247)
 
 ## Scripts — required if type is script or the skill ships scripts
 none
@@ -131,7 +130,7 @@ none
 none
 
 ## Observations
-- **NOTICED BUT NOT TOUCHING Protocol:** Section 0.5 (lines 128-134) establishes an exemplary discipline for autonomous coding agents by prescribing an exact reporting syntax for out-of-scope code defects observed during implementation. This prevents runaway scope expansion while capturing technical debt.
+- **NOTICED BUT NOT TOUCHING Protocol:** Section 0.5 (lines 129-134) establishes an exemplary discipline for autonomous coding agents by prescribing an exact reporting syntax for out-of-scope code defects observed during implementation. This prevents runaway scope expansion while capturing technical debt.
 - **Anti-Reassurance Rule:** The skill explicitly prohibits re-running verification commands when code has not changed ("Running the same build/test command twice in a row without any intervening code change", lines 211, 222, 235), directly tackling a frequent LLM looping failure mode.
 - **Three Slicing Paradigms:** The formalization of Vertical Slices (end-to-end), Contract-First Slicing (parallel frontend/backend), and Risk-First Slicing (uncertainty reduction) provides a versatile model for dividing work units.
 

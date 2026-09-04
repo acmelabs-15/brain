@@ -3,7 +3,7 @@ package: addy
 path: skills/documentation-and-adrs/SKILL.md
 type: skill
 bytes: 9782
-unit: inv-addy-20
+unit: inv-addy-36
 ---
 
 # skills/documentation-and-adrs/SKILL.md
@@ -32,21 +32,19 @@ addy:Ship
 - Updated rules files (`CLAUDE.md`, etc.) and specs tailored for AI agent context (`skills/documentation-and-adrs/SKILL.md:250-258, 288`)
 
 ## Invokes — required
-- file CLAUDE.md — skills/documentation-and-adrs/SKILL.md:254, skills/documentation-and-adrs/SKILL.md:288
+- file CLAUDE.md — skills/documentation-and-adrs/SKILL.md:254
 
 ## Invoked by — required
 - doc CLAUDE.md — CLAUDE.md:26
-- doc README.md — README.md:46, README.md:276, README.md:377
-- doc docs/developer-onboarding.md — docs/developer-onboarding.md:47
-- doc docs/gemini-cli-setup.md — docs/gemini-cli-setup.md:95
-- doc docs/opencode-setup.md — docs/opencode-setup.md:129
-- doc docs/cursor-setup.md — docs/cursor-setup.md:164
-- doc docs/copilot-setup.md — docs/copilot-setup.md:86
-- doc docs/getting-started.md — docs/getting-started.md:78, docs/getting-started.md:143
-- doc docs/adoption-guide.md — docs/adoption-guide.md:67
+- doc README.md — README.md:280
+- doc docs/adoption-guide.md — docs/adoption-guide.md:53
+- reference references/definition-of-done.md — references/definition-of-done.md:44
+- skill skills/using-agent-skills/SKILL.md — skills/using-agent-skills/SKILL.md:40
 - config evals/cases/documentation-and-adrs.json — evals/cases/documentation-and-adrs.json:2
-- fixture evals/fixtures/documentation-and-adrs/decision-context.md — evals/fixtures/documentation-and-adrs/decision-context.md:1
-- external-doc sources/addy-external/documentation-and-adrs.md — sources/addy-external/documentation-and-adrs.md:1, sources/addy-external/documentation-and-adrs.md:5
+- config evals/cases/test-driven-development.json — evals/cases/test-driven-development.json:21
+- config evals/cases/debugging-and-error-recovery.json — evals/cases/debugging-and-error-recovery.json:21
+- doc evals/README.md — evals/README.md:52
+- doc external/documentation-and-adrs.md — external/documentation-and-adrs.md:1
 
 ## Concepts named — required, verbatim
 - `documentation-and-adrs` — skills/documentation-and-adrs/SKILL.md:2 — defined here
@@ -116,8 +114,8 @@ addy:Ship
 none
 
 ## Defects — required
-- missing-path · skills/documentation-and-adrs/SKILL.md:48 prescribes storing ADRs in `docs/decisions/`, but `sources/addy` does not practice this internally — no `docs/decisions/` directory exists in the repository.
-- orphan · skills/documentation-and-adrs/SKILL.md:1-289 is not invoked by any slash command in `.claude/commands/` or `.claude-plugin/plugin.json`, nor mapped in `AGENTS.md:26-32` or `AGENTS.md:40-45`.
+- missing-path · skills/documentation-and-adrs/SKILL.md:48 · Prescribes storing ADRs in `docs/decisions/`, but `sources/addy` does not practice this internally; no `docs/decisions/` directory exists in the repository.
+- orphan · skills/documentation-and-adrs/SKILL.md:1-289 · Not invoked by any slash command in `.claude/commands/` or `.claude-plugin/plugin.json`, nor mapped in `AGENTS.md:26-32` or `AGENTS.md:40-45`.
 
 ## Observations
 - Strongly emphasizes convention matching before introducing ADR structures: inspecting `.adr-dir`, checking existing numbering schemes (`ADR-004-Title.rst` vs `0004-title.md`), and preserving established heading sets.

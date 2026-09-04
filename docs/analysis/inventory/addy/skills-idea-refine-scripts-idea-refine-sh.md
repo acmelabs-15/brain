@@ -3,7 +3,7 @@ package: addy
 path: skills/idea-refine/scripts/idea-refine.sh
 type: script
 bytes: 342
-unit: inv-addy-12
+unit: inv-addy-38
 ---
 
 # skills/idea-refine/scripts/idea-refine.sh
@@ -21,19 +21,21 @@ addy:Define
 none
 
 ## Outputs — required
-- Directory: `docs/ideas` — skills/idea-refine/scripts/idea-refine.sh:6,9
-- Stdout JSON metadata: `{"status": "ready", "directory": "docs/ideas"}` — skills/idea-refine/scripts/idea-refine.sh:15
-- Stderr informational messages: `Created directory: docs/ideas` (if newly created) or `Directory already exists: docs/ideas` (if pre-existing) — skills/idea-refine/scripts/idea-refine.sh:10,12
+- Directory created on disk at path configured by `IDEAS_DIR="docs/ideas"` — skills/idea-refine/scripts/idea-refine.sh:6
+- JSON status output to stdout containing `status` — skills/idea-refine/scripts/idea-refine.sh:15
+- Stderr message if newly created: `Created directory:` — skills/idea-refine/scripts/idea-refine.sh:10
+- Stderr message if pre-existing: `Directory already exists:` — skills/idea-refine/scripts/idea-refine.sh:12
 
 ## Invokes — required
 none
 
 ## Invoked by — required
-- skill `skills/idea-refine/SKILL.md` — skills/idea-refine/SKILL.md:22
+- skill skills/idea-refine/SKILL.md — skills/idea-refine/SKILL.md:22
 
 ## Concepts named — required, verbatim
-- `status: ready` — skills/idea-refine/scripts/idea-refine.sh:15 — defined here
 - `docs/ideas` — skills/idea-refine/scripts/idea-refine.sh:6 — defined here
+- `status` — skills/idea-refine/scripts/idea-refine.sh:15 — defined here
+- `ready` — skills/idea-refine/scripts/idea-refine.sh:15 — defined here
 
 ## Structure
 - `#!/bin/bash` (line 1)
@@ -47,19 +49,19 @@ none
 - path: `skills/idea-refine/scripts/idea-refine.sh`, language: bash, lines: 16
 - documented invocation: `bash skills/idea-refine/scripts/idea-refine.sh` — skills/idea-refine/SKILL.md:22
 - executed: yes
-- actual command run: `cd sources/addy && bash skills/idea-refine/scripts/idea-refine.sh`
+- actual command run: `bash sources/addy/skills/idea-refine/scripts/idea-refine.sh`
 - abridged stdout: `{"status": "ready", "directory": "docs/ideas"}`
 - actual exit code: 0
-- documented exit codes: `exit 0` (implicit upon successful completion under `set -e`) — skills/idea-refine/scripts/idea-refine.sh:2,15
-- actual exit paths in code: implicit 0 exit on line 16; will only exit non-zero if `mkdir -p` fails under `set -e` on line 9
-- for validators/gates: not a failing gate; functions as an idempotent bootstrap script and always exits 0 under normal filesystem operations
+- documented exit codes: implicit exit 0 upon completion under `set -e` — skills/idea-refine/scripts/idea-refine.sh:2
+- actual exit paths in code: implicit exit 0 on line 16; exits non-zero only if `mkdir -p` fails on line 9 under `set -e`
+- for validators/gates: not a validation gate; idempotent directory bootstrapper that always exits 0 under standard filesystem permissions
 - does the output match what the documentation claims? yes; creates the directory if missing and outputs status JSON
 
 ## Defects — required
-- `unfailable-gate` — skills/idea-refine/scripts/idea-refine.sh:8-16 — purely an idempotent directory bootstrapper with no validation or gating logic, always exiting 0 under normal filesystem permissions.
+- other · skills/idea-refine/scripts/idea-refine.sh:6: hardcodes relative directory path IDEAS_DIR="docs/ideas" without anchoring to git repository root or script directory, so executing from subdirectories creates docs/ideas relative to current working directory rather than project root.
 
 ## Observations
-- Emits human-readable status logs (`Created directory:` / `Directory already exists:`) to stderr (`>&2`) so stdout remains clean JSON for programmatic parsing (`skills/idea-refine/scripts/idea-refine.sh:10,12,15`).
+- Separates diagnostic/informational messages to stderr (`>&2` on lines 10, 12) from machine-readable JSON status on stdout (line 15).
 
 ## Context cost
 342 bytes (~85 tokens).

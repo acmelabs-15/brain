@@ -3,7 +3,7 @@ package: addy
 path: skills/doubt-driven-development/SKILL.md
 type: skill
 bytes: 16499
-unit: inv-addy-18
+unit: inv-addy-36
 ---
 
 # skills/doubt-driven-development/SKILL.md
@@ -35,8 +35,8 @@ addy:Build
 - Go/stop verdict (or escalation to human after 3 cycles or on unresolved doubts) — skills/doubt-driven-development/SKILL.md:181-192; evals/cases/doubt-driven-development.json:31
 
 ## Invokes — required
-- reference ../../references/orchestration-patterns.md — skills/doubt-driven-development/SKILL.md:46, 229
-- agent agents/ — skills/doubt-driven-development/SKILL.md:108, 110
+- reference ../../references/orchestration-patterns.md — skills/doubt-driven-development/SKILL.md:46
+- agent agents/ — skills/doubt-driven-development/SKILL.md:108
 - skill code-review-and-quality — skills/doubt-driven-development/SKILL.md:225
 - skill source-driven-development — skills/doubt-driven-development/SKILL.md:226
 - skill test-driven-development — skills/doubt-driven-development/SKILL.md:227
@@ -45,42 +45,42 @@ addy:Build
 ## Invoked by — required
 - command .claude/commands/build.md — .claude/commands/build.md:39
 - command commands/build.toml — commands/build.toml:38
-- skill skills/interview-me/SKILL.md — skills/interview-me/SKILL.md:14, 185
-- skill skills/using-agent-skills/SKILL.md — skills/using-agent-skills/SKILL.md:29, 154, 176
-- doc README.md — README.md:253, 361
+- skill skills/interview-me/SKILL.md — skills/interview-me/SKILL.md:14
+- skill skills/using-agent-skills/SKILL.md — skills/using-agent-skills/SKILL.md:29
+- doc README.md — README.md:253
 - doc CLAUDE.md — CLAUDE.md:23
 - doc docs/adoption-guide.md — docs/adoption-guide.md:84
 - doc docs/getting-started.md — docs/getting-started.md:139
-- config evals/cases/doubt-driven-development.json — evals/cases/doubt-driven-development.json:2, 33
-- external-doc sources/addy-external/doubt-driven-development.md — sources/addy-external/doubt-driven-development.md:5
+- config evals/cases/doubt-driven-development.json — evals/cases/doubt-driven-development.json:2
+- doc external/doubt-driven-development.md — external/doubt-driven-development.md:1
 
 ## Concepts named — required, verbatim
-- `doubt-driven-development` — skills/doubt-driven-development/SKILL.md:2, 6, 10 — defined here
-- `fresh-context adversarial review` — skills/doubt-driven-development/SKILL.md:3, 10, 87 — defined here
-- `/review` — skills/doubt-driven-development/SKILL.md:12, 200, 216, 225 — used here
-- `non-trivial decision` — skills/doubt-driven-development/SKILL.md:16, 40 — defined here
-- `main-session orchestrator` — skills/doubt-driven-development/SKILL.md:44, 229 — used here
-- `orchestration anti-pattern` — skills/doubt-driven-development/SKILL.md:46, 229 — used here
-- `orchestration-patterns.md` — skills/doubt-driven-development/SKILL.md:46, 229 — used here
+- `doubt-driven-development` — skills/doubt-driven-development/SKILL.md:2 — defined here
+- `fresh-context adversarial review` — skills/doubt-driven-development/SKILL.md:3 — defined here
+- `/review` — skills/doubt-driven-development/SKILL.md:12 — used here
+- `non-trivial decision` — skills/doubt-driven-development/SKILL.md:3 — defined here
+- `main-session orchestrator` — skills/doubt-driven-development/SKILL.md:44 — used here
+- `orchestration anti-pattern` — skills/doubt-driven-development/SKILL.md:46 — used here
+- `orchestration-patterns.md` — skills/doubt-driven-development/SKILL.md:46 — used here
 - `degraded self-questioning fallback` — skills/doubt-driven-development/SKILL.md:47 — defined here
 - `Doubt cycle` — skills/doubt-driven-development/SKILL.md:54 — defined here
-- `Step 1: CLAIM` — skills/doubt-driven-development/SKILL.md:55, 62 — defined here
-- `Step 2: EXTRACT` — skills/doubt-driven-development/SKILL.md:56, 75 — defined here
-- `Step 3: DOUBT` — skills/doubt-driven-development/SKILL.md:57, 85 — defined here
-- `Step 4: RECONCILE` — skills/doubt-driven-development/SKILL.md:58, 168 — defined here
-- `Step 5: STOP` — skills/doubt-driven-development/SKILL.md:59, 181 — defined here
-- `CLAIM block` — skills/doubt-driven-development/SKILL.md:67, 81 — defined here
+- `Step 1: CLAIM` — skills/doubt-driven-development/SKILL.md:55 — defined here
+- `Step 2: EXTRACT` — skills/doubt-driven-development/SKILL.md:56 — defined here
+- `Step 3: DOUBT` — skills/doubt-driven-development/SKILL.md:57 — defined here
+- `Step 4: RECONCILE` — skills/doubt-driven-development/SKILL.md:58 — defined here
+- `Step 5: STOP` — skills/doubt-driven-development/SKILL.md:59 — defined here
+- `CLAIM block` — skills/doubt-driven-development/SKILL.md:81 — defined here
 - `WHY THIS MATTERS` — skills/doubt-driven-development/SKILL.md:69 — defined here
-- `ARTIFACT` — skills/doubt-driven-development/SKILL.md:77, 102, 106 — defined here
-- `CONTRACT` — skills/doubt-driven-development/SKILL.md:77, 103, 106 — defined here
+- `ARTIFACT` — skills/doubt-driven-development/SKILL.md:77 — defined here
+- `CONTRACT` — skills/doubt-driven-development/SKILL.md:77 — defined here
 - `Smallest reviewable unit` — skills/doubt-driven-development/SKILL.md:75 — defined here
-- `Adversarial prompt` — skills/doubt-driven-development/SKILL.md:89-104, 110 — defined here
+- `Adversarial prompt` — skills/doubt-driven-development/SKILL.md:57 — defined here
 - `code-reviewer` — skills/doubt-driven-development/SKILL.md:110 — used here
-- `Cross-model escalation` — skills/doubt-driven-development/SKILL.md:112, 114 — defined here
-- `Gemini CLI` — skills/doubt-driven-development/SKILL.md:122, 148 — used here
-- `Codex CLI` — skills/doubt-driven-development/SKILL.md:122, 144 — used here
-- `manual external review` — skills/doubt-driven-development/SKILL.md:122, 155 — defined here
-- `read-only sandbox` — skills/doubt-driven-development/SKILL.md:143, 151 — used here
+- `Cross-model escalation` — skills/doubt-driven-development/SKILL.md:112 — defined here
+- `Gemini CLI` — skills/doubt-driven-development/SKILL.md:122 — used here
+- `Codex CLI` — skills/doubt-driven-development/SKILL.md:122 — used here
+- `manual external review` — skills/doubt-driven-development/SKILL.md:122 — defined here
+- `read-only sandbox` — skills/doubt-driven-development/SKILL.md:143 — used here
 - `/loop` — skills/doubt-driven-development/SKILL.md:161 — used here
 - `autonomous-loop` — skills/doubt-driven-development/SKILL.md:161 — used here
 - `Contract misread` — skills/doubt-driven-development/SKILL.md:174 — defined here
@@ -93,10 +93,10 @@ addy:Build
 - `code-review-and-quality` — skills/doubt-driven-development/SKILL.md:225 — used here
 - `source-driven-development` — skills/doubt-driven-development/SKILL.md:226 — used here
 - `test-driven-development` — skills/doubt-driven-development/SKILL.md:227 — used here
-- `TDD's RED step` — skills/doubt-driven-development/SKILL.md:227, 236 — used here
+- `TDD's RED step` — skills/doubt-driven-development/SKILL.md:227 — used here
 - `debugging-and-error-recovery` — skills/doubt-driven-development/SKILL.md:228 — used here
 - `anti-pattern B` — skills/doubt-driven-development/SKILL.md:229 — used here
-- `Verification checklist` — skills/doubt-driven-development/SKILL.md:231-244 — defined here
+- `Verification` — skills/doubt-driven-development/SKILL.md:231 — defined here
 
 ## Structure
 - `# Doubt-Driven Development` — skills/doubt-driven-development/SKILL.md:6

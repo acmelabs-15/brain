@@ -3,7 +3,7 @@ package: addy
 path: skills/frontend-ui-engineering/SKILL.md
 type: skill
 bytes: 10711
-unit: inv-addy-15
+unit: inv-addy-36
 ---
 
 # skills/frontend-ui-engineering/SKILL.md
@@ -33,17 +33,17 @@ addy:Build
 ## Invoked by — required
 - doc CLAUDE.md — CLAUDE.md:23
 - doc AGENTS.md — AGENTS.md:32
-- doc README.md — README.md:40, README.md:254, README.md:362
+- doc README.md — README.md:254
 - reference references/accessibility-checklist.md — references/accessibility-checklist.md:3
-- skill skills/using-agent-skills/SKILL.md — skills/using-agent-skills/SKILL.md:25, skills/using-agent-skills/SKILL.md:178
+- skill skills/using-agent-skills/SKILL.md — skills/using-agent-skills/SKILL.md:25
 - doc docs/gemini-cli-setup.md — docs/gemini-cli-setup.md:77
 - doc docs/opencode-setup.md — docs/opencode-setup.md:122
 - doc docs/cursor-setup.md — docs/cursor-setup.md:157
 - doc docs/adoption-guide.md — docs/adoption-guide.md:60
-- doc docs/getting-started.md — docs/getting-started.md:71, docs/getting-started.md:136
+- doc docs/getting-started.md — docs/getting-started.md:71
 - config evals/cases/api-and-interface-design.json — evals/cases/api-and-interface-design.json:25
-- config evals/cases/frontend-ui-engineering.json — evals/cases/frontend-ui-engineering.json:2, evals/cases/frontend-ui-engineering.json:42
-- external-doc sources/addy-external/frontend-ui-engineering.md — sources/addy-external/frontend-ui-engineering.md:1, sources/addy-external/frontend-ui-engineering.md:5
+- config evals/cases/frontend-ui-engineering.json — evals/cases/frontend-ui-engineering.json:2
+- doc external/frontend-ui-engineering.md — external/frontend-ui-engineering.md:1
 
 ## Concepts named — required, verbatim
 - `frontend-ui-engineering` — skills/frontend-ui-engineering/SKILL.md:2 — defined here
@@ -76,11 +76,11 @@ addy:Build
 - `Keyboard Navigation` — skills/frontend-ui-engineering/SKILL.md:169 — defined here
 - `ARIA Labels` — skills/frontend-ui-engineering/SKILL.md:187 — defined here
 - `Focus Management` — skills/frontend-ui-engineering/SKILL.md:201 — defined here
-- `focus trap` — skills/frontend-ui-engineering/SKILL.md:212 — defined here
+- `Trap focus` — skills/frontend-ui-engineering/SKILL.md:212 — defined here
 - `Meaningful Empty and Error States` — skills/frontend-ui-engineering/SKILL.md:222 — defined here
 - `Responsive Design` — skills/frontend-ui-engineering/SKILL.md:242 — defined here
 - `mobile first` — skills/frontend-ui-engineering/SKILL.md:244 — defined here
-- `breakpoints` — skills/frontend-ui-engineering/SKILL.md:257 — defined here
+- `breakpoints` — skills/frontend-ui-engineering/SKILL.md:256 — defined here
 - `Loading and Transitions` — skills/frontend-ui-engineering/SKILL.md:258 — defined here
 - `Skeleton loading` — skills/frontend-ui-engineering/SKILL.md:261 — defined here
 - `Optimistic updates` — skills/frontend-ui-engineering/SKILL.md:272 — defined here
@@ -95,19 +95,19 @@ addy:Build
 - Overview (line 8)
 - When to Use (line 12)
 - Component Architecture (line 20)
-  - File Structure (line 22)
-  - Component Patterns (line 36)
+- File Structure (line 22)
+- Component Patterns (line 36)
 - State Management (line 102)
 - Design System Adherence (line 116)
-  - Avoid the AI Aesthetic (line 118)
-  - Spacing and Layout (line 122)
-  - Typography (line 136)
-  - Color (line 152)
+- Avoid the AI Aesthetic (line 118)
+- Spacing and Layout (line 122)
+- Typography (line 136)
+- Color (line 152)
 - Accessibility (WCAG 2.1 AA) (line 165)
-  - Keyboard Navigation (line 169)
-  - ARIA Labels (line 187)
-  - Focus Management (line 201)
-  - Meaningful Empty and Error States (line 222)
+- Keyboard Navigation (line 169)
+- ARIA Labels (line 187)
+- Focus Management (line 201)
+- Meaningful Empty and Error States (line 222)
 - Responsive Design (line 242)
 - Loading and Transitions (line 258)
 - See Also (line 295)
@@ -119,8 +119,8 @@ addy:Build
 none
 
 ## Defects — required
-- doc-drift — sources/addy-external/frontend-ui-engineering.md:1, 5 associates the slash command `/build` with `frontend-ui-engineering`, but `frontend-ui-engineering` does not possess its own dedicated command and `/build` maps directly to `incremental-implementation` (`commands/build.toml:4`).
-- doc-drift — skills/frontend-ui-engineering/SKILL.md:3 specifies comprehensive trigger conditions in its description ("Use when building or modifying interfaces and pages, creating components, implementing layouts, meeting WCAG accessibility requirements, managing state, or when the output needs to look and feel production-quality rather than AI-generated"), whereas README.md:254 truncates this to "Building or modifying user-facing interfaces", and sources/addy-external/frontend-ui-engineering.md:1 truncates it in meta tags to "Component architecture, design systems, state management, responsive design, and WCAG 2.1 AA accessibility - output that looks production-quality, not AI-generated."
+- doc-drift · sources/addy-external/frontend-ui-engineering.md:1, 5 · Associates the slash command /build with frontend-ui-engineering, but frontend-ui-engineering does not possess its own dedicated command and /build maps directly to incremental-implementation (commands/build.toml:4).
+- doc-drift · skills/frontend-ui-engineering/SKILL.md:3 · Frontmatter description specifies comprehensive trigger conditions ("Use when building or modifying interfaces and pages, creating components, implementing layouts, meeting WCAG accessibility requirements, managing state, or when the output needs to look and feel production-quality rather than AI-generated"), whereas README.md:254 truncates this to "Building or modifying user-facing interfaces", and sources/addy-external/frontend-ui-engineering.md:1 truncates it in meta tags to "Component architecture, design systems, state management, responsive design, and WCAG 2.1 AA accessibility - output that looks production-quality, not AI-generated."
 
 ## Observations
 - Features an explicit anti-pattern table debunking the "AI aesthetic" across 8 distinct dimensions (palettes, gradients, border radius, hero layouts, placeholder text, padding, card grids, shadows).
