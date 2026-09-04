@@ -91,4 +91,22 @@ Template: `docs/plan/templates/decision.md`.
 
 ---
 
+
+## D-011 — Delegation architecture for Teamwork Preview
+
+- **date:** 2026-09-04
+- **made-by:** AI Agent
+- **status:** active
+- **decision:** The actual contract for Teamwork Preview delegation is:
+  1. One Teamwork dispatch per unit (Sentinel -> Project Orchestrator -> Explorers -> Worker -> review panel -> Success Auditor). Roles are called by their documented names.
+  2. Whoever writes a verbatim field has read the source file in full. The Worker re-reads every assigned file before writing to ensure R1 and R3 fidelity.
+  3. Unit deliverables are written to disk by the team, under exclusive file ownership. The team never writes STATE.md, manifests, GLOSSARY.md, or DECISIONS.md, and never runs git. The primary agent is the only writer of shared state and the only committer.
+  4. The Success Auditor's integrity check must cover: every required field non-empty, R3/R4 conventions, coverage.ts and glossary-lint.ts clean. If the auditor does not check something, the primary agent reads it back before check-off.
+  5. The primary agent records per unit on the Sentinel's report the context used. On a report that is not "confirmed", the primary agent reads back the outputs and decides on remediation or roll-back.
+  6. Concurrency and units-per-session are "per D-010, once measured" — no number until then.
+- **rationale:** Correcting drift and fabricated claims about the teamwork_preview system. 
+- **resolves:** method §6.3
+
+---
+
 <!-- Alignment decisions (D-100+) are appended below this line in Phase 4. -->

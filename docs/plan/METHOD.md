@@ -289,14 +289,22 @@ Alignment (Phase 3, 4, 5) is judgement across the whole picture. Parallelising i
 
 Use stateless subagents dispatched through whatever delegation mechanism this harness provides (a task/subagent tool, a spawned worker — whichever it is, each dispatch starts with fresh context), not a persistent agent team. Every unit's inputs are files on disk and every unit's outputs go to disk before the next unit starts, so there is no state a teammate would need to hold. Statelessness is what makes a unit reproducible: the same inputs give the same outputs regardless of what ran before. Persistent teammates accumulate context and drift. If the harness offers no delegation mechanism at all, the orchestrator runs the units itself, one at a time, in manifest order — slower, same files, same protocol.
 
-### 6.3 The subagent contract
+### 6.3 The subagent contract (Teamwork Preview)
+
+The actual delegation architecture contract is defined by D-011:
+- One Teamwork dispatch per unit (Sentinel → Project Orchestrator → Explorers → Worker → review panel → Success Auditor). Roles are referred to by their documented names.
+- Whoever writes a verbatim field has read the source file in full. The Worker re-reads every assigned file in full before writing deliverables to ensure R1 and R3 fidelity.
+- Unit deliverables are written to disk by the team, under exclusive file ownership. The team never writes `STATE.md`, manifests, `GLOSSARY.md`, or `DECISIONS.md`, and never runs git. The primary agent is the only writer of shared state and the only committer.
+- For the Success Auditor's integrity check to stand in for §7 step 4 read-back, it must cover: every required field non-empty, R3/R4 conventions, and `coverage.ts` and `glossary-lint.ts` run clean. If the auditor does not check something, the primary agent reads it back before check-off.
+- The primary agent records per unit on the Sentinel's report the context used at that moment. If a report is not "confirmed", the primary agent reads back the outputs to determine if remediation is needed.
+- Concurrency and units-per-session limits are "per D-010, once measured" — no number is assumed until then.
 
 Every extraction or build subagent prompt contains, in this order:
 
 1. The rules R1–R6 (and R9 for builders), verbatim from this file
-2. The exact file list, with absolute paths, and an instruction that every file is read in full — using `Read` without offset or limit, continuing with offsets until the last line if the file is long
+2. The exact file list, with absolute paths, and an instruction that every file is read in full
 3. The template it fills, verbatim
-4. The current `GLOSSARY.md` (so package-prefix convention or canonical terms are applied)
+4. The current `GLOSSARY.md`
 5. For builders: the spec sections, source excerpts, conventions, and decisions
 6. The return format: the filled template(s) followed by the work-unit report
 

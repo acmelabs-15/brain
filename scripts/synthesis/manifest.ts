@@ -169,7 +169,11 @@ async function processRjm() {
     const relPath = queue.shift()!;
     
     // Normalize relative path
-    const normalizedPath = relPath.replace(/^\//, '').replace(/\/\//g, '/');
+    let normalizedPath = relPath.replace(/^\//, '').replace(/\/\//g, '/');
+    const ext = extname(normalizedPath).toLowerCase();
+    if ([".png", ".jpg", ".jpeg", ".gif", ".mp4", ".mov", ".ico"].includes(ext)) continue;
+    // deduplicate by lowercasing on mac
+    normalizedPath = normalizedPath.toLowerCase();
 
     if (visited.has(normalizedPath)) continue;
     visited.add(normalizedPath);
