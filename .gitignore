@@ -52,3 +52,11 @@ sources/
 
 # Teamwork run working directories (request/plan/progress artifacts, per-agent scratch); captured, never committed
 .teamwork/
+
+# Teamwork scratch under .agents/ (auditor/sentinel/worker dirs, request/plan files). Only the Part-2 plugin
+# mirrors (.agents/skills, .agents/agents, mcp_config.json, hooks.json) belong in the repo.
+.agents/*
+!.agents/skills/
+!.agents/agents/
+!.agents/mcp_config.json
+!.agents/hooks.json
