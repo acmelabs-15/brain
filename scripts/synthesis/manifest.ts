@@ -1,280 +1,162 @@
-import { join, dirname, extname } from "path";
-import { realpathSync } from "fs";
-import { readdir, stat, readFile } from "fs/promises";
-import { existsSync } from "fs";
+#!/usr/bin/env bun
+// manifest.ts — the coverage manifests (METHOD §1, Phase 0 step 3, R1).
+//
+//   bun scripts/synthesis/manifest.ts                 regenerate docs/analysis/manifest/{addy,matt,rjm,rjm-excluded}.md
+//   bun scripts/synthesis/manifest.ts --no-fetch      do not fetch external docs (use existing snapshots only)
+//
+// One row per in-scope file: | Path | Bytes | Type | Checked |. `Checked` is DERIVED: [x] iff a card named
+// slugOf(path) is present in the directory listing of docs/analysis/inventory/<pkg>/ (exact string match,
+// never existsSync), or the path is an EXACT alias claimed by a card's `aliases:`. Nothing else may tick a row.
+//
+// addy, matt: every tracked file under sources/<pkg>/ (git ls-files, so untracked junk is excluded) plus one
+//   `external/<skill>.md` row per skill, pointing at the snapshot in sources/<pkg>-external/ (fetched once).
+// rjm: reachability from the §1.2 entry points, following Skill(...), Task(subagent_type=...), @file, markdown
+//   links, `.claude/skills/<x>` and `scripts/...` path mentions; stopping at the §1.2 exclusion boundary.
+//   Task(subagent_type="x") resolves to `.claude/agents/x.md` AND `.claude/skills/x/` — whichever exist.
+//   Everything reachable-but-excluded is listed in rjm-excluded.md so the boundary is auditable.
+// Symlinks are rows of type `symlink` (bytes 0); they need no card — their targets are rows of their own.
+// Two paths with the same slug abort the run: that is a manifest error, not something to paper over.
+import { readFileSync, existsSync, readdirSync, statSync, lstatSync, mkdirSync, writeFileSync } from "fs";
+import { join, dirname, extname, resolve } from "path";
+import { execSync } from "child_process";
+import { slugOf, parseFrontmatter, isSymlink, sourcePath } from "./_lib";
 
-// Exclusions for rjm
-const rjmExclusions = [
-  "memory", "serena", "forgetful", "exploring-knowledge-graph", "chestertons-fence",
-  "curating-memories", "encode-repo-serena", "using-serena-symbols", "using-forgetful-memory",
-  ".serena", ".forgetful", ".claude-mem", "scripts/memory_enhancement", ".mcp.json",
-  "github", "pr-", "push-pr", "pr-autofix", "pr-quality", "pr-comment-responder",
-  ".claude/hooks", "evals", "tests", "build", "packages"
-];
+const noFetch = process.argv.includes("--no-fetch");
+type Row = { path: string; bytes: number; type: string };
 
-function isExcluded(filePath: string): boolean {
-  const parts = filePath.split('/');
-  for (const part of parts) {
-    if (part.startsWith('memory')) return true;
-    if (part.includes('serena') || part.includes('forgetful')) return true;
-    if (part === 'exploring-knowledge-graph' || part === 'chestertons-fence' || part === 'curating-memories' || part === 'encode-repo-serena' || part === 'using-serena-symbols' || part === 'using-forgetful-memory') return true;
-    if (part === '.serena' || part === '.forgetful' || part === '.claude-mem' || part === '.mcp.json') return true;
-    if (filePath.includes('scripts/memory_enhancement')) return true;
-    if (part === 'github' || part.startsWith('pr-') || part === 'push-pr' || part === 'pr-autofix' || part === 'pr-quality' || part === 'pr-comment-responder') return true;
-    if (filePath.includes('.claude/hooks') || part === 'evals' || part === 'tests' || part === 'build' || part === 'packages') return true;
+function tracked(dir: string): string[] {
+  return execSync("git ls-files", { cwd: dir, encoding: "utf8" }).trim().split("\n").filter(Boolean);
+}
+function fileType(p: string): string {
+  if (isSymlink(p)) return "symlink";
+  const rel = p.replace(/^sources\/[^/]+\//, "");
+  if (rel.startsWith("external/") || p.includes("-external/")) return "external-doc";
+  if (rel.includes("/skills/") || rel.startsWith("skills/")) {
+    if (rel.includes("/scripts/")) return "script";
+    if (rel.includes("/references/")) return "reference";
+    return "skill";
+  }
+  if (rel.includes("commands/")) return "command";
+  if (rel.includes("agents/")) return "agent";
+  if (rel.includes("scripts/")) return "script";
+  if (rel.includes("templates/")) return "template";
+  const e = extname(rel).toLowerCase();
+  if ([".json", ".toml", ".yml", ".yaml"].includes(e)) return "config";
+  if ([".md", ".txt"].includes(e)) return "doc";
+  return "file";
+}
+function bytesOf(p: string): number { try { return isSymlink(p) ? 0 : statSync(p).size; } catch { return 0; } }
+
+/** Derive `Checked` from the card directory listing + alias claims. */
+function checkedSet(pkg: string): { cards: Set<string>; claimed: Set<string> } {
+  const dir = `docs/analysis/inventory/${pkg}`;
+  const cards = new Set(existsSync(dir) ? readdirSync(dir).filter(f => f.endsWith(".md")) : []);
+  const claimed = new Set<string>();
+  for (const f of cards) {
+    const fm = parseFrontmatter(readFileSync(`${dir}/${f}`, "utf8")).fm;
+    if (Array.isArray(fm.aliases)) for (const a of fm.aliases) claimed.add(String(a));
+  }
+  return { cards, claimed };
+}
+function write(pkg: string, name: string, rows: Row[]) {
+  const { cards, claimed } = checkedSet(pkg);
+  const seen = new Map<string, string>();
+  for (const r of rows) {
+    const s = slugOf(r.path);
+    if (seen.has(s) && seen.get(s) !== r.path) { console.error(`manifest: slug collision in ${pkg}: "${seen.get(s)}" and "${r.path}" both → ${s}`); process.exit(1); }
+    seen.set(s, r.path);
+  }
+  rows.sort((a, b) => a.path.localeCompare(b.path));
+  const out = ["| Path | Bytes | Type | Checked |", "|---|---|---|---|",
+    ...rows.map(r => `| ${r.path} | ${r.bytes} | ${r.type} | ${r.type === "symlink" ? "[x] (symlink)" : cards.has(slugOf(r.path)) || claimed.has(r.path) ? "[x]" : "[ ]"} |`), ""].join("\n");
+  mkdirSync("docs/analysis/manifest", { recursive: true });
+  writeFileSync(`docs/analysis/manifest/${name}.md`, out);
+  console.log(`manifest: ${name}.md — ${rows.length} rows, ${rows.filter(r => cards.has(slugOf(r.path)) || claimed.has(r.path)).length} checked`);
+}
+
+async function externalRows(pkg: string, files: string[]): Promise<Row[]> {
+  const skills = new Set<string>();
+  for (const f of files) { const m = f.match(/^skills\/([^/]+)\/SKILL\.md$/); if (m) skills.add(m[1] ?? ""); }
+  const rows: Row[] = [];
+  mkdirSync(`sources/${pkg}-external`, { recursive: true });
+  for (const slug of [...skills].sort()) {
+    const dest = `sources/${pkg}-external/${slug}.md`;
+    const url = pkg === "addy" ? `https://skills.addy.ie/skills/${slug}/` : `https://aihero.dev/skills-${slug}`;
+    if (!existsSync(dest) && !noFetch) {
+      try {
+        const r = await fetch(url);
+        if (r.ok) writeFileSync(dest, `<!-- snapshot of ${url} fetched ${new Date().toISOString()} -->\n` + await r.text());
+      } catch { /* recorded as unavailable below */ }
+    }
+    rows.push({ path: `external/${slug}.md`, bytes: existsSync(dest) ? statSync(dest).size : 0, type: existsSync(dest) ? "external-doc" : "external-doc (unavailable)" });
+  }
+  return rows;
+}
+
+async function wholeRepo(pkg: string) {
+  const dir = `sources/${pkg}`;
+  if (!existsSync(dir)) { console.error(`manifest: ${dir} missing — clone the pin first (§1.1)`); process.exit(1); }
+  const files = tracked(dir);
+  const rows: Row[] = files.map(f => ({ path: f, bytes: bytesOf(join(dir, f)), type: fileType(join(dir, f)) }));
+  rows.push(...await externalRows(pkg, files));
+  write(pkg, pkg, rows);
+}
+
+// ---------------- rjm: reachability ----------------
+const RJM_ENTRY = [".claude/commands/spec.md", ".claude/commands/plan.md", ".claude/commands/build.md", ".claude/commands/test.md", ".claude/commands/ship.md", ".claude/skills/review", "docs/workflow-commands.md", "README.md"];
+const EXCL_EXACT = new Set(["exploring-knowledge-graph", "chestertons-fence", "curating-memories", "encode-repo-serena", "using-serena-symbols", "using-forgetful-memory", ".serena", ".forgetful", ".claude-mem", ".mcp.json", "github", "push-pr", "pr-autofix", "pr-quality", "pr-comment-responder", "evals", "tests", "build", "packages"]);
+function rjmExcluded(rel: string): boolean {
+  if (rel.startsWith(".claude/hooks/") || rel.startsWith("scripts/memory_enhancement/")) return true;
+  for (const part of rel.split("/")) {
+    if (part.startsWith("memory") || part.includes("serena") || part.includes("forgetful")) return true;
+    if (part.startsWith("pr-") || EXCL_EXACT.has(part)) return true;
   }
   return false;
 }
-
-function getSlug(p: string) {
-  let clean = p.replace(/^\.?\/?/, '');
-  let slug = clean.replace(/[\/\._]/g, '-') + '.md';
-  return slug;
+function walkAll(dir: string): string[] {
+  const out: string[] = [];
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, e.name);
+    if (e.name === ".git") continue;
+    if (e.isDirectory()) out.push(...walkAll(p)); else out.push(p);
+  }
+  return out;
 }
-
-async function walk(dir: string, fileList: string[] = []): Promise<string[]> {
-  if (!existsSync(dir)) return fileList;
-  const files = await readdir(dir, { withFileTypes: true });
-  for (const file of files) {
-    const p = join(dir, file.name);
-    if (p.includes(".git")) continue;
-    if (file.isDirectory()) {
-      await walk(p, fileList);
-    } else {
-      fileList.push(p);
-    }
-  }
-  return fileList;
-}
-
-function getFileType(p: string): string {
-  if (p.includes("/skills/")) {
-    if (p.includes("/scripts/")) return "script";
-    if (p.includes("/references/")) return "reference";
-    return "skill";
-  }
-  if (p.includes("/commands/")) return "command";
-  if (p.includes("/agents/")) return "agent";
-  if (p.includes("/scripts/")) return "script";
-  if (p.includes("/templates/")) return "template";
-  if (extname(p) === ".json" || extname(p) === ".toml" || extname(p) === ".yml") return "config";
-  if (extname(p) === ".md" || extname(p) === ".txt") return "doc";
-  return "file";
-}
-
-async function processPackage(pkg: string) {
-  const dir = `sources/${pkg}`;
-  const files = await walk(dir);
-  const rows: any[] = [];
-  
-  for (const f of files) {
-    const s = await stat(f);
-    rows.push({
-      path: f.replace(`sources/${pkg}/`, ''),
-      bytes: s.size,
-      type: getFileType(f),
-      checked: existsSync(join('docs/analysis/inventory', pkg, getSlug(f.replace(`sources/${pkg}/`, '')))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(f.replace(`sources/${pkg}/`, '').replace('.eval/', 'eval-')))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(f.split('/').pop()!))) ? '[x]' : '[ ]'
-    });
-  }
-
-  // Find skill slugs
-  const skillSlugs = new Set<string>();
-  for (const f of files) {
-    const parts = f.split('/');
-    const skillsIdx = parts.indexOf('skills');
-    if (skillsIdx !== -1 && skillsIdx + 1 < parts.length) {
-      skillSlugs.add(parts[skillsIdx + 1]);
-    }
-  }
-
-  for (const slug of skillSlugs) {
-    if (slug.includes('.')) continue; // ignore files directly in skills/
-    const url = pkg === 'addy' ? `https://skills.addy.ie/skills/${slug}/` : `https://aihero.dev/skills-${slug}`;
-    const dest = `sources/${pkg}-external/${slug}.md`;
-    let content = "";
-    let unavailable = false;
-    try {
-      const resp = await fetch(url);
-      if (resp.ok) {
-        content = await resp.text();
-      } else {
-        unavailable = true;
-      }
-    } catch (e) {
-      unavailable = true;
-    }
-    
-    if (!unavailable && content) {
-      await Bun.write(dest, content);
-      const s = await stat(dest);
-      rows.push({
-        path: `../${pkg}-external/${slug}.md`,
-        bytes: s.size,
-        type: 'external-doc',
-        checked: existsSync(join('docs/analysis/inventory', pkg, getSlug(`sources/${pkg}-external/${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`external-${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`../${pkg}-external/${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`${slug}.md`))) ? '[x]' : '[ ]'
-      });
-    } else {
-      rows.push({
-        path: `../${pkg}-external/${slug}.md`,
-        bytes: 0,
-        type: 'external-doc',
-        checked: existsSync(join('docs/analysis/inventory', pkg, getSlug(`sources/${pkg}-external/${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`external-${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`../${pkg}-external/${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`${slug}.md`))) ? '[x] (unavailable)' : '[ ] (unavailable)'
-      });
-    }
-  }
-
-  let out = `| Path | Bytes | Type | Checked |\n|---|---|---|---|\n`;
-  for (const r of rows) {
-    out += `| ${r.path} | ${r.bytes} | ${r.type} | ${r.checked} |\n`;
-  }
-  await Bun.write(`docs/analysis/manifest/${pkg}.md`, out);
-}
-
-async function getRjmEntryPoints(): Promise<string[]> {
-  const eps = [
-    ".claude/commands/spec.md",
-    ".claude/commands/plan.md",
-    ".claude/commands/build.md",
-    ".claude/commands/test.md",
-    ".claude/commands/ship.md",
-    "docs/workflow-commands.md",
-    "README.md"
-  ];
-  
-  const dir = "sources/rjm/.agents/architecture";
-  if (existsSync(dir)) {
-    const files = await readdir(dir);
-    for (const f of files) {
-      if (f.startsWith("ADR-064-")) eps.push(`.agents/architecture/${f}`);
-    }
-  }
-  
-  const reviewDir = "sources/rjm/.claude/skills/review";
-  if (existsSync(reviewDir)) {
-    const reviewFiles = await walk(reviewDir);
-    for (const rf of reviewFiles) {
-      eps.push(rf.replace("sources/rjm/", ""));
-    }
-  } else {
-    // If it's a file, push it
-    if (existsSync("sources/rjm/.claude/skills/review.md")) {
-       eps.push(".claude/skills/review.md");
-    }
-  }
-  
-  return eps;
-}
-
-async function processRjm() {
+function rjm() {
   const dir = "sources/rjm";
-  const queue = await getRjmEntryPoints();
-  const visited = new Set<string>();
-  const inScope = new Set<string>();
-  const excluded = new Set<string>();
-
-  while (queue.length > 0) {
-    const relPath = queue.shift()!;
-    
-    // Normalize relative path
-    let normalizedPath = relPath.replace(/^\//, '').replace(/\/\//g, '/');
-    const ext = extname(normalizedPath).toLowerCase();
-    if ([".png", ".jpg", ".jpeg", ".gif", ".mp4", ".mov", ".ico"].includes(ext)) continue;
-    const fullPathCheck = join(dir, normalizedPath);
-    if (!existsSync(fullPathCheck)) continue;
-    let real = fullPathCheck;
-    try { real = require('fs').realpathSync(fullPathCheck); } catch(e) {}
-    if (real.startsWith(require('path').resolve(dir))) {
-      normalizedPath = real.slice(require('path').resolve(dir).length + 1);
-    }
-    
-    if (visited.has(normalizedPath)) continue;
-    visited.add(normalizedPath);
-
-    if (isExcluded(normalizedPath)) {
-      excluded.add(normalizedPath);
-      continue;
-    }
-
-    const fullPath = join(dir, normalizedPath);
-    if (!existsSync(fullPath)) continue;
-    
-    const s = await stat(fullPath);
-    if (s.isDirectory()) {
-      const files = await walk(fullPath);
-      for (const f of files) {
-        queue.push(f.replace(`${dir}/`, ''));
-      }
-      continue;
-    }
-    
-    inScope.add(normalizedPath);
-    
-    const content = await readFile(fullPath, "utf-8");
-    
-    const skillRegex = /Skill\((["'])(.*?)\1\)/g;
-    let match;
-    while ((match = skillRegex.exec(content)) !== null) {
-      queue.push(`.claude/skills/${match[2]}`);
-    }
-    
-    const taskRegex = /Task\(subagent_type=(["'])(.*?)\1\)/g;
-    while ((match = taskRegex.exec(content)) !== null) {
-      queue.push(`.claude/skills/${match[2]}`);
-    }
-    
-    const atFileRegex = /@file\s+([^\s]+)/g;
-    while ((match = atFileRegex.exec(content)) !== null) {
-      queue.push(match[1]);
-    }
-    
-    const mdLinkRegex = /\[.*?\]\((.*?)\)/g;
-    while ((match = mdLinkRegex.exec(content)) !== null) {
-      const link = match[1];
-      if (!link.startsWith("http") && !link.startsWith("#") && !link.startsWith("mailto:")) {
-        const resolved = join(dirname(normalizedPath), link.split("#")[0]);
-        queue.push(resolved);
-      }
-    }
-
-    const directPathRegex = /\.claude\/skills\/[a-zA-Z0-9_-]+/g;
-    while ((match = directPathRegex.exec(content)) !== null) {
-      queue.push(match[0]);
-    }
-    
-    const scriptPathRegex = /scripts\/[a-zA-Z0-9_\-\/]+\.(py|sh|ts|js)/g;
-    while ((match = scriptPathRegex.exec(content)) !== null) {
-      queue.push(match[0]);
-    }
+  if (!existsSync(dir)) { console.error(`manifest: ${dir} missing — clone the pin first (§1.1)`); process.exit(1); }
+  const trackedSet = new Set(tracked(dir));
+  const root = resolve(dir);
+  const queue: string[] = [...RJM_ENTRY];
+  for (const f of readdirSync(`${dir}/.agents/architecture`).filter(f => f.startsWith("ADR-064-"))) queue.push(`.agents/architecture/${f}`);
+  const visited = new Set<string>(), inScope = new Set<string>(), excluded = new Set<string>();
+  const enqueue = (rel: string) => { rel = rel.replace(/^\.?\//, "").replace(/\/+/g, "/").split("#")[0] ?? ""; if (rel) queue.push(rel); };
+  while (queue.length) {
+    let rel = queue.shift()!;
+    const full = join(dir, rel);
+    if (!existsSync(full)) continue;
+    // normalise through symlinks but never leave the clone
+    try { const real = require("fs").realpathSync(full); if (real.startsWith(root + "/")) rel = real.slice(root.length + 1); } catch { }
+    if (visited.has(rel)) continue; visited.add(rel);
+    if (rjmExcluded(rel)) { excluded.add(rel); continue; }
+    if (statSync(full).isDirectory()) { for (const f of walkAll(full)) enqueue(f.slice(dir.length + 1)); continue; }
+    if (!trackedSet.has(rel)) continue;
+    if ([".png", ".jpg", ".jpeg", ".gif", ".mp4", ".mov", ".ico", ".pdf"].includes(extname(rel).toLowerCase())) { inScope.add(rel); continue; }
+    inScope.add(rel);
+    const text = readFileSync(full, "utf8");
+    for (const m of text.matchAll(/Skill\((["'])(.*?)\1\)/g)) { enqueue(`.claude/skills/${m[2]}`); }
+    for (const m of text.matchAll(/Task\(subagent_type=(["'])(.*?)\1/g)) { enqueue(`.claude/agents/${m[2]}.md`); enqueue(`.claude/skills/${m[2]}`); }
+    for (const m of text.matchAll(/@file\s+(\S+)/g)) enqueue(m[1] ?? "");
+    for (const m of text.matchAll(/\[[^\]]*?\]\(([^)\s]+)\)/g)) { const l = m[1] ?? ""; if (!/^(https?:|mailto:|#)/.test(l)) enqueue(join(dirname(rel), l)); }
+    for (const m of text.matchAll(/\.claude\/(?:skills|agents|commands)\/[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]+)*/g)) enqueue(m[0]);
+    for (const m of text.matchAll(/(?:^|[\s`'"(])((?:scripts|\.agents\/architecture|docs)\/[A-Za-z0-9_\-\/.]+\.(?:py|sh|ts|js|md|yaml|yml|json))/g)) enqueue(m[1] ?? "");
   }
-  
-  const writeManifest = async (name: string, paths: Set<string>) => {
-    let out = `| Path | Bytes | Type | Checked |\n|---|---|---|---|\n`;
-    const sorted = Array.from(paths).sort();
-    for (const p of sorted) {
-      const fullPath = join(dir, p);
-      let bytes = 0;
-      if (existsSync(fullPath)) {
-        const s = await stat(fullPath);
-        if (s.isDirectory()) continue;
-        bytes = s.size;
-      } else {
-        continue;
-      }
-      const checked = existsSync(join('docs/analysis/inventory', name, getSlug(p))) || existsSync(join('docs/analysis/inventory', name, getSlug(p.split('/').pop()!))) ? '[x]' : '[ ]';
-      out += `| ${p} | ${bytes} | ${getFileType(fullPath)} | ${checked} |\n`;
-    }
-    await Bun.write(`docs/analysis/manifest/${name}.md`, out);
-  };
-
-  await writeManifest("rjm", inScope);
-  await writeManifest("rjm-excluded", excluded);
+  const toRows = (set: Set<string>) => [...set].map(p => ({ path: p, bytes: bytesOf(join(dir, p)), type: fileType(join(dir, p)) }));
+  write("rjm", "rjm", toRows(inScope));
+  write("rjm", "rjm-excluded", toRows(excluded).filter(r => existsSync(join(dir, r.path)) && !statSync(join(dir, r.path)).isDirectory()));
+  console.log(`manifest: rjm reachability visited ${visited.size} paths; ${inScope.size} in scope, ${excluded.size} excluded`);
 }
 
-async function main() {
-  await processPackage('addy');
-  await processPackage('matt');
-  await processRjm();
-  console.log("Manifests generated.");
-}
-
-main().catch(console.error);
+await wholeRepo("addy");
+await wholeRepo("matt");
+rjm();

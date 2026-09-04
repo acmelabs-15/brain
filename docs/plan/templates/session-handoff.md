@@ -1,6 +1,6 @@
 # Session handoff
 
-One file per session at `docs/plan/sessions/NNN-<phase-slug>.md`, created at session start (METHOD.md §8.1 step 8) and completed at session end (§8.3). The next session reads this before doing anything.
+One file per session at `docs/plan/sessions/NNN-<phase-slug>.md`, created at session start (METHOD.md §8.1 step 10) and completed at session end (§8.3). The next session reads this before doing anything.
 
 ```markdown
 ---
@@ -13,6 +13,10 @@ units_rolled_back: [<unit-ids>]
 units_blocked: [<unit-ids>]
 decisions_added: [D-NNN, ...]
 needs_peter: yes | no
+prefix_hash_start: <prefix-check.ts combined hash at §8.1>
+prefix_hash_end: <at §8.3; must equal start>
+context_used_start: <context_window.used_percentage at §8.1>
+context_used_peak: <highest value observed this conversation>
 ---
 
 # Session NNN — <phase name>
@@ -35,6 +39,9 @@ The exact first thing the next session does after the §8.1 start protocol. Unit
 ## For Peter
 Questions, decisions needed, or things to review. `none` if nothing. If `needs_peter: yes`, this section is what the end-of-session message to Peter says.
 
+## Scripts run
+Every `scripts/synthesis/*.ts` invocation this session, one per line: command, exit code, one-line summary of its output. Commands and output, never claims.
+
 ## Context note
-Approximate context used this session, and whether the session ended by choice or by context pressure.
+`context_window.used_percentage` at start, after each dispatch, after each Sentinel report, and at the end; the largest per-unit delta; the stopping-rule arithmetic that decided when to stop (see dynamic-batching-experiment.md §3). The session ended by plan — if it did not, say why here.
 ```

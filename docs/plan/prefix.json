@@ -1,0 +1,16 @@
+{
+  "_comment": "The fixed set (METHOD M3, §8.2): files that never change inside one conversation. prefix-check.ts hashes them at session start and end.",
+  "files": [
+    "PROMPT.md",
+    "AGENTS.md",
+    "docs/plan/METHOD.md",
+    "docs/plan/PREFERENCES.md",
+    "docs/plan/DO-NOT-READ.md",
+    "docs/plan/GLOSSARY.md"
+  ],
+  "globs": [
+    "docs/plan/templates/*.md",
+    ".agents/agents/*.md",
+    "scripts/synthesis/*.ts"
+  ]
+}

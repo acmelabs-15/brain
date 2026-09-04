@@ -13,6 +13,13 @@ kind: phase | artifact | technique | gate | role | reference | pattern | checkli
 package_phase: <the package's own phase name this belongs to, prefixed: addy:Define>   # or none / cross-phase
 implementation_in_scope: true | false     # false for concepts named by an in-scope file but implemented by an excluded one (rjm memory gate, e.g.)
 deprecated: true | false                  # matt only
+memo_inputs:                              # written by `memo.ts stamp --inputs <every source path cited>`
+  - {path: <source path>, sha256: <hex>}
+method_sha: <hex>
+template_sha: <hex>
+model: <model id | unknown>
+effort: <level | unknown>
+verified:                                 # written by the verifier only
 ---
 
 # <name>

@@ -32,11 +32,11 @@ Commit SHAs are pinned in Phase 0 and recorded in `STATE.md`. Every session anal
 
 **Fresh, isolated clones.** Sources are cloned fresh into `sources/<pkg>/` — never a copy that has been opened, edited, or used for anything else, and never a clone that lives elsewhere on the machine. `sources/` is gitignored so no source code enters brain's history. At every session start, verify `git -C sources/<pkg> rev-parse HEAD` equals the pinned SHA; if `sources/` is missing (new machine) or the SHA differs, re-clone and `git checkout <sha>` before any reading. A checkout that does not match the pin is not a source.
 
-**Documentation is in scope, not just code.** For every package, the in-scope set includes its README, `docs/`, `CONTRIBUTING`, `CLAUDE.md`, `AGENTS.md`, changelogs, and any other markdown that describes what the package does or how it is meant to be used. Documentation is where a package states its *intent*; the §4 checklist compares it against what the code does. Two sources also publish documentation outside the repo — Addy at `skills.addy.ie/skills/<name>/`, Matt at `aihero.dev/skills-<name>` — and those pages are in scope for every in-scope skill: the manifest lists them as type `external-doc` with the URL, they are fetched once in Phase 0 and saved under `sources/<pkg>-external/<slug>.md` so every session reads the same snapshot, and they get inventory entries like any other file. An external page that describes a skill differently from its `SKILL.md` is a `doc-drift` defect with both locations cited.
+**Documentation is in scope, not just code.** For every package, the in-scope set includes its README, `docs/`, `CONTRIBUTING`, `CLAUDE.md`, `AGENTS.md`, changelogs, and any other markdown that describes what the package does or how it is meant to be used. Documentation is where a package states its *intent*; the §4 checklist compares it against what the code does. Two sources also publish documentation outside the repo — Addy at `skills.addy.ie/skills/<name>/`, Matt at `aihero.dev/skills-<name>` — and those pages are in scope for every in-scope skill: the manifest lists them as type `external-doc` under the path `external/<slug>.md`, they are fetched once in Phase 0 and saved under `sources/<pkg>-external/<slug>.md` so every session reads the same snapshot (tooling resolves `external/…` to that directory), and they get inventory entries like any other file. A symlink in a source is a manifest row of type `symlink` and needs no entry; its target's rows do. An external page that describes a skill differently from its `SKILL.md` is a `doc-drift` defect with both locations cited.
 
 ### 1.2 rjm scope rule
 
-rjm is a large repository. Only its lifecycle implementation is in scope. The in-scope set is derived, not listed: start from the entry points, follow every `Skill(...)`, `Task(subagent_type=...)`, `@file` and path reference, and stop at the exclusion boundary.
+rjm is a large repository. Only its lifecycle implementation is in scope. The in-scope set is derived, not listed: start from the entry points, follow every `Skill(...)`, `Task(subagent_type=...)`, `@file` and path reference, and stop at the exclusion boundary. `Task(subagent_type="x")` names an **agent**: it resolves to `.claude/agents/x.md`, and also to `.claude/skills/x/` when such a skill exists; `Skill("x")` resolves to `.claude/skills/x/`. `manifest.ts` implements exactly this and writes `rjm-excluded.md` so the boundary is auditable.
 
 **Entry points (always in scope):**
 
@@ -88,6 +88,25 @@ If a needed file is unclear, treat it as forbidden and ask.
 
 **Harness memory is off.** No automatic memory, knowledge base, or cross-session context feature of the agent harness is used for this work — nothing from earlier sessions or other projects may leak in. The agent does not rely on, look for, or write to any memory store. The only memory this project has is `docs/`. If the harness injects conversation summaries, knowledge items, or "memories" into the context, the agent disregards them entirely — they are not inputs, whatever they say. If a session finds itself "remembering" something about the sources that it cannot point to a `docs/` file for, that memory is treated as contamination and ignored.
 
+### 2.4 Duplication ledger
+
+Source packages repeat themselves: a harness mirror generated from a canonical tree (`rjm`: `.claude/**` → `src/copilot-cli/**`, declared in `templates/platforms/copilot-cli.yaml`), a hand-maintained second copy (`addy`: `commands/*.toml` ↔ `.gemini/commands/*.toml`), a symlink (`matt`: `AGENTS.md` → `CLAUDE.md`). The ledger makes this explicit so identical bytes are read once and every difference is read in full.
+
+Phase 0 step 3 runs, for every package, `bun scripts/synthesis/dedupe.ts <pkg> sources/<pkg> docs/analysis/manifest/<pkg>.md > docs/analysis/manifest/<pkg>-duplicates.md`. The ledger has two lists and is regenerated, never hand-edited; it is re-run at every phase gate (§10).
+
+- **EXACT** groups: files whose bytes are identical. One canonical path (a real file, never a symlink; the shortest path wins ties) and its aliases.
+- **VARIANT** pairs: two files with the same name under different roots whose contents differ but share at least 60% of their distinct lines. The full `diff -u` of the pair is in the ledger.
+
+The manifest is unchanged by the ledger: every path stays a row. The ledger changes how rows are *satisfied*:
+
+(a) An EXACT alias row is satisfied by the canonical row's inventory entry. That entry lists every alias in its frontmatter `aliases:`; every quotation cites the canonical `path:line` and, where the alias is relevant, appends `(= <alias path>)`. No separate entry is written for an alias, and no alias is read a second time.
+
+(b) A VARIANT pair is satisfied by one inventory entry for the longer member plus a **divergence card** (`templates/divergence-card.md`, written to `docs/analysis/inventory/<pkg>/_divergence/`). The divergence card quotes every hunk of the ledger diff verbatim — nothing elided — and classifies each hunk as `harness-substitution` (same meaning, different harness vocabulary), `content` (different meaning), or `generated-from` (declared build output, declaration cited). A `content` hunk becomes a Phase 3 concordance candidate; a `harness-substitution` hunk becomes a Phase 5 parity-table candidate (D-009).
+
+(c) A GENERATED-FROM declaration found in a source (`sourceDir`/`outputDir` configuration, a "do not edit — generated" notice, a symlink) is recorded on the declared source's entry with a `path:line` citation. It never removes a row from the manifest and never substitutes for reading an output that differs from its declared source — rule (b) applies. `rjm`'s declared agent source (`templates/agents/*.shared.md`) differs from what Claude Code loads (`.claude/agents/*.md`) by up to several hundred lines per agent; both are inventoried, and the pair gets a divergence card.
+
+The ledger keys on file bytes and file names, never on a package's directory layout, so it needs no per-package configuration.
+
 ---
 
 ## 3. Hard rules
@@ -113,6 +132,8 @@ These apply in every phase, to the orchestrator and to every subagent.
 **R9 — Bun only.** Every script written for this project — manifest generation, coverage checks, glossary lint, anything in Part 2 — is Bun/TypeScript. No Node-specific APIs, no Python, no shell scripts longer than a one-liner.
 
 **R10 — Human gate.** Phase 6 does not begin until `STATE.md` has `human_approval: APPROVED` with Peter's date. The agent never writes that field.
+
+**R11 — Dedupe fidelity and provable quotations.** Every citation `"…" — path:line` and `` `term` — path:line `` is byte-exact at that line; `quote-check.ts` proves it and a card with any FAIL is not verified. An EXACT alias row (§2.4) is satisfied by exactly one canonical entry that lists it; a VARIANT pair has a divergence card whose hunk count equals the ledger diff's. `coverage.ts` enforces both. Facts a script prints (bytes, lines, hashes, exit codes, manifest rows) are never retyped by hand.
 
 ---
 
@@ -146,15 +167,17 @@ Each phase lists inputs, work units, outputs, done criteria, and delegation mode
 
 *Mode: orchestrator only. One session.*
 
-1. Confirm the current branch is `v2` (`git branch --show-current`). Confirm `DO-NOT-READ.md` is filled. Confirm `sources/` is in `.gitignore`; add it if not.
-2. Clone the three sources fresh into `sources/` (§1.1). Record each SHA in `STATE.md`.
-3. Write `scripts/synthesis/manifest.ts` (Bun): walks a source, applies the scope rules in §1, emits `docs/analysis/manifest/<pkg>.md` — one row per in-scope file: path, bytes, type (`skill` / `command` / `reference` / `agent` / `script` / `template` / `doc` / `config` / `external-doc`), checked (`[ ]`). For `rjm`, the script follows the invocation graph from the entry points and applies the exclusion list; it emits a second list, `docs/analysis/manifest/rjm-excluded.md`, of everything reachable but excluded, so the boundary is auditable. For `addy` and `matt`, it derives the external-doc URL for each in-scope skill, fetches the page once, saves it under `sources/<pkg>-external/<slug>.md`, and adds a manifest row pointing at the saved copy. A page that cannot be fetched gets a row marked `unavailable` — never silently dropped.
-4. Partition each manifest into inventory work units of at most ~50 KB source each, keeping a skill's `SKILL.md`, `references/`, and `scripts/` in the same unit. Record units in `STATE.md` § Work units.
-5. Read brain conventions (§1.3). Write `docs/analysis/brain-conventions.md`.
-6. Write `scripts/synthesis/coverage.ts` (Bun): reports unchecked manifest rows and inventory entries with empty required fields. Write `scripts/synthesis/glossary-lint.ts` (Bun): reports canonical-looking terms used in `docs/` that are not defined in `GLOSSARY.md`.
-7. Write `docs/plan/sessions/000-setup.md`. Update `STATE.md`: phase = 1.
+The project tooling under `scripts/synthesis/` is shipped with the kit (§9) and is run, not written. Every command below is run from the repository root and its output and exit code go into the session handoff.
 
-**Done when:** three manifests exist, every row assigned to a unit, all three scripts run clean, conventions recorded, external docs snapshotted.
+1. Confirm the current branch is `v2` (`git branch --show-current`). Confirm `DO-NOT-READ.md` is filled. Confirm `sources/` and `.teamwork/` are in `.gitignore`.
+2. Clone the three sources fresh into `sources/` and check out the SHAs already recorded in `STATE.md` § Source pins (`git -C sources/<pkg> checkout <sha>`). Verify each with `git -C sources/<pkg> rev-parse HEAD`.
+3. `bun scripts/synthesis/manifest.ts` — writes `docs/analysis/manifest/{addy,matt,rjm,rjm-excluded}.md` per §1 (one row per in-scope file; `rjm` by reachability from the §1.2 entry points; `external/<slug>.md` rows for the documentation pages, fetched once into `sources/<pkg>-external/`; a page that cannot be fetched is a row marked `unavailable`, never dropped). Then `bun scripts/synthesis/dedupe.ts <pkg> sources/<pkg> docs/analysis/manifest/<pkg>.md > docs/analysis/manifest/<pkg>-duplicates.md` for each package (§2.4). Read every manifest once, top to bottom, and note anything surprising in the handoff — a row that should not be there is a §1 problem to raise, not a row to delete.
+4. `bun scripts/synthesis/partition.ts` — writes `docs/analysis/manifest/units.md` (unit → file assignment, ≤ ~50 KB per unit, skills kept whole) and prints the `STATE.md` § Work units rows. Paste those rows into `STATE.md` unchanged.
+5. Read brain conventions (§1.3). Write `docs/analysis/brain-conventions.md`.
+6. Run every anti-drift check in §10 and record the output: `coverage.ts` (all rows unchecked, zero failures), `quote-check.ts --all` (no cards yet), `memo.ts audit`, `partition.ts --check`, `prefix-check.ts`, `glossary-lint.ts`.
+7. Write `docs/plan/sessions/000-setup.md`. Update `STATE.md`: phase = 1. Write the first interview brief (§6.3.1) for the first Phase 1 batch to `docs/plan/teamwork/` and stop: Peter runs the interview.
+
+**Done when:** four manifests and three ledgers exist, `units.md` exists and every unit is in `STATE.md`, every §10 check has run with its output recorded, conventions recorded, external docs snapshotted, and the first interview brief is written.
 
 ### Phase 0.5 — Landscape scan (bounded, decision-gated)
 
@@ -175,13 +198,13 @@ The three sources were chosen by Peter as well-regarded lifecycle implementation
 
 *Mode: fan-out. One subagent per work unit. Many sessions.*
 
-For each unit, a subagent receives: the unit's file list, the inventory-entry template, rules R1–R6, the §4 checklist, and the current `GLOSSARY.md` (empty at first; the package-prefix convention still applies). It reads every file in full, runs every script, and returns one inventory entry per file plus a work-unit report.
+For each unit, a worker receives (§6.3 item 3): the output of `unit-facts.ts` for the unit, the inventory-entry template, rules R1–R11, the §4 checklist, and the current `GLOSSARY.md` (empty at first; the package-prefix convention still applies). It reads every file in full, runs every script, writes one inventory entry per file (one per EXACT group, plus a divergence card per VARIANT pair — §2.4) and a work-unit report, runs `quote-check.ts` on what it wrote, and returns.
 
-The orchestrator writes each entry to `docs/analysis/inventory/<pkg>/<file-slug>.md` immediately on return, writes the report to `docs/analysis/inventory/<pkg>/_units/<unit-id>.md`, checks the rows off in the manifest, and updates `STATE.md`. Then dispatches the next unit.
+Entries live at `docs/analysis/inventory/<pkg>/<file-slug>.md`, reports at `docs/analysis/inventory/<pkg>/_units/<unit-id>.md`, divergence cards under `_divergence/`. On the report the primary agent verifies (§7 step 5), stamps and marks verified, regenerates the manifests so `Checked` is derived, and updates `STATE.md`.
 
 **Verification sub-phase (1V).** After all units for a package are done, a verifier subagent receives the package's inventory and a random 15% of its source files, and answers: does any file contain a named concept, invocation, produced artifact, or defect that its inventory entry omits? Findings are written to `docs/analysis/inventory/<pkg>/_verification.md`. Omissions are fixed by re-running the affected unit. A package is done when 1V reports no omissions.
 
-**Done when:** `coverage.ts` reports zero unchecked rows and zero empty required fields for all three packages, and all three `_verification.md` files report clean.
+**Done when:** `coverage.ts` reports zero unchecked rows, zero empty required fields and zero R11 problems for all three packages; `quote-check.ts --all` reports zero FAIL; `memo.ts audit` reports zero STALE and zero UNSTAMPED; and all three `_verification.md` files report clean.
 
 ### Phase 2 — Concept cards
 
@@ -285,70 +308,65 @@ Extraction (Phase 1, 2) and build (Phase 7) are mechanical against a fixed schem
 
 Alignment (Phase 3, 4, 5) is judgement across the whole picture. Parallelising it guarantees inconsistency: two subagents deciding related terms independently will disagree. One mind, checkpointing to disk after each family, is slower and correct.
 
-### 6.2 Subagents, not agent teams
+### 6.2 Fresh context per unit; one team per phase
 
-Use stateless subagents dispatched through whatever delegation mechanism this harness provides (a task/subagent tool, a spawned worker — whichever it is, each dispatch starts with fresh context), not a persistent agent team. Every unit's inputs are files on disk and every unit's outputs go to disk before the next unit starts, so there is no state a teammate would need to hold. Statelessness is what makes a unit reproducible: the same inputs give the same outputs regardless of what ran before. Persistent teammates accumulate context and drift. If the harness offers no delegation mechanism at all, the orchestrator runs the units itself, one at a time, in manifest order — slower, same files, same protocol.
+Every unit's inputs are files on disk and every unit's outputs go to disk before the next unit starts, so no worker ever needs state from another. Whatever writes a unit starts from fresh context and the unit's dispatch — that is what makes a unit reproducible: the same inputs give the same outputs regardless of what ran before.
 
-### 6.3 The subagent contract (Teamwork Preview)
+On the Antigravity CLI the delegation mechanism is **Teamwork** (`/teamwork-preview`), used at the granularity of a **phase** (or a batch of units Peter approves), never one team per unit (D-014). Inside one Teamwork run the Project Orchestrator fans units out to Workers with fresh context; the primary agent (this conversation) never reads a source file for inventory and never writes an inventory entry — it dispatches, receives reports, verifies, records, commits. On Claude Code the equivalent is subagents dispatched by the primary agent, one per unit, with the same contract. If a harness offers no delegation at all, the primary agent runs the units itself, one at a time, in manifest order — slower, same files, same protocol.
 
-The actual delegation architecture contract is defined by D-011:
-- One Teamwork dispatch per unit (Sentinel → Project Orchestrator → Explorers → Worker → review panel → Success Auditor). Roles are referred to by their documented names.
-- Whoever writes a verbatim field has read the source file in full. The Worker re-reads every assigned file in full before writing deliverables to ensure R1 and R3 fidelity.
-- Unit deliverables are written to disk by the team, under exclusive file ownership. The team never writes `STATE.md`, manifests, `GLOSSARY.md`, or `DECISIONS.md`, and never runs git. The primary agent is the only writer of shared state and the only committer.
-- For the Success Auditor's integrity check to stand in for §7 step 4 read-back, it must cover: every required field non-empty, R3/R4 conventions, and `coverage.ts` and `glossary-lint.ts` run clean. If the auditor does not check something, the primary agent reads it back before check-off.
-- The primary agent records per unit on the Sentinel's report the context used at that moment. If a report is not "confirmed", the primary agent reads back the outputs to determine if remediation is needed.
-- Concurrency and units-per-session limits are "per D-010, once measured" — no number is assumed until then.
+`/boost` is not used before Phase 7. It is a code-verification pipeline (tests, edge cases, assertion feedback); Phases 3–6 produce judgement, which it cannot verify. In Phase 7 it may be invoked inside the Teamwork run for a build unit that is a hard, test-verifiable problem. Phase 4V and Phase 5 review use Teamwork's Document Review path (prompt wording "review this … / critique this …").
 
-Every extraction or build subagent prompt contains, in this order:
+### 6.3 The delegation contract (D-014)
 
-1. The rules R1–R6 (and R9 for builders), verbatim from this file
-2. The exact file list, with absolute paths, and an instruction that every file is read in full — using `Read` without offset or limit, continuing with offsets until the last line if the file is long
-3. The template it fills, verbatim
-4. The current `GLOSSARY.md` (so package-prefix convention or canonical terms are applied)
-5. For builders: the spec sections, source excerpts, conventions, and decisions
-6. The return format: the filled template(s) followed by the work-unit report
+1. **Granularity.** One Teamwork run per phase, or per batch of units Peter approves in the interview. Roles are referred to by their documented names (Sentinel, Project Orchestrator, Explorer, Worker, Critic, Challenger, Auditor, Success Auditor).
+2. **The interview is Peter's.** Teamwork's Phase 1 scoping interview is answered by Peter, never by the agent. When a phase or batch is ready to dispatch, the primary agent stops, writes the interview brief (§6.3.1) to `docs/plan/teamwork/<run-id>.md`, and tells Peter. Peter runs `/teamwork-preview` with it. Integrity mode is `development` — its modes govern code provenance, not extraction fidelity; the fidelity lever is the interview's Independent Verification field.
+3. **Dispatch message.** For every unit the Orchestrator hands a Worker: the rules R1–R11 verbatim, the output of `bun scripts/synthesis/unit-facts.ts <unit>` (paths, bytes, lines, hashes, ledger rows, memo status — computed, never retyped), the template(s) verbatim, the current `GLOSSARY.md`, and the return format. Nothing else; the fixed material lives in the agent definitions and `AGENTS.md`, not in the message (M3).
+4. **Whoever writes a verbatim field has the file open.** The Worker reads every assigned file in full before writing. Explorer summaries never supply a quotation. Before returning, the Worker runs `bun scripts/synthesis/quote-check.ts <card>` on every card it wrote and fixes every FAIL; a returned card with a FAIL is malformed and is re-dispatched, not patched.
+5. **Ownership.** Unit deliverables are written to disk by the team under exclusive file ownership: only `docs/analysis/inventory/<pkg>/<slug>.md`, `_units/<unit>.md`, `_divergence/*.md` (and the Phase 2/7 equivalents). The team never writes `STATE.md`, the manifests, `GLOSSARY.md`, `DECISIONS.md`, `METHOD.md`, or anything under `docs/plan/`, and never runs git. The primary agent is the only writer of shared state and the only committer. Teamwork's own request/plan/progress artifacts live in the run's working directory `.teamwork/<run-id>/` (gitignored), never in `docs/`.
+6. **Verification before check-off.** The Critic and Auditor judge against the interview's rubric: every required field non-empty, R3/R4 conventions, `coverage.ts` clean, `quote-check.ts` zero FAIL. On the Sentinel's report the primary agent runs `coverage.ts` and `quote-check.ts --all <pkg>` itself and reads back one card per unit; it records on the unit row the Sentinel's verdict and its own context used at that moment. A report that is not confirmed, or a check that fails, sends the unit back (rolled-back or re-dispatched) — never a hand edit by the primary agent.
+7. **No numbers until measured.** Units per run and concurrency inside a run are the Orchestrator's; units per conversation follow the stopping rule in `docs/analysis/dynamic-batching-experiment.md` and become D-010 when measured.
 
-The orchestrator never summarises a subagent's return before writing it. It writes the return to disk verbatim, then reads what it wrote to update `STATE.md`. If a return is truncated or malformed, the unit is re-dispatched, not patched.
+The primary agent never summarises a team's return before recording it. It records what the checks print, then reads what it wrote to update `STATE.md`.
 
-### 6.3.1 Harness-specific form: Teamwork Preview
-When dispatching a unit via the Teamwork Preview subagent (Full Team), use this exact prompt template:
+### 6.3.1 The interview brief (Peter answers Teamwork's five fields)
+
+The primary agent writes this file; Peter pastes its answers into the `/teamwork-preview` interview. Every field is filled from METHOD and STATE — never invented.
 
 ```markdown
-# Teamwork Project Prompt — Draft
+# Teamwork interview brief — <run-id>   (e.g. p1-addy-batch-2)
 
-> Status: Launched
-> Goal: Execute inventory extraction
-> Requested team: Full team
-
-Run the inventory extraction (Phase 1) for the `<UNIT_ID>` work unit containing <COUNT> files, following the project's METHOD.md rules (R1-R6) and returning the fully populated inventory-entry and work-unit report templates.
-
-Working directory: /Users/peterkloss/Dev/ACMElabs/brain-v2
-Integrity mode: development
+## Scope & Objectives
+Phase <n> — <phase name> for units <list>. Purpose: exploration/analysis artefacts for the brain lifecycle synthesis. Audience: the next session of this project, which reads only files.
 
 ## Requirements
+- Every unit in <list> produces the deliverables named by `unit-facts.ts`, filled from templates/<template>.md, obeying METHOD.md R1–R11.
+- Workers read every assigned file in full; quotations are byte-exact with path:line.
+- Deliverables are the only files written; nothing under docs/plan/ or docs/analysis/manifest/ is touched; no git.
 
-### Comprehensive File Extraction
-Read each of the assigned files in the `<UNIT_ID>` partition in full and extract the necessary information into the `inventory-entry.md` template exactly as specified in the project methodology. Re-read every assigned file before writing deliverables to ensure verbatim fidelity.
-
-### Script Execution and Verification
-Execute every script found in the scope using its documented example and record the output, exit codes, and whether the output matches the documentation.
+## Independent Verification
+An independent agent judges every card against METHOD.md R1–R11 and runs, from the repo root:
+  bun scripts/synthesis/quote-check.ts <card>        → zero FAIL
+  bun scripts/synthesis/coverage.ts                  → clean for the units in scope
+A card with any FAIL or empty required field is rejected back to its Worker.
 
 ## Acceptance Criteria
+- Every unit in <list>: all deliverables exist, coverage.ts clean, quote-check.ts zero FAIL.
+- The Success Auditor's report lists, per unit, the exact commands run and their exit codes.
 
-### Execution Quality
-- [ ] Every assigned file has a completed inventory entry with no missing required fields.
-- [ ] Every script present in the scope was executed and its output verified.
-- [ ] Glossary conventions were applied correctly.
+## Project Working Directory
+<absolute repo path>/.teamwork/<run-id>
+
+## Integrity mode
+development
 ```
-
 
 ### 6.4 The adversarial reviewer contract
 
-Reviewers (1V, 4V, Phase 7 review, Phase 8) are told they are looking for what was missed or got wrong, given the artifact under review and its inputs, and asked for findings with locations — never a summary of what is good. A reviewer that returns "looks fine" without having named the specific things it checked is re-dispatched with the §4 checklist made explicit.
+Reviewers (1V, 4V, Phase 7 review, Phase 8) are told they are looking for what was missed or got wrong, given the artifact under review and its inputs, and asked for findings with locations — never a summary of what is good. A reviewer that returns "looks fine" without having named the specific things it checked is re-dispatched with the §4 checklist made explicit. The mechanical half of every review is `quote-check.ts` and `coverage.ts`; the reviewer's job is what those cannot check.
 
 ### 6.5 Unit sizing
 
-Inventory: at most ~50 KB of source per unit; a skill and its `references/` and `scripts/` stay together. Concept cards: one package per unit, or one concept family per unit for `addy` and `rjm`. Build: one artifact per unit. If a unit's subagent returns truncated output, split the unit.
+Inventory: at most ~50 KB of source per unit; a skill and its `references/` and `scripts/` stay together (`partition.ts` groups by skill directory and persists the assignment in `docs/analysis/manifest/units.md`). Concept cards: one package per unit, or one concept family per unit for `addy` and `rjm`. Build: one artifact per unit. If a unit's worker returns truncated output, split the unit.
 
 ---
 
@@ -356,18 +374,21 @@ Inventory: at most ~50 KB of source per unit; a skill and its `references/` and 
 
 Every unit, every phase:
 
-1. **Claim.** Mark the unit `in-progress` in `STATE.md` with the session number.
-2. **Dispatch or execute.** Per §6.
-3. **Persist.** Write outputs to their `docs/` paths. Verbatim from the subagent where applicable.
-4. **Verify.** Read the written files back. Check required fields are non-empty. Run `coverage.ts` for Phase 1–2 units.
-5. **Check off.** Mark the unit `done` in `STATE.md`. Update the manifest rows.
-6. **Next.** Pick the next `pending` unit in order.
+1. **Memo.** `bun scripts/synthesis/memo.ts check <unit>`. Every deliverable `HIT` → mark the unit `done` in `STATE.md` with `reused` in the Session column and go to step 6. Otherwise continue.
+2. **Claim.** Mark the unit `in-progress` in `STATE.md` with the session number.
+3. **Dispatch or execute.** Per §6. The dispatch carries `bun scripts/synthesis/unit-facts.ts <unit>` output, never retyped facts.
+4. **Persist.** Outputs are on disk at their `docs/` paths (written by the team under §6.3 item 5, or by the primary agent for single-threaded phases). Each card is stamped: `bun scripts/synthesis/memo.ts stamp <card> --model <id> --effort <level>` with the model and effort that actually produced it (`unknown` if not known — never guessed).
+5. **Verify.** `bun scripts/synthesis/quote-check.ts <card>` for every card written (zero FAIL); `bun scripts/synthesis/coverage.ts` (clean). Read one card back. Only then add `verified: <date> quote-check+coverage` to each card's frontmatter.
+6. **Check off.** Mark the unit `done` in `STATE.md`; regenerate the manifests (`bun scripts/synthesis/manifest.ts --no-fetch`) so `Checked` is derived, never hand-ticked.
+7. **Next.** Pick the next `pending` unit in order.
 
-A unit that cannot complete is marked `blocked` with the reason. The session handoff names every blocked unit.
+A unit that cannot complete is marked `blocked` with the reason. The session handoff names every blocked unit. Every script named above is run and its exit code recorded in the handoff (evidence rule: commands and their output, never prose claims about what was done).
 
 ---
 
 ## 8. Session protocol
+
+A **session** here is one conversation of the primary agent. It ends by plan, never by context pressure: the stopping rule in `docs/analysis/dynamic-batching-experiment.md` (D-010 once measured) decides how much is dispatched.
 
 ### 8.1 Session start
 
@@ -377,24 +398,26 @@ A unit that cannot complete is marked `blocked` with the reason. The session han
 4. Read `docs/decisions/DECISIONS.md` and `docs/plan/GLOSSARY.md`.
 5. Read `docs/plan/PREFERENCES.md`.
 6. Verify: does the output file of the last `done` unit actually exist and pass field checks? If not, mark it `pending` and note the discrepancy in this session's handoff.
-7. Verify the checkout and sources: `git branch --show-current` is `v2` — if not, stop and tell Peter; then, for each package, `git -C sources/<pkg> rev-parse HEAD` equals the SHA in `STATE.md`. If `sources/` is absent or any SHA differs, re-clone and check out the pin before continuing (§1.1). Confirm `sources/<pkg>-external/` snapshots exist for `addy` and `matt`.
-8. Run `scripts/synthesis/coverage.ts` and `glossary-lint.ts`. Note the output.
-9. Create `docs/plan/sessions/NNN-<phase>.md` with the start state.
-10. Resume at the current unit.
+7. Verify the checkout and sources: `git branch --show-current` is `v2` — if not, stop and tell Peter; then, for each package, `git -C sources/<pkg> rev-parse HEAD` equals the SHA in `STATE.md`. If `sources/` is absent or any SHA differs, re-clone and check out the pin before continuing (§1.1). Confirm `sources/<pkg>-external/` snapshots exist for `addy` and `matt`. `git status --porcelain` is empty — the tree is committed and clean.
+8. Run and record output and exit codes: `bun scripts/synthesis/prefix-check.ts` (note the combined hash), `bun scripts/synthesis/partition.ts --check`, `bun scripts/synthesis/coverage.ts`, `bun scripts/synthesis/glossary-lint.ts`, `bun scripts/synthesis/memo.ts audit`.
+9. Read `context_window.used_percentage` (statusline or `/context`) and note it as the session's starting context.
+10. Create `docs/plan/sessions/NNN-<phase>.md` with the start state, the prefix hash, and the script outputs.
+11. Resume at the current unit.
 
-Do not begin work before step 9 is done. Do not skip step 6 — it is the only check that catches a previous session that ended badly. Do not skip step 7 — analysing an unpinned checkout invalidates every `path:line` already recorded.
+Do not begin work before step 10 is done. Do not skip step 6 — it is the only check that catches a previous session that ended badly. Do not skip step 7 — analysing an unpinned checkout invalidates every `path:line` already recorded.
 
 ### 8.2 During the session
 
-Watch context length. When the conversation is long enough that a compaction is plausible, finish the current unit and write the handoff *before* starting another. Unpersisted results lost to compaction are the single most likely failure of this project.
+Context is budgeted, not watched. Record `context_window.used_percentage` after dispatch and after every Sentinel report; the per-unit delta is this conversation's true cost. Dispatch while `used + largest observed per-unit delta + reserve < budget`, where budget and reserve are those recorded in D-010 (until D-010 exists, the experiment protocol in `docs/analysis/dynamic-batching-experiment.md` governs and every measurement is written down). Never let the harness summarise the conversation: end it by plan first. A fixed-set file (`docs/plan/prefix.json`) is never edited mid-conversation; if one must change, that is a §11 change and the session ends after recording it.
 
 ### 8.3 Session end
 
 1. Finish the current unit or mark it `rolled-back` (never leave it `in-progress`).
 2. Update `STATE.md`: phase, units, counts, anything Peter must act on.
-3. Complete the session handoff file: what was done (unit IDs), what was found that the next session must know, what is blocked, what is next, and any question for Peter.
-4. Commit on the branch with a message naming the session and units.
-5. Say, in one paragraph to Peter: where things stand, what is next, and whether anything needs him.
+3. Run `bun scripts/synthesis/prefix-check.ts --compare <start hash>`; record the result. Record the peak `context_window.used_percentage` of the conversation.
+4. Complete the session handoff file: what was done (unit IDs), what was found that the next session must know, what is blocked, what is next, any question for Peter, and every script run with its exit code.
+5. Commit on the branch with a message naming the session and units. `git status --porcelain` must be empty afterwards.
+6. Say, in one paragraph to Peter: where things stand, what is next, and whether anything needs him. Commands and output, not claims.
 
 ---
 
@@ -413,34 +436,45 @@ package.json               ← @acmelabs/brain; Bun; `bun test`, `bun run typech
 bun.lock                   ← lockfile
 bunfig.toml                ← Bun test configuration
 tsconfig.json              ← TypeScript configuration
-.gitignore                 ← includes sources/
+.gitignore                 ← includes sources/ and .teamwork/
 .github/                   ← CI: typecheck + tests
 agents/                    ← plugin output (canonical, Claude Code): agent definitions; Part 2
 commands/                  ← plugin output (canonical, Claude Code): slash commands; Part 2
 skills/                    ← plugin output (canonical, Claude Code): skills; Part 2
 .agents/                   ← plugin output (Antigravity mirrors, D-009): skills/, agents/,
-                             mcp_config.json, hooks.json; created in Part 2
+                             mcp_config.json, hooks.json; created in Part 2. Teamwork scratch never lives here.
+.teamwork/                 ← gitignored; Teamwork run working directories (<run-id>/), holding the
+                             request/plan/progress artifacts and per-agent scratch; captured, never read as input
 scripts/
-  synthesis/               ← project tooling for this synthesis; NOT plugin content
-    manifest.ts            ← Bun
-    coverage.ts            ← Bun
+  synthesis/               ← project tooling for this synthesis (pure Bun); NOT plugin content
+    _lib.ts                ← shared helpers (hashing, frontmatter, manifest/units parsing, slugOf)
+    manifest.ts            ← the coverage manifests; Checked is derived from the card listing (R1)
+    partition.ts           ← work units from the manifests; persists units.md (§6.5)
+    dedupe.ts              ← the duplication ledger (§2.4)
+    coverage.ts            ← manifest ↔ cards, required fields, R11 (§10)
+    quote-check.ts         ← byte-exact citation check (R3, R11)
+    memo.ts                ← the result store: check / stamp / audit (M1)
+    unit-facts.ts          ← the computed facts a dispatch carries (M5)
+    prefix-check.ts        ← hash of the fixed set in prefix.json (M3)
     glossary-lint.ts       ← Bun
 sources/                   ← gitignored; pinned source clones; never enters brain's history
   addy/                    ← fresh clone at pinned SHA
-  addy-external/           ← skills.addy.ie snapshots, one .md per skill
+  addy-external/           ← skills.addy.ie snapshots, one .md per skill (manifest rows `external/<slug>.md`)
   matt/                    ← fresh clone at pinned SHA
   matt-external/           ← aihero.dev snapshots, one .md per skill
   rjm/                     ← fresh clone at pinned SHA
 docs/
   plan/
-    METHOD.md              ← this file; never changes
+    METHOD.md              ← this file; changes only through §11
     STATE.md               ← living state; updated at every unit boundary
     GLOSSARY.md            ← canonical terms; grows from Phase 4
     PREFERENCES.md         ← Peter's stated inputs; read-only for the agent
     DO-NOT-READ.md         ← the fence: v2 only, history is not an input
     REVIEW.md              ← Peter's spec review notes (human gate)
-    templates/             ← the schemas every subagent fills
+    prefix.json            ← the fixed set: files that never change inside a conversation (M3)
+    templates/             ← the schemas every worker fills (incl. divergence-card.md)
     sessions/              ← one handoff file per session
+    teamwork/              ← one interview brief per Teamwork run (§6.3.1); written by the primary agent, used by Peter
     lifecycle-spec/        ← Phase 5 output; frozen at approval
     implementation/        ← Phase 6 plan; Phase 7 reports
   decisions/
@@ -448,11 +482,11 @@ docs/
   analysis/
     brain-conventions.md   ← Phase 0
     landscape.md           ← Phase 0.5, if run
-    manifest/              ← Phase 0; one file per package + rjm-excluded
-    inventory/<pkg>/       ← Phase 1; one entry per source file
+    manifest/              ← Phase 0; <pkg>.md, rjm-excluded.md, <pkg>-duplicates.md, units.md
+    inventory/<pkg>/       ← Phase 1; one entry per source file; _units/, _divergence/, _verification.md
     concepts/<pkg>/        ← Phase 2; one card per named concept
     concordance/           ← Phase 3; one file per concept family
-    dynamic-batching-experiment.md ← Teamwork Preview measurement experiment (D-010-to-be)
+    dynamic-batching-experiment.md ← the measurement protocol and results that become D-010
     integration-verification.md  ← Phase 8
 ```
 
@@ -460,11 +494,16 @@ docs/
 
 ## 10. Anti-drift checks
 
-Run at every session start and at every phase gate.
+Run at every session start and at every phase gate. Every run is recorded in the handoff with its exit code.
 
 | Check | Tool | Catches |
 |---|---|---|
-| Coverage | `coverage.ts` | Files read but not inventoried; entries with empty required fields; concepts named but without cards |
+| Coverage | `coverage.ts` | Manifest rows without a card (or with a phantom check-off); cards without a row; empty required fields; R11 alias claims ≠ 1; divergence cards missing or with a hunk count ≠ the ledger |
+| Quotations | `quote-check.ts --all` | Any `"…" — path:line` or `` `term` — path:line `` that is not byte-exact at that line |
+| Result store | `memo.ts audit` | Cards whose recorded inputs, METHOD, or template hash no longer match the tree |
+| Partition | `partition.ts --check` | `units.md` that no longer matches the manifests |
+| Ledger | `dedupe.ts` (regenerate, `git diff --stat`) | Ledger drift after a manifest change |
+| Fixed set | `prefix-check.ts --compare` | A fixed-set file edited mid-conversation |
 | Glossary lint | `glossary-lint.ts` | Canonical-looking terms used anywhere in `docs/` that are not defined; package-prefixed terms used after their decision exists |
 | Last-unit verification | §8.1 step 6 | A session that claimed a unit done without persisting it |
 | Decision consistency | 4V adversarial pass | Contradicting active decisions; undefined terms in decisions |

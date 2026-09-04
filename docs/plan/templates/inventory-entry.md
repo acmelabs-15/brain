@@ -1,6 +1,6 @@
 # Inventory entry
 
-One per in-scope source file. Written to `docs/analysis/inventory/<pkg>/<file-slug>.md`. Fields marked **verbatim** carry the source's exact words in quotes with a `path:line` — no paraphrase (METHOD.md R3). Fields marked **required** may not be empty; `coverage.ts` enforces this. Write `none` explicitly when a required field has nothing to report — an empty field means "not checked", `none` means "checked, nothing there".
+One per in-scope source file. Written to `docs/analysis/inventory/<pkg>/<file-slug>.md`. Fields marked **verbatim** carry the source's exact words in quotes with a `path:line` — no paraphrase (METHOD.md R3); `quote-check.ts` verifies every citation byte-for-byte (R11), so cite the line the words are actually on. For an EXACT alias (§2.4) write one entry for the canonical path and list the aliases in `aliases:`. Fields marked **required** may not be empty; `coverage.ts` enforces this. Write `none` explicitly when a required field has nothing to report — an empty field means "not checked", `none` means "checked, nothing there".
 
 ```markdown
 ---
@@ -11,6 +11,14 @@ bytes: <n>
 unit: <unit-id>
 deprecated: true | false          # matt only; true if under skills/deprecated/
 in_scope_via: <entry point or invoking file that brought this into scope>   # rjm only
+aliases: []                       # EXACT alias paths this entry satisfies (§2.4); [] if none
+memo_inputs:                      # written by `memo.ts stamp` — never by hand
+  - {path: <source path>, sha256: <hex>}
+method_sha: <hex>                 # memo.ts stamp
+template_sha: <hex>               # memo.ts stamp
+model: <model id | unknown>       # the model that wrote this card; never guessed
+effort: <level | unknown>
+verified:                         # `<YYYY-MM-DD> quote-check+coverage`, written by the verifier only
 ---
 
 # <path>

@@ -15,5 +15,5 @@
     "isolatedModules": true,
     "noImplicitOverride": true,
   },
-  "exclude": ["node_modules", "dist", "**/*-workspace"]
+  "exclude": ["node_modules", "dist", "**/*-workspace", "sources", ".teamwork"]
 }

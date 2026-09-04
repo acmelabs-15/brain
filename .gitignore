@@ -49,3 +49,6 @@ coverage/
 
 # pinned source clones, never committed
 sources/
+
+# Teamwork run working directories (request/plan/progress artifacts, per-agent scratch); captured, never committed
+.teamwork/
