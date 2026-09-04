@@ -22,6 +22,11 @@ Recorded here so the reset does not lose them. Produced by `quote-check.ts --all
 quote-check: 5087 PASS, 1117 FAIL (61 of them off by one line), 1571 MISSING source, across 212 card(s); 173 card(s) with failures
 ```
 
+(Measured 2026-09-04 on Peter's machine):
+```
+quote-check: 6208 PASS, 1228 FAIL (61 of them off by one line), 339 MISSING source, across 212 card(s); 188 card(s) with failures
+```
+
 18% of resolvable citations were not byte-exact at the cited line; 82% of cards carried at least one such citation. Failure classes seen by hand: paraphrase in a verbatim field ("check placement by cost" for "Place each check by cost"), off-by-one line numbers, a term cited at a line that does not contain it, a path cited where only the skill's name appears. This is the number the new contract (Worker runs `quote-check.ts` before returning; Auditor re-runs it) must drive to zero.
 
 ## 3. Stopping rule (primary agent)

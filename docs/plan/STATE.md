@@ -73,12 +73,12 @@ Re-partitioned on 2026-09-04 by `partition.ts` (D-013); unit ids before this dat
 | inv-addy-6 | addy | 55 | 42180 | in-progress | 013 | — |
 | inv-addy-7 | addy | 1 | 26413 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-7.md |
 | inv-addy-8 | addy | 1 | 23834 | in-progress | 013 | — |
-| inv-addy-9 | addy | 1 | 26179 | pending | — | — |
+| inv-addy-9 | addy | 1 | 26179 | in-progress | 013 | — |
 | inv-addy-10 | addy | 1 | 26687 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-10.md |
 | inv-addy-11 | addy | 2 | 26320 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-11.md |
-| inv-addy-12 | addy | 1 | 26352 | pending | — | — |
+| inv-addy-12 | addy | 1 | 26352 | in-progress | 013 | — |
 | inv-addy-13 | addy | 2 | 49957 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-13.md |
-| inv-addy-14 | addy | 1 | 26223 | pending | — | — |
+| inv-addy-14 | addy | 1 | 26223 | in-progress | 013 | — |
 | inv-addy-15 | addy | 1 | 26502 | pending | — | — |
 | inv-addy-16 | addy | 1 | 26596 | pending | — | — |
 | inv-addy-17 | addy | 1 | 26317 | pending | — | — |

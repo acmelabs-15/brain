@@ -45,16 +45,24 @@ none
 Run the unit dispatch.
 
 ## For Peter
-Waiting on Peter's ratification of D-011 and review of the fixes. The previous session 012 requested ratification.
+Run the interview for p1-run-01.
 
 ## Scripts run
-- `git branch --show-current; git status --porcelain`: exit 0, v2
-- `git -C sources/... rev-parse HEAD`: exit 0, correct SHAs
-- `bun scripts/synthesis/prefix-check.ts`: exit 0, prefix combined a4f43383038cc551
-- `bun scripts/synthesis/partition.ts --check`: exit 0, matches manifests
-- `bun scripts/synthesis/coverage.ts`: exit 1, 12 failures, 1558 rows
-- `bun scripts/synthesis/glossary-lint.ts`: exit 0, clean
-- `bun scripts/synthesis/memo.ts audit`: exit 0, 212 UNSTAMPED
+- `git log -3 --format='%h %s'`: 9c349bc, 6c42469, 2e5f6aa
+- `git status --porcelain`: modifications to STATE.md, dynamic-batching-experiment.md, 013-inventory.md, deleted p1-addy-batch-1.md
+- `grep -c '^## D-01[2-5]' docs/decisions/DECISIONS.md`: 4
+- `grep -n 'superseded-by' docs/decisions/DECISIONS.md`: lines 3 and 109
+- `grep -n '^### 2.4\|^\*\*R11\|^### 6.3 \|^## 7\. ' docs/plan/METHOD.md`: lines 91, 136, 319, 373
+- `ls scripts/synthesis/`: _lib.ts, coverage.ts, dedupe.ts, glossary-lint.ts, manifest.ts, memo.ts, partition.ts, prefix-check.ts, quote-check.ts, unit-facts.ts
+- `bun scripts/synthesis/prefix-check.ts | tail -1`: prefix: 23 files, combined a4f43383038cc551
+- `bun scripts/synthesis/partition.ts --check`: partition: units.md matches the manifests (1558 rows, 333 units)
+- `bun scripts/synthesis/coverage.ts --quiet`: coverage: rows 1558 (2 symlink rows need no card), covered 203, uncovered 1353, orphan cards 8, empty required 0, R11 alias problems 0, R11 variant problems 4, concepts without card 0; 12 failure(s)
+- `bun scripts/synthesis/quote-check.ts --all --summary | tail -1`: quote-check: 6208 PASS, 1228 FAIL (61 of them off by one line), 339 MISSING source, across 212 card(s); 188 card(s) with failures
+- `bun scripts/synthesis/memo.ts audit | tail -1`: memo audit: 0 OK, 0 STALE, 212 UNSTAMPED across 212 card(s)
+- `grep -c '^| [0-9]' docs/analysis/manifest/*-duplicates.md`: addy:5, matt:1, rjm:6
+- `grep -c '^### V' docs/analysis/manifest/*-duplicates.md`: addy:4, matt:0, rjm:29
+- `grep -c '^| \.claude/agents/' docs/analysis/manifest/rjm.md`: 34
+- `grep -c '^| inv-' docs/plan/STATE.md`: 333
 
 ## Context note
 context_used_start: 1%
