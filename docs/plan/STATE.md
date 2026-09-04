@@ -11,7 +11,7 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `1` |
 | **phase_name** | Inventory |
 | **current_unit** | inv-addy-1 |
-| **last_session** | 011 |
+| **last_session** | `013` |
 | **next_action** | Run the experiment protocol (dynamic-batching-experiment.md): write the §6.3.1 interview brief for the first pending batch; Peter runs the interview |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
@@ -65,14 +65,14 @@ Re-partitioned on 2026-09-04 by `partition.ts` (D-013); unit ids before this dat
 
 | Unit | Package | Files | Bytes | Status | Session | Output |
 |---|---|---|---|---|---|---|
-| inv-addy-1 | addy | 29 | 49837 | pending | — | — |
+| inv-addy-1 | addy | 29 | 49837 | in-progress | 013 | — |
 | inv-addy-2 | addy | 14 | 46098 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-2.md |
 | inv-addy-3 | addy | 6 | 34655 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-3.md |
 | inv-addy-4 | addy | 6 | 47822 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-4.md |
 | inv-addy-5 | addy | 22 | 48858 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-5.md |
-| inv-addy-6 | addy | 55 | 42180 | pending | — | — |
+| inv-addy-6 | addy | 55 | 42180 | in-progress | 013 | — |
 | inv-addy-7 | addy | 1 | 26413 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-7.md |
-| inv-addy-8 | addy | 1 | 23834 | pending | — | — |
+| inv-addy-8 | addy | 1 | 23834 | in-progress | 013 | — |
 | inv-addy-9 | addy | 1 | 26179 | pending | — | — |
 | inv-addy-10 | addy | 1 | 26687 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-10.md |
 | inv-addy-11 | addy | 2 | 26320 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-11.md |
@@ -100,12 +100,12 @@ Re-partitioned on 2026-09-04 by `partition.ts` (D-013); unit ids before this dat
 | inv-addy-33 | addy | 7 | 43228 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-33.md |
 | inv-addy-34 | addy | 3 | 45432 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-34.md |
 | inv-addy-35 | addy | 4 | 48638 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-35.md |
-| inv-addy-36 | addy | 4 | 49508 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-36.md |
-| inv-addy-37 | addy | 1 | 14063 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-37.md |
+| inv-addy-36 | addy | 4 | 49508 | pending | — | — |
+| inv-addy-37 | addy | 1 | 14063 | pending | — | — |
 | inv-addy-38 | addy | 6 | 49386 | pending | — | — |
-| inv-addy-39 | addy | 3 | 47129 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-39.md |
-| inv-addy-40 | addy | 3 | 44893 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-40.md |
-| inv-addy-41 | addy | 4 | 49021 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-41.md |
+| inv-addy-39 | addy | 3 | 47129 | pending | — | — |
+| inv-addy-40 | addy | 3 | 44893 | pending | — | — |
+| inv-addy-41 | addy | 4 | 49021 | pending | — | — |
 | inv-matt-1 | matt | 24 | 38606 | pending | — | — |
 | inv-matt-2 | matt | 3 | 49879 | pending | — | — |
 | inv-matt-3 | matt | 4 | 44347 | pending | — | — |
