@@ -12,7 +12,7 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase_name** | Inventory |
 | **current_unit** | inv-addy-39 |
 | **last_session** | `014` |
-| **next_action** | Run dynamic batching experiment: evaluate budget and dispatch next batch
+| **next_action** | Run dynamic batching experiment: dispatch run 03 (units `inv-addy-39`, `40`, `41`, `inv-matt-1`, `2`, `3`) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |

@@ -3,15 +3,15 @@ session: 014
 date: 2026-09-04
 phase_at_start: 1
 phase_at_end: 1
-units_completed: []
+units_completed: [inv-addy-15, inv-addy-16, inv-addy-17, inv-addy-22, inv-addy-25, inv-addy-36, inv-addy-37, inv-addy-38]
 units_rolled_back: []
 units_blocked: []
 decisions_added: []
-needs_peter: yes
+needs_peter: no
 prefix_hash_start: 2a512569d55cf978
 prefix_hash_end: 2a512569d55cf978
-context_used_start: 9.25
-context_used_peak: 12.59
+context_used_start: 8.08
+context_used_peak: 17.25
 ---
 
 # Session 014 — Inventory
@@ -21,13 +21,13 @@ context_used_peak: 12.59
 - **phase_name**: Inventory
 - **current_unit**: inv-addy-15
 - **last_session**: 013
-- **next_action**: Run the experiment protocol (dynamic-batching-experiment.md): write the §6.3.1 interview brief for the first pending batch; Peter runs the interview
+- **next_action**: Peter runs `/teamwork-preview` using interview brief `docs/plan/teamwork/p1-run-02.md`
 - **human_approval**: PENDING
 - **human_approval_date**: —
 - **landscape_scan**: no — set by Peter in D-007, 2026-09-02
 
 Result of §8.1 step 6 last-unit check: `inv-addy-14` exists (`docs/analysis/inventory/addy/_units/inv-addy-14.md`), `memo.ts check inv-addy-14` returned HIT (verified 2026-09-04 quote-check+coverage), `quote-check.ts` on its card returned 98 PASS, 0 FAIL, 0 MISSING. Clean.
-Checkout and sources verification: `git branch --show-current` is `v2`. Sources pinned SHAs verified (`addy` d2c37ef, `matt` 6654f6b, `rjm` 2abef31). `sources/addy-external/` (24 files) and `sources/matt-external/` exist. Committed `budget-params.json` parameter update (`a14deeb`) to keep tree clean.
+Checkout and sources verification: `git branch --show-current` is `v2`. Sources pinned SHAs verified (`addy` d2c37ef, `matt` 6654f6b, `rjm` 2abef31). Clean.
 
 Script outputs:
 - `bun scripts/synthesis/prefix-check.ts`: exit 0, prefix: 24 files, combined 2a512569d55cf978
@@ -35,30 +35,34 @@ Script outputs:
 - `bun scripts/synthesis/coverage.ts`: exit 1, 5 failures (pre-existing orphan cards from pre-D-013 units). 1558 rows, 212 covered, 1344 uncovered, 0 empty required, 0 R11 alias, 0 R11 variant problems.
 - `bun scripts/synthesis/glossary-lint.ts`: exit 0, clean.
 - `bun scripts/synthesis/memo.ts audit`: exit 0, 88 OK, 0 STALE, 130 UNSTAMPED across 218 cards.
-- `bun scripts/synthesis/budget.ts`: exit 0, used now 11.50%, governing 16%, headroom -0.5%, verdict: STOP — no headroom: close per §8.3.
+- `bun scripts/synthesis/budget.ts`: exit 0, used now 8.08%, governing 21%, reserve 2%, headroom 10.92%, verdict: DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure).
 
 ## What was done
-- Completed §8.1 session-start protocol including verification of last unit `inv-addy-14` and source checkouts.
-- Committed pre-session change to `docs/plan/budget-params.json` (`experiment_ceiling_pct: 16`, commit `a14deeb`).
-- Formulated the next batch for Teamwork run 02, stepping concurrency up to 8 units per `dynamic-batching-experiment.md` §5 and `budget-params.json` (`run_sizes: [6, 8, 12, 16]`): `inv-addy-15`, `inv-addy-16`, `inv-addy-17`, `inv-addy-22`, `inv-addy-25`, `inv-addy-36`, `inv-addy-37`, `inv-addy-38`.
-- Generated unit facts for all 8 units via `unit-facts.ts`.
-- Wrote Teamwork interview brief `docs/plan/teamwork/p1-run-02.md` per METHOD.md §6.3.1.
-- Evaluated budget: `budget.ts` returned `headroom -0.5%` and verdict `STOP — no headroom: close per §8.3` against the governing 16% provisional ceiling with 5% reserve.
-- Closed session per §8.3: no units left `in-progress`, `STATE.md` updated with next action and anti-drift log, prefix verified unchanged (`2a512569d55cf978`).
+- Dispatched dynamic-batching experiment Teamwork run 02 (`p1-run-02`) for 8 units: `inv-addy-15`, `inv-addy-16`, `inv-addy-17`, `inv-addy-22`, `inv-addy-25`, `inv-addy-36`, `inv-addy-37`, `inv-addy-38`.
+- Monitored Sentinel progress reports across iterations 1–3 and independent post-victory audit: VICTORY CONFIRMED.
+- Verified 17 inventory cards with `quote-check.ts`: 1,003 PASS, 0 FAIL, 0 MISSING source across all 17 cards.
+- Stamped all 17 cards with `memo.ts stamp "$c" --model "Gemini 3.8 Flash" --effort high`.
+- Added `verified: 2026-09-04 quote-check+coverage` to frontmatter of all 17 cards.
+- Regenerated manifests with `manifest.ts --no-fetch` (addy checked rows increased from 209 to 213; coverage covered increased from 212 to 218).
+- Updated `STATE.md`: marked 8 units `done`, session `014`, outputs recorded, counts updated.
+- Recorded live parameters via `budget.ts --set per_unit_delta_pct=0.53 max_clean_run=8`.
+- Evaluated budget for run 03: `headroom 2.78%`, `units_left 5`. Since smallest run size in series `[6, 8, 12, 16]` is 6 (> 5 units left), budget stopped the series. Prepared `p1-run-03.md` brief for next session and kept run 03 units `pending`.
+- Closed session per §8.3 with zero units left `in-progress`.
 
 ## What the next session must know
-- Interview brief for run 02 is written at `docs/plan/teamwork/p1-run-02.md` covering 8 units: `inv-addy-15`, `16`, `17`, `22`, `25`, `36`, `37`, `38`.
-- These 8 units cover the remaining pending `addy` external docs and core skills (`deprecation-and-migration`, `documentation-and-adrs`, `doubt-driven-development`, `frontend-ui-engineering`, `git-workflow-and-versioning`, `idea-refine`, `incremental-implementation`).
-- Processing run 02 will resolve the 5 pre-existing orphan cards from pre-D-013 units flagged in `coverage.ts`.
+- Run 02 is complete and verified (1,003 PASS / 0 FAIL). Cumulative experiment quotations: 2,161 PASS, 0 FAIL across 109 cards (Runs 01 + 02).
+- Addy package is now complete except for the final 3 units: `inv-addy-39`, `inv-addy-40`, `inv-addy-41`.
+- Next batch brief is already prepared at `docs/plan/teamwork/p1-run-03.md` for 6 units: `inv-addy-39`, `inv-addy-40`, `inv-addy-41`, `inv-matt-1`, `inv-matt-2`, `inv-matt-3`.
+- `budget-params.json` is updated with `per_unit_delta_pct: 0.53` and `max_clean_run: 8`.
 
 ## Blocked
-none (ready for Peter to run `/teamwork-preview` with `docs/plan/teamwork/p1-run-02.md`).
+none.
 
 ## Next action
-Peter runs `/teamwork-preview` using the brief in `docs/plan/teamwork/p1-run-02.md`. The next session receives the Success Auditor's report, verifies cards with `quote-check.ts` and `coverage.ts`, stamps them with `memo.ts`, updates `STATE.md`, and advances.
+Next session resumes at `inv-addy-39` and dispatches Teamwork run 03 using `docs/plan/teamwork/p1-run-03.md`.
 
 ## For Peter
-Teamwork run 02 interview brief is prepared at `docs/plan/teamwork/p1-run-02.md` for 8 units (`inv-addy-15`, `16`, `17`, `22`, `25`, `36`, `37`, `38`), stepping up from run 01's 6 units per the experiment protocol. Per `budget.ts`, this conversation is at 12.59% context against the provisional 16% ceiling (headroom -0.5% after 5% reserve) and closed per §8.3 to prevent context rot. Please run `/teamwork-preview` with the answers in `p1-run-02.md`.
+none.
 
 ## Scripts run
 - `git branch --show-current`: exit 0, v2
@@ -66,27 +70,34 @@ Teamwork run 02 interview brief is prepared at `docs/plan/teamwork/p1-run-02.md`
 - `git -C sources/addy rev-parse HEAD`: exit 0, d2c37ef6225dd8726cdd369a8030307f48592d26
 - `git -C sources/matt rev-parse HEAD`: exit 0, 6654f6b60cd9d5be8b54c6fafe44346dabeb3b76
 - `git -C sources/rjm rev-parse HEAD`: exit 0, 2abef31dc6812b62696297bd1065b58727a35786
-- `git commit -am "lifecycle synthesis: record experiment_ceiling_pct=16 in budget-params.json"`: exit 0, a14deeb
-- `bun scripts/synthesis/memo.ts check inv-addy-14`: exit 0, HIT docs/analysis/inventory/addy/external-documentation-and-adrs-md.md
-- `ls -la docs/analysis/inventory/addy/_units/inv-addy-14.md`: exit 0
-- `bun scripts/synthesis/quote-check.ts docs/analysis/inventory/addy/external-documentation-and-adrs-md.md`: exit 0, 98 PASS, 0 FAIL, 0 MISSING
-- `ls sources/addy-external | wc -l`: exit 0, 24
-- `ls sources/matt-external | wc -l`: exit 0, 0
-- `bun scripts/synthesis/prefix-check.ts`: exit 0, prefix: 24 files, combined 2a512569d55cf978
-- `bun scripts/synthesis/partition.ts --check`: exit 0, matches manifests (1558 rows, 333 units)
-- `bun scripts/synthesis/coverage.ts`: exit 1, 5 failure(s) (pre-existing orphan cards)
+- `bun scripts/synthesis/memo.ts check inv-addy-14`: exit 0, HIT
+- `bun scripts/synthesis/quote-check.ts docs/analysis/inventory/addy/external-documentation-and-adrs-md.md`: exit 0, 98 PASS, 0 FAIL
+- `bun scripts/synthesis/budget.ts`: exit 0, used 8.08% at session start
+- `bun scripts/synthesis/prefix-check.ts`: exit 0, 24 files, combined 2a512569d55cf978
+- `bun scripts/synthesis/partition.ts --check`: exit 0, matches manifests
+- `bun scripts/synthesis/coverage.ts --quiet`: exit 1, 5 failure(s) (pre-existing orphan cards)
 - `bun scripts/synthesis/glossary-lint.ts`: exit 0, clean
 - `bun scripts/synthesis/memo.ts audit`: exit 0, 88 OK, 0 STALE, 130 UNSTAMPED
-- `bun scripts/synthesis/budget.ts`: exit 0, used now 11.50%, governing 16%, headroom -0.5%, verdict: STOP — no headroom: close per §8.3
-- `bun scripts/synthesis/unit-facts.ts inv-addy-15`: exit 0
-- `bun scripts/synthesis/unit-facts.ts inv-addy-16`: exit 0
-- `bun scripts/synthesis/unit-facts.ts inv-addy-17`: exit 0
-- `bun scripts/synthesis/unit-facts.ts inv-addy-22`: exit 0
-- `bun scripts/synthesis/unit-facts.ts inv-addy-25`: exit 0
-- `bun scripts/synthesis/unit-facts.ts inv-addy-36`: exit 0
-- `bun scripts/synthesis/unit-facts.ts inv-addy-37`: exit 0
-- `bun scripts/synthesis/unit-facts.ts inv-addy-38`: exit 0
-- `bun scripts/synthesis/prefix-check.ts --compare 2a512569d55cf978`: exit 0, prefix: unchanged (2a512569d55cf978)
+- `for u in inv-addy-15..38; do bun scripts/synthesis/unit-facts.ts "$u"; done`: exit 0
+- `bun scripts/synthesis/budget.ts`: exit 0, used 10.21% before run 02 dispatch
+- `invoke_subagent` (Teamwork run 02, 8 units): exit 0, conversation `66d0900a-1350-4981-956b-ea3732ba34b1`
+- `bun scripts/synthesis/budget.ts`: exit 0, after Sentinel report 1 (used 11.06%)
+- `bun scripts/synthesis/budget.ts`: exit 0, after Sentinel report 2 (used 11.58%)
+- `bun scripts/synthesis/budget.ts`: exit 0, after Sentinel report 3 (used 11.87%)
+- `bun scripts/synthesis/budget.ts`: exit 0, after Sentinel report 4 (used 12.14%)
+- `bun scripts/synthesis/budget.ts`: exit 0, after Sentinel report 5 (used 12.43%)
+- `bun scripts/synthesis/budget.ts`: exit 0, after Sentinel report 6 (used 12.71%)
+- `bun scripts/synthesis/quote-check.ts --summary <cards...>`: exit 0, 1,003 PASS, 0 FAIL, 0 MISSING
+- `for c in ...; do bun scripts/synthesis/memo.ts stamp "$c" --model "Gemini 3.8 Flash" --effort high; done`: exit 0, 17 stamped
+- `bun scripts/synthesis/coverage.ts --quiet`: exit 1, 4 failure(s) (orphan cards decreased to 4, covered 218)
+- `bun scripts/synthesis/manifest.ts --no-fetch`: exit 0, manifests regenerated
+- `bun scripts/synthesis/budget.ts`: exit 0, after verification (used 14.42%)
+- `bun scripts/synthesis/budget.ts --set per_unit_delta_pct=0.53 max_clean_run=8`: exit 0
+- `bun scripts/synthesis/budget.ts`: exit 0, verdict DISPATCH 5 (headroom 2.78%)
+- `bun scripts/synthesis/prefix-check.ts --compare 2a512569d55cf978`: exit 0, prefix: unchanged
+- `bun scripts/synthesis/budget.ts`: exit 0, final used 17.23%, peak 17.25%
 
 ## Context note
-context_used_start: 9.25%, context_used_peak: 12.59%. `budget.ts` showed used 11.50% at budget check; governing 16% provisional ceiling minus 5% reserve gave headroom -0.5% (STOP). The session ended cleanly by plan per §8.3 without dispatching new units into this conversation.
+context_used_start: 8.08%, context_used_peak: 17.25%.
+Used before run 02 dispatch: 10.21%. Used after verification: 14.42%. Per-unit delta: 0.53%.
+Budget check for next run showed headroom 2.78%, allowing 5 units at delta 0.53%. Because the experiment series is [6, 8, 12, 16] and no size in the series is <= 5 (and 6 units would cost 3.18% > headroom 2.78%), the budget stopped the series cleanly before entering the 2% reserve.

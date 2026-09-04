@@ -1,5 +1,5 @@
 {
-  "per_unit_delta_pct": null,
+  "per_unit_delta_pct": 0.53,
   "reserve_pct": 2,
   "run_sizes": [
     6,
@@ -7,7 +7,7 @@
     12,
     16
   ],
-  "max_clean_run": null,
+  "max_clean_run": 8,
   "experiment_ceiling_pct": 21,
   "notes": "Provisional experiment parameters, not D-010. experiment_ceiling_pct 20 = the 3.7/3.8 Flash plateau (25%) minus a margin; the strict CI-confirmed knee is 6.25%. per_unit_delta_pct and reserve_pct are measured by the dynamic-batching experiment (`budget.ts --set ...`); max_clean_run is the largest run size whose cards returned zero quote-check FAILs. D-010 replaces experiment_ceiling_pct with the governing ceiling once the rot metrics have been observed."
 }
