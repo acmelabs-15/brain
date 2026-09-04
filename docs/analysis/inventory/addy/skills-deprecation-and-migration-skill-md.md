@@ -4,6 +4,13 @@ path: skills/deprecation-and-migration/SKILL.md
 type: skill
 bytes: 12516
 unit: inv-addy-36
+memo_inputs:
+  - {path: skills/deprecation-and-migration/SKILL.md, sha256: 92d9846321fab624eded7ac55d19a7738cfd2321c2be2e35eb153dcacf7359de}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # skills/deprecation-and-migration/SKILL.md

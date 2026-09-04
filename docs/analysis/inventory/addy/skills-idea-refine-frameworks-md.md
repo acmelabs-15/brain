@@ -4,6 +4,13 @@ path: skills/idea-refine/frameworks.md
 type: skill
 bytes: 5404
 unit: inv-addy-38
+memo_inputs:
+  - {path: skills/idea-refine/frameworks.md, sha256: 161ebc18fdf2d996bc62a87a2d747cf1bf53548354f8925de25c732c27f00309}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # skills/idea-refine/frameworks.md

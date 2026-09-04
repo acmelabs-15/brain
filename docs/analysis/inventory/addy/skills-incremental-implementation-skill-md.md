@@ -4,6 +4,13 @@ path: skills/incremental-implementation/SKILL.md
 type: skill
 bytes: 9507
 unit: inv-addy-38
+memo_inputs:
+  - {path: skills/incremental-implementation/SKILL.md, sha256: 3a3581e7084a0dc85af420afcc91211a159d3dc46f3d81075a4d53c566b70b80}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # skills/incremental-implementation/SKILL.md

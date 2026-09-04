@@ -4,6 +4,13 @@ path: skills/documentation-and-adrs/SKILL.md
 type: skill
 bytes: 9782
 unit: inv-addy-36
+memo_inputs:
+  - {path: skills/documentation-and-adrs/SKILL.md, sha256: b867bb80fb681257c7625ae59a0dfd849b1fc0f0a2f0338e7923f38030df9793}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # skills/documentation-and-adrs/SKILL.md

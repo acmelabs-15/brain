@@ -10,9 +10,9 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `1` |
 | **phase_name** | Inventory |
-| **current_unit** | `inv-addy-15`..`38` (run 02) |
+| **current_unit** | inv-addy-39 |
 | **last_session** | `014` |
-| **next_action** | Teamwork run 02 dispatch (units `inv-addy-15`, `16`, `17`, `22`, `25`, `36`, `37`, `38`) |
+| **next_action** | Run dynamic batching experiment: evaluate budget and dispatch next batch
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -79,17 +79,17 @@ Re-partitioned on 2026-09-04 by `partition.ts` (D-013); unit ids before this dat
 | inv-addy-12 | addy | 1 | 26352 | done | 013 | docs/analysis/inventory/addy/_units/inv-addy-12.md |
 | inv-addy-13 | addy | 2 | 49957 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-13.md |
 | inv-addy-14 | addy | 1 | 26223 | done | 013 | docs/analysis/inventory/addy/_units/inv-addy-14.md |
-| inv-addy-15 | addy | 1 | 26502 | in-progress | 014 | — |
-| inv-addy-16 | addy | 1 | 26596 | in-progress | 014 | — |
-| inv-addy-17 | addy | 1 | 26317 | in-progress | 014 | — |
+| inv-addy-15 | addy | 1 | 26502 | done | 014 | docs/analysis/inventory/addy/_units/inv-addy-15.md |
+| inv-addy-16 | addy | 1 | 26596 | done | 014 | docs/analysis/inventory/addy/_units/inv-addy-16.md |
+| inv-addy-17 | addy | 1 | 26317 | done | 014 | docs/analysis/inventory/addy/_units/inv-addy-17.md |
 | inv-addy-18 | addy | 1 | 24943 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-18.md |
 | inv-addy-19 | addy | 1 | 26461 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-19.md |
 | inv-addy-20 | addy | 1 | 24935 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-20.md |
 | inv-addy-21 | addy | 1 | 26344 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-21.md |
-| inv-addy-22 | addy | 2 | 48913 | in-progress | 014 | — |
+| inv-addy-22 | addy | 2 | 48913 | done | 014 | docs/analysis/inventory/addy/_units/inv-addy-22.md |
 | inv-addy-23 | addy | 1 | 26475 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-23.md |
 | inv-addy-24 | addy | 1 | 26336 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-24.md |
-| inv-addy-25 | addy | 1 | 26358 | in-progress | 014 | — |
+| inv-addy-25 | addy | 1 | 26358 | done | 014 | docs/analysis/inventory/addy/_units/inv-addy-25.md |
 | inv-addy-26 | addy | 1 | 25104 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-26.md |
 | inv-addy-27 | addy | 3 | 48802 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-27.md |
 | inv-addy-28 | addy | 10 | 45784 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-28.md |
@@ -100,9 +100,9 @@ Re-partitioned on 2026-09-04 by `partition.ts` (D-013); unit ids before this dat
 | inv-addy-33 | addy | 7 | 43228 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-33.md |
 | inv-addy-34 | addy | 3 | 45432 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-34.md |
 | inv-addy-35 | addy | 4 | 48638 | done | ≤012 (pre-D-013 cards; quote-check pending) | docs/analysis/inventory/addy/_units/inv-addy-35.md |
-| inv-addy-36 | addy | 4 | 49508 | in-progress | 014 | — |
-| inv-addy-37 | addy | 1 | 14063 | in-progress | 014 | — |
-| inv-addy-38 | addy | 6 | 49386 | in-progress | 014 | — |
+| inv-addy-36 | addy | 4 | 49508 | done | 014 | docs/analysis/inventory/addy/_units/inv-addy-36.md |
+| inv-addy-37 | addy | 1 | 14063 | done | 014 | docs/analysis/inventory/addy/_units/inv-addy-37.md |
+| inv-addy-38 | addy | 6 | 49386 | done | 014 | docs/analysis/inventory/addy/_units/inv-addy-38.md |
 | inv-addy-39 | addy | 3 | 47129 | pending | — | — |
 | inv-addy-40 | addy | 3 | 44893 | pending | — | — |
 | inv-addy-41 | addy | 4 | 49021 | pending | — | — |
@@ -431,7 +431,7 @@ Updated at every unit boundary.
 | Metric | Value |
 |---|---|
 | Manifest rows (addy / matt / rjm) | 217 / 167 / 950 |
-| Rows inventoried (addy / matt / rjm) | 209 / 0 / 0 |
+| Rows inventoried (addy / matt / rjm) | 213 / 0 / 0 |
 | Concept cards (addy / matt / rjm) | 0 / 0 / 0 |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 0 |
 | Decisions (active / superseded / pending-peter) | 13 / 1 / 0 |

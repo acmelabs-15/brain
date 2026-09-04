@@ -174,6 +174,31 @@ budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be064
   per-unit delta  not measured%   units_left —   max clean run —   pending 295
   DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
 ```
+  - after verification:
+```
+budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
+  used now        14.423465728759766%  (151,241 tokens; peak this conversation 14.423465728759766%; compactions seen 0)
+  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
+  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
+  headroom        4.58%
+  per-unit delta  not measured%   units_left —   max clean run —   pending 295
+  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
+```
+- **per-unit delta**: 0.53% (used after verification 14.42% − used before dispatch 10.21% = 4.21% ÷ 8 units = 0.526%)
+- **rot metrics**: none observed (used: 14.42%)
+- **429s and quota.reset_in_seconds**: none observed
+- **wall time**: 17m 00s (from `2026-09-04T20:04:00Z` dispatch to `2026-09-04T20:21:00Z` sentinel final handoff). Files read under `.teamwork/p1-run-02/` and `.agents/`:
+  - `.teamwork/p1-run-02/DISPATCH.md` (dispatch logged at 2026-09-04T20:04:00Z)
+  - `.teamwork/p1-run-02/progress.md` (last updated at 2026-09-04T20:17:15Z)
+  - `.teamwork/p1-run-02/handoff.md` (orchestrator handoff at 2026-09-04T20:17:30Z)
+  - `.teamwork/p1-run-02/success_auditor_report.md` (completed at 2026-09-04T20:17:15Z)
+  - `.agents/victory_auditor_p1_run_02/handoff.md` (audit completed at 2026-09-04T20:20:00Z)
+  - `.agents/sentinel_p1_run_02/handoff.md` (sentinel handoff at 2026-09-04T20:21:00Z)
+- **quote-check totals**:
+  - Run 02 cards: 1,003 PASS, 0 FAIL, 0 MISSING across 17 cards (0% failure rate)
+  - Cumulative (Runs 01 + 02): 2,161 PASS, 0 FAIL, 0 MISSING across 109 cards (0% failure rate)
+  - Baseline (§2): 6,208 PASS, 1,228 FAIL, 339 MISSING across 212 cards (18% failure rate)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-02/success_auditor_report.md` (confirmed by victory auditor at `/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/victory_auditor_p1_run_02/handoff.md` and sentinel handoff at `/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/sentinel_p1_run_02/handoff.md` with VICTORY CONFIRMED)
 
 ## 8. Objective
 

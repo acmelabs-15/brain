@@ -4,6 +4,13 @@ path: skills/idea-refine/SKILL.md
 type: skill
 bytes: 8111
 unit: inv-addy-38
+memo_inputs:
+  - {path: skills/idea-refine/SKILL.md, sha256: 79e773058963adc7646b0115b4f8a4afc974c5ff95843e4ef1cafff3cb51899e}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # skills/idea-refine/SKILL.md
