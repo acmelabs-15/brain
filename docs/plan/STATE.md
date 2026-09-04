@@ -356,8 +356,6 @@ Populated in Phase 0 (inventory units) and Phase 6 (build units). One row per un
 | inv-rjm-235 | rjm | 2 | 40473 | pending | — | — |
 | inv-rjm-236 | rjm | 4 | 35980 | pending | — | — |
 | inv-rjm-237 | rjm | 1 | 14246 | pending | — | — |
-|---|---|---|---|---|---|---|
-| — | — | — | — | — | — | — |
 
 ### Phase 2 — Concept card units
 
@@ -418,7 +416,7 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 
 | Check | Last run | Result |
 |---|---|---|
-| coverage.ts | 011 | 1191 unchecked rows |
+| coverage.ts | 012 | 1125 unchecked rows |
 | glossary-lint.ts | 011 | clean |
 | last-unit verification | 011 | clean (inv-addy-35 exists and is valid) |
 | decision consistency (4V) | — | — |

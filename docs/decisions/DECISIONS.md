@@ -95,7 +95,7 @@ Template: `docs/plan/templates/decision.md`.
 ## D-011 — Delegation architecture for Teamwork Preview
 
 - **date:** 2026-09-04
-- **made-by:** AI Agent
+- **made-by:** AI Agent (drafted for Peter's ratification)
 - **status:** active
 - **decision:** The actual contract for Teamwork Preview delegation is:
   1. One Teamwork dispatch per unit (Sentinel -> Project Orchestrator -> Explorers -> Worker -> review panel -> Success Auditor). Roles are called by their documented names.

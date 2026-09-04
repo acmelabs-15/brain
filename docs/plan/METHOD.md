@@ -302,13 +302,45 @@ The actual delegation architecture contract is defined by D-011:
 Every extraction or build subagent prompt contains, in this order:
 
 1. The rules R1–R6 (and R9 for builders), verbatim from this file
-2. The exact file list, with absolute paths, and an instruction that every file is read in full
+2. The exact file list, with absolute paths, and an instruction that every file is read in full — using `Read` without offset or limit, continuing with offsets until the last line if the file is long
 3. The template it fills, verbatim
-4. The current `GLOSSARY.md`
+4. The current `GLOSSARY.md` (so package-prefix convention or canonical terms are applied)
 5. For builders: the spec sections, source excerpts, conventions, and decisions
 6. The return format: the filled template(s) followed by the work-unit report
 
 The orchestrator never summarises a subagent's return before writing it. It writes the return to disk verbatim, then reads what it wrote to update `STATE.md`. If a return is truncated or malformed, the unit is re-dispatched, not patched.
+
+### 6.3.1 Harness-specific form: Teamwork Preview
+When dispatching a unit via the Teamwork Preview subagent (Full Team), use this exact prompt template:
+
+```markdown
+# Teamwork Project Prompt — Draft
+
+> Status: Launched
+> Goal: Execute inventory extraction
+> Requested team: Full team
+
+Run the inventory extraction (Phase 1) for the `<UNIT_ID>` work unit containing <COUNT> files, following the project's METHOD.md rules (R1-R6) and returning the fully populated inventory-entry and work-unit report templates.
+
+Working directory: /Users/peterkloss/Dev/ACMElabs/brain-v2
+Integrity mode: development
+
+## Requirements
+
+### Comprehensive File Extraction
+Read each of the assigned files in the `<UNIT_ID>` partition in full and extract the necessary information into the `inventory-entry.md` template exactly as specified in the project methodology. Re-read every assigned file before writing deliverables to ensure verbatim fidelity.
+
+### Script Execution and Verification
+Execute every script found in the scope using its documented example and record the output, exit codes, and whether the output matches the documentation.
+
+## Acceptance Criteria
+
+### Execution Quality
+- [ ] Every assigned file has a completed inventory entry with no missing required fields.
+- [ ] Every script present in the scope was executed and its output verified.
+- [ ] Glossary conventions were applied correctly.
+```
+
 
 ### 6.4 The adversarial reviewer contract
 
@@ -420,6 +452,7 @@ docs/
     inventory/<pkg>/       ← Phase 1; one entry per source file
     concepts/<pkg>/        ← Phase 2; one card per named concept
     concordance/           ← Phase 3; one file per concept family
+    dynamic-batching-experiment.md ← Teamwork Preview measurement experiment (D-010-to-be)
     integration-verification.md  ← Phase 8
 ```
 
