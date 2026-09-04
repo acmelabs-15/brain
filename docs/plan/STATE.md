@@ -361,7 +361,6 @@ Populated in Phase 0 (inventory units) and Phase 6 (build units). One row per un
 
 | Unit | Package / family | Status | Session | Output |
 |---|---|---|---|---|
-| — | — | — | — | — |
 
 ### Phase 3 — Concordance families
 
@@ -380,7 +379,6 @@ Populated in Phase 0 (inventory units) and Phase 6 (build units). One row per un
 
 | Unit | Artifact | Spec §§ | Status | Review rounds | Session | Report |
 |---|---|---|---|---|---|---|
-| — | — | — | — | — | — | — |
 
 ---
 
@@ -406,7 +404,6 @@ Anything the agent cannot resolve alone. Each row names what Peter needs to do.
 
 | Since | Unit / item | Reason | Needs |
 |---|---|---|---|
-| — | — | — | — |
 
 ---
 
