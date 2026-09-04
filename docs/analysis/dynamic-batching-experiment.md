@@ -134,6 +134,16 @@ budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be064
   per-unit delta  not measured%   units_left —   max clean run —   pending 295
   DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
 ```
+  - after Sentinel report 3 (2026-09-04T20:10:05Z):
+```
+budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
+  used now        11.871528625488281%  (124,482 tokens; peak this conversation 11.871528625488281%; compactions seen 0)
+  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
+  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
+  headroom        7.13%
+  per-unit delta  not measured%   units_left —   max clean run —   pending 295
+  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
+```
 
 ## 8. Objective
 
