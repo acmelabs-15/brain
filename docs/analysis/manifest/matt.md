@@ -162,8 +162,8 @@
 | .out-of-scope/question-limits.md | 1259 | doc | [ ] |
 | .out-of-scope/setup-skill-verify-mode.md | 1125 | doc | [ ] |
 | CLAUDE.md | 3703 | doc | [ ] |
-| ../matt-external/misc.md | 0 | external-doc | [ ] |
-| ../matt-external/in-progress.md | 0 | external-doc | [ ] |
-| ../matt-external/engineering.md | 0 | external-doc | [ ] |
-| ../matt-external/productivity.md | 0 | external-doc | [ ] |
-| ../matt-external/deprecated.md | 0 | external-doc | [ ] |
+| ../matt-external/misc.md | 0 | external-doc | [ ] (unavailable) |
+| ../matt-external/in-progress.md | 0 | external-doc | [ ] (unavailable) |
+| ../matt-external/engineering.md | 0 | external-doc | [ ] (unavailable) |
+| ../matt-external/productivity.md | 0 | external-doc | [ ] (unavailable) |
+| ../matt-external/deprecated.md | 0 | external-doc | [ ] (unavailable) |

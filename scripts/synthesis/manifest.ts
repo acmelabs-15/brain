@@ -1,4 +1,5 @@
 import { join, dirname, extname } from "path";
+import { realpathSync } from "fs";
 import { readdir, stat, readFile } from "fs/promises";
 import { existsSync } from "fs";
 
@@ -23,6 +24,12 @@ function isExcluded(filePath: string): boolean {
     if (filePath.includes('.claude/hooks') || part === 'evals' || part === 'tests' || part === 'build' || part === 'packages') return true;
   }
   return false;
+}
+
+function getSlug(p: string) {
+  let clean = p.replace(/^\.?\/?/, '');
+  let slug = clean.replace(/[\/\._]/g, '-') + '.md';
+  return slug;
 }
 
 async function walk(dir: string, fileList: string[] = []): Promise<string[]> {
@@ -66,7 +73,7 @@ async function processPackage(pkg: string) {
       path: f.replace(`sources/${pkg}/`, ''),
       bytes: s.size,
       type: getFileType(f),
-      checked: '[ ]'
+      checked: existsSync(join('docs/analysis/inventory', pkg, getSlug(f.replace(`sources/${pkg}/`, '')))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(f.replace(`sources/${pkg}/`, '').replace('.eval/', 'eval-')))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(f.split('/').pop()!))) ? '[x]' : '[ ]'
     });
   }
 
@@ -104,14 +111,14 @@ async function processPackage(pkg: string) {
         path: `../${pkg}-external/${slug}.md`,
         bytes: s.size,
         type: 'external-doc',
-        checked: '[ ]'
+        checked: existsSync(join('docs/analysis/inventory', pkg, getSlug(`sources/${pkg}-external/${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`external-${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`../${pkg}-external/${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`${slug}.md`))) ? '[x]' : '[ ]'
       });
     } else {
       rows.push({
         path: `../${pkg}-external/${slug}.md`,
         bytes: 0,
         type: 'external-doc',
-        checked: '[ ] (unavailable)'
+        checked: existsSync(join('docs/analysis/inventory', pkg, getSlug(`sources/${pkg}-external/${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`external-${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`../${pkg}-external/${slug}.md`))) || existsSync(join('docs/analysis/inventory', pkg, getSlug(`${slug}.md`))) ? '[x] (unavailable)' : '[ ] (unavailable)'
       });
     }
   }
@@ -172,9 +179,14 @@ async function processRjm() {
     let normalizedPath = relPath.replace(/^\//, '').replace(/\/\//g, '/');
     const ext = extname(normalizedPath).toLowerCase();
     if ([".png", ".jpg", ".jpeg", ".gif", ".mp4", ".mov", ".ico"].includes(ext)) continue;
-    // deduplicate by lowercasing on mac
-    normalizedPath = normalizedPath.toLowerCase();
-
+    const fullPathCheck = join(dir, normalizedPath);
+    if (!existsSync(fullPathCheck)) continue;
+    let real = fullPathCheck;
+    try { real = require('fs').realpathSync(fullPathCheck); } catch(e) {}
+    if (real.startsWith(require('path').resolve(dir))) {
+      normalizedPath = real.slice(require('path').resolve(dir).length + 1);
+    }
+    
     if (visited.has(normalizedPath)) continue;
     visited.add(normalizedPath);
 
@@ -248,7 +260,8 @@ async function processRjm() {
       } else {
         continue;
       }
-      out += `| ${p} | ${bytes} | ${getFileType(fullPath)} | [ ] |\n`;
+      const checked = existsSync(join('docs/analysis/inventory', name, getSlug(p))) || existsSync(join('docs/analysis/inventory', name, getSlug(p.split('/').pop()!))) ? '[x]' : '[ ]';
+      out += `| ${p} | ${bytes} | ${getFileType(fullPath)} | ${checked} |\n`;
     }
     await Bun.write(`docs/analysis/manifest/${name}.md`, out);
   };

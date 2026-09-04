@@ -1,6 +1,5 @@
 | Path | Bytes | Type | Checked |
 |---|---|---|---|
-| .agents/archive/planning/pr-60/002-pr-60-remediation-plan.md | 24845 | doc | [ ] |
 | .agents/archive/planning/pr-automation-implementation-plan.md | 6184 | doc | [ ] |
 | .agents/devops/pr-automation-script-review.md | 35333 | doc | [ ] |
 | .agents/operations/pr-maintenance-rollback.md | 6302 | doc | [ ] |
@@ -23,7 +22,7 @@
 | .claude/skills/benchmark-models/tests/test_model_benchmark.py | 28607 | skill | [ ] |
 | .claude/skills/code-qualities-assessment/tests/test_assess.py | 59865 | skill | [ ] |
 | .claude/skills/codeql-scan/tests/test_invoke_codeql_scan.py | 6597 | skill | [ ] |
-| .claude/skills/github/skill.md | 15781 | skill | [ ] |
+| .claude/skills/github/SKILL.md | 15781 | skill | [ ] |
 | .claude/skills/golden-principles/tests/test_scan_principles.py | 11633 | skill | [ ] |
 | .claude/skills/merge-resolver/tests/test_resolve_pr_conflicts.py | 7997 | skill | [ ] |
 | .claude/skills/observability/tests/test_query_logs.py | 10623 | skill | [ ] |
@@ -43,17 +42,17 @@
 | .claude/skills/spec-generator/tests/test_reasons_section_headers.py | 3110 | skill | [ ] |
 | .claude/skills/spec-generator/tests/test_validate_spec_frontmatter.py | 8754 | skill | [ ] |
 | .serena/memories/usage-mandatory.md | 2015 | doc | [ ] |
-| build/agents.md | 13130 | doc | [ ] |
+| build/AGENTS.md | 13130 | doc | [ ] |
 | build/generate_agents.py | 26104 | file | [ ] |
 | build/scripts/detect_agent_drift.py | 51542 | script | [ ] |
 | scripts/ci/memory_index_count_baseline.txt | 4 | script | [ ] |
 | scripts/ci/memory_index_count_ratchet.py | 12780 | script | [ ] |
 | scripts/ci/memory_index_token_ratchet.py | 4126 | script | [ ] |
+| scripts/forgetful/CLAUDE.md | 170 | script | [ ] |
+| scripts/forgetful/README.md | 8543 | script | [ ] |
 | scripts/forgetful/__init__.py | 52 | script | [ ] |
-| scripts/forgetful/claude.md | 170 | script | [ ] |
 | scripts/forgetful/export_forgetful_memories.py | 7565 | script | [ ] |
 | scripts/forgetful/import_forgetful_memories.py | 11427 | script | [ ] |
-| scripts/forgetful/readme.md | 8543 | script | [ ] |
 | scripts/memory/detect_stale.py | 9599 | script | [ ] |
 | scripts/memory/memory_health.py | 5317 | script | [ ] |
 | scripts/memory/validate_memory_sizes.py | 641 | script | [ ] |
