@@ -89,6 +89,31 @@ Teamwork sizes its own team; the documented steering is the prompt wording ("kee
   - Baseline (§2): 6,208 PASS, 1,228 FAIL, 339 MISSING across 212 cards (18% failure rate)
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-01/success_auditor_report.md` (confirmed by victory auditor at `/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/victory_auditor_p1_run_01/handoff.md` with VICTORY CONFIRMED)
 
+### run 02
+
+- **run-id**: `p1-run-02`
+- **units**: `inv-addy-15`, `inv-addy-16`, `inv-addy-17`, `inv-addy-22`, `inv-addy-25`, `inv-addy-36`, `inv-addy-37`, `inv-addy-38` (8 units)
+- **context readings**:
+  - session start:
+```
+budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
+  used now        9.071636199951172%  (95,123 tokens; peak this conversation 9.071636199951172%; compactions seen 0)
+  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
+  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
+  headroom        9.93%
+  per-unit delta  not measured%   units_left —   max clean run —   pending 303
+  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
+```
+  - immediately before dispatch:
+```
+budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
+  used now        10.214805603027344%  (107,110 tokens; peak this conversation 10.214805603027344%; compactions seen 0)
+  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
+  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
+  headroom        8.79%
+  per-unit delta  not measured%   units_left —   max clean run —   pending 295
+  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
+```
 
 ## 8. Objective
 
