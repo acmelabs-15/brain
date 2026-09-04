@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/context-engineering/context-audit.md
 type: doc
 bytes: 653
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/context-engineering/context-audit.md, sha256: 48130238edcf4ee51632c173de6b4bb53868ba935c4f70bceae7913490e7dd8e}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/context-engineering/context-audit.md
@@ -29,8 +36,7 @@ none
 none
 
 ## Invoked by — required
-- config `evals/cases/context-engineering.json` — evals/cases/context-engineering.json:35
-- script `scripts/run-evals.js` — scripts/run-evals.js:394
+orphan
 
 ## Concepts named — required, verbatim
 - `Session context audit` — evals/fixtures/context-engineering/context-audit.md:1 — used here

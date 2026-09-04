@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/observability-and-instrumentation/payment-retry.js
 type: file
 bytes: 339
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/observability-and-instrumentation/payment-retry.js, sha256: 09c96314043b55b0ae4ad6f2ab5a39531636bd7c62fb869120ee626208573592}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/observability-and-instrumentation/payment-retry.js
 
 ## Purpose — required, verbatim
-> "async function retryPayment(payment, gateway) {\n  for (let attempt = 1; attempt <= 3; attempt++) {\n    try {\n      return await gateway.charge(payment);\n    } catch (error) {\n      console.log(`retry ${attempt} failed: ${error.message}`);\n    }\n  }\n  throw new Error('payment failed');\n}" — evals/fixtures/observability-and-instrumentation/payment-retry.js:3-12 (no explicit purpose statement)
+> "async function retryPayment(payment, gateway) {" — evals/fixtures/observability-and-instrumentation/payment-retry.js:3 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Serves as an un-instrumented code fixture for evaluating the `observability-and-instrumentation` skill. It contains a basic payment retry implementation (`retryPayment`) with naive console logging (`console.log`) and no structured logging, correlation IDs, RED metrics, or tracing context, providing the baseline for evaluating an agent's ability to add production-grade observability.
@@ -18,20 +25,19 @@ Serves as an un-instrumented code fixture for evaluating the `observability-and-
 `addy:BUILD`
 
 ## Inputs — required
-- `payment` object passed to `retryPayment(payment, gateway)` — evals/fixtures/observability-and-instrumentation/payment-retry.js:3
-- `gateway` client with async `.charge(payment)` method — evals/fixtures/observability-and-instrumentation/payment-retry.js:3,6
+- `payment` object passed to `retryPayment(payment, gateway)` (evals/fixtures/observability-and-instrumentation/payment-retry.js:3)
+- `gateway` client with async `.charge(payment)` method (evals/fixtures/observability-and-instrumentation/payment-retry.js:3,6)
 
 ## Outputs — required
-- Returns the resolved charge response from `gateway.charge(payment)` on successful attempt — evals/fixtures/observability-and-instrumentation/payment-retry.js:6
-- Throws `Error('payment failed')` when 3 attempts fail — evals/fixtures/observability-and-instrumentation/payment-retry.js:11
-- Emits unstructured log messages to stdout via `console.log` on failure — evals/fixtures/observability-and-instrumentation/payment-retry.js:8
+- Returns the resolved charge response from `gateway.charge(payment)` on successful attempt (evals/fixtures/observability-and-instrumentation/payment-retry.js:6)
+- Throws `Error('payment failed')` when 3 attempts fail (evals/fixtures/observability-and-instrumentation/payment-retry.js:11)
+- Emits unstructured log messages to stdout via `console.log` on failure (evals/fixtures/observability-and-instrumentation/payment-retry.js:8)
 
 ## Invokes — required
 - `gateway.charge` — evals/fixtures/observability-and-instrumentation/payment-retry.js:6
 
 ## Invoked by — required
-- config `evals/cases/observability-and-instrumentation.json` (via fixture directory reference) — evals/cases/observability-and-instrumentation.json:34
-- script `scripts/run-evals.js` — scripts/run-evals.js:169
+orphan
 
 ## Concepts named — required, verbatim
 - `retryPayment` — evals/fixtures/observability-and-instrumentation/payment-retry.js:3 — defined here

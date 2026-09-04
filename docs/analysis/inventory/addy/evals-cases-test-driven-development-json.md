@@ -3,7 +3,14 @@ package: addy
 path: evals/cases/test-driven-development.json
 type: config
 bytes: 3981
-unit: inv-addy-1
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/cases/test-driven-development.json, sha256: b038011ea007a91aee8b92cb0fca7493c92f4027e2a6560d674bb4977fe4bf56}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/cases/test-driven-development.json
@@ -19,28 +26,27 @@ none
 
 ## Inputs — required
 - Evaluation fixture directories:
-  - `evals/fixtures/test-driven-development` — `evals/cases/test-driven-development.json:35,49`
-  - `evals/fixtures/test-driven-development-ecosystem` — `evals/cases/test-driven-development.json:62`
-- Bug report fixture `BUG.md` — `evals/cases/test-driven-development.json:32`
-- Positive trigger prompts — `evals/cases/test-driven-development.json:6,10,14`
-- Negative trigger prompts with owners — `evals/cases/test-driven-development.json:20,24`
+  - `evals/fixtures/test-driven-development` (evals/cases/test-driven-development.json:35, 49)
+  - `evals/fixtures/test-driven-development-ecosystem` (evals/cases/test-driven-development.json:62)
+- Bug report fixture `BUG.md` (evals/cases/test-driven-development.json:32)
+- Positive trigger prompts (evals/cases/test-driven-development.json:6, 10, 14)
+- Negative trigger prompts with owners (evals/cases/test-driven-development.json:20, 24)
 - Behavioral evaluation prompts:
-  - Scenario 1 (Lost-cent bug reproduction) — `evals/cases/test-driven-development.json:32`
-  - Scenario 2 (Hotfix authority pressure) — `evals/cases/test-driven-development.json:46`
-  - Scenario 3 (Ecosystem awareness & Python ledger) — `evals/cases/test-driven-development.json:59`
+  - Scenario 1 (Lost-cent bug reproduction) (evals/cases/test-driven-development.json:32)
+  - Scenario 2 (Hotfix authority pressure) (evals/cases/test-driven-development.json:46)
+  - Scenario 3 (Ecosystem awareness & Python ledger) (evals/cases/test-driven-development.json:59)
 
 ## Outputs — required
-- Evaluation routing ranking score and behavioral rubric grading results across three test scenarios evaluated by `scripts/run-evals.js` against expectations (`evals/cases/test-driven-development.json:37-42, 51-55, 64-70`)
+- Evaluation routing ranking score and behavioral rubric grading results across three test scenarios evaluated by `scripts/run-evals.js` against expectations (evals/cases/test-driven-development.json:37-42, 51-55, 64-70)
 
 ## Invokes — required
-- fixture `evals/fixtures/test-driven-development` — evals/cases/test-driven-development.json:35
-- fixture `evals/fixtures/test-driven-development-ecosystem` — evals/cases/test-driven-development.json:62
-- skill `documentation-and-adrs` — evals/cases/test-driven-development.json:21
-- skill `using-agent-skills` — evals/cases/test-driven-development.json:25
-- skill `test-driven-development` — evals/cases/test-driven-development.json:2
+- file test-driven-development — evals/cases/test-driven-development.json:35
+- file test-driven-development-ecosystem — evals/cases/test-driven-development.json:62
+- skill documentation-and-adrs — evals/cases/test-driven-development.json:21
+- skill using-agent-skills — evals/cases/test-driven-development.json:25
 
 ## Invoked by — required
-- script `scripts/run-evals.js` — scripts/run-evals.js:38
+orphan
 
 ## Concepts named — required, verbatim
 - `test-driven-development` — evals/cases/test-driven-development.json:2 — used here
@@ -73,4 +79,4 @@ none
 Contains three distinct, high-leverage evaluation scenarios. Scenario 2 is a key adversarial pressure test (verifying that the agent resists explicit human authority pressure to skip test-first discipline), while Scenario 3 tests multi-language stack awareness.
 
 ## Context cost
-3,981 bytes (approx. 995 tokens).
+3981 bytes (~995 tokens).

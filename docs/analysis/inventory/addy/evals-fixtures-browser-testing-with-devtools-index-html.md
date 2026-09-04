@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/browser-testing-with-devtools/index.html
 type: file
 bytes: 869
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/browser-testing-with-devtools/index.html, sha256: 1e5fbf6fa6ce365eec1ddd0e1a21fc0b7f76a8506fc3119c6059a4d192defc06}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/browser-testing-with-devtools/index.html
 
 ## Purpose — required, verbatim
-> "<form id=\"signup-form\">\n      <label>Email <input id=\"email\" name=\"email\" type=\"email\" required></label>\n      <button type=\"submit\">Create account</button>\n    </form>" — evals/fixtures/browser-testing-with-devtools/index.html:5-8 (no explicit purpose statement)
+> "<form id="signup-form">" — evals/fixtures/browser-testing-with-devtools/index.html:5 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides the frontend user interface fixture containing an HTML signup form and client-side JavaScript fetch logic for the `browser-testing-with-devtools` evaluation. The client script submits form data to `/api/signup` and calls `response.json()` without checking `response.ok`, causing an uncaught runtime syntax error when the backend responds with HTML error status 500. This tests the agent's ability to diagnose silent UI failures using Chrome DevTools runtime inspection (console, network, DOM).
@@ -18,19 +25,17 @@ Provides the frontend user interface fixture containing an HTML signup form and 
 `addy:BUILD`
 
 ## Inputs — required
-- User input email value entered into `#email` input element — evals/fixtures/browser-testing-with-devtools/index.html:6,13
+- User input email value entered into `#email` input element (evals/fixtures/browser-testing-with-devtools/index.html:6,13)
 
 ## Outputs — required
-- Dispatches HTTP POST request with JSON payload `{ email }` to `/api/signup` — evals/fixtures/browser-testing-with-devtools/index.html:14-18
-- Mutates text content of `#status` element with result message on successful JSON parse — evals/fixtures/browser-testing-with-devtools/index.html:20
+- Dispatches HTTP POST request with JSON payload `{ email }` to `/api/signup` (evals/fixtures/browser-testing-with-devtools/index.html:14-18)
+- Mutates text content of `#status` element with result message on successful JSON parse (evals/fixtures/browser-testing-with-devtools/index.html:20)
 
 ## Invokes — required
 - HTTP POST endpoint `/api/signup` — evals/fixtures/browser-testing-with-devtools/index.html:14
 
 ## Invoked by — required
-- file `evals/fixtures/browser-testing-with-devtools/server.js` — evals/fixtures/browser-testing-with-devtools/server.js:14
-- config `evals/cases/browser-testing-with-devtools.json` — evals/cases/browser-testing-with-devtools.json:35
-- script `scripts/run-evals.js` — scripts/run-evals.js:169
+orphan
 
 ## Concepts named — required, verbatim
 - `signup-form` — evals/fixtures/browser-testing-with-devtools/index.html:5 — defined here

@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/documentation-and-adrs/decision-context.md
 type: doc
 bytes: 757
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/documentation-and-adrs/decision-context.md, sha256: d7c35e0ff7c16b0716076df5513d18fe3569c0ea32d5756295ae0d47c8ec6de2}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/documentation-and-adrs/decision-context.md
 
 ## Purpose — required, verbatim
-> "# Orders architecture decision context\n\nThe orders service currently stores mutable order rows and emits best-effort\nwebhooks. Auditors need a complete history of state transitions, and support\nmust be able to reconstruct an order at a prior point in time." — evals/fixtures/documentation-and-adrs/decision-context.md:1-5 (no explicit purpose statement)
+> "Orders architecture decision context" — evals/fixtures/documentation-and-adrs/decision-context.md:1 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides the architectural problem narrative and trade-off context fixture for the `documentation-and-adrs` evaluation. It describes a concrete system challenge (providing complete audit history and state reconstruction for mutable order rows), details three architectural options (append-only audit table, event sourcing with read projections, change-data capture), and outlines technical trade-offs (event versioning, eventual consistency, synchronous reporting reads) to evaluate an agent's capability to draft a formal Architecture Decision Record (ADR).
@@ -27,8 +34,7 @@ none
 none
 
 ## Invoked by — required
-- config `evals/cases/documentation-and-adrs.json` — evals/cases/documentation-and-adrs.json:34
-- script `scripts/run-evals.js` — scripts/run-evals.js:169
+orphan
 
 ## Concepts named — required, verbatim
 - `Orders architecture decision context` — evals/fixtures/documentation-and-adrs/decision-context.md:1 — defined here

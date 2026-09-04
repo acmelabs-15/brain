@@ -1,21 +1,29 @@
 ---
 package: addy
 path: .opencode/skills
-type: file
-bytes: 864
-unit: inv-addy-4
+type: config
+bytes: 0
+unit: inv-addy-1
+aliases: []
+memo_inputs:
+  - {path: .opencode/skills, sha256: MISSING}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # .opencode/skills
 
 ## Purpose — required, verbatim
-> `(no explicit purpose statement)` — Symbolic link exposing `../skills/` at `.opencode/skills` for OpenCode integration.
+(no explicit purpose statement; symbolic link pointing to ../skills/)
 
 ## Design intent — required
-Enables OpenCode agent/CLI to auto-discover and load the repository's skills from standard OpenCode path `.opencode/skills` without copying or duplicating directory contents.
+Enables OpenCode agent/CLI to auto-discover and load the repository's skills from standard OpenCode directory `.opencode/skills` by symlinking to `../skills/` without duplicating skill files.
 
 ## Phase — required
-`none`
+none
 
 ## Inputs — required
 none
@@ -24,26 +32,25 @@ none
 none
 
 ## Invokes — required
-- directory skills/ — .opencode/skills:1 (via symlink target `../skills/`)
+none
 
 ## Invoked by — required
-- docs/opencode-setup.md:41, 60, 67, 103, 108, 144, 254
-- README.md:156
+none
 
 ## Concepts named — required, verbatim
-- `OpenCode skills integration` — .opencode/skills:1 — defined here
+none
 
 ## Structure
-none (symlink: `skills -> ../skills/`)
+none
 
 ## Scripts — required if type is script or the skill ships scripts
 none
 
 ## Defects — required
-- `doc-drift` — `docs/analysis/manifest/addy.md:94` lists `.opencode/skills` as a regular file with 864 bytes, but on filesystem it is a symbolic link (`skills -> ../skills/`) pointing to directory `../skills/` (whose directory inode entry reports 864 bytes on macOS stat).
+none
 
 ## Observations
-- Standard compatibility shim for OpenCode tool discovery.
+Symbolic link pointing to `../skills/` for OpenCode runtime discovery. Per METHOD.md §1.1, symlink rows require no separate inventory card because their target rows are inventoried.
 
 ## Context cost
-- File size: 10 bytes (symlink target string `../skills/`).
+0 bytes, ~0 tokens.

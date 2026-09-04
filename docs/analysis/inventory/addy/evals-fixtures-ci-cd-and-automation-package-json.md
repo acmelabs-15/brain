@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/ci-cd-and-automation/package.json
 type: config
 bytes: 132
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/ci-cd-and-automation/package.json, sha256: 9e9e19c20f0c6da962c516816d89bad3dc6492e5b5a9c1051bfa8fe9d5b28be5}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/ci-cd-and-automation/package.json
@@ -21,15 +28,13 @@ none
 none
 
 ## Outputs — required
-- Configures npm scripts `lint` and `test` — `evals/fixtures/ci-cd-and-automation/package.json:5-6`
+- Configures npm scripts lint and test (evals/fixtures/ci-cd-and-automation/package.json:5-6)
 
 ## Invokes — required
-- file `evals/fixtures/ci-cd-and-automation/src/slug.js` — evals/fixtures/ci-cd-and-automation/package.json:5
-- file `evals/fixtures/ci-cd-and-automation/test/slug.test.js` — evals/fixtures/ci-cd-and-automation/package.json:6
+- file src/slug.js — evals/fixtures/ci-cd-and-automation/package.json:5
 
 ## Invoked by — required
-- config `evals/cases/ci-cd-and-automation.json` — evals/cases/ci-cd-and-automation.json:35
-- script `scripts/run-evals.js` — scripts/run-evals.js:394
+orphan
 
 ## Concepts named — required, verbatim
 - `ci-fixture` — evals/fixtures/ci-cd-and-automation/package.json:2 — defined here

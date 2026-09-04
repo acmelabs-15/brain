@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/test-driven-development/BUG.md
 type: doc
 bytes: 394
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/test-driven-development/BUG.md, sha256: d2ec9665dfe84bdd68c14b2226075351d650672c6a0b7cac7efe7dd8a130f112}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/test-driven-development/BUG.md
 
 ## Purpose — required, verbatim
-> "Splitting $100.00 three ways returns `[3333, 3333, 3333]`. That sums to\n$99.99, one cent short. Reconciliation flags every three-way invoice we\nprocessed this month." — evals/fixtures/test-driven-development/BUG.md:5-7
+> "Splitting $100.00 three ways returns `[3333, 3333, 3333]`. That sums to" — evals/fixtures/test-driven-development/BUG.md:5 (no explicit purpose statement)
 
 ## Design intent — required
 Provides the bug report ticket (FIN-482) fixture for `test-driven-development` evaluations (eval id: 1 and id: 2). It documents an off-by-one remainder loss when dividing 10000 cents three ways (`splitCents(10000, 3)` returning `[3333, 3333, 3333]` instead of `[3334, 3333, 3333]`), serving as the bug report input that the evaluated agent must capture in a failing test prior to implementing the fix.
@@ -27,8 +34,7 @@ Provides the bug report ticket (FIN-482) fixture for `test-driven-development` e
 none
 
 ## Invoked by — required
-- config `evals/cases/test-driven-development.json` — evals/cases/test-driven-development.json:34-36, 48-50
-- script `scripts/run-evals.js` — scripts/run-evals.js:389-398
+orphan
 
 ## Concepts named — required, verbatim
 - `Bug report` — evals/fixtures/test-driven-development/BUG.md:1 — used here

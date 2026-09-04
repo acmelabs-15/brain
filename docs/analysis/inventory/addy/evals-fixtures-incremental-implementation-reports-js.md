@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/incremental-implementation/reports.js
 type: file
 bytes: 145
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/incremental-implementation/reports.js, sha256: ed12bb1a30d213047df1f353e71e679598b8dac175f713e104cf19ee36cc35ba}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/incremental-implementation/reports.js
 
 ## Purpose — required, verbatim
-> "'use strict';\n\nfunction visibleReports(reports) {\n  return reports.filter((report) => !report.archived);\n}" — evals/fixtures/incremental-implementation/reports.js:1-5 (no explicit purpose statement)
+> "'use strict';" — evals/fixtures/incremental-implementation/reports.js:1 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Implements the baseline report filtering function (`visibleReports`) for the `incremental-implementation` fixture project (eval id: 1). It provides the existing codebase foundation to which CSV formatting and export features are incrementally added following `tasks/plan.md`.
@@ -28,9 +35,7 @@ Implements the baseline report filtering function (`visibleReports`) for the `in
 none
 
 ## Invoked by — required
-- file `evals/fixtures/incremental-implementation/reports.test.js` — evals/fixtures/incremental-implementation/reports.test.js:5
-- config `evals/cases/incremental-implementation.json` — evals/cases/incremental-implementation.json:34-36
-- script `scripts/run-evals.js` — scripts/run-evals.js:389-398
+orphan
 
 ## Concepts named — required, verbatim
 - `visibleReports` — evals/fixtures/incremental-implementation/reports.js:3 — defined here

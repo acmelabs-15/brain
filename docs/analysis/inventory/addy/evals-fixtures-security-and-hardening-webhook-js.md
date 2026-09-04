@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/security-and-hardening/webhook.js
 type: file
 bytes: 271
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/security-and-hardening/webhook.js, sha256: a01e4b7a1dd5cc23b1fd16581be5ba094f3d277cac5c159c3ad4dc813b32e041}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/security-and-hardening/webhook.js
@@ -29,9 +36,7 @@ none
 none
 
 ## Invoked by — required
-- file `evals/fixtures/security-and-hardening/webhook.test.js` — evals/fixtures/security-and-hardening/webhook.test.js:5
-- config `evals/cases/security-and-hardening.json` — evals/cases/security-and-hardening.json:35
-- script `scripts/run-evals.js` — scripts/run-evals.js:394
+orphan
 
 ## Concepts named — required, verbatim
 - `previewWebhook` — evals/fixtures/security-and-hardening/webhook.js:3 — defined here

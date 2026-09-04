@@ -3,7 +3,14 @@ package: addy
 path: evals/cases/security-and-hardening.json
 type: config
 bytes: 1311
-unit: inv-addy-1
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/cases/security-and-hardening.json, sha256: a521a14857fe9dd79e11115568655135274bc1e636e43a6be1cd98c025569a0a}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/cases/security-and-hardening.json
@@ -18,22 +25,21 @@ Defines routing triggers and evaluation rubric expectations for the `security-an
 none
 
 ## Inputs — required
-- Evaluation fixture directory `evals/fixtures/security-and-hardening` — `evals/cases/security-and-hardening.json:35`
-- Positive trigger prompts — `evals/cases/security-and-hardening.json:6,10,14`
-- Negative trigger prompts with owners — `evals/cases/security-and-hardening.json:20,24`
-- Behavioral evaluation prompt — `evals/cases/security-and-hardening.json:32`
+- Evaluation fixture directory `security-and-hardening` referenced in `files` list (evals/cases/security-and-hardening.json:35)
+- Positive trigger prompts for audit, OWASP top ten, and webhook hardening (evals/cases/security-and-hardening.json:6, 10, 14)
+- Negative trigger prompts routing to `code-simplification` and `git-workflow-and-versioning` (evals/cases/security-and-hardening.json:20, 24)
+- Behavioral evaluation prompt on hardening an endpoint (evals/cases/security-and-hardening.json:32)
 
 ## Outputs — required
-- Evaluation routing ranking score and behavioral rubric grading result evaluated by `scripts/run-evals.js` against expectations (`evals/cases/security-and-hardening.json:38-41`)
+- Evaluation routing ranking score and behavioral rubric grading result evaluated by `scripts/run-evals.js` against expectations (evals/cases/security-and-hardening.json:38-41)
 
 ## Invokes — required
-- fixture `evals/fixtures/security-and-hardening` — evals/cases/security-and-hardening.json:35
-- skill `code-simplification` — evals/cases/security-and-hardening.json:21
-- skill `git-workflow-and-versioning` — evals/cases/security-and-hardening.json:25
-- skill `security-and-hardening` — evals/cases/security-and-hardening.json:2
+- skill code-simplification — evals/cases/security-and-hardening.json:21
+- skill git-workflow-and-versioning — evals/cases/security-and-hardening.json:25
+- file security-and-hardening — evals/cases/security-and-hardening.json:35
 
 ## Invoked by — required
-- script `scripts/run-evals.js` — scripts/run-evals.js:38
+orphan
 
 ## Concepts named — required, verbatim
 - `security-and-hardening` — evals/cases/security-and-hardening.json:2 — used here
@@ -67,4 +73,4 @@ none
 Standard execution evaluation case requiring fixture `evals/fixtures/security-and-hardening`. Enforces deep defense-in-depth requirements, such as requiring SSRF protection to validate resolved IP addresses against private and reserved address blocks.
 
 ## Context cost
-1,311 bytes (approx. 328 tokens).
+1311 bytes (~328 tokens).

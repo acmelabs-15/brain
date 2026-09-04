@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/test-driven-development-ecosystem/ledger.py
 type: file
 bytes: 457
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/test-driven-development-ecosystem/ledger.py, sha256: ce6c0ab49c7297b86934e138c18425e52592fe3d0c31cb0048ce7c6cd159e106}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/test-driven-development-ecosystem/ledger.py
@@ -18,20 +25,18 @@ Provides a minimal Python implementation of an in-memory balance ledger function
 `addy:BUILD`
 
 ## Inputs — required
-- `balance`: Initial numeric balance — evals/fixtures/test-driven-development-ecosystem/ledger.py:4
-- `entries`: Iterable of `(kind, amount)` tuples — evals/fixtures/test-driven-development-ecosystem/ledger.py:4,10
+- `balance`: Initial numeric balance (evals/fixtures/test-driven-development-ecosystem/ledger.py:4)
+- `entries`: Iterable of `(kind, amount)` tuples (evals/fixtures/test-driven-development-ecosystem/ledger.py:4,10)
 
 ## Outputs — required
-- Returns updated numeric balance after applying credit amounts — evals/fixtures/test-driven-development-ecosystem/ledger.py:15
-- Raises `ValueError(f"unsupported entry kind: {kind}")` on non-credit entries — evals/fixtures/test-driven-development-ecosystem/ledger.py:14
+- Returns updated numeric balance after applying credit amounts (evals/fixtures/test-driven-development-ecosystem/ledger.py:15)
+- Raises `ValueError(f"unsupported entry kind: {kind}")` on non-credit entries (evals/fixtures/test-driven-development-ecosystem/ledger.py:14)
 
 ## Invokes — required
 none
 
 ## Invoked by — required
-- file `evals/fixtures/test-driven-development-ecosystem/test_ledger.py` — evals/fixtures/test-driven-development-ecosystem/test_ledger.py:3
-- config `evals/cases/test-driven-development.json` — evals/cases/test-driven-development.json:71
-- script `scripts/run-evals.js` — scripts/run-evals.js:169
+orphan
 
 ## Concepts named — required, verbatim
 - `apply_entries` — evals/fixtures/test-driven-development-ecosystem/ledger.py:4 — defined here

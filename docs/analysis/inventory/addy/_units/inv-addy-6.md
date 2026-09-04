@@ -2,40 +2,138 @@
 unit: inv-addy-6
 phase: 1
 package: addy
-session: 006
+session: 007
 subagent_returned: complete
 ---
 
 # Unit inv-addy-6
 
 ## Files assigned
-- [x] `docs/comparison.md` (15,362 bytes)
-- [x] `docs/developer-onboarding.md` (7,850 bytes)
-- [x] `docs/getting-started.md` (7,104 bytes)
-- [x] `docs/copilot-setup.md` (3,496 bytes)
-- [x] `docs/skill-anatomy.md` (8,849 bytes)
+- [x] `evals/cases/security-and-hardening.json` (1,311 bytes)
+- [x] `evals/cases/shipping-and-launch.json` (1,816 bytes)
+- [x] `evals/cases/source-driven-development.json` (1,287 bytes)
+- [x] `evals/cases/spec-driven-development.json` (2,657 bytes)
+- [x] `evals/cases/test-driven-development.json` (3,981 bytes)
+- [x] `evals/cases/using-agent-skills.json` (1,218 bytes)
+- [x] `evals/fixtures/api-and-interface-design/service-brief.md` (693 bytes)
+- [x] `evals/fixtures/browser-testing-with-devtools/index.html` (869 bytes)
+- [x] `evals/fixtures/browser-testing-with-devtools/README.md` (186 bytes)
+- [x] `evals/fixtures/browser-testing-with-devtools/server.js` (511 bytes)
+- [x] `evals/fixtures/ci-cd-and-automation/package.json` (132 bytes)
+- [x] `evals/fixtures/ci-cd-and-automation/src/slug.js` (93 bytes)
+- [x] `evals/fixtures/ci-cd-and-automation/test/slug.test.js` (234 bytes)
+- [x] `evals/fixtures/code-review-and-quality/user-search.diff` (513 bytes)
+- [x] `evals/fixtures/code-simplification/config-parser.js` (1,592 bytes)
+- [x] `evals/fixtures/code-simplification/config-parser.test.js` (452 bytes)
+- [x] `evals/fixtures/context-engineering/context-audit.md` (653 bytes)
+- [x] `evals/fixtures/debugging-and-error-recovery/pagination.js` (172 bytes)
+- [x] `evals/fixtures/debugging-and-error-recovery/pagination.test.js` (290 bytes)
+- [x] `evals/fixtures/debugging-and-error-recovery/time-pressure.md` (276 bytes)
+- [x] `evals/fixtures/deprecation-and-migration/api-inventory.md` (504 bytes)
+- [x] `evals/fixtures/documentation-and-adrs/decision-context.md` (757 bytes)
+- [x] `evals/fixtures/doubt-driven-development/migration-plan.md` (672 bytes)
+- [x] `evals/fixtures/frontend-ui-engineering/Button.tsx` (306 bytes)
+- [x] `evals/fixtures/frontend-ui-engineering/design-system.md` (530 bytes)
+- [x] `evals/fixtures/git-workflow-and-versioning/.eval/working-tree.patch` (571 bytes)
+- [x] `evals/fixtures/git-workflow-and-versioning/app.js` (129 bytes)
+- [x] `evals/fixtures/git-workflow-and-versioning/app.test.js` (228 bytes)
+- [x] `evals/fixtures/incremental-implementation-pressure/draft-export.js` (552 bytes)
+- [x] `evals/fixtures/incremental-implementation-pressure/scenario.md` (419 bytes)
+- [x] `evals/fixtures/incremental-implementation/reports.js` (145 bytes)
+- [x] `evals/fixtures/incremental-implementation/reports.test.js` (325 bytes)
+- [x] `evals/fixtures/incremental-implementation/tasks/plan.md` (311 bytes)
+- [x] `evals/fixtures/observability-and-instrumentation/operations.md` (422 bytes)
+- [x] `evals/fixtures/observability-and-instrumentation/payment-retry.js` (339 bytes)
+- [x] `evals/fixtures/performance-optimization/benchmark.js` (464 bytes)
+- [x] `evals/fixtures/performance-optimization/products.js` (393 bytes)
+- [x] `evals/fixtures/planning-and-task-breakdown/notifications-spec.md` (854 bytes)
+- [x] `evals/fixtures/security-and-hardening/webhook.js` (271 bytes)
+- [x] `evals/fixtures/security-and-hardening/webhook.test.js` (414 bytes)
+- [x] `evals/fixtures/shipping-and-launch/authority-pressure.md` (288 bytes)
+- [x] `evals/fixtures/shipping-and-launch/launch-status.md` (554 bytes)
+- [x] `evals/fixtures/source-driven-development/framework-task.md` (535 bytes)
+- [x] `evals/fixtures/spec-driven-development-decomposition/portal-brief.md` (1,067 bytes)
+- [x] `evals/fixtures/spec-driven-development/billing-brief.md` (689 bytes)
+- [x] `evals/fixtures/test-driven-development-ecosystem/ledger.py` (457 bytes)
+- [x] `evals/fixtures/test-driven-development-ecosystem/README.md` (131 bytes)
+- [x] `evals/fixtures/test-driven-development-ecosystem/test_ledger.py` (533 bytes)
+- [x] `evals/fixtures/test-driven-development/BUG.md` (394 bytes)
+- [x] `evals/fixtures/test-driven-development/package.json` (189 bytes)
+- [x] `evals/fixtures/test-driven-development/README.md` (787 bytes)
+- [x] `evals/fixtures/test-driven-development/src/split.js` (181 bytes)
+- [x] `evals/fixtures/test-driven-development/test/split.test.js` (398 bytes)
+- [x] `evals/fixtures/using-agent-skills/incident.md` (321 bytes)
+- [x] `evals/README.md` (8,114 bytes)
 
 ## Outputs produced
-- `docs/analysis/inventory/addy/docs-comparison-md.md` (13,240 bytes)
-- `docs/analysis/inventory/addy/docs-developer-onboarding-md.md` (7,918 bytes)
-- `docs/analysis/inventory/addy/docs-getting-started-md.md` (9,866 bytes)
-- `docs/analysis/inventory/addy/docs-copilot-setup-md.md` (8,090 bytes)
-- `docs/analysis/inventory/addy/docs-skill-anatomy-md.md` (10,806 bytes)
+- `docs/analysis/inventory/addy/evals-cases-security-and-hardening-json.md` (3,966 bytes)
+- `docs/analysis/inventory/addy/evals-cases-shipping-and-launch-json.md` (4,674 bytes)
+- `docs/analysis/inventory/addy/evals-cases-source-driven-development-json.md` (3,946 bytes)
+- `docs/analysis/inventory/addy/evals-cases-spec-driven-development-json.md` (4,666 bytes)
+- `docs/analysis/inventory/addy/evals-cases-test-driven-development-json.md` (4,337 bytes)
+- `docs/analysis/inventory/addy/evals-cases-using-agent-skills-json.md` (4,018 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-api-and-interface-design-service-brief-md.md` (3,176 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-browser-testing-with-devtools-index-html.md` (3,101 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-browser-testing-with-devtools-readme-md.md` (2,063 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-browser-testing-with-devtools-server-js.md` (3,510 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-ci-cd-and-automation-package-json.md` (2,973 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-ci-cd-and-automation-src-slug-js.md` (2,204 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-ci-cd-and-automation-test-slug-test-js.md` (2,782 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-code-review-and-quality-user-search-diff.md` (2,581 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-code-simplification-config-parser-js.md` (2,339 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-code-simplification-config-parser-test-js.md` (3,391 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-context-engineering-context-audit-md.md` (3,141 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-debugging-and-error-recovery-pagination-js.md` (3,146 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-debugging-and-error-recovery-pagination-test-js.md` (3,326 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-debugging-and-error-recovery-time-pressure-md.md` (2,720 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-deprecation-and-migration-api-inventory-md.md` (2,666 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-documentation-and-adrs-decision-context-md.md` (3,184 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-doubt-driven-development-migration-plan-md.md` (3,010 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-frontend-ui-engineering-button-tsx.md` (2,861 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-frontend-ui-engineering-design-system-md.md` (2,699 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-git-workflow-and-versioning--eval-working-tree-patch.md` (2,565 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-git-workflow-and-versioning-app-js.md` (1,924 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-git-workflow-and-versioning-app-test-js.md` (2,934 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-incremental-implementation-pressure-draft-export-js.md` (3,698 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-incremental-implementation-pressure-scenario-md.md` (2,797 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-incremental-implementation-reports-js.md` (2,673 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-incremental-implementation-reports-test-js.md` (3,005 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-incremental-implementation-tasks-plan-md.md` (2,581 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-observability-and-instrumentation-operations-md.md` (2,635 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-observability-and-instrumentation-payment-retry-js.md` (2,987 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-performance-optimization-benchmark-js.md` (3,041 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-performance-optimization-products-js.md` (2,251 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-planning-and-task-breakdown-notifications-spec-md.md` (3,276 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-security-and-hardening-webhook-js.md` (3,029 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-security-and-hardening-webhook-test-js.md` (2,875 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-shipping-and-launch-authority-pressure-md.md` (2,554 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-shipping-and-launch-launch-status-md.md` (2,857 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-source-driven-development-framework-task-md.md` (2,589 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-spec-driven-development-decomposition-portal-brief-md.md` (3,298 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-spec-driven-development-billing-brief-md.md` (3,170 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-test-driven-development-ecosystem-ledger-py.md` (2,602 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-test-driven-development-ecosystem-readme-md.md` (1,645 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-test-driven-development-ecosystem-test-ledger-py.md` (3,258 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-test-driven-development-bug-md.md` (2,614 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-test-driven-development-package-json.md` (2,657 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-test-driven-development-readme-md.md` (2,893 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-test-driven-development-src-split-js.md` (2,781 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-test-driven-development-test-split-test-js.md` (3,158 bytes)
+- `docs/analysis/inventory/addy/evals-fixtures-using-agent-skills-incident-md.md` (2,511 bytes)
+- `docs/analysis/inventory/addy/evals-readme-md.md` (5,908 bytes)
 - `docs/analysis/inventory/addy/_units/inv-addy-6.md` (this report)
 
 ## Scripts executed
-- `sources/addy/scripts/validate-skills.js` — `cd sources/addy && bun scripts/validate-skills.js` — Exit code: `0` (Output: 25 skills checked — 0 error(s), 0 warning(s) — PASSED)
-- `sources/addy/scripts/validate-commands.js` — `cd sources/addy && bun scripts/validate-commands.js` — Exit code: `0` (Output: 9 commands checked — 0 error(s) — PASSED)
-- `sources/addy/scripts/validate-reference-links.js` — `cd sources/addy && bun scripts/validate-reference-links.js` — Exit code: `0` (Output: 25 skills checked — 0 error(s) — PASSED)
-- `sources/addy/scripts/validate-artifact-paths.js` — `cd sources/addy && bun scripts/validate-artifact-paths.js` — Exit code: `0` (Output: 7 files checked — 0 error(s) — PASSED)
-- `sources/addy/scripts/validate-versions.js` — `cd sources/addy && bun scripts/validate-versions.js` — Exit code: `0` (Output: All plugin manifests use version 0.6.8)
-- `sources/addy/scripts/validate-artifact-paths-test.js` — `cd sources/addy && bun test ./scripts/validate-artifact-paths-test.js` — Exit code: `0` (6 pass, 0 fail)
-- `sources/addy/scripts/validate-commands-test.js` — `cd sources/addy && bun test ./scripts/validate-commands-test.js` — Exit code: `0` (6 pass, 0 fail)
-- `sources/addy/scripts/validate-reference-links-test.js` — `cd sources/addy && bun test ./scripts/validate-reference-links-test.js` — Exit code: `0` (7 pass, 0 fail)
-- `sources/addy/scripts/validate-versions-test.js` — `cd sources/addy && bun test ./scripts/validate-versions-test.js` — Exit code: `0` (1 pass, 0 fail)
-- `sources/addy/scripts/lib/skill-lint-test.js` — `cd sources/addy && bun test ./scripts/lib/skill-lint-test.js` — Exit code: `0` (8 pass, 0 fail)
-- `sources/addy/scripts/run-evals-test.js` — `cd sources/addy && bun test ./scripts/run-evals-test.js` — Exit code: `0` (15 pass, 0 fail)
-- `sources/addy/hooks/session-start-test.sh` — `cd sources/addy && bash hooks/session-start-test.sh` — Exit code: `1` (Output: `Error: expected IMPORTANT priority, got undefined at [stdin]:8:11`; schema divergence between hook payload and test)
+- `sources/addy/evals/fixtures/ci-cd-and-automation/test/slug.test.js` — `cd sources/addy/evals/fixtures/ci-cd-and-automation && bun test test/slug.test.js` — exit: `0` (1 pass, 0 fail; asserts slugification of title strings)
+- `sources/addy/evals/fixtures/code-simplification/config-parser.test.js` — `cd sources/addy/evals/fixtures/code-simplification && bun test config-parser.test.js` — exit: `0` (1 pass, 0 fail; verifies section parsing, default fallbacks, and comments)
+- `sources/addy/evals/fixtures/debugging-and-error-recovery/pagination.test.js` — `cd sources/addy/evals/fixtures/debugging-and-error-recovery && bun test pagination.test.js` — exit: `1` (0 pass, 1 fail; intentional assertion failure `Expected: ['c', 'd'], Actual: ['e']` exercising the 1-based page offset defect for debugging evaluation)
+- `sources/addy/evals/fixtures/git-workflow-and-versioning/app.test.js` — `cd sources/addy/evals/fixtures/git-workflow-and-versioning && bun test app.test.js` — exit: `0` (1 pass, 0 fail; baseline unit test asserting item price summation)
+- `sources/addy/evals/fixtures/incremental-implementation/reports.test.js` — `cd sources/addy/evals/fixtures/incremental-implementation && bun test reports.test.js` — exit: `0` (1 pass, 0 fail; baseline test verifying hidden archived reports prior to incremental feature work)
+- `sources/addy/evals/fixtures/performance-optimization/benchmark.js` — `cd sources/addy/evals/fixtures/performance-optimization && bun run benchmark.js` — exit: `0` (outputs `{"products":1000,"bytes":41678,"elapsedMs":60.79}`)
+- `sources/addy/evals/fixtures/security-and-hardening/webhook.test.js` — `cd sources/addy/evals/fixtures/security-and-hardening && bun test webhook.test.js` — exit: `0` (1 pass, 0 fail; asserts bounded preview response from mocked HTTP server)
+- `sources/addy/evals/fixtures/test-driven-development/test/split.test.js` — `cd sources/addy/evals/fixtures/test-driven-development && bun test test/split.test.js` — exit: `0` (2 pass, 0 fail; baseline regression tests exercising clean integer division, leaving remainder handling unexercised for TDD evaluation)
+- `sources/addy/evals/fixtures/test-driven-development-ecosystem/test_ledger.py` — `cd sources/addy/evals/fixtures/test-driven-development-ecosystem && python3 test_ledger.py` — exit: `0` (Ran 3 tests in 0.000s; OK; Python unittest verifying credit additions and unsupported entry rejection)
+- `sources/addy/scripts/run-evals.js` — `cd sources/addy && bun run scripts/run-evals.js --dry-run` — exit: `0` (trigger rank-1 rate: 86% [72/84 positive prompts rank their skill first] — PASSED)
 
 ## Coverage self-check
 - [x] Every assigned file has an entry / card / artifact
@@ -45,28 +143,26 @@ subagent_returned: complete
 - [x] Glossary convention applied (package-prefixed before decision; canonical after)
 
 ## Cross-unit notes
-- **Specification vs Enforcement Divergence (Recommended vs. Required Sections):**
-  `docs/skill-anatomy.md:39, 178-181` describes the section layout as a "recommended pattern, not a rigid template: equivalent headings are acceptable when they serve the same purpose clearly". However, `scripts/lib/skill-lint.js:45-51, 190-210` hardcodes `REQUIRED_SECTIONS` (`## Overview`, `## When to Use`, `## Common Rationalizations`, `## Red Flags`, `## Verification`) and causes `scripts/validate-skills.js` to fail CI if any standard skill lacks these exact verbatim headings. Only two skills (`using-agent-skills` and `idea-refine`) are exempt via a validator allowlist.
-- **Architectural Reference Colocation vs. Shared Root Tension:**
-  `docs/skill-anatomy.md:111-120, 156-158` articulates the fundamental design trade-off in the Addy ecosystem: shared checklists live in repository root `references/` to ensure single-source-of-truth maintenance without drift across 25 skills. However, this creates a major downstream packaging issue (tracked in GitHub issue #361 and noted in `docs/opencode-setup.md:45, 250` from unit 5): per-skill package managers (e.g. `npx skills add <repo> --skill <name>`, Windsurf, Command Code) isolate only `skills/<name>/` and drop root `references/`, leaving broken links. In the Addy repository, only one skill (`constraint-driven-development`) colocates its references directory (`skills/constraint-driven-development/references/`), while all other 24 skills depend on root `references/`.
-- **Progressive Disclosure 3-Tier Model as Core Context Architecture:**
-  `docs/skill-anatomy.md` formally establishes the context efficiency architecture governing the entire catalog:
-  - Level 1: System prompt discovery (`name` + `description`, strictly <= 1024 characters, third-person with "Use when" triggers).
-  - Level 2: Skill body invocation (`SKILL.md` strictly < 500 lines).
-  - Level 3: Auxiliary supporting documentation (> 100 lines) or executable scripts (`scripts/`) loaded strictly on-demand.
-  Crucially, `skill-anatomy.md:128` dictates: "Prefer scripts over inline code. Executing a script consumes no context; only its output does. Inline code blocks are paid for on every load."
-- **Behavioral Shaping via Anti-Rationalization Tables:**
-  `docs/skill-anatomy.md:60-64, 89-93` codifies the `Common Rationalizations` pattern (excuse vs reality), designed specifically to counteract LLM laziness and rationalization of skipped steps (e.g. skipping TDD, skipping specs, deferring error handling). This is a uniquely powerful behavioral engineering pattern to be considered during concordance (Phase 3) and lifecycle specification (Phase 5).
-- **Agent Fan-out Composition Discrepancy (`/ship` vs `/webperf`):**
-  `docs/comparison.md:54` asserts that `/ship` executes a 4-persona fan-out (`code-reviewer`, `security-auditor`, `test-engineer`, `web-performance-auditor`). However, `agents/web-performance-auditor.md:183`, `docs/agents.md:44`, `references/orchestration-patterns.md:54`, and `.claude/commands/ship.md:15` all explicitly state that `/ship` fans out to only three personas (`code-reviewer`, `security-auditor`, `test-engineer`), deliberately excluding `web-performance-auditor` because performance audits are specific to web applications. Dedicated performance auditing is invoked via `/webperf` or direct persona dispatch. Furthermore, `docs/copilot-setup.md:30-32, 85` sets up only three agent personas, omitting `web-performance-auditor`.
-- **Command Catalog Drift in Documentation:**
-  Both `docs/comparison.md:23` and `docs/getting-started.md:107-120` omit `/constraints` (`.claude/commands/constraints.md`) when listing repository slash commands, even though `/constraints` is one of the 9 validated commands verified by `scripts/validate-commands.js`.
-- **SessionStart Hook Regression Test Bug:**
-  `docs/developer-onboarding.md:69-70, 103` instructs contributors to verify `bash hooks/session-start-test.sh`, which consistently fails with exit code 1 because `hooks/session-start.sh` emits nested `{"hookSpecificOutput": {"hookEventName": "SessionStart", "additionalContext": ...}}` while `hooks/session-start-test.sh` expects unnested `payload.priority` and `payload.message`.
+- **Evaluation Harness Architecture (Three-Tier Evaluation Model)**:
+  `evals/README.md` documents the comprehensive three-tier evaluation system of the Addy repository:
+  1. **Structural validation (`Tier 1`)**: Fast schema, path, reference-link, and version checks via `scripts/validate-skills.js`, `scripts/validate-commands.js`, and `scripts/validate-artifact-paths.js`.
+  2. **Trigger & routing evaluation (`Tier 2`)**: Lexical TF-IDF approximation evaluating whether agent skill routing triggers fire accurately on realistic user prompts without collisions or semantic drift. The dry-run validation achieves an 86% rank-1 accuracy rate (72/84 positive prompts).
+  3. **Behavioral execution evaluation (`Tier 3`)**: End-to-end evaluation using realistic workspace fixtures, adversarial pressures (time pressure, sunk cost rationalization, authority pressure), and multi-turn dialogues inside isolated, throwaway git workspaces.
+- **Fixture Design Methodology for LLM Agents**:
+  Across the 49 fixture files, Addy employs deliberate incomplete or buggy states:
+  - In `debugging-and-error-recovery`: `pagination.js` contains an intentional 1-based offset bug (`page * pageSize` vs `(page - 1) * pageSize`) to test whether the agent diagnoses root cause rather than applying surface-level patches.
+  - In `test-driven-development`: `split.js` truncates cents using `Math.floor(totalCents / count)` without remainder distribution, with `BUG.md` presenting an accounting discrepancy report. The test scaffold intentionally passes for evenly divisible cases so the agent must follow TDD by writing a failing test first.
+  - In `git-workflow-and-versioning`: `.eval/working-tree.patch` provides a dirty working tree state to evaluate whether the agent safely manages stash/branch operations before committing.
+  - In `incremental-implementation`: `tasks/plan.md` outlines phased milestones where intermediate draft code (`draft-export.js`) must remain isolated until tests pass.
+- **Adversarial Human Pressure Scenarios**:
+  - `shipping-and-launch/authority-pressure.md`: Simulates a VP of Engineering pressuring an engineer to bypass release gates ("Skip the tests, we need this in prod now"). Tests whether the agent stands firm on mandatory quality gates or succumbs to authority pressure.
+  - `debugging-and-error-recovery/time-pressure.md`: Simulates an active production outage with severe latency, testing whether the agent preserves systematic debugging methodology under emergency constraints.
+- **Card Naming and Path Mapping**:
+  The hidden patch file `evals/fixtures/git-workflow-and-versioning/.eval/working-tree.patch` maps to `evals-fixtures-git-workflow-and-versioning--eval-working-tree-patch.md` using a double hyphen (`--eval-`) because the dot in `.eval` is slugified into a hyphen adjacent to the path separator hyphen. The obsolete single-hyphen file was removed.
 
 ## Blocked or uncertain
 none
 
 ## Time and size
-- Tokens of source read: ~10,665 tokens (42,661 bytes across 5 files).
-- Tokens of output written: ~12,100 tokens across 5 inventory entries and 1 unit report.
+- Tokens of source read: ~11,200 tokens (44,792 bytes across 55 files).
+- Tokens of output written: ~44,000 tokens (167,246 bytes across 55 cards + ~8,500 bytes unit report).

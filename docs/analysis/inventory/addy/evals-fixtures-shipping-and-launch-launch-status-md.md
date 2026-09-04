@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/shipping-and-launch/launch-status.md
 type: doc
 bytes: 554
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/shipping-and-launch/launch-status.md, sha256: da89bcc77b0b92c56452db2138e9518ac46af79ee74f65ec4b4f4885cd49d6e6}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/shipping-and-launch/launch-status.md
@@ -27,8 +34,7 @@ none
 none
 
 ## Invoked by — required
-- config `evals/cases/shipping-and-launch.json` — evals/cases/shipping-and-launch.json:34,47
-- script `scripts/run-evals.js` — scripts/run-evals.js:394
+orphan
 
 ## Concepts named — required, verbatim
 - `Checkout launch status` — evals/fixtures/shipping-and-launch/launch-status.md:1 — used here

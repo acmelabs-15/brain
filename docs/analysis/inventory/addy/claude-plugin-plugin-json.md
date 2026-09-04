@@ -3,7 +3,15 @@ package: addy
 path: .claude-plugin/plugin.json
 type: config
 bytes: 463
-unit: inv-addy-11
+unit: inv-addy-1
+aliases: []
+memo_inputs:
+  - {path: .claude-plugin/plugin.json, sha256: 7e4db81d7b29e19ed2531beb684bbba15ee5adff00c7966eb0a7f312ce99713e}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # .claude-plugin/plugin.json
@@ -39,7 +47,7 @@ none
 - `ship` — .claude-plugin/plugin.json:4 — used here
 
 ## Structure
-none (JSON configuration file)
+none
 
 ## Scripts — required if type is script or the skill ships scripts
 none
@@ -48,9 +56,7 @@ none
 - `other` · .claude-plugin/plugin.json:11 · Redundantly registers `./commands` (Antigravity TOML slash commands) alongside `./.claude/commands` (Claude Code markdown slash commands) under Claude plugin `"commands"` array.
 
 ## Observations
-- Claude Code loads and exposes slash commands from both declared paths.
-- Verified that all three target paths (`./.claude/commands`, `./commands`, `./skills`) exist in the repository root.
-- Pinned version `0.6.8` is strictly validated by `scripts/validate-versions.js`.
+Claude Code loads and exposes slash commands from both declared paths. Verified that all three target paths (`./.claude/commands`, `./commands`, `./skills`) exist in the repository root. Pinned version `0.6.8` is strictly validated by `scripts/validate-versions.js`.
 
 ## Context cost
-463 bytes (~116 tokens).
+463 bytes, ~116 tokens.

@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/incremental-implementation/reports.test.js
 type: file
 bytes: 325
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/incremental-implementation/reports.test.js, sha256: eedc6d2594d9a5d82b2bccd412dc3ba629c535c9510c162cdeabe3454c632aa8}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/incremental-implementation/reports.test.js
 
 ## Purpose — required, verbatim
-> "test('hides archived reports', () => {\n  assert.deepEqual(visibleReports([\n    { id: 1, archived: false },\n    { id: 2, archived: true },\n  ]), [{ id: 1, archived: false }]);\n});" — evals/fixtures/incremental-implementation/reports.test.js:7-12 (no explicit purpose statement)
+> "test('hides archived reports', () => {" — evals/fixtures/incremental-implementation/reports.test.js:7 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides the initial regression test for `reports.js` in the `incremental-implementation` fixture repository (eval id: 1). It verifies that existing report filtering behavior (`visibleReports` hiding archived records) works properly and ensures that subsequent incremental additions of CSV export logic do not regress existing functionality.
@@ -24,11 +31,10 @@ Provides the initial regression test for `reports.js` in the `incremental-implem
 - Test execution status via `node:test`.
 
 ## Invokes — required
-- file `evals/fixtures/incremental-implementation/reports.js` — evals/fixtures/incremental-implementation/reports.test.js:5
+- file ./reports — evals/fixtures/incremental-implementation/reports.test.js:5
 
 ## Invoked by — required
-- config `evals/cases/incremental-implementation.json` — evals/cases/incremental-implementation.json:34-36
-- script `scripts/run-evals.js` — scripts/run-evals.js:389-398
+orphan
 
 ## Concepts named — required, verbatim
 - `visibleReports` — evals/fixtures/incremental-implementation/reports.test.js:5 — used here

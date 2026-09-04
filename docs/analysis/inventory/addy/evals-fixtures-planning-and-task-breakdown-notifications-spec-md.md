@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/planning-and-task-breakdown/notifications-spec.md
 type: doc
 bytes: 854
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/planning-and-task-breakdown/notifications-spec.md, sha256: 9705170691d53703e42a0494ead60b09c4d7aa0bd48444426ad8fe8ace6f87f4}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/planning-and-task-breakdown/notifications-spec.md
 
 ## Purpose — required, verbatim
-> "Users can opt into email notifications when a task is assigned or becomes\noverdue. Preferences are stored per user and default to disabled. Assignment\nevents already exist; overdue detection runs every fifteen minutes." — evals/fixtures/planning-and-task-breakdown/notifications-spec.md:3-5 (no explicit purpose statement)
+> "Users can opt into email notifications when a task is assigned or becomes" — evals/fixtures/planning-and-task-breakdown/notifications-spec.md:3 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides a multi-requirement feature specification fixture for evaluating `planning-and-task-breakdown` (eval id: 1). It outlines user preferences, job queuing, deduplication, email provider adapters, feature flags, verification requirements, and out-of-scope constraints, allowing the eval harness to verify whether the agent produces an executable, dependency-ordered plan of small vertical slices with acceptance criteria in `tasks/plan.md` without prematurely implementing code.
@@ -27,8 +34,7 @@ Provides a multi-requirement feature specification fixture for evaluating `plann
 none
 
 ## Invoked by — required
-- config `evals/cases/planning-and-task-breakdown.json` — evals/cases/planning-and-task-breakdown.json:33-35
-- script `scripts/run-evals.js` — scripts/run-evals.js:389-398
+orphan
 
 ## Concepts named — required, verbatim
 - `Notifications specification` — evals/fixtures/planning-and-task-breakdown/notifications-spec.md:1 — defined here

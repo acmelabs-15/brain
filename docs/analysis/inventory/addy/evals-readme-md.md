@@ -3,13 +3,20 @@ package: addy
 path: evals/README.md
 type: doc
 bytes: 8114
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/README.md, sha256: 9d67d641f2b710661462fce67370b25adcc60ad99d2149342f55cb33e025aa2b}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/README.md
 
 ## Purpose — required, verbatim
-> "# Skill Evals\n\nHow this repo measures whether its skills actually work: that they **trigger** when they should, **stay distinct** from each other, and **change agent behavior** the way each skill promises." — evals/README.md:1-3
+> "Skill Evals" — evals/README.md:1 (no explicit purpose statement)
 
 ## Design intent — required
 Explains the 3-tiered evaluation methodology for the skill catalog. It bridges structural validation (Tier 1), deterministic lexical routing and collision detection (Tier 2 TF-IDF rank checks), and headless behavioral transcript grading (Tier 3 execution/dialogue evaluations). It establishes catalog-level regression testing, requiring every skill to provide positive/negative triggers and behavioral fixtures, while enforcing execution hygiene (throwaway git workspaces, pre-approved permissions, stdin piping, and pressure testing against authority/urgency).
@@ -30,20 +37,14 @@ Explains the 3-tiered evaluation methodology for the skill catalog. It bridges s
 - Process exit codes (0 for pass, 1 for errors/threshold breaches)
 
 ## Invokes — required
-- script `scripts/validate-skills.js` — evals/README.md:18
-- script `scripts/validate-commands.js` — evals/README.md:18
-- script `scripts/run-evals.js` — evals/README.md:19, 28, 29, 32, 33
-- skill `test-driven-development` — evals/README.md:32, 33, 46, 62
-- skill `documentation-and-adrs` — evals/README.md:52
-- case schema `evals/cases/<skill-name>.json` — evals/README.md:42
-- fixture directory `evals/fixtures/<name>/` — evals/README.md:36, 63, 75, 82
-- result directory `evals/results/` — evals/README.md:38
+- script validate-skills.js — evals/README.md:18
+- script validate-commands.js — evals/README.md:18
+- script scripts/run-evals.js — evals/README.md:28
+- skill test-driven-development — evals/README.md:32
+- skill documentation-and-adrs — evals/README.md:52
 
 ## Invoked by — required
-- doc `CLAUDE.md` — CLAUDE.md:15
-- doc `CONTRIBUTING.md` — CONTRIBUTING.md:5, 42
-- doc `docs/developer-onboarding.md` — docs/developer-onboarding.md:5, 72, 115
-- script `scripts/run-evals.js` — scripts/run-evals.js:5, 51
+none
 
 ## Concepts named — required, verbatim
 - `SKILL.md` — evals/README.md:7 — used here
@@ -58,13 +59,13 @@ Explains the 3-tiered evaluation methodology for the skill catalog. It bridges s
 - `execution` — evals/README.md:36, 58, 75, 82 — defined here
 - `dialogue` — evals/README.md:36, 75, 82 — defined here
 - `throwaway git repository` — evals/README.md:36 — used here
-- `execution trace` — evals/README.md:36, 38 — used here
+- `execution trace` — evals/README.md:36 — used here
 - `time pressure` — evals/README.md:38 — used here
 - `sunk cost` — evals/README.md:38 — used here
 - `authority pressure` — evals/README.md:38 — used here
 - `test-driven-development` — evals/README.md:46 — used here
 - `documentation-and-adrs` — evals/README.md:52 — used here
-- `trigger rank-1 rate` — evals/README.md:85 — defined here
+- `trigger rank-1 rate` — evals/README.md:86 — defined here
 - `collision check` — evals/README.md:86 — defined here
 
 ## Structure

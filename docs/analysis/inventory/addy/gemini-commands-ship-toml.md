@@ -4,6 +4,14 @@ path: .gemini/commands/ship.toml
 type: command
 bytes: 4780
 unit: inv-addy-1
+aliases: []
+memo_inputs:
+  - {path: .gemini/commands/ship.toml, sha256: 7018889ee96cd5e198fee199fdf7bc8a5af6fa5e57d575d74a6d94837dd7a101}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # .gemini/commands/ship.toml
@@ -12,29 +20,23 @@ unit: inv-addy-1
 > "Run the pre-launch checklist via parallel fan-out to specialist personas, then synthesize a go/no-go decision" — .gemini/commands/ship.toml:1
 
 ## Design intent — required
-Provides an automated pre-launch gate and parallel fan-out orchestrator that coordinates three specialist personas (`code-reviewer`, `security-auditor`, `test-engineer`) simultaneously to evaluate release readiness across distinct quality axes, merging their findings into an explicit GO/NO-GO verdict with a mandatory rollback plan. Without it, release verification is prone to single-perspective blind spots, serialized review bottlenecks, and unmitigated production risks.
+Gemini/Antigravity pre-launch gate orchestrator executing parallel multi-agent fan-out across three specialist personas (`code-reviewer`, `security-auditor`, `test-engineer`) invoked concurrently via Gemini CLI subagent tool dispatch, followed by single main-context synthesis across code quality, security, performance, accessibility, infrastructure, and documentation, producing a GO/NO-GO Ship Decision report with a mandatory rollback plan.
 
 ## Phase — required
-`addy:Ship`
+addy:SHIP
 
 ## Inputs — required
-- Staged changes or recent git commits — .gemini/commands/ship.toml:14
-- Custom agent definitions in `agents/` or `~/.gemini/agents/` (if present) — .gemini/commands/ship.toml:25
+- Staged changes or recent git commits
+- Reports from 3 concurrently executed specialist subagents
 
 ## Outputs — required
-- Structured Markdown Ship Decision report (.gemini/commands/ship.toml:42-63) containing:
-  - `## Ship Decision: GO | NO-GO`
-  - `### Blockers (must fix before ship)`
-  - `### Recommended fixes (should fix before ship)`
-  - `### Acknowledged risks (shipping anyway)`
-  - `### Rollback plan` (Trigger conditions, Rollback procedure, Recovery time objective)
-  - `### Specialist reports (full)`
+- Ship Decision report (GO | NO-GO, Blockers, Recommended fixes, Acknowledged risks, Rollback plan, Specialist reports)
 
 ## Invokes — required
 - skill shipping-and-launch — .gemini/commands/ship.toml:4
-- persona/tool code-reviewer — .gemini/commands/ship.toml:10, 14
-- persona/tool security-auditor — .gemini/commands/ship.toml:10, 15
-- persona/tool test-engineer — .gemini/commands/ship.toml:10, 16
+- agent code-reviewer — .gemini/commands/ship.toml:10,14,25
+- agent security-auditor — .gemini/commands/ship.toml:15,25
+- agent test-engineer — .gemini/commands/ship.toml:16,25
 - reference references/orchestration-patterns.md — .gemini/commands/ship.toml:23
 
 ## Invoked by — required
@@ -43,26 +45,23 @@ none
 ## Concepts named — required, verbatim
 - `shipping-and-launch` — .gemini/commands/ship.toml:4 — used here
 - `fan-out orchestrator` — .gemini/commands/ship.toml:6 — defined here
-- `go/no-go decision` — .gemini/commands/ship.toml:1, 6 — defined here
-- `rollback plan` — .gemini/commands/ship.toml:6, 54, 69 — defined here
-- `code-reviewer` — .gemini/commands/ship.toml:10, 14, 25, 31, 60 — used here
-- `security-auditor` — .gemini/commands/ship.toml:10, 15, 25, 32, 61 — used here
-- `test-engineer` — .gemini/commands/ship.toml:10, 16, 25, 62 — used here
+- `Phase A — Parallel fan-out` — .gemini/commands/ship.toml:8 — defined here
+- `code-reviewer` — .gemini/commands/ship.toml:10,14,25,31,60 — used here
+- `security-auditor` — .gemini/commands/ship.toml:15,25,32,61 — used here
+- `test-engineer` — .gemini/commands/ship.toml:16,25,62 — used here
 - `five-axis review` — .gemini/commands/ship.toml:14 — used here
-- `vulnerability and threat-model pass` — .gemini/commands/ship.toml:15 — defined here
-- `OWASP Top 10` — .gemini/commands/ship.toml:15 — used here
-- `test coverage analysis` — .gemini/commands/ship.toml:16 — used here
-- `flat fan-out` — .gemini/commands/ship.toml:22 — defined here
-- `Core Web Vitals` — .gemini/commands/ship.toml:33 — used here
-- `accessibility checklist` — .gemini/commands/ship.toml:34 — used here
-- `Recovery time objective` — .gemini/commands/ship.toml:57 — defined here
-- `fan-out bypass criteria` — .gemini/commands/ship.toml:71 — defined here
+- `Persona resolution` — .gemini/commands/ship.toml:25 — defined here
+- `Phase B — Merge in main context` — .gemini/commands/ship.toml:27 — defined here
+- `Phase C — Decision and rollback` — .gemini/commands/ship.toml:38 — defined here
+- `Ship Decision` — .gemini/commands/ship.toml:43 — defined here
+- `GO | NO-GO` — .gemini/commands/ship.toml:43 — defined here
+- `Rollback plan` — .gemini/commands/ship.toml:54,69 — defined here
 
 ## Structure
-- `## Phase A — Parallel fan-out` — .gemini/commands/ship.toml:8
-- `## Phase B — Merge in main context` — .gemini/commands/ship.toml:27
-- `## Phase C — Decision and rollback` — .gemini/commands/ship.toml:38
-- `## Rules` — .gemini/commands/ship.toml:65
+- ## Phase A — Parallel fan-out
+- ## Phase B — Merge in main context
+- ## Phase C — Decision and rollback
+- ## Rules
 
 ## Scripts — required if type is script or the skill ships scripts
 none
@@ -71,10 +70,7 @@ none
 none
 
 ## Observations
-- Demonstrates Gemini CLI's multi-agent tool calling convention: custom personas in `agents/*.md` become callable tools (`code-reviewer`, `security-auditor`, `test-engineer`) spawned in parallel in a single assistant turn (.gemini/commands/ship.toml:10).
-- Fallback mechanism specified: if subagent spawning is unavailable, invoke system prompts sequentially in the main context and merge outputs (.gemini/commands/ship.toml:18).
-- Explicit bypass heuristic (.gemini/commands/ship.toml:71): fan-out may be skipped only if changes touch <= 2 files, < 50 lines diff, and do not touch auth, payments, data access, or config/env.
+VARIANT pair V3 with `commands/ship.toml` (divergence documented in `_divergence/divergence-commands-ship-toml--gemini-commands-ship-toml.md`).
 
 ## Context cost
-- File size: 4,780 bytes (~1,200 tokens).
-- Transitive context cost when invoked: loads `shipping-and-launch` SKILL.md (10,958 bytes) plus subagent prompts (`code-reviewer.md` 3,995 bytes, `security-auditor.md` 5,124 bytes, `test-engineer.md` 4,312 bytes), totaling ~29,169 bytes (~7,300 tokens) before diff content.
+4780 bytes, ~1195 tokens. Transitive cost: spawns 3 subagents concurrently, each running in isolated context loops, merging reports into main session (~15000–30000 tokens).

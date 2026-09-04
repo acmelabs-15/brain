@@ -23,10 +23,10 @@
 | .gemini/commands/spec.toml | 911 | command | [x] |
 | .gemini/commands/test.toml | 650 | command | [x] |
 | .gemini/commands/webperf.toml | 1884 | command | [x] |
-| .gitattributes | 19 | file | [ ] |
-| .github/ISSUE_TEMPLATE/skill-gap.yml | 2669 | config | [ ] |
-| .github/workflows/test-plugin-install.yml | 2703 | config | [ ] |
-| .gitignore | 121 | file | [ ] |
+| .gitattributes | 19 | file | [x] |
+| .github/ISSUE_TEMPLATE/skill-gap.yml | 2669 | config | [x] |
+| .github/workflows/test-plugin-install.yml | 2703 | config | [x] |
+| .gitignore | 121 | file | [x] |
 | .opencode/skills | 0 | symlink | [x] (symlink) |
 | AGENTS.md | 5386 | doc | [x] |
 | agents/code-reviewer.md | 3995 | agent | [x] |
@@ -102,7 +102,7 @@
 | evals/fixtures/doubt-driven-development/migration-plan.md | 672 | doc | [x] |
 | evals/fixtures/frontend-ui-engineering/Button.tsx | 306 | file | [x] |
 | evals/fixtures/frontend-ui-engineering/design-system.md | 530 | doc | [x] |
-| evals/fixtures/git-workflow-and-versioning/.eval/working-tree.patch | 571 | file | [ ] |
+| evals/fixtures/git-workflow-and-versioning/.eval/working-tree.patch | 571 | file | [x] |
 | evals/fixtures/git-workflow-and-versioning/app.js | 129 | file | [x] |
 | evals/fixtures/git-workflow-and-versioning/app.test.js | 228 | file | [x] |
 | evals/fixtures/incremental-implementation-pressure/draft-export.js | 552 | file | [x] |
@@ -133,15 +133,15 @@
 | evals/fixtures/using-agent-skills/incident.md | 321 | doc | [x] |
 | evals/README.md | 8114 | doc | [x] |
 | external/api-and-interface-design.md | 26413 | external-doc | [x] |
-| external/browser-testing-with-devtools.md | 23834 | external-doc | [ ] |
-| external/ci-cd-and-automation.md | 26179 | external-doc | [ ] |
+| external/browser-testing-with-devtools.md | 23834 | external-doc | [x] |
+| external/ci-cd-and-automation.md | 26179 | external-doc | [x] |
 | external/code-review-and-quality.md | 26687 | external-doc | [x] |
 | external/code-simplification.md | 26320 | external-doc | [x] |
 | external/constraint-driven-development.md | 0 | external-doc (unavailable) | [x] |
-| external/context-engineering.md | 26352 | external-doc | [ ] |
+| external/context-engineering.md | 26352 | external-doc | [x] |
 | external/debugging-and-error-recovery.md | 23705 | external-doc | [x] |
 | external/deprecation-and-migration.md | 26252 | external-doc | [x] |
-| external/documentation-and-adrs.md | 26223 | external-doc | [ ] |
+| external/documentation-and-adrs.md | 26223 | external-doc | [x] |
 | external/doubt-driven-development.md | 26502 | external-doc | [ ] |
 | external/frontend-ui-engineering.md | 26596 | external-doc | [ ] |
 | external/git-workflow-and-versioning.md | 26317 | external-doc | [ ] |

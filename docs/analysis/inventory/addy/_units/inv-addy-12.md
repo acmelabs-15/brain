@@ -2,30 +2,21 @@
 unit: inv-addy-12
 phase: 1
 package: addy
-session: 006
+session: 013
 subagent_returned: complete
 ---
 
 # Unit inv-addy-12
 
 ## Files assigned
-- [x] `skills/idea-refine/examples.md` (20,284 bytes)
-- [x] `skills/idea-refine/frameworks.md` (5,404 bytes)
-- [x] `skills/idea-refine/scripts/idea-refine.sh` (342 bytes)
-- [x] `skills/idea-refine/SKILL.md` (8,111 bytes)
-- [x] `skills/idea-refine/refinement-criteria.md` (5,738 bytes)
+- [x] `sources/addy-external/context-engineering.md` (26,352 bytes)
 
 ## Outputs produced
-- `docs/analysis/inventory/addy/skills-idea-refine-examples-md.md` (6,813 bytes)
-- `docs/analysis/inventory/addy/skills-idea-refine-frameworks-md.md` (4,149 bytes)
-- `docs/analysis/inventory/addy/skills-idea-refine-scripts-idea-refine-sh.md` (3,430 bytes)
-- `docs/analysis/inventory/addy/skills-idea-refine-SKILL-md.md` (8,063 bytes)
-- `docs/analysis/inventory/addy/skills-idea-refine-refinement-criteria-md.md` (5,728 bytes)
-- `docs/analysis/inventory/addy/_units/inv-addy-12.md` (3,450 bytes)
+- `docs/analysis/inventory/addy/external-context-engineering-md.md` (18,824 bytes)
+- `docs/analysis/inventory/addy/_units/inv-addy-12.md` (2,750 bytes)
 
 ## Scripts executed
-- `sources/addy/skills/idea-refine/scripts/idea-refine.sh` — `cd sources/addy && bash skills/idea-refine/scripts/idea-refine.sh` — Exit code: `0` (Initial run: created directory `docs/ideas`, stdout: `{"status": "ready", "directory": "docs/ideas"}`, stderr: `Created directory: docs/ideas`)
-- `sources/addy/skills/idea-refine/scripts/idea-refine.sh` — `cd sources/addy && bash skills/idea-refine/scripts/idea-refine.sh` — Exit code: `0` (Idempotent run: directory exists, stdout: `{"status": "ready", "directory": "docs/ideas"}`, stderr: `Directory already exists: docs/ideas`)
+- `npx --yes skills add addyosmani/agent-skills --skill context-engineering --list` — Exit code: `0` (Output: resolves package catalog and lists description for `context-engineering`)
 
 ## Coverage self-check
 - [x] Every assigned file has an entry / card / artifact
@@ -35,20 +26,14 @@ subagent_returned: complete
 - [x] Glossary convention applied (package-prefixed before decision; canonical after)
 
 ## Cross-unit notes
-- **Lifecycle Positioning & Upstream/Downstream Integration:**
-  `idea-refine` resides in the `addy:Define` phase (`CLAUDE.md:21`, `README.md:354`, `sources/addy-external/idea-refine.md:5`). Upstream, it consumes rough concepts from user ideas or intent-gathering from `interview-me` (`interview-me/SKILL.md:14, 182, 225`). Downstream, it produces structured markdown one-pagers (`docs/ideas/[idea-name].md`) that feed directly into `spec-driven-development` and `planning-and-task-breakdown` (`using-agent-skills/SKILL.md:137`).
-- **Architectural Exemption in Addy Linter:**
-  In `sources/addy/scripts/lib/skill-lint.js:59`, `idea-refine` is explicitly listed under `SECTION_EXEMPT_SKILLS` with the note: `'Legacy structure predating skill-anatomy.md — uses How-It-Works/Usage/Anti-patterns instead of standard headings. Tracked for conformance in https://github.com/addyosmani/agent-skills/issues'`. This accounts for its non-standard section headers and absence of the mandated `Rationalizations` section.
-- **Discrepancy Between Invocation Examples and Slash Commands:**
-  `examples.md` consistently demonstrates triggering ideation sessions with `/ideate [idea]` (lines 9, 132, 178). However, inspection of `sources/addy/.claude/commands/` confirms no `ideate.md` exists among the 9 defined slash commands. In practice, the skill is invoked conversationally via frontmatter triggers ("Help me refine this idea", "Ideate on [concept]", "Stress-test my plan").
-- **Evaluative Rigor and Anti-Sycophancy:**
-  `refinement-criteria.md` and `examples.md` provide a high-value model for conversational agent discipline: demanding acute problem validation (Painkiller vs. Vitamin), a 6-tier differentiation hierarchy (where "Cheaper" is weakest and "New capability" is strongest), a 3-tier Assumption Audit (Must Be True dealbreakers), and mandatory scope pruning via an explicit "Not Doing" list before any engineering planning begins.
-- **Mock Codebase Reference:**
-  The citation to `src/models/document.ts:45` in `examples.md:152` is a fictional illustrative example within a hypothetical document editor to demonstrate codebase-aware ideation, not an unresolved path in the repository.
+- **Partition & Manifest Alignment**: `inv-addy-12` is the Phase 1 Inventory unit for `sources/addy-external/context-engineering.md` (26,352 bytes, 20 lines, manifest path `external/context-engineering.md`). An obsolete work-unit report previously resided at this location from an earlier session partition, along with an incorrectly named orphan card `sources-addy-external-context-engineering-md.md` which has now been removed.
+- **Web Abstraction & Skills Ecosystem**: The external page at `https://skills.addy.ie/skills/context-engineering/` serves as the web landing page for modular installation via Vercel's `skills` CLI (`npx skills add addyosmani/agent-skills --skill context-engineering`). It establishes cross-skill discovery for the Build phase (`incremental-implementation`, `test-driven-development`, `source-driven-development`).
+- **Anatomy Standardization Drift**: The public marketing page presents a standardized 6-section anatomy (`01 Overview`, `02 When to Use`, `03 Process`, `04 Rationalizations`, `05 Red Flags`, `06 Verification`), whereas the in-repo `SKILL.md` uses bespoke sectioning (`The Context Hierarchy`, `Context Packing Strategies`, `Confusion Management`, `Common Rationalizations`, `Red Flags`, `Verification`), omitting a dedicated "Process" section.
+- **Command & Phase Coupling**: The external page pairs `context-engineering` with the `/build` command and places it firmly within `addy:Build`, reinforcing that context curation is an essential pre-requisite and operational companion to incremental code authoring.
 
 ## Blocked or uncertain
 none
 
 ## Time and size
-- Tokens of source read: ~9,970 tokens (39,879 bytes across 5 assigned files, plus cross-reference files).
-- Tokens of output written: ~7,500 tokens across 5 inventory entries and 1 unit report.
+- Approximate tokens of source read: ~6,588 tokens (26,352 bytes across 1 assigned file plus cross-checks).
+- Approximate tokens of output written: ~5,500 tokens across 1 inventory card and 1 work-unit report.

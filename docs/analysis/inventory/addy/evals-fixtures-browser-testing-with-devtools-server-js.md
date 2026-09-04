@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/browser-testing-with-devtools/server.js
 type: file
 bytes: 511
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/browser-testing-with-devtools/server.js, sha256: 0b35e5dbb0226bb26d69bd7a71c3c1575b1182f2c071e10e46c863533e1be1f6}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/browser-testing-with-devtools/server.js
 
 ## Purpose — required, verbatim
-> "http.createServer((req, res) => {\n  if (req.url === '/api/signup') {\n    res.writeHead(500, { 'content-type': 'text/html' });\n    res.end('<h1>database unavailable</h1>');\n    return;\n  }\n  res.writeHead(200, { 'content-type': 'text/html' });\n  res.end(fs.readFileSync(path.join(__dirname, 'index.html')));\n}).listen(4173, '127.0.0.1', () => console.log('listening on http://127.0.0.1:4173'));" — evals/fixtures/browser-testing-with-devtools/server.js:7-15 (no explicit purpose statement)
+> "http.createServer((req, res) => {" — evals/fixtures/browser-testing-with-devtools/server.js:7 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides a lightweight Node.js HTTP server fixture for reproducing the browser signup failure scenario. It serves `index.html` on the root route and intentionally simulates a backend database outage on `/api/signup` by returning HTTP status 500 with an HTML payload (`<h1>database unavailable</h1>`), providing the local server runtime for DevTools debugging evaluations.
@@ -18,21 +25,19 @@ Provides a lightweight Node.js HTTP server fixture for reproducing the browser s
 `addy:TEST`
 
 ## Inputs — required
-- Reads `index.html` via `fs.readFileSync` — evals/fixtures/browser-testing-with-devtools/server.js:14
-- Inbound HTTP network requests on `http://127.0.0.1:4173` — evals/fixtures/browser-testing-with-devtools/server.js:7,15
+- Reads `index.html` via `fs.readFileSync` (evals/fixtures/browser-testing-with-devtools/server.js:14)
+- Inbound HTTP network requests on `http://127.0.0.1:4173` (evals/fixtures/browser-testing-with-devtools/server.js:7,15)
 
 ## Outputs — required
-- HTTP response with status 200 and HTML content for root path (`/`) — evals/fixtures/browser-testing-with-devtools/server.js:13-14
-- HTTP response with status 500 and HTML body `'<h1>database unavailable</h1>'` for `/api/signup` — evals/fixtures/browser-testing-with-devtools/server.js:9-10
-- Console log message `'listening on http://127.0.0.1:4173'` — evals/fixtures/browser-testing-with-devtools/server.js:15
+- HTTP response with status 200 and HTML content for root path (`/`) (evals/fixtures/browser-testing-with-devtools/server.js:13-14)
+- HTTP response with status 500 and HTML body `'<h1>database unavailable</h1>'` for `/api/signup` (evals/fixtures/browser-testing-with-devtools/server.js:9-10)
+- Console log message `'listening on http://127.0.0.1:4173'` (evals/fixtures/browser-testing-with-devtools/server.js:15)
 
 ## Invokes — required
-- file `evals/fixtures/browser-testing-with-devtools/index.html` — evals/fixtures/browser-testing-with-devtools/server.js:14
+- file index.html — evals/fixtures/browser-testing-with-devtools/server.js:14
 
 ## Invoked by — required
-- doc `evals/fixtures/browser-testing-with-devtools/README.md` — evals/fixtures/browser-testing-with-devtools/README.md:3
-- config `evals/cases/browser-testing-with-devtools.json` — evals/cases/browser-testing-with-devtools.json:35
-- script `scripts/run-evals.js` — scripts/run-evals.js:169
+orphan
 
 ## Concepts named — required, verbatim
 - `node:http` — evals/fixtures/browser-testing-with-devtools/server.js:4 — used here

@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/frontend-ui-engineering/design-system.md
 type: doc
 bytes: 530
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/frontend-ui-engineering/design-system.md, sha256: 10c2d3e53e438a8200dcf83b11d6663d846a47ae9cd458d0c5ddd6950fda6f9f}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/frontend-ui-engineering/design-system.md
@@ -27,8 +34,7 @@ none
 none
 
 ## Invoked by — required
-- config `evals/cases/frontend-ui-engineering.json` — evals/cases/frontend-ui-engineering.json:42
-- script `scripts/run-evals.js` — scripts/run-evals.js:394
+orphan
 
 ## Concepts named — required, verbatim
 - `Menu component conventions` — evals/fixtures/frontend-ui-engineering/design-system.md:1 — used here

@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/code-review-and-quality/user-search.diff
 type: file
 bytes: 513
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/code-review-and-quality/user-search.diff, sha256: 1bc7174d5af1af50da323ba653203743c3c148b3f6c07938bd02f5139a368151}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/code-review-and-quality/user-search.diff
@@ -27,11 +34,10 @@ none
 none
 
 ## Invoked by — required
-- config `evals/cases/code-review-and-quality.json` — evals/cases/code-review-and-quality.json:35
-- script `scripts/run-evals.js` — scripts/run-evals.js:394
+orphan
 
 ## Concepts named — required, verbatim
-- `user-search` — evals/fixtures/code-review-and-quality/user-search.diff:1 — used here
+- `/users/search` — evals/fixtures/code-review-and-quality/user-search.diff:7 — defined here
 - `requireAuth` — evals/fixtures/code-review-and-quality/user-search.diff:6 — used here
 - `router.get` — evals/fixtures/code-review-and-quality/user-search.diff:6 — used here
 - `db.query` — evals/fixtures/code-review-and-quality/user-search.diff:9 — used here

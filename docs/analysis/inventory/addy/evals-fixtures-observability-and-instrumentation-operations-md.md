@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/observability-and-instrumentation/operations.md
 type: doc
 bytes: 422
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/observability-and-instrumentation/operations.md, sha256: 37aa8678c2df2ac7c8c5836804003ba5429b955681968df75421fbb65c13ffa6}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/observability-and-instrumentation/operations.md
 
 ## Purpose — required, verbatim
-> "# Payment retry operations\n\nOn-call must be able to answer:" — evals/fixtures/observability-and-instrumentation/operations.md:1-3 (no explicit purpose statement)
+> "Payment retry operations" — evals/fixtures/observability-and-instrumentation/operations.md:1 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides operational requirements and on-call constraints for the `observability-and-instrumentation` evaluation test. It specifies the 4 core on-call questions that telemetry must answer (transient recovery, failure driver, double charge prevention, customer intervention) along with security/PII constraints forbidding logging of card numbers, customer emails, or raw gateway responses.
@@ -27,8 +34,7 @@ none
 none
 
 ## Invoked by — required
-- config `evals/cases/observability-and-instrumentation.json` (via fixture directory reference) — evals/cases/observability-and-instrumentation.json:34
-- script `scripts/run-evals.js` — scripts/run-evals.js:169
+orphan
 
 ## Concepts named — required, verbatim
 - `Payment retry operations` — evals/fixtures/observability-and-instrumentation/operations.md:1 — defined here

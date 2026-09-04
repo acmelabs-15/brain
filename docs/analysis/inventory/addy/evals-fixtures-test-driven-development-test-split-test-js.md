@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/test-driven-development/test/split.test.js
 type: file
 bytes: 398
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/test-driven-development/test/split.test.js, sha256: a05400be4fb0262cf0197a13588707a01db7c771db38a08508ebba9badfad7d2}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/test-driven-development/test/split.test.js
 
 ## Purpose — required, verbatim
-> "test('splits an evenly divisible total into equal shares', () => {\n  assert.deepEqual(splitCents(10000, 4), [2500, 2500, 2500, 2500]);\n});\n\ntest('a single participant receives the whole total', () => {\n  assert.deepEqual(splitCents(500, 1), [500]);\n});" — evals/fixtures/test-driven-development/test/split.test.js:7-13 (no explicit purpose statement)
+> "test('splits an evenly divisible total into equal shares', () => {" — evals/fixtures/test-driven-development/test/split.test.js:7 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides the initial passing unit test suite for the `split-payment` fixture project in `test-driven-development` evals (eval id: 1 and id: 2). It exercises only clean, evenly divisible numbers and single-participant cases, leaving remainder distribution unexercised so that the evaluated agent must write a failing test first to capture the bug described in `BUG.md`.
@@ -24,12 +31,10 @@ Provides the initial passing unit test suite for the `split-payment` fixture pro
 - Test execution report via Node test runner (`node:test`).
 
 ## Invokes — required
-- file `evals/fixtures/test-driven-development/src/split.js` — evals/fixtures/test-driven-development/test/split.test.js:5
+- file ../src/split — evals/fixtures/test-driven-development/test/split.test.js:5
 
 ## Invoked by — required
-- config `evals/fixtures/test-driven-development/package.json` — evals/fixtures/test-driven-development/package.json:7
-- config `evals/cases/test-driven-development.json` — evals/cases/test-driven-development.json:34-36, 48-50
-- script `scripts/run-evals.js` — scripts/run-evals.js:389-398
+orphan
 
 ## Concepts named — required, verbatim
 - `splitCents` — evals/fixtures/test-driven-development/test/split.test.js:5 — used here

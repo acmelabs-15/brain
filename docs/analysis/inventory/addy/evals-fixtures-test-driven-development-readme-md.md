@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/test-driven-development/README.md
 type: doc
 bytes: 787
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/test-driven-development/README.md, sha256: f7ce058b1d7dd375235d7e917572e72ffefb1493fd39cb3b39039cb2a29b3567}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/test-driven-development/README.md
 
 ## Purpose — required, verbatim
-> "Utility for splitting an amount of money among `n` participants without\nlosing or inventing cents. Amounts are integer cents throughout; the\nlibrary never touches floating point." — evals/fixtures/test-driven-development/README.md:3-5
+> "Utility for splitting an amount of money among `n` participants without" — evals/fixtures/test-driven-development/README.md:3 (no explicit purpose statement)
 
 ## Design intent — required
 Documents the domain requirements, function signatures, and invariant rules (`Exactness` and `Fairness`) for the `split-payment` fixture project. It defines the formal specification that an agent applying TDD must satisfy, specifically requiring that remainder cents are distributed one each across earliest shares (e.g. `splitCents(100, 7) = [15, 15, 14, 14, 14, 14, 14]`) rather than dumped onto a single element.
@@ -27,8 +34,7 @@ Documents the domain requirements, function signatures, and invariant rules (`Ex
 none
 
 ## Invoked by — required
-- config `evals/cases/test-driven-development.json` — evals/cases/test-driven-development.json:34-36, 48-50
-- script `scripts/run-evals.js` — scripts/run-evals.js:389-398
+orphan
 
 ## Concepts named — required, verbatim
 - `split-payment` — evals/fixtures/test-driven-development/README.md:1 — defined here

@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/code-simplification/config-parser.test.js
 type: file
 bytes: 452
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/code-simplification/config-parser.test.js, sha256: 3ea15c84061c001ab4c0c366ad60efeac07b32a80deb9bf608d9a68b8a4df8c4}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/code-simplification/config-parser.test.js
 
 ## Purpose — required, verbatim
-> "test('parses sections, values, comments, and defaults', () => {\n  assert.deepEqual(parseConfig([\n    'owner = \"Ada\"', '# ignored', '[server]', 'port = 8080',\n    'enabled = true', 'note = hello',\n  ]), {\n    default: { owner: 'Ada' },\n    server: { port: 8080, enabled: true, note: 'hello' },\n  });\n});" — evals/fixtures/code-simplification/config-parser.test.js:7-15 (no explicit purpose statement)
+> "test('parses sections, values, comments, and defaults', () => {" — evals/fixtures/code-simplification/config-parser.test.js:7 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides the automated regression test suite for `config-parser.js` using Node's built-in `node:test` and `node:assert/strict`. It tests section extraction, default section assignment, comment ignoring (`#`), and value parsing (numbers, booleans, quoted strings, raw strings), ensuring that code simplification refactorings preserve parser behavior without regressions.
@@ -18,18 +25,17 @@ Provides the automated regression test suite for `config-parser.js` using Node's
 `addy:TEST`
 
 ## Inputs — required
-- Imports `parseConfig` from `./config-parser` — evals/fixtures/code-simplification/config-parser.test.js:5
-- Sample config lines array: `['owner = "Ada"', '# ignored', '[server]', 'port = 8080', 'enabled = true', 'note = hello']` — evals/fixtures/code-simplification/config-parser.test.js:8-10
+- Imports `parseConfig` from `./config-parser` (evals/fixtures/code-simplification/config-parser.test.js:5)
+- Sample config lines array: `['owner = "Ada"', '# ignored', '[server]', 'port = 8080', 'enabled = true', 'note = hello']` (evals/fixtures/code-simplification/config-parser.test.js:8-10)
 
 ## Outputs — required
-- Test assertion verdicts (asserts deep equality of parsed config against `{ default: { owner: 'Ada' }, server: { port: 8080, enabled: true, note: 'hello' } }`) — evals/fixtures/code-simplification/config-parser.test.js:8-14
+- Test assertion verdicts (asserts deep equality of parsed config against `{ default: { owner: 'Ada' }, server: { port: 8080, enabled: true, note: 'hello' } }`) (evals/fixtures/code-simplification/config-parser.test.js:8-14)
 
 ## Invokes — required
-- file `evals/fixtures/code-simplification/config-parser.js` — evals/fixtures/code-simplification/config-parser.test.js:5
+- file ./config-parser — evals/fixtures/code-simplification/config-parser.test.js:5
 
 ## Invoked by — required
-- config `evals/cases/code-simplification.json` — evals/cases/code-simplification.json:34
-- script `scripts/run-evals.js` — scripts/run-evals.js:169
+orphan
 
 ## Concepts named — required, verbatim
 - `node:assert/strict` — evals/fixtures/code-simplification/config-parser.test.js:3 — used here

@@ -3,7 +3,14 @@ package: addy
 path: evals/cases/source-driven-development.json
 type: config
 bytes: 1287
-unit: inv-addy-1
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/cases/source-driven-development.json, sha256: df9c000800d1c7e3f46012ee7b6de07b67d1af8e98917921130cc3accc072464}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/cases/source-driven-development.json
@@ -18,22 +25,21 @@ Defines routing triggers and evaluation rubric expectations for the `source-driv
 none
 
 ## Inputs — required
-- Evaluation fixture directory `evals/fixtures/source-driven-development` — `evals/cases/source-driven-development.json:35`
-- Positive trigger prompts — `evals/cases/source-driven-development.json:6,10,14`
-- Negative trigger prompts with owners — `evals/cases/source-driven-development.json:20,24`
-- Behavioral evaluation prompt — `evals/cases/source-driven-development.json:32`
+- Evaluation fixture directory `source-driven-development` referenced in `files` list (evals/cases/source-driven-development.json:35)
+- Positive trigger prompts on framework docs verification and source-cited code (evals/cases/source-driven-development.json:6, 10, 14)
+- Negative trigger prompts routing to `ci-cd-and-automation` and `planning-and-task-breakdown` (evals/cases/source-driven-development.json:20, 24)
+- Behavioral evaluation prompt on implementing session handling with documentation citations (evals/cases/source-driven-development.json:32)
 
 ## Outputs — required
-- Evaluation routing ranking score and behavioral rubric grading result evaluated by `scripts/run-evals.js` against expectations (`evals/cases/source-driven-development.json:38-40`)
+- Evaluation routing ranking score and behavioral rubric grading result evaluated by `scripts/run-evals.js` against expectations (evals/cases/source-driven-development.json:38-40)
 
 ## Invokes — required
-- fixture `evals/fixtures/source-driven-development` — evals/cases/source-driven-development.json:35
-- skill `ci-cd-and-automation` — evals/cases/source-driven-development.json:21
-- skill `planning-and-task-breakdown` — evals/cases/source-driven-development.json:25
-- skill `source-driven-development` — evals/cases/source-driven-development.json:2
+- skill ci-cd-and-automation — evals/cases/source-driven-development.json:21
+- skill planning-and-task-breakdown — evals/cases/source-driven-development.json:25
+- file source-driven-development — evals/cases/source-driven-development.json:35
 
 ## Invoked by — required
-- script `scripts/run-evals.js` — scripts/run-evals.js:38
+orphan
 
 ## Concepts named — required, verbatim
 - `source-driven-development` — evals/cases/source-driven-development.json:2 — used here
@@ -67,4 +73,4 @@ none
 Standard execution evaluation case requiring fixture `evals/fixtures/source-driven-development`. Enforces epistemic humility by requiring unverified assumptions to be explicitly flagged.
 
 ## Context cost
-1,287 bytes (approx. 322 tokens).
+1287 bytes (~322 tokens).

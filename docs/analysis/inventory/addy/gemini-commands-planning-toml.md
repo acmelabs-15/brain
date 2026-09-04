@@ -4,6 +4,14 @@ path: .gemini/commands/planning.toml
 type: command
 bytes: 635
 unit: inv-addy-1
+aliases: []
+memo_inputs:
+  - {path: .gemini/commands/planning.toml, sha256: 0be6342ddff35204095b23c64a389323185624418c365390955c3c716eba4d85}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # .gemini/commands/planning.toml
@@ -12,18 +20,18 @@ unit: inv-addy-1
 > "Break work into small verifiable tasks with acceptance criteria and dependency ordering" — .gemini/commands/planning.toml:1
 
 ## Design intent — required
-Bridges requirements specification and implementation execution by establishing a structured, read-only planning phase. It analyzes component dependencies, decomposes complex features into thin vertical slices rather than horizontal layers, and defines clear acceptance criteria with phase checkpoints for human review. Without it, implementation tasks are prone to unsequenced execution, oversized work increments, and lack of verifiable exit criteria.
+Gemini/Antigravity slash command configuring task breakdown into vertically sliced, dependency-ordered tasks with acceptance criteria, verification steps, and checkpoints, outputting to `tasks/plan.md` and `tasks/todo.md`.
 
 ## Phase — required
-`addy:Plan`
+addy:PLAN
 
 ## Inputs — required
-- Existing specification (`SPEC.md` or equivalent) — .gemini/commands/planning.toml:6
-- Relevant codebase sections — .gemini/commands/planning.toml:6
+- Spec (`SPEC.md` or equivalent)
+- Codebase architecture
 
 ## Outputs — required
-- `tasks/plan.md` (execution plan with dependency ordering and checkpoints) — .gemini/commands/planning.toml:15
-- `tasks/todo.md` (task list with acceptance criteria) — .gemini/commands/planning.toml:15
+- `tasks/plan.md`
+- `tasks/todo.md`
 
 ## Invokes — required
 - skill planning-and-task-breakdown — .gemini/commands/planning.toml:4
@@ -34,15 +42,16 @@ none
 ## Concepts named — required, verbatim
 - `planning-and-task-breakdown` — .gemini/commands/planning.toml:4 — used here
 - `plan mode` — .gemini/commands/planning.toml:8 — defined here
-- `dependency graph` — .gemini/commands/planning.toml:9 — used here
-- `vertical slicing` — .gemini/commands/planning.toml:10 — defined here
-- `acceptance criteria` — .gemini/commands/planning.toml:1, 11 — defined here
-- `verification steps` — .gemini/commands/planning.toml:11 — defined here
-- `checkpoints` — .gemini/commands/planning.toml:12 — defined here
-- `human review` — .gemini/commands/planning.toml:13 — defined here
+- `Slice work vertically` — .gemini/commands/planning.toml:10 — defined here
+- `acceptance criteria` — .gemini/commands/planning.toml:1,11 — used here
+- `verification steps` — .gemini/commands/planning.toml:11 — used here
+- `checkpoints` — .gemini/commands/planning.toml:12 — used here
+- `tasks/plan.md` — .gemini/commands/planning.toml:15 — defined here
+- `tasks/todo.md` — .gemini/commands/planning.toml:15 — defined here
 
 ## Structure
-- Unsectioned 6-step prompt workflow (ordered list) — .gemini/commands/planning.toml:8-13
+- Steps 1–6 numbered list
+- Output path save instruction
 
 ## Scripts — required if type is script or the skill ships scripts
 none
@@ -51,10 +60,7 @@ none
 none
 
 ## Observations
-- Strict read-only enforcement during planning: "Enter plan mode — read only, no code changes" (.gemini/commands/planning.toml:8).
-- Mandates vertical slicing ("one complete path per task, not horizontal layers") over traditional layer-by-layer implementation (.gemini/commands/planning.toml:10).
-- Cross-tool naming note: Claude Code equivalent command is `.claude/commands/plan.md`, mapped to `planning.toml` in Gemini/Antigravity via `NAME_MAP` in `validate-commands.js`.
+Exact alias of `commands/planning.toml`.
 
 ## Context cost
-- File size: 635 bytes (~160 tokens).
-- Transitive context cost when invoked: loads `skills/planning-and-task-breakdown/SKILL.md` (8,924 bytes), totaling ~9,559 bytes (~2,390 tokens) before codebase exploration.
+635 bytes, ~160 tokens. Transitive cost: loads `planning-and-task-breakdown` (10564 bytes, ~2640 tokens).

@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/deprecation-and-migration/api-inventory.md
 type: doc
 bytes: 504
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/deprecation-and-migration/api-inventory.md, sha256: ac739ed01a61c7dea2e9ce570948cfe5443fce471fe8e3d894bb42c82a7ca6c2}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/deprecation-and-migration/api-inventory.md
@@ -27,8 +34,7 @@ none
 none
 
 ## Invoked by — required
-- config `evals/cases/deprecation-and-migration.json` — evals/cases/deprecation-and-migration.json:34
-- script `scripts/run-evals.js` — scripts/run-evals.js:394
+orphan
 
 ## Concepts named — required, verbatim
 - `v1 API inventory` — evals/fixtures/deprecation-and-migration/api-inventory.md:1 — used here

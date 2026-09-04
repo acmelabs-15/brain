@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/git-workflow-and-versioning/app.test.js
 type: file
 bytes: 228
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/git-workflow-and-versioning/app.test.js, sha256: 28c9dec73e578a6cf28ab39cdb31f33d0734d28413a3f419ba1b51578867f7ff}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/git-workflow-and-versioning/app.test.js
 
 ## Purpose — required, verbatim
-> "test('totals item prices', () => {\n  assert.equal(total([{ price: 1 }, { price: 2 }]), 3);\n});" — evals/fixtures/git-workflow-and-versioning/app.test.js:7-9 (no explicit purpose statement)
+> "test('totals item prices', () => {" — evals/fixtures/git-workflow-and-versioning/app.test.js:7 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides the automated regression unit test verifying the `total` pricing function in `app.js` using `node:test` and `node:assert/strict`. It ensures that git patch applications and versioning operations preserve core functional correctness.
@@ -18,18 +25,17 @@ Provides the automated regression unit test verifying the `total` pricing functi
 `addy:TEST`
 
 ## Inputs — required
-- Imports `total` from `./app` — evals/fixtures/git-workflow-and-versioning/app.test.js:5
-- Sample item pricing array: `[{ price: 1 }, { price: 2 }]` — evals/fixtures/git-workflow-and-versioning/app.test.js:8
+- Imports `total` from `./app` (evals/fixtures/git-workflow-and-versioning/app.test.js:5)
+- Sample item pricing array: `[{ price: 1 }, { price: 2 }]` (evals/fixtures/git-workflow-and-versioning/app.test.js:8)
 
 ## Outputs — required
-- Test assertion verdicts (asserts equality to 3) — evals/fixtures/git-workflow-and-versioning/app.test.js:8
+- Test assertion verdicts (asserts equality to 3) (evals/fixtures/git-workflow-and-versioning/app.test.js:8)
 
 ## Invokes — required
-- file `evals/fixtures/git-workflow-and-versioning/app.js` — evals/fixtures/git-workflow-and-versioning/app.test.js:5
+- file ./app — evals/fixtures/git-workflow-and-versioning/app.test.js:5
 
 ## Invoked by — required
-- config `evals/cases/git-workflow-and-versioning.json` — evals/cases/git-workflow-and-versioning.json:34
-- script `scripts/run-evals.js` — scripts/run-evals.js:169
+orphan
 
 ## Concepts named — required, verbatim
 - `node:assert/strict` — evals/fixtures/git-workflow-and-versioning/app.test.js:3 — used here

@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/incremental-implementation/tasks/plan.md
 type: doc
 bytes: 311
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/incremental-implementation/tasks/plan.md, sha256: b693a78495810bc6c0a8941fa3472aed56346f41331c8ecc5b0429f58573c8f7}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/incremental-implementation/tasks/plan.md
 
 ## Purpose — required, verbatim
-> "1. Add a pure report-to-CSV formatter with unit tests.\n2. Add a download adapter that uses the formatter.\n3. Wire an Export button to the reports page." — evals/fixtures/incremental-implementation/tasks/plan.md:3-5 (no explicit purpose statement)
+> "1. Add a pure report-to-CSV formatter with unit tests." — evals/fixtures/incremental-implementation/tasks/plan.md:3 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides an ordered 3-step implementation plan fixture for `incremental-implementation` evals (eval id: 1). It specifies the discrete tasks required to build a CSV export feature (formatter with tests, download adapter, Export button integration) and dictates that each task must be verified and committed separately before advancing to the next, providing the benchmark plan against which agent execution discipline is graded.
@@ -27,8 +34,7 @@ Provides an ordered 3-step implementation plan fixture for `incremental-implemen
 none
 
 ## Invoked by — required
-- config `evals/cases/incremental-implementation.json` — evals/cases/incremental-implementation.json:34-36
-- script `scripts/run-evals.js` — scripts/run-evals.js:389-398
+orphan
 
 ## Concepts named — required, verbatim
 - `CSV export plan` — evals/fixtures/incremental-implementation/tasks/plan.md:1 — defined here

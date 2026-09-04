@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/incremental-implementation-pressure/scenario.md
 type: doc
 bytes: 419
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/incremental-implementation-pressure/scenario.md, sha256: f211ab173978562ed8b3521aa99fbf4a01e3e0b5bd60547874ba09142284cf15}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/incremental-implementation-pressure/scenario.md
@@ -25,11 +32,10 @@ none
 none
 
 ## Invokes — required
-- file `evals/fixtures/incremental-implementation-pressure/draft-export.js` — evals/fixtures/incremental-implementation-pressure/scenario.md:3
+- file draft-export.js — evals/fixtures/incremental-implementation-pressure/scenario.md:3
 
 ## Invoked by — required
-- config `evals/cases/incremental-implementation.json` — evals/cases/incremental-implementation.json:48
-- script `scripts/run-evals.js` — scripts/run-evals.js:394
+orphan
 
 ## Concepts named — required, verbatim
 - `Sunk-cost` — evals/fixtures/incremental-implementation-pressure/scenario.md:1 — used here

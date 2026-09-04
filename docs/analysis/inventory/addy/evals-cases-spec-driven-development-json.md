@@ -3,7 +3,14 @@ package: addy
 path: evals/cases/spec-driven-development.json
 type: config
 bytes: 2657
-unit: inv-addy-1
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/cases/spec-driven-development.json, sha256: e6e637aad5de3e7dcec37ba6a3ae4ccf5f4394057a5a2266efb3e5f224ca719c}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/cases/spec-driven-development.json
@@ -19,27 +26,26 @@ none
 
 ## Inputs — required
 - Evaluation fixture directories:
-  - `evals/fixtures/spec-driven-development` — `evals/cases/spec-driven-development.json:47`
-  - `evals/fixtures/spec-driven-development-decomposition` (`portal-brief.md`) — `evals/cases/spec-driven-development.json:58,61`
-- Positive trigger prompts — `evals/cases/spec-driven-development.json:6,10,14,18,22`
-- Negative trigger prompts with owners — `evals/cases/spec-driven-development.json:28,32,36`
+  - `evals/fixtures/spec-driven-development` (evals/cases/spec-driven-development.json:47)
+  - `evals/fixtures/spec-driven-development-decomposition` with `portal-brief.md` (evals/cases/spec-driven-development.json:58, 61)
+- Positive trigger prompts (evals/cases/spec-driven-development.json:6, 10, 14, 18, 22)
+- Negative trigger prompts with owners (evals/cases/spec-driven-development.json:28, 32, 36)
 - Behavioral evaluation prompts:
-  - Scenario 1 (Usage-based billing feature spec) — `evals/cases/spec-driven-development.json:44`
-  - Scenario 2 (Customer portal initiative capability decomposition) — `evals/cases/spec-driven-development.json:58`
+  - Scenario 1 (Usage-based billing feature spec) (evals/cases/spec-driven-development.json:44)
+  - Scenario 2 (Customer portal initiative capability decomposition) (evals/cases/spec-driven-development.json:58)
 
 ## Outputs — required
-- Evaluation routing ranking score and behavioral rubric grading results across two test scenarios evaluated by `scripts/run-evals.js` against expectations (`evals/cases/spec-driven-development.json:49-54, 63-69`)
+- Evaluation routing ranking score and behavioral rubric grading results across two test scenarios evaluated by `scripts/run-evals.js` against expectations (evals/cases/spec-driven-development.json:49-54, 63-69)
 
 ## Invokes — required
-- fixture `evals/fixtures/spec-driven-development` — evals/cases/spec-driven-development.json:47
-- fixture `evals/fixtures/spec-driven-development-decomposition` — evals/cases/spec-driven-development.json:61
-- skill `observability-and-instrumentation` — evals/cases/spec-driven-development.json:29
-- skill `code-simplification` — evals/cases/spec-driven-development.json:33
-- skill `planning-and-task-breakdown` — evals/cases/spec-driven-development.json:37
-- skill `spec-driven-development` — evals/cases/spec-driven-development.json:2
+- file spec-driven-development — evals/cases/spec-driven-development.json:47
+- file spec-driven-development-decomposition — evals/cases/spec-driven-development.json:61
+- skill observability-and-instrumentation — evals/cases/spec-driven-development.json:29
+- skill code-simplification — evals/cases/spec-driven-development.json:33
+- skill planning-and-task-breakdown — evals/cases/spec-driven-development.json:37
 
 ## Invoked by — required
-- script `scripts/run-evals.js` — scripts/run-evals.js:38
+orphan
 
 ## Concepts named — required, verbatim
 - `spec-driven-development` — evals/cases/spec-driven-development.json:2 — used here
@@ -73,4 +79,4 @@ none
 Scenario 2 establishes the capability decomposition pattern for large multi-module initiatives, enforcing acyclic dependency graphs, scoped modular specs, and approval gates prior to drafting per-module specifications.
 
 ## Context cost
-2,657 bytes (approx. 664 tokens).
+2657 bytes (~664 tokens).

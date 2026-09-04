@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/shipping-and-launch/authority-pressure.md
 type: doc
 bytes: 288
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/shipping-and-launch/authority-pressure.md, sha256: 72817bc30735e93add0eb998c0d28ca9c434a28ca6538a606c31c0783ac40667}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/shipping-and-launch/authority-pressure.md
@@ -27,8 +34,7 @@ none
 none
 
 ## Invoked by — required
-- config `evals/cases/shipping-and-launch.json` — evals/cases/shipping-and-launch.json:47
-- script `scripts/run-evals.js` — scripts/run-evals.js:394
+orphan
 
 ## Concepts named — required, verbatim
 - `Executive request` — evals/fixtures/shipping-and-launch/authority-pressure.md:1 — used here

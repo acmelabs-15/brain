@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/security-and-hardening/webhook.test.js
 type: file
 bytes: 414
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/security-and-hardening/webhook.test.js, sha256: 988ac8424130965fc6384b258d7e40a6be7751df9fa5c896d069395442c8534d}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/security-and-hardening/webhook.test.js
@@ -24,11 +31,10 @@ none
 - Test assertion results reported via test runner — `evals/fixtures/security-and-hardening/webhook.test.js:7-13`
 
 ## Invokes — required
-- file `evals/fixtures/security-and-hardening/webhook.js` — evals/fixtures/security-and-hardening/webhook.test.js:5
+- file ./webhook — evals/fixtures/security-and-hardening/webhook.test.js:5
 
 ## Invoked by — required
-- config `evals/cases/security-and-hardening.json` — evals/cases/security-and-hardening.json:35
-- script `scripts/run-evals.js` — scripts/run-evals.js:394
+orphan
 
 ## Concepts named — required, verbatim
 - `node:assert/strict` — evals/fixtures/security-and-hardening/webhook.test.js:3 — used here

@@ -7,7 +7,6 @@ Phase 1 — Inventory for units inv-addy-1, inv-addy-6, inv-addy-8, inv-addy-9, 
 - Every unit in inv-addy-1, inv-addy-6, inv-addy-8, inv-addy-9, inv-addy-12, inv-addy-14 produces the deliverables named by `unit-facts.ts`, filled from templates/inventory-entry.md, obeying METHOD.md R1–R11.
 - Workers read every assigned file in full; quotations are byte-exact with path:line.
 - Deliverables are the only files written; nothing under docs/plan/ or docs/analysis/manifest/ is touched; no git.
-- You must use the 'Worker' and 'Critic' subagents as described in the Teamwork Preview prompt.
 
 ## Independent Verification
 An independent agent judges every card against METHOD.md R1–R11 and runs, from the repo root:

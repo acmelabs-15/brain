@@ -3,7 +3,14 @@ package: addy
 path: evals/fixtures/ci-cd-and-automation/test/slug.test.js
 type: file
 bytes: 234
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/ci-cd-and-automation/test/slug.test.js, sha256: 37a5f448038860ec9e0a5028e664588873954489a4665802c2d894a1c9bbc118}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/ci-cd-and-automation/test/slug.test.js
@@ -24,12 +31,10 @@ none
 - Test results reported via `node:test` runner — `evals/fixtures/ci-cd-and-automation/test/slug.test.js:7-9`
 
 ## Invokes — required
-- file `evals/fixtures/ci-cd-and-automation/src/slug.js` — evals/fixtures/ci-cd-and-automation/test/slug.test.js:5
+- file ../src/slug — evals/fixtures/ci-cd-and-automation/test/slug.test.js:5
 
 ## Invoked by — required
-- config `evals/fixtures/ci-cd-and-automation/package.json` — evals/fixtures/ci-cd-and-automation/package.json:6
-- config `evals/cases/ci-cd-and-automation.json` — evals/cases/ci-cd-and-automation.json:35
-- script `scripts/run-evals.js` — scripts/run-evals.js:394
+orphan
 
 ## Concepts named — required, verbatim
 - `node:assert/strict` — evals/fixtures/ci-cd-and-automation/test/slug.test.js:3 — used here

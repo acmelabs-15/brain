@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/test-driven-development-ecosystem/test_ledger.py
 type: file
 bytes: 533
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/test-driven-development-ecosystem/test_ledger.py, sha256: e6b0a010a846f2a21af829bc6b99f5f92d50608c7539c5176f40a86848c78dbb}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/test-driven-development-ecosystem/test_ledger.py
 
 ## Purpose — required, verbatim
-> "class ApplyEntriesTest(unittest.TestCase):\n    def test_applies_a_single_credit(self):\n        self.assertEqual(apply_entries(100, [(\"credit\", 25)]), 125)" — evals/fixtures/test-driven-development-ecosystem/test_ledger.py:6-8 (no explicit purpose statement)
+> "class ApplyEntriesTest(unittest.TestCase):" — evals/fixtures/test-driven-development-ecosystem/test_ledger.py:6 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides the baseline regression unit test suite for `ledger.py` using Python's standard `unittest` module. It verifies single credit addition, sequential credit applications, and error rejection for unsupported entry kinds, providing the starting test scaffold for TDD feature development in Python.
@@ -18,18 +25,16 @@ Provides the baseline regression unit test suite for `ledger.py` using Python's 
 `addy:TEST`
 
 ## Inputs — required
-- Imports `apply_entries` from `ledger` — evals/fixtures/test-driven-development-ecosystem/test_ledger.py:3
+- Imports `apply_entries` from `ledger` (evals/fixtures/test-driven-development-ecosystem/test_ledger.py:3)
 
 ## Outputs — required
-- Reports unit test results to standard output/error via `unittest.main()` — evals/fixtures/test-driven-development-ecosystem/test_ledger.py:19
+- Reports unit test results to standard output/error via `unittest.main()` (evals/fixtures/test-driven-development-ecosystem/test_ledger.py:19)
 
 ## Invokes — required
-- file `evals/fixtures/test-driven-development-ecosystem/ledger.py` — evals/fixtures/test-driven-development-ecosystem/test_ledger.py:3
+- file ledger — evals/fixtures/test-driven-development-ecosystem/test_ledger.py:3
 
 ## Invoked by — required
-- doc `evals/fixtures/test-driven-development-ecosystem/README.md` — evals/fixtures/test-driven-development-ecosystem/README.md:8
-- config `evals/cases/test-driven-development.json` — evals/cases/test-driven-development.json:71
-- script `scripts/run-evals.js` — scripts/run-evals.js:169
+orphan
 
 ## Concepts named — required, verbatim
 - `unittest` — evals/fixtures/test-driven-development-ecosystem/test_ledger.py:1 — used here

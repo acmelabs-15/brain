@@ -4,38 +4,44 @@ path: .gemini/commands/build.toml
 type: command
 bytes: 3840
 unit: inv-addy-1
+aliases: []
+memo_inputs:
+  - {path: .gemini/commands/build.toml, sha256: e25857cf424905bceea7f1250903eb801a8e79ed62ec67c2fd4d785969e47e62}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # .gemini/commands/build.toml
 
 ## Purpose — required, verbatim
-> "Implement tasks incrementally — build, test, verify, commit. Add \"auto\" to run the whole plan in one approved pass." — .gemini/commands/build.toml:1
+> "Implement tasks incrementally — build, test, verify, commit." — .gemini/commands/build.toml:1
 
 ## Design intent — required
-Enforces test-driven, incremental implementation across both stepped single-task and autonomous whole-plan execution modes. In default stepped mode, it executes one vertical slice at a time with strict RED-GREEN-Refactor verification, compilation checks, and atomic commits. In autonomous mode (`/build auto`), it establishes a clean git baseline, requires a single unambiguous human approval gate, and runs tasks in dependency order while halting on ambiguity, unexpected test failures, or high-risk operations. Without it, coding agents perform risky monolithic modifications, batch multiple unverified changes into untraceable commits, or make unauthorized high-stakes modifications.
+Antigravity/Gemini slash command configuration executing incremental test-driven implementation. It supports single-task execution mode (one slice via RED-GREEN-Refactor, regression suite, build, commit) and autonomous plan execution (`/build auto`), enforcing clean baselines, single approval checkpoints, dependency ordering, and safety pauses for ambiguity or high-risk actions.
 
 ## Phase — required
-`addy:Build`
+addy:BUILD
 
 ## Inputs — required
-- Arguments: empty/default (single-task mode) vs `auto` / `all` (autonomous mode) — .gemini/commands/build.toml:8-11
-- Task execution plan (`tasks/plan.md`, `tasks/todo.md`) — .gemini/commands/build.toml:15, 31-33
-- Specifications (`SPEC.md`, `docs/SPEC.md`, `spec/*`) — .gemini/commands/build.toml:30
-- Git repository state via `git status --porcelain` — .gemini/commands/build.toml:31
+- Arguments (`auto` / `all` vs single-task default)
+- Spec (`SPEC.md`, `docs/SPEC.md`, `spec/*`)
+- Plan (`tasks/plan.md`, `tasks/todo.md`)
+- Git status (`git status --porcelain`)
 
 ## Outputs — required
-- Production code implementations and tests — .gemini/commands/build.toml:19-21
-- Atomic per-task git commits — .gemini/commands/build.toml:23, 34
-- Updated task status in `tasks/plan.md` / `tasks/todo.md` — .gemini/commands/build.toml:24, 34
-- Execution summary report — .gemini/commands/build.toml:40
+- Code changes and test additions
+- Atomic per-task commits
+- Task status updates in `tasks/plan.md`
 
 ## Invokes — required
 - skill incremental-implementation — .gemini/commands/build.toml:4
 - skill test-driven-development — .gemini/commands/build.toml:4
 - skill planning-and-task-breakdown — .gemini/commands/build.toml:32
-- skill debugging-and-error-recovery — .gemini/commands/build.toml:36, 42
+- skill debugging-and-error-recovery — .gemini/commands/build.toml:36,42
 - skill doubt-driven-development — .gemini/commands/build.toml:38
-- external-tool git (git status --porcelain, git add, git commit, git revert) — .gemini/commands/build.toml:31, 34, 38
 
 ## Invoked by — required
 none
@@ -43,24 +49,26 @@ none
 ## Concepts named — required, verbatim
 - `incremental-implementation` — .gemini/commands/build.toml:4 — used here
 - `test-driven-development` — .gemini/commands/build.toml:4 — used here
-- `single-task mode` — .gemini/commands/build.toml:8, 11, 13 — defined here
-- `autonomous mode` — .gemini/commands/build.toml:9, 11, 26 — defined here
-- `RED-GREEN cycle` — .gemini/commands/build.toml:19-20, 34 — used here
-- `regression testing` — .gemini/commands/build.toml:21, 34 — used here
+- `/build` — .gemini/commands/build.toml:8 — defined here
+- `/build auto` — .gemini/commands/build.toml:9,26 — defined here
+- `single-task mode` — .gemini/commands/build.toml:11 — defined here
+- `autonomous mode` — .gemini/commands/build.toml:11 — defined here
+- `RED` — .gemini/commands/build.toml:19,34 — used here
+- `GREEN` — .gemini/commands/build.toml:20,34 — used here
 - `clean baseline` — .gemini/commands/build.toml:31 — defined here
-- `clean rollback guarantee` — .gemini/commands/build.toml:31, 34 — defined here
+- `clean-rollback guarantee` — .gemini/commands/build.toml:31 — defined here
 - `planning-and-task-breakdown` — .gemini/commands/build.toml:32 — used here
-- `single checkpoint` — .gemini/commands/build.toml:33 — defined here
-- `dependency order execution` — .gemini/commands/build.toml:34 — defined here
-- `atomic per-task commit` — .gemini/commands/build.toml:34 — defined here
-- `debugging-and-error-recovery` — .gemini/commands/build.toml:36, 42 — used here
+- `Single checkpoint` — .gemini/commands/build.toml:33 — defined here
+- `dependency order` — .gemini/commands/build.toml:34 — defined here
+- `debugging-and-error-recovery` — .gemini/commands/build.toml:36,42 — used here
 - `doubt-driven-development` — .gemini/commands/build.toml:38 — used here
-- `high-risk operation halt` — .gemini/commands/build.toml:38 — defined here
+- `high-risk` — .gemini/commands/build.toml:38 — defined here
+- `irreversible` — .gemini/commands/build.toml:38 — defined here
 
 ## Structure
-- `## Modes` — .gemini/commands/build.toml:6
-- `## Default: one task` — .gemini/commands/build.toml:13
-- `## Autonomous: the whole plan (/build auto)` — .gemini/commands/build.toml:26
+- ## Modes
+- ## Default: one task
+- ## Autonomous: the whole plan (`/build auto`)
 
 ## Scripts — required if type is script or the skill ships scripts
 none
@@ -69,11 +77,7 @@ none
 none
 
 ## Observations
-- Strict spec requirement: "Look only for a spec at a known path: SPEC.md at the repo root, docs/SPEC.md, or a file under spec/. A README or arbitrary doc does NOT count. If none exists, stop and tell the user to run /spec first — do not invent requirements" (.gemini/commands/build.toml:30).
-- Explicit gatekeeper on human approval: "Treat hedged responses ('looks reasonable', 'I guess') as NOT approved" (.gemini/commands/build.toml:33).
-- Clean rollback isolation: avoids `git add -A` and stages only the files touched by the task plus its status update (.gemini/commands/build.toml:34).
-- High-risk safety circuit breaker: halts and requires explicit sign-off via `doubt-driven-development` for auth/permissions, data migrations, payments, deletions, deploys, or secrets (.gemini/commands/build.toml:38).
+Exact alias of `commands/build.toml`.
 
 ## Context cost
-- File size: 3,840 bytes (~960 tokens).
-- Transitive context cost when invoked: loads `incremental-implementation` SKILL.md (9,120 bytes) and `test-driven-development` SKILL.md (9,840 bytes), with potential calls to `planning-and-task-breakdown` (8,924 bytes), `debugging-and-error-recovery` (8,410 bytes), and `doubt-driven-development` (8,230 bytes), totaling ~48,364 bytes (~12,090 tokens) across full autonomous execution.
+3840 bytes, ~960 tokens. Transitive cost: loads `incremental-implementation` (9507 bytes) and `test-driven-development` (16483 bytes), with conditional calls to `planning-and-task-breakdown` (10564 bytes), `debugging-and-error-recovery` (10837 bytes), and `doubt-driven-development` (16499 bytes).

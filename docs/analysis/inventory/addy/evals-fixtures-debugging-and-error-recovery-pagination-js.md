@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/debugging-and-error-recovery/pagination.js
 type: file
 bytes: 172
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/debugging-and-error-recovery/pagination.js, sha256: a60cc6ec6570f6ef27882cbc4855991d5c3f2c485722931556e549a2fba6d510}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/debugging-and-error-recovery/pagination.js
 
 ## Purpose — required, verbatim
-> "'use strict';\n\nfunction paginate(items, page, pageSize) {\n  const start = page * pageSize;\n  return items.slice(start, start + pageSize);\n}" — evals/fixtures/debugging-and-error-recovery/pagination.js:1-6 (no explicit purpose statement)
+> "'use strict';" — evals/fixtures/debugging-and-error-recovery/pagination.js:1 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Implements a minimal pagination helper function containing an intentional off-by-one indexing error (`start = page * pageSize` assuming 0-based indexing when 1-based page numbers are supplied) to serve as a bug target in the `debugging-and-error-recovery` behavioral evaluations (eval id: 1 and id: 2).
@@ -30,9 +37,7 @@ Implements a minimal pagination helper function containing an intentional off-by
 none
 
 ## Invoked by — required
-- file `evals/fixtures/debugging-and-error-recovery/pagination.test.js` — evals/fixtures/debugging-and-error-recovery/pagination.test.js:5
-- config `evals/cases/debugging-and-error-recovery.json` — evals/cases/debugging-and-error-recovery.json:34-36, 48-50
-- script `scripts/run-evals.js` — scripts/run-evals.js:389-398
+orphan
 
 ## Concepts named — required, verbatim
 - `paginate` — evals/fixtures/debugging-and-error-recovery/pagination.js:3 — defined here

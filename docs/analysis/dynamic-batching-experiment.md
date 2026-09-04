@@ -63,7 +63,32 @@ Teamwork sizes its own team; the documented steering is the prompt wording ("kee
 
 ## 7. Results
 
-*To measure.* One subsection per run: run-id, units, `used` before/after each report, per-unit deltas, rot metrics observed (or none), 429s, wall times, `quote-check.ts` totals for the run's cards, Success Auditor report path under `.teamwork/<run-id>/`. When two consecutive runs show no rot metric at a `used` ceiling, that ceiling minus the margin is proposed as D-010 via §11.
+### run 01
+
+- **run-id**: `p1-run-01`
+- **units**: `inv-addy-1`, `inv-addy-6`, `inv-addy-8`, `inv-addy-9`, `inv-addy-12`, `inv-addy-14` (6 units, 88 files, 4 divergence pairs)
+- **context used**:
+  - start: not observed
+  - at approval: not observed
+  - after report 1: not observed
+  - after report 2: not observed
+  - after report 3: not observed
+  - after report 4: not observed
+  - at end: not observed
+  - largest per-unit delta: not observed
+- **rot metrics**: none observed (used: not observed)
+- **429s and quota.reset_in_seconds**: none observed
+- **wall time**: 27m 54s (from `2026-09-04T17:54:17Z` request to `2026-09-04T18:22:11Z` final report). Files read under `.teamwork/p1-run-01/` and `.agents/`:
+  - `.teamwork/p1-run-01/DISPATCH.md` (dispatch logged at 2026-09-04T17:55:17Z)
+  - `.teamwork/p1-run-01/progress.md` (last visited at 2026-09-04T18:18:25Z)
+  - `.teamwork/p1-run-01/handoff.md` (orchestrator handoff at 2026-09-04T18:18:40Z)
+  - `.teamwork/p1-run-01/success_auditor_report.md` (completed at 2026-09-04T18:17:15Z)
+  - `.agents/victory_auditor_p1_run_01/handoff.md` (audit completed at 2026-09-04T18:22:30Z)
+- **quote-check totals**:
+  - Run 01 cards: 1,158 PASS, 0 FAIL, 0 MISSING across 92 cards (0% failure rate)
+  - Baseline (§2): 6,208 PASS, 1,228 FAIL, 339 MISSING across 212 cards (18% failure rate)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-01/success_auditor_report.md` (confirmed by victory auditor at `/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/victory_auditor_p1_run_01/handoff.md` with VICTORY CONFIRMED)
+
 
 ## 8. Objective
 

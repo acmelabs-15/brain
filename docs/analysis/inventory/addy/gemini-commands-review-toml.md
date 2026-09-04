@@ -4,6 +4,14 @@ path: .gemini/commands/review.toml
 type: command
 bytes: 844
 unit: inv-addy-1
+aliases: []
+memo_inputs:
+  - {path: .gemini/commands/review.toml, sha256: a7ae7259a9e080731e0dd91368da728b89919d31488192e067b751cf472d5a8d}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # .gemini/commands/review.toml
@@ -12,17 +20,16 @@ unit: inv-addy-1
 > "Conduct a five-axis code review — correctness, readability, architecture, security, performance" — .gemini/commands/review.toml:1
 
 ## Design intent — required
-Standardizes code review across five structured dimensions (Correctness, Readability, Architecture, Security, Performance) with categorized finding severity (Critical, Important, Suggestion) and mandatory `file:line` citations with actionable fix recommendations. Without it, automated reviews default to superficial syntax nitpicking while missing architectural regressions, security vulnerabilities, or performance bottlenecks.
+Gemini/Antigravity slash command conducting a 5-axis code review (Correctness, Readability, Architecture, Security, Performance) on staged changes or recent commits, categorizing findings into Critical, Important, or Suggestion with file:line citations and fix recommendations.
 
 ## Phase — required
-`addy:Review`
+addy:REVIEW
 
 ## Inputs — required
-- Staged changes or recent git commits — .gemini/commands/review.toml:6
-- Project specifications and test suites — .gemini/commands/review.toml:8
+- Staged git changes or recent commits
 
 ## Outputs — required
-- Structured review report with categorized findings (Critical, Important, Suggestion), `file:line` citations, and concrete fix recommendations — .gemini/commands/review.toml:14, 15
+- Structured review report with findings categorized by severity
 
 ## Invokes — required
 - skill code-review-and-quality — .gemini/commands/review.toml:4
@@ -33,32 +40,31 @@ Standardizes code review across five structured dimensions (Correctness, Readabi
 none
 
 ## Concepts named — required, verbatim
-- `five-axis code review` — .gemini/commands/review.toml:1, 6 — defined here
+- `five-axis code review` — .gemini/commands/review.toml:1 — defined here
 - `code-review-and-quality` — .gemini/commands/review.toml:4 — used here
-- `Correctness` — .gemini/commands/review.toml:1, 8 — defined here
-- `Readability` — .gemini/commands/review.toml:1, 9 — defined here
-- `Architecture` — .gemini/commands/review.toml:1, 10 — defined here
-- `Security` — .gemini/commands/review.toml:1, 11 — defined here
+- `Correctness` — .gemini/commands/review.toml:8 — defined here
+- `Readability` — .gemini/commands/review.toml:9 — defined here
+- `Architecture` — .gemini/commands/review.toml:10 — defined here
+- `Security` — .gemini/commands/review.toml:11 — defined here
+- `Performance` — .gemini/commands/review.toml:12 — defined here
 - `security-and-hardening` — .gemini/commands/review.toml:11 — used here
-- `Performance` — .gemini/commands/review.toml:1, 12 — defined here
 - `performance-optimization` — .gemini/commands/review.toml:12 — used here
-- `Critical finding` — .gemini/commands/review.toml:14 — defined here
-- `Important finding` — .gemini/commands/review.toml:14 — defined here
+- `Critical` — .gemini/commands/review.toml:14 — defined here
+- `Important` — .gemini/commands/review.toml:14 — defined here
 - `Suggestion` — .gemini/commands/review.toml:14 — defined here
 
 ## Structure
-- Unsectioned 5-axis numbered review checklist in prompt body — .gemini/commands/review.toml:8-12
+- Five review axes 1–5
+- Finding categorization and output format
 
 ## Scripts — required if type is script or the skill ships scripts
 none
 
 ## Defects — required
-- cross-file-contradiction — .gemini/commands/review.toml:14 — Categorizes findings as 'Critical, Important, or Suggestion', whereas `agents/code-reviewer.md:51-57` defines finding severities as 'Critical, Required, Optional, Nit'.
+- `cross-file-contradiction` · .gemini/commands/review.toml:14 · Finding categorization uses `Critical, Important, or Suggestion`, while `agents/code-reviewer.md:51-57` uses `Critical`, `Required`, `Optional`, `Nit`.
 
 ## Observations
-- Directly invokes specialized sub-skills for specific review axes: `security-and-hardening` for Security (axis 4) and `performance-optimization` for Performance (axis 5) (.gemini/commands/review.toml:11, 12).
-- Single-persona counterpart to the multi-agent `/ship` orchestrator.
+Exact alias of `commands/review.toml`.
 
 ## Context cost
-- File size: 844 bytes (~210 tokens).
-- Transitive context cost when invoked: loads `skills/code-review-and-quality/SKILL.md` (9,540 bytes) plus conditionally referenced skills `skills/security-and-hardening/SKILL.md` (9,812 bytes) and `skills/performance-optimization/SKILL.md` (9,450 bytes), totaling ~29,646 bytes (~7,410 tokens) before diffs.
+844 bytes, ~210 tokens. Transitive cost: loads `code-review-and-quality` (20555 bytes), with optional calls to `security-and-hardening` (24192 bytes) and `performance-optimization` (21717 bytes).

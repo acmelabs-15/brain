@@ -3,13 +3,20 @@ package: addy
 path: evals/fixtures/debugging-and-error-recovery/pagination.test.js
 type: file
 bytes: 290
-unit: inv-addy-2
+unit: inv-addy-6
+memo_inputs:
+  - {path: evals/fixtures/debugging-and-error-recovery/pagination.test.js, sha256: d6a38c2c616961536b53fbebc3c7d9d46ad4311d382b3123a2700277f9bbc1ca}
+method_sha: 363a57b543666244096e150abfb5435c4aa6c3c72e543f90b5600ab3507ac791
+template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/debugging-and-error-recovery/pagination.test.js
 
 ## Purpose — required, verbatim
-> "test('returns the second page for a one-based page number', () => {\n  assert.deepEqual(paginate(['a', 'b', 'c', 'd', 'e'], 2, 2), ['c', 'd']);\n});" — evals/fixtures/debugging-and-error-recovery/pagination.test.js:7-9 (no explicit purpose statement)
+> "test('returns the second page for a one-based page number', () => {" — evals/fixtures/debugging-and-error-recovery/pagination.test.js:7 (no explicit purpose statement) (no explicit purpose statement)
 
 ## Design intent — required
 Provides a failing automated test case using Node's built-in `node:test` runner to reproduce the off-by-one bug in `pagination.js`. It serves as the baseline reproduction test for the `debugging-and-error-recovery` eval suite, ensuring the evaluated model runs tests to confirm failure before attempting fixes.
@@ -24,11 +31,10 @@ Provides a failing automated test case using Node's built-in `node:test` runner 
 - Test execution results via `node:test` reporting assertion status and failure stack trace.
 
 ## Invokes — required
-- file `evals/fixtures/debugging-and-error-recovery/pagination.js` — evals/fixtures/debugging-and-error-recovery/pagination.test.js:5
+- file ./pagination — evals/fixtures/debugging-and-error-recovery/pagination.test.js:5
 
 ## Invoked by — required
-- config `evals/cases/debugging-and-error-recovery.json` — evals/cases/debugging-and-error-recovery.json:34-36, 48-50
-- script `scripts/run-evals.js` — scripts/run-evals.js:389-398
+orphan
 
 ## Concepts named — required, verbatim
 - `one-based page number` — evals/fixtures/debugging-and-error-recovery/pagination.test.js:7 — used here
