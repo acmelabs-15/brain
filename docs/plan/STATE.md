@@ -11,8 +11,8 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `1` |
 | **phase_name** | Inventory |
 | **current_unit** | inv-addy-15 |
-| **last_session** | `013` |
-| **next_action** | Run the experiment protocol (dynamic-batching-experiment.md): write the §6.3.1 interview brief for the first pending batch; Peter runs the interview |
+| **last_session** | `014` |
+| **next_action** | Peter runs `/teamwork-preview` using interview brief `docs/plan/teamwork/p1-run-02.md` (units `inv-addy-15`, `16`, `17`, `22`, `25`, `36`, `37`, `38`) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -455,8 +455,8 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 
 | Check | Last run | Result |
 |---|---|---|
-| coverage.ts | 012 | 1125 unchecked rows |
-| glossary-lint.ts | 011 | clean |
-| last-unit verification | 011 | clean (inv-addy-35 exists and is valid) |
+| coverage.ts | 014 | 1344 uncovered, 5 failures (pre-existing orphan cards) |
+| glossary-lint.ts | 014 | clean |
+| last-unit verification | 014 | clean (inv-addy-14 exists, memo HIT, quote-check 98 PASS) |
 | decision consistency (4V) | — | — |
 | traceability | — | — |
