@@ -64,35 +64,35 @@
 | .agents/architecture/ADR-055-github-actions-runner-selection.md | 11661 | agent | [x] |
 | .agents/architecture/ADR-056-skill-output-format-standardization.md | 4227 | agent | [x] |
 | .agents/architecture/ADR-057-prompt-behavioral-evaluation.md | 22813 | agent | [x] |
-| .agents/architecture/ADR-058-agent-eval-discipline.md | 40543 | agent | [ ] |
-| .agents/architecture/ADR-059-pr-review-completion-gate-dispatcher.md | 3527 | agent | [ ] |
-| .agents/architecture/ADR-060-rework-warning-session-log-persistence.md | 6858 | agent | [ ] |
-| .agents/architecture/ADR-061-hook-matcher-shims-delegate-pattern.md | 20444 | agent | [ ] |
-| .agents/architecture/ADR-062-conditional-lsp-first-enforcement.md | 25046 | agent | [ ] |
-| .agents/architecture/ADR-063-memory-skill-decomposition.md | 18011 | agent | [ ] |
-| .agents/architecture/ADR-064-commands-to-skills-migration.md | 17145 | agent | [ ] |
-| .agents/architecture/ADR-065-orchestrator-as-router.md | 10286 | agent | [ ] |
-| .agents/architecture/ADR-066-hook-fail-open-reconciliation.md | 18069 | agent | [ ] |
-| .agents/architecture/ADR-067-validate-pr-change-claim-context.md | 20032 | agent | [ ] |
-| .agents/architecture/ADR-068-consolidated-hook-dispatcher.md | 60198 | agent | [ ] |
-| .agents/architecture/ADR-069-context-corpus-is-the-product.md | 13374 | agent | [ ] |
-| .agents/architecture/ADR-070-memory-first-gate-spec-pipeline.md | 17304 | agent | [ ] |
-| .agents/architecture/ADR-071-plugin-hook-runtime-contract-verification.md | 48525 | agent | [ ] |
-| .agents/architecture/ADR-072-jtbd-plugin-architecture.md | 10206 | agent | [ ] |
-| .agents/architecture/ADR-073-adr-lifecycle-frontmatter.md | 18309 | agent | [ ] |
-| .agents/architecture/ADR-074-security-review-quick-pass-mode.md | 20926 | agent | [ ] |
-| .agents/architecture/ADR-075-form-factor-eval-methodology.md | 14757 | agent | [ ] |
-| .agents/architecture/ADR-076-pr-autofix-branch-ownership-lease.md | 54740 | agent | [ ] |
-| .agents/architecture/ADR-077-flip-stale-contract-tests.md | 8076 | agent | [ ] |
-| .agents/architecture/ADR-078-autoplan-orchestrator-router-boundary.md | 19830 | agent | [ ] |
-| .agents/architecture/ADR-079-merge-time-plugin-version-bump.md | 20694 | agent | [ ] |
-| .agents/architecture/ADR-080-model-pin-justification-policy.md | 20735 | agent | [ ] |
-| .agents/architecture/ADR-081-confidence-elicitation-experiment.md | 10097 | agent | [ ] |
-| .agents/architecture/ADR-082-claude-hook-group-dispatch.md | 16324 | agent | [ ] |
-| .agents/architecture/ADR-083-copilot-dogfood-surface-separation.md | 27155 | agent | [ ] |
-| .agents/architecture/ADR-084-vendored-hook-roi-bar.md | 18236 | agent | [ ] |
-| .agents/architecture/ADR-085-cross-harness-permission-surface-asymmetry.md | 56562 | agent | [ ] |
-| .agents/architecture/ADR-086-lefthook-local-hook-orchestration.md | 21060 | agent | [ ] |
+| .agents/architecture/ADR-058-agent-eval-discipline.md | 40543 | agent | [x] |
+| .agents/architecture/ADR-059-pr-review-completion-gate-dispatcher.md | 3527 | agent | [x] |
+| .agents/architecture/ADR-060-rework-warning-session-log-persistence.md | 6858 | agent | [x] |
+| .agents/architecture/ADR-061-hook-matcher-shims-delegate-pattern.md | 20444 | agent | [x] |
+| .agents/architecture/ADR-062-conditional-lsp-first-enforcement.md | 25046 | agent | [x] |
+| .agents/architecture/ADR-063-memory-skill-decomposition.md | 18011 | agent | [x] |
+| .agents/architecture/ADR-064-commands-to-skills-migration.md | 17145 | agent | [x] |
+| .agents/architecture/ADR-065-orchestrator-as-router.md | 10286 | agent | [x] |
+| .agents/architecture/ADR-066-hook-fail-open-reconciliation.md | 18069 | agent | [x] |
+| .agents/architecture/ADR-067-validate-pr-change-claim-context.md | 20032 | agent | [x] |
+| .agents/architecture/ADR-068-consolidated-hook-dispatcher.md | 60198 | agent | [x] |
+| .agents/architecture/ADR-069-context-corpus-is-the-product.md | 13374 | agent | [x] |
+| .agents/architecture/ADR-070-memory-first-gate-spec-pipeline.md | 17304 | agent | [x] |
+| .agents/architecture/ADR-071-plugin-hook-runtime-contract-verification.md | 48525 | agent | [x] |
+| .agents/architecture/ADR-072-jtbd-plugin-architecture.md | 10206 | agent | [x] |
+| .agents/architecture/ADR-073-adr-lifecycle-frontmatter.md | 18309 | agent | [x] |
+| .agents/architecture/ADR-074-security-review-quick-pass-mode.md | 20926 | agent | [x] |
+| .agents/architecture/ADR-075-form-factor-eval-methodology.md | 14757 | agent | [x] |
+| .agents/architecture/ADR-076-pr-autofix-branch-ownership-lease.md | 54740 | agent | [x] |
+| .agents/architecture/ADR-077-flip-stale-contract-tests.md | 8076 | agent | [x] |
+| .agents/architecture/ADR-078-autoplan-orchestrator-router-boundary.md | 19830 | agent | [x] |
+| .agents/architecture/ADR-079-merge-time-plugin-version-bump.md | 20694 | agent | [x] |
+| .agents/architecture/ADR-080-model-pin-justification-policy.md | 20735 | agent | [x] |
+| .agents/architecture/ADR-081-confidence-elicitation-experiment.md | 10097 | agent | [x] |
+| .agents/architecture/ADR-082-claude-hook-group-dispatch.md | 16324 | agent | [x] |
+| .agents/architecture/ADR-083-copilot-dogfood-surface-separation.md | 27155 | agent | [x] |
+| .agents/architecture/ADR-084-vendored-hook-roi-bar.md | 18236 | agent | [x] |
+| .agents/architecture/ADR-085-cross-harness-permission-surface-asymmetry.md | 56562 | agent | [x] |
+| .agents/architecture/ADR-086-lefthook-local-hook-orchestration.md | 21060 | agent | [x] |
 | .agents/architecture/ADR-087-held-out-validated-improvement.md | 57524 | agent | [ ] |
 | .agents/architecture/ADR-088-progressive-disclosure-book-rules.md | 8907 | agent | [ ] |
 | .agents/architecture/ADR-089-remove-causal-memory-tier.md | 21331 | agent | [ ] |

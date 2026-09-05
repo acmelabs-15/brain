@@ -10,7 +10,7 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `1` |
 | **phase_name** | Inventory |
-| **current_unit** | inv-rjm-21 |
+| **current_unit** | inv-rjm-37 |
 | **last_session** | 002 |
 | **next_action** | Dispatch Phase 1 run from inv-matt-19 per budget.ts recommendation |
 | **human_approval** | `PENDING` |
@@ -66,8 +66,8 @@ The unit table is `docs/plan/units.md`, written only by `bun scripts/synthesis/u
 | Status | Units |
 |---|---|
 | pending | 288 |
-| in-progress | 16 |
-| done | 112 |
+| in-progress | 0 |
+| done | 128 |
 | blocked | 0 |
 | rolled-back | 0 |
 | **total** | **416** |
@@ -106,7 +106,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 | Metric | Value |
 |---|---|
 | Manifest rows (addy / matt / rjm) | 219 / 201 / 1175 |
-| Inventory units done (addy / matt / rjm) | 46 / 46 / 20 |
+| Inventory units done (addy / matt / rjm) | 46 / 46 / 36 |
 | Concept cards (addy / matt / rjm) | — / — / — |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | — |
 | Decisions (active / superseded / pending-peter) | 18 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
