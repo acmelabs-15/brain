@@ -11,7 +11,7 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `1` |
 | **phase_name** | Inventory |
 | **current_unit** | inv-addy-9 |
-| **last_session** | 002 |
+| **last_session** | 003 |
 | **next_action** | STOP: needs Peter — resolve METHOD.md sha mismatch on session 001 cards |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
@@ -133,7 +133,7 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 |---|---|---|
 | coverage.ts | 2026-09-04 | clean (1595 rows, 1477 uncovered, 0 failures) |
 | units.ts check | 2026-09-04 | clean (416 units agree across table, manifest, STATE.md) |
-| budget.ts | 2026-09-04 | clean (used=10.89%, headroom=12.82%) |
+| budget.ts | 2026-09-04 | clean (used=8.42%, headroom=15.29%) |
 | glossary-lint.ts | 2026-09-04 | clean |
 | last-unit verification | 2026-09-04 | FAIL: memo.ts check inv-addy-8 reported MISS on METHOD.md (sha changed in 9e274fb) |
 | memo.ts audit | 2026-09-04 | FAIL: 0 OK, 90 STALE, 0 UNSTAMPED across 90 card(s) (METHOD.md) |
