@@ -1,6 +1,6 @@
 # Work-unit report
 
-Returned by every subagent after its filled templates; written by the orchestrator to `docs/analysis/inventory/<pkg>/_units/<unit-id>.md` (Phase 1), `docs/analysis/concepts/<pkg>/_units/<unit-id>.md` (Phase 2), or `docs/plan/implementation/reports/<unit-id>.md` (Phase 7).
+Written by the Worker that did the unit, as a unit deliverable under exclusive ownership (METHOD.md §6.3 item 5), to `docs/analysis/inventory/<pkg>/_units/<unit-id>.md` (Phase 1), `docs/analysis/concepts/<pkg>/_units/<unit-id>.md` (Phase 2), or `docs/plan/implementation/reports/<unit-id>.md` (Phase 7). The primary agent never writes it; `units.ts mark done` refuses a unit whose report is missing (R7).
 
 ```markdown
 ---

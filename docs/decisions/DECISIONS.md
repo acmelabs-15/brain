@@ -176,6 +176,7 @@ none.
 - **status:** active
 - **supersedes:** D-011
 - **resolves:** method §6.2, §6.3, §6.3.1
+- **superseded-by:** D-017
 
 ### Decision
 Teamwork remains the delegation mechanism on the Antigravity CLI. One Teamwork run per phase (or per batch of units Peter approves), never one team per work unit. Teamwork's scoping interview is answered by Peter from the brief the primary agent writes (§6.3.1): Independent Verification = R1–R11 plus `coverage.ts` and `quote-check.ts`; Acceptance Criteria = the phase's done criteria; Project Working Directory = `<repo>/.teamwork/<run-id>` (gitignored); integrity mode `development`. The rest of D-011's contract stands and is restated in §6.3: the writer of a verbatim field has the file open; the team writes only unit deliverables; the primary agent is the only writer of shared state and the only committer; no numbers until D-010. `/boost` is used only inside Phase 7 for a build unit that is a hard, test-verifiable problem; Phase 4V and Phase 5 review use Teamwork's Document Review path.
@@ -220,6 +221,122 @@ Verifier-gated tiering — a verifier catches errors after a weaker reader makes
 
 ### Evidence
 `docs/plan/METHOD.md` §7, §8, §10 as amended; `scripts/synthesis/{memo,prefix-check,quote-check,unit-facts}.ts`.
+
+### Glossary
+none.
+
+---
+
+## D-010 — The context budget: measured costs, per-model ceilings, and the k × n dispatch calculation
+
+- **date:** 2026-09-05
+- **made-by:** Peter
+- **session:** 000
+- **supersedes:** —
+- **status:** active
+- **resolves:** method §6.3 item 7, §6.5, §7, §8.2, §8.4; `docs/plan/budget-params.json`; `docs/plan/context-ceilings.json`
+
+### Decision
+The primary conversation's context is budgeted by `scripts/synthesis/budget.ts` from measured costs, never watched or guessed. One conversation costs `S + Σ_runs (R + n × u) + C` of the model's window: **S** (session start) 9.0%, **R** (fixed cost of one run) 4.6%, **u** (verifying one unit) 0.19%, **C** (close) 2.9% — measured on Gemini 3.8 Flash (High) in session 014 (run 02, 8 units; the model reproduces the observed 18.08% end state), and re-measured every conversation by `budget.ts --record` / `--measure`. A plan of `k` runs × `n` units, dispatched at the same time, fits when `k × (R + n × u) ≤ governing ceiling − used − C`; `budget.ts` recommends the plan with the most units that fits, preferring a bigger run over more runs, capped at the largest `n` and `k` proven clean, and dispatches one step above the proven maximum when that step also fits (the **probe**). A step is clean when every returned card has zero `quote-check.ts` FAIL, there is no 429 and no rot metric, and the run's wall time is within 25% of the last clean run's — wall time that grows at the same unit caps is the harness's concurrent-stream limit. Proven at this decision: `n = 8`, `k = 1`; the series is `8 → 12 → 16 → 24` and `1 → 2 → 3`. The **governing ceiling** is per model in `context-ceilings.json` and comes only from this project's evidence: 3.8 Flash 25% (zero rot metrics through a 18.08% peak; the long-context recall plateau bound), raised only by that file's `raise_rule`; a model without project evidence is governed by its strict knee. **Harness compaction is not a ceiling**: it fired at about 10% used in session 013 and not at 18% in session 014; it is handled by §8.4 (re-read state from disk; never the transcript). **Unit caps**: 50 KB and 12 readable files, because the two run-01 workers that compacted held 29 and 55 files while every 1–6-file unit finished clean; a skill over a cap is split into labelled parts. Per-unit cost in the primary conversation is small (0.19%), so run size barely moves the budget: bigger runs and simultaneous runs are the lever, and neither changes what any agent reads or checks.
+
+### Adopted from
+`docs/analysis/dynamic-batching-experiment.md` §7 (runs 01 and 02) and §9 (the 2026-09-04 findings from the statusline log and the 34 conversation transcripts of that day: phase-by-phase token attribution, the compaction evidence, the run timeline). Ceiling evidence: Context Arena MRCR v2 per-model summaries cited in `context-ceilings.json`.
+
+### Dropped
+The session-014 figure "0.53% per unit" — it divided the run's fixed cost by the unit count. The provisional ceiling 21% and its "compaction ≈ 24%" rationale — the run-01 series that suggested it no longer exists and the transcripts contradict it. Per-Sentinel-report edit cycles as the way to record a run (2.1% per run) — readings are recorded by `budget.ts --record`; the run is read from its files by `await-run.ts`.
+
+### Rejected alternatives
+A single fixed "units per conversation" number — wrong for every model and every future cost change; the live calculation is what stays true. Watching `used_percentage` and stopping "when it looks high" — not a rule, and the harness's compaction proved unrelated to it. Avoiding compaction as a goal — it cannot be predicted; making it harmless (state on disk, §8.4) can.
+
+### Evidence
+`docs/analysis/dynamic-batching-experiment.md` §7 (run 01: 1,158 PASS / 0 FAIL; run 02: 1,003 PASS / 0 FAIL, readings 9.07 → 10.21 → 14.42 → 18.08%) and §9; `docs/plan/budget-params.json`; `docs/plan/context-ceilings.json`; `scripts/synthesis/budget.ts`.
+
+### Glossary
+none.
+
+---
+
+## D-016 — Analysis reset: all outputs before this decision are discarded
+
+- **date:** 2026-09-05
+- **made-by:** Peter
+- **session:** 000
+- **status:** active
+- **supersedes:** —
+- **resolves:** STATE.md, docs/analysis/, docs/plan/sessions/, docs/plan/teamwork/
+
+### Decision
+Every analysis output produced before this decision — manifests, inventory entries, unit reports, divergence cards, session handoffs, interview briefs, Teamwork scratch committed under `.agents/` — is deleted from the working tree. The project restarts at Phase 0 with the kit's tooling, METHOD as amended by D-010, D-012–D-015 and D-017–D-018, and the same three source pins. Decisions D-001–D-015 stand (R8: decisions are never deleted). Git history before this commit is not an input (§2 rule two). What is kept from before the reset is exactly the measurement record: `docs/analysis/dynamic-batching-experiment.md` with its §2 baseline, §7 run results and §9 findings — the evidence D-010 rests on.
+
+### Adopted from
+Peter's assessment on 2026-09-04 that the pre-reset analysis is unreliable, quantified by `quote-check.ts` (18% of resolvable citations not byte-exact; 82% of cards affected) and by the coverage defects recorded in D-013. The 109 cards produced by runs 01–02 under the new contract were clean (2,161 PASS / 0 FAIL) but were written against the pre-D-010 partition (unit ids and file assignments differ) and are re-produced rather than carried across, so every card in the tree has one provenance.
+
+### Dropped
+All pre-reset analysis content, including the clean run-01/02 cards.
+
+### Rejected alternatives
+Repairing the existing cards in place — cheaper per card, but leaves every card's provenance unknown (no memo record, no verified quote check) and the reachability gap in `rjm` unfilled. Keeping the 109 clean cards — would put two partitions' worth of unit ids in one tree; `memo.ts check` will reuse nothing, and 109 units of 372 is one conversation's work under D-010.
+
+### Evidence
+The pre-reset tree is in git history before this commit and is not an input.
+
+### Glossary
+none.
+
+---
+
+## D-017 — The primary agent dispatches Teamwork itself; the interview is answered from files
+
+- **date:** 2026-09-05
+- **made-by:** Peter
+- **session:** 000
+- **status:** active
+- **supersedes:** D-014
+- **resolves:** method §6.2, §6.3, §6.3.1
+
+### Decision
+Teamwork remains the delegation mechanism on the Antigravity CLI, at the granularity of a **run** (a batch of `n` units, `k` runs at a time, from D-010), never one team per unit. The primary agent dispatches every run itself: it writes the five interview fields to `docs/plan/teamwork/<run-id>.md` from METHOD and STATE (§6.3.1) and passes them verbatim in one `invoke_subagent` call — `TypeName: "teamwork_preview"`, `Model: "inherit"`, `Role: "Teamwork Project Orchestrator"`, `Prompt` = the five answers + `Project Working Directory: <repo>/.teamwork/<run-id>` + `Integrity mode: development` — then waits on the run's completion artifacts with `await-run.ts`. Peter is not in the loop; a conversation runs from one paste (or headless, D-018) to its §8.3 close without a question to him. `Model: "inherit"` replaces the `"flash"` used in sessions 013–014 so that every worker provably runs the same model and effort as the primary conversation. Everything else in D-014 stands: the writer of a verbatim field has the file open; the team writes only unit deliverables under exclusive ownership; the primary agent is the only writer of shared state and the only committer; Independent Verification = R1–R11 plus `coverage.ts` and `quote-check.ts`; integrity mode `development`; `/boost` only inside Phase 7; Phase 4V and Phase 5 review use Teamwork's Document Review path. Nothing Teamwork does inside a run — survey explorers, Critic, Auditor, Success Auditor, post-victory audit — is asked to be skipped.
+
+### Adopted from
+Sessions 013 and 014: the agent-dispatched path with the §6.3.1 brief produced 2,161 byte-exact citations and zero failures across 109 cards; the run-02 conversation started, dispatched, verified, recorded and closed from one paste. Teamwork documentation: roles, Project Working Directory, exclusive file ownership.
+
+### Dropped
+D-014 item 2 ("The interview is Peter's") and the stop-and-wait it required. The reasoning behind it — that the 18% baseline came from agent-answered interviews — was a misattribution: those runs dispatched one team per unit with no verification field; sessions 013–014 answered the interview by agent and were clean.
+
+### Rejected alternatives
+Keeping Peter's paste per run — one human action per 22-minute run, and no autonomy. Plain `invoke_subagent` fan-out without Teamwork — loses the survey, Critic/Auditor and Success Auditor gates the method relies on.
+
+### Evidence
+`docs/analysis/dynamic-batching-experiment.md` §7 run 01 and run 02; session 014's transcript timeline in §9 (dispatch call returned in 4 s; 8 workers started at 20:09:30Z and finished by 20:14:27Z).
+
+### Glossary
+none.
+
+---
+
+## D-018 — Headless driver: conversations are started by `drive.ts`, not by a paste (probe)
+
+- **date:** 2026-09-05
+- **made-by:** Peter
+- **session:** 000
+- **status:** active
+- **supersedes:** —
+- **resolves:** method §8, §8.5, §9
+
+### Decision
+`scripts/synthesis/drive.ts` may start the project's conversations headless: `agy -p "<PROMPT.md>" --output-format stream-json --model <slug> --print-timeout 180m`, one conversation after another, until `STATE.md` leaves Phases 0–1 or a stop condition fires (a conversation that did not commit, asked for Peter, ended twice without `SUCCESS`, or — in Phase 1 — dispatched nothing). It passes `--dangerously-skip-permissions` unless started with `--ask`. The driver writes the context series into `.teamwork/ctx-log.jsonl` from the stream's per-step `usage.input_tokens` in the statusline's record shape, so `budget.ts` and the method are identical in both modes. Whether Teamwork dispatch (`invoke_subagent` → `teamwork_preview`) works under `-p` is **undocumented — probe**: the first driven Phase-1 conversation (the first run after the reset, `p1-run-01`) decides it, and the driver stops if no `.teamwork/<run-id>/` appears. Phase 0 may also be driven; it dispatches nothing by design. Whether `usage.input_tokens` is the step's prompt size (the context) or a cumulative count is likewise unconfirmed; the driver stops and says so if a value exceeds the window. The interactive paste remains the fallback and is the same prompt.
+
+### Adopted from
+Antigravity CLI headless documentation (`-p`/`--print`, `--output-format stream-json`, `step_update.usage.{input_tokens,…}`, `subagent_info`, `--print-timeout`, `--dangerously-skip-permissions` / `permissions.allow`): https://antigravity.google/docs/cli/headless. CHANGELOG 1.1.13: headless runs settle a choice themselves where they would otherwise ask.
+
+### Dropped
+Nothing.
+
+### Rejected alternatives
+A shell loop around `agy -p` — R9 (Bun only) and no event parsing, so no context series and no stop conditions. Keeping the paste as the only start — every conversation would wait on a human.
+
+### Evidence
+`scripts/synthesis/drive.ts`; the probe result, recorded in `docs/analysis/dynamic-batching-experiment.md` §7 when it exists.
 
 ### Glossary
 none.

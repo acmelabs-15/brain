@@ -15,8 +15,10 @@ decisions_added: [D-NNN, ...]
 needs_peter: yes | no
 prefix_hash_start: <prefix-check.ts combined hash at §8.1>
 prefix_hash_end: <at §8.3; must equal start>
-context_used_start: <context_window.used_percentage at §8.1>
-context_used_peak: <highest value observed this conversation>
+context_used_start: <used % from `budget.ts --record start` (§8.1 step 9)>
+context_used_peak: <peak % this conversation, from `budget.ts` at close>
+runs: [<run-ids dispatched this session, with k × n>]
+compactions: <0, or the `used` before each compaction notice (§8.4)>
 ---
 
 # Session NNN — <phase name>
@@ -43,5 +45,5 @@ Questions, decisions needed, or things to review. `none` if nothing. If `needs_p
 Every `scripts/synthesis/*.ts` invocation this session, one per line: command, exit code, one-line summary of its output. Commands and output, never claims.
 
 ## Context note
-`context_window.used_percentage` at start, after each dispatch, after each Sentinel report, and at the end; the largest per-unit delta; the stopping-rule arithmetic that decided when to stop (see dynamic-batching-experiment.md §3). The session ended by plan — if it did not, say why here.
+The `budget.ts --line` output at start, at each run-start / dispatched / verified, and at close (one line each — never the full block); the `budget.ts --measure` result and the `--set` stored; the verdict that ended dispatch (`STOP — …`) or the rot metric that did, with `used` at that moment; any probe taken and whether it was clean (wall time, FAIL count, 429s). The session ended by plan — if it did not, say why here.
 ```

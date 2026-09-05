@@ -4,14 +4,20 @@
     "ceiling": 0.0625,
     "evidence": "https://contextarena.ai/api/models/google%2Fgemini-3.7-flash/summary",
     "note": "No MRCR for 3.8 (model card: based on 3.7 Flash); 3.7 Flash high: >5pt drop at (32k,64k] (93.1), CI-confirmed at (64k,128k] (88.6); stays >=82% to 256k. Strict alt 0.03. AA-LCR 82.0 for 3.8 medium. Confidence low-med (proxy).",
-    "plateau": 0.25
+    "plateau": 0.25,
+    "governing": 0.25,
+    "governing_evidence": "session 014 (2026-09-04): primary conversation peaked at 18.08% with zero rot metrics and 2,161/2,161 byte-exact citations across runs 01–02; plateau 0.25 is the recall bound; provisional",
+    "raise_rule": "to 0.28 after one conversation peaks above 0.22 with zero rot metrics; each later raise by 0.03 needs one clean conversation above the previous governing value − 0.03; never above plateau"
   },
   "gemini-3.8-flash": {
     "window": 1048576,
     "ceiling": 0.0625,
     "evidence": "https://deepmind.google/models/model-cards/gemini-3-8-flash/",
     "note": "Same as 'Gemini 3.8 Flash'.",
-    "plateau": 0.25
+    "plateau": 0.25,
+    "governing": 0.25,
+    "governing_evidence": "session 014 (2026-09-04): primary conversation peaked at 18.08% with zero rot metrics and 2,161/2,161 byte-exact citations across runs 01–02; plateau 0.25 is the recall bound; provisional",
+    "raise_rule": "to 0.28 after one conversation peaks above 0.22 with zero rot metrics; each later raise by 0.03 needs one clean conversation above the previous governing value − 0.03; never above plateau"
   },
   "Gemini 3.7 Flash": {
     "window": 1048576,
@@ -40,34 +46,6 @@
     "evidence": "https://storage.googleapis.com/deepmind-media/gemini/gemini_3-1_pro_model_evaluation.pdf",
     "note": "Same as 'Gemini 3.1 Pro'.",
     "plateau": 0.0625
-  },
-  "Claude Opus 4.6": {
-    "window": 200000,
-    "ceiling": 0.32,
-    "evidence": "https://contextarena.ai/api/models/anthropic%2Fclaude-opus-4.6/summary",
-    "note": "Antigravity serves Claude at 200K per community error logs (Feb 2026); use 1000000 and ceiling 0.064 if the statusline shows 1M. Knee 64k (medium) / 32k (high). CONFLICT: Anthropic system card reports 93.0 in the 256k bin and 76.0 in the 1M bin (internal harness). Strict alt 0.16. Confidence low.",
-    "plateau": 0.64
-  },
-  "Claude Sonnet 4.6": {
-    "window": 200000,
-    "ceiling": 0.32,
-    "evidence": "https://contextarena.ai/api/models/anthropic%2Fclaude-sonnet-4.6/summary",
-    "note": "Antigravity 200K assumption as above (0.064 on 1M). high: 85.2 at 32k, 79.4 at 64k, 72.4 at 128k (knee), 69.3 at 256k; Google 84.9 cumulative@128k. Model gets API context-awareness tags. Confidence med.",
-    "plateau": 0.64
-  },
-  "claude-opus-4-6": {
-    "window": 1000000,
-    "ceiling": 0.064,
-    "evidence": "https://www-cdn.anthropic.com/0dd865075ad3132672ee0ab40b05a53f14cf5288.pdf",
-    "note": "Anthropic API / Claude Code opus[1m]. 64k budget = same knee as the Antigravity entry expressed against the 1M window. See conflict note.",
-    "plateau": 0.128
-  },
-  "claude-sonnet-4-6": {
-    "window": 1000000,
-    "ceiling": 0.064,
-    "evidence": "https://platform.claude.com/docs/en/build-with-claude/context-windows",
-    "note": "Anthropic API / Claude Code sonnet[1m]; 64k budget.",
-    "plateau": 0.128
   },
   "Claude Opus 5": {
     "window": 1000000,
@@ -128,11 +106,7 @@
   "default": {
     "ceiling": 0.3,
     "maxTokens": 65536,
-    "note": "budget = min(0.30*window, 65536). Frontier-model knees are absolute (32k-128k, median 64k) regardless of a 1M nominal window; the fraction only bites on windows <= ~218k. Older models (NoLiMa/RULER) have effective lengths of 2-16k, so do not go above this for an unknown model."
+    "note": "budget = min(0.30*window, 65536). Frontier-model knees are absolute (32k-128k, median 64k) regardless of a 1M nominal window; the fraction only bites on windows <= ~218k. Older models (NoLiMa/RULER) have effective lengths of 2-16k, so do not go above this for an unknown model. Unknown model: min(0.30 × window, 65536 tokens) as the strict ceiling; no governing value until measured."
   },
-  "_readme": {
-    "strict": "`ceiling` = lower edge of the CI-confirmed knee bin ÷ window (first bin >5 pts below short-context recall, confirmed by the 95% CI). The conservative number.",
-    "plateau": "`plateau` = end of the flat region before the steep fall (e.g. 3.7 Flash holds 88–89% from 128k to 256k, then 78%). The permissive number.",
-    "use": "budget.ts prints both; the experiment's provisional cap and D-010 decide which one governs. `default` applies to any model without an entry: min(ceiling×window, maxTokens)."
-  }
+  "_readme": "Per-model context ceilings for the primary agent (D-010). `ceiling` = strict knee from long-context recall benchmarks (MRCR v2 8-needle, Context Arena) — the point where retrieval across the WHOLE context first degrades; `plateau` = where it stops degrading gracefully. `governing` = the operating ceiling budget.ts uses; set only from this project's own evidence (a conversation that peaked at or above the value with zero rot metrics — dynamic-batching-experiment.md §4/§9) and raised only by the rule in `raise_rule`. A model with no `governing` is governed by its strict `ceiling`. Model keys match the statusline/driver model string by exact match, then by prefix."
 }

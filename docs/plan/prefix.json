@@ -6,7 +6,8 @@
     "docs/plan/METHOD.md",
     "docs/plan/PREFERENCES.md",
     "docs/plan/DO-NOT-READ.md",
-    "docs/plan/GLOSSARY.md"
+    "docs/plan/GLOSSARY.md",
+    "docs/plan/context-ceilings.json"
   ],
   "globs": [
     "docs/plan/templates/*.md",

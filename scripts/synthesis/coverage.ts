@@ -16,7 +16,7 @@
 //   5. Concepts (Phase 2+, only once docs/analysis/concepts/<pkg> exists): every backticked name in a
 //      card's "Concepts named" section has a concept card with that slug.
 import { readFileSync, existsSync, readdirSync } from "fs";
-import { PKGS, readManifest, slugOf, parseFrontmatter, sections, walkMd, isSymlink, sourcePath } from "./_lib";
+import { PKGS, readManifest, slugOf, parseFrontmatter, sections, walkMd, isSymlink, sourcePath, needsNoCard } from "./_lib";
 
 const quiet = process.argv.includes("--quiet");
 const say = (s: string) => { if (!quiet) console.log(s); };
@@ -72,7 +72,7 @@ for (const pkg of PKGS) {
     const slug = slugOf(r.path); rowSlugs.add(slug);
     const hasCard = listing.has(slug);
     const claimed = claims.get(r.path);
-    if (isSymlink(sourcePath(pkg, r.path))) { totals.symlinks++; continue; } // a symlink row needs no card; its target rows do
+    if (needsNoCard(r.type) || isSymlink(sourcePath(pkg, r.path))) { totals.symlinks++; continue; } // symlink, asset and unavailable rows need no card (§1.1)
     if (hasCard) totals.covered++;
     else if (aliasSet.has(r.path) && claimed && claimed.length === 1) totals.covered++;
     else { totals.uncovered++; if (r.checked) fail(`${pkg}: manifest marks [x] but no card for ${r.path} (expected ${dir}/${slug})`); }
@@ -119,6 +119,6 @@ for (const pkg of PKGS) {
   }
 }
 
-console.log(`coverage: rows ${totals.rows} (${totals.symlinks} symlink rows need no card), covered ${totals.covered}, uncovered ${totals.uncovered}, orphan cards ${totals.orphanCards}, empty required ${totals.emptyRequired}, R11 alias problems ${totals.aliasProblems}, R11 variant problems ${totals.variantProblems}, concepts without card ${totals.conceptsMissing}`);
+console.log(`coverage: rows ${totals.rows} (${totals.symlinks} symlink/asset/unavailable rows need no card), covered ${totals.covered}, uncovered ${totals.uncovered}, orphan cards ${totals.orphanCards}, empty required ${totals.emptyRequired}, R11 alias problems ${totals.aliasProblems}, R11 variant problems ${totals.variantProblems}, concepts without card ${totals.conceptsMissing}`);
 console.log(failures ? `coverage: ${failures} failure(s)` : "coverage: clean");
 process.exit(failures ? 1 : 0);

@@ -19,7 +19,7 @@
 //   template_sha: sha256 of the template the card was written from
 //   model:        the model id that produced the card         (never inferred; `unknown` if not recorded)
 //   effort:       the effort level                            (never inferred; `unknown` if not recorded)
-//   verified:     <YYYY-MM-DD> <check>  — written by the reviewer only, after coverage.ts + quote-check pass
+//   verified:     <YYYY-MM-DD> <check>  — written by the primary agent at METHOD §7 step 6, after quote-check + coverage pass
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { parseFrontmatter, fileSha, readUnits, slugOf, walkMd, isFile, sourcePath } from "./_lib";
 

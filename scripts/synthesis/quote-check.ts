@@ -3,7 +3,9 @@
 //
 //   bun scripts/synthesis/quote-check.ts <card.md> [more cards…]      one or more cards
 //   bun scripts/synthesis/quote-check.ts --all [pkg]                  every card under docs/analysis/inventory and concepts
-//   bun scripts/synthesis/quote-check.ts --summary --all              counts only
+//   bun scripts/synthesis/quote-check.ts --summary <card.md>…        counts only, for these cards (the §7 verification form)
+//   bun scripts/synthesis/quote-check.ts --summary --all [pkg]        counts only, for every card
+// With --all and no cards on disk yet (Phase 0) it prints "0 card(s)" and exits 0.
 //
 // A citation is any of:
 //   > "quoted text" — path:line                      (blockquote, verbatim field)
@@ -31,6 +33,7 @@ if (all) {
     .filter(p => !p.includes("/_units/") && !p.includes("/_divergence/"))
     .filter(p => !pkgFilter || p.includes(`/${pkgFilter}/`));
 }
+if (!cards.length && all) { console.log("quote-check: 0 PASS, 0 FAIL, 0 MISSING source, across 0 card(s); 0 card(s) with failures"); process.exit(0); }
 if (!cards.length) { console.error("usage: quote-check.ts <card.md>… | --all [pkg] [--summary]"); process.exit(2); }
 
 const norm = (s: string) => s.replace(/\s+/g, " ").trim();

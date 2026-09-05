@@ -1,6 +1,6 @@
 # DO-NOT-READ — The fence
 
-The agent reads this at every session start and treats everything here as forbidden. If the agent encounters something that is not a permitted input (METHOD.md §2) and is not covered here, it stops and asks rather than reading.
+The agent reads this at every session start and treats everything here as forbidden. If the agent encounters something that is not a permitted input (METHOD.md §2) and is not covered here, it does not read it: it records the path under *For Peter* in the handoff and continues, or ends the session with `STOP: needs Peter` (METHOD.md §8.3) if the work cannot proceed without it.
 
 ## The one rule
 
@@ -23,7 +23,7 @@ Listing names (`git branch`, `git worktree list`) is fine. Reading content from 
 
 ## The second rule
 
-**Git history is not an input.** This branch carries commits from before this project began. Whatever they contain, they are not inputs. The working tree is the only readable state; git is for committing forward, never reading backward. The boundary is this project's first commit (message beginning `lifecycle synthesis:`). Forbidden: `git show <commit>:<path>`, `git log -p`, `git diff <commit>`, or any unbounded `git log` that crosses the boundary. Reading between project-made commits is permitted only where METHOD.md explicitly calls for it (§11 step 2). What changed in this project is read from `STATE.md` and the session handoffs.
+**Git history is not an input.** This branch carries commits from before this project began. Whatever they contain, they are not inputs. The working tree is the only readable state; git is for committing forward, never reading backward. The boundary is the D-016 reset commit (message beginning `lifecycle synthesis: reset analysis (D-016)`). Forbidden: `git show <commit>:<path>`, `git log -p`, `git diff <commit>`, or any unbounded `git log` that crosses the boundary. Reading between project-made commits is permitted only where METHOD.md explicitly calls for it (§11 step 2). What changed in this project is read from `STATE.md` and the session handoffs.
 
 Also forbidden: any file outside this worktree except the pinned clones under `sources/` — notes, exports, cached plugin installs, marketplace caches, other checkouts of this or any related repository.
 

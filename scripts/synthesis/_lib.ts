@@ -78,6 +78,30 @@ export function readUnits(file = "docs/analysis/manifest/units.md"): UnitRow[] {
   return rows;
 }
 
+/** Manifest row types that need no inventory card: a symlink's target has its own rows; a binary asset
+ *  (image, video, font, archive) has nothing to quote — the card of the file that references it records it. */
+export const NO_CARD_TYPES = new Set(["symlink", "asset"]);
+/** True for a manifest row that needs no card: symlink, asset, or an external page that could not be fetched
+ *  (`external-doc (unavailable)`) — the row stays so the gap is visible; Phase 0 step 3 records it in the handoff. */
+export const needsNoCard = (type: string) => NO_CARD_TYPES.has(type) || /unavailable/.test(type);
+export const ASSET_EXTS = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".mp4", ".mov", ".webm", ".ico", ".pdf", ".woff", ".woff2", ".ttf", ".otf", ".zip", ".gz", ".tar", ".bin"]);
+
+/** Rows of docs/plan/units.md — the unit STATUS table (edited only through units.ts):
+ *  `| Unit | Package | Files | Bytes | Status | Session | Output |`. */
+export type UnitStatusRow = { unit: string; pkg: string; files: number; bytes: number; status: string; session: string; output: string };
+export const UNIT_STATUSES = ["pending", "in-progress", "done", "blocked", "rolled-back"] as const;
+export function readUnitStatus(file = "docs/plan/units.md"): UnitStatusRow[] {
+  if (!existsSync(file)) return [];
+  const rows: UnitStatusRow[] = [];
+  for (const line of readFileSync(file, "utf8").split("\n")) {
+    if (!line.startsWith("| ") || line.startsWith("| Unit")) continue;
+    const c = line.split("|").map(s => s.trim());
+    if (c.length < 8 || !c[1] || !/^inv-/.test(c[1])) continue;
+    rows.push({ unit: c[1], pkg: c[2] ?? "", files: parseInt(c[3] ?? "", 10) || 0, bytes: parseInt(c[4] ?? "", 10) || 0, status: c[5] ?? "", session: c[6] ?? "", output: c[7] ?? "" });
+  }
+  return rows;
+}
+
 /** The slug a source path maps to for its inventory entry (mirrors manifest.ts getSlug). */
 export function slugOf(p: string): string {
   // Card file name for a source path: `/`, `.`, `_` → `-`, lowercased, `.md` appended.

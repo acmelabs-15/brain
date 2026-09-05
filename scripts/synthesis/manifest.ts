@@ -15,11 +15,13 @@
 //   Task(subagent_type="x") resolves to `.claude/agents/x.md` AND `.claude/skills/x/` — whichever exist.
 //   Everything reachable-but-excluded is listed in rjm-excluded.md so the boundary is auditable.
 // Symlinks are rows of type `symlink` (bytes 0); they need no card — their targets are rows of their own.
+// Binary files (images, video, fonts, archives — _lib.ASSET_EXTS) are rows of type `asset`; they need no card —
+// the card of the file that references them records the reference (§1.1).
 // Two paths with the same slug abort the run: that is a manifest error, not something to paper over.
 import { readFileSync, existsSync, readdirSync, statSync, lstatSync, mkdirSync, writeFileSync } from "fs";
 import { join, dirname, extname, resolve } from "path";
 import { execSync } from "child_process";
-import { slugOf, parseFrontmatter, isSymlink, sourcePath } from "./_lib";
+import { slugOf, parseFrontmatter, isSymlink, sourcePath, ASSET_EXTS, NO_CARD_TYPES } from "./_lib";
 
 const noFetch = process.argv.includes("--no-fetch");
 type Row = { path: string; bytes: number; type: string };
@@ -29,6 +31,7 @@ function tracked(dir: string): string[] {
 }
 function fileType(p: string): string {
   if (isSymlink(p)) return "symlink";
+  if (ASSET_EXTS.has(extname(p).toLowerCase())) return "asset";
   const rel = p.replace(/^sources\/[^/]+\//, "");
   if (rel.startsWith("external/") || p.includes("-external/")) return "external-doc";
   if (rel.includes("/skills/") || rel.startsWith("skills/")) {
@@ -68,7 +71,7 @@ function write(pkg: string, name: string, rows: Row[]) {
   }
   rows.sort((a, b) => a.path.localeCompare(b.path));
   const out = ["| Path | Bytes | Type | Checked |", "|---|---|---|---|",
-    ...rows.map(r => `| ${r.path} | ${r.bytes} | ${r.type} | ${r.type === "symlink" ? "[x] (symlink)" : cards.has(slugOf(r.path)) || claimed.has(r.path) ? "[x]" : "[ ]"} |`), ""].join("\n");
+    ...rows.map(r => `| ${r.path} | ${r.bytes} | ${r.type} | ${NO_CARD_TYPES.has(r.type) ? `[x] (${r.type})` : /unavailable/.test(r.type) ? "[x] (unavailable — no card; recorded in the Phase 0 handoff)" : cards.has(slugOf(r.path)) || claimed.has(r.path) ? "[x]" : "[ ]"} |`), ""].join("\n");
   mkdirSync("docs/analysis/manifest", { recursive: true });
   writeFileSync(`docs/analysis/manifest/${name}.md`, out);
   console.log(`manifest: ${name}.md — ${rows.length} rows, ${rows.filter(r => cards.has(slugOf(r.path)) || claimed.has(r.path)).length} checked`);
@@ -76,7 +79,8 @@ function write(pkg: string, name: string, rows: Row[]) {
 
 async function externalRows(pkg: string, files: string[]): Promise<Row[]> {
   const skills = new Set<string>();
-  for (const f of files) { const m = f.match(/^skills\/([^/]+)\/SKILL\.md$/); if (m) skills.add(m[1] ?? ""); }
+  // a skill is the directory holding SKILL.md, at any depth under skills/ (addy: skills/<name>/, matt: skills/<category>/<name>/)
+  for (const f of files) { const m = f.match(/^skills\/(?:[^/]+\/)*([^/]+)\/SKILL\.md$/); if (m) skills.add(m[1] ?? ""); }
   const rows: Row[] = [];
   mkdirSync(`sources/${pkg}-external`, { recursive: true });
   for (const slug of [...skills].sort()) {
