@@ -24,40 +24,40 @@
 | .out-of-scope/question-limits.md | 1259 | doc | [x] |
 | .out-of-scope/setup-skill-verify-mode.md | 1125 | doc | [x] |
 | AGENTS.md | 0 | symlink | [x] (symlink) |
-| CHANGELOG.md | 44408 | doc | [ ] |
-| CLAUDE.md | 3703 | doc | [ ] |
-| CONTEXT.md | 1768 | doc | [ ] |
-| docs/engineering/ask-matt.md | 10723 | doc | [ ] |
-| docs/engineering/code-review.md | 10553 | doc | [ ] |
-| docs/engineering/codebase-design.md | 12370 | doc | [ ] |
-| docs/engineering/diagnosing-bugs.md | 10701 | doc | [ ] |
-| docs/engineering/domain-modeling.md | 10742 | doc | [ ] |
-| docs/engineering/grill-with-docs.md | 9922 | doc | [ ] |
-| docs/engineering/implement.md | 10259 | doc | [ ] |
-| docs/engineering/improve-codebase-architecture.md | 11814 | doc | [ ] |
-| docs/engineering/prototype.md | 9630 | doc | [ ] |
-| docs/engineering/research.md | 9674 | doc | [ ] |
-| docs/engineering/resolving-merge-conflicts.md | 5326 | doc | [ ] |
-| docs/engineering/setup-matt-pocock-skills.md | 9359 | doc | [ ] |
-| docs/engineering/tdd.md | 10453 | doc | [ ] |
-| docs/engineering/to-spec.md | 8790 | doc | [ ] |
-| docs/engineering/to-tickets.md | 10724 | doc | [ ] |
-| docs/engineering/triage.md | 13140 | doc | [ ] |
-| docs/engineering/wayfinder.md | 15976 | doc | [ ] |
-| docs/engineering/wizard.md | 9877 | doc | [ ] |
-| docs/productivity/grill-me.md | 6489 | doc | [ ] |
-| docs/productivity/grilling.md | 10413 | doc | [ ] |
-| docs/productivity/handoff.md | 8746 | doc | [ ] |
-| docs/productivity/teach.md | 13260 | doc | [ ] |
-| docs/productivity/to-questionnaire.md | 7828 | doc | [ ] |
-| docs/productivity/wait-what.md | 3528 | doc | [ ] |
-| docs/productivity/writing-for-agents.md | 7784 | doc | [ ] |
-| external/ask-matt.md | 355633 | external-doc | [ ] |
+| CHANGELOG.md | 44408 | doc | [x] |
+| CLAUDE.md | 3703 | doc | [x] |
+| CONTEXT.md | 1768 | doc | [x] |
+| docs/engineering/ask-matt.md | 10723 | doc | [x] |
+| docs/engineering/code-review.md | 10553 | doc | [x] |
+| docs/engineering/codebase-design.md | 12370 | doc | [x] |
+| docs/engineering/diagnosing-bugs.md | 10701 | doc | [x] |
+| docs/engineering/domain-modeling.md | 10742 | doc | [x] |
+| docs/engineering/grill-with-docs.md | 9922 | doc | [x] |
+| docs/engineering/implement.md | 10259 | doc | [x] |
+| docs/engineering/improve-codebase-architecture.md | 11814 | doc | [x] |
+| docs/engineering/prototype.md | 9630 | doc | [x] |
+| docs/engineering/research.md | 9674 | doc | [x] |
+| docs/engineering/resolving-merge-conflicts.md | 5326 | doc | [x] |
+| docs/engineering/setup-matt-pocock-skills.md | 9359 | doc | [x] |
+| docs/engineering/tdd.md | 10453 | doc | [x] |
+| docs/engineering/to-spec.md | 8790 | doc | [x] |
+| docs/engineering/to-tickets.md | 10724 | doc | [x] |
+| docs/engineering/triage.md | 13140 | doc | [x] |
+| docs/engineering/wayfinder.md | 15976 | doc | [x] |
+| docs/engineering/wizard.md | 9877 | doc | [x] |
+| docs/productivity/grill-me.md | 6489 | doc | [x] |
+| docs/productivity/grilling.md | 10413 | doc | [x] |
+| docs/productivity/handoff.md | 8746 | doc | [x] |
+| docs/productivity/teach.md | 13260 | doc | [x] |
+| docs/productivity/to-questionnaire.md | 7828 | doc | [x] |
+| docs/productivity/wait-what.md | 3528 | doc | [x] |
+| docs/productivity/writing-for-agents.md | 7784 | doc | [x] |
+| external/ask-matt.md | 355633 | external-doc | [x] |
 | external/claude-handoff.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
-| external/code-review.md | 359558 | external-doc | [ ] |
-| external/codebase-design.md | 365134 | external-doc | [ ] |
-| external/diagnosing-bugs.md | 358695 | external-doc | [ ] |
-| external/domain-modeling.md | 361293 | external-doc | [ ] |
+| external/code-review.md | 359558 | external-doc | [x] |
+| external/codebase-design.md | 365134 | external-doc | [x] |
+| external/diagnosing-bugs.md | 358695 | external-doc | [x] |
+| external/domain-modeling.md | 361293 | external-doc | [x] |
 | external/git-guardrails-claude-code.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
 | external/grill-me.md | 348368 | external-doc | [ ] |
 | external/grill-with-docs.md | 362890 | external-doc | [ ] |

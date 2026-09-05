@@ -287,6 +287,24 @@ budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be064
   - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-04/success_auditor_report.md`
 
+### run 07 (Session 005, post-reset p1-run-05)
+
+- **run-id**: `p1-run-05`
+- **session**: 005 (Phase 1)
+- **units**: `inv-matt-3`, `inv-matt-4`, `inv-matt-5`, `inv-matt-6`, `inv-matt-7`, `inv-matt-8`, `inv-matt-9`, `inv-matt-10`, `inv-matt-11`, `inv-matt-12`, `inv-matt-13`, `inv-matt-14` (12 units, 33 inventory cards, 12 reports)
+- **context used**:
+  - at run-start: `used=15.89%` (`[run-start p1-run-05 n=12] budget 2026-09-05T03:48:08.474Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=15.89% peak=15.89% governing=25.00% close=1.87% headroom=7.24% pending=368 → DISPATCH 1 run × 12 units (12 units, cost 6.88%)`)
+  - at dispatched: `used=16.27%` (`[dispatched p1-run-05] budget 2026-09-05T03:48:34.460Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=16.27% peak=16.27% governing=25.00% close=1.87% headroom=6.86% pending=356 → DISPATCH 1 run × 8 units (8 units, cost 6.12%)`)
+  - at verified: `used=17.95%` (`[verified p1-run-05] budget 2026-09-05T04:12:20.828Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=17.95% peak=17.95% governing=25.00% close=1.87% headroom=5.18% pending=356 → DISPATCH 1 run × 3 units (3 units, cost 5.17%)`)
+  - per-unit delta: 0.14% (verified 17.95% − dispatched 16.27% = 1.68% ÷ 12 units = 0.14%)
+- **rot metrics**: none observed (used: 17.95%)
+- **429s and quota.reset_in_seconds**: none observed
+- **wall time**: 23m 11s (from `2026-09-05T03:48:34Z` dispatch to `2026-09-05T04:11:45Z` completion report).
+- **quote-check totals**:
+  - Run 05 cards: 803 PASS, 0 FAIL across 33 inventory cards (0% failure rate)
+  - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-05/success_auditor_report.md`
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.
