@@ -11,8 +11,8 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `1` |
 | **phase_name** | Inventory |
 | **current_unit** | inv-matt-15 |
-| **last_session** | 004 |
-| **next_action** | dispatch Phase 1 run starting at inv-addy-33 |
+| **last_session** | 005 |
+| **next_action** | dispatch Phase 1 run starting at inv-matt-15 |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
