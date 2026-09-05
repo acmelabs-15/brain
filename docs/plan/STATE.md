@@ -8,11 +8,11 @@ This file is the single source of truth for where the project is. It is updated 
 
 | Field | Value |
 |---|---|
-| **phase** | `0` |
-| **phase_name** | Setup |
-| **current_unit** | — |
-| **last_session** | — |
-| **next_action** | Run Phase 0 per METHOD.md §5 (tooling is shipped; D-016 reset; sources already cloned at the pins) |
+| **phase** | `1` |
+| **phase_name** | Inventory |
+| **current_unit** | inv-addy-1 |
+| **last_session** | 000 |
+| **next_action** | Dispatch first Phase 1 run per budget.ts recommendation |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -37,7 +37,7 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 
 | Phase | Name | Status | Done criteria met | Session(s) |
 |---|---|---|---|---|
-| 0 | Setup | `pending` | — | — |
+| 0 | Setup | `done` | 4 manifests, 3 ledgers, units.md, brain-conventions.md, §10 clean | 000 |
 | 0.5 | Landscape scan | `skipped` — D-007 `landscape_scan: no` | — | — |
 | 1 | Inventory | `pending` | — | — |
 | 1V | Inventory verification | `pending` | — | — |
@@ -65,12 +65,12 @@ The unit table is `docs/plan/units.md`, written only by `bun scripts/synthesis/u
 
 | Status | Units |
 |---|---|
-| pending | 0 |
+| pending | 416 |
 | in-progress | 0 |
 | done | 0 |
 | blocked | 0 |
 | rolled-back | 0 |
-| **total** | **0** |
+| **total** | **416** |
 
 ### Phase 2 — Concept card units
 
@@ -105,7 +105,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 
 | Metric | Value |
 |---|---|
-| Manifest rows (addy / matt / rjm) | — / — / — |
+| Manifest rows (addy / matt / rjm) | 219 / 201 / 1175 |
 | Inventory units done (addy / matt / rjm) | 0 / 0 / 0 |
 | Concept cards (addy / matt / rjm) | — / — / — |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | — |
@@ -131,10 +131,10 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 
 | Check | Last run | Result |
 |---|---|---|
-| coverage.ts | — | — |
-| units.ts check | — | — |
-| budget.ts | — | — |
-| glossary-lint.ts | — | — |
-| last-unit verification | — | — |
-| decision consistency (4V) | — | — |
-| traceability | — | — |
+| coverage.ts | 2026-09-04 | clean (1595 rows, 1567 uncovered, 0 failures) |
+| units.ts check | 2026-09-04 | clean (416 units agree across table, manifest, STATE.md) |
+| budget.ts | 2026-09-04 | clean (used=9.41%, headroom=12.69%) |
+| glossary-lint.ts | 2026-09-04 | clean |
+| last-unit verification | 2026-09-04 | clean (Phase 0: none) |
+| decision consistency (4V) | — | — (Phase 4) |
+| traceability | — | — (Phase 5/8) |
