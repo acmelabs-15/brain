@@ -143,21 +143,21 @@
 | external/deprecation-and-migration.md | 26252 | external-doc | [x] |
 | external/documentation-and-adrs.md | 26223 | external-doc | [x] |
 | external/doubt-driven-development.md | 26502 | external-doc | [x] |
-| external/frontend-ui-engineering.md | 26596 | external-doc | [ ] |
-| external/git-workflow-and-versioning.md | 26317 | external-doc | [ ] |
-| external/idea-refine.md | 24943 | external-doc | [ ] |
-| external/incremental-implementation.md | 26461 | external-doc | [ ] |
-| external/interview-me.md | 24935 | external-doc | [ ] |
-| external/observability-and-instrumentation.md | 26344 | external-doc | [ ] |
-| external/performance-optimization.md | 26603 | external-doc | [ ] |
-| external/planning-and-task-breakdown.md | 22310 | external-doc | [ ] |
-| external/security-and-hardening.md | 26475 | external-doc | [ ] |
-| external/shipping-and-launch.md | 26336 | external-doc | [ ] |
-| external/source-driven-development.md | 26358 | external-doc | [ ] |
-| external/spec-driven-development.md | 25104 | external-doc | [ ] |
-| external/test-driven-development.md | 26483 | external-doc | [ ] |
-| external/using-agent-skills.md | 21955 | external-doc | [ ] |
-| hooks/hooks.json | 364 | config | [ ] |
+| external/frontend-ui-engineering.md | 26596 | external-doc | [x] |
+| external/git-workflow-and-versioning.md | 26317 | external-doc | [x] |
+| external/idea-refine.md | 24943 | external-doc | [x] |
+| external/incremental-implementation.md | 26461 | external-doc | [x] |
+| external/interview-me.md | 24935 | external-doc | [x] |
+| external/observability-and-instrumentation.md | 26344 | external-doc | [x] |
+| external/performance-optimization.md | 26603 | external-doc | [x] |
+| external/planning-and-task-breakdown.md | 22310 | external-doc | [x] |
+| external/security-and-hardening.md | 26475 | external-doc | [x] |
+| external/shipping-and-launch.md | 26336 | external-doc | [x] |
+| external/source-driven-development.md | 26358 | external-doc | [x] |
+| external/spec-driven-development.md | 25104 | external-doc | [x] |
+| external/test-driven-development.md | 26483 | external-doc | [x] |
+| external/using-agent-skills.md | 21955 | external-doc | [x] |
+| hooks/hooks.json | 364 | config | [x] |
 | hooks/sdd-cache-post.sh | 4567 | file | [ ] |
 | hooks/sdd-cache-pre.sh | 4261 | file | [ ] |
 | hooks/SDD-CACHE.md | 8398 | doc | [ ] |
