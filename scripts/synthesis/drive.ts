@@ -24,6 +24,7 @@
 // Everything the driver sees goes to .teamwork/drive/drive.log; it prints one line per conversation.
 import { readFileSync, existsSync, mkdirSync, appendFileSync, writeFileSync, readdirSync } from "fs";
 import { join } from "path";
+import * as ui from "./drive-ui";
 
 const argv = process.argv.slice(2);
 const opt = (k: string, d: string) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] ?? d : d; };
@@ -35,7 +36,8 @@ const DRY = argv.includes("--dry-run");
 const REPO = process.cwd();
 const DRIVE = join(REPO, ".teamwork", "drive");
 mkdirSync(DRIVE, { recursive: true });
-const log = (s: string) => { const line = `${new Date().toISOString()} ${s}`; appendFileSync(join(DRIVE, "drive.log"), line + "\n"); console.log(line); };
+const record = (s: string) => appendFileSync(join(DRIVE, "drive.log"), `${new Date().toISOString()} ${s}\n`); // the record; the display is drive-ui
+const log = (s: string) => { record(s); ui.info(s); };
 
 const ceilings = JSON.parse(readFileSync(join(REPO, "docs/plan/context-ceilings.json"), "utf8"));
 const modelKey = Object.keys(ceilings).find(k => !k.startsWith("_") && k !== "default" && MODEL.toLowerCase().startsWith(k.toLowerCase().replace(/ /g, "-")));
@@ -51,13 +53,29 @@ const prompt = readFileSync(join(REPO, "PROMPT.md"), "utf8");
 const cmd = ["agy", "-p", prompt, "--output-format", "stream-json", "--model", MODEL, "--print-timeout", TIMEOUT, ...(ASK ? [] : ["--dangerously-skip-permissions"])];
 if (DRY) { console.log(cmd.map(a => a === prompt ? '"<PROMPT.md>"' : a).join(" ")); process.exit(0); }
 
+ui.intro(`brain lifecycle synthesis — headless driver · phase ${phaseOf()} · model ${MODEL} · up to ${MAX} conversation(s)`);
+const readOrNull = (f: string) => { try { return readFileSync(f, "utf8"); } catch { return null; } };
+const ctxNow = (convId: string): string => { // latest statusline reading for this conversation, for the live line
+  try { const lines = readFileSync(join(REPO, ".teamwork", "ctx-log.jsonl"), "utf8").trim().split("\n"); for (let i = lines.length - 1; i >= Math.max(0, lines.length - 400); i--) { if (lines[i]!.includes(convId)) { const r = JSON.parse(lines[i]!); return `${Number(r.used_percentage).toFixed(1)}%`; } } } catch { } return "—";
+};
+let stopReason = "";
 let failures = 0;
 for (let n = 1; n <= MAX; n++) {
   const phaseStart = phaseOf();
   if (phaseStart !== "0" && phaseStart !== "1") { log(`stop: STATE.md phase is ${phaseStart} — the driver covers Phases 0–1 only`); break; }
   const before = runDirs();
   const handoffsBefore = new Set(readdirSync(join(REPO, "docs/plan/sessions")));
-  log(`conversation ${n}: starting agy (model ${MODEL}, timeout ${TIMEOUT})`);
+  record(`conversation ${n}: starting agy (model ${MODEL}, timeout ${TIMEOUT})`);
+  const t0 = Date.now();
+  const live = ui.conversation(`conversation ${n} · starting agy`);
+  let lastTool = "", milestones = 0, warnings = 0, session = "", lastPlannedRun = ""; const seenToolSteps = new Set<number>();
+  const redraw = () => {
+    const mins = ((Date.now() - t0) / 60000).toFixed(0);
+    const runs = [...runDirs()].filter(d => !before.has(d)).map(d => ui.runSummary(join(REPO, ".teamwork", d), readOrNull)).join(", ");
+    const sess = session || (readdirSync(join(REPO, "docs/plan/sessions")).filter(f => !handoffsBefore.has(f))[0]?.replace(/-.*$/, "") ?? "");
+    if (sess) session = sess;
+    live.update(`conversation ${n}${session ? ` · session ${session}` : ""} · ${mins} min · step ${steps} · ctx ${convId ? ctxNow(convId) : "—"}${runs ? ` · ${runs}` : ""}${lastTool ? ` · ${lastTool}` : ""}`);
+  };
   const proc = Bun.spawn(cmd, { cwd: REPO, stdout: "pipe", stderr: "pipe", env: { ...process.env, TERM: "dumb" } });
   let convId = "", steps = 0, maxInput = 0, subagents = 0, result: any = null, overflow = false, streamPath = "", usageEvents = 0, statuslineSeen = false;
   const statuslineWrites = () => { // has the statusline written a record for this conversation? (checked every 10 usage events until seen)
@@ -85,6 +103,15 @@ for (let n = 1; n <= MAX; n++) {
         if (!statuslineSeen) appendFileSync(join(REPO, ".teamwork", "ctx-log.jsonl"), JSON.stringify({ ts: new Date().toISOString(), conversation_id: convId, used_percentage: +(ctxTok / WINDOW * 100).toFixed(4), context_window_size: WINDOW, total_input_tokens: ctxTok, model: modelLabel, agent_state: body.state ?? "working", subagents, task_count: null, cost: null, source: "drive.ts" }) + "\n");
       }
       if (body.subagent_info) subagents++;
+      if (body.tool_name && !seenToolSteps.has(body.step_index)) { // each tool step streams twice (running, done); show it once
+        seenToolSteps.add(body.step_index);
+        const params = body.tool_info?.parameters ?? body.tool_info?.params ?? {};
+        lastTool = ui.describeTool(body.tool_name, params);
+        const planned = String(params.CommandLine || "").match(/run-start ([\w-]+) n=/); if (planned) lastPlannedRun = planned[1] ?? "";
+        const m = ui.milestone(body.tool_name, params, lastPlannedRun);
+        if (m) { milestones++; if (m.kind === "warn") warnings++; record(`conversation ${n}: ${m.text}`); (m.kind === "step" ? ui.step : m.kind === "warn" ? ui.warn : ui.info)(m.text); }
+      }
+      redraw();
     }
     if (kind === "result") result = body;
   };
@@ -101,12 +128,20 @@ for (let n = 1; n <= MAX; n++) {
   const newHandoffs = readdirSync(join(REPO, "docs/plan/sessions")).filter(f => !handoffsBefore.has(f));
   const needsPeter = newHandoffs.some(f => /needs_peter:\s*yes/.test(readFileSync(join(REPO, "docs/plan/sessions", f), "utf8"))) || /STOP: needs Peter/i.test(response);
   const dirty = sh("git status --porcelain");
-  log(`conversation ${n}: ${status} in ${Math.round(Number(result?.duration_seconds ?? 0) / 60)} min — ${steps} steps, peak context ${maxInput.toLocaleString()} tokens${WINDOW ? ` (${(maxInput / WINDOW * 100).toFixed(2)}%)` : ""}, context log by ${statuslineSeen ? "statusline" : "drive.ts"}, subagent steps ${subagents}, new runs [${newRuns.join(" ")}], handoff [${newHandoffs.join(" ")}], HEAD ${sh("git log -1 --format=%h")}`);
-  if (overflow) { log("stop: a step reported input_tokens + cache_read_tokens above the window — the usage fields are not the prompt size; the ctx-log written by the driver this conversation is wrong and its rule must be changed before running again"); break; }
-  if (dirty) { log(`stop: working tree not clean after the conversation (the §8.3 commit did not happen):\n${dirty}`); break; }
-  if (needsPeter) { log("stop: the agent asked for Peter (needs_peter: yes / STOP: needs Peter)"); break; }
-  if (status !== "SUCCESS") { failures++; if (failures >= 2) { log("stop: two conversations in a row did not end with status SUCCESS"); break; } continue; }
-  failures = 0;
-  if (!subagents && !newRuns.length && phaseStart === "1") { log("stop: the conversation dispatched nothing (no subagent steps, no new .teamwork run directory) — headless Teamwork dispatch is unproven; run this conversation interactively"); break; }
+  const mins = Math.round(Number(result?.duration_seconds ?? (Date.now() - t0) / 1000) / 60);
+  const peakPct = WINDOW ? `${(maxInput / WINDOW * 100).toFixed(1)}%` : `${maxInput.toLocaleString()} tok`;
+  const quality = response.match(/([\d,]+) PASS\s*\/\s*(\d+) FAIL/); const fails = quality ? Number(quality[2]) : null;
+  const detail = `conversation ${n}${session ? ` · session ${session}` : ""} · ${status} · ${mins} min · runs [${newRuns.join(" ") || "none"}]${quality ? ` · ${quality[1]} PASS / ${quality[2]} FAIL` : ""} · peak ${peakPct} · HEAD ${sh("git log -1 --format=%h")}`;
+  record(`${detail} — ${steps} steps, context log by ${statuslineSeen ? "statusline" : "drive.ts"}, subagent steps ${subagents}, handoff [${newHandoffs.join(" ")}]`);
+  if (overflow) stopReason = "a step reported input_tokens + cache_read_tokens above the window — the usage fields are not the prompt size; the driver's rule must be changed before running again";
+  else if (dirty) stopReason = `working tree not clean after the conversation (the §8.3 commit did not happen):\n${dirty}`;
+  else if (needsPeter) stopReason = "the agent asked for Peter (needs_peter: yes / STOP: needs Peter) — read its last paragraph and the handoff's For Peter section";
+  else if (status !== "SUCCESS" && ++failures >= 2) stopReason = "two conversations in a row did not end with status SUCCESS";
+  else if (status === "SUCCESS" && !subagents && !newRuns.length && phaseStart === "1") stopReason = "the conversation dispatched nothing (no subagent steps, no new .teamwork run directory)";
+  const verdict: ui.Verdict = stopReason ? "red" : (status !== "SUCCESS" || warnings > 0 || (fails !== null && fails > 0)) ? "yellow" : "green";
+  live.finish(detail, verdict);
+  if (stopReason) { record(`stop: ${stopReason}`); ui.error(`stop: ${stopReason}`); break; }
+  if (status === "SUCCESS") failures = 0;
 }
-log("driver finished");
+record("driver finished");
+ui.outro(stopReason ? `stopped — ${stopReason.split("\n")[0]}` : `finished · phase now ${phaseOf()} · ${sh("bun scripts/synthesis/units.ts status 2>/dev/null | tail -1") || ""}`);

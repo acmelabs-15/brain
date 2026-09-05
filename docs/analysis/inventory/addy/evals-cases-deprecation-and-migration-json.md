@@ -5,13 +5,13 @@ type: config
 bytes: 1257
 unit: inv-addy-6
 aliases: []
+verified: 2026-09-04 quote-check+coverage
 memo_inputs:
   - {path: evals/cases/deprecation-and-migration.json, sha256: 9ee13965566161b30f3bf73f4d8d6f9e243f910f4d661d9f0835902714ecc6ec}
-method_sha: 647767d85acc14e391fbbf69d54d8543f31a0497dc52121aaf5997e1c6065f5f
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
 template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
 model: Gemini 3.8 Flash
 effort: high
-verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/cases/deprecation-and-migration.json

@@ -5,13 +5,13 @@ type: doc
 bytes: 693
 unit: inv-addy-8
 aliases: []
+verified: 2026-09-04 quote-check+coverage
 memo_inputs:
   - {path: evals/fixtures/api-and-interface-design/service-brief.md, sha256: 1542195d78e4cce6c86cbdc7d69c45826f09b02ca50396d8a5c9675b837cbc77}
-method_sha: 647767d85acc14e391fbbf69d54d8543f31a0497dc52121aaf5997e1c6065f5f
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
 template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
 model: Gemini 3.8 Flash
 effort: high
-verified: 2026-09-04 quote-check+coverage
 ---
 
 # evals/fixtures/api-and-interface-design/service-brief.md

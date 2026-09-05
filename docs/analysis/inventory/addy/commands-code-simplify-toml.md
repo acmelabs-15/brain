@@ -6,13 +6,13 @@ bytes: 1066
 unit: inv-addy-3
 deprecated: false
 aliases: []
+verified: 2026-09-04 quote-check+coverage
 memo_inputs:
   - {path: commands/code-simplify.toml, sha256: 640cdd34c26a04cabe6d3ea64ba5aad91bb68b16c8f7619a9e5fae6fe0a37ec8}
-method_sha: 647767d85acc14e391fbbf69d54d8543f31a0497dc52121aaf5997e1c6065f5f
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
 template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
 model: Gemini 3.8 Flash
 effort: high
-verified: 2026-09-04 quote-check+coverage
 ---
 
 # commands/code-simplify.toml

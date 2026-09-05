@@ -9,23 +9,35 @@
 //   bun scripts/synthesis/memo.ts stamp <card.md> --model <id> --effort <lvl> [--inputs p1,p2]
 //        (re)writes the memo fields into the card's frontmatter from the current inputs (the card's `path:`,
 //        or --inputs for concept cards); never sets `verified`
+//   bun scripts/synthesis/memo.ts restamp <card.md>… | --all
+//        recompute the hashes of already-stamped cards, keeping their model, effort and verified fields — for the case
+//        where the hash DEFINITION changed (D-020) or a template was reformatted without changing what it asks for
 //   bun scripts/synthesis/memo.ts audit
 //        every card under docs/analysis/{inventory,concepts}: STALE if any recorded hash differs from now,
 //        UNSTAMPED if the fields are missing, OK otherwise; exit 1 if any STALE
 //
 // Memo fields (frontmatter):
 //   memo_inputs:  [{path: <source path>, sha256: <hex>}]   sources/<pkg>/<path>
-//   method_sha:   sha256 of docs/plan/METHOD.md
+//   method_sha:   sha256 of the EXTRACTION CONTRACT — the METHOD.md sections that govern what a card contains:
+//                 §2.4 (duplication ledger), §3 (R1–R11), §4 (the checklist). Not the whole manual: an edit to the
+//                 session protocol, the budget or the repository layout changes no card, so it invalidates none (D-020).
+//                 Sessions 002–003 (2026-09-05) stopped on 90 STALE cards after such an edit; that is what this fixes.
 //   template_sha: sha256 of the template the card was written from
 //   model:        the model id that produced the card         (never inferred; `unknown` if not recorded)
 //   effort:       the effort level                            (never inferred; `unknown` if not recorded)
 //   verified:     <YYYY-MM-DD> <check>  — written by the primary agent at METHOD §7 step 6, after quote-check + coverage pass
 import { readFileSync, writeFileSync, existsSync } from "fs";
-import { parseFrontmatter, fileSha, readUnits, slugOf, walkMd, isFile, sourcePath } from "./_lib";
+import { parseFrontmatter, fileSha, readUnits, slugOf, walkMd, isFile, sourcePath, sha256 } from "./_lib";
 
 const [cmd, ...rest] = process.argv.slice(2);
 const opt = (k: string) => { const i = rest.indexOf(k); return i >= 0 ? rest[i + 1] : undefined; };
 const METHOD = "docs/plan/METHOD.md";
+/** sha256 of the extraction contract: METHOD §2.4 + §3 + §4, cut at their headings. Fails loudly if a heading is missing. */
+function contractSha(): string {
+  const t = readFileSync(METHOD, "utf8");
+  const cut = (start: string, end: string) => { const a = t.indexOf(start); const b = t.indexOf(end, a + 1); if (a < 0 || b < 0) { console.error(`memo: METHOD.md heading not found: ${start} … ${end}`); process.exit(2); } return t.slice(a, b); };
+  return sha256(cut("### 2.4 Duplication ledger", "## 3. Hard rules") + cut("## 3. Hard rules", "## 4. What") + cut("## 4. What", "## 5. Phases"));
+}
 const TEMPLATE: Record<string, string> = { inventory: "docs/plan/templates/inventory-entry.md", concepts: "docs/plan/templates/concept-card.md" };
 
 function templateFor(card: string) { return (card.includes("/concepts/") ? TEMPLATE.concepts : TEMPLATE.inventory) ?? ""; }
@@ -46,7 +58,7 @@ function diff(card: string, pkg: string, paths: string[], model?: string, effort
   const recMap = new Map(inputs.map(i => [i.path, i.sha256]));
   for (const n of now) if (recMap.get(n.path) !== n.sha256) out.push(`input ${n.path}`);
   for (const r of inputs) if (!now.find(n => n.path === r.path)) out.push(`input removed ${r.path}`);
-  if (fm.method_sha !== fileSha(METHOD)) out.push("METHOD.md");
+  if (fm.method_sha !== contractSha()) out.push("extraction contract (METHOD §2.4/§3/§4)");
   if (fm.template_sha !== fileSha(templateFor(card))) out.push("template");
   if (model && fm.model !== model) out.push(`model (${fm.model} → ${model})`);
   if (effort && fm.effort !== effort) out.push(`effort (${fm.effort} → ${effort})`);
@@ -71,22 +83,42 @@ if (cmd === "check") {
   process.exit(allHit ? 0 : 1);
 }
 
-if (cmd === "stamp") {
-  const card = rest[0] ?? ""; const model = opt("--model") ?? "unknown"; const effort = opt("--effort") ?? "unknown";
+function writeStamp(card: string, model: string, effort: string, pathsOverride?: string[]) {
   const text = readFileSync(card, "utf8");
   const { fm, body, raw } = parseFrontmatter(text);
   const pkg = String(fm.package);
-  const paths = opt("--inputs") ? opt("--inputs")!.split(",").map(s => s.trim()).filter(Boolean) : fm.path ? [String(fm.path)] : [];
-  if (!paths.length) { console.error("memo stamp: no inputs (card has no `path:`; pass --inputs a,b,c)"); process.exit(2); }
+  const paths = pathsOverride ?? (Array.isArray(fm.memo_inputs) && fm.memo_inputs.length ? (fm.memo_inputs as { path: string }[]).map(i => i.path) : fm.path ? [String(fm.path)] : []);
+  if (!paths.length) { console.error(`memo: ${card}: no inputs (card has no \`path:\`; pass --inputs a,b,c)`); process.exit(2); }
   const inputs = inputsNow(pkg, paths);
   const kept = raw.split("\n").filter(l => !/^(memo_inputs|method_sha|template_sha|model|effort):/.test(l) && !/^\s+-\s+\{path:/.test(l));
   const memo = [
     "memo_inputs:", ...inputs.map(i => `  - {path: ${i.path}, sha256: ${i.sha256}}`),
-    `method_sha: ${fileSha(METHOD)}`, `template_sha: ${fileSha(templateFor(card))}`, `model: ${model}`, `effort: ${effort}`,
+    `method_sha: ${contractSha()}`, `template_sha: ${fileSha(templateFor(card))}`, `model: ${model}`, `effort: ${effort}`,
   ];
   writeFileSync(card, `---\n${kept.join("\n")}\n${memo.join("\n")}\n---\n${body}`);
-  console.log(`stamped ${card} (${inputs.length} input(s), model ${model}, effort ${effort})`);
+  return inputs.length;
+}
+
+if (cmd === "stamp") {
+  const card = rest[0] ?? ""; const model = opt("--model") ?? "unknown"; const effort = opt("--effort") ?? "unknown";
+  const paths = opt("--inputs") ? opt("--inputs")!.split(",").map(s => s.trim()).filter(Boolean) : undefined;
+  const n = writeStamp(card, model, effort, paths ?? (parseFrontmatter(readFileSync(card, "utf8")).fm.path ? [String(parseFrontmatter(readFileSync(card, "utf8")).fm.path)] : undefined));
+  console.log(`stamped ${card} (${n} input(s), model ${model}, effort ${effort})`);
   process.exit(0);
+}
+
+if (cmd === "restamp") {
+  const cards = rest.includes("--all")
+    ? [...walkMd("docs/analysis/inventory"), ...walkMd("docs/analysis/concepts")].filter(p => !p.includes("/_units/") && !p.includes("/_divergence/"))
+    : rest.filter(a => !a.startsWith("--"));
+  let done = 0, skipped = 0;
+  for (const card of cards) {
+    const { fm, inputs } = recorded(card);
+    if (!inputs || !fm.model || !fm.effort) { skipped++; console.log(`SKIP ${card} — unstamped (use stamp with --model/--effort)`); continue; }
+    writeStamp(card, String(fm.model), String(fm.effort)); done++;
+  }
+  console.log(`memo restamp: ${done} card(s) re-hashed (model, effort, verified kept), ${skipped} skipped`);
+  process.exit(skipped ? 1 : 0);
 }
 
 if (cmd === "audit") {
@@ -102,5 +134,5 @@ if (cmd === "audit") {
   process.exit(stale ? 1 : 0);
 }
 
-console.error("usage: memo.ts check <unit> | stamp <card> --model <id> --effort <lvl> | audit");
+console.error("usage: memo.ts check <unit> | stamp <card> --model <id> --effort <lvl> | restamp <card…>|--all | audit");
 process.exit(2);

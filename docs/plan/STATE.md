@@ -109,7 +109,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 | Inventory units done (addy / matt / rjm) | 8 / 0 / 0 |
 | Concept cards (addy / matt / rjm) | — / — / — |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | — |
-| Decisions (active / superseded / pending-peter) | 16 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
+| Decisions (active / superseded / pending-peter) | 17 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
 | Glossary terms | 0 |
 | Build units (done / total) | — / — |
 

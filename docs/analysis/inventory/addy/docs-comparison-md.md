@@ -5,13 +5,13 @@ type: doc
 bytes: 15362
 unit: inv-addy-5
 aliases: []
+verified: 2026-09-04 quote-check+coverage
 memo_inputs:
   - {path: docs/comparison.md, sha256: 652e4df31f4bc1e1d456db768ee15c6cc5fdd6dee754d9dfccffe5ce1eac7194}
-method_sha: 647767d85acc14e391fbbf69d54d8543f31a0497dc52121aaf5997e1c6065f5f
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
 template_sha: 3eead650a20bd7770bdfd54816e4316b9d5b017ed335d4138d8dd708f0c3eb23
 model: Gemini 3.8 Flash
 effort: high
-verified: 2026-09-04 quote-check+coverage
 ---
 
 # docs/comparison.md

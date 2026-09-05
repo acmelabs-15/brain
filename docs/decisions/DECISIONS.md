@@ -372,4 +372,33 @@ none.
 
 ---
 
+## D-020 — The result store keys on the extraction contract, not the whole manual; the 90 session-001 cards are re-stamped, not re-run
+
+- **date:** 2026-09-05
+- **made-by:** Peter
+- **session:** 003
+- **status:** active
+- **supersedes:** —
+- **resolves:** method §7 step 5, §10 (Result store row); `scripts/synthesis/memo.ts`
+
+### Decision
+A card's `method_sha` is the hash of the **extraction contract** — the parts of `METHOD.md` that govern what a card contains: §2.4 (duplication ledger), §3 (R1–R11) and §4 (the checklist) — together with `template_sha` for the template it was written from. An edit anywhere else in the manual (session protocol, budget, repository layout, delegation recipe) changes no card and therefore invalidates none. `memo.ts restamp` re-hashes already-stamped cards under a changed hash definition, keeping their `model`, `effort` and `verified` fields; it is not a re-verification and never touches a card's body. **Ruling on sessions 002–003:** the 90 cards of `p1-run-01` were marked STALE only because commit `9e274fb` (D-019 and hotfix 1) edited operational sections of `METHOD.md`; their content rules and templates were unchanged and `quote-check.ts` still passes every citation (107 PASS / 0 FAIL on `inv-addy-8`; 1,217 / 0 across the run). They are re-stamped, not re-run. Units `inv-addy-1`–`8` stay `done`.
+
+### Adopted from
+The agent's own analysis in `docs/plan/sessions/003-inventory.md` § For Peter, which identified the cause and posed exactly this choice; Peter's answer on 2026-09-05. M1 as specified in `docs/analysis/rationale/05-adopted-mechanisms.md` ("a METHOD.md change invalidates every card") was too coarse: it made every between-session edit to the manual a re-run of the whole inventory.
+
+### Dropped
+Whole-file hashing of `METHOD.md` as the memo key.
+
+### Rejected alternatives
+Re-running the eight units — 90 verified cards discarded for a change that touched none of their rules. Leaving the audit failing and telling the agent to ignore it — §10 says a failed check is fixed before new work begins, and that rule is worth more than the shortcut.
+
+### Evidence
+`docs/plan/sessions/002-inventory.md`, `003-inventory.md` (the stop and its reasoning); `memo.ts audit` before and after the re-stamp, recorded in the commit that applies this decision.
+
+### Glossary
+none.
+
+---
+
 <!-- Alignment decisions (D-100+) are appended below this line in Phase 4. -->

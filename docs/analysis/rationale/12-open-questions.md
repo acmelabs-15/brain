@@ -16,6 +16,8 @@ Every item here is marked `undocumented — probe` somewhere in METHOD or the ex
 
 ## Closed since the experiment
 
+- ~~Does a METHOD edit between sessions invalidate the cards?~~ — Not any more: D-020 keys the memo on the extraction contract (§2.4, §3, §4) + template. Sessions 002–003 (2026-09-05) stopped on this; the agent's diagnosis was exact.
+
 - ~~Does Teamwork dispatch work under headless `agy -p`?~~ — **Yes** (session 001, 2026-09-05: `p1-run-01`, 90 cards, 0 FAIL, committed, closed by plan).
 - ~~Is `usage.input_tokens` the context or a running total?~~ — Neither alone: it is the *uncached* part of the prompt; `input_tokens + cache_read_tokens` is the context (23.09% vs the statusline's 22.97% peak). And the statusline renders headless, so the driver's log is only a fallback.
 

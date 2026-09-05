@@ -382,7 +382,7 @@ Every unit, every phase. In Phase 1 the steps run per **run** (a batch of units,
 2. **Claim.** Per §6.3 item 8, which gives the order: `bun scripts/synthesis/budget.ts --record "run-start <run-id> n=<count>"` first (once per run), the brief, then `bun scripts/synthesis/units.ts mark in-progress --session NNN <units…>`. The unit table is never edited by hand.
 3. **Dispatch.** Per §6.3 item 8 (which ends with `budget.ts --record "dispatched <run-id>"`). For single-threaded phases the primary agent executes the unit itself instead.
 4. **Wait.** `bun scripts/synthesis/await-run.ts <run-id>… --wait 240`, repeated until it exits 0 (COMPLETE). Exit 4 (STALLED) is the quota case (§6.3). If the harness backgrounds the command, wait on it with the command-status tool rather than starting another.
-5. **Stamp.** Every inventory or concept card the run produced (not divergence cards, not unit reports) is stamped in one loop whose output is one line per card: `for c in <cards>; do bun scripts/synthesis/memo.ts stamp "$c" --model "<model>" --effort <effort> | tail -1; done`. Model and effort are the ones that actually produced the card: with `Model: "inherit"` (§6.3 item 8) that is this conversation's, read from the `model=` value of `budget.ts --line` (`Gemini 3.8 Flash (High)` → model `Gemini 3.8 Flash`, effort `high`); `unknown` if it cannot be read — never guessed.
+5. **Stamp.** Every inventory or concept card the run produced (not divergence cards, not unit reports) is stamped in one loop whose output is one line per card: `for c in <cards>; do bun scripts/synthesis/memo.ts stamp "$c" --model "<model>" --effort <effort> | tail -1; done`. Model and effort are the ones that actually produced the card: with `Model: "inherit"` (§6.3 item 8) that is this conversation's, read from the `model=` value of `budget.ts --line` (`Gemini 3.8 Flash (High)` → model `Gemini 3.8 Flash`, effort `high`); `unknown` if it cannot be read — never guessed. A card's `method_sha` covers the extraction contract only (§2.4, §3, §4 — D-020), so a between-session edit to any other section leaves every stamp valid; if a hash *definition* ever changes, `memo.ts restamp --all` re-hashes without touching model, effort or `verified:`.
 6. **Verify.** `bun scripts/synthesis/quote-check.ts --summary <cards…>` per unit; the full `quote-check.ts <card>` only for a card whose summary shows FAIL (a card with any FAIL is malformed — mark its unit `rolled-back`, do not edit the card). `bun scripts/synthesis/coverage.ts --quiet` (zero failures). Read the head of one card per unit (`head -n 15`). Only then add `verified: <date> quote-check+coverage` to each clean card's frontmatter — the one edit the primary agent ever makes to a card; "the verifier" in the templates is the primary agent at this step.
 7. **Check off.** `bun scripts/synthesis/units.ts mark done --session NNN <units…>` (refuses a unit whose report is missing — R7); regenerate the manifests (`bun scripts/synthesis/manifest.ts --no-fetch`) so `Checked` is derived, never hand-ticked.
 8. **Record and next.** Once per run: `bun scripts/synthesis/budget.ts --record "verified <run-id>"`, the run's block in the results doc (§8.3 step 2 names its fields), a commit `lifecycle synthesis: session NNN — <run-id> results`. Then `bun scripts/synthesis/budget.ts` decides whether another plan fits this conversation (§8.2).
@@ -483,10 +483,11 @@ scripts/
     budget.ts              ← the D-010 budget: k runs × n units that fit; --record / --measure / --set (§8.2)
     await-run.ts           ← waits on .teamwork/<run-id>/ completion artifacts; the primary agent's only view of a run (§6.3)
     drive.ts               ← headless driver: conversation after conversation via `agy -p` (§8.5, D-018)
+    drive-ui.ts            ← the driver's terminal display (@clack/prompts, a devDependency used only here): live line, milestones, verdicts
     dedupe.ts              ← the duplication ledger (§2.4)
     coverage.ts            ← manifest ↔ cards, required fields, R11 (§10)
     quote-check.ts         ← byte-exact citation check (R3, R11)
-    memo.ts                ← the result store: check / stamp / audit (M1)
+    memo.ts                ← the result store: check / stamp / restamp / audit (M1, D-020)
     unit-facts.ts          ← the computed facts a dispatch carries (M5)
     prefix-check.ts        ← hash of the fixed set in prefix.json (M3)
     glossary-lint.ts       ← a stub until Phase 4 (reports clean while GLOSSARY.md has no entries); the lint rules land with Phase 4
@@ -539,7 +540,7 @@ Run at every session start and at every phase gate. Every run is recorded in the
 |---|---|---|
 | Coverage | `coverage.ts` | Manifest rows without a card (or with a phantom check-off); cards without a row; empty required fields; R11 alias claims ≠ 1; divergence cards missing or with a hunk count ≠ the ledger |
 | Quotations | `quote-check.ts --all` | Any `"…" — path:line` or `` `term` — path:line `` that is not byte-exact at that line |
-| Result store | `memo.ts audit` | Cards whose recorded inputs, METHOD, or template hash no longer match the tree |
+| Result store | `memo.ts audit` | Cards whose recorded inputs, extraction contract (METHOD §2.4, §3, §4 — D-020) or template hash no longer match the tree; an edit elsewhere in METHOD invalidates nothing |
 | Partition | `partition.ts --check` | `manifest/units.md` that no longer matches the manifests |
 | Unit table | `units.ts check` | `docs/plan/units.md` out of step with the manifests or with `STATE.md` counts; a `done` unit whose report is missing |
 | Budget | `budget.ts --line` | Context above the governing ceiling; a plan dispatched that did not fit; the instrument not logging |
