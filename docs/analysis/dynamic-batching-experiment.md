@@ -269,6 +269,24 @@ budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be064
   - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-03/success_auditor_report.md` (confirmed by victory auditor at `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-03/.agents/victory_auditor_1/handoff.md` with VICTORY CONFIRMED)
 
+### run 06 (Session 005, post-reset p1-run-04)
+
+- **run-id**: `p1-run-04`
+- **session**: 005 (Phase 1)
+- **units**: `inv-addy-33`, `inv-addy-34`, `inv-addy-35`, `inv-addy-36`, `inv-addy-37`, `inv-addy-38`, `inv-addy-39`, `inv-addy-40`, `inv-addy-41`, `inv-addy-42`, `inv-addy-43`, `inv-addy-44`, `inv-addy-45`, `inv-addy-46`, `inv-matt-1`, `inv-matt-2` (16 units, 84 inventory cards, 16 reports; completes package `addy`)
+- **context used**:
+  - at run-start: `used=9.05%` (`[run-start p1-run-04 n=16] budget 2026-09-05T03:32:14.713Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=9.05% peak=9.05% governing=25.00% close=1.87% headroom=14.08% pending=384 → DISPATCH 1 run × 16 units (16 units, cost 7.64%) — PROBE: one step above the proven maximum (1 × 12); a clean result (zero FAIL, zero 429, wall time within 25% of 15.6 min) raises max_clean_run`)
+  - at dispatched: `used=9.60%` (`[dispatched p1-run-04] budget 2026-09-05T03:32:38.463Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=9.60% peak=9.60% governing=25.00% close=1.87% headroom=13.53% pending=368 → DISPATCH 1 run × 16 units (16 units, cost 7.64%) — PROBE: one step above the proven maximum (1 × 12); a clean result (zero FAIL, zero 429, wall time within 25% of 15.6 min) raises max_clean_run`)
+  - at verified: `used=14.05%` (`[verified p1-run-04] budget 2026-09-05T03:47:13.581Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=14.05% peak=14.05% governing=25.00% close=1.87% headroom=9.08% pending=368 → DISPATCH 1 run × 16 units (16 units, cost 7.64%) — PROBE: one step above the proven maximum (1 × 12); a clean result (zero FAIL, zero 429, wall time within 25% of 15.6 min) raises max_clean_run`)
+  - per-unit delta: 0.28% (verified 14.05% − dispatched 9.60% = 4.45% ÷ 16 units = 0.278%)
+- **rot metrics**: none observed (used: 14.05%)
+- **429s and quota.reset_in_seconds**: none observed
+- **wall time**: 12m 53s (from `2026-09-05T03:32:38Z` dispatch to `2026-09-05T03:45:31Z` completion report). Probe clean: wall time 12.88 min ≤ 19.5 min bound (25% over 15.6m); raised `max_clean_run=16`, `last_clean_wall_minutes=12.6`.
+- **quote-check totals**:
+  - Run 04 cards: 2,086 PASS, 0 FAIL across 84 inventory cards (0% failure rate)
+  - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-04/success_auditor_report.md`
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.
