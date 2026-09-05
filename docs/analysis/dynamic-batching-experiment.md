@@ -68,6 +68,29 @@ One block per run, appended by the primary agent at §7 step 8 (fields: units; `
 
 The runs before that reset — the experiment of sessions 013–014 (runs 01–02 of the old numbering) and the test series of sessions 001–007 (`p1-run-01`…`p1-run-09`, 100 units, 428 cards, 8,466 PASS / 0 FAIL) — are recorded verbatim, block by block, in `rationale/13-test-series-and-final-parameters.md`; their outputs were deleted by the reset and their numbers are the basis of the parameters in `docs/plan/budget-params.json`.
 
+### run 01 (Session 001, production p1-run-01)
+
+- **run-id**: `p1-run-01`
+- **session**: 001 (Phase 1)
+- **units**: `inv-addy-1` through `inv-addy-24` (24 units, 145 inventory cards, 24 unit reports, 4 divergence cards)
+- **context used**:
+  - at run-start: `used=8.72%` (`[run-start p1-run-01 n=24] budget 2026-09-05T07:00:21.365Z conv=2930b2ca model="Gemini 3.8 Flash (High)" used=8.72% peak=8.72% governing=25.00% close=1.1% headroom=15.18% pending=416 → DISPATCH 1 run × 24 units`)
+  - at dispatched: `used=9.71%` (`[dispatched p1-run-01] budget 2026-09-05T07:01:06.416Z conv=2930b2ca model="Gemini 3.8 Flash (High)" used=9.71% peak=9.71% governing=25.00% close=1.1% headroom=14.19% pending=392 → DISPATCH 1 run × 24 units`)
+  - at verified: `used=11.94%` (`[verified p1-run-01] budget 2026-09-05T07:23:24.195Z conv=2930b2ca model="Gemini 3.8 Flash (High)" used=11.94% peak=11.94% governing=25.00% close=1.1% headroom=11.96% pending=392 → DISPATCH 1 run × 24 units`)
+  - per-unit delta: 0.093% (verified 11.94% − dispatched 9.71% = 2.23% ÷ 24 units = 0.0929%)
+- **rot metrics**: none observed (used: 11.94%)
+- **429s and quota.reset_in_seconds**: none observed
+- **wall time**: 20.6 min (20m 36s, from `2026-09-05T07:01:06Z` dispatch to `2026-09-05T07:22:21Z` completion). Files under `.teamwork/p1-run-01/`:
+  - `.teamwork/p1-run-01/ORIGINAL_REQUEST.md` (2026-09-05T07:01:14Z)
+  - `.teamwork/p1-run-01/success_auditor_report.md` (2026-09-05T07:20:34Z)
+  - `.teamwork/p1-run-01/handoff.md` (2026-09-05T07:22:16Z)
+- **Workers per unit**: 24 workers (`.agents/worker_1`..`worker_24` and `worker_inv-addy-1`..`worker_inv-addy-24`), one per unit, dispatched concurrently.
+- **quote-check totals**: 2,252 PASS, 0 FAIL across 145 inventory cards + 12 PASS, 0 FAIL on divergence cards (0% failure rate)
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-01/success_auditor_report.md` (verdict CLEAN)
+- **Probe verdict**: Quality clean (0 FAIL, 0 429, no rot metric), but wall time 20.6 min exceeded 25% bound of 12.6 min (15.75 min) due to review/audit/remediation pass on divergence card citations and YAML frontmatter. Per METHOD.md §8.2 step-up rule, `max_clean_run` stays at 16; 24 is not raised.
+
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.

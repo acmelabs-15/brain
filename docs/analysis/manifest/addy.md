@@ -1,152 +1,152 @@
 | Path | Bytes | Type | Checked |
 |---|---|---|---|
-| .agents/plugins/marketplace.json | 535 | agent | [ ] |
-| .claude-plugin/marketplace.json | 856 | config | [ ] |
-| .claude-plugin/plugin.json | 463 | config | [ ] |
-| .claude/commands/build.md | 3959 | command | [ ] |
-| .claude/commands/code-simplify.md | 1068 | command | [ ] |
-| .claude/commands/constraints.md | 2762 | command | [ ] |
-| .claude/commands/plan.md | 805 | command | [ ] |
-| .claude/commands/review.md | 846 | command | [ ] |
-| .claude/commands/ship.md | 4601 | command | [ ] |
-| .claude/commands/spec.md | 913 | command | [ ] |
-| .claude/commands/test.md | 665 | command | [ ] |
-| .claude/commands/webperf.md | 1974 | command | [ ] |
-| .claude/rules/skills-contributing.md | 988 | doc | [ ] |
-| .codex-plugin/plugin.json | 1119 | config | [ ] |
-| .gemini/commands/build.toml | 3840 | command | [ ] |
-| .gemini/commands/code-simplify.toml | 1066 | command | [ ] |
-| .gemini/commands/constraints.toml | 2775 | command | [ ] |
-| .gemini/commands/planning.toml | 635 | command | [ ] |
-| .gemini/commands/review.toml | 844 | command | [ ] |
-| .gemini/commands/ship.toml | 4780 | command | [ ] |
-| .gemini/commands/spec.toml | 911 | command | [ ] |
-| .gemini/commands/test.toml | 650 | command | [ ] |
-| .gemini/commands/webperf.toml | 1884 | command | [ ] |
-| .gitattributes | 19 | file | [ ] |
-| .github/ISSUE_TEMPLATE/skill-gap.yml | 2669 | config | [ ] |
-| .github/workflows/test-plugin-install.yml | 2703 | config | [ ] |
-| .gitignore | 121 | file | [ ] |
+| .agents/plugins/marketplace.json | 535 | agent | [x] |
+| .claude-plugin/marketplace.json | 856 | config | [x] |
+| .claude-plugin/plugin.json | 463 | config | [x] |
+| .claude/commands/build.md | 3959 | command | [x] |
+| .claude/commands/code-simplify.md | 1068 | command | [x] |
+| .claude/commands/constraints.md | 2762 | command | [x] |
+| .claude/commands/plan.md | 805 | command | [x] |
+| .claude/commands/review.md | 846 | command | [x] |
+| .claude/commands/ship.md | 4601 | command | [x] |
+| .claude/commands/spec.md | 913 | command | [x] |
+| .claude/commands/test.md | 665 | command | [x] |
+| .claude/commands/webperf.md | 1974 | command | [x] |
+| .claude/rules/skills-contributing.md | 988 | doc | [x] |
+| .codex-plugin/plugin.json | 1119 | config | [x] |
+| .gemini/commands/build.toml | 3840 | command | [x] |
+| .gemini/commands/code-simplify.toml | 1066 | command | [x] |
+| .gemini/commands/constraints.toml | 2775 | command | [x] |
+| .gemini/commands/planning.toml | 635 | command | [x] |
+| .gemini/commands/review.toml | 844 | command | [x] |
+| .gemini/commands/ship.toml | 4780 | command | [x] |
+| .gemini/commands/spec.toml | 911 | command | [x] |
+| .gemini/commands/test.toml | 650 | command | [x] |
+| .gemini/commands/webperf.toml | 1884 | command | [x] |
+| .gitattributes | 19 | file | [x] |
+| .github/ISSUE_TEMPLATE/skill-gap.yml | 2669 | config | [x] |
+| .github/workflows/test-plugin-install.yml | 2703 | config | [x] |
+| .gitignore | 121 | file | [x] |
 | .opencode/skills | 0 | symlink | [x] (symlink) |
-| AGENTS.md | 5386 | doc | [ ] |
-| agents/code-reviewer.md | 3995 | agent | [ ] |
-| agents/security-auditor.md | 4992 | agent | [ ] |
-| agents/test-engineer.md | 3275 | agent | [ ] |
-| agents/web-performance-auditor.md | 12278 | agent | [ ] |
-| CLAUDE.md | 4094 | doc | [ ] |
-| commands/build.toml | 3840 | command | [ ] |
-| commands/code-simplify.toml | 1066 | command | [ ] |
-| commands/constraints.toml | 2775 | command | [ ] |
-| commands/planning.toml | 635 | command | [ ] |
-| commands/review.toml | 844 | command | [ ] |
-| commands/ship.toml | 4712 | command | [ ] |
-| commands/spec.toml | 911 | command | [ ] |
-| commands/test.toml | 650 | command | [ ] |
-| commands/webperf.toml | 2031 | command | [ ] |
-| CONTRIBUTING.md | 7179 | doc | [ ] |
-| docs/adoption-guide.md | 11197 | doc | [ ] |
-| docs/agents.md | 6996 | doc | [ ] |
-| docs/antigravity-setup.md | 5041 | doc | [ ] |
-| docs/codex-setup.md | 1805 | doc | [ ] |
-| docs/commandcode-setup.md | 2437 | doc | [ ] |
-| docs/comparison.md | 15362 | doc | [ ] |
-| docs/copilot-setup.md | 3496 | doc | [ ] |
-| docs/cursor-setup.md | 8370 | doc | [ ] |
-| docs/developer-onboarding.md | 7850 | doc | [ ] |
-| docs/gemini-cli-setup.md | 5640 | doc | [ ] |
-| docs/getting-started.md | 7104 | doc | [ ] |
-| docs/opencode-setup.md | 9547 | doc | [ ] |
-| docs/skill-anatomy.md | 8849 | doc | [ ] |
-| docs/windsurf-setup.md | 1471 | doc | [ ] |
-| evals/cases/api-and-interface-design.json | 1494 | config | [ ] |
-| evals/cases/browser-testing-with-devtools.json | 1455 | config | [ ] |
-| evals/cases/ci-cd-and-automation.json | 1349 | config | [ ] |
-| evals/cases/code-review-and-quality.json | 1374 | config | [ ] |
-| evals/cases/code-simplification.json | 1330 | config | [ ] |
-| evals/cases/constraint-driven-development.json | 3353 | config | [ ] |
-| evals/cases/context-engineering.json | 1390 | config | [ ] |
-| evals/cases/debugging-and-error-recovery.json | 2078 | config | [ ] |
-| evals/cases/deprecation-and-migration.json | 1257 | config | [ ] |
-| evals/cases/documentation-and-adrs.json | 1328 | config | [ ] |
-| evals/cases/doubt-driven-development.json | 1274 | config | [ ] |
-| evals/cases/frontend-ui-engineering.json | 1430 | config | [ ] |
-| evals/cases/git-workflow-and-versioning.json | 1272 | config | [ ] |
-| evals/cases/idea-refine.json | 1269 | config | [ ] |
-| evals/cases/incremental-implementation.json | 1942 | config | [ ] |
-| evals/cases/interview-me.json | 1197 | config | [ ] |
-| evals/cases/observability-and-instrumentation.json | 1278 | config | [ ] |
-| evals/cases/performance-optimization.json | 1688 | config | [ ] |
-| evals/cases/planning-and-task-breakdown.json | 1233 | config | [ ] |
-| evals/cases/security-and-hardening.json | 1311 | config | [ ] |
-| evals/cases/shipping-and-launch.json | 1816 | config | [ ] |
-| evals/cases/source-driven-development.json | 1287 | config | [ ] |
-| evals/cases/spec-driven-development.json | 2657 | config | [ ] |
-| evals/cases/test-driven-development.json | 3981 | config | [ ] |
-| evals/cases/using-agent-skills.json | 1218 | config | [ ] |
-| evals/fixtures/api-and-interface-design/service-brief.md | 693 | doc | [ ] |
-| evals/fixtures/browser-testing-with-devtools/index.html | 869 | file | [ ] |
-| evals/fixtures/browser-testing-with-devtools/README.md | 186 | doc | [ ] |
-| evals/fixtures/browser-testing-with-devtools/server.js | 511 | file | [ ] |
-| evals/fixtures/ci-cd-and-automation/package.json | 132 | config | [ ] |
-| evals/fixtures/ci-cd-and-automation/src/slug.js | 93 | file | [ ] |
-| evals/fixtures/ci-cd-and-automation/test/slug.test.js | 234 | file | [ ] |
-| evals/fixtures/code-review-and-quality/user-search.diff | 513 | file | [ ] |
-| evals/fixtures/code-simplification/config-parser.js | 1592 | file | [ ] |
-| evals/fixtures/code-simplification/config-parser.test.js | 452 | file | [ ] |
-| evals/fixtures/context-engineering/context-audit.md | 653 | doc | [ ] |
-| evals/fixtures/debugging-and-error-recovery/pagination.js | 172 | file | [ ] |
-| evals/fixtures/debugging-and-error-recovery/pagination.test.js | 290 | file | [ ] |
-| evals/fixtures/debugging-and-error-recovery/time-pressure.md | 276 | doc | [ ] |
-| evals/fixtures/deprecation-and-migration/api-inventory.md | 504 | doc | [ ] |
-| evals/fixtures/documentation-and-adrs/decision-context.md | 757 | doc | [ ] |
-| evals/fixtures/doubt-driven-development/migration-plan.md | 672 | doc | [ ] |
-| evals/fixtures/frontend-ui-engineering/Button.tsx | 306 | file | [ ] |
-| evals/fixtures/frontend-ui-engineering/design-system.md | 530 | doc | [ ] |
-| evals/fixtures/git-workflow-and-versioning/.eval/working-tree.patch | 571 | file | [ ] |
-| evals/fixtures/git-workflow-and-versioning/app.js | 129 | file | [ ] |
-| evals/fixtures/git-workflow-and-versioning/app.test.js | 228 | file | [ ] |
-| evals/fixtures/incremental-implementation-pressure/draft-export.js | 552 | file | [ ] |
-| evals/fixtures/incremental-implementation-pressure/scenario.md | 419 | doc | [ ] |
-| evals/fixtures/incremental-implementation/reports.js | 145 | file | [ ] |
-| evals/fixtures/incremental-implementation/reports.test.js | 325 | file | [ ] |
-| evals/fixtures/incremental-implementation/tasks/plan.md | 311 | doc | [ ] |
-| evals/fixtures/observability-and-instrumentation/operations.md | 422 | doc | [ ] |
-| evals/fixtures/observability-and-instrumentation/payment-retry.js | 339 | file | [ ] |
-| evals/fixtures/performance-optimization/benchmark.js | 464 | file | [ ] |
-| evals/fixtures/performance-optimization/products.js | 393 | file | [ ] |
-| evals/fixtures/planning-and-task-breakdown/notifications-spec.md | 854 | doc | [ ] |
-| evals/fixtures/security-and-hardening/webhook.js | 271 | file | [ ] |
-| evals/fixtures/security-and-hardening/webhook.test.js | 414 | file | [ ] |
-| evals/fixtures/shipping-and-launch/authority-pressure.md | 288 | doc | [ ] |
-| evals/fixtures/shipping-and-launch/launch-status.md | 554 | doc | [ ] |
-| evals/fixtures/source-driven-development/framework-task.md | 535 | doc | [ ] |
-| evals/fixtures/spec-driven-development-decomposition/portal-brief.md | 1067 | doc | [ ] |
-| evals/fixtures/spec-driven-development/billing-brief.md | 689 | doc | [ ] |
-| evals/fixtures/test-driven-development-ecosystem/ledger.py | 457 | file | [ ] |
-| evals/fixtures/test-driven-development-ecosystem/README.md | 131 | doc | [ ] |
-| evals/fixtures/test-driven-development-ecosystem/test_ledger.py | 533 | file | [ ] |
-| evals/fixtures/test-driven-development/BUG.md | 394 | doc | [ ] |
-| evals/fixtures/test-driven-development/package.json | 189 | config | [ ] |
-| evals/fixtures/test-driven-development/README.md | 787 | doc | [ ] |
-| evals/fixtures/test-driven-development/src/split.js | 181 | file | [ ] |
-| evals/fixtures/test-driven-development/test/split.test.js | 398 | file | [ ] |
-| evals/fixtures/using-agent-skills/incident.md | 321 | doc | [ ] |
-| evals/README.md | 8114 | doc | [ ] |
-| external/api-and-interface-design.md | 26413 | external-doc | [ ] |
-| external/browser-testing-with-devtools.md | 23834 | external-doc | [ ] |
-| external/ci-cd-and-automation.md | 26179 | external-doc | [ ] |
-| external/code-review-and-quality.md | 26687 | external-doc | [ ] |
-| external/code-simplification.md | 26320 | external-doc | [ ] |
+| AGENTS.md | 5386 | doc | [x] |
+| agents/code-reviewer.md | 3995 | agent | [x] |
+| agents/security-auditor.md | 4992 | agent | [x] |
+| agents/test-engineer.md | 3275 | agent | [x] |
+| agents/web-performance-auditor.md | 12278 | agent | [x] |
+| CLAUDE.md | 4094 | doc | [x] |
+| commands/build.toml | 3840 | command | [x] |
+| commands/code-simplify.toml | 1066 | command | [x] |
+| commands/constraints.toml | 2775 | command | [x] |
+| commands/planning.toml | 635 | command | [x] |
+| commands/review.toml | 844 | command | [x] |
+| commands/ship.toml | 4712 | command | [x] |
+| commands/spec.toml | 911 | command | [x] |
+| commands/test.toml | 650 | command | [x] |
+| commands/webperf.toml | 2031 | command | [x] |
+| CONTRIBUTING.md | 7179 | doc | [x] |
+| docs/adoption-guide.md | 11197 | doc | [x] |
+| docs/agents.md | 6996 | doc | [x] |
+| docs/antigravity-setup.md | 5041 | doc | [x] |
+| docs/codex-setup.md | 1805 | doc | [x] |
+| docs/commandcode-setup.md | 2437 | doc | [x] |
+| docs/comparison.md | 15362 | doc | [x] |
+| docs/copilot-setup.md | 3496 | doc | [x] |
+| docs/cursor-setup.md | 8370 | doc | [x] |
+| docs/developer-onboarding.md | 7850 | doc | [x] |
+| docs/gemini-cli-setup.md | 5640 | doc | [x] |
+| docs/getting-started.md | 7104 | doc | [x] |
+| docs/opencode-setup.md | 9547 | doc | [x] |
+| docs/skill-anatomy.md | 8849 | doc | [x] |
+| docs/windsurf-setup.md | 1471 | doc | [x] |
+| evals/cases/api-and-interface-design.json | 1494 | config | [x] |
+| evals/cases/browser-testing-with-devtools.json | 1455 | config | [x] |
+| evals/cases/ci-cd-and-automation.json | 1349 | config | [x] |
+| evals/cases/code-review-and-quality.json | 1374 | config | [x] |
+| evals/cases/code-simplification.json | 1330 | config | [x] |
+| evals/cases/constraint-driven-development.json | 3353 | config | [x] |
+| evals/cases/context-engineering.json | 1390 | config | [x] |
+| evals/cases/debugging-and-error-recovery.json | 2078 | config | [x] |
+| evals/cases/deprecation-and-migration.json | 1257 | config | [x] |
+| evals/cases/documentation-and-adrs.json | 1328 | config | [x] |
+| evals/cases/doubt-driven-development.json | 1274 | config | [x] |
+| evals/cases/frontend-ui-engineering.json | 1430 | config | [x] |
+| evals/cases/git-workflow-and-versioning.json | 1272 | config | [x] |
+| evals/cases/idea-refine.json | 1269 | config | [x] |
+| evals/cases/incremental-implementation.json | 1942 | config | [x] |
+| evals/cases/interview-me.json | 1197 | config | [x] |
+| evals/cases/observability-and-instrumentation.json | 1278 | config | [x] |
+| evals/cases/performance-optimization.json | 1688 | config | [x] |
+| evals/cases/planning-and-task-breakdown.json | 1233 | config | [x] |
+| evals/cases/security-and-hardening.json | 1311 | config | [x] |
+| evals/cases/shipping-and-launch.json | 1816 | config | [x] |
+| evals/cases/source-driven-development.json | 1287 | config | [x] |
+| evals/cases/spec-driven-development.json | 2657 | config | [x] |
+| evals/cases/test-driven-development.json | 3981 | config | [x] |
+| evals/cases/using-agent-skills.json | 1218 | config | [x] |
+| evals/fixtures/api-and-interface-design/service-brief.md | 693 | doc | [x] |
+| evals/fixtures/browser-testing-with-devtools/index.html | 869 | file | [x] |
+| evals/fixtures/browser-testing-with-devtools/README.md | 186 | doc | [x] |
+| evals/fixtures/browser-testing-with-devtools/server.js | 511 | file | [x] |
+| evals/fixtures/ci-cd-and-automation/package.json | 132 | config | [x] |
+| evals/fixtures/ci-cd-and-automation/src/slug.js | 93 | file | [x] |
+| evals/fixtures/ci-cd-and-automation/test/slug.test.js | 234 | file | [x] |
+| evals/fixtures/code-review-and-quality/user-search.diff | 513 | file | [x] |
+| evals/fixtures/code-simplification/config-parser.js | 1592 | file | [x] |
+| evals/fixtures/code-simplification/config-parser.test.js | 452 | file | [x] |
+| evals/fixtures/context-engineering/context-audit.md | 653 | doc | [x] |
+| evals/fixtures/debugging-and-error-recovery/pagination.js | 172 | file | [x] |
+| evals/fixtures/debugging-and-error-recovery/pagination.test.js | 290 | file | [x] |
+| evals/fixtures/debugging-and-error-recovery/time-pressure.md | 276 | doc | [x] |
+| evals/fixtures/deprecation-and-migration/api-inventory.md | 504 | doc | [x] |
+| evals/fixtures/documentation-and-adrs/decision-context.md | 757 | doc | [x] |
+| evals/fixtures/doubt-driven-development/migration-plan.md | 672 | doc | [x] |
+| evals/fixtures/frontend-ui-engineering/Button.tsx | 306 | file | [x] |
+| evals/fixtures/frontend-ui-engineering/design-system.md | 530 | doc | [x] |
+| evals/fixtures/git-workflow-and-versioning/.eval/working-tree.patch | 571 | file | [x] |
+| evals/fixtures/git-workflow-and-versioning/app.js | 129 | file | [x] |
+| evals/fixtures/git-workflow-and-versioning/app.test.js | 228 | file | [x] |
+| evals/fixtures/incremental-implementation-pressure/draft-export.js | 552 | file | [x] |
+| evals/fixtures/incremental-implementation-pressure/scenario.md | 419 | doc | [x] |
+| evals/fixtures/incremental-implementation/reports.js | 145 | file | [x] |
+| evals/fixtures/incremental-implementation/reports.test.js | 325 | file | [x] |
+| evals/fixtures/incremental-implementation/tasks/plan.md | 311 | doc | [x] |
+| evals/fixtures/observability-and-instrumentation/operations.md | 422 | doc | [x] |
+| evals/fixtures/observability-and-instrumentation/payment-retry.js | 339 | file | [x] |
+| evals/fixtures/performance-optimization/benchmark.js | 464 | file | [x] |
+| evals/fixtures/performance-optimization/products.js | 393 | file | [x] |
+| evals/fixtures/planning-and-task-breakdown/notifications-spec.md | 854 | doc | [x] |
+| evals/fixtures/security-and-hardening/webhook.js | 271 | file | [x] |
+| evals/fixtures/security-and-hardening/webhook.test.js | 414 | file | [x] |
+| evals/fixtures/shipping-and-launch/authority-pressure.md | 288 | doc | [x] |
+| evals/fixtures/shipping-and-launch/launch-status.md | 554 | doc | [x] |
+| evals/fixtures/source-driven-development/framework-task.md | 535 | doc | [x] |
+| evals/fixtures/spec-driven-development-decomposition/portal-brief.md | 1067 | doc | [x] |
+| evals/fixtures/spec-driven-development/billing-brief.md | 689 | doc | [x] |
+| evals/fixtures/test-driven-development-ecosystem/ledger.py | 457 | file | [x] |
+| evals/fixtures/test-driven-development-ecosystem/README.md | 131 | doc | [x] |
+| evals/fixtures/test-driven-development-ecosystem/test_ledger.py | 533 | file | [x] |
+| evals/fixtures/test-driven-development/BUG.md | 394 | doc | [x] |
+| evals/fixtures/test-driven-development/package.json | 189 | config | [x] |
+| evals/fixtures/test-driven-development/README.md | 787 | doc | [x] |
+| evals/fixtures/test-driven-development/src/split.js | 181 | file | [x] |
+| evals/fixtures/test-driven-development/test/split.test.js | 398 | file | [x] |
+| evals/fixtures/using-agent-skills/incident.md | 321 | doc | [x] |
+| evals/README.md | 8114 | doc | [x] |
+| external/api-and-interface-design.md | 26413 | external-doc | [x] |
+| external/browser-testing-with-devtools.md | 23834 | external-doc | [x] |
+| external/ci-cd-and-automation.md | 26179 | external-doc | [x] |
+| external/code-review-and-quality.md | 26687 | external-doc | [x] |
+| external/code-simplification.md | 26320 | external-doc | [x] |
 | external/constraint-driven-development.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
-| external/context-engineering.md | 26352 | external-doc | [ ] |
-| external/debugging-and-error-recovery.md | 23705 | external-doc | [ ] |
-| external/deprecation-and-migration.md | 26252 | external-doc | [ ] |
-| external/documentation-and-adrs.md | 26223 | external-doc | [ ] |
-| external/doubt-driven-development.md | 26502 | external-doc | [ ] |
-| external/frontend-ui-engineering.md | 26596 | external-doc | [ ] |
-| external/git-workflow-and-versioning.md | 26317 | external-doc | [ ] |
-| external/idea-refine.md | 24943 | external-doc | [ ] |
-| external/incremental-implementation.md | 26461 | external-doc | [ ] |
+| external/context-engineering.md | 26352 | external-doc | [x] |
+| external/debugging-and-error-recovery.md | 23705 | external-doc | [x] |
+| external/deprecation-and-migration.md | 26252 | external-doc | [x] |
+| external/documentation-and-adrs.md | 26223 | external-doc | [x] |
+| external/doubt-driven-development.md | 26502 | external-doc | [x] |
+| external/frontend-ui-engineering.md | 26596 | external-doc | [x] |
+| external/git-workflow-and-versioning.md | 26317 | external-doc | [x] |
+| external/idea-refine.md | 24943 | external-doc | [x] |
+| external/incremental-implementation.md | 26461 | external-doc | [x] |
 | external/interview-me.md | 24935 | external-doc | [ ] |
 | external/observability-and-instrumentation.md | 26344 | external-doc | [ ] |
 | external/performance-optimization.md | 26603 | external-doc | [ ] |
