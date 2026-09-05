@@ -12,7 +12,7 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase_name** | Inventory |
 | **current_unit** | inv-addy-9 |
 | **last_session** | 003 |
-| **next_action** | STOP: needs Peter — resolve METHOD.md sha mismatch on session 001 cards |
+| **next_action** | await p1-run-02 (units inv-addy-9..20) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -65,8 +65,8 @@ The unit table is `docs/plan/units.md`, written only by `bun scripts/synthesis/u
 
 | Status | Units |
 |---|---|
-| pending | 408 |
-| in-progress | 0 |
+| pending | 396 |
+| in-progress | 12 |
 | done | 8 |
 | blocked | 0 |
 | rolled-back | 0 |
@@ -119,9 +119,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 
 Anything the agent cannot resolve alone. Each row names what Peter needs to do.
 
-| Since | Unit / item | Reason | Needs |
-|---|---|---|---|
-| 2026-09-04 | units inv-addy-1..8 / memo.ts audit | Commit 9e274fb modified METHOD.md; all 90 cards fail memo check/audit with STALE (METHOD.md sha mismatch) | Peter to decide: re-stamp cards to current METHOD.md, or invalidate/re-run units 1-8 |
+*(none)*
 
 ---
 
