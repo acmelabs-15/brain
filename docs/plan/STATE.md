@@ -8,11 +8,11 @@ This file is the single source of truth for where the project is. It is updated 
 
 | Field | Value |
 |---|---|
-| **phase** | `0` |
-| **phase_name** | Setup |
-| **current_unit** | — |
-| **last_session** | — |
-| **next_action** | Run Phase 0 per METHOD.md §5 (tooling is shipped; D-021 reset after the test series; sources already cloned at the pins) |
+| **phase** | `1` |
+| **phase_name** | Inventory |
+| **current_unit** | inv-addy-1 |
+| **last_session** | 000 |
+| **next_action** | Dispatch first Phase 1 run per budget.ts recommendation (PROBE: 1 run × 24 units, inv-addy-1..24) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -37,7 +37,7 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 
 | Phase | Name | Status | Done criteria met | Session(s) |
 |---|---|---|---|---|
-| 0 | Setup | `pending` | — | — |
+| 0 | Setup | `done` | four manifests and three ledgers exist; units.md initialized; brain-conventions.md written; all §10 checks clean | 000 |
 | 0.5 | Landscape scan | `skipped` — D-007 `landscape_scan: no` | — | — |
 | 1 | Inventory | `pending` | — | — |
 | 1V | Inventory verification | `pending` | — | — |
@@ -65,12 +65,12 @@ The unit table is `docs/plan/units.md`, written only by `bun scripts/synthesis/u
 
 | Status | Units |
 |---|---|
-| pending | 0 |
+| pending | 416 |
 | in-progress | 0 |
 | done | 0 |
 | blocked | 0 |
 | rolled-back | 0 |
-| **total** | **0** |
+| **total** | **416** |
 
 ### Phase 2 — Concept card units
 
@@ -105,7 +105,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 
 | Metric | Value |
 |---|---|
-| Manifest rows (addy / matt / rjm) | — / — / — |
+| Manifest rows (addy / matt / rjm) | 219 / 201 / 1175 |
 | Inventory units done (addy / matt / rjm) | 0 / 0 / 0 |
 | Concept cards (addy / matt / rjm) | — / — / — |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | — |
@@ -131,10 +131,10 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 
 | Check | Last run | Result |
 |---|---|---|
-| coverage.ts | — | — |
-| units.ts check | — | — |
-| budget.ts | — | — |
-| glossary-lint.ts | — | — |
-| last-unit verification | — | — |
+| coverage.ts | 2026-09-04 | clean (1595 rows, 0 covered, 1567 uncovered, 0 failures) |
+| units.ts check | 2026-09-04 | clean (416 total — pending 416 · in-progress 0 · done 0 · blocked 0 · rolled-back 0) |
+| budget.ts | 2026-09-04 | clean (used=9.64%, peak=9.64%, governing=25.00%, headroom=14.26%) |
+| glossary-lint.ts | 2026-09-04 | clean |
+| last-unit verification | 2026-09-04 | none (Phase 0) |
 | decision consistency (4V) | — | — |
 | traceability | — | — |
