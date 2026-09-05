@@ -4,14 +4,14 @@ Written and changed only by `scripts/synthesis/units.ts` (METHOD §7). Do not ed
 
 | Unit | Package | Files | Bytes | Status | Session | Output |
 |---|---|---|---|---|---|---|
-| inv-addy-1 | addy | 12 | 19447 | pending | — | — |
-| inv-addy-2 | addy | 12 | 19511 | pending | — | — |
-| inv-addy-3 | addy | 12 | 47194 | pending | — | — |
-| inv-addy-4 | addy | 12 | 44438 | pending | — | — |
-| inv-addy-5 | addy | 6 | 47822 | pending | — | — |
-| inv-addy-6 | addy | 12 | 34947 | pending | — | — |
-| inv-addy-7 | addy | 12 | 17038 | pending | — | — |
-| inv-addy-8 | addy | 12 | 12374 | pending | — | — |
+| inv-addy-1 | addy | 12 | 19447 | in-progress | 001 | — |
+| inv-addy-2 | addy | 12 | 19511 | in-progress | 001 | — |
+| inv-addy-3 | addy | 12 | 47194 | in-progress | 001 | — |
+| inv-addy-4 | addy | 12 | 44438 | in-progress | 001 | — |
+| inv-addy-5 | addy | 6 | 47822 | in-progress | 001 | — |
+| inv-addy-6 | addy | 12 | 34947 | in-progress | 001 | — |
+| inv-addy-7 | addy | 12 | 17038 | in-progress | 001 | — |
+| inv-addy-8 | addy | 12 | 12374 | in-progress | 001 | — |
 | inv-addy-9 | addy | 12 | 6775 | pending | — | — |
 | inv-addy-10 | addy | 12 | 4581 | pending | — | — |
 | inv-addy-11 | addy | 12 | 5522 | pending | — | — |
