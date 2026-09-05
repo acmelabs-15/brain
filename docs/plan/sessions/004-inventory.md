@@ -12,7 +12,7 @@ prefix_hash_start: 013f30bc9095fecd
 prefix_hash_end: 
 context_used_start: 8.65%
 context_used_peak: 
-runs: [p1-run-07 (1 × 32)]
+runs: [p1-run-07 (1 × 32), p1-run-08 (1 × 16)]
 compactions: 0
 ---
 
