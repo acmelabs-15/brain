@@ -11,8 +11,8 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `1` |
 | **phase_name** | Inventory |
 | **current_unit** | inv-addy-9 |
-| **last_session** | 001 |
-| **next_action** | Resume Phase 1 inventory at inv-addy-9 per budget.ts recommendation |
+| **last_session** | 002 |
+| **next_action** | STOP: needs Peter — resolve METHOD.md sha mismatch on session 001 cards |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -121,7 +121,7 @@ Anything the agent cannot resolve alone. Each row names what Peter needs to do.
 
 | Since | Unit / item | Reason | Needs |
 |---|---|---|---|
-| — | — | — | — |
+| 2026-09-04 | units inv-addy-1..8 / memo.ts audit | Commit 9e274fb modified METHOD.md; all 90 cards fail memo check/audit with STALE (METHOD.md sha mismatch) | Peter to decide: re-stamp cards to current METHOD.md, or invalidate/re-run units 1-8 |
 
 ---
 
@@ -131,10 +131,11 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 
 | Check | Last run | Result |
 |---|---|---|
-| coverage.ts | 2026-09-04 | clean (1595 rows, 1567 uncovered, 0 failures) |
+| coverage.ts | 2026-09-04 | clean (1595 rows, 1477 uncovered, 0 failures) |
 | units.ts check | 2026-09-04 | clean (416 units agree across table, manifest, STATE.md) |
-| budget.ts | 2026-09-04 | clean (used=9.41%, headroom=12.69%) |
+| budget.ts | 2026-09-04 | clean (used=10.89%, headroom=12.82%) |
 | glossary-lint.ts | 2026-09-04 | clean |
-| last-unit verification | 2026-09-04 | clean (Phase 0: none) |
+| last-unit verification | 2026-09-04 | FAIL: memo.ts check inv-addy-8 reported MISS on METHOD.md (sha changed in 9e274fb) |
+| memo.ts audit | 2026-09-04 | FAIL: 0 OK, 90 STALE, 0 UNSTAMPED across 90 card(s) (METHOD.md) |
 | decision consistency (4V) | — | — (Phase 4) |
 | traceability | — | — (Phase 5/8) |
