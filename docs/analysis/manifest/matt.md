@@ -59,60 +59,60 @@
 | external/diagnosing-bugs.md | 358695 | external-doc | [x] |
 | external/domain-modeling.md | 361293 | external-doc | [x] |
 | external/git-guardrails-claude-code.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
-| external/grill-me.md | 348368 | external-doc | [ ] |
-| external/grill-with-docs.md | 362890 | external-doc | [ ] |
-| external/grilling.md | 361073 | external-doc | [ ] |
-| external/handoff.md | 380255 | external-doc | [ ] |
+| external/grill-me.md | 348368 | external-doc | [x] |
+| external/grill-with-docs.md | 362890 | external-doc | [x] |
+| external/grilling.md | 361073 | external-doc | [x] |
+| external/handoff.md | 380255 | external-doc | [x] |
 | external/implement-spec.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
-| external/implement.md | 362825 | external-doc | [ ] |
-| external/improve-codebase-architecture.md | 368468 | external-doc | [ ] |
+| external/implement.md | 362825 | external-doc | [x] |
+| external/improve-codebase-architecture.md | 368468 | external-doc | [x] |
 | external/loop-me.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
 | external/migrate-to-shoehorn.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
-| external/prototype.md | 341956 | external-doc | [ ] |
-| external/research.md | 347558 | external-doc | [ ] |
-| external/resolving-merge-conflicts.md | 339023 | external-doc | [ ] |
+| external/prototype.md | 341956 | external-doc | [x] |
+| external/research.md | 347558 | external-doc | [x] |
+| external/resolving-merge-conflicts.md | 339023 | external-doc | [x] |
 | external/retro.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
 | external/scaffold-exercises.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
-| external/setup-matt-pocock-skills.md | 356510 | external-doc | [ ] |
+| external/setup-matt-pocock-skills.md | 356510 | external-doc | [x] |
 | external/setup-pre-commit.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
 | external/setup-ts-deep-modules.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
-| external/tdd.md | 360633 | external-doc | [ ] |
-| external/teach.md | 373585 | external-doc | [ ] |
-| external/to-questionnaire.md | 351319 | external-doc | [ ] |
-| external/to-spec.md | 359264 | external-doc | [ ] |
-| external/to-tickets.md | 368020 | external-doc | [ ] |
-| external/triage.md | 376711 | external-doc | [ ] |
-| external/wait-what.md | 329864 | external-doc | [ ] |
-| external/wayfinder.md | 374029 | external-doc | [ ] |
-| external/wizard.md | 363000 | external-doc | [ ] |
+| external/tdd.md | 360633 | external-doc | [x] |
+| external/teach.md | 373585 | external-doc | [x] |
+| external/to-questionnaire.md | 351319 | external-doc | [x] |
+| external/to-spec.md | 359264 | external-doc | [x] |
+| external/to-tickets.md | 368020 | external-doc | [x] |
+| external/triage.md | 376711 | external-doc | [x] |
+| external/wait-what.md | 329864 | external-doc | [x] |
+| external/wayfinder.md | 374029 | external-doc | [x] |
+| external/wizard.md | 363000 | external-doc | [x] |
 | external/writing-beats.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
-| external/writing-for-agents.md | 345577 | external-doc | [ ] |
+| external/writing-for-agents.md | 345577 | external-doc | [x] |
 | external/writing-fragments.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
 | external/writing-shape.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
-| LICENSE | 1068 | file | [ ] |
-| package-lock.json | 49290 | config | [ ] |
-| package.json | 597 | config | [ ] |
-| README.md | 15587 | doc | [ ] |
-| scripts/link-skills.sh | 1815 | script | [ ] |
-| scripts/list-skills.sh | 168 | script | [ ] |
-| scripts/sync-plugin-version.mjs | 1429 | script | [ ] |
-| skills/deprecated/README.md | 160 | skill | [ ] |
-| skills/engineering/ask-matt/agents/openai.yaml | 137 | skill | [ ] |
-| skills/engineering/ask-matt/PHASE-BOUNDARIES.md | 4249 | skill | [ ] |
-| skills/engineering/ask-matt/SKILL.md | 11417 | skill | [ ] |
-| skills/engineering/code-review/agents/openai.yaml | 100 | skill | [ ] |
-| skills/engineering/code-review/SKILL.md | 6589 | skill | [ ] |
-| skills/engineering/codebase-design/agents/openai.yaml | 102 | skill | [ ] |
-| skills/engineering/codebase-design/DEEPENING.md | 2553 | skill | [ ] |
-| skills/engineering/codebase-design/DESIGN-IT-TWICE.md | 2664 | skill | [ ] |
-| skills/engineering/codebase-design/SKILL.md | 6446 | skill | [ ] |
-| skills/engineering/diagnosing-bugs/agents/openai.yaml | 103 | skill | [ ] |
-| skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh | 1316 | script | [ ] |
-| skills/engineering/diagnosing-bugs/SKILL.md | 8529 | skill | [ ] |
-| skills/engineering/domain-modeling/ADR-FORMAT.md | 2733 | skill | [ ] |
-| skills/engineering/domain-modeling/agents/openai.yaml | 101 | skill | [ ] |
-| skills/engineering/domain-modeling/CONTEXT-FORMAT.md | 2290 | skill | [ ] |
-| skills/engineering/domain-modeling/SKILL.md | 3331 | skill | [ ] |
+| LICENSE | 1068 | file | [x] |
+| package-lock.json | 49290 | config | [x] |
+| package.json | 597 | config | [x] |
+| README.md | 15587 | doc | [x] |
+| scripts/link-skills.sh | 1815 | script | [x] |
+| scripts/list-skills.sh | 168 | script | [x] |
+| scripts/sync-plugin-version.mjs | 1429 | script | [x] |
+| skills/deprecated/README.md | 160 | skill | [x] |
+| skills/engineering/ask-matt/agents/openai.yaml | 137 | skill | [x] |
+| skills/engineering/ask-matt/PHASE-BOUNDARIES.md | 4249 | skill | [x] |
+| skills/engineering/ask-matt/SKILL.md | 11417 | skill | [x] |
+| skills/engineering/code-review/agents/openai.yaml | 100 | skill | [x] |
+| skills/engineering/code-review/SKILL.md | 6589 | skill | [x] |
+| skills/engineering/codebase-design/agents/openai.yaml | 102 | skill | [x] |
+| skills/engineering/codebase-design/DEEPENING.md | 2553 | skill | [x] |
+| skills/engineering/codebase-design/DESIGN-IT-TWICE.md | 2664 | skill | [x] |
+| skills/engineering/codebase-design/SKILL.md | 6446 | skill | [x] |
+| skills/engineering/diagnosing-bugs/agents/openai.yaml | 103 | skill | [x] |
+| skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh | 1316 | script | [x] |
+| skills/engineering/diagnosing-bugs/SKILL.md | 8529 | skill | [x] |
+| skills/engineering/domain-modeling/ADR-FORMAT.md | 2733 | skill | [x] |
+| skills/engineering/domain-modeling/agents/openai.yaml | 101 | skill | [x] |
+| skills/engineering/domain-modeling/CONTEXT-FORMAT.md | 2290 | skill | [x] |
+| skills/engineering/domain-modeling/SKILL.md | 3331 | skill | [x] |
 | skills/engineering/grill-with-docs/agents/openai.yaml | 145 | skill | [ ] |
 | skills/engineering/grill-with-docs/SKILL.md | 247 | skill | [ ] |
 | skills/engineering/implement/agents/openai.yaml | 139 | skill | [ ] |
