@@ -46,7 +46,7 @@ Units: any `quote-check.ts` FAIL on a returned card; an empty required field; a 
 
 ## 5. Concurrency
 
-Inside a run every unit is a Worker and all Workers start together; the run's worker window is set by the largest unit, not by the count (§9.10). Across runs, `k` simultaneous dispatches from one conversation are a D-010 probe. What is measured per run: units, wall time (dispatch → COMPLETE, from `await-run.ts`), 429 onset and `quota.reset_in_seconds`, Success Auditor sandbox failures, per-unit `quote-check.ts` FAIL count, worker compactions (from the capture).
+Inside a run every unit is a Worker and all Workers start together — the brief requires it (METHOD §6.3.1, D-021), because left to itself the Orchestrator did otherwise in the test series (§10.2); the run's worker window is then set by the largest unit, not by the count (§9.9). Across runs, `k` simultaneous dispatches from one conversation are a D-010 probe. What is measured per run: units, wall time (dispatch → COMPLETE, from `await-run.ts`), 429 onset and `quota.reset_in_seconds`, Success Auditor sandbox failures, per-unit `quote-check.ts` FAIL count, worker compactions (from the capture).
 
 ## 6. Harness facts, cited
 
@@ -64,282 +64,9 @@ Inside a run every unit is a Worker and all Workers start together; the run's wo
 
 ## 7. Results
 
-### run 01
+One block per run, appended by the primary agent at §7 step 8 (fields: units; `budget.ts --line` at run-start / dispatched / verified; wall time; Workers per unit as the run's `.agents/worker_*` directories show; 429s; quote-check totals; the Success Auditor's report path). Run numbering here follows the run ids: `p1-run-01` is run 01 of the production series, which begins after the D-021 reset of 2026-09-05.
 
-- **run-id**: `p1-run-01`
-- **units**: `inv-addy-1`, `inv-addy-6`, `inv-addy-8`, `inv-addy-9`, `inv-addy-12`, `inv-addy-14` (6 units, 88 files, 4 divergence pairs)
-- **context used**:
-  - start: not observed
-  - at approval: not observed
-  - after report 1: not observed
-  - after report 2: not observed
-  - after report 3: not observed
-  - after report 4: not observed
-  - at end: not observed
-  - largest per-unit delta: not observed
-- **rot metrics**: none observed (used: not observed)
-- **429s and quota.reset_in_seconds**: none observed
-- **wall time**: 27m 54s (from `2026-09-04T17:54:17Z` request to `2026-09-04T18:22:11Z` final report). Files read under `.teamwork/p1-run-01/` and `.agents/`:
-  - `.teamwork/p1-run-01/DISPATCH.md` (dispatch logged at 2026-09-04T17:55:17Z)
-  - `.teamwork/p1-run-01/progress.md` (last visited at 2026-09-04T18:18:25Z)
-  - `.teamwork/p1-run-01/handoff.md` (orchestrator handoff at 2026-09-04T18:18:40Z)
-  - `.teamwork/p1-run-01/success_auditor_report.md` (completed at 2026-09-04T18:17:15Z)
-  - `.agents/victory_auditor_p1_run_01/handoff.md` (audit completed at 2026-09-04T18:22:30Z)
-- **quote-check totals**:
-  - Run 01 cards: 1,158 PASS, 0 FAIL, 0 MISSING across 92 cards (0% failure rate)
-  - Baseline (§2): 6,208 PASS, 1,228 FAIL, 339 MISSING across 212 cards (18% failure rate)
-- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-01/success_auditor_report.md` (confirmed by victory auditor at `/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/victory_auditor_p1_run_01/handoff.md` with VICTORY CONFIRMED)
-
-### run 02
-
-- **run-id**: `p1-run-02`
-- **units**: `inv-addy-15`, `inv-addy-16`, `inv-addy-17`, `inv-addy-22`, `inv-addy-25`, `inv-addy-36`, `inv-addy-37`, `inv-addy-38` (8 units)
-- **context readings**:
-  - session start:
-```
-budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
-  used now        9.071636199951172%  (95,123 tokens; peak this conversation 9.071636199951172%; compactions seen 0)
-  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
-  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
-  headroom        9.93%
-  per-unit delta  not measured%   units_left —   max clean run —   pending 303
-  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
-```
-  - immediately before dispatch:
-```
-budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
-  used now        10.214805603027344%  (107,110 tokens; peak this conversation 10.214805603027344%; compactions seen 0)
-  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
-  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
-  headroom        8.79%
-  per-unit delta  not measured%   units_left —   max clean run —   pending 295
-  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
-```
-  - after Sentinel report 1 (2026-09-04T20:03:55Z):
-```
-budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
-  used now        11.05642318725586%  (115,935 tokens; peak this conversation 11.05642318725586%; compactions seen 0)
-  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
-  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
-  headroom        7.94%
-  per-unit delta  not measured%   units_left —   max clean run —   pending 295
-  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
-```
-  - after Sentinel report 2 (2026-09-04T20:08:16Z):
-```
-budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
-  used now        11.581611633300781%  (121,442 tokens; peak this conversation 11.581611633300781%; compactions seen 0)
-  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
-  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
-  headroom        7.42%
-  per-unit delta  not measured%   units_left —   max clean run —   pending 295
-  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
-```
-  - after Sentinel report 3 (2026-09-04T20:10:05Z):
-```
-budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
-  used now        11.871528625488281%  (124,482 tokens; peak this conversation 11.871528625488281%; compactions seen 0)
-  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
-  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
-  headroom        7.13%
-  per-unit delta  not measured%   units_left —   max clean run —   pending 295
-  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
-```
-  - after Sentinel report 4 (2026-09-04T20:16:11Z):
-```
-budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
-  used now        12.137699127197266%  (127,273 tokens; peak this conversation 12.137699127197266%; compactions seen 0)
-  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
-  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
-  headroom        6.86%
-  per-unit delta  not measured%   units_left —   max clean run —   pending 295
-  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
-```
-  - after Sentinel report 5 (2026-09-04T20:18:20Z):
-```
-budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
-  used now        12.427997589111328%  (130,317 tokens; peak this conversation 12.427997589111328%; compactions seen 0)
-  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
-  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
-  headroom        6.57%
-  per-unit delta  not measured%   units_left —   max clean run —   pending 295
-  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
-```
-  - after Sentinel report 6 (2026-09-04T20:20:06Z):
-```
-budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
-  used now        12.712764739990234%  (133,303 tokens; peak this conversation 12.712764739990234%; compactions seen 0)
-  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
-  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
-  headroom        6.29%
-  per-unit delta  not measured%   units_left —   max clean run —   pending 295
-  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
-```
-  - after verification:
-```
-budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be0644c-481b-4495-ab2e-b33297756439
-  used now        14.423465728759766%  (151,241 tokens; peak this conversation 14.423465728759766%; compactions seen 0)
-  ceiling         strict 6.25%  plateau 25%  ← context-ceilings.json["Gemini 3.8 Flash (High)"]
-  governing       21%  (budget-params.experiment_ceiling_pct (provisional))   reserve 2%
-  headroom        4.58%
-  per-unit delta  not measured%   units_left —   max clean run —   pending 295
-  DISPATCH 6 (per-unit delta not yet measured: run the smallest size and measure)
-```
-- **per-unit delta**: 0.53% (used after verification 14.42% − used before dispatch 10.21% = 4.21% ÷ 8 units = 0.526%)
-- **rot metrics**: none observed (used: 14.42%)
-- **429s and quota.reset_in_seconds**: none observed
-- **wall time**: 17m 00s (from `2026-09-04T20:04:00Z` dispatch to `2026-09-04T20:21:00Z` sentinel final handoff). Files read under `.teamwork/p1-run-02/` and `.agents/`:
-  - `.teamwork/p1-run-02/DISPATCH.md` (dispatch logged at 2026-09-04T20:04:00Z)
-  - `.teamwork/p1-run-02/progress.md` (last updated at 2026-09-04T20:17:15Z)
-  - `.teamwork/p1-run-02/handoff.md` (orchestrator handoff at 2026-09-04T20:17:30Z)
-  - `.teamwork/p1-run-02/success_auditor_report.md` (completed at 2026-09-04T20:17:15Z)
-  - `.agents/victory_auditor_p1_run_02/handoff.md` (audit completed at 2026-09-04T20:20:00Z)
-  - `.agents/sentinel_p1_run_02/handoff.md` (sentinel handoff at 2026-09-04T20:21:00Z)
-- **quote-check totals**:
-  - Run 02 cards: 1,003 PASS, 0 FAIL, 0 MISSING across 17 cards (0% failure rate)
-  - Cumulative (Runs 01 + 02): 2,161 PASS, 0 FAIL, 0 MISSING across 109 cards (0% failure rate)
-  - Baseline (§2): 6,208 PASS, 1,228 FAIL, 339 MISSING across 212 cards (18% failure rate)
-- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-02/success_auditor_report.md` (confirmed by victory auditor at `/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/victory_auditor_p1_run_02/handoff.md` and sentinel handoff at `/Users/peterkloss/Dev/ACMElabs/brain-v2/.agents/sentinel_p1_run_02/handoff.md` with VICTORY CONFIRMED)
-
-### run 03 (Session 001, post-reset p1-run-01)
-
-- **run-id**: `p1-run-01`
-- **session**: 001 (Phase 1)
-- **units**: `inv-addy-1`, `inv-addy-2`, `inv-addy-3`, `inv-addy-4`, `inv-addy-5`, `inv-addy-6`, `inv-addy-7`, `inv-addy-8` (8 units, 90 inventory cards, 4 divergence cards, 8 reports)
-- **context used**:
-  - at run-start: `used=16.03%` (`[run-start p1-run-01 n=8] budget 2026-09-05T01:43:03.015Z conv=32f74daf model="Gemini 3.8 Flash (High)" used=16.03% peak=16.03% governing=25.00% close=2.9% headroom=6.07% pending=416 → DISPATCH 1 run × 7 units`)
-  - at dispatched: `used=16.49%` (`[dispatched p1-run-01] budget 2026-09-05T01:43:28.374Z conv=32f74daf model="Gemini 3.8 Flash (High)" used=16.49% peak=16.49% governing=25.00% close=2.9% headroom=5.61% pending=408 → DISPATCH 1 run × 5 units`)
-  - at verified: `used=20.69%` (`[verified p1-run-01] budget 2026-09-05T02:01:25.248Z conv=32f74daf model="Gemini 3.8 Flash (High)" used=20.69% peak=20.69% governing=25.00% close=2.9% headroom=1.41% pending=408 → STOP — no plan fits the headroom: close per §8.3`)
-  - per-unit delta: 0.52% (verified 20.69% − dispatched 16.49% = 4.20% ÷ 8 units)
-- **rot metrics**: none observed (used: 20.69%)
-- **429s and quota.reset_in_seconds**: none observed
-- **wall time**: 15m 57s (from `2026-09-05T01:43:28Z` dispatch to `2026-09-05T01:59:25Z` victory confirmed). Files read under `.teamwork/p1-run-01/` and `.agents/`:
-  - `.teamwork/p1-run-01/ORIGINAL_REQUEST.md` (2026-09-05T01:44:21Z)
-  - `.teamwork/p1-run-01/.agents/orchestrator_1/progress.md` (2026-09-05T01:56:55Z)
-  - `.teamwork/p1-run-01/.agents/orchestrator_1/handoff.md` (2026-09-05T01:57:30Z)
-  - `.teamwork/p1-run-01/.agents/victory_auditor_1/handoff.md` (2026-09-05T01:59:25Z)
-  - `.teamwork/p1-run-01/.agents/sentinel_1/handoff.md` (2026-09-05T01:59:25Z)
-- **quote-check totals**:
-  - Run 01 cards: 1,217 PASS, 0 FAIL across 90 cards + 12 PASS, 0 FAIL across 4 divergence cards = 1,229 PASS, 0 FAIL (0% failure rate)
-  - Coverage check: 0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems (exit code 0)
-- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-01/success_auditor_report.md` (symlinked to `.agents/victory_auditor_1/handoff.md` with VICTORY CONFIRMED)
-
-### run 04 (Session 004, post-reset p1-run-02)
-
-- **run-id**: `p1-run-02`
-- **session**: 004 (Phase 1)
-- **units**: `inv-addy-9`, `inv-addy-10`, `inv-addy-11`, `inv-addy-12`, `inv-addy-13`, `inv-addy-14`, `inv-addy-15`, `inv-addy-16`, `inv-addy-17`, `inv-addy-18`, `inv-addy-19`, `inv-addy-20` (12 units, 51 inventory cards, 12 reports)
-- **context used**:
-  - at run-start: `used=9.53%` (`[run-start p1-run-02 n=12] budget 2026-09-05T02:56:34.589Z conv=39c94819 model="Gemini 3.8 Flash (High)" used=9.53% peak=9.53% governing=25.00% close=1.29% headroom=14.18% pending=408 → DISPATCH 1 run × 12 units`)
-  - at dispatched: `used=10.35%` (`[dispatched p1-run-02] budget 2026-09-05T02:57:08.547Z conv=39c94819 model="Gemini 3.8 Flash (High)" used=10.35% peak=10.35% governing=25.00% close=1.29% headroom=13.36% pending=396 → DISPATCH 1 run × 12 units`)
-  - at verified: `used=14.15%` (`[verified p1-run-02] budget 2026-09-05T03:14:06.094Z conv=39c94819 model="Gemini 3.8 Flash (High)" used=14.15% peak=14.15% governing=25.00% close=1.29% headroom=9.56% pending=396 → DISPATCH 1 run × 12 units`)
-  - per-unit delta: 0.32% (verified 14.15% − dispatched 10.35% = 3.80% ÷ 12 units = 0.317%)
-- **rot metrics**: none observed (used: 14.15%)
-- **429s and quota.reset_in_seconds**: none observed
-- **wall time**: 15m 38s (from `2026-09-05T02:57:08Z` dispatch to `2026-09-05T03:12:46Z` completion report). Files under `.teamwork/p1-run-02/`:
-  - `.teamwork/p1-run-02/ORIGINAL_REQUEST.md` (2026-09-05T02:57:35Z)
-  - `.teamwork/p1-run-02/.agents/sentinel_1/handoff.md` (2026-09-05T03:12:46Z)
-  - `.teamwork/p1-run-02/.agents/victory_auditor_1/handoff.md` (2026-09-05T03:12:46Z)
-  - `.teamwork/p1-run-02/success_auditor_report.md` (2026-09-05T03:12:46Z)
-- **quote-check totals**:
-  - Run 02 cards: 627 PASS, 0 FAIL across 51 inventory cards (0% failure rate)
-  - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
-- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-02/success_auditor_report.md` (confirmed by victory auditor at `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-02/.agents/victory_auditor_1/handoff.md` with VICTORY CONFIRMED)
-- **Probe verdict**: CLEAN (zero quote-check FAIL, zero 429, no rot metric, wall time 15.6 min within 25% of 17 min). `max_clean_run` raised to 12; `last_clean_wall_minutes` set to 15.6.
-
-### run 05 (Session 004, post-reset p1-run-03)
-
-- **run-id**: `p1-run-03`
-- **session**: 004 (Phase 1)
-- **units**: `inv-addy-21`, `inv-addy-22`, `inv-addy-23`, `inv-addy-24`, `inv-addy-25`, `inv-addy-26`, `inv-addy-27`, `inv-addy-28`, `inv-addy-29`, `inv-addy-30`, `inv-addy-31`, `inv-addy-32` (12 units, 15 inventory cards, 12 reports)
-- **context used**:
-  - at run-start: `used=16.24%` (`[run-start p1-run-03 n=12] budget 2026-09-05T03:15:03.661Z conv=39c94819 model="Gemini 3.8 Flash (High)" used=16.24% peak=16.24% governing=25.00% close=1.29% headroom=7.47% pending=396 → DISPATCH 1 run × 12 units`)
-  - at dispatched: `used=16.71%` (`[dispatched p1-run-03] budget 2026-09-05T03:15:28.647Z conv=39c94819 model="Gemini 3.8 Flash (High)" used=16.71% peak=16.71% governing=25.00% close=1.29% headroom=7.00% pending=384 → DISPATCH 1 run × 12 units`)
-  - at verified: `used=18.05%` (`[verified p1-run-03] budget 2026-09-05T03:28:56.382Z conv=39c94819 model="Gemini 3.8 Flash (High)" used=18.05% peak=18.05% governing=25.00% close=1.29% headroom=5.66% pending=384 → DISPATCH 1 run × 5 units`)
-  - per-unit delta: 0.11% (verified 18.05% − dispatched 16.71% = 1.34% ÷ 12 units = 0.112%)
-- **rot metrics**: none observed (used: 18.05%)
-- **429s and quota.reset_in_seconds**: none observed
-- **wall time**: 12m 58s (from `2026-09-05T03:15:28Z` dispatch to `2026-09-05T03:28:26Z` completion report). Files under `.teamwork/p1-run-03/`:
-  - `.teamwork/p1-run-03/ORIGINAL_REQUEST.md` (2026-09-05T03:16:15Z)
-  - `.teamwork/p1-run-03/.agents/sentinel_1/handoff.md` (2026-09-05T03:28:26Z)
-  - `.teamwork/p1-run-03/.agents/victory_auditor_1/handoff.md` (2026-09-05T03:28:26Z)
-  - `.teamwork/p1-run-03/success_auditor_report.md` (2026-09-05T03:28:26Z)
-- **quote-check totals**:
-  - Run 03 cards: 663 PASS, 0 FAIL across 15 inventory cards (0% failure rate)
-  - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
-- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-03/success_auditor_report.md` (confirmed by victory auditor at `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-03/.agents/victory_auditor_1/handoff.md` with VICTORY CONFIRMED)
-
-### run 06 (Session 005, post-reset p1-run-04)
-
-- **run-id**: `p1-run-04`
-- **session**: 005 (Phase 1)
-- **units**: `inv-addy-33`, `inv-addy-34`, `inv-addy-35`, `inv-addy-36`, `inv-addy-37`, `inv-addy-38`, `inv-addy-39`, `inv-addy-40`, `inv-addy-41`, `inv-addy-42`, `inv-addy-43`, `inv-addy-44`, `inv-addy-45`, `inv-addy-46`, `inv-matt-1`, `inv-matt-2` (16 units, 84 inventory cards, 16 reports; completes package `addy`)
-- **context used**:
-  - at run-start: `used=9.05%` (`[run-start p1-run-04 n=16] budget 2026-09-05T03:32:14.713Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=9.05% peak=9.05% governing=25.00% close=1.87% headroom=14.08% pending=384 → DISPATCH 1 run × 16 units (16 units, cost 7.64%) — PROBE: one step above the proven maximum (1 × 12); a clean result (zero FAIL, zero 429, wall time within 25% of 15.6 min) raises max_clean_run`)
-  - at dispatched: `used=9.60%` (`[dispatched p1-run-04] budget 2026-09-05T03:32:38.463Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=9.60% peak=9.60% governing=25.00% close=1.87% headroom=13.53% pending=368 → DISPATCH 1 run × 16 units (16 units, cost 7.64%) — PROBE: one step above the proven maximum (1 × 12); a clean result (zero FAIL, zero 429, wall time within 25% of 15.6 min) raises max_clean_run`)
-  - at verified: `used=14.05%` (`[verified p1-run-04] budget 2026-09-05T03:47:13.581Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=14.05% peak=14.05% governing=25.00% close=1.87% headroom=9.08% pending=368 → DISPATCH 1 run × 16 units (16 units, cost 7.64%) — PROBE: one step above the proven maximum (1 × 12); a clean result (zero FAIL, zero 429, wall time within 25% of 15.6 min) raises max_clean_run`)
-  - per-unit delta: 0.28% (verified 14.05% − dispatched 9.60% = 4.45% ÷ 16 units = 0.278%)
-- **rot metrics**: none observed (used: 14.05%)
-- **429s and quota.reset_in_seconds**: none observed
-- **wall time**: 12m 53s (from `2026-09-05T03:32:38Z` dispatch to `2026-09-05T03:45:31Z` completion report). Probe clean: wall time 12.88 min ≤ 19.5 min bound (25% over 15.6m); raised `max_clean_run=16`, `last_clean_wall_minutes=12.6`.
-- **quote-check totals**:
-  - Run 04 cards: 2,086 PASS, 0 FAIL across 84 inventory cards (0% failure rate)
-  - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
-- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-04/success_auditor_report.md`
-
-### run 07 (Session 005, post-reset p1-run-05)
-
-- **run-id**: `p1-run-05`
-- **session**: 005 (Phase 1)
-- **units**: `inv-matt-3`, `inv-matt-4`, `inv-matt-5`, `inv-matt-6`, `inv-matt-7`, `inv-matt-8`, `inv-matt-9`, `inv-matt-10`, `inv-matt-11`, `inv-matt-12`, `inv-matt-13`, `inv-matt-14` (12 units, 33 inventory cards, 12 reports)
-- **context used**:
-  - at run-start: `used=15.89%` (`[run-start p1-run-05 n=12] budget 2026-09-05T03:48:08.474Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=15.89% peak=15.89% governing=25.00% close=1.87% headroom=7.24% pending=368 → DISPATCH 1 run × 12 units (12 units, cost 6.88%)`)
-  - at dispatched: `used=16.27%` (`[dispatched p1-run-05] budget 2026-09-05T03:48:34.460Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=16.27% peak=16.27% governing=25.00% close=1.87% headroom=6.86% pending=356 → DISPATCH 1 run × 8 units (8 units, cost 6.12%)`)
-  - at verified: `used=17.95%` (`[verified p1-run-05] budget 2026-09-05T04:12:20.828Z conv=bf2aa367 model="Gemini 3.8 Flash (High)" used=17.95% peak=17.95% governing=25.00% close=1.87% headroom=5.18% pending=356 → DISPATCH 1 run × 3 units (3 units, cost 5.17%)`)
-  - per-unit delta: 0.14% (verified 17.95% − dispatched 16.27% = 1.68% ÷ 12 units = 0.14%)
-- **rot metrics**: none observed (used: 17.95%)
-- **429s and quota.reset_in_seconds**: none observed
-- **wall time**: 23m 11s (from `2026-09-05T03:48:34Z` dispatch to `2026-09-05T04:11:45Z` completion report).
-- **quote-check totals**:
-  - Run 05 cards: 803 PASS, 0 FAIL across 33 inventory cards (0% failure rate)
-  - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
-- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-05/success_auditor_report.md`
-
-### run 08 (Session 006, post-reset p1-run-06)
-
-- **run-id**: `p1-run-06`
-- **session**: 006 (Phase 1)
-- **units**: `inv-matt-15` through `inv-matt-38` (24 units, 44 inventory cards, 24 reports)
-- **context used**:
-  - at run-start: `used=9.16%` (`[run-start p1-run-06 n=24] budget 2026-09-05T04:14:40.428Z conv=12d1d16a model="Gemini 3.8 Flash (High)" used=9.16% peak=9.16% governing=25.00% close=1.09% headroom=14.75% pending=356 → DISPATCH 1 run × 24 units (24 units, cost 9.16%) — PROBE: one step above the proven maximum (1 × 16); a clean result (zero FAIL, zero 429, wall time within 25% of 12.6 min) raises max_clean_run`)
-  - at dispatched: `used=10.05%` (`[dispatched p1-run-06] budget 2026-09-05T04:15:10.757Z conv=12d1d16a model="Gemini 3.8 Flash (High)" used=10.05% peak=10.05% governing=25.00% close=1.09% headroom=13.86% pending=332 → DISPATCH 1 run × 24 units (24 units, cost 9.16%) — PROBE: one step above the proven maximum (1 × 16); a clean result (zero FAIL, zero 429, wall time within 25% of 12.6 min) raises max_clean_run`)
-  - at verified: `used=12.94%` (`[verified p1-run-06] budget 2026-09-05T04:43:48.938Z conv=12d1d16a model="Gemini 3.8 Flash (High)" used=12.94% peak=12.94% governing=25.00% close=1.09% headroom=10.97% pending=332 → DISPATCH 1 run × 24 units (24 units, cost 9.16%) — PROBE: one step above the proven maximum (1 × 16); a clean result (zero FAIL, zero 429, wall time within 25% of 12.6 min) raises max_clean_run`)
-  - per-unit delta: 0.12% (verified 12.94% − dispatched 10.05% = 2.89% ÷ 24 units = 0.120%)
-- **rot metrics**: none observed (used: 12.94%)
-- **429s and quota.reset_in_seconds**: none observed
-- **wall time**: 28m 01s (from `2026-09-05T04:15:10Z` dispatch to `2026-09-05T04:43:11Z` completion report; `await-run.ts` reported elapsed 27.6 min). Probe quality clean (927 PASS, 0 FAIL, 0 429, 0 rot metrics), but wall time (27.6 min) exceeded bound of 15.75 min (25% above 12.6 min). Per METHOD.md §8.2: `max_clean_run` stays 16; step not raised.
-- **quote-check totals**:
-  - Run 06 cards: 927 PASS, 0 FAIL across 44 inventory cards (0% failure rate)
-  - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
-- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-06/success_auditor_report.md`
-
-### run 09 (Session 006, post-reset p1-run-07)
-
-- **run-id**: `p1-run-07`
-- **session**: 006 (Phase 1)
-- **units**: `inv-matt-39` through `inv-matt-46` (8 units) and `inv-rjm-1` through `inv-rjm-8` (8 units) (16 units, 111 inventory cards, 16 reports)
-- **context used**:
-  - at run-start: `used=15.10%` (`[run-start p1-run-07 n=16] budget 2026-09-05T04:44:38.440Z conv=12d1d16a model="Gemini 3.8 Flash (High)" used=15.10% peak=15.10% governing=25.00% close=1.09% headroom=8.81% pending=332 → DISPATCH 1 run × 16 units (16 units, cost 7.64%)`)
-  - at dispatched: `used=15.62%` (`[dispatched p1-run-07] budget 2026-09-05T04:45:01.790Z conv=12d1d16a model="Gemini 3.8 Flash (High)" used=15.62% peak=15.62% governing=25.00% close=1.09% headroom=8.29% pending=316 → DISPATCH 1 run × 16 units (16 units, cost 7.64%)`)
-  - at verified: `used=18.92%` (`[verified p1-run-07] budget 2026-09-05T05:51:18.401Z conv=12d1d16a model="Gemini 3.8 Flash (High)" used=18.92% peak=18.92% governing=25.00% close=1.09% headroom=4.99% pending=316 → DISPATCH 1 run × 2 units (2 units, cost 4.98%)`)
-  - per-unit delta: 0.21% (verified 18.92% − dispatched 15.62% = 3.30% ÷ 16 units = 0.206%)
-- **rot metrics**: none observed (used: 18.92%)
-- **429s and quota.reset_in_seconds**: none observed
-- **wall time**: 65m 24s (from `2026-09-05T04:45:01Z` dispatch to `2026-09-05T05:50:25Z` completion report; `await-run.ts` reported elapsed 65.1 min).
-- **quote-check totals**:
-  - Run 07 cards: 2,161 PASS, 0 FAIL across 111 inventory cards (0% failure rate)
-  - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
-- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-07/success_auditor_report.md`
+The runs before that reset — the experiment of sessions 013–014 (runs 01–02 of the old numbering) and the test series of sessions 001–007 (`p1-run-01`…`p1-run-09`, 100 units, 428 cards, 8,466 PASS / 0 FAIL) — are recorded verbatim, block by block, in `rationale/13-test-series-and-final-parameters.md`; their outputs were deleted by the reset and their numbers are the basis of the parameters in `docs/plan/budget-params.json`.
 
 ## 8. Objective
 
@@ -517,4 +244,34 @@ worker time:  per-run wall ≈ 12 min fixed + time of the largest unit   (unit c
 | n = 24, k = 2 | 7 | ~23 | ~2.7 h |
 
 All four keep the same quality gates. Every step in n or k needs one clean run at the previous step first. Quota is the other bound: the same tokens are spent either way, only faster, so the five-hour bucket may bind before the stream limit does (the run's cost is not in the capture — `cost` was null in every log record; the statusline receives no cost field under plan login).
+
+## 10. Findings from the test series (sessions 001–007, 2026-09-05; the basis of D-021)
+
+Nine headless runs from one `drive.ts` command (sessions 004–006 alone: 100 units, 428 cards, 8,466 PASS / 0 FAIL repo-wide, `coverage.ts` clean, `memo.ts audit` 428 OK). The full record, block by block, is `rationale/13-test-series-and-final-parameters.md`; the capture is `brainv2capture20260904225801.zip`.
+
+### 10.1 The primary conversation's context is not the limit at these sizes
+
+Four Phase-1 conversations started at 8.26–8.51% (`start`), peaked at 19.0–21.2%, and closed by plan with 3.8–4.4% headroom. No rot metric in any of them. No compaction. The per-run cost, measured run-start → next run-start: first run of a conversation 5.9–6.8%, second run 1.8–3.8% — and no measurable dependence on `n` between 12 and 24 units (a 24-unit run cost 5.94%, a 12-unit first run 6.71%). The planning values `R = 4.6`, `u = 0.19` therefore over-estimate, which is the safe direction; they stay.
+
+### 10.2 Wall time is the Orchestrator's decomposition, not the harness
+
+| run | units | Workers | shape | wall (min) | quality |
+|---|---|---|---|---|---|
+| p1-run-02 | 12 | 12 | all at once | 15.6 | 627 PASS / 0 FAIL |
+| p1-run-03 | 12 | 12 | all at once | 13.0 | 663 / 0 |
+| p1-run-04 | 16 | 16 | all at once | 12.6 | 2,086 / 0 (probe → `max_clean_run` 16) |
+| p1-run-05 | 12 | 6 | 2 units per Worker | 23.2 | 803 / 0 |
+| p1-run-06 | 24 | 8 | 3 units per Worker | 27.6 | 927 / 0 (probe; wall bound failed) |
+| p1-run-07 | 16 | 18 | five sequential gated milestones, a second-generation Orchestrator | 65.1 | 2,161 / 0 |
+
+Same unit caps, same model, zero 429s in every run's files: the wall time tracks Workers-per-unit and milestone gating, not `n`. So the step-up rule's wall-time bound measured the Orchestrator in runs 05–07, and the 24-unit verdict ("not clean: 27.6 > 15.75") is void as a harness measurement. Two consequences (D-021): the brief now requires one Worker per unit, all at once, which also keeps the §6.5 caps true per Worker context; and the wall-time test counts only between runs of that shape. `run_sizes` is `[8, 12, 16, 24, 32, 48]` with `max_clean_run = 16`; 24 is probed again under the new brief.
+
+### 10.3 What else the series showed
+
+- **The agent recorded `run-start` counts it had not been given** (`n=16` then `n=12`, twice; `n=2` then `n=1` against a STOP). `budget.ts --record run-start` now refuses a count that is not the current plan's `n`.
+- **agy ended session 004 with status ERROR** ("The stream was interrupted") *after* the agent's final paragraph; the handoff, results and close were all committed (HEAD e78eef0), and the driver went on. The driver now shows such a conversation as finished (yellow), not as a failure.
+- **`k = 2` ran to completion but is not a measurement**: session 007 dispatched `p1-run-08` and `p1-run-09` (16 units each; the plan cost 15.28% of a 15.63% headroom). Ctrl-C on the driver killed only the driver; the conversation ran on, verified and committed run 08 about 51 minutes after dispatch, and was stamping run 09 when it was killed the next morning. Two simultaneous runs work; their shape and run 09's quality were never inspected, so `max_clean_concurrency` stays 1. The calculation grows `n` before `k`, so `k` is probed again only once the largest run size is proven and two of them fit.
+- **Ctrl-C on the driver does not stop the conversation** — fixed: the driver now kills its agy child on interrupt; the STOP file is the graceful stop.
+- **Two harness quirks cost one step each per conversation**, harmless: the first sandboxed `run_command` fails with `sandbox configuration error: deny ~/.ssh/**: globs not supported` (the `read_file(~/.ssh/**)` deny rule in `settings.json`), and `write_to_file` into the repository is refused in headless mode (`artifacts must be in …/antigravity-cli/brain/<conversation>/`), after which the agent writes the file with a heredoc. `PROMPT.md` now says both.
+- **Sessions 002–003 stopped for Peter** because a METHOD edit between sessions invalidated every memo stamp (whole-file hash) — the D-020 fix (contract-section hash, `memo.ts restamp`) held for the rest of the series: 428 OK, 0 STALE at session 007's start.
 

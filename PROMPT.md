@@ -6,7 +6,7 @@ The repository is `/Users/peterkloss/Dev/ACMElabs/brain-v2` — your working dir
 
 Do this, in order, before anything else:
 
-1. Read `docs/plan/METHOD.md` completely, in exactly two views — lines 1–300, then 301 to the end. It is the operating manual. Every rule in it applies to you and to every subagent you dispatch. Do not read any part of it twice.
+1. Read `docs/plan/METHOD.md` completely, in exactly two views — lines 1–320, then 321 to the end. It is the operating manual. Every rule in it applies to you and to every subagent you dispatch. Do not read any part of it twice.
 2. Read `docs/plan/STATE.md`. It says what phase we are in and whether Peter has approved anything. Do not open `docs/plan/units.md`; `bun scripts/synthesis/units.ts status` and `units.ts pending <n>` are how you ask about units.
 3. Read the most recent file in `docs/plan/sessions/`. It is the previous session's handoff. Read no earlier handoff.
 4. Read `docs/decisions/DECISIONS.md`, `docs/plan/GLOSSARY.md`, and `docs/plan/PREFERENCES.md`.
@@ -14,7 +14,9 @@ Do this, in order, before anything else:
 6. Run the session-start protocol in METHOD.md §8.1 — every step, including the last-unit verification (step 6), the source-pin verification (step 7), and `budget.ts --record start` (step 9). Do not skip any.
 7. Create this session's handoff file per `docs/plan/templates/session-handoff.md`.
 
-Then work. In Phase 1 that means the loop in METHOD.md §8.2: `bun scripts/synthesis/budget.ts` tells you how many Teamwork runs to dispatch at once and how many units each holds; you dispatch them yourself by the recipe in §6.3 item 8 — nobody else runs an interview — wait with `await-run.ts`, verify per §7, record with `budget.ts --record`, and ask `budget.ts` again. When it says STOP, end the session per §8.3: no unit left `in-progress`, `STATE.md` updated, `budget.ts --measure` stored with `--set`, handoff complete, committed on the branch, one paragraph to me.
+Then work. In Phase 1 that means the loop in METHOD.md §8.2: `bun scripts/synthesis/budget.ts` tells you how many Teamwork runs to dispatch at once and how many units each holds; you dispatch them yourself by the recipe in §6.3 item 8 — nobody else runs an interview — wait with `await-run.ts`, verify per §7, record with `budget.ts --record`, and ask `budget.ts` again. When it says STOP, end the session per §8.3: no unit left `in-progress`, `STATE.md` updated, `budget.ts --measure` stored with `--set`, handoff complete, committed on the branch, one paragraph to me. In Phases 2–5, §5 gives each phase's mode — fan-out phases dispatch runs the same way; single-threaded phases are done by you, checkpointing to disk after every concept family — and §8.2's ceiling still governs: `budget.ts` tells you the context you have, and the session ends by plan (§8.3) while the close cost is in hand, never by running out.
+
+Two harness facts for headless mode: `write_to_file` to a path inside the repository is refused ("artifacts must be in …/antigravity-cli/brain/…") — create new files with `run_command` and a quoted heredoc (`cat > path <<'EOF' … EOF`) and edit existing ones with the replace tool; and the first sandboxed command of a conversation may fail with "sandbox configuration error … globs not supported" — run it again.
 
 Do not ask me anything during the session. If the files are contradictory, missing, or unclear, stop, say so in one paragraph that begins `STOP: needs Peter`, and end the session per §8.3 with what you have. Do not guess.
 

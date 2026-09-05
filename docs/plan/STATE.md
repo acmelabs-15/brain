@@ -8,11 +8,11 @@ This file is the single source of truth for where the project is. It is updated 
 
 | Field | Value |
 |---|---|
-| **phase** | `1` |
-| **phase_name** | Inventory |
-| **current_unit** | inv-rjm-9 |
-| **last_session** | 006 |
-| **next_action** | dispatch Phase 1 run starting at inv-rjm-9 |
+| **phase** | `0` |
+| **phase_name** | Setup |
+| **current_unit** | — |
+| **last_session** | — |
+| **next_action** | Run Phase 0 per METHOD.md §5 (tooling is shipped; D-021 reset after the test series; sources already cloned at the pins) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -37,7 +37,7 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 
 | Phase | Name | Status | Done criteria met | Session(s) |
 |---|---|---|---|---|
-| 0 | Setup | `done` | 4 manifests, 3 ledgers, units.md, brain-conventions.md, §10 clean | 000 |
+| 0 | Setup | `pending` | — | — |
 | 0.5 | Landscape scan | `skipped` — D-007 `landscape_scan: no` | — | — |
 | 1 | Inventory | `pending` | — | — |
 | 1V | Inventory verification | `pending` | — | — |
@@ -65,12 +65,12 @@ The unit table is `docs/plan/units.md`, written only by `bun scripts/synthesis/u
 
 | Status | Units |
 |---|---|
-| pending | 284 |
-| in-progress | 32 |
-| done | 100 |
+| pending | 0 |
+| in-progress | 0 |
+| done | 0 |
 | blocked | 0 |
 | rolled-back | 0 |
-| **total** | **416** |
+| **total** | **0** |
 
 ### Phase 2 — Concept card units
 
@@ -105,11 +105,11 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 
 | Metric | Value |
 |---|---|
-| Manifest rows (addy / matt / rjm) | 219 / 201 / 1175 |
-| Inventory units done (addy / matt / rjm) | 46 / 46 / 8 |
+| Manifest rows (addy / matt / rjm) | — / — / — |
+| Inventory units done (addy / matt / rjm) | 0 / 0 / 0 |
 | Concept cards (addy / matt / rjm) | — / — / — |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | — |
-| Decisions (active / superseded / pending-peter) | 17 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
+| Decisions (active / superseded / pending-peter) | 18 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
 | Glossary terms | 0 |
 | Build units (done / total) | — / — |
 
@@ -119,7 +119,9 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 
 Anything the agent cannot resolve alone. Each row names what Peter needs to do.
 
-*(none)*
+| Since | Unit / item | Reason | Needs |
+|---|---|---|---|
+| — | — | — | — |
 
 ---
 
@@ -129,11 +131,10 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 
 | Check | Last run | Result |
 |---|---|---|
-| coverage.ts | 2026-09-04 | clean (1595 rows, 1411 uncovered, 0 failures) |
-| units.ts check | 2026-09-04 | clean (416 units agree across table, manifest, STATE.md) |
-| budget.ts | 2026-09-04 | clean (used=19.35%, headroom=4.36% -> STOP) |
-| glossary-lint.ts | 2026-09-04 | clean |
-| last-unit verification | 2026-09-04 | clean: inv-addy-32 memo HIT, 80 PASS / 0 FAIL |
-| memo.ts audit | 2026-09-04 | clean: 156 OK, 0 STALE, 0 UNSTAMPED across 156 card(s) |
-| decision consistency (4V) | — | — (Phase 4) |
-| traceability | — | — (Phase 5/8) |
+| coverage.ts | — | — |
+| units.ts check | — | — |
+| budget.ts | — | — |
+| glossary-lint.ts | — | — |
+| last-unit verification | — | — |
+| decision consistency (4V) | — | — |
+| traceability | — | — |

@@ -46,3 +46,7 @@ The 212 pre-reset cards had no provenance record and an 18% failure rate; repair
 - Include the headless driver.
 - Ceilings file: Opus 5, Sonnet 5, Fable 5.1 — not the 4.6 generation.
 - The question that reframed the presentation: "so more parallelism is not going to help us at all here?" — the answer is the opposite, and it is now the first sentence of §9.9 in the experiment doc.
+
+## What happened next
+
+The reset was followed by the test series — sessions 000–007 on 2026-09-05, run headless — and by a second reset (D-021) once that series had shown what the production method needed: `13-test-series-and-final-parameters.md`.

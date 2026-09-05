@@ -401,4 +401,41 @@ none.
 
 ---
 
+## D-021 — Final reset after the test series; one Worker per unit; the checked `run-start`; the driver runs to the human gate
+
+- **date:** 2026-09-05
+- **made-by:** Peter
+- **session:** — (between sessions; applied by the go kit)
+- **supersedes:** — (D-016's reset is repeated, not replaced)
+- **status:** active
+- **resolves:** method §6.3 item 7, §6.3.1 (Requirements), §6.5, §7 step 2, §8.2 (step-up rule), §8.5, §5 (human gate); `docs/plan/budget-params.json`; `scripts/synthesis/budget.ts`, `drive.ts`, `drive-ui.ts`; `PROMPT.md`
+
+### Decision
+The test series (sessions 000–007, 2026-09-05 — nine Teamwork runs from one `drive.ts` command, 100 units, 428 cards, 8,466 PASS / 0 FAIL) is the last trial. Its outputs are deleted and the project restarts at Phase 0 under the method as it now stands, so that every card in the tree has one provenance and the production series runs unattended from the first conversation to the human gate. Five rules come from what the series showed (`docs/analysis/rationale/13-test-series-and-final-parameters.md`; `dynamic-batching-experiment.md` §10):
+
+1. **One Worker per unit, all at once.** The brief's Requirements (§6.3.1) now say it. Left to itself the Orchestrator ran 6 Workers for 12 units, 8 for 24, and five sequential gated milestones for 16 (65 minutes for a run that takes 13 in parallel) — with no effect on quality, but the §6.5 unit caps are per Worker context, and the wall-time test of §8.2 is meaningless unless every run has the same shape.
+2. **The wall-time test applies only between runs of that shape**, checked from the run's own files. The 24-unit probe of the series was clean on quality (927 PASS / 0 FAIL) and its wall-time verdict is void; 24 returns to `run_sizes`, which is `[8, 12, 16, 24, 32, 48]` with `max_clean_run = 16` (proven twice) and `last_clean_wall_minutes = 12.6` (p1-run-04, 16 Workers at once).
+3. **`budget.ts --record "run-start <run> n=<count>"` refuses a count that is not the current plan's `n`.** The agent recorded `n=16` then `n=12` twice, and `n=2` then `n=1` against a STOP; the label is evidence and must be the verdict's number.
+4. **The driver runs from Phase 0 to the human gate** (Phase 6 in `STATE.md`, or a handoff titled *Spec ready for review*), stops gracefully on `touch .teamwork/drive/STOP` after the running conversation commits, and treats a conversation that agy ends with status ERROR *after* a complete, committed close ("The stream was interrupted", session 004) as finished, not failed. The fan-out no-op stop applies to Phases 1–2 and only when phase, unit counts and run directories are all unchanged.
+5. **The measured parameters stand as planning values**: `S 9.16`, `R 4.6`, `u 0.19`, `C 1.1`. The series measured first runs at 5.9–6.8% and second runs at 1.8–3.8% with no visible dependence on `n` between 12 and 24 units, so `R + n·u` over-estimates — the safe direction; a later decision may lower `u` when the production series shows the same at 32 and 48.
+
+`k` (runs at once) stays at 1 proven: the one `k = 2` dispatch (session 007) ran both runs to completion — the conversation outlived the Ctrl-C that was meant to cancel it — but neither run's shape was inspected and the second run's quality was never checked, so it is evidence that two runs work, not a measurement. The calculation grows `n` before `k`. The driver now kills its agy child on Ctrl-C.
+
+### Adopted from
+Peter, 2026-09-05: "this is our last test session … reset once more and let the thing run"; "the Sentinel handles [rate limits] … never roll back a run for quota" (already D-019 hotfix 1, kept); no further token cutting (D-010's C1/C2). The analysis of the third capture (`brainv2capture20260904225801.zip`): `teamwork/readings.jsonl`, `teamwork/drive/*.jsonl` and `drive.log`, the nine run directories, the handoffs 004–007.
+
+### Dropped
+The 24-unit verdict of session 006 as a harness measurement; the assumption (§6.3 item 7, old text) that the Orchestrator "has always been every unit at once"; the 100 units of the series (deleted with the tree — the same reasoning as D-016: one provenance per card, and the series' cards were produced under a brief that no longer exists).
+
+### Rejected alternatives
+Keeping the 100 done units and continuing from `inv-rjm-9`: saves about two conversations, leaves two briefs' worth of provenance in one tree and 32 `in-progress` units from a cancelled conversation to reconcile. Dropping the wall-time test altogether: it is the only detector of the concurrent-stream limit; it needed a shape condition, not removal. Raising `max_clean_run` to 24 by fiat on the quality result alone: the step-up rule exists so that every size is proven under the rule, not granted.
+
+### Evidence
+`docs/analysis/rationale/13-test-series-and-final-parameters.md` (every reading, every run's shape and wall time, the run blocks verbatim); `docs/analysis/dynamic-batching-experiment.md` §10; the capture zip outside the repository.
+
+### Glossary
+none.
+
+---
+
 <!-- Alignment decisions (D-100+) are appended below this line in Phase 4. -->

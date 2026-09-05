@@ -1,31 +1,35 @@
 {
-  "_readme": "D-010 — the measured parameters of the context budget. Every number here was measured, or is null until it is. Changed only by `bun scripts/synthesis/budget.ts --set k=v`, never by hand. Percentages are of the model's context window (context-ceilings.json). Measured 2026-09-04 on the Gemini 3.8 Flash (High) primary conversation of session 014, run 02 (8 units), from the statusline log — see docs/analysis/dynamic-batching-experiment.md §9.",
+  "_readme": "D-010 — the measured parameters of the context budget. Every number here was measured, or is null until it is. Changed only by `bun scripts/synthesis/budget.ts --set k=v`, never by hand. Percentages are of the model's context window (context-ceilings.json). Measured 2026-09-04/05 on the Gemini 3.8 Flash (High) primary conversation: session 014 run 02 (8 units) for R and u, the test series sessions 004–006 (nine runs, 100 units, 0 FAIL) for S, C, max_clean_run and last_clean_wall_minutes — see docs/analysis/rationale/13-test-series-and-final-parameters.md (D-021).",
   "start_pct": 9.16,
-  "start_pct_note": "S — the session-start protocol (§8.1) before any unit work; measured 9.03. Falls to ~6.9 with the two-view METHOD read and the unit table outside STATE.md; re-measured every conversation by --record start / dispatch.",
+  "start_pct_note": "S — the session-start protocol (§8.1) before any unit work; measured 8.26–9.53 across the test series' four Phase-1 conversations (readings at `start` 8.26–8.51, at the first run-start 9.05–9.53); re-measured every conversation by --record start / --measure.",
   "run_fixed_pct": 4.6,
-  "run_fixed_pct_note": "R — cost of one run that does not depend on its size: pre-dispatch 1.8 + monitoring 2.1 + recording 0.7. Falls to ~2.5 with await-run.ts replacing the per-report edit cycle; re-measured every run.",
+  "run_fixed_pct_note": "R — cost of one run that does not depend on its size. Measured per run in the test series (run-start to the next run-start or close): first run of a conversation 5.9–6.8, second run 1.8–3.8; 4.6 is kept as the planning value because R + n·u must not under-estimate (a 24-unit run predicted at 9.16 cost 5.94).",
   "per_unit_pct": 0.19,
-  "per_unit_pct_note": "u — verification of one unit (quote-check --summary, stamp, head of one card); measured 15,737 tokens / 8 units. Replaces the 0.53 of session 014, which was R spread over the units.",
+  "per_unit_pct_note": "u — verification of one unit (quote-check --summary, stamp, head of one card); measured 15,737 tokens / 8 units in session 014. The test series showed no measurable growth of run cost with n between 12 and 24 units, so 0.19 over-estimates; kept as the safe planning value.",
   "close_pct": 1.1,
-  "close_pct_note": "C — §8.3 close (results, next brief, handoff, checks, commits); measured 3.60 including the next run's brief.",
+  "close_pct_note": "C — §8.3 close (results, handoff, checks, commits); measured 1.09–1.87 in the test series (1.87 once, when the close included a stopped dispatch attempt).",
   "ceiling_pct_override": null,
   "ceiling_pct_override_note": "null → the governing ceiling comes from context-ceilings.json for the running model. A number here overrides it (the experiment used 21).",
   "run_sizes": [
     8,
     12,
-    16
+    16,
+    24,
+    32,
+    48
   ],
   "max_clean_run": 16,
-  "max_clean_run_note": "largest run size so far that returned zero quote-check FAIL, zero 429 and no rot metric — the next size in run_sizes is tried once this is proven",
+  "max_clean_run_note": "largest run size so far that returned zero quote-check FAIL, zero 429, no rot metric and a valid wall-time measurement — proven at 16 twice (p1-run-04: 12.6 min, 16 Workers; p1-run-07: 65 min but 18 Workers in five gated milestones, quality clean). 24 was clean on quality (p1-run-06, 927 PASS / 0 FAIL) but ran 8 Workers for 24 units, so its wall time measured the Orchestrator, not the harness; it is probed again under the one-Worker-per-unit brief (§6.3.1, D-021).",
   "concurrency_sizes": [
     1,
     2,
     3
   ],
   "max_clean_concurrency": 1,
-  "max_clean_concurrency_note": "largest number of Teamwork runs dispatched at the same time from one conversation that finished clean and within the wall-time bound",
+  "max_clean_concurrency_note": "largest number of Teamwork runs dispatched at the same time from one conversation that finished clean and within the wall-time bound. k=2 was dispatched once (session 007: p1-run-08 and p1-run-09, both 16 units) and cancelled by hand two minutes in — unproven, not failed. n grows before k, so k is probed only when the largest run size is proven and two of them fit.",
   "wall_time_bound_pct": 25,
-  "wall_time_bound_note": "a step up in run size or concurrency counts as clean only if the run's wall time is within this percentage of the previous clean step at the same unit cap — a longer wall time at the same unit sizes means the harness is queueing conversations, and that is the stream limit",
+  "wall_time_bound_note": "a step up in run size or concurrency counts as clean only if the run's wall time is within this percentage of the previous clean step at the same unit cap and the same shape (one Worker per unit, all at once — §6.3.1) — a longer wall time then means the harness is queueing conversations, and that is the stream limit",
   "last_clean_wall_minutes": 12.6,
-  "compaction_note": "harness compaction is NOT a ceiling: it fired at ~10% in session 013 and not at 18% in session 014; it is handled by §8.4, not by this budget"
+  "compaction_note": "harness compaction is NOT a ceiling: it fired at ~10% in session 013 and not at 18% in session 014, nor in any test-series conversation (peaks 19.0–21.2%); it is handled by §8.4, not by this budget",
+  "last_clean_wall_note": "p1-run-04: 16 units, 16 Workers at once, 12.6 min dispatch to COMPLETE (session 005)"
 }

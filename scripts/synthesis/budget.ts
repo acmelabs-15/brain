@@ -124,7 +124,7 @@ const chosen = probe ?? best;
 const verdict = pending === 0 && inProgress === 0 ? "STOP — nothing pending: Phase 1 dispatch is complete"
   : R == null || u == null ? `DISPATCH 1 × ${Math.min(sizes[0]!, pending)} (per-run and per-unit costs not yet measured: run the smallest size, then budget.ts --measure)`
   : !chosen ? "STOP — no plan fits the headroom: close per §8.3"
-  : `DISPATCH ${chosen.k} run${chosen.k > 1 ? "s" : ""} × ${chosen.n} units (${chosen.units} units, cost ${chosen.cost.toFixed(2)}%)` + (probe ? ` — PROBE: one step above the proven maximum (${maxK} × ${maxN}); a clean result (zero FAIL, zero 429, wall time within ${params.wall_time_bound_pct}% of ${params.last_clean_wall_minutes ?? "?"} min) raises max_clean_${probe.n > maxN ? "run" : "concurrency"}` : "");
+  : `DISPATCH ${chosen.k} run${chosen.k > 1 ? "s" : ""} × ${chosen.n} units (${chosen.units} units, cost ${chosen.cost.toFixed(2)}%)` + (probe ? ` — PROBE: one step above the proven maximum (${maxK} × ${maxN}); a clean result (zero FAIL, zero 429, one Worker per unit at once, wall time within ${params.wall_time_bound_pct}% of ${params.last_clean_wall_minutes ?? "?"} min) raises max_clean_${probe.n > maxN ? "run" : "concurrency"}` : "");
 
 const out = {
   conversation_id: conv, model, window_tokens: window, used_pct: +used.toFixed(2), used_tokens: Number.isFinite(window) ? Math.round(window * used / 100) : null,
@@ -138,6 +138,14 @@ const line = `budget ${new Date().toISOString()} conv=${conv.slice(0, 8)} model=
 
 if (args[0] === "--record") {
   const label = args.slice(1).join(" ") || "reading";
+  // a run-start label must carry the plan's n (§7 step 2, D-021): the count comes from this verdict, never from memory
+  const rs = label.match(/^run-start\s+(\S+)\s+n=(\d+)$/);
+  if (/^run-start/.test(label) && !rs) { console.error(`budget: run-start label must be "run-start <run-id> n=<count>", got "${label}"`); process.exit(2); }
+  if (rs) {
+    const n = Number(rs[2]);
+    if (!chosen) { console.error(`budget: refusing "${label}" — the verdict is ${verdict}`); process.exit(2); }
+    if (n !== chosen.n) { console.error(`budget: refusing "${label}" — the plan is ${chosen.k} × ${chosen.n}; record n=${chosen.n} (${line})`); process.exit(2); }
+  }
   mkdirSync(".teamwork", { recursive: true });
   appendFileSync(READINGS, JSON.stringify({ ts: new Date().toISOString(), conversation_id: conv, label, used_pct: +used.toFixed(3), tokens: out.used_tokens, model }) + "\n");
   console.log(`[${label}] ${line}`); process.exit(0);
