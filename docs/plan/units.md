@@ -4,14 +4,14 @@ Written and changed only by `scripts/synthesis/units.ts` (METHOD §7). Do not ed
 
 | Unit | Package | Files | Bytes | Status | Session | Output |
 |---|---|---|---|---|---|---|
-| inv-addy-1 | addy | 12 | 19447 | in-progress | 001 | — |
-| inv-addy-2 | addy | 12 | 19511 | in-progress | 001 | — |
-| inv-addy-3 | addy | 12 | 47194 | in-progress | 001 | — |
-| inv-addy-4 | addy | 12 | 44438 | in-progress | 001 | — |
-| inv-addy-5 | addy | 6 | 47822 | in-progress | 001 | — |
-| inv-addy-6 | addy | 12 | 34947 | in-progress | 001 | — |
-| inv-addy-7 | addy | 12 | 17038 | in-progress | 001 | — |
-| inv-addy-8 | addy | 12 | 12374 | in-progress | 001 | — |
+| inv-addy-1 | addy | 12 | 19447 | done | 001 | docs/analysis/inventory/addy/_units/inv-addy-1.md |
+| inv-addy-2 | addy | 12 | 19511 | done | 001 | docs/analysis/inventory/addy/_units/inv-addy-2.md |
+| inv-addy-3 | addy | 12 | 47194 | done | 001 | docs/analysis/inventory/addy/_units/inv-addy-3.md |
+| inv-addy-4 | addy | 12 | 44438 | done | 001 | docs/analysis/inventory/addy/_units/inv-addy-4.md |
+| inv-addy-5 | addy | 6 | 47822 | done | 001 | docs/analysis/inventory/addy/_units/inv-addy-5.md |
+| inv-addy-6 | addy | 12 | 34947 | done | 001 | docs/analysis/inventory/addy/_units/inv-addy-6.md |
+| inv-addy-7 | addy | 12 | 17038 | done | 001 | docs/analysis/inventory/addy/_units/inv-addy-7.md |
+| inv-addy-8 | addy | 12 | 12374 | done | 001 | docs/analysis/inventory/addy/_units/inv-addy-8.md |
 | inv-addy-9 | addy | 12 | 6775 | pending | — | — |
 | inv-addy-10 | addy | 12 | 4581 | pending | — | — |
 | inv-addy-11 | addy | 12 | 5522 | pending | — | — |
