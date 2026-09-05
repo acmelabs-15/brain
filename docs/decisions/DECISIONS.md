@@ -343,4 +343,33 @@ none.
 
 ---
 
+## D-019 — The rationale record: `docs/analysis/rationale/`
+
+- **date:** 2026-09-05
+- **made-by:** Peter
+- **session:** 000
+- **status:** active
+- **supersedes:** —
+- **resolves:** method §9
+
+### Decision
+The reasoning behind the method — the research, the measurements, the false starts and the constraints Peter set — is kept in the repository under `docs/analysis/rationale/` (index in its `README.md`), so that the record of *why* survives alongside the record of *what* (`DECISIONS.md`) and *how* (`METHOD.md`). It is an input under §2 (it lives under `docs/analysis/`). It never overrides a rule: where the folder and `METHOD.md` or `DECISIONS.md` disagree, those two files win and the disagreement is reported in the handoff. The folder is written outside sessions by Peter and his assistant, from captures and conversations that are themselves not inputs; sessions may append to `12-open-questions.md` when a probe lands and otherwise do not edit it. Transcripts, logs and captures cited by the record remain outside the fence.
+
+### Adopted from
+Peter, 2026-09-05: "make sure that everything that we've made decisions about, probably all the analysis we've done as well, gets persisted into an analysis note or a decision note in the docs directory of v2 … so we have as comprehensive a set of explanations for why we did what we did as we can."
+
+### Dropped
+Nothing.
+
+### Rejected alternatives
+Expanding each `DECISIONS.md` entry with the full research — R8 makes entries immutable and they would grow past what a session should read at start. Keeping the record outside the repo — it would not follow the project.
+
+### Evidence
+`docs/analysis/rationale/README.md` and the twelve documents it indexes; the captures of 2026-09-04/05 described in `11-experiment-and-reset.md`.
+
+### Glossary
+none.
+
+---
+
 <!-- Alignment decisions (D-100+) are appended below this line in Phase 4. -->

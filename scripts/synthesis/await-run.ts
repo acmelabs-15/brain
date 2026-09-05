@@ -6,7 +6,7 @@
 // Polls .teamwork/<run-id>/ every 10 s for up to --wait seconds (default 240) and prints one line per run:
 //   run-id  state  elapsed  milestones done/total  newest-file age  path of the completion artifacts
 // Exit codes: 0 every run complete · 3 wait elapsed, at least one run still working (run it again) ·
-//             4 a run has been silent longer than --stall minutes (default 15) — the §6.3 quota rule applies ·
+//             4 a run has been silent longer than --stall minutes (default 15) — usually a quota pause; §6.3 says keep waiting ·
 //             2 usage / directory missing.
 //
 // A run is COMPLETE when its directory holds both `success_auditor_report.md` and an orchestrator `handoff.md` whose

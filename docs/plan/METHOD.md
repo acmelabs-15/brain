@@ -329,7 +329,7 @@ On the Antigravity CLI the delegation mechanism is **Teamwork**, used at the gra
 
 The primary agent never summarises a team's return before recording it. It records what the checks print, then reads what it wrote to update `STATE.md` and the results doc (the **results doc** is `docs/analysis/dynamic-batching-experiment.md` §7, one block per run).
 
-**Quota.** If `await-run.ts` reports STALLED (no file under the run directory changed for 15 minutes): record it in the results doc with `grep -il '429\|quota' .teamwork/<run-id>/progress.md .teamwork/<run-id>/*/handoff.md` (the file evidence of a rate limit, if any), then wait once more with `await-run.ts <run-id> --wait 600`; if it is still STALLED, mark the run's units `rolled-back` and end the conversation per §8.3 — that is a result, not a failure. Nothing is sent to the team and no conversation is opened.
+**Quota.** A rate limit (429) inside a run is Teamwork's to handle, not the primary agent's: the Sentinel pauses the workers and resumes them when the quota bucket refills (sessions 006–007 recorded a four-hour pause that resumed and finished). So a STALLED report from `await-run.ts` (no file under the run directory changed for 15 minutes) means **keep waiting**: `await-run.ts <run-id> --wait 600`, repeated, until COMPLETE. Record the pause once in the results block with `grep -il '429\|quota' .teamwork/<run-id>/progress.md .teamwork/<run-id>/*/handoff.md` (the file evidence). A run is never rolled back for quota. It is rolled back only if its directory has shown no change for 12 hours, or if the conversation itself must end (the driver's `--print-timeout`, 12 hours) — and then the next session's §8.1 step 6 finds the run's directory and finishes or re-dispatches it. Nothing is sent to the team and no conversation is opened.
 
 ### 6.3.1 The interview brief (the five Teamwork fields)
 
@@ -389,7 +389,7 @@ Every unit, every phase. In Phase 1 the steps run per **run** (a batch of units,
 
 A unit that cannot complete is marked `blocked` with the reason. The session handoff names every blocked unit. Every script named above is run and its exit code recorded in the handoff (evidence rule: commands and their output, never prose claims about what was done).
 
-**Context discipline (D-010).** Every tool output lands in this conversation's context, and the context is the budget. Never `cat` a card, a manifest, the unit table or a transcript — `head`/`grep` the line needed; never read `STATE.md` more than once per run; never re-read `METHOD.md`; never print `unit-facts.ts` for more than one unit per command; record readings with `budget.ts --record`, not by pasting its full output into a document.
+**Context discipline (D-010).** Every tool output lands in this conversation's context, and the context is the budget. Never `cat` a card, a manifest, the unit table or a transcript — `head`/`grep` the line needed; never read `STATE.md` more than once per run; never re-read `METHOD.md`; never print `unit-facts.ts` for more than one unit per command; never view a `scripts/synthesis/*.ts` file whole — `head -25` prints its usage, and the scripts are run, not read; never read a file outside this repository, and never search the filesystem for a file this manual names — every path here is relative to the repository root; record readings with `budget.ts --record`, not by pasting its full output into a document.
 
 ## 8. Session protocol
 
@@ -397,7 +397,7 @@ A **session** here is one conversation of the primary agent. It ends by plan, ne
 
 ### 8.1 Session start
 
-1. Read `docs/plan/METHOD.md` (this file) completely, in two views: lines 1–300, then 301–end (each under the file viewer's ~46 KB limit). Do not read any range twice.
+1. Read `docs/plan/METHOD.md` (this file) completely, in two views: lines 1–300, then 301–end (each under the file viewer's ~46 KB limit). Do not read any range twice. Paths in this manual are relative to the repository root (`/Users/peterkloss/Dev/ACMElabs/brain-v2`, the working directory); a same-named file elsewhere on the machine — in particular under `/Users/peterkloss/Dev/ACMElabs/brain/` — is not this project's file (§2, DO-NOT-READ.md).
 2. Read `docs/plan/STATE.md`. Note phase, current unit, human-approval field. The unit table is not in it — `bun scripts/synthesis/units.ts status` gives the counts and `units.ts pending <n>` the next units; do not open `docs/plan/units.md`.
 3. Read the most recent file in `docs/plan/sessions/`.
 4. Read `docs/decisions/DECISIONS.md` and `docs/plan/GLOSSARY.md`.
@@ -426,7 +426,7 @@ PROBE       = when the recommendation is already the proven maximum and the next
 
 The loop of a session is: `budget.ts` → its verdict names `k × n` → §7 steps 1–3 for the units (claim records `run-start`, dispatch records `dispatched`) → §7 step 4 (wait) → §7 steps 5–8 (verify, check off, record `verified`) → `budget.ts` again. `STOP` means go to §8.3.
 
-**Step-up rule.** A run at a size or concurrency above the proven maximum is *clean* when: every returned card has zero `quote-check.ts` FAIL; no 429 (`grep -il '429' .teamwork/<run-id>/progress.md .teamwork/<run-id>/*/handoff.md` finds nothing); no rot metric (below); and its wall time (from `await-run.ts` — dispatch to COMPLETE) is within `wall_time_bound_pct` of `last_clean_wall_minutes` — a longer wall time at the same unit caps means the harness is queueing conversations, and that is the concurrent-stream limit. After a clean probe: `budget.ts --set max_clean_run=<n>` or `max_clean_concurrency=<k>` and `last_clean_wall_minutes=<m>`. After a probe that is not clean: the maximum stays, the reason is recorded in the results doc, and the series does not try that step again in this project without a D-0xx decision.
+**Step-up rule.** A run at a size or concurrency above the proven maximum is *clean* when: every returned card has zero `quote-check.ts` FAIL; no rot metric (below); no quota pause (`grep -il '429' .teamwork/<run-id>/progress.md .teamwork/<run-id>/*/handoff.md` finds nothing — a run that paused on quota still counts for quality, but its wall time measures the quota, not the harness, so it is not a step-up measurement and the probe is repeated next time); and its wall time (from `await-run.ts` — dispatch to COMPLETE) is within `wall_time_bound_pct` of `last_clean_wall_minutes` — a longer wall time at the same unit caps means the harness is queueing conversations, and that is the concurrent-stream limit. After a clean probe: `budget.ts --set max_clean_run=<n>` or `max_clean_concurrency=<k>` and `last_clean_wall_minutes=<m>`. After a probe that is not clean: the maximum stays, the reason is recorded in the results doc, and the series does not try that step again in this project without a D-0xx decision.
 
 **Rot metrics** (recorded with `used` at that moment; any one stops dispatch for this conversation): a §7 step skipped; a unit marked done without read-back; a `units.ts check` failure; a decision cited that `DECISIONS.md` does not contain; a role or file named by a name that is not its documented name; a `quote-check.ts` FAIL on a returned card; an empty required field; a package prefix dropped (R4); a `coverage.ts` regression.
 
@@ -447,7 +447,7 @@ The CLI may replace the older part of a conversation with a summary (a `CHECKPOI
 
 ### 8.5 Headless operation (D-018)
 
-`bun scripts/synthesis/drive.ts` starts conversations without a paste: `agy -p "<PROMPT.md>" --output-format stream-json --model <slug> --print-timeout 180m` in the repo root, one after another, until `STATE.md` leaves Phases 0–1 or a stop condition fires (a conversation that did not commit, asked for Peter, ended twice without SUCCESS, or — in Phase 1 — dispatched nothing). It passes `--dangerously-skip-permissions` unless started with `--ask`, because headless mode has no prompt to answer; it stops and says so if a step's `usage.input_tokens` ever exceeds the window (which would mean the value is cumulative and the log is wrong). It writes the context series into `.teamwork/ctx-log.jsonl` from the stream's per-step `usage.input_tokens` so `budget.ts` works unchanged, and saves every event stream under `.teamwork/drive/`. The agent's behaviour is identical in both modes: nothing in this file depends on how the conversation was started. Whether Teamwork dispatch works headless is unproven until the first driven conversation shows a new `.teamwork/<run-id>/` directory; the driver stops and says so if it does not.
+`bun scripts/synthesis/drive.ts` starts conversations without a paste: `agy -p "<PROMPT.md>" --output-format stream-json --model <slug> --print-timeout 180m` in the repo root, one after another, until `STATE.md` leaves Phases 0–1 or a stop condition fires (a conversation that did not commit, asked for Peter, ended twice without SUCCESS, or — in Phase 1 — dispatched nothing). It passes `--dangerously-skip-permissions` unless started with `--ask`, because headless mode has no prompt to answer; it stops and says so if a step's `usage.input_tokens` ever exceeds the window (which would mean the value is cumulative and the log is wrong). agy renders the statusline in headless mode too, so the context series in `.teamwork/ctx-log.jsonl` normally comes from the statusline as in interactive mode; the driver writes the series itself only if the statusline does not (from the stream's per-step `usage.input_tokens + cache_read_tokens`, which matched the statusline's peak within 0.1% on 2026-09-05), and saves every event stream under `.teamwork/drive/`. The agent's behaviour is identical in both modes: nothing in this file depends on how the conversation was started. Teamwork dispatch works headless: the first driven conversation (session 001, 2026-09-05) dispatched `p1-run-01` and verified 90 cards at zero FAIL. The driver still stops and says so if a Phase-1 conversation dispatches nothing.
 
 ## 9. Repository layout
 
@@ -524,6 +524,8 @@ docs/
     concepts/<pkg>/        ← Phase 2; one card per named concept
     concordance/           ← Phase 3; one file per concept family
     dynamic-batching-experiment.md ← the D-010 measurement protocol, the run results (§7), and the 2026-09-04 findings (§9)
+    rationale/             ← D-019: the record of why — research, measurements, constraints, timeline, open questions;
+                             an input, never a rule; sessions append only to 12-open-questions.md when a probe lands
     integration-verification.md  ← Phase 8
 ```
 

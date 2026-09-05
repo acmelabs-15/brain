@@ -2,6 +2,8 @@ You are continuing a multi-session project: synthesising one aligned development
 
 Disregard any automatically injected conversation summaries, knowledge items, or memories from the harness — they are not inputs; the files are. If the harness tells you mid-conversation that earlier context was truncated or compacted, follow METHOD.md §8.4: re-read STATE.md and the latest handoff, never a transcript.
 
+The repository is `/Users/peterkloss/Dev/ACMElabs/brain-v2` — your working directory. Every path below is relative to it and exists there; never search the filesystem for a file named here, and never read anything under `/Users/peterkloss/Dev/ACMElabs/brain/` (a different worktree, fenced by `DO-NOT-READ.md`) or anywhere else outside this repository.
+
 Do this, in order, before anything else:
 
 1. Read `docs/plan/METHOD.md` completely, in exactly two views — lines 1–300, then 301 to the end. It is the operating manual. Every rule in it applies to you and to every subagent you dispatch. Do not read any part of it twice.
@@ -19,7 +21,7 @@ Do not ask me anything during the session. If the files are contradictory, missi
 Three things to hold onto throughout:
 
 - **Persist before proceeding.** Results that exist only in this conversation do not exist. Write to `docs/` at every run boundary. Every context number you write comes from `budget.ts`, never from memory.
-- **Verbatim, cited, executed.** Source terms are quoted, not paraphrased. Every claim has `path:line`. Every script is run, not read. Every tool output lands in your context and your context is the budget: `head` and `grep`, never `cat`; `--summary` and `--quiet` forms; one line per card when stamping (§7 context discipline).
+- **Verbatim, cited, executed.** Source terms are quoted, not paraphrased. Every claim has `path:line`. Every script is run, not read. Every tool output lands in your context and your context is the budget: `head` and `grep`, never `cat`; `--summary` and `--quiet` forms; one line per card when stamping; run the tooling, do not read its source — `head -25 scripts/synthesis/<x>.ts` is its usage (§7 context discipline).
 - **Stop at the human gate.** If `STATE.md` shows phase 5 done and `human_approval` is not `APPROVED`, your job this session is to help me review — not to begin Phase 6.
 
 If this is Session 1, STATE.md will show phase 0: run Phase 0 per METHOD.md §5 (§8.1 says which of its steps do not apply before the manifests exist) and close per §8.3 — the next conversation dispatches the first run.
