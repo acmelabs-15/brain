@@ -160,44 +160,44 @@
 | skills/in-progress/loop-me/agents/openai.yaml | 140 | skill | [x] |
 | skills/in-progress/loop-me/SKILL.md | 2522 | skill | [x] |
 | skills/in-progress/README.md | 2177 | skill | [x] |
-| skills/in-progress/retro/agents/openai.yaml | 146 | skill | [ ] |
-| skills/in-progress/retro/SKILL.md | 3388 | skill | [ ] |
-| skills/in-progress/setup-ts-deep-modules/agents/openai.yaml | 149 | skill | [ ] |
-| skills/in-progress/setup-ts-deep-modules/dependency-cruiser.config.cjs | 3712 | skill | [ ] |
-| skills/in-progress/setup-ts-deep-modules/SKILL.md | 7546 | skill | [ ] |
-| skills/in-progress/writing-beats/agents/openai.yaml | 142 | skill | [ ] |
-| skills/in-progress/writing-beats/SKILL.md | 4855 | skill | [ ] |
-| skills/in-progress/writing-fragments/agents/openai.yaml | 140 | skill | [ ] |
-| skills/in-progress/writing-fragments/SKILL.md | 3558 | skill | [ ] |
-| skills/in-progress/writing-shape/agents/openai.yaml | 144 | skill | [ ] |
-| skills/in-progress/writing-shape/SKILL.md | 5922 | skill | [ ] |
-| skills/misc/git-guardrails-claude-code/agents/openai.yaml | 112 | skill | [ ] |
-| skills/misc/git-guardrails-claude-code/scripts/block-dangerous-git.sh | 507 | script | [ ] |
-| skills/misc/git-guardrails-claude-code/SKILL.md | 2313 | skill | [ ] |
-| skills/misc/migrate-to-shoehorn/agents/openai.yaml | 110 | skill | [ ] |
-| skills/misc/migrate-to-shoehorn/SKILL.md | 2795 | skill | [ ] |
-| skills/misc/README.md | 684 | skill | [ ] |
-| skills/misc/scaffold-exercises/agents/openai.yaml | 108 | skill | [ ] |
-| skills/misc/scaffold-exercises/SKILL.md | 3589 | skill | [ ] |
-| skills/misc/setup-pre-commit/agents/openai.yaml | 99 | skill | [ ] |
-| skills/misc/setup-pre-commit/SKILL.md | 2258 | skill | [ ] |
-| skills/productivity/grill-me/agents/openai.yaml | 137 | skill | [ ] |
-| skills/productivity/grill-me/SKILL.md | 157 | skill | [ ] |
-| skills/productivity/grilling/agents/openai.yaml | 113 | skill | [ ] |
-| skills/productivity/grilling/SKILL.md | 1987 | skill | [ ] |
-| skills/productivity/handoff/agents/openai.yaml | 141 | skill | [ ] |
-| skills/productivity/handoff/SKILL.md | 894 | skill | [ ] |
-| skills/productivity/README.md | 1480 | skill | [ ] |
-| skills/productivity/teach/agents/openai.yaml | 139 | skill | [ ] |
-| skills/productivity/teach/GLOSSARY-FORMAT.md | 2122 | skill | [ ] |
-| skills/productivity/teach/LEARNING-RECORD-FORMAT.md | 2747 | skill | [ ] |
-| skills/productivity/teach/MISSION-FORMAT.md | 1540 | skill | [ ] |
-| skills/productivity/teach/RESOURCES-FORMAT.md | 1924 | skill | [ ] |
-| skills/productivity/teach/SKILL.md | 9506 | skill | [ ] |
-| skills/productivity/to-questionnaire/agents/openai.yaml | 166 | skill | [ ] |
-| skills/productivity/to-questionnaire/SKILL.md | 2904 | skill | [ ] |
-| skills/productivity/wait-what/agents/openai.yaml | 158 | skill | [ ] |
-| skills/productivity/wait-what/SKILL.md | 394 | skill | [ ] |
-| skills/productivity/writing-for-agents/agents/openai.yaml | 102 | skill | [ ] |
-| skills/productivity/writing-for-agents/SKILL-MECHANICS.md | 2629 | skill | [ ] |
-| skills/productivity/writing-for-agents/SKILL.md | 10886 | skill | [ ] |
+| skills/in-progress/retro/agents/openai.yaml | 146 | skill | [x] |
+| skills/in-progress/retro/SKILL.md | 3388 | skill | [x] |
+| skills/in-progress/setup-ts-deep-modules/agents/openai.yaml | 149 | skill | [x] |
+| skills/in-progress/setup-ts-deep-modules/dependency-cruiser.config.cjs | 3712 | skill | [x] |
+| skills/in-progress/setup-ts-deep-modules/SKILL.md | 7546 | skill | [x] |
+| skills/in-progress/writing-beats/agents/openai.yaml | 142 | skill | [x] |
+| skills/in-progress/writing-beats/SKILL.md | 4855 | skill | [x] |
+| skills/in-progress/writing-fragments/agents/openai.yaml | 140 | skill | [x] |
+| skills/in-progress/writing-fragments/SKILL.md | 3558 | skill | [x] |
+| skills/in-progress/writing-shape/agents/openai.yaml | 144 | skill | [x] |
+| skills/in-progress/writing-shape/SKILL.md | 5922 | skill | [x] |
+| skills/misc/git-guardrails-claude-code/agents/openai.yaml | 112 | skill | [x] |
+| skills/misc/git-guardrails-claude-code/scripts/block-dangerous-git.sh | 507 | script | [x] |
+| skills/misc/git-guardrails-claude-code/SKILL.md | 2313 | skill | [x] |
+| skills/misc/migrate-to-shoehorn/agents/openai.yaml | 110 | skill | [x] |
+| skills/misc/migrate-to-shoehorn/SKILL.md | 2795 | skill | [x] |
+| skills/misc/README.md | 684 | skill | [x] |
+| skills/misc/scaffold-exercises/agents/openai.yaml | 108 | skill | [x] |
+| skills/misc/scaffold-exercises/SKILL.md | 3589 | skill | [x] |
+| skills/misc/setup-pre-commit/agents/openai.yaml | 99 | skill | [x] |
+| skills/misc/setup-pre-commit/SKILL.md | 2258 | skill | [x] |
+| skills/productivity/grill-me/agents/openai.yaml | 137 | skill | [x] |
+| skills/productivity/grill-me/SKILL.md | 157 | skill | [x] |
+| skills/productivity/grilling/agents/openai.yaml | 113 | skill | [x] |
+| skills/productivity/grilling/SKILL.md | 1987 | skill | [x] |
+| skills/productivity/handoff/agents/openai.yaml | 141 | skill | [x] |
+| skills/productivity/handoff/SKILL.md | 894 | skill | [x] |
+| skills/productivity/README.md | 1480 | skill | [x] |
+| skills/productivity/teach/agents/openai.yaml | 139 | skill | [x] |
+| skills/productivity/teach/GLOSSARY-FORMAT.md | 2122 | skill | [x] |
+| skills/productivity/teach/LEARNING-RECORD-FORMAT.md | 2747 | skill | [x] |
+| skills/productivity/teach/MISSION-FORMAT.md | 1540 | skill | [x] |
+| skills/productivity/teach/RESOURCES-FORMAT.md | 1924 | skill | [x] |
+| skills/productivity/teach/SKILL.md | 9506 | skill | [x] |
+| skills/productivity/to-questionnaire/agents/openai.yaml | 166 | skill | [x] |
+| skills/productivity/to-questionnaire/SKILL.md | 2904 | skill | [x] |
+| skills/productivity/wait-what/agents/openai.yaml | 158 | skill | [x] |
+| skills/productivity/wait-what/SKILL.md | 394 | skill | [x] |
+| skills/productivity/writing-for-agents/agents/openai.yaml | 102 | skill | [x] |
+| skills/productivity/writing-for-agents/SKILL-MECHANICS.md | 2629 | skill | [x] |
+| skills/productivity/writing-for-agents/SKILL.md | 10886 | skill | [x] |

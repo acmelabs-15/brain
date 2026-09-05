@@ -1,69 +1,69 @@
 | Path | Bytes | Type | Checked |
 |---|---|---|---|
-| .agents/AGENT-SYSTEM.md | 53992 | agent | [ ] |
-| .agents/analysis/002-project-constraints-consolidation.md | 34898 | agent | [ ] |
-| .agents/analysis/adr-045-feasibility-analysis.md | 14627 | agent | [ ] |
-| .agents/analysis/adr-045-inventory-audit.md | 26808 | agent | [ ] |
-| .agents/analysis/claude-code-plugin-marketplaces.md | 10131 | agent | [ ] |
-| .agents/analysis/claude-flow-architecture-analysis.md | 8800 | agent | [ ] |
-| .agents/analysis/vercel-passive-context-vs-skills-research.md | 9718 | agent | [ ] |
-| .agents/architecture/ADR-001-markdown-linting.md | 4386 | agent | [ ] |
-| .agents/architecture/ADR-002-agent-model-selection-optimization.md | 10216 | agent | [ ] |
-| .agents/architecture/ADR-003-agent-tool-selection-criteria.md | 18191 | agent | [ ] |
-| .agents/architecture/ADR-004-pre-commit-hook-architecture.md | 7448 | agent | [ ] |
-| .agents/architecture/ADR-005-powershell-only-scripting.md | 9895 | agent | [ ] |
-| .agents/architecture/ADR-006-thin-workflows-testable-modules.md | 25942 | agent | [ ] |
-| .agents/architecture/ADR-007-memory-first-architecture.md | 15338 | agent | [ ] |
-| .agents/architecture/ADR-008-protocol-automation-lifecycle-hooks.md | 10790 | agent | [ ] |
-| .agents/architecture/ADR-009-parallel-safe-multi-agent-design.md | 4097 | agent | [ ] |
-| .agents/architecture/ADR-010-quality-gates-evaluator-optimizer.md | 4457 | agent | [ ] |
-| .agents/architecture/ADR-011-session-state-mcp.md | 17240 | agent | [ ] |
-| .agents/architecture/ADR-012-skill-catalog-mcp.md | 16823 | agent | [ ] |
-| .agents/architecture/ADR-013-agent-orchestration-mcp.md | 18270 | agent | [ ] |
-| .agents/architecture/ADR-014-distributed-handoff-architecture.md | 11472 | agent | [ ] |
-| .agents/architecture/ADR-015-artifact-storage-minimization.md | 5330 | agent | [ ] |
-| .agents/architecture/ADR-016-workflow-execution-optimization.md | 7564 | agent | [ ] |
-| .agents/architecture/ADR-017-tiered-memory-index-architecture.md | 14780 | agent | [ ] |
-| .agents/architecture/ADR-018-cache-invalidation-strategy.md | 5400 | agent | [ ] |
-| .agents/architecture/ADR-019-script-organization.md | 7372 | agent | [ ] |
-| .agents/architecture/ADR-020-feature-request-review-step.md | 16370 | agent | [ ] |
-| .agents/architecture/ADR-021-model-routing-strategy.md | 8699 | agent | [ ] |
-| .agents/architecture/ADR-022-architecture-governance-split-criteria.md | 18345 | agent | [ ] |
-| .agents/architecture/ADR-023-quality-gate-prompt-testing.md | 7125 | agent | [ ] |
-| .agents/architecture/ADR-024-github-actions-runner-selection.md | 8418 | agent | [ ] |
-| .agents/architecture/ADR-025-github-actions-arm-runners.md | 6252 | agent | [ ] |
-| .agents/architecture/ADR-026-pr-automation-concurrency-and-safety.md | 12173 | agent | [ ] |
-| .agents/architecture/ADR-027-github-mcp-agent-isolation.md | 15767 | agent | [ ] |
-| .agents/architecture/ADR-028-powershell-output-schema-consistency.md | 4643 | agent | [ ] |
-| .agents/architecture/ADR-029-skill-file-line-ending-normalization.md | 3884 | agent | [ ] |
-| .agents/architecture/ADR-030-skills-pattern-superiority.md | 7871 | agent | [ ] |
-| .agents/architecture/ADR-031-hybrid-powershell-architecture.md | 7767 | agent | [ ] |
-| .agents/architecture/ADR-032-ears-requirements-syntax.md | 8441 | agent | [ ] |
-| .agents/architecture/ADR-033-routing-level-enforcement-gates.md | 19238 | agent | [ ] |
-| .agents/architecture/ADR-034-investigation-session-qa-exemption.md | 16447 | agent | [ ] |
-| .agents/architecture/ADR-035-exit-code-standardization.md | 27664 | agent | [ ] |
-| .agents/architecture/ADR-036-two-source-agent-template-architecture.md | 13002 | agent | [ ] |
-| .agents/architecture/ADR-037-memory-router-architecture.md | 22974 | agent | [ ] |
-| .agents/architecture/ADR-038-reflexion-memory-schema.md | 11364 | agent | [ ] |
-| .agents/architecture/ADR-039-agent-model-cost-optimization.md | 14028 | agent | [ ] |
-| .agents/architecture/ADR-040-skill-frontmatter-standardization.md | 24306 | agent | [ ] |
-| .agents/architecture/ADR-041-codeql-integration.md | 19271 | agent | [ ] |
-| .agents/architecture/ADR-042-python-migration-strategy.md | 10752 | agent | [ ] |
-| .agents/architecture/ADR-043-scoped-tool-execution.md | 9682 | agent | [ ] |
-| .agents/architecture/ADR-044-copilot-cli-frontmatter-compatibility.md | 16285 | agent | [ ] |
-| .agents/architecture/ADR-045-framework-extraction-via-plugin-marketplace.md | 16279 | agent | [ ] |
-| .agents/architecture/ADR-046-planning-agent-rename.md | 5867 | agent | [ ] |
-| .agents/architecture/ADR-047-plugin-mode-hook-behavior.md | 13382 | agent | [ ] |
-| .agents/architecture/ADR-048-mcp-tool-ecosystem-expansion.md | 5854 | agent | [ ] |
-| .agents/architecture/ADR-049-pre-pr-validation-gates.md | 4635 | agent | [ ] |
-| .agents/architecture/ADR-050-adr-protocol-sync.md | 4391 | agent | [ ] |
-| .agents/architecture/ADR-051-synthesis-panel-frontmatter-standard.md | 10711 | agent | [ ] |
-| .agents/architecture/ADR-052-template-strategy.md | 21564 | agent | [ ] |
-| .agents/architecture/ADR-053-adr-exception-criteria.md | 5290 | agent | [ ] |
-| .agents/architecture/ADR-054-local-security-scanning.md | 8933 | agent | [ ] |
-| .agents/architecture/ADR-055-github-actions-runner-selection.md | 11661 | agent | [ ] |
-| .agents/architecture/ADR-056-skill-output-format-standardization.md | 4227 | agent | [ ] |
-| .agents/architecture/ADR-057-prompt-behavioral-evaluation.md | 22813 | agent | [ ] |
+| .agents/AGENT-SYSTEM.md | 53992 | agent | [x] |
+| .agents/analysis/002-project-constraints-consolidation.md | 34898 | agent | [x] |
+| .agents/analysis/adr-045-feasibility-analysis.md | 14627 | agent | [x] |
+| .agents/analysis/adr-045-inventory-audit.md | 26808 | agent | [x] |
+| .agents/analysis/claude-code-plugin-marketplaces.md | 10131 | agent | [x] |
+| .agents/analysis/claude-flow-architecture-analysis.md | 8800 | agent | [x] |
+| .agents/analysis/vercel-passive-context-vs-skills-research.md | 9718 | agent | [x] |
+| .agents/architecture/ADR-001-markdown-linting.md | 4386 | agent | [x] |
+| .agents/architecture/ADR-002-agent-model-selection-optimization.md | 10216 | agent | [x] |
+| .agents/architecture/ADR-003-agent-tool-selection-criteria.md | 18191 | agent | [x] |
+| .agents/architecture/ADR-004-pre-commit-hook-architecture.md | 7448 | agent | [x] |
+| .agents/architecture/ADR-005-powershell-only-scripting.md | 9895 | agent | [x] |
+| .agents/architecture/ADR-006-thin-workflows-testable-modules.md | 25942 | agent | [x] |
+| .agents/architecture/ADR-007-memory-first-architecture.md | 15338 | agent | [x] |
+| .agents/architecture/ADR-008-protocol-automation-lifecycle-hooks.md | 10790 | agent | [x] |
+| .agents/architecture/ADR-009-parallel-safe-multi-agent-design.md | 4097 | agent | [x] |
+| .agents/architecture/ADR-010-quality-gates-evaluator-optimizer.md | 4457 | agent | [x] |
+| .agents/architecture/ADR-011-session-state-mcp.md | 17240 | agent | [x] |
+| .agents/architecture/ADR-012-skill-catalog-mcp.md | 16823 | agent | [x] |
+| .agents/architecture/ADR-013-agent-orchestration-mcp.md | 18270 | agent | [x] |
+| .agents/architecture/ADR-014-distributed-handoff-architecture.md | 11472 | agent | [x] |
+| .agents/architecture/ADR-015-artifact-storage-minimization.md | 5330 | agent | [x] |
+| .agents/architecture/ADR-016-workflow-execution-optimization.md | 7564 | agent | [x] |
+| .agents/architecture/ADR-017-tiered-memory-index-architecture.md | 14780 | agent | [x] |
+| .agents/architecture/ADR-018-cache-invalidation-strategy.md | 5400 | agent | [x] |
+| .agents/architecture/ADR-019-script-organization.md | 7372 | agent | [x] |
+| .agents/architecture/ADR-020-feature-request-review-step.md | 16370 | agent | [x] |
+| .agents/architecture/ADR-021-model-routing-strategy.md | 8699 | agent | [x] |
+| .agents/architecture/ADR-022-architecture-governance-split-criteria.md | 18345 | agent | [x] |
+| .agents/architecture/ADR-023-quality-gate-prompt-testing.md | 7125 | agent | [x] |
+| .agents/architecture/ADR-024-github-actions-runner-selection.md | 8418 | agent | [x] |
+| .agents/architecture/ADR-025-github-actions-arm-runners.md | 6252 | agent | [x] |
+| .agents/architecture/ADR-026-pr-automation-concurrency-and-safety.md | 12173 | agent | [x] |
+| .agents/architecture/ADR-027-github-mcp-agent-isolation.md | 15767 | agent | [x] |
+| .agents/architecture/ADR-028-powershell-output-schema-consistency.md | 4643 | agent | [x] |
+| .agents/architecture/ADR-029-skill-file-line-ending-normalization.md | 3884 | agent | [x] |
+| .agents/architecture/ADR-030-skills-pattern-superiority.md | 7871 | agent | [x] |
+| .agents/architecture/ADR-031-hybrid-powershell-architecture.md | 7767 | agent | [x] |
+| .agents/architecture/ADR-032-ears-requirements-syntax.md | 8441 | agent | [x] |
+| .agents/architecture/ADR-033-routing-level-enforcement-gates.md | 19238 | agent | [x] |
+| .agents/architecture/ADR-034-investigation-session-qa-exemption.md | 16447 | agent | [x] |
+| .agents/architecture/ADR-035-exit-code-standardization.md | 27664 | agent | [x] |
+| .agents/architecture/ADR-036-two-source-agent-template-architecture.md | 13002 | agent | [x] |
+| .agents/architecture/ADR-037-memory-router-architecture.md | 22974 | agent | [x] |
+| .agents/architecture/ADR-038-reflexion-memory-schema.md | 11364 | agent | [x] |
+| .agents/architecture/ADR-039-agent-model-cost-optimization.md | 14028 | agent | [x] |
+| .agents/architecture/ADR-040-skill-frontmatter-standardization.md | 24306 | agent | [x] |
+| .agents/architecture/ADR-041-codeql-integration.md | 19271 | agent | [x] |
+| .agents/architecture/ADR-042-python-migration-strategy.md | 10752 | agent | [x] |
+| .agents/architecture/ADR-043-scoped-tool-execution.md | 9682 | agent | [x] |
+| .agents/architecture/ADR-044-copilot-cli-frontmatter-compatibility.md | 16285 | agent | [x] |
+| .agents/architecture/ADR-045-framework-extraction-via-plugin-marketplace.md | 16279 | agent | [x] |
+| .agents/architecture/ADR-046-planning-agent-rename.md | 5867 | agent | [x] |
+| .agents/architecture/ADR-047-plugin-mode-hook-behavior.md | 13382 | agent | [x] |
+| .agents/architecture/ADR-048-mcp-tool-ecosystem-expansion.md | 5854 | agent | [x] |
+| .agents/architecture/ADR-049-pre-pr-validation-gates.md | 4635 | agent | [x] |
+| .agents/architecture/ADR-050-adr-protocol-sync.md | 4391 | agent | [x] |
+| .agents/architecture/ADR-051-synthesis-panel-frontmatter-standard.md | 10711 | agent | [x] |
+| .agents/architecture/ADR-052-template-strategy.md | 21564 | agent | [x] |
+| .agents/architecture/ADR-053-adr-exception-criteria.md | 5290 | agent | [x] |
+| .agents/architecture/ADR-054-local-security-scanning.md | 8933 | agent | [x] |
+| .agents/architecture/ADR-055-github-actions-runner-selection.md | 11661 | agent | [x] |
+| .agents/architecture/ADR-056-skill-output-format-standardization.md | 4227 | agent | [x] |
+| .agents/architecture/ADR-057-prompt-behavioral-evaluation.md | 22813 | agent | [x] |
 | .agents/architecture/ADR-058-agent-eval-discipline.md | 40543 | agent | [ ] |
 | .agents/architecture/ADR-059-pr-review-completion-gate-dispatcher.md | 3527 | agent | [ ] |
 | .agents/architecture/ADR-060-rework-warning-session-log-persistence.md | 6858 | agent | [ ] |
