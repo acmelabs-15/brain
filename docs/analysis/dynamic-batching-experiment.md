@@ -125,9 +125,24 @@ The runs before that reset — the experiment of sessions 013–014 (runs 01–0
 - **Workers per unit**: 16 workers (`.agents/worker_1`..`worker_16`), one per unit, dispatched concurrently.
 - **quote-check totals**: 1,380 PASS, 0 FAIL across all 37 inventory cards (0% failure rate)
 - **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
-- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-03/success_auditor_report.md` (verdict CLEAN)
-- **Probe verdict**: N/A (16 is max_clean_run; probe not attempted; quality completely clean at 1,380 PASS / 0 FAIL).
+### run 04 (Session 003, production p1-run-04)
 
+- **run-id**: `p1-run-04`
+- **session**: 003 (Phase 1)
+- **units**: `inv-matt-19` through `inv-matt-42` (24 units, 87 inventory cards, 24 unit reports)
+- **context used**:
+  - at run-start: `used=9.11%` (`[run-start p1-run-04 n=24] budget 2026-09-05T09:59:32.625Z conv=c99a5bff model="Gemini 3.8 Flash (High)" used=9.11% peak=9.11% governing=25.00% close=1.55% headroom=14.34% pending=352 → DISPATCH 1 run × 24 units (24 units, cost 9.16%) — PROBE`)
+  - at dispatched: `used=9.60%` (`[dispatched p1-run-04] budget 2026-09-05T09:59:54.376Z conv=c99a5bff model="Gemini 3.8 Flash (High)" used=9.60% peak=9.60% governing=25.00% close=1.55% headroom=13.85% pending=328 → DISPATCH 1 run × 24 units (24 units, cost 9.16%) — PROBE`)
+  - at verified: `used=11.52%` (`[verified p1-run-04] budget 2026-09-05T10:15:00.329Z conv=c99a5bff model="Gemini 3.8 Flash (High)" used=11.52% peak=11.52% governing=25.00% close=1.55% headroom=11.93% pending=328 → DISPATCH 1 run × 24 units (24 units, cost 9.16%) — PROBE`)
+  - per-unit delta: 0.080% (verified 11.52% − dispatched 9.60% = 1.92% ÷ 24 units = 0.080%)
+- **rot metrics**: none observed (used: 11.52%)
+- **429s and quota.reset_in_seconds**: none observed
+- **wall time**: 13.5 min (from `2026-09-05T09:59:54Z` dispatch to `2026-09-05T10:13:24Z` completion).
+- **Workers per unit**: 24 workers (`.agents/worker_1`..`worker_24`), one per unit, dispatched concurrently.
+- **quote-check totals**: 2,320 PASS, 0 FAIL across all 87 inventory cards (0% failure rate)
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-04/success_auditor_report.md` (verdict CLEAN)
+- **Probe verdict**: Clean probe! Wall time 13.5 min is within 25% bound of 12.6 min (15.75 min), 0 FAIL across 2,320 citations, 0 429s, no rot metrics, 24 parallel workers. Per METHOD.md §8.2 step-up rule, `max_clean_run` is raised from 16 to 24, with `last_clean_wall_minutes=13.5`.
 
 ## 8. Objective
 

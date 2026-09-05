@@ -18,7 +18,7 @@
     32,
     48
   ],
-  "max_clean_run": 16,
+  "max_clean_run": 24,
   "max_clean_run_note": "largest run size so far that returned zero quote-check FAIL, zero 429, no rot metric and a valid wall-time measurement — proven at 16 twice (p1-run-04: 12.6 min, 16 Workers; p1-run-07: 65 min but 18 Workers in five gated milestones, quality clean). 24 was clean on quality (p1-run-06, 927 PASS / 0 FAIL) but ran 8 Workers for 24 units, so its wall time measured the Orchestrator, not the harness; it is probed again under the one-Worker-per-unit brief (§6.3.1, D-021).",
   "concurrency_sizes": [
     1,
@@ -29,7 +29,7 @@
   "max_clean_concurrency_note": "largest number of Teamwork runs dispatched at the same time from one conversation that finished clean and within the wall-time bound. k=2 was dispatched once (session 007: p1-run-08 and p1-run-09, both 16 units) and cancelled by hand two minutes in — unproven, not failed. n grows before k, so k is probed only when the largest run size is proven and two of them fit.",
   "wall_time_bound_pct": 25,
   "wall_time_bound_note": "a step up in run size or concurrency counts as clean only if the run's wall time is within this percentage of the previous clean step at the same unit cap and the same shape (one Worker per unit, all at once — §6.3.1) — a longer wall time then means the harness is queueing conversations, and that is the stream limit",
-  "last_clean_wall_minutes": 12.6,
+  "last_clean_wall_minutes": 13.5,
   "compaction_note": "harness compaction is NOT a ceiling: it fired at ~10% in session 013 and not at 18% in session 014, nor in any test-series conversation (peaks 19.0–21.2%); it is handled by §8.4, not by this budget",
   "last_clean_wall_note": "p1-run-04: 16 units, 16 Workers at once, 12.6 min dispatch to COMPLETE (session 005)"
 }
