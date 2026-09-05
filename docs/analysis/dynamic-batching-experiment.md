@@ -109,6 +109,25 @@ The runs before that reset — the experiment of sessions 013–014 (runs 01–0
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-02/success_auditor_report.md` (verdict CLEAN)
 - **Probe verdict**: N/A (probe evaluated in run 01; run 02 dispatched under max_clean_run=16/probe=24; quality completely clean at 0 FAIL across 5,160 citations).
 
+### run 03 (Session 002, production p1-run-03)
+
+- **run-id**: `p1-run-03`
+- **session**: 002 (Phase 1)
+- **units**: `inv-matt-3` through `inv-matt-18` (16 units, 37 inventory cards, 16 unit reports)
+- **context used**:
+  - at run-start: `used=12.82%` (`[run-start p1-run-03 n=16] budget 2026-09-05T08:16:30.288Z conv=903142eb model="Gemini 3.8 Flash (High)" used=12.82% peak=12.82% governing=25.00% close=4.08% headroom=8.10% pending=368 → DISPATCH 1 run × 16 units (16 units, cost 7.64%)`)
+  - at dispatched: `used=13.60%` (`[dispatched p1-run-03] budget 2026-09-05T08:17:02.000Z conv=903142eb model="Gemini 3.8 Flash (High)" used=13.60% peak=13.60% governing=25.00% close=4.08% headroom=7.32% pending=352 → DISPATCH 1 run × 12 units (12 units, cost 6.88%)`)
+  - at verified: `used=17.65%` (`[verified p1-run-03] budget 2026-09-05T09:57:16.020Z conv=903142eb model="Gemini 3.8 Flash (High)" used=17.65% peak=17.65% governing=25.00% close=4.08% headroom=3.27% pending=352 → STOP — no plan fits the headroom: close per §8.3`)
+  - per-unit delta: 0.253% (verified 17.65% − dispatched 13.60% = 4.05% ÷ 16 units = 0.253%)
+- **rot metrics**: none observed (used: 17.65%)
+- **429s and quota.reset_in_seconds**: Account-level quota reached during worker initialization (429: "Individual quota reached. Resets at ~09:41 UTC"); paused cleanly by Sentinel and resumed automatically post-reset at ~09:41 UTC.
+- **wall time**: 99.0 min (from `2026-09-05T08:17:02Z` dispatch to `2026-09-05T09:56:02Z` completion, including 77 min quota refill pause; active execution was ~10 min).
+- **Workers per unit**: 16 workers (`.agents/worker_1`..`worker_16`), one per unit, dispatched concurrently.
+- **quote-check totals**: 1,380 PASS, 0 FAIL across all 37 inventory cards (0% failure rate)
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-03/success_auditor_report.md` (verdict CLEAN)
+- **Probe verdict**: N/A (16 is max_clean_run; probe not attempted; quality completely clean at 1,380 PASS / 0 FAIL).
+
 
 ## 8. Objective
 
