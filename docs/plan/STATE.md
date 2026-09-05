@@ -65,8 +65,8 @@ The unit table is `docs/plan/units.md`, written only by `bun scripts/synthesis/u
 
 | Status | Units |
 |---|---|
-| pending | 300 |
-| in-progress | 16 |
+| pending | 284 |
+| in-progress | 32 |
 | done | 100 |
 | blocked | 0 |
 | rolled-back | 0 |
