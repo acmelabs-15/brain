@@ -1,28 +1,28 @@
 | Path | Bytes | Type | Checked |
 |---|---|---|---|
-| .agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md | 1154 | agent | [ ] |
-| .agents/adr/0002-ship-as-a-claude-code-plugin.md | 5528 | agent | [ ] |
-| .agents/install-block.md | 2780 | agent | [ ] |
-| .agents/invocation.md | 3848 | agent | [ ] |
-| .agents/writing-docs.md | 12688 | agent | [ ] |
-| .changeset/add-implement-spec-skill.md | 450 | doc | [ ] |
-| .changeset/config.json | 380 | config | [ ] |
-| .changeset/domain-modeling-trigger-context-adr.md | 437 | doc | [ ] |
-| .changeset/fix-yaml-frontmatter-colons.md | 387 | doc | [ ] |
-| .changeset/grilling-add-hr-between-questions.md | 169 | doc | [ ] |
-| .changeset/grilling-remove-em-dashes.md | 162 | doc | [ ] |
-| .changeset/README.md | 512 | doc | [ ] |
-| .changeset/remove-em-dashes-repo-wide.md | 350 | doc | [ ] |
-| .changeset/skill-tool-invocation-terminology.md | 1006 | doc | [ ] |
-| .changeset/user-invoked-skill-invocation.md | 1565 | doc | [ ] |
-| .changeset/wait-what-context-map.md | 191 | doc | [ ] |
-| .claude-plugin/marketplace.json | 605 | config | [ ] |
-| .claude-plugin/plugin.json | 1636 | config | [ ] |
-| .github/workflows/release.yml | 780 | config | [ ] |
-| .gitignore | 21 | file | [ ] |
-| .out-of-scope/mainstream-issue-trackers-only.md | 1573 | doc | [ ] |
-| .out-of-scope/question-limits.md | 1259 | doc | [ ] |
-| .out-of-scope/setup-skill-verify-mode.md | 1125 | doc | [ ] |
+| .agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md | 1154 | agent | [x] |
+| .agents/adr/0002-ship-as-a-claude-code-plugin.md | 5528 | agent | [x] |
+| .agents/install-block.md | 2780 | agent | [x] |
+| .agents/invocation.md | 3848 | agent | [x] |
+| .agents/writing-docs.md | 12688 | agent | [x] |
+| .changeset/add-implement-spec-skill.md | 450 | doc | [x] |
+| .changeset/config.json | 380 | config | [x] |
+| .changeset/domain-modeling-trigger-context-adr.md | 437 | doc | [x] |
+| .changeset/fix-yaml-frontmatter-colons.md | 387 | doc | [x] |
+| .changeset/grilling-add-hr-between-questions.md | 169 | doc | [x] |
+| .changeset/grilling-remove-em-dashes.md | 162 | doc | [x] |
+| .changeset/README.md | 512 | doc | [x] |
+| .changeset/remove-em-dashes-repo-wide.md | 350 | doc | [x] |
+| .changeset/skill-tool-invocation-terminology.md | 1006 | doc | [x] |
+| .changeset/user-invoked-skill-invocation.md | 1565 | doc | [x] |
+| .changeset/wait-what-context-map.md | 191 | doc | [x] |
+| .claude-plugin/marketplace.json | 605 | config | [x] |
+| .claude-plugin/plugin.json | 1636 | config | [x] |
+| .github/workflows/release.yml | 780 | config | [x] |
+| .gitignore | 21 | file | [x] |
+| .out-of-scope/mainstream-issue-trackers-only.md | 1573 | doc | [x] |
+| .out-of-scope/question-limits.md | 1259 | doc | [x] |
+| .out-of-scope/setup-skill-verify-mode.md | 1125 | doc | [x] |
 | AGENTS.md | 0 | symlink | [x] (symlink) |
 | CHANGELOG.md | 44408 | doc | [ ] |
 | CLAUDE.md | 3703 | doc | [ ] |

@@ -90,6 +90,25 @@ The runs before that reset — the experiment of sessions 013–014 (runs 01–0
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-01/success_auditor_report.md` (verdict CLEAN)
 - **Probe verdict**: Quality clean (0 FAIL, 0 429, no rot metric), but wall time 20.6 min exceeded 25% bound of 12.6 min (15.75 min) due to review/audit/remediation pass on divergence card citations and YAML frontmatter. Per METHOD.md §8.2 step-up rule, `max_clean_run` stays at 16; 24 is not raised.
 
+### run 02 (Session 001, production p1-run-02)
+
+- **run-id**: `p1-run-02`
+- **session**: 001 (Phase 1)
+- **units**: `inv-addy-25` through `inv-addy-46`, `inv-matt-1` through `inv-matt-2` (24 units, 95 inventory cards, 24 unit reports)
+- **context used**:
+  - at run-start: `used=13.76%` (`[run-start p1-run-02 n=24] budget 2026-09-05T07:24:27.680Z conv=2930b2ca model="Gemini 3.8 Flash (High)" used=13.76% peak=13.76% governing=25.00% close=1.1% headroom=10.14% pending=392 → DISPATCH 1 run × 24 units`)
+  - at dispatched: `used=14.15%` (`[dispatched p1-run-02] budget 2026-09-05T07:24:46.006Z conv=2930b2ca model="Gemini 3.8 Flash (High)" used=14.15% peak=14.15% governing=25.00% close=1.1% headroom=9.75% pending=368 → DISPATCH 1 run × 24 units`)
+  - at verified: `used=16.69%` (`[verified p1-run-02] budget 2026-09-05T08:06:46.572Z conv=2930b2ca model="Gemini 3.8 Flash (High)" used=16.69% peak=16.69% governing=25.00% close=1.1% headroom=7.21% pending=368 → DISPATCH 1 run × 12 units`)
+  - per-unit delta: 0.106% (verified 16.69% − dispatched 14.15% = 2.54% ÷ 24 units = 0.1058%)
+- **rot metrics**: none observed (used: 16.69%)
+- **429s and quota.reset_in_seconds**: Transient RESOURCE_EXHAUSTED (code 429, reset 1s/0s) handled automatically by Teamwork Sentinel; Orchestrator successor dispatched (`af237e96`) and completed run without manual intervention.
+- **wall time**: 40.8 min (from `2026-09-05T07:24:46Z` dispatch to `2026-09-05T08:05:56Z` completion).
+- **Workers per unit**: 24 workers, one per unit, dispatched concurrently.
+- **quote-check totals**: 5,160 PASS, 0 FAIL across all 240 cards (0% failure rate)
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-02/success_auditor_report.md` (verdict CLEAN)
+- **Probe verdict**: N/A (probe evaluated in run 01; run 02 dispatched under max_clean_run=16/probe=24; quality completely clean at 0 FAIL across 5,160 citations).
+
 
 ## 8. Objective
 

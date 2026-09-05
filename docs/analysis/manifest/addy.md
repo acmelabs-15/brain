@@ -147,75 +147,75 @@
 | external/git-workflow-and-versioning.md | 26317 | external-doc | [x] |
 | external/idea-refine.md | 24943 | external-doc | [x] |
 | external/incremental-implementation.md | 26461 | external-doc | [x] |
-| external/interview-me.md | 24935 | external-doc | [ ] |
-| external/observability-and-instrumentation.md | 26344 | external-doc | [ ] |
-| external/performance-optimization.md | 26603 | external-doc | [ ] |
-| external/planning-and-task-breakdown.md | 22310 | external-doc | [ ] |
-| external/security-and-hardening.md | 26475 | external-doc | [ ] |
-| external/shipping-and-launch.md | 26336 | external-doc | [ ] |
-| external/source-driven-development.md | 26358 | external-doc | [ ] |
-| external/spec-driven-development.md | 25104 | external-doc | [ ] |
-| external/test-driven-development.md | 26483 | external-doc | [ ] |
-| external/using-agent-skills.md | 21955 | external-doc | [ ] |
-| hooks/hooks.json | 364 | config | [ ] |
-| hooks/sdd-cache-post.sh | 4567 | file | [ ] |
-| hooks/sdd-cache-pre.sh | 4261 | file | [ ] |
-| hooks/SDD-CACHE.md | 8398 | doc | [ ] |
-| hooks/session-start-test.sh | 1224 | file | [ ] |
-| hooks/session-start.sh | 1392 | file | [ ] |
-| hooks/simplify-ignore-test.sh | 8709 | file | [ ] |
-| hooks/SIMPLIFY-IGNORE.md | 3863 | doc | [ ] |
-| hooks/simplify-ignore.sh | 12173 | file | [ ] |
-| LICENSE | 1068 | file | [ ] |
-| plugin.json | 129 | config | [ ] |
-| README.md | 25223 | doc | [ ] |
-| references/accessibility-checklist.md | 5206 | doc | [ ] |
-| references/definition-of-done.md | 3798 | doc | [ ] |
-| references/observability-checklist.md | 4931 | doc | [ ] |
-| references/orchestration-patterns.md | 18201 | doc | [ ] |
-| references/performance-checklist.md | 13139 | doc | [ ] |
-| references/security-checklist.md | 11881 | doc | [ ] |
-| references/testing-patterns.md | 7460 | doc | [ ] |
-| scripts/lib/skill-lint-test.js | 4645 | script | [ ] |
-| scripts/lib/skill-lint.js | 11808 | script | [ ] |
-| scripts/run-evals-test.js | 10378 | script | [ ] |
-| scripts/run-evals.js | 24129 | script | [ ] |
-| scripts/validate-artifact-paths-test.js | 4572 | script | [ ] |
-| scripts/validate-artifact-paths.js | 4102 | script | [ ] |
-| scripts/validate-commands-test.js | 5471 | script | [ ] |
-| scripts/validate-commands.js | 7108 | script | [ ] |
-| scripts/validate-reference-links-test.js | 5666 | script | [ ] |
-| scripts/validate-reference-links.js | 3832 | script | [ ] |
-| scripts/validate-skills.js | 2401 | script | [ ] |
-| scripts/validate-versions-test.js | 957 | script | [ ] |
-| scripts/validate-versions.js | 949 | script | [ ] |
-| skills/api-and-interface-design/SKILL.md | 14884 | skill | [ ] |
-| skills/browser-testing-with-devtools/SKILL.md | 14539 | skill | [ ] |
-| skills/ci-cd-and-automation/SKILL.md | 11332 | skill | [ ] |
-| skills/code-review-and-quality/SKILL.md | 20555 | skill | [ ] |
-| skills/code-simplification/SKILL.md | 13545 | skill | [ ] |
-| skills/constraint-driven-development/references/floor-guard.md | 5851 | reference | [ ] |
-| skills/constraint-driven-development/SKILL.md | 20880 | skill | [ ] |
-| skills/context-engineering/SKILL.md | 11070 | skill | [ ] |
-| skills/debugging-and-error-recovery/SKILL.md | 10837 | skill | [ ] |
-| skills/deprecation-and-migration/SKILL.md | 12516 | skill | [ ] |
-| skills/documentation-and-adrs/SKILL.md | 9782 | skill | [ ] |
-| skills/doubt-driven-development/SKILL.md | 16499 | skill | [ ] |
-| skills/frontend-ui-engineering/SKILL.md | 10711 | skill | [ ] |
-| skills/git-workflow-and-versioning/SKILL.md | 14063 | skill | [ ] |
-| skills/idea-refine/examples.md | 20284 | skill | [ ] |
-| skills/idea-refine/frameworks.md | 5404 | skill | [ ] |
-| skills/idea-refine/refinement-criteria.md | 5738 | skill | [ ] |
-| skills/idea-refine/scripts/idea-refine.sh | 342 | script | [ ] |
-| skills/idea-refine/SKILL.md | 8111 | skill | [ ] |
-| skills/incremental-implementation/SKILL.md | 9507 | skill | [ ] |
-| skills/interview-me/SKILL.md | 14359 | skill | [ ] |
-| skills/observability-and-instrumentation/SKILL.md | 11053 | skill | [ ] |
-| skills/performance-optimization/SKILL.md | 21717 | skill | [ ] |
-| skills/planning-and-task-breakdown/SKILL.md | 10564 | skill | [ ] |
-| skills/security-and-hardening/SKILL.md | 24192 | skill | [ ] |
-| skills/shipping-and-launch/SKILL.md | 10137 | skill | [ ] |
-| skills/source-driven-development/SKILL.md | 9949 | skill | [ ] |
-| skills/spec-driven-development/SKILL.md | 12163 | skill | [ ] |
-| skills/test-driven-development/SKILL.md | 16483 | skill | [ ] |
-| skills/using-agent-skills/SKILL.md | 10426 | skill | [ ] |
+| external/interview-me.md | 24935 | external-doc | [x] |
+| external/observability-and-instrumentation.md | 26344 | external-doc | [x] |
+| external/performance-optimization.md | 26603 | external-doc | [x] |
+| external/planning-and-task-breakdown.md | 22310 | external-doc | [x] |
+| external/security-and-hardening.md | 26475 | external-doc | [x] |
+| external/shipping-and-launch.md | 26336 | external-doc | [x] |
+| external/source-driven-development.md | 26358 | external-doc | [x] |
+| external/spec-driven-development.md | 25104 | external-doc | [x] |
+| external/test-driven-development.md | 26483 | external-doc | [x] |
+| external/using-agent-skills.md | 21955 | external-doc | [x] |
+| hooks/hooks.json | 364 | config | [x] |
+| hooks/sdd-cache-post.sh | 4567 | file | [x] |
+| hooks/sdd-cache-pre.sh | 4261 | file | [x] |
+| hooks/SDD-CACHE.md | 8398 | doc | [x] |
+| hooks/session-start-test.sh | 1224 | file | [x] |
+| hooks/session-start.sh | 1392 | file | [x] |
+| hooks/simplify-ignore-test.sh | 8709 | file | [x] |
+| hooks/SIMPLIFY-IGNORE.md | 3863 | doc | [x] |
+| hooks/simplify-ignore.sh | 12173 | file | [x] |
+| LICENSE | 1068 | file | [x] |
+| plugin.json | 129 | config | [x] |
+| README.md | 25223 | doc | [x] |
+| references/accessibility-checklist.md | 5206 | doc | [x] |
+| references/definition-of-done.md | 3798 | doc | [x] |
+| references/observability-checklist.md | 4931 | doc | [x] |
+| references/orchestration-patterns.md | 18201 | doc | [x] |
+| references/performance-checklist.md | 13139 | doc | [x] |
+| references/security-checklist.md | 11881 | doc | [x] |
+| references/testing-patterns.md | 7460 | doc | [x] |
+| scripts/lib/skill-lint-test.js | 4645 | script | [x] |
+| scripts/lib/skill-lint.js | 11808 | script | [x] |
+| scripts/run-evals-test.js | 10378 | script | [x] |
+| scripts/run-evals.js | 24129 | script | [x] |
+| scripts/validate-artifact-paths-test.js | 4572 | script | [x] |
+| scripts/validate-artifact-paths.js | 4102 | script | [x] |
+| scripts/validate-commands-test.js | 5471 | script | [x] |
+| scripts/validate-commands.js | 7108 | script | [x] |
+| scripts/validate-reference-links-test.js | 5666 | script | [x] |
+| scripts/validate-reference-links.js | 3832 | script | [x] |
+| scripts/validate-skills.js | 2401 | script | [x] |
+| scripts/validate-versions-test.js | 957 | script | [x] |
+| scripts/validate-versions.js | 949 | script | [x] |
+| skills/api-and-interface-design/SKILL.md | 14884 | skill | [x] |
+| skills/browser-testing-with-devtools/SKILL.md | 14539 | skill | [x] |
+| skills/ci-cd-and-automation/SKILL.md | 11332 | skill | [x] |
+| skills/code-review-and-quality/SKILL.md | 20555 | skill | [x] |
+| skills/code-simplification/SKILL.md | 13545 | skill | [x] |
+| skills/constraint-driven-development/references/floor-guard.md | 5851 | reference | [x] |
+| skills/constraint-driven-development/SKILL.md | 20880 | skill | [x] |
+| skills/context-engineering/SKILL.md | 11070 | skill | [x] |
+| skills/debugging-and-error-recovery/SKILL.md | 10837 | skill | [x] |
+| skills/deprecation-and-migration/SKILL.md | 12516 | skill | [x] |
+| skills/documentation-and-adrs/SKILL.md | 9782 | skill | [x] |
+| skills/doubt-driven-development/SKILL.md | 16499 | skill | [x] |
+| skills/frontend-ui-engineering/SKILL.md | 10711 | skill | [x] |
+| skills/git-workflow-and-versioning/SKILL.md | 14063 | skill | [x] |
+| skills/idea-refine/examples.md | 20284 | skill | [x] |
+| skills/idea-refine/frameworks.md | 5404 | skill | [x] |
+| skills/idea-refine/refinement-criteria.md | 5738 | skill | [x] |
+| skills/idea-refine/scripts/idea-refine.sh | 342 | script | [x] |
+| skills/idea-refine/SKILL.md | 8111 | skill | [x] |
+| skills/incremental-implementation/SKILL.md | 9507 | skill | [x] |
+| skills/interview-me/SKILL.md | 14359 | skill | [x] |
+| skills/observability-and-instrumentation/SKILL.md | 11053 | skill | [x] |
+| skills/performance-optimization/SKILL.md | 21717 | skill | [x] |
+| skills/planning-and-task-breakdown/SKILL.md | 10564 | skill | [x] |
+| skills/security-and-hardening/SKILL.md | 24192 | skill | [x] |
+| skills/shipping-and-launch/SKILL.md | 10137 | skill | [x] |
+| skills/source-driven-development/SKILL.md | 9949 | skill | [x] |
+| skills/spec-driven-development/SKILL.md | 12163 | skill | [x] |
+| skills/test-driven-development/SKILL.md | 16483 | skill | [x] |
+| skills/using-agent-skills/SKILL.md | 10426 | skill | [x] |
