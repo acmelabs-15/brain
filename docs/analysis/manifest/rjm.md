@@ -1,28 +1,28 @@
 | Path | Bytes | Type | Checked |
 |---|---|---|---|
-| .agents/AGENT-SYSTEM.md | 53992 | agent | [ ] |
-| .agents/analysis/002-project-constraints-consolidation.md | 34898 | agent | [ ] |
-| .agents/analysis/adr-045-feasibility-analysis.md | 14627 | agent | [ ] |
-| .agents/analysis/adr-045-inventory-audit.md | 26808 | agent | [ ] |
-| .agents/analysis/claude-code-plugin-marketplaces.md | 10131 | agent | [ ] |
-| .agents/analysis/claude-flow-architecture-analysis.md | 8800 | agent | [ ] |
-| .agents/analysis/vercel-passive-context-vs-skills-research.md | 9718 | agent | [ ] |
-| .agents/architecture/ADR-001-markdown-linting.md | 4386 | agent | [ ] |
-| .agents/architecture/ADR-002-agent-model-selection-optimization.md | 10216 | agent | [ ] |
-| .agents/architecture/ADR-003-agent-tool-selection-criteria.md | 18191 | agent | [ ] |
-| .agents/architecture/ADR-004-pre-commit-hook-architecture.md | 7448 | agent | [ ] |
-| .agents/architecture/ADR-005-powershell-only-scripting.md | 9895 | agent | [ ] |
-| .agents/architecture/ADR-006-thin-workflows-testable-modules.md | 25942 | agent | [ ] |
-| .agents/architecture/ADR-007-memory-first-architecture.md | 15338 | agent | [ ] |
-| .agents/architecture/ADR-008-protocol-automation-lifecycle-hooks.md | 10790 | agent | [ ] |
-| .agents/architecture/ADR-009-parallel-safe-multi-agent-design.md | 4097 | agent | [ ] |
-| .agents/architecture/ADR-010-quality-gates-evaluator-optimizer.md | 4457 | agent | [ ] |
-| .agents/architecture/ADR-011-session-state-mcp.md | 17240 | agent | [ ] |
-| .agents/architecture/ADR-012-skill-catalog-mcp.md | 16823 | agent | [ ] |
-| .agents/architecture/ADR-013-agent-orchestration-mcp.md | 18270 | agent | [ ] |
-| .agents/architecture/ADR-014-distributed-handoff-architecture.md | 11472 | agent | [ ] |
-| .agents/architecture/ADR-015-artifact-storage-minimization.md | 5330 | agent | [ ] |
-| .agents/architecture/ADR-016-workflow-execution-optimization.md | 7564 | agent | [ ] |
+| .agents/AGENT-SYSTEM.md | 53992 | agent | [x] |
+| .agents/analysis/002-project-constraints-consolidation.md | 34898 | agent | [x] |
+| .agents/analysis/adr-045-feasibility-analysis.md | 14627 | agent | [x] |
+| .agents/analysis/adr-045-inventory-audit.md | 26808 | agent | [x] |
+| .agents/analysis/claude-code-plugin-marketplaces.md | 10131 | agent | [x] |
+| .agents/analysis/claude-flow-architecture-analysis.md | 8800 | agent | [x] |
+| .agents/analysis/vercel-passive-context-vs-skills-research.md | 9718 | agent | [x] |
+| .agents/architecture/ADR-001-markdown-linting.md | 4386 | agent | [x] |
+| .agents/architecture/ADR-002-agent-model-selection-optimization.md | 10216 | agent | [x] |
+| .agents/architecture/ADR-003-agent-tool-selection-criteria.md | 18191 | agent | [x] |
+| .agents/architecture/ADR-004-pre-commit-hook-architecture.md | 7448 | agent | [x] |
+| .agents/architecture/ADR-005-powershell-only-scripting.md | 9895 | agent | [x] |
+| .agents/architecture/ADR-006-thin-workflows-testable-modules.md | 25942 | agent | [x] |
+| .agents/architecture/ADR-007-memory-first-architecture.md | 15338 | agent | [x] |
+| .agents/architecture/ADR-008-protocol-automation-lifecycle-hooks.md | 10790 | agent | [x] |
+| .agents/architecture/ADR-009-parallel-safe-multi-agent-design.md | 4097 | agent | [x] |
+| .agents/architecture/ADR-010-quality-gates-evaluator-optimizer.md | 4457 | agent | [x] |
+| .agents/architecture/ADR-011-session-state-mcp.md | 17240 | agent | [x] |
+| .agents/architecture/ADR-012-skill-catalog-mcp.md | 16823 | agent | [x] |
+| .agents/architecture/ADR-013-agent-orchestration-mcp.md | 18270 | agent | [x] |
+| .agents/architecture/ADR-014-distributed-handoff-architecture.md | 11472 | agent | [x] |
+| .agents/architecture/ADR-015-artifact-storage-minimization.md | 5330 | agent | [x] |
+| .agents/architecture/ADR-016-workflow-execution-optimization.md | 7564 | agent | [x] |
 | .agents/architecture/ADR-017-tiered-memory-index-architecture.md | 14780 | agent | [ ] |
 | .agents/architecture/ADR-018-cache-invalidation-strategy.md | 5400 | agent | [ ] |
 | .agents/architecture/ADR-019-script-organization.md | 7372 | agent | [ ] |

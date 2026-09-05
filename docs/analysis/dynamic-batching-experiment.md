@@ -323,6 +323,24 @@ budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be064
   - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-06/success_auditor_report.md`
 
+### run 09 (Session 006, post-reset p1-run-07)
+
+- **run-id**: `p1-run-07`
+- **session**: 006 (Phase 1)
+- **units**: `inv-matt-39` through `inv-matt-46` (8 units) and `inv-rjm-1` through `inv-rjm-8` (8 units) (16 units, 111 inventory cards, 16 reports)
+- **context used**:
+  - at run-start: `used=15.10%` (`[run-start p1-run-07 n=16] budget 2026-09-05T04:44:38.440Z conv=12d1d16a model="Gemini 3.8 Flash (High)" used=15.10% peak=15.10% governing=25.00% close=1.09% headroom=8.81% pending=332 → DISPATCH 1 run × 16 units (16 units, cost 7.64%)`)
+  - at dispatched: `used=15.62%` (`[dispatched p1-run-07] budget 2026-09-05T04:45:01.790Z conv=12d1d16a model="Gemini 3.8 Flash (High)" used=15.62% peak=15.62% governing=25.00% close=1.09% headroom=8.29% pending=316 → DISPATCH 1 run × 16 units (16 units, cost 7.64%)`)
+  - at verified: `used=18.92%` (`[verified p1-run-07] budget 2026-09-05T05:51:18.401Z conv=12d1d16a model="Gemini 3.8 Flash (High)" used=18.92% peak=18.92% governing=25.00% close=1.09% headroom=4.99% pending=316 → DISPATCH 1 run × 2 units (2 units, cost 4.98%)`)
+  - per-unit delta: 0.21% (verified 18.92% − dispatched 15.62% = 3.30% ÷ 16 units = 0.206%)
+- **rot metrics**: none observed (used: 18.92%)
+- **429s and quota.reset_in_seconds**: none observed
+- **wall time**: 65m 24s (from `2026-09-05T04:45:01Z` dispatch to `2026-09-05T05:50:25Z` completion report; `await-run.ts` reported elapsed 65.1 min).
+- **quote-check totals**:
+  - Run 07 cards: 2,161 PASS, 0 FAIL across 111 inventory cards (0% failure rate)
+  - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-07/success_auditor_report.md`
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.
