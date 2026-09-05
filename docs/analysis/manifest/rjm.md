@@ -179,72 +179,72 @@
 | .claude/agents/merge-resolver.md | 12408 | agent | [x] |
 | .claude/agents/milestone-planner.md | 6740 | agent | [x] |
 | .claude/agents/negotiation.md | 7717 | agent | [x] |
-| .claude/agents/orchestrator.md | 28813 | agent | [ ] |
-| .claude/agents/qa.md | 30944 | agent | [ ] |
-| .claude/agents/quality-auditor.md | 3892 | agent | [ ] |
-| .claude/agents/retrospective.md | 46695 | agent | [ ] |
-| .claude/agents/roadmap.md | 6805 | agent | [ ] |
-| .claude/agents/security.md | 36096 | agent | [ ] |
-| .claude/agents/security/references/dependency-risk-scoring.md | 921 | agent | [ ] |
-| .claude/agents/security/references/powershell-security-checklist.md | 7286 | agent | [ ] |
-| .claude/agents/security/references/threat-model-template.md | 774 | agent | [ ] |
-| .claude/agents/silent-failure-hunter.md | 11659 | agent | [ ] |
-| .claude/agents/skillbook.md | 8284 | agent | [ ] |
-| .claude/agents/task-decomposer.md | 10436 | agent | [ ] |
-| .claude/agents/type-design-analyzer.md | 5320 | agent | [ ] |
-| .claude/commands/build.md | 7777 | command | [ ] |
-| .claude/commands/checkpoint.md | 7411 | command | [ ] |
-| .claude/commands/CLAUDE.md | 170 | command | [ ] |
-| .claude/commands/context-hub-setup.md | 4816 | command | [ ] |
-| .claude/commands/plan.md | 3120 | command | [ ] |
-| .claude/commands/push-pr.md | 3836 | command | [ ] |
-| .claude/commands/research.md | 4350 | command | [ ] |
-| .claude/commands/retro.md | 3917 | command | [ ] |
-| .claude/commands/ship.md | 12394 | command | [ ] |
-| .claude/commands/spec.md | 17720 | command | [ ] |
-| .claude/commands/sync.md | 4971 | command | [ ] |
-| .claude/commands/test.md | 9191 | command | [ ] |
-| .claude/commands/validate-pr-description.md | 1556 | command | [ ] |
-| .claude/rules/session-logs.md | 4480 | doc | [ ] |
-| .claude/skills/adr-generator/references/ad-quality-frameworks.md | 6876 | reference | [ ] |
-| .claude/skills/adr-generator/references/adr-best-practices.md | 6891 | reference | [ ] |
-| .claude/skills/adr-generator/references/adr-template.md | 7253 | reference | [ ] |
-| .claude/skills/adr-generator/references/adr-templates-catalog.md | 7771 | reference | [ ] |
-| .claude/skills/adr-generator/references/quality-checklist.md | 1550 | reference | [ ] |
-| .claude/skills/adr-generator/SKILL.md | 12612 | skill | [ ] |
-| .claude/skills/adr-review/CLAUDE.md | 170 | skill | [ ] |
-| .claude/skills/adr-review/references/agent-prompts.md | 12515 | reference | [ ] |
-| .claude/skills/adr-review/references/artifacts.md | 2705 | reference | [ ] |
-| .claude/skills/adr-review/references/debate-protocol.md | 7026 | reference | [ ] |
-| .claude/skills/adr-review/references/deletion-workflow.md | 2758 | reference | [ ] |
-| .claude/skills/adr-review/references/issue-resolution.md | 5986 | reference | [ ] |
-| .claude/skills/adr-review/references/zimmermann-review-guidance.md | 6473 | reference | [ ] |
-| .claude/skills/adr-review/scripts/CLAUDE.md | 170 | script | [ ] |
-| .claude/skills/adr-review/scripts/detect_adr_changes.py | 20126 | script | [ ] |
-| .claude/skills/adr-review/SKILL.md | 12171 | skill | [ ] |
-| .claude/skills/agent-harness-reference/references/official-hook-contracts.md | 15662 | reference | [ ] |
-| .claude/skills/agent-harness-reference/references/probe-evidence.md | 12226 | reference | [ ] |
-| .claude/skills/agent-harness-reference/SKILL.md | 20398 | skill | [ ] |
-| .claude/skills/ai-agents-architecture-contract/references/hook-runtime.md | 1772 | reference | [ ] |
-| .claude/skills/ai-agents-architecture-contract/references/provenance.md | 5887 | reference | [ ] |
-| .claude/skills/ai-agents-architecture-contract/references/weak-points.md | 3980 | reference | [ ] |
-| .claude/skills/ai-agents-architecture-contract/SKILL.md | 21555 | skill | [ ] |
-| .claude/skills/ai-agents-build-and-env/SKILL.md | 13707 | skill | [ ] |
-| .claude/skills/ai-agents-change-control/references/gate-ladder.md | 4213 | reference | [ ] |
-| .claude/skills/ai-agents-change-control/references/incident-history.md | 5344 | reference | [ ] |
-| .claude/skills/ai-agents-change-control/references/provenance.md | 4253 | reference | [ ] |
-| .claude/skills/ai-agents-change-control/SKILL.md | 15510 | skill | [ ] |
-| .claude/skills/ai-agents-config-catalog/SKILL.md | 19396 | skill | [ ] |
-| .claude/skills/ai-agents-debugging-playbook/SKILL.md | 20656 | skill | [ ] |
-| .claude/skills/ai-agents-diagnostics-toolkit/references/instrument-guides.md | 12160 | reference | [ ] |
-| .claude/skills/ai-agents-diagnostics-toolkit/SKILL.md | 10614 | skill | [ ] |
-| .claude/skills/ai-agents-docs-of-record/SKILL.md | 16688 | skill | [ ] |
-| .claude/skills/ai-agents-empirical-probe-toolkit/references/provenance.md | 2881 | reference | [ ] |
-| .claude/skills/ai-agents-empirical-probe-toolkit/references/worked-examples.md | 5798 | reference | [ ] |
-| .claude/skills/ai-agents-empirical-probe-toolkit/SKILL.md | 14766 | skill | [ ] |
-| .claude/skills/ai-agents-external-claims/SKILL.md | 11954 | skill | [ ] |
-| .claude/skills/ai-agents-failure-archaeology/references/incidents.md | 14476 | reference | [ ] |
-| .claude/skills/ai-agents-failure-archaeology/SKILL.md | 16580 | skill | [ ] |
+| .claude/agents/orchestrator.md | 28813 | agent | [x] |
+| .claude/agents/qa.md | 30944 | agent | [x] |
+| .claude/agents/quality-auditor.md | 3892 | agent | [x] |
+| .claude/agents/retrospective.md | 46695 | agent | [x] |
+| .claude/agents/roadmap.md | 6805 | agent | [x] |
+| .claude/agents/security.md | 36096 | agent | [x] |
+| .claude/agents/security/references/dependency-risk-scoring.md | 921 | agent | [x] |
+| .claude/agents/security/references/powershell-security-checklist.md | 7286 | agent | [x] |
+| .claude/agents/security/references/threat-model-template.md | 774 | agent | [x] |
+| .claude/agents/silent-failure-hunter.md | 11659 | agent | [x] |
+| .claude/agents/skillbook.md | 8284 | agent | [x] |
+| .claude/agents/task-decomposer.md | 10436 | agent | [x] |
+| .claude/agents/type-design-analyzer.md | 5320 | agent | [x] |
+| .claude/commands/build.md | 7777 | command | [x] |
+| .claude/commands/checkpoint.md | 7411 | command | [x] |
+| .claude/commands/CLAUDE.md | 170 | command | [x] |
+| .claude/commands/context-hub-setup.md | 4816 | command | [x] |
+| .claude/commands/plan.md | 3120 | command | [x] |
+| .claude/commands/push-pr.md | 3836 | command | [x] |
+| .claude/commands/research.md | 4350 | command | [x] |
+| .claude/commands/retro.md | 3917 | command | [x] |
+| .claude/commands/ship.md | 12394 | command | [x] |
+| .claude/commands/spec.md | 17720 | command | [x] |
+| .claude/commands/sync.md | 4971 | command | [x] |
+| .claude/commands/test.md | 9191 | command | [x] |
+| .claude/commands/validate-pr-description.md | 1556 | command | [x] |
+| .claude/rules/session-logs.md | 4480 | doc | [x] |
+| .claude/skills/adr-generator/references/ad-quality-frameworks.md | 6876 | reference | [x] |
+| .claude/skills/adr-generator/references/adr-best-practices.md | 6891 | reference | [x] |
+| .claude/skills/adr-generator/references/adr-template.md | 7253 | reference | [x] |
+| .claude/skills/adr-generator/references/adr-templates-catalog.md | 7771 | reference | [x] |
+| .claude/skills/adr-generator/references/quality-checklist.md | 1550 | reference | [x] |
+| .claude/skills/adr-generator/SKILL.md | 12612 | skill | [x] |
+| .claude/skills/adr-review/CLAUDE.md | 170 | skill | [x] |
+| .claude/skills/adr-review/references/agent-prompts.md | 12515 | reference | [x] |
+| .claude/skills/adr-review/references/artifacts.md | 2705 | reference | [x] |
+| .claude/skills/adr-review/references/debate-protocol.md | 7026 | reference | [x] |
+| .claude/skills/adr-review/references/deletion-workflow.md | 2758 | reference | [x] |
+| .claude/skills/adr-review/references/issue-resolution.md | 5986 | reference | [x] |
+| .claude/skills/adr-review/references/zimmermann-review-guidance.md | 6473 | reference | [x] |
+| .claude/skills/adr-review/scripts/CLAUDE.md | 170 | script | [x] |
+| .claude/skills/adr-review/scripts/detect_adr_changes.py | 20126 | script | [x] |
+| .claude/skills/adr-review/SKILL.md | 12171 | skill | [x] |
+| .claude/skills/agent-harness-reference/references/official-hook-contracts.md | 15662 | reference | [x] |
+| .claude/skills/agent-harness-reference/references/probe-evidence.md | 12226 | reference | [x] |
+| .claude/skills/agent-harness-reference/SKILL.md | 20398 | skill | [x] |
+| .claude/skills/ai-agents-architecture-contract/references/hook-runtime.md | 1772 | reference | [x] |
+| .claude/skills/ai-agents-architecture-contract/references/provenance.md | 5887 | reference | [x] |
+| .claude/skills/ai-agents-architecture-contract/references/weak-points.md | 3980 | reference | [x] |
+| .claude/skills/ai-agents-architecture-contract/SKILL.md | 21555 | skill | [x] |
+| .claude/skills/ai-agents-build-and-env/SKILL.md | 13707 | skill | [x] |
+| .claude/skills/ai-agents-change-control/references/gate-ladder.md | 4213 | reference | [x] |
+| .claude/skills/ai-agents-change-control/references/incident-history.md | 5344 | reference | [x] |
+| .claude/skills/ai-agents-change-control/references/provenance.md | 4253 | reference | [x] |
+| .claude/skills/ai-agents-change-control/SKILL.md | 15510 | skill | [x] |
+| .claude/skills/ai-agents-config-catalog/SKILL.md | 19396 | skill | [x] |
+| .claude/skills/ai-agents-debugging-playbook/SKILL.md | 20656 | skill | [x] |
+| .claude/skills/ai-agents-diagnostics-toolkit/references/instrument-guides.md | 12160 | reference | [x] |
+| .claude/skills/ai-agents-diagnostics-toolkit/SKILL.md | 10614 | skill | [x] |
+| .claude/skills/ai-agents-docs-of-record/SKILL.md | 16688 | skill | [x] |
+| .claude/skills/ai-agents-empirical-probe-toolkit/references/provenance.md | 2881 | reference | [x] |
+| .claude/skills/ai-agents-empirical-probe-toolkit/references/worked-examples.md | 5798 | reference | [x] |
+| .claude/skills/ai-agents-empirical-probe-toolkit/SKILL.md | 14766 | skill | [x] |
+| .claude/skills/ai-agents-external-claims/SKILL.md | 11954 | skill | [x] |
+| .claude/skills/ai-agents-failure-archaeology/references/incidents.md | 14476 | reference | [x] |
+| .claude/skills/ai-agents-failure-archaeology/SKILL.md | 16580 | skill | [x] |
 | .claude/skills/ai-agents-generation-and-release/SKILL.md | 21914 | skill | [ ] |
 | .claude/skills/ai-agents-portability-campaign/SKILL.md | 12707 | skill | [ ] |
 | .claude/skills/ai-agents-research-frontier/SKILL.md | 20769 | skill | [ ] |

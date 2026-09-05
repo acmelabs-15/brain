@@ -20,7 +20,9 @@
 | .claude/commands/pr-review-config.yaml | 14295 | command | [ ] |
 | .claude/commands/pr-review.md | 17143 | command | [ ] |
 | .claude/skills/agent-harness-reference/tests/test_structure_agent_harness_reference.py | 1120 | skill | [ ] |
+| .claude/skills/ai-agents-architecture-contract/tests/__pycache__/test_structure_ai_agents_architecture_contract.cpython-314-pytest-9.0.3.pyc | 14403 | skill | [ ] |
 | .claude/skills/ai-agents-architecture-contract/tests/test_structure_ai_agents_architecture_contract.py | 1128 | skill | [ ] |
+| .claude/skills/ai-agents-build-and-env/tests/__pycache__/test_structure_ai_agents_build_and_env.cpython-314-pytest-9.0.3.pyc | 14379 | skill | [ ] |
 | .claude/skills/ai-agents-build-and-env/tests/test_structure_ai_agents_build_and_env.py | 1120 | skill | [ ] |
 | .claude/skills/ai-agents-change-control/tests/test_structure_ai_agents_change_control.py | 1121 | skill | [ ] |
 | .claude/skills/ai-agents-config-catalog/tests/test_structure_ai_agents_config_catalog.py | 1121 | skill | [ ] |
