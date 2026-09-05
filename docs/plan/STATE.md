@@ -11,8 +11,8 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `1` |
 | **phase_name** | Inventory |
 | **current_unit** | inv-rjm-85 |
-| **last_session** | 003 |
-| **next_action** | Dispatch Phase 1 run from inv-rjm-37 per budget.ts recommendation |
+| **last_session** | 004 |
+| **next_action** | Dispatch Phase 1 run from inv-rjm-85 per budget.ts recommendation |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
