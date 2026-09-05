@@ -91,58 +91,58 @@
 | evals/fixtures/ci-cd-and-automation/src/slug.js | 93 | file | [x] |
 | evals/fixtures/ci-cd-and-automation/test/slug.test.js | 234 | file | [x] |
 | evals/fixtures/code-review-and-quality/user-search.diff | 513 | file | [x] |
-| evals/fixtures/code-simplification/config-parser.js | 1592 | file | [ ] |
-| evals/fixtures/code-simplification/config-parser.test.js | 452 | file | [ ] |
-| evals/fixtures/context-engineering/context-audit.md | 653 | doc | [ ] |
-| evals/fixtures/debugging-and-error-recovery/pagination.js | 172 | file | [ ] |
-| evals/fixtures/debugging-and-error-recovery/pagination.test.js | 290 | file | [ ] |
-| evals/fixtures/debugging-and-error-recovery/time-pressure.md | 276 | doc | [ ] |
-| evals/fixtures/deprecation-and-migration/api-inventory.md | 504 | doc | [ ] |
-| evals/fixtures/documentation-and-adrs/decision-context.md | 757 | doc | [ ] |
-| evals/fixtures/doubt-driven-development/migration-plan.md | 672 | doc | [ ] |
-| evals/fixtures/frontend-ui-engineering/Button.tsx | 306 | file | [ ] |
-| evals/fixtures/frontend-ui-engineering/design-system.md | 530 | doc | [ ] |
-| evals/fixtures/git-workflow-and-versioning/.eval/working-tree.patch | 571 | file | [ ] |
-| evals/fixtures/git-workflow-and-versioning/app.js | 129 | file | [ ] |
-| evals/fixtures/git-workflow-and-versioning/app.test.js | 228 | file | [ ] |
-| evals/fixtures/incremental-implementation-pressure/draft-export.js | 552 | file | [ ] |
-| evals/fixtures/incremental-implementation-pressure/scenario.md | 419 | doc | [ ] |
-| evals/fixtures/incremental-implementation/reports.js | 145 | file | [ ] |
-| evals/fixtures/incremental-implementation/reports.test.js | 325 | file | [ ] |
-| evals/fixtures/incremental-implementation/tasks/plan.md | 311 | doc | [ ] |
-| evals/fixtures/observability-and-instrumentation/operations.md | 422 | doc | [ ] |
-| evals/fixtures/observability-and-instrumentation/payment-retry.js | 339 | file | [ ] |
-| evals/fixtures/performance-optimization/benchmark.js | 464 | file | [ ] |
-| evals/fixtures/performance-optimization/products.js | 393 | file | [ ] |
-| evals/fixtures/planning-and-task-breakdown/notifications-spec.md | 854 | doc | [ ] |
-| evals/fixtures/security-and-hardening/webhook.js | 271 | file | [ ] |
-| evals/fixtures/security-and-hardening/webhook.test.js | 414 | file | [ ] |
-| evals/fixtures/shipping-and-launch/authority-pressure.md | 288 | doc | [ ] |
-| evals/fixtures/shipping-and-launch/launch-status.md | 554 | doc | [ ] |
-| evals/fixtures/source-driven-development/framework-task.md | 535 | doc | [ ] |
-| evals/fixtures/spec-driven-development-decomposition/portal-brief.md | 1067 | doc | [ ] |
-| evals/fixtures/spec-driven-development/billing-brief.md | 689 | doc | [ ] |
-| evals/fixtures/test-driven-development-ecosystem/ledger.py | 457 | file | [ ] |
-| evals/fixtures/test-driven-development-ecosystem/README.md | 131 | doc | [ ] |
-| evals/fixtures/test-driven-development-ecosystem/test_ledger.py | 533 | file | [ ] |
-| evals/fixtures/test-driven-development/BUG.md | 394 | doc | [ ] |
-| evals/fixtures/test-driven-development/package.json | 189 | config | [ ] |
-| evals/fixtures/test-driven-development/README.md | 787 | doc | [ ] |
-| evals/fixtures/test-driven-development/src/split.js | 181 | file | [ ] |
-| evals/fixtures/test-driven-development/test/split.test.js | 398 | file | [ ] |
-| evals/fixtures/using-agent-skills/incident.md | 321 | doc | [ ] |
-| evals/README.md | 8114 | doc | [ ] |
-| external/api-and-interface-design.md | 26413 | external-doc | [ ] |
-| external/browser-testing-with-devtools.md | 23834 | external-doc | [ ] |
-| external/ci-cd-and-automation.md | 26179 | external-doc | [ ] |
-| external/code-review-and-quality.md | 26687 | external-doc | [ ] |
-| external/code-simplification.md | 26320 | external-doc | [ ] |
+| evals/fixtures/code-simplification/config-parser.js | 1592 | file | [x] |
+| evals/fixtures/code-simplification/config-parser.test.js | 452 | file | [x] |
+| evals/fixtures/context-engineering/context-audit.md | 653 | doc | [x] |
+| evals/fixtures/debugging-and-error-recovery/pagination.js | 172 | file | [x] |
+| evals/fixtures/debugging-and-error-recovery/pagination.test.js | 290 | file | [x] |
+| evals/fixtures/debugging-and-error-recovery/time-pressure.md | 276 | doc | [x] |
+| evals/fixtures/deprecation-and-migration/api-inventory.md | 504 | doc | [x] |
+| evals/fixtures/documentation-and-adrs/decision-context.md | 757 | doc | [x] |
+| evals/fixtures/doubt-driven-development/migration-plan.md | 672 | doc | [x] |
+| evals/fixtures/frontend-ui-engineering/Button.tsx | 306 | file | [x] |
+| evals/fixtures/frontend-ui-engineering/design-system.md | 530 | doc | [x] |
+| evals/fixtures/git-workflow-and-versioning/.eval/working-tree.patch | 571 | file | [x] |
+| evals/fixtures/git-workflow-and-versioning/app.js | 129 | file | [x] |
+| evals/fixtures/git-workflow-and-versioning/app.test.js | 228 | file | [x] |
+| evals/fixtures/incremental-implementation-pressure/draft-export.js | 552 | file | [x] |
+| evals/fixtures/incremental-implementation-pressure/scenario.md | 419 | doc | [x] |
+| evals/fixtures/incremental-implementation/reports.js | 145 | file | [x] |
+| evals/fixtures/incremental-implementation/reports.test.js | 325 | file | [x] |
+| evals/fixtures/incremental-implementation/tasks/plan.md | 311 | doc | [x] |
+| evals/fixtures/observability-and-instrumentation/operations.md | 422 | doc | [x] |
+| evals/fixtures/observability-and-instrumentation/payment-retry.js | 339 | file | [x] |
+| evals/fixtures/performance-optimization/benchmark.js | 464 | file | [x] |
+| evals/fixtures/performance-optimization/products.js | 393 | file | [x] |
+| evals/fixtures/planning-and-task-breakdown/notifications-spec.md | 854 | doc | [x] |
+| evals/fixtures/security-and-hardening/webhook.js | 271 | file | [x] |
+| evals/fixtures/security-and-hardening/webhook.test.js | 414 | file | [x] |
+| evals/fixtures/shipping-and-launch/authority-pressure.md | 288 | doc | [x] |
+| evals/fixtures/shipping-and-launch/launch-status.md | 554 | doc | [x] |
+| evals/fixtures/source-driven-development/framework-task.md | 535 | doc | [x] |
+| evals/fixtures/spec-driven-development-decomposition/portal-brief.md | 1067 | doc | [x] |
+| evals/fixtures/spec-driven-development/billing-brief.md | 689 | doc | [x] |
+| evals/fixtures/test-driven-development-ecosystem/ledger.py | 457 | file | [x] |
+| evals/fixtures/test-driven-development-ecosystem/README.md | 131 | doc | [x] |
+| evals/fixtures/test-driven-development-ecosystem/test_ledger.py | 533 | file | [x] |
+| evals/fixtures/test-driven-development/BUG.md | 394 | doc | [x] |
+| evals/fixtures/test-driven-development/package.json | 189 | config | [x] |
+| evals/fixtures/test-driven-development/README.md | 787 | doc | [x] |
+| evals/fixtures/test-driven-development/src/split.js | 181 | file | [x] |
+| evals/fixtures/test-driven-development/test/split.test.js | 398 | file | [x] |
+| evals/fixtures/using-agent-skills/incident.md | 321 | doc | [x] |
+| evals/README.md | 8114 | doc | [x] |
+| external/api-and-interface-design.md | 26413 | external-doc | [x] |
+| external/browser-testing-with-devtools.md | 23834 | external-doc | [x] |
+| external/ci-cd-and-automation.md | 26179 | external-doc | [x] |
+| external/code-review-and-quality.md | 26687 | external-doc | [x] |
+| external/code-simplification.md | 26320 | external-doc | [x] |
 | external/constraint-driven-development.md | 0 | external-doc (unavailable) | [x] (unavailable — no card; recorded in the Phase 0 handoff) |
-| external/context-engineering.md | 26352 | external-doc | [ ] |
-| external/debugging-and-error-recovery.md | 23705 | external-doc | [ ] |
-| external/deprecation-and-migration.md | 26252 | external-doc | [ ] |
-| external/documentation-and-adrs.md | 26223 | external-doc | [ ] |
-| external/doubt-driven-development.md | 26502 | external-doc | [ ] |
+| external/context-engineering.md | 26352 | external-doc | [x] |
+| external/debugging-and-error-recovery.md | 23705 | external-doc | [x] |
+| external/deprecation-and-migration.md | 26252 | external-doc | [x] |
+| external/documentation-and-adrs.md | 26223 | external-doc | [x] |
+| external/doubt-driven-development.md | 26502 | external-doc | [x] |
 | external/frontend-ui-engineering.md | 26596 | external-doc | [ ] |
 | external/git-workflow-and-versioning.md | 26317 | external-doc | [ ] |
 | external/idea-refine.md | 24943 | external-doc | [ ] |

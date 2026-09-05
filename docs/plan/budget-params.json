@@ -16,7 +16,7 @@
     16,
     24
   ],
-  "max_clean_run": 8,
+  "max_clean_run": 12,
   "max_clean_run_note": "largest run size so far that returned zero quote-check FAIL, zero 429 and no rot metric — the next size in run_sizes is tried once this is proven",
   "concurrency_sizes": [
     1,
@@ -27,6 +27,6 @@
   "max_clean_concurrency_note": "largest number of Teamwork runs dispatched at the same time from one conversation that finished clean and within the wall-time bound",
   "wall_time_bound_pct": 25,
   "wall_time_bound_note": "a step up in run size or concurrency counts as clean only if the run's wall time is within this percentage of the previous clean step at the same unit cap — a longer wall time at the same unit sizes means the harness is queueing conversations, and that is the stream limit",
-  "last_clean_wall_minutes": 17,
+  "last_clean_wall_minutes": 15.6,
   "compaction_note": "harness compaction is NOT a ceiling: it fired at ~10% in session 013 and not at 18% in session 014; it is handled by §8.4, not by this budget"
 }

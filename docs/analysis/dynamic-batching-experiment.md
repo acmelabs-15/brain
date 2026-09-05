@@ -224,6 +224,29 @@ budget — Gemini 3.8 Flash (High), window 1,048,576 tokens, conversation 8be064
   - Coverage check: 0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems (exit code 0)
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-01/success_auditor_report.md` (symlinked to `.agents/victory_auditor_1/handoff.md` with VICTORY CONFIRMED)
 
+### run 04 (Session 004, post-reset p1-run-02)
+
+- **run-id**: `p1-run-02`
+- **session**: 004 (Phase 1)
+- **units**: `inv-addy-9`, `inv-addy-10`, `inv-addy-11`, `inv-addy-12`, `inv-addy-13`, `inv-addy-14`, `inv-addy-15`, `inv-addy-16`, `inv-addy-17`, `inv-addy-18`, `inv-addy-19`, `inv-addy-20` (12 units, 51 inventory cards, 12 reports)
+- **context used**:
+  - at run-start: `used=9.53%` (`[run-start p1-run-02 n=12] budget 2026-09-05T02:56:34.589Z conv=39c94819 model="Gemini 3.8 Flash (High)" used=9.53% peak=9.53% governing=25.00% close=1.29% headroom=14.18% pending=408 → DISPATCH 1 run × 12 units`)
+  - at dispatched: `used=10.35%` (`[dispatched p1-run-02] budget 2026-09-05T02:57:08.547Z conv=39c94819 model="Gemini 3.8 Flash (High)" used=10.35% peak=10.35% governing=25.00% close=1.29% headroom=13.36% pending=396 → DISPATCH 1 run × 12 units`)
+  - at verified: `used=14.15%` (`[verified p1-run-02] budget 2026-09-05T03:14:06.094Z conv=39c94819 model="Gemini 3.8 Flash (High)" used=14.15% peak=14.15% governing=25.00% close=1.29% headroom=9.56% pending=396 → DISPATCH 1 run × 12 units`)
+  - per-unit delta: 0.32% (verified 14.15% − dispatched 10.35% = 3.80% ÷ 12 units = 0.317%)
+- **rot metrics**: none observed (used: 14.15%)
+- **429s and quota.reset_in_seconds**: none observed
+- **wall time**: 15m 38s (from `2026-09-05T02:57:08Z` dispatch to `2026-09-05T03:12:46Z` completion report). Files under `.teamwork/p1-run-02/`:
+  - `.teamwork/p1-run-02/ORIGINAL_REQUEST.md` (2026-09-05T02:57:35Z)
+  - `.teamwork/p1-run-02/.agents/sentinel_1/handoff.md` (2026-09-05T03:12:46Z)
+  - `.teamwork/p1-run-02/.agents/victory_auditor_1/handoff.md` (2026-09-05T03:12:46Z)
+  - `.teamwork/p1-run-02/success_auditor_report.md` (2026-09-05T03:12:46Z)
+- **quote-check totals**:
+  - Run 02 cards: 627 PASS, 0 FAIL across 51 inventory cards (0% failure rate)
+  - Coverage check: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-02/success_auditor_report.md` (confirmed by victory auditor at `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-02/.agents/victory_auditor_1/handoff.md` with VICTORY CONFIRMED)
+- **Probe verdict**: CLEAN (zero quote-check FAIL, zero 429, no rot metric, wall time 15.6 min within 25% of 17 min). `max_clean_run` raised to 12; `last_clean_wall_minutes` set to 15.6.
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.
