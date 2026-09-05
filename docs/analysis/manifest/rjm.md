@@ -93,92 +93,92 @@
 | .agents/architecture/ADR-084-vendored-hook-roi-bar.md | 18236 | agent | [x] |
 | .agents/architecture/ADR-085-cross-harness-permission-surface-asymmetry.md | 56562 | agent | [x] |
 | .agents/architecture/ADR-086-lefthook-local-hook-orchestration.md | 21060 | agent | [x] |
-| .agents/architecture/ADR-087-held-out-validated-improvement.md | 57524 | agent | [ ] |
-| .agents/architecture/ADR-088-progressive-disclosure-book-rules.md | 8907 | agent | [ ] |
-| .agents/architecture/ADR-089-remove-causal-memory-tier.md | 21331 | agent | [ ] |
-| .agents/architecture/ADR-090-pr-branch-holder-lease.md | 20947 | agent | [ ] |
-| .agents/architecture/ADR-091-post-merge-version-bot.md | 15709 | agent | [ ] |
-| .agents/architecture/ADR-092-omit-plugin-manifest-version.md | 23330 | agent | [ ] |
-| .agents/architecture/ADR-093-verify-red-checks-with-the-same-checker.md | 8755 | agent | [ ] |
-| .agents/architecture/ADR-094-govern-copilot-cli-compatibility.md | 8579 | agent | [ ] |
-| .agents/architecture/ADR-095-scoped-re-review-axes.md | 7277 | agent | [ ] |
-| .agents/architecture/ADR-096-relax-qa-evidence-commit-equality.md | 28734 | agent | [ ] |
-| .agents/architecture/ADR-097-zero-tool-use-hooks.md | 34748 | agent | [ ] |
-| .agents/architecture/ADR-098-agent-role-metadata-replaces-tier-hierarchy.md | 32140 | agent | [ ] |
-| .agents/architecture/ADR-099-remove-commit-limit-bypass-gate.md | 18974 | agent | [ ] |
-| .agents/architecture/ADR-100-retire-pr-size-ceilings.md | 89866 | agent | [ ] |
-| .agents/architecture/ADR-101-enforcement-planes.md | 94067 | agent | [ ] |
-| .agents/architecture/ADR-102-session-qa-binding-field-precedence.md | 48938 | agent | [ ] |
-| .agents/architecture/ADR-103-skill-output-python-contract-correction.md | 28960 | agent | [ ] |
-| .agents/architecture/ADR-104-gate-tier-placement-and-budgets.md | 33548 | agent | [ ] |
-| .agents/architecture/ADR-TEMPLATE.md | 5091 | agent | [ ] |
-| .agents/architecture/ASSESSMENT-session-qa-validation-options.md | 8029 | agent | [ ] |
-| .agents/architecture/DESIGN-REVIEW-template.md | 3860 | agent | [ ] |
-| .agents/architecture/README.md | 27806 | agent | [ ] |
-| .agents/architecture/SKILL-STANDARDS-RECONCILED.md | 32531 | agent | [ ] |
-| .agents/archive/planning/PR-60/001-pr-60-review-gap-analysis.md | 9689 | agent | [ ] |
-| .agents/archive/planning/PR-60/002-pr-60-remediation-plan.md | 24845 | agent | [ ] |
-| .agents/archive/planning/PR-60/003-pr-60-plan-critique.md | 6318 | agent | [ ] |
-| .agents/archive/planning/PR-60/005-consolidated-agent-review-summary.md | 14317 | agent | [ ] |
-| .agents/archive/planning/PRD-quality-gate-prompt-refinement.md | 4940 | agent | [ ] |
-| .agents/archive/planning/PRD-skills-index-registry.md | 21638 | agent | [ ] |
-| .agents/critique/ADR-023-debate-log.md | 3538 | agent | [ ] |
-| .agents/critique/ADR-045-debate-log.md | 13310 | agent | [ ] |
-| .agents/devops/arm-runner-migration-analysis.md | 8229 | agent | [ ] |
-| .agents/governance/agent-consolidation-process.md | 7552 | agent | [ ] |
-| .agents/governance/agent-design-principles.md | 12575 | agent | [ ] |
-| .agents/governance/agent-interview-protocol.md | 5699 | agent | [ ] |
-| .agents/governance/ears-format.md | 7339 | agent | [ ] |
-| .agents/governance/interview-response-template.md | 4371 | agent | [ ] |
-| .agents/governance/PROJECT-CONSTRAINTS.md | 11602 | agent | [ ] |
-| .agents/governance/SKILL-CREATION-CRITERIA.md | 11750 | agent | [ ] |
-| .agents/governance/SKILL-PHASE-GATES.md | 6783 | agent | [ ] |
-| .agents/governance/steering-committee-charter.md | 5248 | agent | [ ] |
-| .agents/guides/python-cicd-patterns.md | 8125 | agent | [ ] |
-| .agents/guides/python-for-powershell-developers.md | 10482 | agent | [ ] |
-| .agents/incidents/2026-04-27-pir-plugin-manifest-schema-1773.md | 10130 | agent | [ ] |
-| .agents/metrics/baseline-report.md | 5807 | agent | [ ] |
-| .agents/metrics/dashboard-template.md | 5337 | agent | [ ] |
-| .agents/metrics/workflow-coalescing.md | 3525 | agent | [ ] |
-| .agents/projects/v0.3.1/PowerShell-migration.md | 15567 | agent | [ ] |
-| .agents/projects/v0.4.0/PLAN.md | 29810 | agent | [ ] |
-| .agents/retrospective/2025-12-22-pr-226-premature-merge-failure.md | 8099 | agent | [ ] |
-| .agents/security/ADR-045-framework-extraction-security-review.md | 32721 | agent | [ ] |
-| .agents/security/architecture-security-template.md | 8144 | agent | [ ] |
-| .agents/security/code-quality-security.md | 6776 | agent | [ ] |
-| .agents/security/infrastructure-file-patterns.md | 8358 | agent | [ ] |
-| .agents/security/python-security-checklist.md | 9406 | agent | [ ] |
-| .agents/security/secret-detection-patterns.md | 6363 | agent | [ ] |
-| .agents/security/security-best-practices.md | 9134 | agent | [ ] |
-| .agents/security/SR-002-pr-automation-security-review.md | 7287 | agent | [ ] |
-| .agents/security/static-analysis-checklist.md | 6224 | agent | [ ] |
-| .agents/specs/design/DESIGN-004-agent-eval-harness-spike.md | 19923 | agent | [ ] |
-| .agents/specs/requirements/REQ-003-multi-tool-artifact-build.md | 37770 | agent | [ ] |
-| .agents/specs/requirements/REQ-004-agent-eval-harness-spike.md | 20754 | agent | [ ] |
-| .agents/specs/requirements/REQ-016-spec-step0-first-principles-gate.md | 21044 | agent | [ ] |
-| .agents/specs/tasks/TASK-004-agent-eval-harness-spike.md | 27222 | agent | [ ] |
-| .agents/steering/security-practices.md | 7163 | agent | [ ] |
-| .claude/agents/AGENTS.md | 11687 | agent | [ ] |
-| .claude/agents/analyst.md | 14835 | agent | [ ] |
-| .claude/agents/architect.md | 27643 | agent | [ ] |
-| .claude/agents/backlog-generator.md | 6991 | agent | [ ] |
-| .claude/agents/CLAUDE.md | 170 | agent | [ ] |
-| .claude/agents/code-reviewer.md | 10695 | agent | [ ] |
-| .claude/agents/code-simplifier.md | 6182 | agent | [ ] |
-| .claude/agents/comment-analyzer.md | 6610 | agent | [ ] |
-| .claude/agents/critic.md | 20780 | agent | [ ] |
-| .claude/agents/debug.md | 2839 | agent | [ ] |
-| .claude/agents/dependency-auditor.md | 5530 | agent | [ ] |
-| .claude/agents/devops.md | 15590 | agent | [ ] |
-| .claude/agents/explainer.md | 6718 | agent | [ ] |
-| .claude/agents/high-level-advisor.md | 9176 | agent | [ ] |
-| .claude/agents/implementer.md | 46256 | agent | [ ] |
-| .claude/agents/independent-thinker.md | 10571 | agent | [ ] |
-| .claude/agents/issue-feature-review.md | 7846 | agent | [ ] |
-| .claude/agents/janitor.md | 2941 | agent | [ ] |
-| .claude/agents/merge-resolver.md | 12408 | agent | [ ] |
-| .claude/agents/milestone-planner.md | 6740 | agent | [ ] |
-| .claude/agents/negotiation.md | 7717 | agent | [ ] |
+| .agents/architecture/ADR-087-held-out-validated-improvement.md | 57524 | agent | [x] |
+| .agents/architecture/ADR-088-progressive-disclosure-book-rules.md | 8907 | agent | [x] |
+| .agents/architecture/ADR-089-remove-causal-memory-tier.md | 21331 | agent | [x] |
+| .agents/architecture/ADR-090-pr-branch-holder-lease.md | 20947 | agent | [x] |
+| .agents/architecture/ADR-091-post-merge-version-bot.md | 15709 | agent | [x] |
+| .agents/architecture/ADR-092-omit-plugin-manifest-version.md | 23330 | agent | [x] |
+| .agents/architecture/ADR-093-verify-red-checks-with-the-same-checker.md | 8755 | agent | [x] |
+| .agents/architecture/ADR-094-govern-copilot-cli-compatibility.md | 8579 | agent | [x] |
+| .agents/architecture/ADR-095-scoped-re-review-axes.md | 7277 | agent | [x] |
+| .agents/architecture/ADR-096-relax-qa-evidence-commit-equality.md | 28734 | agent | [x] |
+| .agents/architecture/ADR-097-zero-tool-use-hooks.md | 34748 | agent | [x] |
+| .agents/architecture/ADR-098-agent-role-metadata-replaces-tier-hierarchy.md | 32140 | agent | [x] |
+| .agents/architecture/ADR-099-remove-commit-limit-bypass-gate.md | 18974 | agent | [x] |
+| .agents/architecture/ADR-100-retire-pr-size-ceilings.md | 89866 | agent | [x] |
+| .agents/architecture/ADR-101-enforcement-planes.md | 94067 | agent | [x] |
+| .agents/architecture/ADR-102-session-qa-binding-field-precedence.md | 48938 | agent | [x] |
+| .agents/architecture/ADR-103-skill-output-python-contract-correction.md | 28960 | agent | [x] |
+| .agents/architecture/ADR-104-gate-tier-placement-and-budgets.md | 33548 | agent | [x] |
+| .agents/architecture/ADR-TEMPLATE.md | 5091 | agent | [x] |
+| .agents/architecture/ASSESSMENT-session-qa-validation-options.md | 8029 | agent | [x] |
+| .agents/architecture/DESIGN-REVIEW-template.md | 3860 | agent | [x] |
+| .agents/architecture/README.md | 27806 | agent | [x] |
+| .agents/architecture/SKILL-STANDARDS-RECONCILED.md | 32531 | agent | [x] |
+| .agents/archive/planning/PR-60/001-pr-60-review-gap-analysis.md | 9689 | agent | [x] |
+| .agents/archive/planning/PR-60/002-pr-60-remediation-plan.md | 24845 | agent | [x] |
+| .agents/archive/planning/PR-60/003-pr-60-plan-critique.md | 6318 | agent | [x] |
+| .agents/archive/planning/PR-60/005-consolidated-agent-review-summary.md | 14317 | agent | [x] |
+| .agents/archive/planning/PRD-quality-gate-prompt-refinement.md | 4940 | agent | [x] |
+| .agents/archive/planning/PRD-skills-index-registry.md | 21638 | agent | [x] |
+| .agents/critique/ADR-023-debate-log.md | 3538 | agent | [x] |
+| .agents/critique/ADR-045-debate-log.md | 13310 | agent | [x] |
+| .agents/devops/arm-runner-migration-analysis.md | 8229 | agent | [x] |
+| .agents/governance/agent-consolidation-process.md | 7552 | agent | [x] |
+| .agents/governance/agent-design-principles.md | 12575 | agent | [x] |
+| .agents/governance/agent-interview-protocol.md | 5699 | agent | [x] |
+| .agents/governance/ears-format.md | 7339 | agent | [x] |
+| .agents/governance/interview-response-template.md | 4371 | agent | [x] |
+| .agents/governance/PROJECT-CONSTRAINTS.md | 11602 | agent | [x] |
+| .agents/governance/SKILL-CREATION-CRITERIA.md | 11750 | agent | [x] |
+| .agents/governance/SKILL-PHASE-GATES.md | 6783 | agent | [x] |
+| .agents/governance/steering-committee-charter.md | 5248 | agent | [x] |
+| .agents/guides/python-cicd-patterns.md | 8125 | agent | [x] |
+| .agents/guides/python-for-powershell-developers.md | 10482 | agent | [x] |
+| .agents/incidents/2026-04-27-pir-plugin-manifest-schema-1773.md | 10130 | agent | [x] |
+| .agents/metrics/baseline-report.md | 5807 | agent | [x] |
+| .agents/metrics/dashboard-template.md | 5337 | agent | [x] |
+| .agents/metrics/workflow-coalescing.md | 3525 | agent | [x] |
+| .agents/projects/v0.3.1/PowerShell-migration.md | 15567 | agent | [x] |
+| .agents/projects/v0.4.0/PLAN.md | 29810 | agent | [x] |
+| .agents/retrospective/2025-12-22-pr-226-premature-merge-failure.md | 8099 | agent | [x] |
+| .agents/security/ADR-045-framework-extraction-security-review.md | 32721 | agent | [x] |
+| .agents/security/architecture-security-template.md | 8144 | agent | [x] |
+| .agents/security/code-quality-security.md | 6776 | agent | [x] |
+| .agents/security/infrastructure-file-patterns.md | 8358 | agent | [x] |
+| .agents/security/python-security-checklist.md | 9406 | agent | [x] |
+| .agents/security/secret-detection-patterns.md | 6363 | agent | [x] |
+| .agents/security/security-best-practices.md | 9134 | agent | [x] |
+| .agents/security/SR-002-pr-automation-security-review.md | 7287 | agent | [x] |
+| .agents/security/static-analysis-checklist.md | 6224 | agent | [x] |
+| .agents/specs/design/DESIGN-004-agent-eval-harness-spike.md | 19923 | agent | [x] |
+| .agents/specs/requirements/REQ-003-multi-tool-artifact-build.md | 37770 | agent | [x] |
+| .agents/specs/requirements/REQ-004-agent-eval-harness-spike.md | 20754 | agent | [x] |
+| .agents/specs/requirements/REQ-016-spec-step0-first-principles-gate.md | 21044 | agent | [x] |
+| .agents/specs/tasks/TASK-004-agent-eval-harness-spike.md | 27222 | agent | [x] |
+| .agents/steering/security-practices.md | 7163 | agent | [x] |
+| .claude/agents/AGENTS.md | 11687 | agent | [x] |
+| .claude/agents/analyst.md | 14835 | agent | [x] |
+| .claude/agents/architect.md | 27643 | agent | [x] |
+| .claude/agents/backlog-generator.md | 6991 | agent | [x] |
+| .claude/agents/CLAUDE.md | 170 | agent | [x] |
+| .claude/agents/code-reviewer.md | 10695 | agent | [x] |
+| .claude/agents/code-simplifier.md | 6182 | agent | [x] |
+| .claude/agents/comment-analyzer.md | 6610 | agent | [x] |
+| .claude/agents/critic.md | 20780 | agent | [x] |
+| .claude/agents/debug.md | 2839 | agent | [x] |
+| .claude/agents/dependency-auditor.md | 5530 | agent | [x] |
+| .claude/agents/devops.md | 15590 | agent | [x] |
+| .claude/agents/explainer.md | 6718 | agent | [x] |
+| .claude/agents/high-level-advisor.md | 9176 | agent | [x] |
+| .claude/agents/implementer.md | 46256 | agent | [x] |
+| .claude/agents/independent-thinker.md | 10571 | agent | [x] |
+| .claude/agents/issue-feature-review.md | 7846 | agent | [x] |
+| .claude/agents/janitor.md | 2941 | agent | [x] |
+| .claude/agents/merge-resolver.md | 12408 | agent | [x] |
+| .claude/agents/milestone-planner.md | 6740 | agent | [x] |
+| .claude/agents/negotiation.md | 7717 | agent | [x] |
 | .claude/agents/orchestrator.md | 28813 | agent | [ ] |
 | .claude/agents/qa.md | 30944 | agent | [ ] |
 | .claude/agents/quality-auditor.md | 3892 | agent | [ ] |

@@ -180,7 +180,24 @@ The runs before that reset — the experiment of sessions 013–014 (runs 01–0
 - **quote-check totals**: 1,134 PASS, 0 FAIL across all 29 inventory cards (0% failure rate)
 - **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-06/success_auditor_report.md` (verdict CLEAN)
-- **Probe verdict**: N/A (16-unit run; quality completely clean at 1,134 PASS / 0 FAIL across 29 cards; wall time 16.1 min).
+### run 07 (Session 004, production p1-run-07)
+
+- **run-id**: `p1-run-07`
+- **session**: 004 (Phase 1)
+- **units**: `inv-rjm-37` through `inv-rjm-68` (32 units, 86 inventory cards, 32 unit reports)
+- **context used**:
+  - at run-start: `used=9.17%` (`[run-start p1-run-07 n=32] budget 2026-09-05T10:53:10.317Z conv=d524e359 model="Gemini 3.8 Flash (High)" used=9.17% peak=9.17% governing=25.00% close=1.68% headroom=14.15% pending=288 → DISPATCH 1 run × 32 units (32 units, cost 10.68%) — PROBE`)
+  - at dispatched: `used=9.90%` (`[dispatched p1-run-07] budget 2026-09-05T10:53:53.125Z conv=d524e359 model="Gemini 3.8 Flash (High)" used=9.90% peak=9.90% governing=25.00% close=1.68% headroom=13.42% pending=256 → DISPATCH 1 run × 32 units (32 units, cost 10.68%) — PROBE`)
+  - at verified: `used=12.89%` (`[verified p1-run-07] budget 2026-09-05T11:12:05.865Z conv=d524e359 model="Gemini 3.8 Flash (High)" used=12.89% peak=12.89% governing=25.00% close=1.68% headroom=10.43% pending=256 → DISPATCH 1 run × 24 units (24 units, cost 9.16%)`)
+  - per-unit delta: 0.093% (verified 12.89% − dispatched 9.90% = 2.99% ÷ 32 units = 0.0934%)
+- **rot metrics**: none observed (used: 12.89%)
+- **429s and quota.reset_in_seconds**: none observed
+- **wall time**: 15.6 min (from `2026-09-05T10:53:53Z` dispatch to `2026-09-05T11:09:29Z` completion).
+- **Workers per unit**: 32 workers (`.agents/worker_1`..`worker_32`), one per unit, dispatched concurrently.
+- **quote-check totals**: 3,502 PASS, 0 FAIL across all 86 inventory cards (0% failure rate)
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-07/success_auditor_report.md` (verdict CLEAN)
+- **Probe verdict**: Clean probe! Wall time 15.6 min is within 25% bound of 13.5 min (16.875 min), 0 FAIL across 3,502 citations, 0 429s, no rot metrics, 32 parallel workers. Per METHOD.md §8.2 step-up rule, `max_clean_run` is raised from 24 to 32, with `last_clean_wall_minutes=15.6`.
 
 ## 8. Objective
 

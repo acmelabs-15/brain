@@ -87,6 +87,9 @@
 | .claude/skills/github/scripts/milestone/get_latest_semantic_milestone.py | 6656 | script | [ ] |
 | .claude/skills/github/scripts/milestone/set_item_milestone.py | 9745 | script | [ ] |
 | .claude/skills/github/scripts/notifications/get_actionable_items.py | 8844 | script | [ ] |
+| .claude/skills/github/scripts/pr/__pycache__/audit_closing_claims.cpython-314.pyc | 19893 | script | [ ] |
+| .claude/skills/github/scripts/pr/__pycache__/edit_pr_body.cpython-314.pyc | 13090 | script | [ ] |
+| .claude/skills/github/scripts/pr/__pycache__/merge_pr.cpython-314.pyc | 23453 | script | [ ] |
 | .claude/skills/github/scripts/pr/add_pr_review_thread_reply.py | 11401 | script | [ ] |
 | .claude/skills/github/scripts/pr/audit_closing_claims.py | 15450 | script | [ ] |
 | .claude/skills/github/scripts/pr/auto_merge_guard.py | 6508 | script | [ ] |
