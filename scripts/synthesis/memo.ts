@@ -27,7 +27,7 @@
 //   effort:       the effort level                            (never inferred; `unknown` if not recorded)
 //   verified:     <YYYY-MM-DD> <check>  — written by the primary agent at METHOD §7 step 6, after quote-check + coverage pass
 import { readFileSync, writeFileSync, existsSync } from "fs";
-import { parseFrontmatter, fileSha, readUnits, slugOf, walkMd, isFile, sourcePath, sha256 } from "./_lib";
+import { parseFrontmatter, fileSha, readUnits, slugOf, walkMd, isFile, sourcePath, sha256, isCardPath } from "./_lib";
 
 const [cmd, ...rest] = process.argv.slice(2);
 const opt = (k: string) => { const i = rest.indexOf(k); return i >= 0 ? rest[i + 1] : undefined; };
@@ -109,7 +109,7 @@ if (cmd === "stamp") {
 
 if (cmd === "restamp") {
   const cards = rest.includes("--all")
-    ? [...walkMd("docs/analysis/inventory"), ...walkMd("docs/analysis/concepts")].filter(p => !p.includes("/_units/") && !p.includes("/_divergence/"))
+    ? [...walkMd("docs/analysis/inventory"), ...walkMd("docs/analysis/concepts")].filter(isCardPath)
     : rest.filter(a => !a.startsWith("--"));
   let done = 0, skipped = 0;
   for (const card of cards) {
@@ -122,7 +122,7 @@ if (cmd === "restamp") {
 }
 
 if (cmd === "audit") {
-  const cards = [...walkMd("docs/analysis/inventory"), ...walkMd("docs/analysis/concepts")].filter(p => !p.includes("/_units/") && !p.includes("/_divergence/"));
+  const cards = [...walkMd("docs/analysis/inventory"), ...walkMd("docs/analysis/concepts")].filter(isCardPath);
   let ok = 0, stale = 0, unstamped = 0;
   for (const card of cards) {
     const { fm, inputs } = recorded(card);

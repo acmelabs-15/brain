@@ -438,4 +438,35 @@ none.
 
 ---
 
+## D-022 — Phase 1V reports are not cards; omissions are fixed by re-running units; a quota pause is waited through in one call
+
+- **date:** 2026-09-06
+- **made-by:** Peter
+- **session:** — (between sessions 010 and 011; applied by hotfix 3)
+- **status:** active
+- **supersedes:** —
+- **resolves:** the `STOP: needs Peter` of session 010 (`docs/plan/sessions/010-inventory.md` § For Peter); method §5 (Phase 1V), §6.3 (quota), §6.3.1 (brief), §7 step 4, §9; `scripts/synthesis/_lib.ts`, `coverage.ts`, `memo.ts`, `quote-check.ts`, `units.ts`, `await-run.ts`
+
+### Decision
+1. **A file or directory whose name begins with `_` under `docs/analysis/inventory/<pkg>/` or `docs/analysis/concepts/<pkg>/` is not a card.** `_units/` (reports) and `_divergence/` (divergence cards) already were not; `_verification.md` (Phase 1V) and `_index.md` (Phase 2) now are not either. One rule in `_lib.ts` (`isCardPath`) replaces the two path checks that `coverage.ts`, `memo.ts` and `quote-check.ts` each carried. Session 010 stopped correctly: METHOD §5 told the verifier to write `_verification.md` and §10 told the primary agent not to proceed while `coverage.ts` reported three orphan cards — the manual and the tooling disagreed, and the agent asked rather than guessed.
+2. **Phase 1V omissions are fixed by re-running the affected units, never by editing cards.** Session 009's handoff proposed patching the flagged cards by hand; §6.3 item 5 forbids it (the primary agent writes no card), and a patched card would carry a memo stamp that no longer describes how it was produced. The procedure is now in §5: `units.ts owner <card>` names the unit; `units.ts rerun --session NNN <units…>` removes the unit's cards and report and sets it pending (otherwise §7 step 1's memo check would HIT on unchanged inputs and skip the unit); the units go through an ordinary run whose brief carries the re-run line (every Worker reads `_verification.md` first); the verifier is dispatched again on the flagged files and rewrites the report; a package is done when the report is clean.
+3. **A quota pause is waited through in one blocking call.** `await-run.ts` no longer returns when a run goes silent; it keeps polling until the files change or three hours pass. The production series showed why: the primary conversation spent 9.75 % of its window during run 09's 6.8-hour wait (session 005, which then ended in ERROR with an uncommitted tree) and 8.48 % during run 14's 4.5-hour wait (session 007, peak 24.4 % — 0.6 % under the ceiling — with one compaction). Each return was a model call; during the quota window those calls failed and were retried (239 error messages in session 007's stream), and every Sentinel progress message drew a reply. A normal 48-unit run costs 2.3–2.9 %. The brief now also asks the Sentinel to report only at completion or when blocked.
+
+### Adopted from
+The agent's own `STOP: needs Peter` (session 010), which identified the contradiction exactly; session 009's handoff (the findings and the proposed remediation, corrected on the editing point); the production capture of 2026-09-06 (`readings.jsonl`, the drive streams of sessions 005 and 007).
+
+### Dropped
+Hand-patching of flagged cards. Returning from `await-run.ts` on a 15-minute stall.
+
+### Rejected alternatives
+Moving the 1V report outside `docs/analysis/inventory/<pkg>/` — the report belongs beside what it verifies, and §9 already names its place; the tooling had the rule wrong, not the layout. Treating the 1V findings as done because quality checks pass — the checks verify citations and coverage, not omissions; that is exactly the gap 1V exists to find.
+
+### Evidence
+`docs/plan/sessions/009-inventory.md`, `010-inventory.md`; `docs/analysis/inventory/{addy,matt,rjm}/_verification.md`; `docs/analysis/rationale/12-open-questions.md` (production-series notes); the capture zip outside the repository.
+
+### Glossary
+none.
+
+---
+
 <!-- Alignment decisions (D-100+) are appended below this line in Phase 4. -->

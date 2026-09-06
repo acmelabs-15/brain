@@ -119,6 +119,12 @@ export function sourcePath(pkg: string, rel: string): string {
   return `sources/${pkg}/${rel}`;
 }
 
+/** A card is a markdown file under inventory/<pkg>/ or concepts/<pkg>/ whose path has no `_`-prefixed segment:
+ *  `_units/` (reports), `_divergence/` (divergence cards), `_verification.md` (Phase 1V), `_index.md` (Phase 2) are not cards (D-022). */
+export function isCardPath(p: string): boolean {
+  return p.endsWith(".md") && !p.split("/").some(seg => seg.startsWith("_"));
+}
+
 export function walkMd(dir: string): string[] {
   if (!existsSync(dir)) return [];
   const out: string[] = [];

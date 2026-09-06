@@ -21,7 +21,7 @@
 // FAIL: they do not, or the line does not exist, or the source file is missing.
 // Exit 0 when every citation passes, 1 otherwise. Output is one line per citation, then a total.
 import { readFileSync, existsSync } from "fs";
-import { parseFrontmatter, walkMd, isFile, sourcePath } from "./_lib";
+import { parseFrontmatter, walkMd, isFile, sourcePath, isCardPath } from "./_lib";
 
 const args = process.argv.slice(2);
 const summary = args.includes("--summary");
@@ -30,7 +30,7 @@ const pkgFilter = all ? args.filter(a => !a.startsWith("--"))[0] : undefined;
 let cards = args.filter(a => !a.startsWith("--"));
 if (all) {
   cards = [...walkMd("docs/analysis/inventory"), ...walkMd("docs/analysis/concepts")]
-    .filter(p => !p.includes("/_units/") && !p.includes("/_divergence/"))
+    .filter(isCardPath)
     .filter(p => !pkgFilter || p.includes(`/${pkgFilter}/`));
 }
 if (!cards.length && all) { console.log("quote-check: 0 PASS, 0 FAIL, 0 MISSING source, across 0 card(s); 0 card(s) with failures"); process.exit(0); }

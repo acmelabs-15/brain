@@ -12,11 +12,18 @@
 //   bun scripts/synthesis/units.ts show <unit>…               the rows for these units
 //   bun scripts/synthesis/units.ts mark <status> --session NNN <unit>…
 //                                                             set status (pending|in-progress|done|blocked|rolled-back); done fills Output
+//   bun scripts/synthesis/units.ts owner <path>…              the unit that owns each path — a source path (as in manifest/units.md) or a card
+//                                                             path (docs/analysis/inventory/<pkg>/<slug>.md); for Phase 1V remediation (D-022)
+//   bun scripts/synthesis/units.ts rerun --session NNN <unit>…
+//                                                             prepare a re-run (Phase 1V, §5): delete the unit's deliverables (its cards and
+//                                                             report — the memo would otherwise HIT and skip it), set it pending, regenerate the
+//                                                             manifests; prints what it deleted. The primary agent never edits a card; this removes them for a Worker to rewrite.
 //   bun scripts/synthesis/units.ts sync                       rewrite the STATE.md "Work units" counts + current_unit from the table
 //   bun scripts/synthesis/units.ts check                      exit 1 if the table and manifest/units.md disagree on the unit set,
 //                                                             if STATE.md counts differ from the table, or if a `done` unit's report is missing
 import { readFileSync, writeFileSync, existsSync } from "fs";
-import { readUnits, readUnitStatus, UNIT_STATUSES, type UnitStatusRow } from "./_lib";
+import { readUnits, readUnitStatus, slugOf, UNIT_STATUSES, type UnitStatusRow } from "./_lib";
+import { rmSync } from "fs";
 
 const TABLE = "docs/plan/units.md";
 const STATE = "docs/plan/STATE.md";
@@ -102,6 +109,37 @@ if (cmd === "init") {
   writeFileSync(TABLE, render(rows));
   console.log(`units: ${units.length} unit(s) → ${status} (session ${session}): ${units.join(" ")}`);
   syncState(rows);
+} else if (cmd === "owner") {
+  const paths = argv.slice(1); if (!paths.length) die("no paths given");
+  const units = readUnits(); let missing = 0;
+  for (const q of paths) {
+    const m = q.match(/^docs\/analysis\/inventory\/([^/]+)\/([^/]+\.md)$/);
+    const hits = m ? units.filter(u => u.pkg === m[1] && slugOf(u.path) === m[2]) : units.filter(u => u.path === q || `sources/${u.pkg}/${u.path}` === q);
+    if (!hits.length) { console.log(`NONE  ${q} — no unit owns this path (a report, divergence card or verification file has no owning unit; a card slug must match a manifest row)`); missing++; continue; }
+    for (const h of hits) console.log(`${h.unit}  ${h.pkg}  ${h.path}  ${q}`);
+  }
+  process.exit(missing ? 1 : 0);
+} else if (cmd === "rerun") {
+  const si = argv.indexOf("--session"); const session = si >= 0 ? argv[si + 1] ?? "" : "";
+  if (!session) die("--session NNN is required");
+  const ids = argv.slice(1).filter((a, i, arr) => a !== "--session" && arr[i - 1] !== "--session");
+  if (!ids.length) die("no units given");
+  const rows = readUnitStatus(); if (!rows.length) die(`${TABLE} missing — run units.ts init`);
+  const byId = new Map(rows.map(r => [r.unit, r])); const units = readUnits();
+  for (const u of ids) if (!byId.has(u)) die(`${u} not in ${TABLE}`);
+  let removed = 0;
+  for (const u of ids) {
+    const r = byId.get(u)!;
+    const files = [...units.filter(x => x.unit === u).map(x => `docs/analysis/inventory/${x.pkg}/${slugOf(x.path)}`), `docs/analysis/inventory/${r.pkg}/_units/${u}.md`];
+    for (const f of files) if (existsSync(f)) { rmSync(f); removed++; console.log(`removed ${f}`); }
+    r.status = "pending"; r.session = "—"; r.output = "—";
+  }
+  writeFileSync(TABLE, render(rows));
+  console.log(`units: ${ids.length} unit(s) → pending for re-run (session ${session}), ${removed} deliverable(s) removed: ${ids.join(" ")}`);
+  syncState(rows);
+  // the manifests' Checked column is derived from card presence (§7 step 7) — regenerate it so coverage.ts stays clean
+  const m = Bun.spawnSync(["bun", "scripts/synthesis/manifest.ts", "--no-fetch"], { stdout: "pipe", stderr: "pipe" });
+  console.log(m.exitCode === 0 ? "units: manifests regenerated (Checked derived from the remaining cards)" : `units: manifest.ts --no-fetch exited ${m.exitCode}: ${m.stderr.toString().trim()}`);
 } else if (cmd === "sync") {
   const rows = readUnitStatus(); if (!rows.length) die(`${TABLE} missing — run units.ts init`);
   syncState(rows);

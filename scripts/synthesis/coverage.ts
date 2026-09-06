@@ -50,7 +50,7 @@ for (const pkg of PKGS) {
   const manifest = readManifest(pkg);
   if (!manifest.length) continue;
   const dir = `docs/analysis/inventory/${pkg}`;
-  const listing = new Set(existsSync(dir) ? readdirSync(dir).filter(f => f.endsWith(".md")) : []);
+  const listing = new Set(existsSync(dir) ? readdirSync(dir).filter(f => f.endsWith(".md") && !f.startsWith("_")) : []); // `_verification.md` etc. are not cards (D-022)
   const cards = [...listing].map(f => `${dir}/${f}`);
 
   // alias claims: card → aliases
@@ -107,7 +107,7 @@ for (const pkg of PKGS) {
   // 5. concepts
   const cdir = `docs/analysis/concepts/${pkg}`;
   if (existsSync(cdir)) {
-    const concepts = new Set(readdirSync(cdir).filter(f => f.endsWith(".md")).map(f => f.replace(/\.md$/, "")));
+    const concepts = new Set(readdirSync(cdir).filter(f => f.endsWith(".md") && !f.startsWith("_")).map(f => f.replace(/\.md$/, "")));
     for (const [c, { body }] of cardMeta) {
       const sec = sections(body).find(s => /^Concepts named/.test(s.heading));
       if (!sec) continue;

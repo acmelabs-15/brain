@@ -12,7 +12,7 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase_name** | Inventory |
 | **current_unit** | — |
 | **last_session** | 010 |
-| **next_action** | Resolve tooling contradiction on docs/analysis/inventory/<pkg>/_verification.md with coverage.ts and memo.ts, then remediate Phase 1V findings |
+| **next_action** | Phase 1V remediation per METHOD.md §5 (D-022): `units.ts owner` for every card named in the three `_verification.md` reports, `units.ts rerun` for those units, dispatch them with the brief's re-run line, re-verify; then Phase 2 |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
