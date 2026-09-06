@@ -10,7 +10,7 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `1` |
 | **phase_name** | Inventory |
-| **current_unit** | inv-rjm-310 |
+| **current_unit** | — |
 | **last_session** | 010 |
 | **next_action** | Phase 1V remediation per METHOD.md §5 (D-022): `units.ts owner` for every card named in the three `_verification.md` reports, `units.ts rerun` for those units, dispatch them with the brief's re-run line, re-verify; then Phase 2 |
 | **human_approval** | `PENDING` |
@@ -66,8 +66,8 @@ The unit table is `docs/plan/units.md`, written only by `bun scripts/synthesis/u
 | Status | Units |
 |---|---|
 | pending | 0 |
-| in-progress | 1 |
-| done | 415 |
+| in-progress | 0 |
+| done | 416 |
 | blocked | 0 |
 | rolled-back | 0 |
 | **total** | **416** |
@@ -106,7 +106,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 | Metric | Value |
 |---|---|
 | Manifest rows (addy / matt / rjm) | 219 / 201 / 1175 |
-| Inventory units done (addy / matt / rjm) | 46 / 46 / 323 |
+| Inventory units done (addy / matt / rjm) | 46 / 46 / 324 |
 | Concept cards (addy / matt / rjm) | — / — / — |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | — |
 | Decisions (active / superseded / pending-peter) | 18 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |

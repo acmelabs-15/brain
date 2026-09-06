@@ -389,6 +389,25 @@ The runs before that reset — the experiment of sessions 013–014 (runs 01–0
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-18/success_auditor_report.md` (verdict CLEAN)
 - **Probe verdict**: N/A (standard 48-unit run, 342 cards rewritten with Phase 1V omissions fixed, 0 FAIL across 8,070 citations, 48 parallel workers).
 
+### run 18 (Session 011, production p1-run-19)
+
+- **run-id**: `p1-run-19`
+- **session**: 011 (Phase 1V remediation)
+- **units**: `inv-rjm-310` (1 unit: rjm; 8 inventory cards, 0 divergence cards, 1 unit report)
+- **context used**:
+  - at run-start: `used=19.44%` (`[run-start p1-run-19 n=1] budget 2026-09-06T11:14:14.798Z conv=fd9d0c25 model="Gemini 3.8 Flash (High)" used=19.44% peak=19.44% governing=25.00% close=1.05% headroom=4.51% pending=1 → DISPATCH 1 run × 1 units (1 units, cost 1.50%)`)
+  - at dispatched: `used=19.80%` (`[dispatched p1-run-19] budget 2026-09-06T11:14:35.123Z conv=fd9d0c25 model="Gemini 3.8 Flash (High)" used=19.80% peak=19.80% governing=25.00% close=1.05% headroom=4.15% pending=0 → STOP — no plan fits the headroom: close per §8.3`)
+  - at verified: `used=20.44%` (`[verified p1-run-19] budget 2026-09-06T11:25:11.536Z conv=fd9d0c25 model="Gemini 3.8 Flash (High)" used=20.44% peak=20.44% governing=25.00% close=1.05% headroom=3.51% pending=0 → STOP — nothing pending: Phase 1 dispatch is complete`)
+  - per-unit delta: 0.64% (verified 20.44% − dispatched 19.80% = 0.64% ÷ 1 unit = 0.64%)
+- **rot metrics**: none observed (used: 20.44%)
+- **429s and quota.reset_in_seconds**: none (0 quota errors)
+- **wall time**: 9.7 min from dispatch to completion
+- **Workers per unit**: 1 worker, dispatched concurrently.
+- **quote-check totals**: 127 PASS, 0 FAIL across 8 run cards; 47,017 PASS, 0 FAIL repo-wide across 1,566 cards (0% failure rate)
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-19/success_auditor_report.md` (verdict CLEAN)
+- **Probe verdict**: N/A (single-unit run completing Phase 1V remediation set; wall time 9.7 min, 0 FAIL across 127 citations, 1 parallel worker).
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.

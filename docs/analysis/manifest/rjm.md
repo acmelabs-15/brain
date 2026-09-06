@@ -1128,14 +1128,14 @@
 | scripts/validation/validate_python_syntax.py | 7984 | script | [x] |
 | scripts/validation/validate_review_marker.py | 16215 | script | [x] |
 | scripts/validation/validate_seed_parity.py | 8418 | script | [x] |
-| scripts/validation/validate_skill_shells.py | 7879 | script | [ ] |
-| scripts/validation/validate_skillbook.py | 15489 | script | [ ] |
-| scripts/validation/validate_sync_registry.py | 8084 | script | [ ] |
-| scripts/validation/vendor_portability_baseline.txt | 1645 | script | [ ] |
-| scripts/validation/yaml_utils.py | 1132 | script | [ ] |
-| scripts/workflow/__init__.py | 1377 | script | [ ] |
-| scripts/workflow/coordinator.py | 7750 | script | [ ] |
-| scripts/workflow/executor.py | 6594 | script | [ ] |
+| scripts/validation/validate_skill_shells.py | 7879 | script | [x] |
+| scripts/validation/validate_skillbook.py | 15489 | script | [x] |
+| scripts/validation/validate_sync_registry.py | 8084 | script | [x] |
+| scripts/validation/vendor_portability_baseline.txt | 1645 | script | [x] |
+| scripts/validation/yaml_utils.py | 1132 | script | [x] |
+| scripts/workflow/__init__.py | 1377 | script | [x] |
+| scripts/workflow/coordinator.py | 7750 | script | [x] |
+| scripts/workflow/executor.py | 6594 | script | [x] |
 | scripts/workflow/loader.py | 3244 | script | [x] |
 | scripts/workflow/parallel.py | 11848 | script | [x] |
 | scripts/workflow/schema.py | 6629 | script | [x] |
