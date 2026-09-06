@@ -20,9 +20,7 @@
 | .claude/commands/pr-review-config.yaml | 14295 | command | [ ] |
 | .claude/commands/pr-review.md | 17143 | command | [ ] |
 | .claude/skills/agent-harness-reference/tests/test_structure_agent_harness_reference.py | 1120 | skill | [ ] |
-| .claude/skills/ai-agents-architecture-contract/tests/__pycache__/test_structure_ai_agents_architecture_contract.cpython-314-pytest-9.0.3.pyc | 14403 | skill | [ ] |
 | .claude/skills/ai-agents-architecture-contract/tests/test_structure_ai_agents_architecture_contract.py | 1128 | skill | [ ] |
-| .claude/skills/ai-agents-build-and-env/tests/__pycache__/test_structure_ai_agents_build_and_env.cpython-314-pytest-9.0.3.pyc | 14379 | skill | [ ] |
 | .claude/skills/ai-agents-build-and-env/tests/test_structure_ai_agents_build_and_env.py | 1120 | skill | [ ] |
 | .claude/skills/ai-agents-change-control/tests/test_structure_ai_agents_change_control.py | 1121 | skill | [ ] |
 | .claude/skills/ai-agents-config-catalog/tests/test_structure_ai_agents_config_catalog.py | 1121 | skill | [ ] |
@@ -37,7 +35,6 @@
 | .claude/skills/ai-agents-research-frontier/tests/test_structure_ai_agents_research_frontier.py | 1124 | skill | [ ] |
 | .claude/skills/ai-agents-research-methodology/tests/test_structure_ai_agents_research_methodology.py | 1127 | skill | [ ] |
 | .claude/skills/ai-agents-validation-and-qa/tests/test_structure_ai_agents_validation_and_qa.py | 1124 | skill | [ ] |
-| .claude/skills/benchmark-models/tests/__pycache__/test_model_benchmark.cpython-314-pytest-9.0.3.pyc | 160613 | skill | [ ] |
 | .claude/skills/benchmark-models/tests/test_model_benchmark.py | 28607 | skill | [ ] |
 | .claude/skills/business-strategy/tests/test_business_strategy_pack.py | 4152 | skill | [ ] |
 | .claude/skills/chestertons-fence/references/boy-scout-rule.md | 1349 | reference | [ ] |
@@ -90,9 +87,6 @@
 | .claude/skills/github/scripts/milestone/get_latest_semantic_milestone.py | 6656 | script | [ ] |
 | .claude/skills/github/scripts/milestone/set_item_milestone.py | 9745 | script | [ ] |
 | .claude/skills/github/scripts/notifications/get_actionable_items.py | 8844 | script | [ ] |
-| .claude/skills/github/scripts/pr/__pycache__/audit_closing_claims.cpython-314.pyc | 19893 | script | [ ] |
-| .claude/skills/github/scripts/pr/__pycache__/edit_pr_body.cpython-314.pyc | 13090 | script | [ ] |
-| .claude/skills/github/scripts/pr/__pycache__/merge_pr.cpython-314.pyc | 23453 | script | [ ] |
 | .claude/skills/github/scripts/pr/add_pr_review_thread_reply.py | 11401 | script | [ ] |
 | .claude/skills/github/scripts/pr/audit_closing_claims.py | 15450 | script | [ ] |
 | .claude/skills/github/scripts/pr/auto_merge_guard.py | 6508 | script | [ ] |
@@ -143,7 +137,6 @@
 | .claude/skills/github/scripts/test_workflow_locally.py | 17743 | script | [ ] |
 | .claude/skills/github/scripts/utils/extract_github_context.py | 4684 | script | [ ] |
 | .claude/skills/github/SKILL.md | 15781 | skill | [ ] |
-| .claude/skills/golden-principles/tests/__pycache__/test_scan_principles.cpython-314.pyc | 18366 | skill | [ ] |
 | .claude/skills/golden-principles/tests/test_scan_principles.py | 11633 | skill | [ ] |
 | .claude/skills/memory-consolidate/scripts/memory_git_targets.py | 9308 | script | [ ] |
 | .claude/skills/memory-consolidate/SKILL.md | 14024 | skill | [ ] |
@@ -218,7 +211,6 @@
 | .claude/skills/memory/tests/test_search_memory.py | 14645 | skill | [ ] |
 | .claude/skills/merge-resolver/tests/test_resolve_pr_conflicts.py | 7997 | skill | [ ] |
 | .claude/skills/observability/tests/test_query_logs.py | 10623 | skill | [ ] |
-| .claude/skills/orphan-ref-validator/tests/__pycache__/test_scan.cpython-314-pytest-9.0.3.pyc | 379638 | skill | [ ] |
 | .claude/skills/orphan-ref-validator/tests/test_scan.py | 99645 | skill | [ ] |
 | .claude/skills/pr-comment-responder/references/bots.md | 3135 | reference | [ ] |
 | .claude/skills/pr-comment-responder/references/gates.md | 18697 | reference | [ ] |
@@ -227,18 +219,10 @@
 | .claude/skills/pr-comment-responder/scripts/cluster_threads.py | 22715 | script | [ ] |
 | .claude/skills/pr-comment-responder/SKILL.md | 15146 | skill | [ ] |
 | .claude/skills/pr-comment-responder/tests/test_cluster_threads.py | 24926 | skill | [ ] |
-| .claude/skills/prose-self-check/tests/__pycache__/test_burstiness.cpython-312-pytest-9.1.1.pyc | 20851 | skill | [ ] |
-| .claude/skills/prose-self-check/tests/__pycache__/test_burstiness.cpython-314-pytest-9.0.3.pyc | 23810 | skill | [ ] |
-| .claude/skills/prose-self-check/tests/__pycache__/test_burstiness.cpython-314.pyc | 7869 | skill | [ ] |
-| .claude/skills/prose-self-check/tests/__pycache__/test_skill_structure.cpython-314-pytest-9.0.3.pyc | 36891 | skill | [ ] |
-| .claude/skills/prose-self-check/tests/__pycache__/test_skill_structure.cpython-314.pyc | 14378 | skill | [ ] |
-| .claude/skills/prose-self-check/tests/__pycache__/test_wiring.cpython-314-pytest-9.0.3.pyc | 10566 | skill | [ ] |
-| .claude/skills/prose-self-check/tests/__pycache__/test_wiring.cpython-314.pyc | 6486 | skill | [ ] |
 | .claude/skills/prose-self-check/tests/test_burstiness.py | 4456 | skill | [ ] |
 | .claude/skills/prose-self-check/tests/test_skill_structure.py | 9091 | skill | [ ] |
 | .claude/skills/prose-self-check/tests/test_wiring.py | 3715 | skill | [ ] |
 | .claude/skills/research-and-incorporate/references/memory-templates.md | 7876 | reference | [ ] |
-| .claude/skills/retrospective/tests/__pycache__/test_extract_evidence.cpython-314-pytest-9.0.3.pyc | 50988 | skill | [ ] |
 | .claude/skills/retrospective/tests/test_extract_evidence.py | 15026 | skill | [ ] |
 | .claude/skills/retrospective/tests/test_run_retrospective.py | 18079 | skill | [ ] |
 | .claude/skills/retrospective/tests/test_score_atomicity.py | 8926 | skill | [ ] |

@@ -597,249 +597,249 @@
 | .claude/skills/threat-modeling/scripts/validate_threat_model.py | 11244 | script | [x] |
 | .claude/skills/threat-modeling/SKILL.md | 16191 | skill | [x] |
 | .claude/skills/threat-modeling/templates/threat-model-template.md | 9202 | skill | [x] |
-| .claude/skills/validation-authority/SKILL.md | 5434 | skill | [ ] |
-| .claude/skills/windows-image-updater/references/troubleshooting.md | 2186 | reference | [ ] |
-| .claude/skills/windows-image-updater/SKILL.md | 7091 | skill | [ ] |
-| .claude/skills/work-operating-model/references/entry-contract.md | 3983 | reference | [ ] |
-| .claude/skills/work-operating-model/references/layer-questions.md | 4536 | reference | [ ] |
-| .claude/skills/work-operating-model/scripts/validate_operating_model.py | 12308 | script | [ ] |
-| .claude/skills/work-operating-model/SKILL.md | 7594 | skill | [ ] |
-| .claude/skills/world-model-diagnostic/SKILL.md | 14862 | skill | [ ] |
-| .codeql/scripts/CLAUDE.md | 169 | script | [ ] |
-| .codeql/scripts/get_codeql_diagnostics.py | 15672 | script | [ ] |
-| .codeql/scripts/install_codeql_integration.py | 9060 | script | [ ] |
-| .codeql/scripts/install_codeql.py | 9317 | script | [ ] |
-| .codeql/scripts/invoke_codeql_scan.py | 16170 | script | [ ] |
-| .codeql/scripts/test_codeql_config.py | 10140 | script | [ ] |
-| .codeql/scripts/test_codeql_rollout.py | 13783 | script | [ ] |
-| .github/AGENTS.md | 20145 | doc | [ ] |
-| .github/copilot-instructions.md | 4707 | doc | [ ] |
-| .github/scripts/assert_guard_jobs_succeeded.py | 1928 | script | [ ] |
-| .github/scripts/assign_bot_reviewer.py | 7186 | script | [ ] |
-| .github/scripts/check_design_review_gate.py | 5247 | script | [ ] |
-| .github/scripts/check_spec_failures.py | 3835 | script | [ ] |
-| .github/scripts/extract_incremental_scope.py | 1166 | script | [ ] |
-| .github/scripts/generate_spec_report.py | 8350 | script | [ ] |
-| .github/scripts/invoke_pr_comment_processing.py | 11112 | script | [ ] |
-| .github/scripts/invoke_pr_maintenance.py | 20902 | script | [ ] |
-| .github/scripts/measure_workflow_coalescing.py | 25119 | script | [ ] |
-| .github/scripts/parse_artifact_insights.py | 6646 | script | [ ] |
-| .github/scripts/parse_feature_review.py | 1889 | script | [ ] |
-| .github/scripts/parse_pr_standards.py | 3867 | script | [ ] |
-| .github/scripts/post_issue_comment.py | 10867 | script | [ ] |
-| .github/scripts/quality_gate_agents.py | 961 | script | [ ] |
-| .github/scripts/run_with_retry.py | 4063 | script | [ ] |
-| .github/scripts/safe_push_pr_branch.py | 14734 | script | [ ] |
-| .github/scripts/set_item_milestone.py | 9563 | script | [ ] |
-| .github/scripts/test_rate_limit.py | 2517 | script | [ ] |
-| .github/scripts/validate_investigation_claims.py | 13412 | script | [ ] |
-| .github/workflows/drift-detection.yml | 5252 | config | [ ] |
-| .github/workflows/validate-generated-agents.yml | 11662 | config | [ ] |
-| .vscode/toolsets.jsonc | 2741 | file | [ ] |
-| AGENTS.md | 2947 | doc | [ ] |
-| CLAUDE.md | 2482 | doc | [ ] |
-| CONTRIBUTING.md | 44216 | doc | [ ] |
-| docs/agent-catalog.md | 13376 | doc | [ ] |
-| docs/agent-governance.md | 3203 | doc | [ ] |
-| docs/agent-metrics.md | 8129 | doc | [ ] |
-| docs/architecture.md | 6788 | doc | [ ] |
-| docs/autonomous-issue-development.md | 17208 | doc | [ ] |
-| docs/autonomous-pr-monitor.md | 49433 | doc | [ ] |
-| docs/codeql-architecture.md | 22333 | doc | [ ] |
-| docs/codeql-integration.md | 13321 | doc | [ ] |
-| docs/codeql-rollout-checklist.md | 13065 | doc | [ ] |
-| docs/copilot-cli-setup.md | 4801 | doc | [ ] |
-| docs/customization.md | 9493 | doc | [ ] |
-| docs/design/external-signal-gating.md | 4324 | doc | [ ] |
-| docs/diagrams/routing-flowchart.md | 7205 | doc | [ ] |
-| docs/getting-started.md | 8254 | doc | [ ] |
-| docs/github-api-capabilities.md | 12018 | doc | [ ] |
-| docs/ideation-workflow.md | 10262 | doc | [ ] |
-| docs/installation.md | 7112 | doc | [ ] |
-| docs/markdown-linting.md | 5458 | doc | [ ] |
-| docs/orchestrator-routing-algorithm.md | 21360 | doc | [ ] |
-| docs/project-structure.md | 4131 | doc | [ ] |
-| docs/search-dont-load.md | 2758 | doc | [ ] |
-| docs/SKILL-AUTHORING.md | 14860 | doc | [ ] |
-| docs/skill-reference.md | 9268 | doc | [ ] |
-| docs/spec-quality/hedge-phrases.md | 9252 | doc | [ ] |
-| docs/task-classification-guide.md | 9276 | doc | [ ] |
-| docs/technical-guardrails.md | 8466 | doc | [ ] |
-| docs/third-party-license-attribution.md | 4463 | doc | [ ] |
-| docs/when-to-use.md | 7161 | doc | [ ] |
-| docs/workflow-commands.md | 7471 | doc | [ ] |
-| docs/WORKFLOW-VALIDATION.md | 5052 | doc | [ ] |
-| pyproject.toml | 12299 | config | [ ] |
-| README.md | 29662 | doc | [ ] |
-| scripts/__init__.py | 37 | script | [ ] |
-| scripts/AGENTS.md | 8224 | script | [ ] |
-| scripts/ai_review_common/__init__.py | 2115 | script | [ ] |
-| scripts/ai_review_common/cache_guard.py | 5630 | script | [ ] |
-| scripts/ai_review_common/feature_review.py | 4232 | script | [ ] |
-| scripts/ai_review_common/issue_triage.py | 5930 | script | [ ] |
-| scripts/ai_review_common/quality_gate.py | 715 | script | [ ] |
-| scripts/ai_review_common/retry.py | 2777 | script | [ ] |
-| scripts/ai_review_common/verdict.py | 10325 | script | [ ] |
-| scripts/ai_review_common/workflow.py | 6366 | script | [ ] |
-| scripts/ai_review_outputs.py | 2883 | script | [ ] |
-| scripts/analyze_pr_failure.py | 13970 | script | [ ] |
-| scripts/audit_orphaned_branches.py | 7157 | script | [ ] |
-| scripts/bootstrap-vm.sh | 15641 | script | [ ] |
-| scripts/bulk_cancel_guard.py | 15995 | script | [ ] |
-| scripts/check_skill_exists.py | 5638 | script | [ ] |
-| scripts/ci/_main_binding.py | 17611 | script | [ ] |
-| scripts/ci/adr006_run_block_scanner.py | 14042 | script | [ ] |
-| scripts/ci/adr015_workflow_retention.py | 6477 | script | [ ] |
-| scripts/ci/apply_ai_conflict_resolution.py | 5494 | script | [ ] |
-| scripts/ci/artifact_build_context.py | 3292 | script | [ ] |
-| scripts/ci/artifact_collect.py | 2796 | script | [ ] |
-| scripts/ci/artifact_create_issues.py | 5408 | script | [ ] |
-| scripts/ci/artifact_write_summary.py | 1919 | script | [ ] |
-| scripts/ci/build_ai_review_context.py | 18742 | script | [ ] |
-| scripts/ci/build_pr_validation_report.py | 4846 | script | [ ] |
-| scripts/ci/build_retrospective_prompt.py | 2952 | script | [ ] |
-| scripts/ci/check_ai_review_infra_gate.py | 5148 | script | [ ] |
-| scripts/ci/check_bot_identity.py | 9119 | script | [ ] |
-| scripts/ci/check_claude_authorization.py | 3643 | script | [ ] |
-| scripts/ci/check_codeql_sarif.py | 6889 | script | [ ] |
-| scripts/ci/check_metrics_thresholds.py | 3205 | script | [ ] |
-| scripts/ci/check_plugin_lib_mirrors.py | 1323 | script | [ ] |
-| scripts/ci/check_pr_merge_state.py | 5233 | script | [ ] |
-| scripts/ci/classify_semantic_title_result.py | 6309 | script | [ ] |
-| scripts/ci/cli_exit_contract_baseline.txt | 3 | script | [ ] |
-| scripts/ci/cli_exit_contract_coverage.py | 17656 | script | [ ] |
-| scripts/ci/cli_exit_contract_ratchet.py | 7547 | script | [ ] |
-| scripts/ci/codeql_integration_summary.py | 2983 | script | [ ] |
-| scripts/ci/collect_ai_metrics.py | 3643 | script | [ ] |
-| scripts/ci/collect_metrics_and_report.py | 2691 | script | [ ] |
-| scripts/ci/combine_pin_coverage.py | 10272 | script | [ ] |
-| scripts/ci/commit_and_push.py | 3903 | script | [ ] |
-| scripts/ci/count_ratchet.py | 47457 | script | [ ] |
-| scripts/ci/detect_human_changes_requested.py | 2466 | script | [ ] |
-| scripts/ci/determine_placeholder_range.py | 1525 | script | [ ] |
-| scripts/ci/diagnose_copilot_cli.py | 8788 | script | [ ] |
-| scripts/ci/diff_line_scope.py | 10035 | script | [ ] |
-| scripts/ci/drift_collect_details.py | 2875 | script | [ ] |
-| scripts/ci/drift_create_alert_issue.py | 3256 | script | [ ] |
-| scripts/ci/drift_run_detection.py | 1954 | script | [ ] |
-| scripts/ci/drift_write_summary.py | 1932 | script | [ ] |
-| scripts/ci/enforce_pr_validation.py | 1620 | script | [ ] |
-| scripts/ci/establish_ai_review_deadline.py | 1789 | script | [ ] |
-| scripts/ci/execute_ai_review_post_script.py | 2813 | script | [ ] |
-| scripts/ci/failure_classification.py | 3632 | script | [ ] |
-| scripts/ci/find_copilot_ready_issues.py | 2212 | script | [ ] |
-| scripts/ci/install_copilot_cli.py | 3385 | script | [ ] |
-| scripts/ci/install_locked_deps.py | 4671 | script | [ ] |
-| scripts/ci/invoke_copilot_cli.py | 17101 | script | [ ] |
-| scripts/ci/load_ai_review_prompt.py | 2645 | script | [ ] |
-| scripts/ci/main_pytest_failure_alert.py | 4332 | script | [ ] |
-| scripts/ci/map_pr_description_result.py | 1377 | script | [ ] |
-| scripts/ci/materialize_installed_plugin.py | 2533 | script | [ ] |
-| scripts/ci/measure_npm_pack_size.py | 2562 | script | [ ] |
-| scripts/ci/merge_tree_materialization.py | 7284 | script | [ ] |
-| scripts/ci/merge_tree_ratchet_check.py | 15695 | script | [ ] |
-| scripts/ci/merge_tree_ratchet_registry.py | 1569 | script | [ ] |
-| scripts/ci/mutation_harness_ciperms.py | 17424 | script | [ ] |
-| scripts/ci/parse_ai_review_output.py | 3863 | script | [ ] |
-| scripts/ci/parse_drift_results.py | 7947 | script | [ ] |
-| scripts/ci/parse_hook_bypass_results.py | 3284 | script | [ ] |
-| scripts/ci/parse_memory_health_results.py | 6055 | script | [ ] |
-| scripts/ci/parse_memory_validation_results.py | 3300 | script | [ ] |
-| scripts/ci/prepare_conflict_context.py | 3314 | script | [ ] |
-| scripts/ci/require_job_results.py | 3009 | script | [ ] |
-| scripts/ci/retrospective_gate.py | 4571 | script | [ ] |
-| scripts/ci/ruff_count_baseline.txt | 2 | script | [ ] |
-| scripts/ci/ruff_count_ratchet.py | 7633 | script | [ ] |
-| scripts/ci/ruff_ratchet.py | 10285 | script | [ ] |
-| scripts/ci/ruleset_context_drift.py | 8063 | script | [ ] |
-| scripts/ci/ruleset_required_contexts.py | 898 | script | [ ] |
-| scripts/ci/run_copilot_synthesis.py | 1604 | script | [ ] |
-| scripts/ci/run_hook_bypass_audit.py | 3047 | script | [ ] |
-| scripts/ci/run_pr_conflict_resolver.py | 2992 | script | [ ] |
-| scripts/ci/run_pytest_non_tmp.py | 2410 | script | [ ] |
-| scripts/ci/run_pytest_selected.py | 6999 | script | [ ] |
-| scripts/ci/run_quality_grades.py | 4135 | script | [ ] |
-| scripts/ci/show_drift_failure.py | 3520 | script | [ ] |
-| scripts/ci/show_generated_agent_diff.py | 2900 | script | [ ] |
-| scripts/ci/smoke_assert_vendored_tree.py | 1681 | script | [ ] |
-| scripts/ci/smoke_first_turn_verify.py | 1269 | script | [ ] |
-| scripts/ci/smoke_install_tarball.py | 2269 | script | [ ] |
-| scripts/ci/smoke_report_result.py | 1590 | script | [ ] |
-| scripts/ci/spec_external_signal_wrapper.py | 3521 | script | [ ] |
-| scripts/ci/spec_extract_refs.py | 6285 | script | [ ] |
-| scripts/ci/spec_load_content.py | 5523 | script | [ ] |
-| scripts/ci/spec_prepare_context.py | 2833 | script | [ ] |
-| scripts/ci/subprocess_encoding_count_baseline.txt | 4 | script | [ ] |
-| scripts/ci/subprocess_encoding_count_ratchet.py | 4123 | script | [ ] |
-| scripts/ci/sweep_copilot_synthesis.py | 2471 | script | [ ] |
-| scripts/ci/taste_count_baseline.txt | 4 | script | [ ] |
-| scripts/ci/taste_count_ratchet.py | 12794 | script | [ ] |
-| scripts/ci/test_installed_plugin_hooks.py | 16737 | script | [ ] |
-| scripts/ci/type_ignore_count_baseline.txt | 3 | script | [ ] |
-| scripts/ci/type_ignore_count_ratchet.py | 5057 | script | [ ] |
-| scripts/ci/update_needs_split_label.py | 3724 | script | [ ] |
-| scripts/ci/validate_ai_review_budgets.py | 4695 | script | [ ] |
-| scripts/ci/validate_vendor_provenance.py | 31771 | script | [ ] |
-| scripts/ci/vanilla_hook_guard.py | 11193 | script | [ ] |
-| scripts/ci/verify_code_env.py | 4437 | script | [ ] |
-| scripts/ci/verify_codeql_artifacts.py | 2139 | script | [ ] |
-| scripts/ci/verify_codeql_sarif_structure.py | 2571 | script | [ ] |
-| scripts/ci/verify_github_auth.py | 3590 | script | [ ] |
-| scripts/ci/verify_npm_package_metadata.py | 2203 | script | [ ] |
-| scripts/ci/verify_npm_published.py | 2834 | script | [ ] |
-| scripts/ci/write_copilot_synthesis_summary.py | 1609 | script | [ ] |
-| scripts/ci/write_drift_job_summary.py | 2609 | script | [ ] |
-| scripts/ci/write_metrics_threshold_summary.py | 2126 | script | [ ] |
-| scripts/ci/write_pr_discovery_summary.py | 2174 | script | [ ] |
-| scripts/ci/write_pr_maintenance_summary.py | 2308 | script | [ ] |
-| scripts/ci/write_synthesis_sweep_summary.py | 1950 | script | [ ] |
-| scripts/CLAUDE.md | 170 | script | [ ] |
-| scripts/cli_exec.py | 6131 | script | [ ] |
-| scripts/compute_health_status.py | 17260 | script | [ ] |
-| scripts/consensus/__init__.py | 1164 | script | [ ] |
-| scripts/consensus/algorithms.py | 9895 | script | [ ] |
-| scripts/consensus/decision_recorder.py | 6436 | script | [ ] |
-| scripts/consensus/weights.py | 2603 | script | [ ] |
-| scripts/consolidate_skills.py | 19533 | script | [ ] |
-| scripts/detect_hook_bypass.py | 8909 | script | [ ] |
-| scripts/detect_scope_explosion.py | 18047 | script | [ ] |
-| scripts/detect_skill_violation.py | 13089 | script | [ ] |
-| scripts/detect_test_coverage_gaps.py | 5842 | script | [ ] |
-| scripts/dev/dogfood_copilot_plugin.py | 13739 | script | [ ] |
-| scripts/error_classification.py | 10403 | script | [ ] |
-| scripts/eval/_anthropic_api.py | 16054 | script | [ ] |
-| scripts/eval/_copilot_cli_acp.py | 21831 | script | [ ] |
-| scripts/eval/_copilot_cli_constants.py | 570 | script | [ ] |
-| scripts/eval/_copilot_cli_transcript.py | 10328 | script | [ ] |
-| scripts/eval/_copilot_cli.py | 18753 | script | [ ] |
-| scripts/eval/_copilot_process_tree.py | 6302 | script | [ ] |
-| scripts/eval/_copilot_windows_files.py | 6963 | script | [ ] |
-| scripts/eval/_e2e_delivery_core.py | 13923 | script | [ ] |
-| scripts/eval/_eval_agent_types.py | 7902 | script | [ ] |
-| scripts/eval/_eval_api_adapter_constants.py | 1597 | script | [ ] |
-| scripts/eval/_eval_api_adapter.py | 21143 | script | [ ] |
-| scripts/eval/_eval_common.py | 8094 | script | [ ] |
-| scripts/eval/_eval_errors.py | 236 | script | [ ] |
-| scripts/eval/_model_panel_core.py | 12427 | script | [ ] |
-| scripts/eval/_model_sweep_core.py | 20185 | script | [ ] |
-| scripts/eval/_oneshot_bench_core.py | 11629 | script | [ ] |
-| scripts/eval/_optimizer_adapters.py | 27405 | script | [ ] |
-| scripts/eval/_optimizer_core.py | 37545 | script | [ ] |
-| scripts/eval/_plan_runner.py | 5256 | script | [ ] |
-| scripts/eval/_pr_churn.py | 4842 | script | [ ] |
-| scripts/eval/_providers.py | 16167 | script | [ ] |
-| scripts/eval/_report_aggregator.py | 26483 | script | [ ] |
-| scripts/eval/_report_writer.py | 17384 | script | [ ] |
-| scripts/eval/_run_persistence.py | 26715 | script | [ ] |
-| scripts/eval/_run_rollup_core.py | 12580 | script | [ ] |
-| scripts/eval/_runtime_output.py | 8901 | script | [ ] |
-| scripts/eval/_runtime_parity.py | 16657 | script | [ ] |
-| scripts/eval/_scoring_engine.py | 3187 | script | [ ] |
-| scripts/eval/analyze-pr-churn.py | 9633 | script | [ ] |
-| scripts/eval/eval_run_rollup.py | 8002 | script | [ ] |
-| scripts/eval/eval_runtime_parity.py | 16416 | script | [ ] |
-| scripts/eval/eval_skill_router.py | 23269 | script | [ ] |
-| scripts/eval/eval-agent-vs-baseline.py | 45289 | script | [ ] |
+| .claude/skills/validation-authority/SKILL.md | 5434 | skill | [x] |
+| .claude/skills/windows-image-updater/references/troubleshooting.md | 2186 | reference | [x] |
+| .claude/skills/windows-image-updater/SKILL.md | 7091 | skill | [x] |
+| .claude/skills/work-operating-model/references/entry-contract.md | 3983 | reference | [x] |
+| .claude/skills/work-operating-model/references/layer-questions.md | 4536 | reference | [x] |
+| .claude/skills/work-operating-model/scripts/validate_operating_model.py | 12308 | script | [x] |
+| .claude/skills/work-operating-model/SKILL.md | 7594 | skill | [x] |
+| .claude/skills/world-model-diagnostic/SKILL.md | 14862 | skill | [x] |
+| .codeql/scripts/CLAUDE.md | 169 | script | [x] |
+| .codeql/scripts/get_codeql_diagnostics.py | 15672 | script | [x] |
+| .codeql/scripts/install_codeql_integration.py | 9060 | script | [x] |
+| .codeql/scripts/install_codeql.py | 9317 | script | [x] |
+| .codeql/scripts/invoke_codeql_scan.py | 16170 | script | [x] |
+| .codeql/scripts/test_codeql_config.py | 10140 | script | [x] |
+| .codeql/scripts/test_codeql_rollout.py | 13783 | script | [x] |
+| .github/AGENTS.md | 20145 | doc | [x] |
+| .github/copilot-instructions.md | 4707 | doc | [x] |
+| .github/scripts/assert_guard_jobs_succeeded.py | 1928 | script | [x] |
+| .github/scripts/assign_bot_reviewer.py | 7186 | script | [x] |
+| .github/scripts/check_design_review_gate.py | 5247 | script | [x] |
+| .github/scripts/check_spec_failures.py | 3835 | script | [x] |
+| .github/scripts/extract_incremental_scope.py | 1166 | script | [x] |
+| .github/scripts/generate_spec_report.py | 8350 | script | [x] |
+| .github/scripts/invoke_pr_comment_processing.py | 11112 | script | [x] |
+| .github/scripts/invoke_pr_maintenance.py | 20902 | script | [x] |
+| .github/scripts/measure_workflow_coalescing.py | 25119 | script | [x] |
+| .github/scripts/parse_artifact_insights.py | 6646 | script | [x] |
+| .github/scripts/parse_feature_review.py | 1889 | script | [x] |
+| .github/scripts/parse_pr_standards.py | 3867 | script | [x] |
+| .github/scripts/post_issue_comment.py | 10867 | script | [x] |
+| .github/scripts/quality_gate_agents.py | 961 | script | [x] |
+| .github/scripts/run_with_retry.py | 4063 | script | [x] |
+| .github/scripts/safe_push_pr_branch.py | 14734 | script | [x] |
+| .github/scripts/set_item_milestone.py | 9563 | script | [x] |
+| .github/scripts/test_rate_limit.py | 2517 | script | [x] |
+| .github/scripts/validate_investigation_claims.py | 13412 | script | [x] |
+| .github/workflows/drift-detection.yml | 5252 | config | [x] |
+| .github/workflows/validate-generated-agents.yml | 11662 | config | [x] |
+| .vscode/toolsets.jsonc | 2741 | file | [x] |
+| AGENTS.md | 2947 | doc | [x] |
+| CLAUDE.md | 2482 | doc | [x] |
+| CONTRIBUTING.md | 44216 | doc | [x] |
+| docs/agent-catalog.md | 13376 | doc | [x] |
+| docs/agent-governance.md | 3203 | doc | [x] |
+| docs/agent-metrics.md | 8129 | doc | [x] |
+| docs/architecture.md | 6788 | doc | [x] |
+| docs/autonomous-issue-development.md | 17208 | doc | [x] |
+| docs/autonomous-pr-monitor.md | 49433 | doc | [x] |
+| docs/codeql-architecture.md | 22333 | doc | [x] |
+| docs/codeql-integration.md | 13321 | doc | [x] |
+| docs/codeql-rollout-checklist.md | 13065 | doc | [x] |
+| docs/copilot-cli-setup.md | 4801 | doc | [x] |
+| docs/customization.md | 9493 | doc | [x] |
+| docs/design/external-signal-gating.md | 4324 | doc | [x] |
+| docs/diagrams/routing-flowchart.md | 7205 | doc | [x] |
+| docs/getting-started.md | 8254 | doc | [x] |
+| docs/github-api-capabilities.md | 12018 | doc | [x] |
+| docs/ideation-workflow.md | 10262 | doc | [x] |
+| docs/installation.md | 7112 | doc | [x] |
+| docs/markdown-linting.md | 5458 | doc | [x] |
+| docs/orchestrator-routing-algorithm.md | 21360 | doc | [x] |
+| docs/project-structure.md | 4131 | doc | [x] |
+| docs/search-dont-load.md | 2758 | doc | [x] |
+| docs/SKILL-AUTHORING.md | 14860 | doc | [x] |
+| docs/skill-reference.md | 9268 | doc | [x] |
+| docs/spec-quality/hedge-phrases.md | 9252 | doc | [x] |
+| docs/task-classification-guide.md | 9276 | doc | [x] |
+| docs/technical-guardrails.md | 8466 | doc | [x] |
+| docs/third-party-license-attribution.md | 4463 | doc | [x] |
+| docs/when-to-use.md | 7161 | doc | [x] |
+| docs/workflow-commands.md | 7471 | doc | [x] |
+| docs/WORKFLOW-VALIDATION.md | 5052 | doc | [x] |
+| pyproject.toml | 12299 | config | [x] |
+| README.md | 29662 | doc | [x] |
+| scripts/__init__.py | 37 | script | [x] |
+| scripts/AGENTS.md | 8224 | script | [x] |
+| scripts/ai_review_common/__init__.py | 2115 | script | [x] |
+| scripts/ai_review_common/cache_guard.py | 5630 | script | [x] |
+| scripts/ai_review_common/feature_review.py | 4232 | script | [x] |
+| scripts/ai_review_common/issue_triage.py | 5930 | script | [x] |
+| scripts/ai_review_common/quality_gate.py | 715 | script | [x] |
+| scripts/ai_review_common/retry.py | 2777 | script | [x] |
+| scripts/ai_review_common/verdict.py | 10325 | script | [x] |
+| scripts/ai_review_common/workflow.py | 6366 | script | [x] |
+| scripts/ai_review_outputs.py | 2883 | script | [x] |
+| scripts/analyze_pr_failure.py | 13970 | script | [x] |
+| scripts/audit_orphaned_branches.py | 7157 | script | [x] |
+| scripts/bootstrap-vm.sh | 15641 | script | [x] |
+| scripts/bulk_cancel_guard.py | 15995 | script | [x] |
+| scripts/check_skill_exists.py | 5638 | script | [x] |
+| scripts/ci/_main_binding.py | 17611 | script | [x] |
+| scripts/ci/adr006_run_block_scanner.py | 14042 | script | [x] |
+| scripts/ci/adr015_workflow_retention.py | 6477 | script | [x] |
+| scripts/ci/apply_ai_conflict_resolution.py | 5494 | script | [x] |
+| scripts/ci/artifact_build_context.py | 3292 | script | [x] |
+| scripts/ci/artifact_collect.py | 2796 | script | [x] |
+| scripts/ci/artifact_create_issues.py | 5408 | script | [x] |
+| scripts/ci/artifact_write_summary.py | 1919 | script | [x] |
+| scripts/ci/build_ai_review_context.py | 18742 | script | [x] |
+| scripts/ci/build_pr_validation_report.py | 4846 | script | [x] |
+| scripts/ci/build_retrospective_prompt.py | 2952 | script | [x] |
+| scripts/ci/check_ai_review_infra_gate.py | 5148 | script | [x] |
+| scripts/ci/check_bot_identity.py | 9119 | script | [x] |
+| scripts/ci/check_claude_authorization.py | 3643 | script | [x] |
+| scripts/ci/check_codeql_sarif.py | 6889 | script | [x] |
+| scripts/ci/check_metrics_thresholds.py | 3205 | script | [x] |
+| scripts/ci/check_plugin_lib_mirrors.py | 1323 | script | [x] |
+| scripts/ci/check_pr_merge_state.py | 5233 | script | [x] |
+| scripts/ci/classify_semantic_title_result.py | 6309 | script | [x] |
+| scripts/ci/cli_exit_contract_baseline.txt | 3 | script | [x] |
+| scripts/ci/cli_exit_contract_coverage.py | 17656 | script | [x] |
+| scripts/ci/cli_exit_contract_ratchet.py | 7547 | script | [x] |
+| scripts/ci/codeql_integration_summary.py | 2983 | script | [x] |
+| scripts/ci/collect_ai_metrics.py | 3643 | script | [x] |
+| scripts/ci/collect_metrics_and_report.py | 2691 | script | [x] |
+| scripts/ci/combine_pin_coverage.py | 10272 | script | [x] |
+| scripts/ci/commit_and_push.py | 3903 | script | [x] |
+| scripts/ci/count_ratchet.py | 47457 | script | [x] |
+| scripts/ci/detect_human_changes_requested.py | 2466 | script | [x] |
+| scripts/ci/determine_placeholder_range.py | 1525 | script | [x] |
+| scripts/ci/diagnose_copilot_cli.py | 8788 | script | [x] |
+| scripts/ci/diff_line_scope.py | 10035 | script | [x] |
+| scripts/ci/drift_collect_details.py | 2875 | script | [x] |
+| scripts/ci/drift_create_alert_issue.py | 3256 | script | [x] |
+| scripts/ci/drift_run_detection.py | 1954 | script | [x] |
+| scripts/ci/drift_write_summary.py | 1932 | script | [x] |
+| scripts/ci/enforce_pr_validation.py | 1620 | script | [x] |
+| scripts/ci/establish_ai_review_deadline.py | 1789 | script | [x] |
+| scripts/ci/execute_ai_review_post_script.py | 2813 | script | [x] |
+| scripts/ci/failure_classification.py | 3632 | script | [x] |
+| scripts/ci/find_copilot_ready_issues.py | 2212 | script | [x] |
+| scripts/ci/install_copilot_cli.py | 3385 | script | [x] |
+| scripts/ci/install_locked_deps.py | 4671 | script | [x] |
+| scripts/ci/invoke_copilot_cli.py | 17101 | script | [x] |
+| scripts/ci/load_ai_review_prompt.py | 2645 | script | [x] |
+| scripts/ci/main_pytest_failure_alert.py | 4332 | script | [x] |
+| scripts/ci/map_pr_description_result.py | 1377 | script | [x] |
+| scripts/ci/materialize_installed_plugin.py | 2533 | script | [x] |
+| scripts/ci/measure_npm_pack_size.py | 2562 | script | [x] |
+| scripts/ci/merge_tree_materialization.py | 7284 | script | [x] |
+| scripts/ci/merge_tree_ratchet_check.py | 15695 | script | [x] |
+| scripts/ci/merge_tree_ratchet_registry.py | 1569 | script | [x] |
+| scripts/ci/mutation_harness_ciperms.py | 17424 | script | [x] |
+| scripts/ci/parse_ai_review_output.py | 3863 | script | [x] |
+| scripts/ci/parse_drift_results.py | 7947 | script | [x] |
+| scripts/ci/parse_hook_bypass_results.py | 3284 | script | [x] |
+| scripts/ci/parse_memory_health_results.py | 6055 | script | [x] |
+| scripts/ci/parse_memory_validation_results.py | 3300 | script | [x] |
+| scripts/ci/prepare_conflict_context.py | 3314 | script | [x] |
+| scripts/ci/require_job_results.py | 3009 | script | [x] |
+| scripts/ci/retrospective_gate.py | 4571 | script | [x] |
+| scripts/ci/ruff_count_baseline.txt | 2 | script | [x] |
+| scripts/ci/ruff_count_ratchet.py | 7633 | script | [x] |
+| scripts/ci/ruff_ratchet.py | 10285 | script | [x] |
+| scripts/ci/ruleset_context_drift.py | 8063 | script | [x] |
+| scripts/ci/ruleset_required_contexts.py | 898 | script | [x] |
+| scripts/ci/run_copilot_synthesis.py | 1604 | script | [x] |
+| scripts/ci/run_hook_bypass_audit.py | 3047 | script | [x] |
+| scripts/ci/run_pr_conflict_resolver.py | 2992 | script | [x] |
+| scripts/ci/run_pytest_non_tmp.py | 2410 | script | [x] |
+| scripts/ci/run_pytest_selected.py | 6999 | script | [x] |
+| scripts/ci/run_quality_grades.py | 4135 | script | [x] |
+| scripts/ci/show_drift_failure.py | 3520 | script | [x] |
+| scripts/ci/show_generated_agent_diff.py | 2900 | script | [x] |
+| scripts/ci/smoke_assert_vendored_tree.py | 1681 | script | [x] |
+| scripts/ci/smoke_first_turn_verify.py | 1269 | script | [x] |
+| scripts/ci/smoke_install_tarball.py | 2269 | script | [x] |
+| scripts/ci/smoke_report_result.py | 1590 | script | [x] |
+| scripts/ci/spec_external_signal_wrapper.py | 3521 | script | [x] |
+| scripts/ci/spec_extract_refs.py | 6285 | script | [x] |
+| scripts/ci/spec_load_content.py | 5523 | script | [x] |
+| scripts/ci/spec_prepare_context.py | 2833 | script | [x] |
+| scripts/ci/subprocess_encoding_count_baseline.txt | 4 | script | [x] |
+| scripts/ci/subprocess_encoding_count_ratchet.py | 4123 | script | [x] |
+| scripts/ci/sweep_copilot_synthesis.py | 2471 | script | [x] |
+| scripts/ci/taste_count_baseline.txt | 4 | script | [x] |
+| scripts/ci/taste_count_ratchet.py | 12794 | script | [x] |
+| scripts/ci/test_installed_plugin_hooks.py | 16737 | script | [x] |
+| scripts/ci/type_ignore_count_baseline.txt | 3 | script | [x] |
+| scripts/ci/type_ignore_count_ratchet.py | 5057 | script | [x] |
+| scripts/ci/update_needs_split_label.py | 3724 | script | [x] |
+| scripts/ci/validate_ai_review_budgets.py | 4695 | script | [x] |
+| scripts/ci/validate_vendor_provenance.py | 31771 | script | [x] |
+| scripts/ci/vanilla_hook_guard.py | 11193 | script | [x] |
+| scripts/ci/verify_code_env.py | 4437 | script | [x] |
+| scripts/ci/verify_codeql_artifacts.py | 2139 | script | [x] |
+| scripts/ci/verify_codeql_sarif_structure.py | 2571 | script | [x] |
+| scripts/ci/verify_github_auth.py | 3590 | script | [x] |
+| scripts/ci/verify_npm_package_metadata.py | 2203 | script | [x] |
+| scripts/ci/verify_npm_published.py | 2834 | script | [x] |
+| scripts/ci/write_copilot_synthesis_summary.py | 1609 | script | [x] |
+| scripts/ci/write_drift_job_summary.py | 2609 | script | [x] |
+| scripts/ci/write_metrics_threshold_summary.py | 2126 | script | [x] |
+| scripts/ci/write_pr_discovery_summary.py | 2174 | script | [x] |
+| scripts/ci/write_pr_maintenance_summary.py | 2308 | script | [x] |
+| scripts/ci/write_synthesis_sweep_summary.py | 1950 | script | [x] |
+| scripts/CLAUDE.md | 170 | script | [x] |
+| scripts/cli_exec.py | 6131 | script | [x] |
+| scripts/compute_health_status.py | 17260 | script | [x] |
+| scripts/consensus/__init__.py | 1164 | script | [x] |
+| scripts/consensus/algorithms.py | 9895 | script | [x] |
+| scripts/consensus/decision_recorder.py | 6436 | script | [x] |
+| scripts/consensus/weights.py | 2603 | script | [x] |
+| scripts/consolidate_skills.py | 19533 | script | [x] |
+| scripts/detect_hook_bypass.py | 8909 | script | [x] |
+| scripts/detect_scope_explosion.py | 18047 | script | [x] |
+| scripts/detect_skill_violation.py | 13089 | script | [x] |
+| scripts/detect_test_coverage_gaps.py | 5842 | script | [x] |
+| scripts/dev/dogfood_copilot_plugin.py | 13739 | script | [x] |
+| scripts/error_classification.py | 10403 | script | [x] |
+| scripts/eval/_anthropic_api.py | 16054 | script | [x] |
+| scripts/eval/_copilot_cli_acp.py | 21831 | script | [x] |
+| scripts/eval/_copilot_cli_constants.py | 570 | script | [x] |
+| scripts/eval/_copilot_cli_transcript.py | 10328 | script | [x] |
+| scripts/eval/_copilot_cli.py | 18753 | script | [x] |
+| scripts/eval/_copilot_process_tree.py | 6302 | script | [x] |
+| scripts/eval/_copilot_windows_files.py | 6963 | script | [x] |
+| scripts/eval/_e2e_delivery_core.py | 13923 | script | [x] |
+| scripts/eval/_eval_agent_types.py | 7902 | script | [x] |
+| scripts/eval/_eval_api_adapter_constants.py | 1597 | script | [x] |
+| scripts/eval/_eval_api_adapter.py | 21143 | script | [x] |
+| scripts/eval/_eval_common.py | 8094 | script | [x] |
+| scripts/eval/_eval_errors.py | 236 | script | [x] |
+| scripts/eval/_model_panel_core.py | 12427 | script | [x] |
+| scripts/eval/_model_sweep_core.py | 20185 | script | [x] |
+| scripts/eval/_oneshot_bench_core.py | 11629 | script | [x] |
+| scripts/eval/_optimizer_adapters.py | 27405 | script | [x] |
+| scripts/eval/_optimizer_core.py | 37545 | script | [x] |
+| scripts/eval/_plan_runner.py | 5256 | script | [x] |
+| scripts/eval/_pr_churn.py | 4842 | script | [x] |
+| scripts/eval/_providers.py | 16167 | script | [x] |
+| scripts/eval/_report_aggregator.py | 26483 | script | [x] |
+| scripts/eval/_report_writer.py | 17384 | script | [x] |
+| scripts/eval/_run_persistence.py | 26715 | script | [x] |
+| scripts/eval/_run_rollup_core.py | 12580 | script | [x] |
+| scripts/eval/_runtime_output.py | 8901 | script | [x] |
+| scripts/eval/_runtime_parity.py | 16657 | script | [x] |
+| scripts/eval/_scoring_engine.py | 3187 | script | [x] |
+| scripts/eval/analyze-pr-churn.py | 9633 | script | [x] |
+| scripts/eval/eval_run_rollup.py | 8002 | script | [x] |
+| scripts/eval/eval_runtime_parity.py | 16416 | script | [x] |
+| scripts/eval/eval_skill_router.py | 23269 | script | [x] |
+| scripts/eval/eval-agent-vs-baseline.py | 45289 | script | [x] |
 | scripts/eval/eval-agents.py | 59882 | script | [ ] |
 | scripts/eval/eval-e2e-delivery.py | 8656 | script | [ ] |
 | scripts/eval/eval-knowledge-integration.py | 35810 | script | [ ] |
@@ -871,7 +871,7 @@
 | scripts/github_core/api.py | 43794 | script | [ ] |
 | scripts/github_core/bot_config.py | 13186 | script | [ ] |
 | scripts/github_core/checks_rollup.py | 8696 | script | [ ] |
-| scripts/github_core/CLAUDE.md | 170 | script | [ ] |
+| scripts/github_core/CLAUDE.md | 170 | script | [x] |
 | scripts/github_core/comment_classification.py | 2125 | script | [ ] |
 | scripts/github_core/discourse_traversal.py | 8828 | script | [ ] |
 | scripts/github_core/formatting.py | 869 | script | [ ] |
@@ -895,7 +895,7 @@
 | scripts/guard_diff.py | 7191 | script | [ ] |
 | scripts/hook_utilities/__init__.py | 976 | script | [ ] |
 | scripts/hook_utilities/bootstrap.py | 3683 | script | [ ] |
-| scripts/hook_utilities/CLAUDE.md | 170 | script | [ ] |
+| scripts/hook_utilities/CLAUDE.md | 170 | script | [x] |
 | scripts/hook_utilities/guards.py | 7824 | script | [ ] |
 | scripts/hook_utilities/path_safety.py | 1005 | script | [ ] |
 | scripts/hook_utilities/utilities.py | 11379 | script | [ ] |
