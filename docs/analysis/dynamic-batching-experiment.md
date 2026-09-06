@@ -218,6 +218,25 @@ The runs before that reset — the experiment of sessions 013–014 (runs 01–0
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-08/success_auditor_report.md` (verdict CLEAN)
 - **Probe verdict**: N/A (16-unit run; quality clean at 2,089 PASS / 0 FAIL across 66 cards; wall time 16.9 min).
 
+### run 09 (Session 005, production p1-run-09)
+
+- **run-id**: `p1-run-09`
+- **session**: 005 (Phase 1)
+- **units**: `inv-rjm-85` through `inv-rjm-132` (48 units, 167 inventory cards, 4 divergence cards, 48 unit reports)
+- **context used**:
+  - at run-start: `used=8.95%` (`[run-start p1-run-09 n=48] budget 2026-09-05T11:37:06.704Z conv=6df2f706 model="Gemini 3.8 Flash (High)" used=8.95% peak=8.95% governing=25.00% close=1.59% headroom=14.46% pending=240 → DISPATCH 1 run × 48 units (48 units, cost 13.72%) — PROBE`)
+  - at dispatched: `used=9.62%` (`[dispatched p1-run-09] budget 2026-09-05T11:37:33.457Z conv=6df2f706 model="Gemini 3.8 Flash (High)" used=9.62% peak=9.62% governing=25.00% close=1.59% headroom=13.79% pending=192 → DISPATCH 1 run × 48 units (48 units, cost 13.72%) — PROBE`)
+  - at verified: `used=19.36%` (`[verified p1-run-09] budget 2026-09-05T18:23:05.898Z conv=6df2f706 model="Gemini 3.8 Flash (High)" used=19.36% peak=19.36% governing=25.00% close=1.59% headroom=4.05% pending=192 → STOP — no plan fits the headroom: close per §8.3`)
+  - per-unit delta: 0.203% (verified 19.36% − dispatched 9.62% = 9.74% ÷ 48 units = 0.2029%)
+- **rot metrics**: none observed (used: 19.36%)
+- **429s and quota.reset_in_seconds**: API individual quota reached during worker initialization (429: "Individual quota reached. Resets in 3h0m15s" ~14:41 UTC); paused cleanly by Sentinel with 48/48 unit facts and dispatches intact on disk; resumed automatically post-reset at ~15:17 UTC with re-spawned orchestrator (`2e63d139`).
+- **wall time**: 377.2 min elapsed from dispatch to completion (including ~3h33m quota refill pause; active execution time ~44 min).
+- **Workers per unit**: 48 workers (`.agents/worker_1`..`worker_48`), one per unit, dispatched concurrently.
+- **quote-check totals**: 5,405 PASS, 0 FAIL across all 167 cards (0% failure rate)
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-09/success_auditor_report.md` (verdict CLEAN, confirmed by independent Victory Auditor verdict VICTORY CONFIRMED)
+- **Probe verdict**: Quality clean (0 FAIL across 5,405 citations, 0 rot metrics, 48 parallel workers); probe encountered external 429 quota window pause (~3.5h), so wall time measured the quota pause rather than harness queueing. Per METHOD.md §8.2 step-up rule: "a run that paused on quota still counts for quality, but its wall time measures the quota, not the harness, so it is not a step-up measurement and the probe is repeated next time"; `max_clean_run` remains 32.
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.

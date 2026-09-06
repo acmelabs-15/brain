@@ -37,6 +37,7 @@
 | .claude/skills/ai-agents-research-frontier/tests/test_structure_ai_agents_research_frontier.py | 1124 | skill | [ ] |
 | .claude/skills/ai-agents-research-methodology/tests/test_structure_ai_agents_research_methodology.py | 1127 | skill | [ ] |
 | .claude/skills/ai-agents-validation-and-qa/tests/test_structure_ai_agents_validation_and_qa.py | 1124 | skill | [ ] |
+| .claude/skills/benchmark-models/tests/__pycache__/test_model_benchmark.cpython-314-pytest-9.0.3.pyc | 160613 | skill | [ ] |
 | .claude/skills/benchmark-models/tests/test_model_benchmark.py | 28607 | skill | [ ] |
 | .claude/skills/business-strategy/tests/test_business_strategy_pack.py | 4152 | skill | [ ] |
 | .claude/skills/chestertons-fence/references/boy-scout-rule.md | 1349 | reference | [ ] |
@@ -142,6 +143,7 @@
 | .claude/skills/github/scripts/test_workflow_locally.py | 17743 | script | [ ] |
 | .claude/skills/github/scripts/utils/extract_github_context.py | 4684 | script | [ ] |
 | .claude/skills/github/SKILL.md | 15781 | skill | [ ] |
+| .claude/skills/golden-principles/tests/__pycache__/test_scan_principles.cpython-314.pyc | 18366 | skill | [ ] |
 | .claude/skills/golden-principles/tests/test_scan_principles.py | 11633 | skill | [ ] |
 | .claude/skills/memory-consolidate/scripts/memory_git_targets.py | 9308 | script | [ ] |
 | .claude/skills/memory-consolidate/SKILL.md | 14024 | skill | [ ] |
@@ -216,6 +218,7 @@
 | .claude/skills/memory/tests/test_search_memory.py | 14645 | skill | [ ] |
 | .claude/skills/merge-resolver/tests/test_resolve_pr_conflicts.py | 7997 | skill | [ ] |
 | .claude/skills/observability/tests/test_query_logs.py | 10623 | skill | [ ] |
+| .claude/skills/orphan-ref-validator/tests/__pycache__/test_scan.cpython-314-pytest-9.0.3.pyc | 379638 | skill | [ ] |
 | .claude/skills/orphan-ref-validator/tests/test_scan.py | 99645 | skill | [ ] |
 | .claude/skills/pr-comment-responder/references/bots.md | 3135 | reference | [ ] |
 | .claude/skills/pr-comment-responder/references/gates.md | 18697 | reference | [ ] |

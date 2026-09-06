@@ -245,173 +245,173 @@
 | .claude/skills/ai-agents-external-claims/SKILL.md | 11954 | skill | [x] |
 | .claude/skills/ai-agents-failure-archaeology/references/incidents.md | 14476 | reference | [x] |
 | .claude/skills/ai-agents-failure-archaeology/SKILL.md | 16580 | skill | [x] |
-| .claude/skills/ai-agents-generation-and-release/SKILL.md | 21914 | skill | [ ] |
-| .claude/skills/ai-agents-portability-campaign/SKILL.md | 12707 | skill | [ ] |
-| .claude/skills/ai-agents-research-frontier/SKILL.md | 20769 | skill | [ ] |
-| .claude/skills/ai-agents-research-methodology/SKILL.md | 16614 | skill | [ ] |
-| .claude/skills/ai-agents-validation-and-qa/SKILL.md | 16960 | skill | [ ] |
-| .claude/skills/analysis-provenance/scripts/check_provenance.py | 12659 | script | [ ] |
-| .claude/skills/analysis-provenance/SKILL.md | 8721 | skill | [ ] |
-| .claude/skills/analyze/references/agent-architecture-patterns.md | 2232 | reference | [ ] |
-| .claude/skills/analyze/references/context-budget-management.md | 1705 | reference | [ ] |
-| .claude/skills/analyze/references/design-legacy-code.md | 2326 | reference | [ ] |
-| .claude/skills/analyze/references/design-tell-dont-ask.md | 2271 | reference | [ ] |
-| .claude/skills/analyze/references/DEVELOPMENT.md | 2439 | reference | [ ] |
-| .claude/skills/analyze/references/engineering-complexity-tiers.md | 5079 | reference | [ ] |
-| .claude/skills/analyze/references/quality-boy-scout-rule.md | 1962 | reference | [ ] |
-| .claude/skills/analyze/references/reliability-observability-pillars.md | 2988 | reference | [ ] |
-| .claude/skills/analyze/references/strategy-ooda-loop.md | 2327 | reference | [ ] |
-| .claude/skills/analyze/scripts/analyze.py | 26407 | script | [ ] |
-| .claude/skills/analyze/SKILL.md | 7180 | skill | [ ] |
-| .claude/skills/autoplan/SKILL.md | 11922 | skill | [ ] |
-| .claude/skills/avoiding-manufactured-work/SKILL.md | 1853 | skill | [ ] |
-| .claude/skills/benchmark-models/scripts/model_benchmark.py | 28434 | script | [ ] |
-| .claude/skills/benchmark-models/SKILL.md | 7979 | skill | [ ] |
-| .claude/skills/book-to-skill/references/method-extraction-template.md | 1482 | reference | [ ] |
-| .claude/skills/book-to-skill/references/split-decision-worksheet.md | 2088 | reference | [ ] |
-| .claude/skills/book-to-skill/SKILL.md | 7472 | skill | [ ] |
-| .claude/skills/business-strategy/references/100m-leads.md | 6525 | reference | [ ] |
-| .claude/skills/business-strategy/references/100m-offers.md | 7169 | reference | [ ] |
-| .claude/skills/business-strategy/references/blue-ocean-strategy.md | 7433 | reference | [ ] |
-| .claude/skills/business-strategy/references/crossing-the-chasm.md | 6340 | reference | [ ] |
-| .claude/skills/business-strategy/references/four-steps.md | 6550 | reference | [ ] |
-| .claude/skills/business-strategy/references/influence.md | 6435 | reference | [ ] |
-| .claude/skills/business-strategy/references/lean-startup.md | 6873 | reference | [ ] |
-| .claude/skills/business-strategy/references/made-to-stick.md | 7166 | reference | [ ] |
-| .claude/skills/business-strategy/references/mom-test.md | 6531 | reference | [ ] |
-| .claude/skills/business-strategy/references/monetizing-innovation.md | 6368 | reference | [ ] |
-| .claude/skills/business-strategy/references/obviously-awesome.md | 7583 | reference | [ ] |
-| .claude/skills/business-strategy/references/spin-selling.md | 6039 | reference | [ ] |
-| .claude/skills/business-strategy/references/storybrand.md | 5944 | reference | [ ] |
-| .claude/skills/business-strategy/references/traction.md | 7534 | reference | [ ] |
-| .claude/skills/business-strategy/SKILL.md | 8625 | skill | [ ] |
-| .claude/skills/buy-vs-build-framework/references/PHASE1_ANALYSIS.md | 10706 | reference | [ ] |
-| .claude/skills/buy-vs-build-framework/references/SKILL_SPEC.xml | 25132 | reference | [ ] |
-| .claude/skills/buy-vs-build-framework/scripts/calculate_tco.py | 20893 | script | [ ] |
-| .claude/skills/buy-vs-build-framework/scripts/check_reassessment_triggers.py | 7719 | script | [ ] |
-| .claude/skills/buy-vs-build-framework/scripts/score_decision.py | 6144 | script | [ ] |
-| .claude/skills/buy-vs-build-framework/scripts/score_vendor.py | 7813 | script | [ ] |
-| .claude/skills/buy-vs-build-framework/SKILL.md | 14826 | skill | [ ] |
-| .claude/skills/chaos-experiment/references/chaos-engineering-principles.md | 2454 | reference | [ ] |
-| .claude/skills/chaos-experiment/references/slo-sli-sla-reference.md | 2362 | reference | [ ] |
-| .claude/skills/chaos-experiment/scripts/CLAUDE.md | 170 | script | [ ] |
-| .claude/skills/chaos-experiment/scripts/generate_experiment.py | 8678 | script | [ ] |
-| .claude/skills/chaos-experiment/scripts/validate_experiment.py | 12417 | script | [ ] |
-| .claude/skills/chaos-experiment/SKILL.md | 13080 | skill | [ ] |
-| .claude/skills/chaos-experiment/templates/experiment-template.md | 7127 | skill | [ ] |
-| .claude/skills/CLAUDE.md | 4296 | skill | [ ] |
-| .claude/skills/code-qualities-assessment/README.md | 2582 | skill | [ ] |
-| .claude/skills/code-qualities-assessment/references/calibration-examples.md | 11720 | reference | [ ] |
-| .claude/skills/code-qualities-assessment/references/dotnet-performance-patterns.md | 4165 | reference | [ ] |
-| .claude/skills/code-qualities-assessment/references/refactoring-patterns.md | 11074 | reference | [ ] |
-| .claude/skills/code-qualities-assessment/scripts/assess.py | 61607 | script | [ ] |
-| .claude/skills/code-qualities-assessment/SKILL.md | 15739 | skill | [ ] |
-| .claude/skills/code-qualities-assessment/templates/.qualityrc.json | 660 | skill | [ ] |
-| .claude/skills/codebase-documenter/assets/templates/API.template.md | 3451 | skill | [ ] |
-| .claude/skills/codebase-documenter/assets/templates/ARCHITECTURE.template.md | 2803 | skill | [ ] |
-| .claude/skills/codebase-documenter/assets/templates/CODE_COMMENTS.template.md | 4667 | skill | [ ] |
-| .claude/skills/codebase-documenter/assets/templates/README.template.md | 1863 | skill | [ ] |
-| .claude/skills/codebase-documenter/references/documentation_guidelines.md | 3923 | reference | [ ] |
-| .claude/skills/codebase-documenter/references/visual_aids_guide.md | 3229 | reference | [ ] |
-| .claude/skills/codebase-documenter/SKILL.md | 4641 | skill | [ ] |
-| .claude/skills/codeql-scan/scripts/CLAUDE.md | 170 | script | [ ] |
-| .claude/skills/codeql-scan/scripts/invoke_codeql_scan_skill.py | 10612 | script | [ ] |
-| .claude/skills/codeql-scan/scripts/invoke_codeql_scan.py | 10865 | script | [ ] |
-| .claude/skills/codeql-scan/SKILL.md | 9919 | skill | [ ] |
-| .claude/skills/context-gather/SKILL.md | 7441 | skill | [ ] |
-| .claude/skills/context-optimizer/references/claude-code-productivity-patterns.md | 3000 | reference | [ ] |
-| .claude/skills/context-optimizer/references/model-context-doctrine.md | 17556 | reference | [ ] |
-| .claude/skills/context-optimizer/references/rule-audit-evidence.md | 8095 | reference | [ ] |
-| .claude/skills/context-optimizer/references/rule-audit-instrument.md | 20235 | reference | [ ] |
-| .claude/skills/context-optimizer/references/rule-audit-measurement-discipline.md | 8691 | reference | [ ] |
-| .claude/skills/context-optimizer/references/rule-audit-parser-forensics.md | 31205 | reference | [ ] |
-| .claude/skills/context-optimizer/references/rule-audit-procedure.md | 36568 | reference | [ ] |
-| .claude/skills/context-optimizer/references/vibe-engineering.md | 3069 | reference | [ ] |
-| .claude/skills/context-optimizer/scripts/analyze_skill_placement.py | 12062 | script | [ ] |
-| .claude/skills/context-optimizer/scripts/compress_markdown_content.py | 17625 | script | [ ] |
-| .claude/skills/context-optimizer/scripts/extract_and_index.py | 10927 | script | [ ] |
-| .claude/skills/context-optimizer/scripts/path_validation.py | 3487 | script | [ ] |
-| .claude/skills/context-optimizer/scripts/test_skill_passive_compliance.py | 29142 | script | [ ] |
-| .claude/skills/context-optimizer/SKILL.md | 18729 | skill | [ ] |
-| .claude/skills/cva-analysis/references/coplien-multi-paradigm-design.md | 3053 | reference | [ ] |
-| .claude/skills/cva-analysis/references/gof-pattern-selection.md | 2927 | reference | [ ] |
-| .claude/skills/cva-analysis/references/matrix-building-examples.md | 12550 | reference | [ ] |
-| .claude/skills/cva-analysis/references/multidimensional-cva.md | 2762 | reference | [ ] |
-| .claude/skills/cva-analysis/references/pattern-mapping-guide.md | 10409 | reference | [ ] |
-| .claude/skills/cva-analysis/references/SKILL_SPEC.md | 39059 | reference | [ ] |
-| .claude/skills/cva-analysis/scripts/validate-cva-matrix.py | 10841 | script | [ ] |
-| .claude/skills/cva-analysis/SKILL.md | 19045 | skill | [ ] |
-| .claude/skills/cynefin-classifier/references/cynefin-deep-dive.md | 4824 | reference | [ ] |
-| .claude/skills/cynefin-classifier/references/domain-transitions.md | 4702 | reference | [ ] |
-| .claude/skills/cynefin-classifier/references/software-applications.md | 6427 | reference | [ ] |
-| .claude/skills/cynefin-classifier/scripts/classify.py | 13632 | script | [ ] |
-| .claude/skills/cynefin-classifier/SKILL.md | 14253 | skill | [ ] |
-| .claude/skills/decision-critic/references/critical-thinking-brandolinis-law.md | 3380 | reference | [ ] |
-| .claude/skills/decision-critic/references/critical-thinking-falsifiability.md | 3267 | reference | [ ] |
-| .claude/skills/decision-critic/references/critical-thinking-survivorship-bias.md | 2752 | reference | [ ] |
-| .claude/skills/decision-critic/references/decision-pre-committed-metrics.md | 4403 | reference | [ ] |
-| .claude/skills/decision-critic/references/mental-models-chestertons-fence.md | 1838 | reference | [ ] |
-| .claude/skills/decision-critic/references/mental-models-conways-law.md | 3156 | reference | [ ] |
-| .claude/skills/decision-critic/references/mental-models-fat-tails.md | 4857 | reference | [ ] |
-| .claude/skills/decision-critic/references/mental-models-galls-law.md | 2396 | reference | [ ] |
-| .claude/skills/decision-critic/references/quality-boy-scout-rule.md | 1996 | reference | [ ] |
-| .claude/skills/decision-critic/references/rewrite-regression-check.md | 7241 | reference | [ ] |
-| .claude/skills/decision-critic/references/strategic-thinking-systems-thinking.md | 3520 | reference | [ ] |
-| .claude/skills/decision-critic/scripts/decision-critic.py | 20191 | script | [ ] |
-| .claude/skills/decision-critic/SKILL.md | 8192 | skill | [ ] |
-| .claude/skills/doc-accuracy/scripts/doc_accuracy.py | 47394 | script | [ ] |
-| .claude/skills/doc-accuracy/scripts/pr_snapshot.py | 21648 | script | [ ] |
-| .claude/skills/doc-accuracy/SKILL.md | 9275 | skill | [ ] |
-| .claude/skills/dx-review/SKILL.md | 10692 | skill | [ ] |
-| .claude/skills/execution-plans/SKILL.md | 3964 | skill | [ ] |
-| .claude/skills/fix-markdown-fences/scripts/fix_fences.py | 56770 | script | [ ] |
-| .claude/skills/fix-markdown-fences/SKILL.md | 15114 | skill | [ ] |
-| .claude/skills/git-advanced-workflows/SKILL.md | 6463 | skill | [ ] |
-| .claude/skills/github-url-intercept/references/patterns.md | 6123 | reference | [ ] |
-| .claude/skills/github-url-intercept/scripts/gist_routing.py | 8769 | script | [ ] |
-| .claude/skills/github-url-intercept/scripts/test_url_routing.py | 14073 | script | [ ] |
-| .claude/skills/github-url-intercept/scripts/url_validation.py | 1947 | script | [ ] |
-| .claude/skills/github-url-intercept/SKILL.md | 14905 | skill | [ ] |
-| .claude/skills/golden-principles/references/design-code-qualities.md | 2878 | reference | [ ] |
-| .claude/skills/golden-principles/references/design-dry-principle.md | 2328 | reference | [ ] |
-| .claude/skills/golden-principles/references/design-programming-by-intention.md | 2379 | reference | [ ] |
-| .claude/skills/golden-principles/references/design-separation-of-concerns.md | 2297 | reference | [ ] |
-| .claude/skills/golden-principles/references/design-solid-principles.md | 2410 | reference | [ ] |
-| .claude/skills/golden-principles/scripts/scan_principles_core.py | 19011 | script | [ ] |
-| .claude/skills/golden-principles/scripts/scan_principles.py | 15223 | script | [ ] |
-| .claude/skills/golden-principles/SKILL.md | 5739 | skill | [ ] |
-| .claude/skills/merge-resolver/references/strategies.md | 9557 | reference | [ ] |
-| .claude/skills/merge-resolver/scripts/CLAUDE.md | 170 | script | [ ] |
-| .claude/skills/merge-resolver/scripts/resolve_pr_conflicts.py | 28752 | script | [ ] |
-| .claude/skills/merge-resolver/scripts/verify_no_conflict_markers.py | 9202 | script | [ ] |
-| .claude/skills/merge-resolver/SKILL.md | 16520 | skill | [ ] |
-| .claude/skills/metrics/collect_metrics.py | 12936 | skill | [ ] |
-| .claude/skills/metrics/SKILL.md | 7454 | skill | [ ] |
-| .claude/skills/negotiation/references/skills.md | 11804 | reference | [ ] |
-| .claude/skills/negotiation/SKILL.md | 5293 | skill | [ ] |
-| .claude/skills/observability/references/distributed-systems-fallacies.md | 3765 | reference | [ ] |
-| .claude/skills/observability/references/otel-migration-reference.md | 3606 | reference | [ ] |
-| .claude/skills/observability/references/otel-semantic-conventions.md | 3474 | reference | [ ] |
-| .claude/skills/observability/references/prometheus-recording-rules.md | 3493 | reference | [ ] |
-| .claude/skills/observability/references/three-pillars-reference.md | 2985 | reference | [ ] |
-| .claude/skills/observability/schema.json | 3163 | skill | [ ] |
-| .claude/skills/observability/scripts/query_logs.py | 8860 | script | [ ] |
-| .claude/skills/observability/SKILL.md | 6308 | skill | [ ] |
-| .claude/skills/orphan-ref-validator/scripts/__init__.py | 625 | script | [ ] |
-| .claude/skills/orphan-ref-validator/scripts/counts.py | 4325 | script | [ ] |
-| .claude/skills/orphan-ref-validator/scripts/envelope.py | 9867 | script | [ ] |
-| .claude/skills/orphan-ref-validator/scripts/filters.py | 9457 | script | [ ] |
-| .claude/skills/orphan-ref-validator/scripts/patterns.py | 10933 | script | [ ] |
-| .claude/skills/orphan-ref-validator/scripts/scan.py | 39760 | script | [ ] |
-| .claude/skills/orphan-ref-validator/scripts/walking.py | 12883 | script | [ ] |
-| .claude/skills/orphan-ref-validator/SKILL.md | 21618 | skill | [ ] |
-| .claude/skills/panning-for-gold/references/gold-found-template.md | 350 | reference | [ ] |
-| .claude/skills/panning-for-gold/references/inventory-template.md | 569 | reference | [ ] |
-| .claude/skills/panning-for-gold/scripts/__init__.py | 40 | script | [ ] |
-| .claude/skills/panning-for-gold/scripts/inventory.py | 6911 | script | [ ] |
-| .claude/skills/panning-for-gold/scripts/pan.py | 7850 | script | [ ] |
-| .claude/skills/panning-for-gold/scripts/synthesis.py | 4106 | script | [ ] |
-| .claude/skills/panning-for-gold/SKILL.md | 8880 | skill | [ ] |
+| .claude/skills/ai-agents-generation-and-release/SKILL.md | 21914 | skill | [x] |
+| .claude/skills/ai-agents-portability-campaign/SKILL.md | 12707 | skill | [x] |
+| .claude/skills/ai-agents-research-frontier/SKILL.md | 20769 | skill | [x] |
+| .claude/skills/ai-agents-research-methodology/SKILL.md | 16614 | skill | [x] |
+| .claude/skills/ai-agents-validation-and-qa/SKILL.md | 16960 | skill | [x] |
+| .claude/skills/analysis-provenance/scripts/check_provenance.py | 12659 | script | [x] |
+| .claude/skills/analysis-provenance/SKILL.md | 8721 | skill | [x] |
+| .claude/skills/analyze/references/agent-architecture-patterns.md | 2232 | reference | [x] |
+| .claude/skills/analyze/references/context-budget-management.md | 1705 | reference | [x] |
+| .claude/skills/analyze/references/design-legacy-code.md | 2326 | reference | [x] |
+| .claude/skills/analyze/references/design-tell-dont-ask.md | 2271 | reference | [x] |
+| .claude/skills/analyze/references/DEVELOPMENT.md | 2439 | reference | [x] |
+| .claude/skills/analyze/references/engineering-complexity-tiers.md | 5079 | reference | [x] |
+| .claude/skills/analyze/references/quality-boy-scout-rule.md | 1962 | reference | [x] |
+| .claude/skills/analyze/references/reliability-observability-pillars.md | 2988 | reference | [x] |
+| .claude/skills/analyze/references/strategy-ooda-loop.md | 2327 | reference | [x] |
+| .claude/skills/analyze/scripts/analyze.py | 26407 | script | [x] |
+| .claude/skills/analyze/SKILL.md | 7180 | skill | [x] |
+| .claude/skills/autoplan/SKILL.md | 11922 | skill | [x] |
+| .claude/skills/avoiding-manufactured-work/SKILL.md | 1853 | skill | [x] |
+| .claude/skills/benchmark-models/scripts/model_benchmark.py | 28434 | script | [x] |
+| .claude/skills/benchmark-models/SKILL.md | 7979 | skill | [x] |
+| .claude/skills/book-to-skill/references/method-extraction-template.md | 1482 | reference | [x] |
+| .claude/skills/book-to-skill/references/split-decision-worksheet.md | 2088 | reference | [x] |
+| .claude/skills/book-to-skill/SKILL.md | 7472 | skill | [x] |
+| .claude/skills/business-strategy/references/100m-leads.md | 6525 | reference | [x] |
+| .claude/skills/business-strategy/references/100m-offers.md | 7169 | reference | [x] |
+| .claude/skills/business-strategy/references/blue-ocean-strategy.md | 7433 | reference | [x] |
+| .claude/skills/business-strategy/references/crossing-the-chasm.md | 6340 | reference | [x] |
+| .claude/skills/business-strategy/references/four-steps.md | 6550 | reference | [x] |
+| .claude/skills/business-strategy/references/influence.md | 6435 | reference | [x] |
+| .claude/skills/business-strategy/references/lean-startup.md | 6873 | reference | [x] |
+| .claude/skills/business-strategy/references/made-to-stick.md | 7166 | reference | [x] |
+| .claude/skills/business-strategy/references/mom-test.md | 6531 | reference | [x] |
+| .claude/skills/business-strategy/references/monetizing-innovation.md | 6368 | reference | [x] |
+| .claude/skills/business-strategy/references/obviously-awesome.md | 7583 | reference | [x] |
+| .claude/skills/business-strategy/references/spin-selling.md | 6039 | reference | [x] |
+| .claude/skills/business-strategy/references/storybrand.md | 5944 | reference | [x] |
+| .claude/skills/business-strategy/references/traction.md | 7534 | reference | [x] |
+| .claude/skills/business-strategy/SKILL.md | 8625 | skill | [x] |
+| .claude/skills/buy-vs-build-framework/references/PHASE1_ANALYSIS.md | 10706 | reference | [x] |
+| .claude/skills/buy-vs-build-framework/references/SKILL_SPEC.xml | 25132 | reference | [x] |
+| .claude/skills/buy-vs-build-framework/scripts/calculate_tco.py | 20893 | script | [x] |
+| .claude/skills/buy-vs-build-framework/scripts/check_reassessment_triggers.py | 7719 | script | [x] |
+| .claude/skills/buy-vs-build-framework/scripts/score_decision.py | 6144 | script | [x] |
+| .claude/skills/buy-vs-build-framework/scripts/score_vendor.py | 7813 | script | [x] |
+| .claude/skills/buy-vs-build-framework/SKILL.md | 14826 | skill | [x] |
+| .claude/skills/chaos-experiment/references/chaos-engineering-principles.md | 2454 | reference | [x] |
+| .claude/skills/chaos-experiment/references/slo-sli-sla-reference.md | 2362 | reference | [x] |
+| .claude/skills/chaos-experiment/scripts/CLAUDE.md | 170 | script | [x] |
+| .claude/skills/chaos-experiment/scripts/generate_experiment.py | 8678 | script | [x] |
+| .claude/skills/chaos-experiment/scripts/validate_experiment.py | 12417 | script | [x] |
+| .claude/skills/chaos-experiment/SKILL.md | 13080 | skill | [x] |
+| .claude/skills/chaos-experiment/templates/experiment-template.md | 7127 | skill | [x] |
+| .claude/skills/CLAUDE.md | 4296 | skill | [x] |
+| .claude/skills/code-qualities-assessment/README.md | 2582 | skill | [x] |
+| .claude/skills/code-qualities-assessment/references/calibration-examples.md | 11720 | reference | [x] |
+| .claude/skills/code-qualities-assessment/references/dotnet-performance-patterns.md | 4165 | reference | [x] |
+| .claude/skills/code-qualities-assessment/references/refactoring-patterns.md | 11074 | reference | [x] |
+| .claude/skills/code-qualities-assessment/scripts/assess.py | 61607 | script | [x] |
+| .claude/skills/code-qualities-assessment/SKILL.md | 15739 | skill | [x] |
+| .claude/skills/code-qualities-assessment/templates/.qualityrc.json | 660 | skill | [x] |
+| .claude/skills/codebase-documenter/assets/templates/API.template.md | 3451 | skill | [x] |
+| .claude/skills/codebase-documenter/assets/templates/ARCHITECTURE.template.md | 2803 | skill | [x] |
+| .claude/skills/codebase-documenter/assets/templates/CODE_COMMENTS.template.md | 4667 | skill | [x] |
+| .claude/skills/codebase-documenter/assets/templates/README.template.md | 1863 | skill | [x] |
+| .claude/skills/codebase-documenter/references/documentation_guidelines.md | 3923 | reference | [x] |
+| .claude/skills/codebase-documenter/references/visual_aids_guide.md | 3229 | reference | [x] |
+| .claude/skills/codebase-documenter/SKILL.md | 4641 | skill | [x] |
+| .claude/skills/codeql-scan/scripts/CLAUDE.md | 170 | script | [x] |
+| .claude/skills/codeql-scan/scripts/invoke_codeql_scan_skill.py | 10612 | script | [x] |
+| .claude/skills/codeql-scan/scripts/invoke_codeql_scan.py | 10865 | script | [x] |
+| .claude/skills/codeql-scan/SKILL.md | 9919 | skill | [x] |
+| .claude/skills/context-gather/SKILL.md | 7441 | skill | [x] |
+| .claude/skills/context-optimizer/references/claude-code-productivity-patterns.md | 3000 | reference | [x] |
+| .claude/skills/context-optimizer/references/model-context-doctrine.md | 17556 | reference | [x] |
+| .claude/skills/context-optimizer/references/rule-audit-evidence.md | 8095 | reference | [x] |
+| .claude/skills/context-optimizer/references/rule-audit-instrument.md | 20235 | reference | [x] |
+| .claude/skills/context-optimizer/references/rule-audit-measurement-discipline.md | 8691 | reference | [x] |
+| .claude/skills/context-optimizer/references/rule-audit-parser-forensics.md | 31205 | reference | [x] |
+| .claude/skills/context-optimizer/references/rule-audit-procedure.md | 36568 | reference | [x] |
+| .claude/skills/context-optimizer/references/vibe-engineering.md | 3069 | reference | [x] |
+| .claude/skills/context-optimizer/scripts/analyze_skill_placement.py | 12062 | script | [x] |
+| .claude/skills/context-optimizer/scripts/compress_markdown_content.py | 17625 | script | [x] |
+| .claude/skills/context-optimizer/scripts/extract_and_index.py | 10927 | script | [x] |
+| .claude/skills/context-optimizer/scripts/path_validation.py | 3487 | script | [x] |
+| .claude/skills/context-optimizer/scripts/test_skill_passive_compliance.py | 29142 | script | [x] |
+| .claude/skills/context-optimizer/SKILL.md | 18729 | skill | [x] |
+| .claude/skills/cva-analysis/references/coplien-multi-paradigm-design.md | 3053 | reference | [x] |
+| .claude/skills/cva-analysis/references/gof-pattern-selection.md | 2927 | reference | [x] |
+| .claude/skills/cva-analysis/references/matrix-building-examples.md | 12550 | reference | [x] |
+| .claude/skills/cva-analysis/references/multidimensional-cva.md | 2762 | reference | [x] |
+| .claude/skills/cva-analysis/references/pattern-mapping-guide.md | 10409 | reference | [x] |
+| .claude/skills/cva-analysis/references/SKILL_SPEC.md | 39059 | reference | [x] |
+| .claude/skills/cva-analysis/scripts/validate-cva-matrix.py | 10841 | script | [x] |
+| .claude/skills/cva-analysis/SKILL.md | 19045 | skill | [x] |
+| .claude/skills/cynefin-classifier/references/cynefin-deep-dive.md | 4824 | reference | [x] |
+| .claude/skills/cynefin-classifier/references/domain-transitions.md | 4702 | reference | [x] |
+| .claude/skills/cynefin-classifier/references/software-applications.md | 6427 | reference | [x] |
+| .claude/skills/cynefin-classifier/scripts/classify.py | 13632 | script | [x] |
+| .claude/skills/cynefin-classifier/SKILL.md | 14253 | skill | [x] |
+| .claude/skills/decision-critic/references/critical-thinking-brandolinis-law.md | 3380 | reference | [x] |
+| .claude/skills/decision-critic/references/critical-thinking-falsifiability.md | 3267 | reference | [x] |
+| .claude/skills/decision-critic/references/critical-thinking-survivorship-bias.md | 2752 | reference | [x] |
+| .claude/skills/decision-critic/references/decision-pre-committed-metrics.md | 4403 | reference | [x] |
+| .claude/skills/decision-critic/references/mental-models-chestertons-fence.md | 1838 | reference | [x] |
+| .claude/skills/decision-critic/references/mental-models-conways-law.md | 3156 | reference | [x] |
+| .claude/skills/decision-critic/references/mental-models-fat-tails.md | 4857 | reference | [x] |
+| .claude/skills/decision-critic/references/mental-models-galls-law.md | 2396 | reference | [x] |
+| .claude/skills/decision-critic/references/quality-boy-scout-rule.md | 1996 | reference | [x] |
+| .claude/skills/decision-critic/references/rewrite-regression-check.md | 7241 | reference | [x] |
+| .claude/skills/decision-critic/references/strategic-thinking-systems-thinking.md | 3520 | reference | [x] |
+| .claude/skills/decision-critic/scripts/decision-critic.py | 20191 | script | [x] |
+| .claude/skills/decision-critic/SKILL.md | 8192 | skill | [x] |
+| .claude/skills/doc-accuracy/scripts/doc_accuracy.py | 47394 | script | [x] |
+| .claude/skills/doc-accuracy/scripts/pr_snapshot.py | 21648 | script | [x] |
+| .claude/skills/doc-accuracy/SKILL.md | 9275 | skill | [x] |
+| .claude/skills/dx-review/SKILL.md | 10692 | skill | [x] |
+| .claude/skills/execution-plans/SKILL.md | 3964 | skill | [x] |
+| .claude/skills/fix-markdown-fences/scripts/fix_fences.py | 56770 | script | [x] |
+| .claude/skills/fix-markdown-fences/SKILL.md | 15114 | skill | [x] |
+| .claude/skills/git-advanced-workflows/SKILL.md | 6463 | skill | [x] |
+| .claude/skills/github-url-intercept/references/patterns.md | 6123 | reference | [x] |
+| .claude/skills/github-url-intercept/scripts/gist_routing.py | 8769 | script | [x] |
+| .claude/skills/github-url-intercept/scripts/test_url_routing.py | 14073 | script | [x] |
+| .claude/skills/github-url-intercept/scripts/url_validation.py | 1947 | script | [x] |
+| .claude/skills/github-url-intercept/SKILL.md | 14905 | skill | [x] |
+| .claude/skills/golden-principles/references/design-code-qualities.md | 2878 | reference | [x] |
+| .claude/skills/golden-principles/references/design-dry-principle.md | 2328 | reference | [x] |
+| .claude/skills/golden-principles/references/design-programming-by-intention.md | 2379 | reference | [x] |
+| .claude/skills/golden-principles/references/design-separation-of-concerns.md | 2297 | reference | [x] |
+| .claude/skills/golden-principles/references/design-solid-principles.md | 2410 | reference | [x] |
+| .claude/skills/golden-principles/scripts/scan_principles_core.py | 19011 | script | [x] |
+| .claude/skills/golden-principles/scripts/scan_principles.py | 15223 | script | [x] |
+| .claude/skills/golden-principles/SKILL.md | 5739 | skill | [x] |
+| .claude/skills/merge-resolver/references/strategies.md | 9557 | reference | [x] |
+| .claude/skills/merge-resolver/scripts/CLAUDE.md | 170 | script | [x] |
+| .claude/skills/merge-resolver/scripts/resolve_pr_conflicts.py | 28752 | script | [x] |
+| .claude/skills/merge-resolver/scripts/verify_no_conflict_markers.py | 9202 | script | [x] |
+| .claude/skills/merge-resolver/SKILL.md | 16520 | skill | [x] |
+| .claude/skills/metrics/collect_metrics.py | 12936 | skill | [x] |
+| .claude/skills/metrics/SKILL.md | 7454 | skill | [x] |
+| .claude/skills/negotiation/references/skills.md | 11804 | reference | [x] |
+| .claude/skills/negotiation/SKILL.md | 5293 | skill | [x] |
+| .claude/skills/observability/references/distributed-systems-fallacies.md | 3765 | reference | [x] |
+| .claude/skills/observability/references/otel-migration-reference.md | 3606 | reference | [x] |
+| .claude/skills/observability/references/otel-semantic-conventions.md | 3474 | reference | [x] |
+| .claude/skills/observability/references/prometheus-recording-rules.md | 3493 | reference | [x] |
+| .claude/skills/observability/references/three-pillars-reference.md | 2985 | reference | [x] |
+| .claude/skills/observability/schema.json | 3163 | skill | [x] |
+| .claude/skills/observability/scripts/query_logs.py | 8860 | script | [x] |
+| .claude/skills/observability/SKILL.md | 6308 | skill | [x] |
+| .claude/skills/orphan-ref-validator/scripts/__init__.py | 625 | script | [x] |
+| .claude/skills/orphan-ref-validator/scripts/counts.py | 4325 | script | [x] |
+| .claude/skills/orphan-ref-validator/scripts/envelope.py | 9867 | script | [x] |
+| .claude/skills/orphan-ref-validator/scripts/filters.py | 9457 | script | [x] |
+| .claude/skills/orphan-ref-validator/scripts/patterns.py | 10933 | script | [x] |
+| .claude/skills/orphan-ref-validator/scripts/scan.py | 39760 | script | [x] |
+| .claude/skills/orphan-ref-validator/scripts/walking.py | 12883 | script | [x] |
+| .claude/skills/orphan-ref-validator/SKILL.md | 21618 | skill | [x] |
+| .claude/skills/panning-for-gold/references/gold-found-template.md | 350 | reference | [x] |
+| .claude/skills/panning-for-gold/references/inventory-template.md | 569 | reference | [x] |
+| .claude/skills/panning-for-gold/scripts/__init__.py | 40 | script | [x] |
+| .claude/skills/panning-for-gold/scripts/inventory.py | 6911 | script | [x] |
+| .claude/skills/panning-for-gold/scripts/pan.py | 7850 | script | [x] |
+| .claude/skills/panning-for-gold/scripts/synthesis.py | 4106 | script | [x] |
+| .claude/skills/panning-for-gold/SKILL.md | 8880 | skill | [x] |
 | .claude/skills/pipeline-validator/references/error-patterns.md | 5863 | reference | [ ] |
 | .claude/skills/pipeline-validator/SKILL.md | 19220 | skill | [ ] |
 | .claude/skills/planner/references/agent-architecture-patterns.md | 2295 | reference | [ ] |
