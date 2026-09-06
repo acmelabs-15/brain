@@ -1,0 +1,51 @@
+---
+package: addy
+name: Escalation Path
+slug: escalation-path
+kind: pattern
+package_phase: addy:Define
+implementation_in_scope: true
+memo_inputs:
+  - {path: skills/constraint-driven-development/SKILL.md, sha256: 19d0aba70ced988c67739d5edd2a9b124a0783788c2baa70a8cc64cdd90612e5}
+  - {path: skills/constraint-driven-development/references/floor-guard.md, sha256: dba15dad8f5a5cbae464ec8457e6dd014a7bcb3ad13a360a6908d54991a5415e}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-06 quote-check+coverage
+---
+
+# Escalation Path
+
+## Definition — verbatim
+> "Constraints work at three levels of teeth. Start at the first." — skills/constraint-driven-development/SKILL.md:254
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| skills/constraint-driven-development/references/floor-guard.md | 99 | used here | Advises transitioning to a dedicated runner at Escalation Path level 3 once checks outgrow shell scripts |
+| skills/constraint-driven-development/SKILL.md | 252 | defined here | Section heading introducing the three-tier maturity model for constraint enforcement |
+
+## Consumes
+Project constraint definitions and workflow maturity requirements.
+
+## Produces
+A progressive three-tier enforcement strategy (Written only, Scripted, and Tool-backed).
+
+## When applied
+When adopting or scaling constraint enforcement in a repository.
+
+## Sub-concepts
+written-only, scripted, tool-backed
+
+## Part of
+constraint-driven-development
+
+## Implementation status
+defects: doc-drift
+
+## Design notes
+A progressive adoption pattern structuring constraint enforcement into three tiers: Written only, Scripted, and Tool-backed. This allows teams to start with zero infrastructure friction and scale up to deterministic package scripts and dedicated AST/diff runners as repository complexity requires.
