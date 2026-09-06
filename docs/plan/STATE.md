@@ -11,8 +11,8 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `1` |
 | **phase_name** | Inventory |
 | **current_unit** | — |
-| **last_session** | 008 |
-| **next_action** | Run Phase 1V inventory verification across addy, matt, and rjm |
+| **last_session** | 009 |
+| **next_action** | Remediate Phase 1V inventory verification findings across addy, matt, and rjm per _verification.md reports |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -39,8 +39,8 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 |---|---|---|---|---|
 | 0 | Setup | `done` | four manifests and three ledgers exist; units.md initialized; brain-conventions.md written; all §10 checks clean | 000 |
 | 0.5 | Landscape scan | `skipped` — D-007 `landscape_scan: no` | — | — |
-| 1 | Inventory | `pending` | — | — |
-| 1V | Inventory verification | `pending` | — | — |
+| 1 | Inventory | `pending` | unit extraction done (416/416); 1V verification in progress | 001–008 |
+| 1V | Inventory verification | `in-progress` | 15% adversarial verification complete across all 3 packages; _verification.md reports generated; remediation pending | 009 |
 | 2 | Concept cards | `pending` | — | — |
 | 3 | Concordance | `pending` | — | — |
 | 4 | Alignment decisions | `pending` | — | — |
