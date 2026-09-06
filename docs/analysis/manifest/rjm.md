@@ -1170,8 +1170,8 @@
 | templates/agents/retrospective.shared.md | 43573 | agent | [x] |
 | templates/agents/roadmap.shared.md | 6885 | agent | [x] |
 | templates/agents/security.shared.md | 33588 | agent | [x] |
-| templates/agents/silent-failure-hunter.shared.md | 11835 | agent | [ ] |
-| templates/agents/skillbook.shared.md | 8346 | agent | [ ] |
-| templates/agents/task-decomposer.shared.md | 10303 | agent | [ ] |
-| templates/agents/type-design-analyzer.shared.md | 5496 | agent | [ ] |
-| templates/README.md | 14246 | template | [ ] |
+| templates/agents/silent-failure-hunter.shared.md | 11835 | agent | [x] |
+| templates/agents/skillbook.shared.md | 8346 | agent | [x] |
+| templates/agents/task-decomposer.shared.md | 10303 | agent | [x] |
+| templates/agents/type-design-analyzer.shared.md | 5496 | agent | [x] |
+| templates/README.md | 14246 | template | [x] |

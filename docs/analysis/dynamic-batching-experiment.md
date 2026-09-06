@@ -351,6 +351,25 @@ The runs before that reset — the experiment of sessions 013–014 (runs 01–0
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-16/success_auditor_report.md` (verdict CLEAN)
 - **Probe verdict**: N/A (standard 48-unit run, proven clean at 12.2 min, 0 FAIL across 4,953 citations, 48 parallel workers).
 
+### run 16 (Session 008, production p1-run-17)
+
+- **run-id**: `p1-run-17`
+- **session**: 008 (Phase 1)
+- **units**: `inv-rjm-323` through `inv-rjm-324` (2 units, 5 inventory cards, 0 divergence cards, 2 unit reports)
+- **context used**:
+  - at run-start: `used=14.21%` (`[run-start p1-run-17 n=2] budget 2026-09-06T06:36:11.314Z conv=780a6416 model="Gemini 3.8 Flash (High)" used=14.21% peak=14.21% governing=25.00% close=0.78% headroom=10.01% pending=2 → DISPATCH 1 run × 2 units (2 units, cost 0.98%)`)
+  - at dispatched: `used=14.57%` (`[dispatched p1-run-17] budget 2026-09-06T06:36:28.975Z conv=780a6416 model="Gemini 3.8 Flash (High)" used=14.57% peak=14.57% governing=25.00% close=0.78% headroom=9.65% pending=0 → STOP — no plan fits the headroom: close per §8.3`)
+  - at verified: `used=15.75%` (`[verified p1-run-17] budget 2026-09-06T06:45:55.929Z conv=780a6416 model="Gemini 3.8 Flash (High)" used=15.75% peak=15.75% governing=25.00% close=0.78% headroom=8.47% pending=0 → STOP — nothing pending: Phase 1 dispatch is complete`)
+  - per-unit delta: 0.59% (verified 15.75% − dispatched 14.57% = 1.18% ÷ 2 units = 0.59%)
+- **rot metrics**: none observed (used: 15.75%)
+- **429s and quota.reset_in_seconds**: none (0 quota errors)
+- **wall time**: 8.3 min from dispatch to completion
+- **Workers per unit**: 2 workers (`.agents/worker_1`..`worker_2`), one per unit, dispatched concurrently.
+- **quote-check totals**: 208 PASS, 0 FAIL across all 5 cards (0% failure rate)
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-17/success_auditor_report.md` (verdict CLEAN)
+- **Probe verdict**: N/A (final 2-unit run completing Phase 1 inventory; wall time 8.3 min, 0 FAIL across 208 citations, 2 parallel workers).
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.

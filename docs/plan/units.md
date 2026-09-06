@@ -418,5 +418,5 @@ Written and changed only by `scripts/synthesis/units.ts` (METHOD §7). Do not ed
 | inv-rjm-320 | rjm | 2 | 31844 | done | 008 | docs/analysis/inventory/rjm/_units/inv-rjm-320.md |
 | inv-rjm-321 | rjm | 1 | 43573 | done | 008 | docs/analysis/inventory/rjm/_units/inv-rjm-321.md |
 | inv-rjm-322 | rjm | 2 | 40473 | done | 008 | docs/analysis/inventory/rjm/_units/inv-rjm-322.md |
-| inv-rjm-323 | rjm | 4 | 35980 | in-progress | 008 | — |
-| inv-rjm-324 | rjm | 1 | 14246 | in-progress | 008 | — |
+| inv-rjm-323 | rjm | 4 | 35980 | done | 008 | docs/analysis/inventory/rjm/_units/inv-rjm-323.md |
+| inv-rjm-324 | rjm | 1 | 14246 | done | 008 | docs/analysis/inventory/rjm/_units/inv-rjm-324.md |
