@@ -11,7 +11,7 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `2` |
 | **phase_name** | Concept cards |
 | **current_unit** | — |
-| **last_session** | 012 |
+| **last_session** | 013 |
 | **next_action** | Partition and dispatch Phase 2 concept cards (METHOD.md §5 Phase 2) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
@@ -121,7 +121,7 @@ Anything the agent cannot resolve alone. Each row names what Peter needs to do.
 
 | Since | Unit / item | Reason | Needs |
 |---|---|---|---|
-| — | — | none | — |
+| 2026-09-06 | Phase 2 partitioning & tooling | Phase 2 units are not in units.ts or budget.ts; open question 12 friction encountered (13,765 concept occurrences across 1,313 addy / 1,193 matt / 11,259 rjm concepts cannot be dispatched without partitioning specification and tooling) | Decision on Phase 2 unit definition/partitioning tooling and method amendment |
 
 ---
 
