@@ -1015,161 +1015,161 @@
 | scripts/validation/assert_trusted_smoke_context.py | 4367 | script | [x] |
 | scripts/validation/check_adr_lifecycle.py | 59943 | script | [x] |
 | scripts/validation/check_adr_links_baseline.txt | 5725 | script | [x] |
-| scripts/validation/check_adr_links.py | 53014 | script | [ ] |
-| scripts/validation/check_adr_uniqueness.py | 5361 | script | [ ] |
-| scripts/validation/check_agent_skill_discriminator.py | 34655 | script | [ ] |
-| scripts/validation/check_build_gates.py | 7655 | script | [ ] |
-| scripts/validation/check_canonical_citations.py | 10555 | script | [ ] |
-| scripts/validation/check_ci_dependency_pins.py | 11644 | script | [ ] |
-| scripts/validation/check_citation_freshness.py | 15752 | script | [ ] |
-| scripts/validation/check_colocated_skill_tests.py | 5762 | script | [ ] |
-| scripts/validation/check_copilot_routing_exclusions.py | 6846 | script | [ ] |
-| scripts/validation/check_copilot_version_pin.py | 6116 | script | [ ] |
-| scripts/validation/check_doc_interpreter_portability.py | 26041 | script | [ ] |
-| scripts/validation/check_dual_priority_labels.py | 6429 | script | [ ] |
-| scripts/validation/check_duplicate_test_helpers.py | 6233 | script | [ ] |
-| scripts/validation/check_generated_staleness.py | 19171 | script | [ ] |
-| scripts/validation/check_git_hook_health.py | 11986 | script | [ ] |
-| scripts/validation/check_model_pins.py | 25301 | script | [ ] |
-| scripts/validation/check_nested_tests.py | 5069 | script | [ ] |
-| scripts/validation/check_orchestrator_citations.py | 5254 | script | [ ] |
-| scripts/validation/check_placeholder_identity.py | 6450 | script | [ ] |
-| scripts/validation/check_plugin_frontmatter_self_containment.py | 32869 | script | [ ] |
-| scripts/validation/check_push_lock_before_commit.py | 8465 | script | [ ] |
-| scripts/validation/check_push_lock_paths.py | 12248 | script | [ ] |
-| scripts/validation/check_python3_entrypoints.py | 10038 | script | [ ] |
-| scripts/validation/check_repo_health_report.py | 6358 | script | [ ] |
-| scripts/validation/check_repo_health.py | 22001 | script | [ ] |
-| scripts/validation/check_rule_activation_coverage.py | 20391 | script | [ ] |
-| scripts/validation/check_ruleset_params_drift.py | 4341 | script | [ ] |
-| scripts/validation/check_shipped_skill_routes.py | 28940 | script | [ ] |
-| scripts/validation/check_skill_contract_tests.py | 6880 | script | [ ] |
-| scripts/validation/check_skill_md_drift.py | 15824 | script | [ ] |
-| scripts/validation/check_skill_md_exec_portability.py | 23625 | script | [ ] |
-| scripts/validation/check_skill_md_portability.py | 62742 | script | [ ] |
-| scripts/validation/check_skill_memory_references.py | 13177 | script | [ ] |
-| scripts/validation/check_skill_portability.py | 14136 | script | [ ] |
-| scripts/validation/check_skill_resolver_anchoring.py | 8591 | script | [ ] |
-| scripts/validation/check_skill_skip_clauses.py | 8728 | script | [ ] |
-| scripts/validation/check_spec_id_uniqueness.py | 3658 | script | [ ] |
-| scripts/validation/check_subprocess_encoding.py | 71105 | script | [ ] |
-| scripts/validation/check_test_tree_writes.py | 10853 | script | [ ] |
-| scripts/validation/check_tmp_worktrees.py | 13505 | script | [ ] |
-| scripts/validation/check_unreachable_code.py | 6484 | script | [ ] |
-| scripts/validation/check_vendor_portability.py | 24904 | script | [ ] |
-| scripts/validation/check_worktree_recipes.py | 12103 | script | [ ] |
-| scripts/validation/check_zero_collection_tests.py | 18482 | script | [ ] |
-| scripts/validation/checks_changed_paths.py | 8564 | script | [ ] |
-| scripts/validation/checks_common.py | 19425 | script | [ ] |
-| scripts/validation/checks_copilot.py | 672 | script | [ ] |
-| scripts/validation/checks_coverage.py | 3979 | script | [ ] |
-| scripts/validation/checks_dash.py | 6784 | script | [ ] |
-| scripts/validation/checks_mypy.py | 1646 | script | [ ] |
-| scripts/validation/checks_plugin.py | 17441 | script | [ ] |
-| scripts/validation/checks_ratchet.py | 8842 | script | [ ] |
-| scripts/validation/checks_spec.py | 18745 | script | [ ] |
-| scripts/validation/checks_tooling.py | 22482 | script | [ ] |
-| scripts/validation/checks_workflow_targets.py | 3009 | script | [ ] |
-| scripts/validation/ci_runner_base.py | 8701 | script | [ ] |
-| scripts/validation/citation_anchors.py | 13465 | script | [ ] |
-| scripts/validation/citation_head_state.py | 6140 | script | [ ] |
-| scripts/validation/command_size.py | 5979 | script | [ ] |
-| scripts/validation/doc_interpreter_baseline.json | 18 | script | [ ] |
-| scripts/validation/doc_interpreter_subprocess.py | 4679 | script | [ ] |
-| scripts/validation/git_hook_policy.py | 338521 | script | [ ] |
-| scripts/validation/hook_contracts.py | 37686 | script | [ ] |
-| scripts/validation/instruction_budget_constants.py | 470 | script | [ ] |
-| scripts/validation/instruction_budget_globs.py | 18909 | script | [ ] |
-| scripts/validation/instruction_budget_types.py | 1617 | script | [ ] |
-| scripts/validation/instruction_budget.py | 12827 | script | [ ] |
-| scripts/validation/model_pin_baseline.json | 2463 | script | [ ] |
-| scripts/validation/models.py | 907 | script | [ ] |
-| scripts/validation/object_id.py | 384 | script | [ ] |
-| scripts/validation/passive_context_budget.py | 7556 | script | [ ] |
-| scripts/validation/portability_baseline_write.py | 4695 | script | [ ] |
-| scripts/validation/portability_baseline.py | 20208 | script | [ ] |
-| scripts/validation/portability_common.py | 18892 | script | [ ] |
-| scripts/validation/portability_floor.py | 9329 | script | [ ] |
-| scripts/validation/portability_git.py | 15589 | script | [ ] |
-| scripts/validation/pr_commit_count.py | 13047 | script | [ ] |
-| scripts/validation/pr_description.py | 57443 | script | [ ] |
-| scripts/validation/pre_pr_sequence.py | 23593 | script | [ ] |
-| scripts/validation/pre_pr.py | 13180 | script | [ ] |
-| scripts/validation/push_lock_resolver.py | 11495 | script | [ ] |
-| scripts/validation/push_ref_staleness.py | 9045 | script | [ ] |
-| scripts/validation/rule_activation_coverage_baseline.json | 3207 | script | [ ] |
-| scripts/validation/ruleset_params_baseline.json | 236 | script | [ ] |
-| scripts/validation/run_install_parity_ci.py | 2854 | script | [ ] |
-| scripts/validation/run_plugin_version_bump_ci.py | 2939 | script | [ ] |
-| scripts/validation/run_workflow_local_test.py | 62233 | script | [ ] |
-| scripts/validation/session_scope.py | 14205 | script | [ ] |
-| scripts/validation/sha_pinning.py | 9946 | script | [ ] |
-| scripts/validation/shell_text.py | 3593 | script | [ ] |
-| scripts/validation/skill_contract_test_baseline.txt | 342 | script | [ ] |
-| scripts/validation/skill_frontmatter.py | 21328 | script | [ ] |
-| scripts/validation/skill_md_exec_portability_baseline.json | 9973 | script | [ ] |
-| scripts/validation/skill_md_portability_baseline.json | 29943 | script | [ ] |
-| scripts/validation/skill_portability_baseline.json | 4874 | script | [ ] |
-| scripts/validation/skill_size.py | 30176 | script | [ ] |
-| scripts/validation/spec_contradiction.py | 18206 | script | [ ] |
-| scripts/validation/stale_script_refs.py | 6298 | script | [ ] |
-| scripts/validation/subprocess_runner.py | 3093 | script | [ ] |
-| scripts/validation/test_docs_only_eligibility.py | 7088 | script | [ ] |
-| scripts/validation/test_investigation_eligibility.py | 7134 | script | [ ] |
-| scripts/validation/token_budget.py | 6454 | script | [ ] |
-| scripts/validation/traceability.py | 19153 | script | [ ] |
-| scripts/validation/tracked_paths.py | 6579 | script | [ ] |
-| scripts/validation/validate_agent_catalog.py | 2100 | script | [ ] |
-| scripts/validation/validate_argument_hint.py | 11679 | script | [ ] |
-| scripts/validation/validate_copilot_agent_frontmatter.py | 7609 | script | [ ] |
-| scripts/validation/validate_design_review.py | 3715 | script | [ ] |
-| scripts/validation/validate_hook_anchoring.py | 15610 | script | [ ] |
-| scripts/validation/validate_no_orphaned_build_deferrals.py | 12197 | script | [ ] |
-| scripts/validation/validate_python_syntax.py | 7984 | script | [ ] |
-| scripts/validation/validate_review_marker.py | 16215 | script | [ ] |
-| scripts/validation/validate_seed_parity.py | 8418 | script | [ ] |
-| scripts/validation/validate_skill_shells.py | 7879 | script | [ ] |
-| scripts/validation/validate_skillbook.py | 15489 | script | [ ] |
-| scripts/validation/validate_sync_registry.py | 8084 | script | [ ] |
-| scripts/validation/vendor_portability_baseline.txt | 1645 | script | [ ] |
-| scripts/validation/yaml_utils.py | 1132 | script | [ ] |
-| scripts/workflow/__init__.py | 1377 | script | [ ] |
-| scripts/workflow/coordinator.py | 7750 | script | [ ] |
-| scripts/workflow/executor.py | 6594 | script | [ ] |
-| scripts/workflow/loader.py | 3244 | script | [ ] |
-| scripts/workflow/parallel.py | 11848 | script | [ ] |
-| scripts/workflow/schema.py | 6629 | script | [ ] |
-| scripts/workflows/determine_should_run_from_filters.py | 4199 | script | [ ] |
-| scripts/workflows/resolve_dispatch_input.py | 3574 | script | [ ] |
-| src/claude/AGENTS.md | 11687 | doc | [ ] |
-| src/claude/analyst.md | 14835 | doc | [ ] |
-| src/claude/orchestrator.md | 28813 | doc | [ ] |
-| templates/AGENTS.md | 12193 | template | [ ] |
-| templates/agents/analyst.shared.md | 13633 | agent | [ ] |
-| templates/agents/architect.shared.md | 30286 | agent | [ ] |
-| templates/agents/backlog-generator.shared.md | 6298 | agent | [ ] |
-| templates/agents/code-reviewer.shared.md | 10699 | agent | [ ] |
-| templates/agents/code-simplifier.shared.md | 6273 | agent | [ ] |
-| templates/agents/comment-analyzer.shared.md | 6808 | agent | [ ] |
-| templates/agents/critic.shared.md | 19518 | agent | [ ] |
-| templates/agents/debug.shared.md | 3032 | agent | [ ] |
-| templates/agents/dependency-auditor.shared.md | 5642 | agent | [ ] |
-| templates/agents/devops.shared.md | 8552 | agent | [ ] |
-| templates/agents/explainer.shared.md | 6798 | agent | [ ] |
-| templates/agents/high-level-advisor.shared.md | 8388 | agent | [ ] |
-| templates/agents/implementer.shared.md | 43506 | agent | [ ] |
-| templates/agents/independent-thinker.shared.md | 8685 | agent | [ ] |
-| templates/agents/issue-feature-review.shared.md | 8135 | agent | [ ] |
-| templates/agents/janitor.shared.md | 3130 | agent | [ ] |
-| templates/agents/merge-resolver.shared.md | 6781 | agent | [ ] |
-| templates/agents/milestone-planner.shared.md | 6805 | agent | [ ] |
-| templates/agents/negotiation.shared.md | 7850 | agent | [ ] |
-| templates/agents/orchestrator.shared.md | 28751 | agent | [ ] |
-| templates/agents/qa.shared.md | 27850 | agent | [ ] |
-| templates/agents/quality-auditor.shared.md | 3994 | agent | [ ] |
-| templates/agents/retrospective.shared.md | 43573 | agent | [ ] |
-| templates/agents/roadmap.shared.md | 6885 | agent | [ ] |
-| templates/agents/security.shared.md | 33588 | agent | [ ] |
+| scripts/validation/check_adr_links.py | 53014 | script | [x] |
+| scripts/validation/check_adr_uniqueness.py | 5361 | script | [x] |
+| scripts/validation/check_agent_skill_discriminator.py | 34655 | script | [x] |
+| scripts/validation/check_build_gates.py | 7655 | script | [x] |
+| scripts/validation/check_canonical_citations.py | 10555 | script | [x] |
+| scripts/validation/check_ci_dependency_pins.py | 11644 | script | [x] |
+| scripts/validation/check_citation_freshness.py | 15752 | script | [x] |
+| scripts/validation/check_colocated_skill_tests.py | 5762 | script | [x] |
+| scripts/validation/check_copilot_routing_exclusions.py | 6846 | script | [x] |
+| scripts/validation/check_copilot_version_pin.py | 6116 | script | [x] |
+| scripts/validation/check_doc_interpreter_portability.py | 26041 | script | [x] |
+| scripts/validation/check_dual_priority_labels.py | 6429 | script | [x] |
+| scripts/validation/check_duplicate_test_helpers.py | 6233 | script | [x] |
+| scripts/validation/check_generated_staleness.py | 19171 | script | [x] |
+| scripts/validation/check_git_hook_health.py | 11986 | script | [x] |
+| scripts/validation/check_model_pins.py | 25301 | script | [x] |
+| scripts/validation/check_nested_tests.py | 5069 | script | [x] |
+| scripts/validation/check_orchestrator_citations.py | 5254 | script | [x] |
+| scripts/validation/check_placeholder_identity.py | 6450 | script | [x] |
+| scripts/validation/check_plugin_frontmatter_self_containment.py | 32869 | script | [x] |
+| scripts/validation/check_push_lock_before_commit.py | 8465 | script | [x] |
+| scripts/validation/check_push_lock_paths.py | 12248 | script | [x] |
+| scripts/validation/check_python3_entrypoints.py | 10038 | script | [x] |
+| scripts/validation/check_repo_health_report.py | 6358 | script | [x] |
+| scripts/validation/check_repo_health.py | 22001 | script | [x] |
+| scripts/validation/check_rule_activation_coverage.py | 20391 | script | [x] |
+| scripts/validation/check_ruleset_params_drift.py | 4341 | script | [x] |
+| scripts/validation/check_shipped_skill_routes.py | 28940 | script | [x] |
+| scripts/validation/check_skill_contract_tests.py | 6880 | script | [x] |
+| scripts/validation/check_skill_md_drift.py | 15824 | script | [x] |
+| scripts/validation/check_skill_md_exec_portability.py | 23625 | script | [x] |
+| scripts/validation/check_skill_md_portability.py | 62742 | script | [x] |
+| scripts/validation/check_skill_memory_references.py | 13177 | script | [x] |
+| scripts/validation/check_skill_portability.py | 14136 | script | [x] |
+| scripts/validation/check_skill_resolver_anchoring.py | 8591 | script | [x] |
+| scripts/validation/check_skill_skip_clauses.py | 8728 | script | [x] |
+| scripts/validation/check_spec_id_uniqueness.py | 3658 | script | [x] |
+| scripts/validation/check_subprocess_encoding.py | 71105 | script | [x] |
+| scripts/validation/check_test_tree_writes.py | 10853 | script | [x] |
+| scripts/validation/check_tmp_worktrees.py | 13505 | script | [x] |
+| scripts/validation/check_unreachable_code.py | 6484 | script | [x] |
+| scripts/validation/check_vendor_portability.py | 24904 | script | [x] |
+| scripts/validation/check_worktree_recipes.py | 12103 | script | [x] |
+| scripts/validation/check_zero_collection_tests.py | 18482 | script | [x] |
+| scripts/validation/checks_changed_paths.py | 8564 | script | [x] |
+| scripts/validation/checks_common.py | 19425 | script | [x] |
+| scripts/validation/checks_copilot.py | 672 | script | [x] |
+| scripts/validation/checks_coverage.py | 3979 | script | [x] |
+| scripts/validation/checks_dash.py | 6784 | script | [x] |
+| scripts/validation/checks_mypy.py | 1646 | script | [x] |
+| scripts/validation/checks_plugin.py | 17441 | script | [x] |
+| scripts/validation/checks_ratchet.py | 8842 | script | [x] |
+| scripts/validation/checks_spec.py | 18745 | script | [x] |
+| scripts/validation/checks_tooling.py | 22482 | script | [x] |
+| scripts/validation/checks_workflow_targets.py | 3009 | script | [x] |
+| scripts/validation/ci_runner_base.py | 8701 | script | [x] |
+| scripts/validation/citation_anchors.py | 13465 | script | [x] |
+| scripts/validation/citation_head_state.py | 6140 | script | [x] |
+| scripts/validation/command_size.py | 5979 | script | [x] |
+| scripts/validation/doc_interpreter_baseline.json | 18 | script | [x] |
+| scripts/validation/doc_interpreter_subprocess.py | 4679 | script | [x] |
+| scripts/validation/git_hook_policy.py | 338521 | script | [x] |
+| scripts/validation/hook_contracts.py | 37686 | script | [x] |
+| scripts/validation/instruction_budget_constants.py | 470 | script | [x] |
+| scripts/validation/instruction_budget_globs.py | 18909 | script | [x] |
+| scripts/validation/instruction_budget_types.py | 1617 | script | [x] |
+| scripts/validation/instruction_budget.py | 12827 | script | [x] |
+| scripts/validation/model_pin_baseline.json | 2463 | script | [x] |
+| scripts/validation/models.py | 907 | script | [x] |
+| scripts/validation/object_id.py | 384 | script | [x] |
+| scripts/validation/passive_context_budget.py | 7556 | script | [x] |
+| scripts/validation/portability_baseline_write.py | 4695 | script | [x] |
+| scripts/validation/portability_baseline.py | 20208 | script | [x] |
+| scripts/validation/portability_common.py | 18892 | script | [x] |
+| scripts/validation/portability_floor.py | 9329 | script | [x] |
+| scripts/validation/portability_git.py | 15589 | script | [x] |
+| scripts/validation/pr_commit_count.py | 13047 | script | [x] |
+| scripts/validation/pr_description.py | 57443 | script | [x] |
+| scripts/validation/pre_pr_sequence.py | 23593 | script | [x] |
+| scripts/validation/pre_pr.py | 13180 | script | [x] |
+| scripts/validation/push_lock_resolver.py | 11495 | script | [x] |
+| scripts/validation/push_ref_staleness.py | 9045 | script | [x] |
+| scripts/validation/rule_activation_coverage_baseline.json | 3207 | script | [x] |
+| scripts/validation/ruleset_params_baseline.json | 236 | script | [x] |
+| scripts/validation/run_install_parity_ci.py | 2854 | script | [x] |
+| scripts/validation/run_plugin_version_bump_ci.py | 2939 | script | [x] |
+| scripts/validation/run_workflow_local_test.py | 62233 | script | [x] |
+| scripts/validation/session_scope.py | 14205 | script | [x] |
+| scripts/validation/sha_pinning.py | 9946 | script | [x] |
+| scripts/validation/shell_text.py | 3593 | script | [x] |
+| scripts/validation/skill_contract_test_baseline.txt | 342 | script | [x] |
+| scripts/validation/skill_frontmatter.py | 21328 | script | [x] |
+| scripts/validation/skill_md_exec_portability_baseline.json | 9973 | script | [x] |
+| scripts/validation/skill_md_portability_baseline.json | 29943 | script | [x] |
+| scripts/validation/skill_portability_baseline.json | 4874 | script | [x] |
+| scripts/validation/skill_size.py | 30176 | script | [x] |
+| scripts/validation/spec_contradiction.py | 18206 | script | [x] |
+| scripts/validation/stale_script_refs.py | 6298 | script | [x] |
+| scripts/validation/subprocess_runner.py | 3093 | script | [x] |
+| scripts/validation/test_docs_only_eligibility.py | 7088 | script | [x] |
+| scripts/validation/test_investigation_eligibility.py | 7134 | script | [x] |
+| scripts/validation/token_budget.py | 6454 | script | [x] |
+| scripts/validation/traceability.py | 19153 | script | [x] |
+| scripts/validation/tracked_paths.py | 6579 | script | [x] |
+| scripts/validation/validate_agent_catalog.py | 2100 | script | [x] |
+| scripts/validation/validate_argument_hint.py | 11679 | script | [x] |
+| scripts/validation/validate_copilot_agent_frontmatter.py | 7609 | script | [x] |
+| scripts/validation/validate_design_review.py | 3715 | script | [x] |
+| scripts/validation/validate_hook_anchoring.py | 15610 | script | [x] |
+| scripts/validation/validate_no_orphaned_build_deferrals.py | 12197 | script | [x] |
+| scripts/validation/validate_python_syntax.py | 7984 | script | [x] |
+| scripts/validation/validate_review_marker.py | 16215 | script | [x] |
+| scripts/validation/validate_seed_parity.py | 8418 | script | [x] |
+| scripts/validation/validate_skill_shells.py | 7879 | script | [x] |
+| scripts/validation/validate_skillbook.py | 15489 | script | [x] |
+| scripts/validation/validate_sync_registry.py | 8084 | script | [x] |
+| scripts/validation/vendor_portability_baseline.txt | 1645 | script | [x] |
+| scripts/validation/yaml_utils.py | 1132 | script | [x] |
+| scripts/workflow/__init__.py | 1377 | script | [x] |
+| scripts/workflow/coordinator.py | 7750 | script | [x] |
+| scripts/workflow/executor.py | 6594 | script | [x] |
+| scripts/workflow/loader.py | 3244 | script | [x] |
+| scripts/workflow/parallel.py | 11848 | script | [x] |
+| scripts/workflow/schema.py | 6629 | script | [x] |
+| scripts/workflows/determine_should_run_from_filters.py | 4199 | script | [x] |
+| scripts/workflows/resolve_dispatch_input.py | 3574 | script | [x] |
+| src/claude/AGENTS.md | 11687 | doc | [x] |
+| src/claude/analyst.md | 14835 | doc | [x] |
+| src/claude/orchestrator.md | 28813 | doc | [x] |
+| templates/AGENTS.md | 12193 | template | [x] |
+| templates/agents/analyst.shared.md | 13633 | agent | [x] |
+| templates/agents/architect.shared.md | 30286 | agent | [x] |
+| templates/agents/backlog-generator.shared.md | 6298 | agent | [x] |
+| templates/agents/code-reviewer.shared.md | 10699 | agent | [x] |
+| templates/agents/code-simplifier.shared.md | 6273 | agent | [x] |
+| templates/agents/comment-analyzer.shared.md | 6808 | agent | [x] |
+| templates/agents/critic.shared.md | 19518 | agent | [x] |
+| templates/agents/debug.shared.md | 3032 | agent | [x] |
+| templates/agents/dependency-auditor.shared.md | 5642 | agent | [x] |
+| templates/agents/devops.shared.md | 8552 | agent | [x] |
+| templates/agents/explainer.shared.md | 6798 | agent | [x] |
+| templates/agents/high-level-advisor.shared.md | 8388 | agent | [x] |
+| templates/agents/implementer.shared.md | 43506 | agent | [x] |
+| templates/agents/independent-thinker.shared.md | 8685 | agent | [x] |
+| templates/agents/issue-feature-review.shared.md | 8135 | agent | [x] |
+| templates/agents/janitor.shared.md | 3130 | agent | [x] |
+| templates/agents/merge-resolver.shared.md | 6781 | agent | [x] |
+| templates/agents/milestone-planner.shared.md | 6805 | agent | [x] |
+| templates/agents/negotiation.shared.md | 7850 | agent | [x] |
+| templates/agents/orchestrator.shared.md | 28751 | agent | [x] |
+| templates/agents/qa.shared.md | 27850 | agent | [x] |
+| templates/agents/quality-auditor.shared.md | 3994 | agent | [x] |
+| templates/agents/retrospective.shared.md | 43573 | agent | [x] |
+| templates/agents/roadmap.shared.md | 6885 | agent | [x] |
+| templates/agents/security.shared.md | 33588 | agent | [x] |
 | templates/agents/silent-failure-hunter.shared.md | 11835 | agent | [ ] |
 | templates/agents/skillbook.shared.md | 8346 | agent | [ ] |
 | templates/agents/task-decomposer.shared.md | 10303 | agent | [ ] |
