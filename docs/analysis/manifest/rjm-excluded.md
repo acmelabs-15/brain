@@ -292,6 +292,7 @@
 | .claude/skills/memory/tests/test_schema_validation.py | 16095 | skill | [ ] |
 | .claude/skills/memory/tests/test_search_memory.py | 14645 | skill | [ ] |
 | .claude/skills/merge-resolver/tests/test_resolve_pr_conflicts.py | 7997 | skill | [ ] |
+| .claude/skills/observability/tests/__pycache__/test_query_logs.cpython-314.pyc | 20452 | skill | [ ] |
 | .claude/skills/observability/tests/test_query_logs.py | 10623 | skill | [ ] |
 | .claude/skills/orphan-ref-validator/tests/test_scan.py | 99645 | skill | [ ] |
 | .claude/skills/pr-comment-responder/references/bots.md | 3135 | reference | [ ] |
