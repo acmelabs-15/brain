@@ -585,18 +585,18 @@
 | .claude/skills/style-enforcement/SKILL.md | 12088 | skill | [x] |
 | .claude/skills/taste-lints/scripts/taste_lints.py | 41729 | script | [x] |
 | .claude/skills/taste-lints/SKILL.md | 3956 | skill | [x] |
-| .claude/skills/threat-modeling/references/advanced-analysis.md | 1286 | reference | [ ] |
-| .claude/skills/threat-modeling/references/risk-rating-guide.md | 4765 | reference | [ ] |
-| .claude/skills/threat-modeling/references/security-defense-in-depth.md | 3103 | reference | [ ] |
-| .claude/skills/threat-modeling/references/security-least-privilege.md | 4181 | reference | [ ] |
-| .claude/skills/threat-modeling/references/security-owasp-top-10.md | 3920 | reference | [ ] |
-| .claude/skills/threat-modeling/references/security-zero-trust.md | 3685 | reference | [ ] |
-| .claude/skills/threat-modeling/references/stride-methodology.md | 5003 | reference | [ ] |
-| .claude/skills/threat-modeling/scripts/generate_mitigation_roadmap.py | 9837 | script | [ ] |
-| .claude/skills/threat-modeling/scripts/generate_threat_matrix.py | 6551 | script | [ ] |
-| .claude/skills/threat-modeling/scripts/validate_threat_model.py | 11244 | script | [ ] |
-| .claude/skills/threat-modeling/SKILL.md | 16191 | skill | [ ] |
-| .claude/skills/threat-modeling/templates/threat-model-template.md | 9202 | skill | [ ] |
+| .claude/skills/threat-modeling/references/advanced-analysis.md | 1286 | reference | [x] |
+| .claude/skills/threat-modeling/references/risk-rating-guide.md | 4765 | reference | [x] |
+| .claude/skills/threat-modeling/references/security-defense-in-depth.md | 3103 | reference | [x] |
+| .claude/skills/threat-modeling/references/security-least-privilege.md | 4181 | reference | [x] |
+| .claude/skills/threat-modeling/references/security-owasp-top-10.md | 3920 | reference | [x] |
+| .claude/skills/threat-modeling/references/security-zero-trust.md | 3685 | reference | [x] |
+| .claude/skills/threat-modeling/references/stride-methodology.md | 5003 | reference | [x] |
+| .claude/skills/threat-modeling/scripts/generate_mitigation_roadmap.py | 9837 | script | [x] |
+| .claude/skills/threat-modeling/scripts/generate_threat_matrix.py | 6551 | script | [x] |
+| .claude/skills/threat-modeling/scripts/validate_threat_model.py | 11244 | script | [x] |
+| .claude/skills/threat-modeling/SKILL.md | 16191 | skill | [x] |
+| .claude/skills/threat-modeling/templates/threat-model-template.md | 9202 | skill | [x] |
 | .claude/skills/validation-authority/SKILL.md | 5434 | skill | [ ] |
 | .claude/skills/windows-image-updater/references/troubleshooting.md | 2186 | reference | [ ] |
 | .claude/skills/windows-image-updater/SKILL.md | 7091 | skill | [ ] |
