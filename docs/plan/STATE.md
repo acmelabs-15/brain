@@ -10,9 +10,9 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `2` |
 | **phase_name** | Concept cards |
-| **current_unit** | — |
+| **current_unit** | cc-addy-1 |
 | **last_session** | 014 |
-| **next_action** | Partition and dispatch Phase 2 concept cards (METHOD.md §5 Phase 2) |
+| **next_action** | Phase 2 — dispatch concept units per §8.2 (the partition is done: units-p2.md, cc-* rows pending; D-023) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -41,7 +41,7 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 | 0.5 | Landscape scan | `skipped` — D-007 `landscape_scan: no` | — | — |
 | 1 | Inventory | `done` | unit extraction done (416/416); Phase 1V remediation & re-verification complete (all 3 reports clean) | 001–008, 011–012 |
 | 1V | Inventory verification | `done` | 49 flagged units re-run and verified clean (runs 18–19); all 3 verifier reports rewritten clean (PASS) | 009, 011, 012 |
-| 2 | Concept cards | `pending` | — | — |
+| 2 | Concept cards | `in-progress` | partitioned: 460 units (D-023) | 013– |
 | 3 | Concordance | `pending` | — | — |
 | 4 | Alignment decisions | `pending` | — | — |
 | 4V | Decision review | `pending` | — | — |
@@ -74,9 +74,16 @@ The unit table is `docs/plan/units.md`, written only by `bun scripts/synthesis/u
 
 ### Phase 2 — Concept card units
 
-| Unit | Package / family | Status | Session | Output |
-|---|---|---|---|---|
-| — | — | — | — | — |
+Concept units (`cc-<pkg>-N`, up to 30 concept slugs each) come from `partition-concepts.ts` (`docs/analysis/manifest/units-p2.md`) and share the table and the loop with Phase 1 (D-023).
+
+| Status | Units |
+|---|---|
+| pending | 460 |
+| in-progress | 0 |
+| done | 0 |
+| blocked | 0 |
+| rolled-back | 0 |
+| **total** | **460** |
 
 ### Phase 3 — Concordance families
 
@@ -107,7 +114,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 |---|---|
 | Manifest rows (addy / matt / rjm) | 219 / 201 / 1175 |
 | Inventory units done (addy / matt / rjm) | 46 / 46 / 324 |
-| Concept cards (addy / matt / rjm) | — / — / — |
+| Concept cards (addy / matt / rjm) | units done 0 / 0 / 0 of 44 / 40 / 376 |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | — |
 | Decisions (active / superseded / pending-peter) | 18 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
 | Glossary terms | 0 |

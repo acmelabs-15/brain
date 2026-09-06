@@ -5,7 +5,7 @@
 // echoed ~4k tokens back into the conversation. It now lives in its own file and is changed only through this
 // script, so the primary agent never opens it. STATE.md carries the counts this script writes.
 //
-//   bun scripts/synthesis/units.ts init                       create docs/plan/units.md from manifest/units.md (all pending);
+//   bun scripts/synthesis/units.ts init                       create docs/plan/units.md from manifest/units.md (+ units-p2.md, D-023) (all pending);
 //                                                             with an existing table, add new units / drop retired ones and keep status
 //   bun scripts/synthesis/units.ts status                     one line of counts (pending / in-progress / done / blocked / rolled-back)
 //   bun scripts/synthesis/units.ts pending [N]                the next N pending unit ids, in table order (default: all)
@@ -22,7 +22,7 @@
 //   bun scripts/synthesis/units.ts check                      exit 1 if the table and manifest/units.md disagree on the unit set,
 //                                                             if STATE.md counts differ from the table, or if a `done` unit's report is missing
 import { readFileSync, writeFileSync, existsSync } from "fs";
-import { readUnits, readUnitStatus, slugOf, UNIT_STATUSES, type UnitStatusRow } from "./_lib";
+import { readUnits, readUnitStatus, slugOf, UNIT_STATUSES, isConceptUnit, reportPathFor, cardsFor, type UnitStatusRow } from "./_lib";
 import { rmSync } from "fs";
 
 const TABLE = "docs/plan/units.md";
@@ -41,8 +41,8 @@ function fromManifest(): Map<string, { pkg: string; files: number; bytes: number
   return m;
 }
 function render(rows: UnitStatusRow[]): string {
-  return ["# Work units — Phase 1 inventory", "",
-    "Written and changed only by `scripts/synthesis/units.ts` (METHOD §7). Do not edit by hand. The file assignment behind each unit is `docs/analysis/manifest/units.md` (partition.ts). Status values: `pending` · `in-progress` · `done` · `blocked` · `rolled-back`.", "",
+  return ["# Work units — Phase 1 inventory (inv-*) and Phase 2 concept cards (cc-*)", "",
+    "Written and changed only by `scripts/synthesis/units.ts` (METHOD §7). Do not edit by hand. The assignment behind each unit is `docs/analysis/manifest/units.md` (partition.ts: files per inventory unit) and `docs/analysis/manifest/units-p2.md` (partition-concepts.ts: concept slugs per concept unit; Files = concepts, Bytes = occurrences). Status values: `pending` · `in-progress` · `done` · `blocked` · `rolled-back`.", "",
     "| Unit | Package | Files | Bytes | Status | Session | Output |", "|---|---|---|---|---|---|---|",
     ...rows.map(r => `| ${r.unit} | ${r.pkg} | ${r.files} | ${r.bytes} | ${r.status} | ${r.session} | ${r.output} |`), ""].join("\n");
 }
@@ -52,26 +52,29 @@ function counts(rows: UnitStatusRow[]) {
   return c;
 }
 const statusLine = (rows: UnitStatusRow[]) => { const c = counts(rows); return `units: ${rows.length} total — pending ${c.pending} · in-progress ${c["in-progress"]} · done ${c.done} · blocked ${c.blocked} · rolled-back ${c["rolled-back"]}`; };
-const orderOf = (u: string) => { const m = u.match(/^inv-(\w+)-(\d+)$/); return m ? `${["addy", "matt", "rjm"].indexOf(m[1] ?? "")}-${String(m[2]).padStart(4, "0")}` : u; };
+const orderOf = (u: string) => { const m = u.match(/^(inv|cc)-(\w+)-(\d+)$/); return m ? `${m[1] === "inv" ? 0 : 1}-${["addy", "matt", "rjm"].indexOf(m[2] ?? "")}-${String(m[3]).padStart(4, "0")}` : u; };
 
 function syncState(rows: UnitStatusRow[]) {
   if (!existsSync(STATE)) die(`${STATE} missing`);
   let st = readFileSync(STATE, "utf8");
-  const c = counts(rows);
+  const inv = rows.filter(r => !isConceptUnit(r.unit)), cc = rows.filter(r => isConceptUnit(r.unit));
   const next = rows.find(r => r.status === "in-progress") ?? rows.find(r => r.status === "pending");
-  const block = `### Phase 1 — Inventory units\n\nThe unit table is \`docs/plan/units.md\`, written only by \`bun scripts/synthesis/units.ts\` (\`status\`, \`pending N\`, \`mark\`, \`sync\`). Never read or edit it by hand; ask the script.\n\n| Status | Units |\n|---|---|\n| pending | ${c.pending} |\n| in-progress | ${c["in-progress"]} |\n| done | ${c.done} |\n| blocked | ${c.blocked} |\n| rolled-back | ${c["rolled-back"]} |\n| **total** | **${rows.length}** |\n\n`;
-  const a = st.indexOf("### Phase 1 — Inventory units"); const b = st.indexOf("### Phase 2 — Concept card units");
-  if (a < 0 || b < 0) die("STATE.md: Phase 1 / Phase 2 unit headings not found");
-  st = st.slice(0, a) + block + st.slice(b);
+  const table = (rs: UnitStatusRow[]) => { const c = counts(rs); return `| Status | Units |\n|---|---|\n| pending | ${c.pending} |\n| in-progress | ${c["in-progress"]} |\n| done | ${c.done} |\n| blocked | ${c.blocked} |\n| rolled-back | ${c["rolled-back"]} |\n| **total** | **${rs.length}** |\n\n`; };
+  const block1 = `### Phase 1 — Inventory units\n\nThe unit table is \`docs/plan/units.md\`, written only by \`bun scripts/synthesis/units.ts\` (\`status\`, \`pending N\`, \`mark\`, \`sync\`). Never read or edit it by hand; ask the script.\n\n${table(inv)}`;
+  const block2 = `### Phase 2 — Concept card units\n\nConcept units (\`cc-<pkg>-N\`, up to 30 concept slugs each) come from \`partition-concepts.ts\` (\`docs/analysis/manifest/units-p2.md\`) and share the table and the loop with Phase 1 (D-023).\n\n${cc.length ? table(cc) : "*(not yet partitioned — Phase 2 begins with `partition-concepts.ts` then `units.ts init`)*\n\n"}`;
+  const a = st.indexOf("### Phase 1 — Inventory units"); const b = st.indexOf("### Phase 2 — Concept card units"); const c3 = st.indexOf("### Phase 3 — Concordance families");
+  if (a < 0 || b < 0 || c3 < 0) die("STATE.md: Phase 1 / Phase 2 / Phase 3 unit headings not found");
+  st = st.slice(0, a) + block1 + block2 + st.slice(c3);
   st = st.replace(/\| \*\*current_unit\*\* \| [^|]* \|/, `| **current_unit** | ${next ? next.unit : "—"} |`);
-  const perPkg = (s: string) => ["addy", "matt", "rjm"].map(p => rows.filter(r => r.pkg === p && r.status === s).length).join(" / ");
-  st = st.replace(/\| Inventory units done \(addy \/ matt \/ rjm\) \| [^|]* \|/, `| Inventory units done (addy / matt / rjm) | ${perPkg("done")} |`);
+  const perPkgOf = (rs: UnitStatusRow[], s: string) => ["addy", "matt", "rjm"].map(p => rs.filter(r => r.pkg === p && r.status === s).length).join(" / ");
+  st = st.replace(/\| Inventory units done \(addy \/ matt \/ rjm\) \| [^|]* \|/, `| Inventory units done (addy / matt / rjm) | ${perPkgOf(inv, "done")} |`);
+  if (cc.length) st = st.replace(/\| Concept cards \(addy \/ matt \/ rjm\) \| [^|]* \|/, `| Concept cards (addy / matt / rjm) | units done ${perPkgOf(cc, "done")} of ${["addy", "matt", "rjm"].map(p => cc.filter(r => r.pkg === p).length).join(" / ")} |`);
   writeFileSync(STATE, st);
   console.log(`units: STATE.md synced — ${statusLine(rows)}; current_unit ${next ? next.unit : "—"}`);
 }
 
 if (cmd === "init") {
-  const man = fromManifest(); if (!man.size) die("docs/analysis/manifest/units.md missing or empty — run partition.ts first");
+  const man = fromManifest(); if (!man.size) die("docs/analysis/manifest/units.md missing or empty — run partition.ts first (and partition-concepts.ts for Phase 2)");
   const old = new Map(readUnitStatus().map(r => [r.unit, r]));
   const rows: UnitStatusRow[] = [...man].map(([unit, m]) => {
     const o = old.get(unit);
@@ -103,7 +106,7 @@ if (cmd === "init") {
   for (const u of units) {
     const r = byId.get(u); if (!r) { die(`${u} not in ${TABLE}`); continue; }
     r.status = status; r.session = status === "pending" ? "—" : session;
-    r.output = status === "done" ? `docs/analysis/inventory/${r.pkg}/_units/${u}.md` : status === "pending" ? "—" : r.output;
+    r.output = status === "done" ? reportPathFor(u, r.pkg) : status === "pending" ? "—" : r.output;
     if (status === "done" && !existsSync(r.output)) die(`${u}: cannot mark done — ${r.output} does not exist (R7)`);
   }
   writeFileSync(TABLE, render(rows));
@@ -114,7 +117,10 @@ if (cmd === "init") {
   const units = readUnits(); let missing = 0;
   for (const q of paths) {
     const m = q.match(/^docs\/analysis\/inventory\/([^/]+)\/([^/]+\.md)$/);
-    const hits = m ? units.filter(u => u.pkg === m[1] && slugOf(u.path) === m[2]) : units.filter(u => u.path === q || `sources/${u.pkg}/${u.path}` === q);
+    const mc = q.match(/^docs\/analysis\/concepts\/([^/]+)\/([^/]+)\.md$/);
+    const hits = m ? units.filter(u => !isConceptUnit(u.unit) && u.pkg === m[1] && slugOf(u.path) === m[2])
+      : mc ? units.filter(u => isConceptUnit(u.unit) && u.pkg === mc[1] && u.path === mc[2])
+      : units.filter(u => !isConceptUnit(u.unit) && (u.path === q || `sources/${u.pkg}/${u.path}` === q));
     if (!hits.length) { console.log(`NONE  ${q} — no unit owns this path (a report, divergence card or verification file has no owning unit; a card slug must match a manifest row)`); missing++; continue; }
     for (const h of hits) console.log(`${h.unit}  ${h.pkg}  ${h.path}  ${q}`);
   }
@@ -130,7 +136,7 @@ if (cmd === "init") {
   let removed = 0;
   for (const u of ids) {
     const r = byId.get(u)!;
-    const files = [...units.filter(x => x.unit === u).map(x => `docs/analysis/inventory/${x.pkg}/${slugOf(x.path)}`), `docs/analysis/inventory/${r.pkg}/_units/${u}.md`];
+    const files = [...cardsFor(u, units.filter(x => x.unit === u)), reportPathFor(u, r.pkg)];
     for (const f of files) if (existsSync(f)) { rmSync(f); removed++; console.log(`removed ${f}`); }
     r.status = "pending"; r.session = "—"; r.output = "—";
   }
@@ -151,8 +157,15 @@ if (cmd === "init") {
   for (const r of rows) if (r.status === "done" && !existsSync(r.output)) { console.log(`FAIL ${r.unit} is done but ${r.output} is missing`); bad++; }
   for (const r of rows) if (!(UNIT_STATUSES as readonly string[]).includes(r.status)) { console.log(`FAIL ${r.unit} has unknown status '${r.status}'`); bad++; }
   const st = existsSync(STATE) ? readFileSync(STATE, "utf8") : "";
-  const c = counts(rows);
-  for (const s of UNIT_STATUSES) { const m = st.match(new RegExp(`^\\| ${s} \\| (\\d+) \\|$`, "m")); if (!m || parseInt(m[1] ?? "", 10) !== c[s]) { console.log(`FAIL STATE.md count for ${s} is ${m ? m[1] : "missing"}, table says ${c[s]} — run units.ts sync`); bad++; } }
+  // one count block per phase (D-023): Phase 1 for inv- rows, Phase 2 for cc- rows
+  const blockOf = (start: string, end: string) => { const a = st.indexOf(start), b = st.indexOf(end); return a >= 0 && b > a ? st.slice(a, b) : ""; };
+  const blocks: [string, UnitStatusRow[], string][] = [["Phase 1", rows.filter(r => !isConceptUnit(r.unit)), blockOf("### Phase 1 — Inventory units", "### Phase 2 — Concept card units")]];
+  const ccRows = rows.filter(r => isConceptUnit(r.unit));
+  if (ccRows.length) blocks.push(["Phase 2", ccRows, blockOf("### Phase 2 — Concept card units", "### Phase 3 — Concordance families")]);
+  for (const [label, rs, text] of blocks) {
+    const c = counts(rs);
+    for (const s of UNIT_STATUSES) { const m = text.match(new RegExp(`^\\| ${s} \\| (\\d+) \\|$`, "m")); if (!m || parseInt(m[1] ?? "", 10) !== c[s]) { console.log(`FAIL STATE.md ${label} count for ${s} is ${m ? m[1] : "missing"}, table says ${c[s]} — run units.ts sync`); bad++; } }
+  }
   console.log(bad ? `units: ${bad} failure(s)` : `units: table, manifest and STATE.md agree — ${statusLine(rows)}`);
   process.exit(bad ? 1 : 0);
 } else {

@@ -64,18 +64,74 @@ export function readManifest(pkg: string, dir = "docs/analysis/manifest"): Manif
   return rows;
 }
 
-/** Rows of docs/analysis/manifest/units.md: `| Unit | Package | Path | Bytes |`. */
-export type UnitRow = { unit: string; pkg: string; path: string; bytes: number };
-export function readUnits(file = "docs/analysis/manifest/units.md"): UnitRow[] {
-  if (!existsSync(file)) return [];
+export const UNITS_P1 = "docs/analysis/manifest/units.md";   // Phase 1: inv-<pkg>-N, one row per source file
+export const UNITS_P2 = "docs/analysis/manifest/units-p2.md"; // Phase 2: cc-<pkg>-N, one row per concept slug (D-023)
+export type UnitRow = { unit: string; pkg: string; path: string; bytes: number; type: string; part: string };
+/** Rows of the unit manifests: `| Unit | Package | Path | Bytes | Type | Part |`. With no argument, BOTH phase files
+ *  (Phase 1 units.md, then Phase 2 units-p2.md when it exists) — every consumer (units.ts, budget.ts, memo.ts,
+ *  unit-facts.ts) sees one unit set. For a concept row Path is the concept slug, Bytes the occurrence count, Type
+ *  `concept`, Part the concept's verbatim name. */
+export function readUnits(file?: string): UnitRow[] {
+  const files = file ? [file] : [UNITS_P1, UNITS_P2];
   const rows: UnitRow[] = [];
-  for (const line of readFileSync(file, "utf8").split("\n")) {
-    if (!line.startsWith("| ") || line.startsWith("| Unit")) continue;
-    const c = line.split("|").map(s => s.trim());
-    if (c.length < 5 || !c[1]) continue;
-    rows.push({ unit: c[1], pkg: c[2] ?? "", path: c[3] ?? "", bytes: parseInt(c[4] ?? "", 10) || 0 });
+  for (const f of files) {
+    if (!existsSync(f)) continue;
+    for (const line of readFileSync(f, "utf8").split("\n")) {
+      if (!line.startsWith("| ") || line.startsWith("| Unit")) continue;
+      const c = line.split("|").map(s => s.trim());
+      if (c.length < 5 || !c[1]) continue;
+      rows.push({ unit: c[1], pkg: c[2] ?? "", path: c[3] ?? "", bytes: parseInt(c[4] ?? "", 10) || 0, type: c[5] ?? "", part: c[6] && c[6] !== "—" ? c[6] : "" });
+    }
   }
   return rows;
+}
+export const isConceptUnit = (unit: string) => /^cc-/.test(unit);
+/** The unit report path (§7 step 7 / R7): inventory units report under inventory/<pkg>/_units, concept units under concepts/<pkg>/_units. */
+export function reportPathFor(unit: string, pkg: string): string {
+  return isConceptUnit(unit) ? `docs/analysis/concepts/${pkg}/_units/${unit}.md` : `docs/analysis/inventory/${pkg}/_units/${unit}.md`;
+}
+/** Every card a unit produces (not the report): inventory cards for inv- units, concept cards for cc- units. */
+export function cardsFor(unit: string, rows: UnitRow[] = readUnits().filter(r => r.unit === unit)): string[] {
+  if (!rows.length) return [];
+  const pkg = rows[0]!.pkg;
+  return isConceptUnit(unit) ? rows.map(r => `docs/analysis/concepts/${pkg}/${r.path}.md`) : rows.filter(r => !needsNoCard(r.type)).map(r => `docs/analysis/inventory/${pkg}/${slugOf(r.path)}`);
+}
+
+/** The slug of a concept name as coverage.ts has always computed it: lowercased, runs of non-alphanumerics → `-`. */
+export function conceptSlug(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+export type ConceptOccurrence = { card: string; path: string; line: number; role: string };
+export type Concept = { slug: string; name: string; pkg: string; occurrences: ConceptOccurrence[] };
+/** Every concept a package's inventory names, from the `## Concepts named` sections of its cards, in manifest order
+ *  (D-023). One entry per slug; `name` is the first verbatim spelling seen; occurrences keep card, source path, line, role.
+ *  Deterministic for a fixed tree — the Phase 2 partition and every consumer derive from this. */
+export function conceptIndex(pkg: string): Map<string, Concept> {
+  const idx = new Map<string, Concept>();
+  const dir = `docs/analysis/inventory/${pkg}`;
+  if (!existsSync(dir)) return idx;
+  const listing = new Set(readdirSync(dir).filter(f => f.endsWith(".md") && !f.startsWith("_")));
+  const ordered = readManifest(pkg).map(r => slugOf(r.path)).filter(f => listing.has(f));
+  for (const f of listing) if (!ordered.includes(f)) ordered.push(f); // cards without a manifest row (should not exist) go last
+  for (const f of ordered) {
+    const card = `${dir}/${f}`;
+    const text = readFileSync(card, "utf8");
+    const m = text.match(/^## Concepts named[^\n]*\n([\s\S]*?)(?=^## |$(?![\s\S]))/m);
+    if (!m) continue;
+    for (const line of (m[1] ?? "").split("\n")) {
+      const o = line.match(/^- `([^`]+)`(.*)$/); // the same line shape coverage.ts counts
+      if (!o) continue;
+      const name = o[1] ?? ""; const slug = conceptSlug(name); if (!slug) continue;
+      const rest = o[2] ?? "";
+      const loc = rest.match(/([^\s—`(]+):(\d+)/); // first path:line after the name; absent on a few lines — the card's own path then stands
+      const parts = rest.split(/\s+—\s+/).map(x => x.trim()).filter(Boolean);
+      const role = parts.length ? parts[parts.length - 1]! : "";
+      const c = idx.get(slug) ?? { slug, name, pkg, occurrences: [] };
+      c.occurrences.push({ card, path: loc?.[1] ?? "", line: Number(loc?.[2] ?? 0), role: /:\d+$/.test(role) ? "" : role });
+      idx.set(slug, c);
+    }
+  }
+  return idx;
 }
 
 /** Manifest row types that need no inventory card: a symlink's target has its own rows; a binary asset
@@ -96,7 +152,7 @@ export function readUnitStatus(file = "docs/plan/units.md"): UnitStatusRow[] {
   for (const line of readFileSync(file, "utf8").split("\n")) {
     if (!line.startsWith("| ") || line.startsWith("| Unit")) continue;
     const c = line.split("|").map(s => s.trim());
-    if (c.length < 8 || !c[1] || !/^inv-/.test(c[1])) continue;
+    if (c.length < 8 || !c[1] || !/^(inv|cc)-/.test(c[1])) continue;
     rows.push({ unit: c[1], pkg: c[2] ?? "", files: parseInt(c[3] ?? "", 10) || 0, bytes: parseInt(c[4] ?? "", 10) || 0, status: c[5] ?? "", session: c[6] ?? "", output: c[7] ?? "" });
   }
   return rows;

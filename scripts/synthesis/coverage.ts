@@ -14,9 +14,13 @@
 //   4. R11 (b). Every VARIANT pair in the ledger has a divergence card under _divergence/ whose
 //      `### Hunk` count equals the ledger diff's `@@` hunk count.
 //   5. Concepts (Phase 2+, only once docs/analysis/concepts/<pkg> exists): every backticked name in a
-//      card's "Concepts named" section has a concept card with that slug.
+//      card's "Concepts named" section has a concept card with that slug. Counted as "concepts without card" —
+//      pending work, not a failure, exactly like uncovered manifest rows in Phase 1; Phase 2 is done at zero (D-023).
+//   6. Concept cards (D-023): every concept card's slug is named by some inventory card (no orphan concept cards);
+//      its required sections (Definition, Where used, Implementation status, Design notes) are non-empty; and
+//      docs/analysis/concepts/<pkg>/_index.md, when present, lists every card exactly once (concept-index.ts derives it).
 import { readFileSync, existsSync, readdirSync } from "fs";
-import { PKGS, readManifest, slugOf, parseFrontmatter, sections, walkMd, isSymlink, sourcePath, needsNoCard } from "./_lib";
+import { PKGS, readManifest, slugOf, parseFrontmatter, sections, walkMd, isSymlink, sourcePath, needsNoCard, conceptSlug } from "./_lib";
 
 const quiet = process.argv.includes("--quiet");
 const say = (s: string) => { if (!quiet) console.log(s); };
@@ -44,7 +48,7 @@ function readLedger(pkg: string): Ledger | null {
   return { exact, variants };
 }
 
-const totals = { rows: 0, symlinks: 0, covered: 0, uncovered: 0, emptyRequired: 0, aliasProblems: 0, variantProblems: 0, orphanCards: 0, conceptsMissing: 0 };
+const totals = { rows: 0, symlinks: 0, covered: 0, uncovered: 0, emptyRequired: 0, aliasProblems: 0, variantProblems: 0, orphanCards: 0, conceptsMissing: 0, indexProblems: 0 };
 
 for (const pkg of PKGS) {
   const manifest = readManifest(pkg);
@@ -108,17 +112,38 @@ for (const pkg of PKGS) {
   const cdir = `docs/analysis/concepts/${pkg}`;
   if (existsSync(cdir)) {
     const concepts = new Set(readdirSync(cdir).filter(f => f.endsWith(".md") && !f.startsWith("_")).map(f => f.replace(/\.md$/, "")));
+    const named = new Set<string>(); const missingSlugs = new Set<string>();
     for (const [c, { body }] of cardMeta) {
       const sec = sections(body).find(s => /^Concepts named/.test(s.heading));
       if (!sec) continue;
       for (const m of sec.text.matchAll(/^- `([^`]+)`/gm)) {
-        const slug = (m[1] ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-        if (!concepts.has(slug)) { totals.conceptsMissing++; fail(`${pkg}: concept \`${m[1]}\` named in ${c} has no card ${cdir}/${slug}.md`); }
+        const slug = conceptSlug(m[1] ?? ""); named.add(slug);
+        if (!concepts.has(slug) && !missingSlugs.has(slug)) { missingSlugs.add(slug); if (!quiet) console.log(`UNCOVERED ${pkg}: concept \`${m[1]}\` (named in ${c}) has no card ${cdir}/${slug}.md yet`); }
       }
+    }
+    // like uncovered manifest rows in Phase 1, a concept without a card is work pending, not a failure — Phase 2's
+    // "Done when" is zero here (D-023)
+    totals.conceptsMissing += missingSlugs.size;
+    // 6. concept cards: no orphans, required sections filled, _index.md complete
+    const CONCEPT_REQUIRED = ["Definition", "Where used", "Implementation status", "Design notes"];
+    for (const slug of concepts) {
+      const card = `${cdir}/${slug}.md`;
+      if (!named.has(slug)) { totals.orphanCards++; fail(`${pkg}: concept card ${card} — no inventory card names \`${slug}\``); }
+      const { body } = parseFrontmatter(readFileSync(card, "utf8"));
+      const secs = sections(body);
+      for (const req of CONCEPT_REQUIRED) { const sec = secs.find(s => s.heading.startsWith(req)); if (!sec || sec.text.replace(/\s/g, "") === "") { totals.emptyRequired++; fail(`${pkg}: concept card ${card} — section "${req}" missing or empty`); } }
+    }
+    const indexPath = `${cdir}/_index.md`;
+    if (existsSync(indexPath) && concepts.size) {
+      const listed = [...readFileSync(indexPath, "utf8").matchAll(/\]\(\.\/([^)]+)\.md\)/g)].map(m => m[1] ?? "");
+      const listedSet = new Set(listed);
+      for (const slug of concepts) if (!listedSet.has(slug)) { totals.indexProblems++; fail(`${pkg}: ${indexPath} does not list ${slug}.md — run concept-index.ts`); }
+      for (const l of listedSet) if (!concepts.has(l)) { totals.indexProblems++; fail(`${pkg}: ${indexPath} lists ${l}.md, which does not exist — run concept-index.ts`); }
+      if (listed.length !== listedSet.size) { totals.indexProblems++; fail(`${pkg}: ${indexPath} lists a card more than once — run concept-index.ts`); }
     }
   }
 }
 
-console.log(`coverage: rows ${totals.rows} (${totals.symlinks} symlink/asset/unavailable rows need no card), covered ${totals.covered}, uncovered ${totals.uncovered}, orphan cards ${totals.orphanCards}, empty required ${totals.emptyRequired}, R11 alias problems ${totals.aliasProblems}, R11 variant problems ${totals.variantProblems}, concepts without card ${totals.conceptsMissing}`);
+console.log(`coverage: rows ${totals.rows} (${totals.symlinks} symlink/asset/unavailable rows need no card), covered ${totals.covered}, uncovered ${totals.uncovered}, orphan cards ${totals.orphanCards}, empty required ${totals.emptyRequired}, R11 alias problems ${totals.aliasProblems}, R11 variant problems ${totals.variantProblems}, concepts without card ${totals.conceptsMissing}, index problems ${totals.indexProblems}`);
 console.log(failures ? `coverage: ${failures} failure(s)` : "coverage: clean");
 process.exit(failures ? 1 : 0);

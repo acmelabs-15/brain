@@ -5,24 +5,62 @@
 //
 //   bun scripts/synthesis/unit-facts.ts <unit-id>
 //
-// Prints: the unit's files (absolute path, bytes, lines, sha256), the duplication-ledger rows that touch
+// Inventory unit (inv-*): the unit's files (absolute path, bytes, lines, sha256), the duplication-ledger rows that touch
 // them (aliases and variant pairs), the memo status of each deliverable, and the expected card paths.
+// Concept unit (cc-*, D-023): every concept slug of the unit with its verbatim name and EVERY occurrence the inventory
+// recorded (inventory card, source path:line, role) — the rows a Worker turns into a concept card's `Where used` table —
+// the source files to read at those lines, the expected card paths, and the memo status.
 import { readFileSync, existsSync } from "fs";
 import { resolve } from "path";
 import { execSync } from "child_process";
-import { readUnits, fileSha, slugOf, isFile, sourcePath, isSymlink, needsNoCard } from "./_lib";
+import { readUnits, fileSha, slugOf, isFile, sourcePath, isSymlink, needsNoCard, isConceptUnit, conceptIndex } from "./_lib";
 
 const unit = process.argv[2];
 if (!unit) { console.error("usage: unit-facts.ts <unit-id>"); process.exit(2); }
 const all = readUnits().filter(r => r.unit === unit);
-if (!all.length) { console.error(`unit-facts: ${unit} not in docs/analysis/manifest/units.md`); process.exit(2); }
+if (!all.length) { console.error(`unit-facts: ${unit} not in docs/analysis/manifest/units.md or units-p2.md`); process.exit(2); }
 const pkg = all[0]!.pkg;
-// units.md columns: | Unit | Package | Path | Bytes | Type | Part |
-const typeOf = new Map<string, string>(), partOf = new Map<string, string>();
-for (const line of readFileSync("docs/analysis/manifest/units.md", "utf8").split("\n")) {
-  const c = line.split("|").map(s => s.trim()); if (c[1] !== unit) continue;
-  typeOf.set(c[3] ?? "", c[5] ?? ""); if (c[6] && c[6] !== "—") partOf.set(c[3] ?? "", c[6]);
+const memoCheck = () => {
+  try {
+    const out = execSync(`bun scripts/synthesis/memo.ts check ${unit}`, { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+    console.log(`\n## memo.ts check\n${out.trim()}`);
+  } catch (e: any) {
+    console.log(`\n## memo.ts check\n${String(e.stdout ?? "").trim() || String(e.stderr ?? "").trim()}`);
+  }
+};
+
+if (isConceptUnit(unit)) {
+  const idx = conceptIndex(pkg);
+  console.log(`# unit-facts ${unit} (${pkg}, Phase 2 concept unit) — generated ${new Date().toISOString()}`);
+  console.log(`\nWrite one concept card per slug below from docs/plan/templates/concept-card.md (METHOD §5 Phase 2, R3, R4, R6). The occurrences are every place the inventory recorded the name; each becomes a row of the card's \`Where used\` table, and the definition quote comes from the source at one of them (read the cited lines in the source file, with enough of the surrounding text to quote it byte-exactly). Inventory cards are inputs too: their \`Defects\` fields feed \`Implementation status\`. A name that is an identifier, a file name or a heading rather than a lifecycle concept still gets its card, with \`kind: name-only\` (D-023).`);
+  const srcFiles = new Set<string>(); let occTotal = 0;
+  console.log(`\n## Concepts (${all.length})`);
+  for (const r of all) {
+    const c = idx.get(r.path);
+    if (!c) { console.log(`\n### \`${r.path}\` — MISSING from the inventory index (units-p2.md is stale: run partition-concepts.ts --check)`); continue; }
+    occTotal += c.occurrences.length;
+    console.log(`\n### \`${c.name}\` → docs/analysis/concepts/${pkg}/${c.slug}.md  (${c.occurrences.length} occurrence${c.occurrences.length === 1 ? "" : "s"})`);
+    console.log("| inventory card | source path:line | role |"); console.log("|---|---|---|");
+    for (const o of c.occurrences) {
+      const path = o.path || String((readFileSync(o.card, "utf8").match(/^path:\s*(.+)$/m) || [])[1] ?? "").trim();
+      if (path) srcFiles.add(path);
+      console.log(`| ${o.card} | ${path}${o.line ? `:${o.line}` : ""} | ${o.role || "—"} |`);
+    }
+  }
+  console.log(`\nTotal occurrences: ${occTotal}`);
+  console.log(`\n## Source files cited (${srcFiles.size}) — read the cited lines in each (absolute path, bytes, sha256)`);
+  console.log("| # | path (absolute) | bytes | sha256 |"); console.log("|---|---|---|---|");
+  [...srcFiles].sort().forEach((f, i) => { const p = sourcePath(pkg, f); console.log(isFile(p) ? `| ${i + 1} | ${resolve(p)} | ${readFileSync(p).length} | ${fileSha(p).slice(0, 16)} |` : `| ${i + 1} | ${resolve(p)} | MISSING | — |`); });
+  console.log(`\n## Deliverables`);
+  for (const r of all) console.log(`- docs/analysis/concepts/${pkg}/${r.path}.md`);
+  console.log(`- docs/analysis/concepts/${pkg}/_units/${unit}.md`);
+  memoCheck();
+  process.exit(0);
 }
+
+// ---- inventory unit ----
+const typeOf = new Map<string, string>(), partOf = new Map<string, string>();
+for (const r of all) { typeOf.set(r.path, r.type); if (r.part) partOf.set(r.path, r.part); }
 const rows = all.filter(r => !needsNoCard(typeOf.get(r.path) ?? ""));
 const noCard = all.filter(r => needsNoCard(typeOf.get(r.path) ?? ""));
 
@@ -64,9 +102,4 @@ else {
 console.log(`\n## Deliverables`);
 for (const r of rows) console.log(`- docs/analysis/inventory/${pkg}/${slugOf(r.path)}`);
 console.log(`- docs/analysis/inventory/${pkg}/_units/${unit}.md`);
-try {
-  const out = execSync(`bun scripts/synthesis/memo.ts check ${unit}`, { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
-  console.log(`\n## memo.ts check\n${out.trim()}`);
-} catch (e: any) {
-  console.log(`\n## memo.ts check\n${String(e.stdout ?? "").trim() || String(e.stderr ?? "").trim()}`);
-}
+memoCheck();

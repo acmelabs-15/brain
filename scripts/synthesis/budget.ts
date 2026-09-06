@@ -121,10 +121,10 @@ if (best && R != null && u != null) {
 }
 
 const chosen = probe ?? best;
-const verdict = pending === 0 && inProgress === 0 ? "STOP — nothing pending: Phase 1 dispatch is complete"
+const verdict = pending === 0 && inProgress === 0 ? "STOP — nothing pending in the unit table: this phase's dispatch is complete (Phase 1 → 1V per §5; Phase 2 begins with partition-concepts.ts + units.ts init, D-023)"
   : R == null || u == null ? `DISPATCH 1 × ${Math.min(sizes[0]!, pending)} (per-run and per-unit costs not yet measured: run the smallest size, then budget.ts --measure)`
   : !chosen ? "STOP — no plan fits the headroom: close per §8.3"
-  : `DISPATCH ${chosen.k} run${chosen.k > 1 ? "s" : ""} × ${chosen.n} units (${chosen.units} units, cost ${chosen.cost.toFixed(2)}%)` + (probe ? ` — PROBE: one step above the proven maximum (${maxK} × ${maxN}); a clean result (zero FAIL, zero 429, one Worker per unit at once, wall time within ${params.wall_time_bound_pct}% of ${params.last_clean_wall_minutes ?? "?"} min) raises max_clean_${probe.n > maxN ? "run" : "concurrency"}` : "");
+  : `DISPATCH ${chosen.k} run${chosen.k > 1 ? "s" : ""} × ${chosen.n} units (${chosen.units} units, cost ${chosen.cost.toFixed(2)}%)` + (probe ? ` — PROBE: one step above the proven maximum (${maxK} × ${maxN}); a clean result (zero FAIL, zero 429, one Worker per unit at once${params.last_clean_wall_minutes != null ? `, wall time within ${params.wall_time_bound_pct}% of ${params.last_clean_wall_minutes} min` : " — no wall-time bound yet for this phase: this run's wall time becomes it"}) raises max_clean_${probe.n > maxN ? "run" : "concurrency"}` : "");
 
 const out = {
   conversation_id: conv, model, window_tokens: window, used_pct: +used.toFixed(2), used_tokens: Number.isFinite(window) ? Math.round(window * used / 100) : null,

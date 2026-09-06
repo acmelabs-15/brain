@@ -2,24 +2,24 @@
 
 One per named thing per package (METHOD.md R6). Written to `docs/analysis/concepts/<pkg>/<concept-slug>.md`. A concept used in several files gets **one** card with several usage rows. Fields marked **verbatim** carry the source's exact words.
 
-The slug is the source's own name, lowercased and hyphenated: `how-might-we`, `definition-of-done`, `vertical-slice`. Do not normalise across packages here — that is Phase 3's job. If `addy` says "acceptance criteria" and `rjm` says "AC", they are two cards (`addy/acceptance-criteria.md`, `rjm/ac.md`) until the concordance joins them.
+The slug is exactly the one `unit-facts.ts` prints for the concept (the inventory's name, lowercased, runs of non-alphanumerics → `-`): `how-might-we`, `definition-of-done`, `vertical-slice`. Do not normalise across packages here — that is Phase 3's job. A `name-only` card fills Definition with `(used, not defined)` plus the most definitional usage, Where used in full, Implementation status, and one sentence of Design notes saying why it is not a lifecycle concept; the other sections may say `none`. If `addy` says "acceptance criteria" and `rjm` says "AC", they are two cards (`addy/acceptance-criteria.md`, `rjm/ac.md`) until the concordance joins them.
 
 ```markdown
 ---
 package: addy | matt | rjm
 name: <verbatim, as the source most often writes it>
 slug: <lowercase-hyphenated>
-kind: phase | artifact | technique | gate | role | reference | pattern | checklist | template
+kind: phase | artifact | technique | gate | role | reference | pattern | checklist | template | name-only   # name-only: an identifier, file name, heading or label the inventory recorded that is not a lifecycle concept (D-023) — the card still exists so coverage stays mechanical; Phase 3 filters on kind
 package_phase: <the package's own phase name this belongs to, prefixed: addy:Define>   # or none / cross-phase
 implementation_in_scope: true | false     # false for concepts named by an in-scope file but implemented by an excluded one (rjm memory gate, e.g.)
 deprecated: true | false                  # matt only
-memo_inputs:                              # written by `memo.ts stamp --inputs <every source path cited>`
+memo_inputs:                              # written by `memo.ts stamp-unit` — every source file the inventory cites for this concept, derived from the concept index (D-023)
   - {path: <source path>, sha256: <hex>}
 method_sha: <hex>
 template_sha: <hex>
 model: <model id | unknown>
 effort: <level | unknown>
-verified:                                 # written by the verifier only
+verified:                                 # written by `memo.ts verify <unit>` after quote-check passes — never by a Worker
 ---
 
 # <name>

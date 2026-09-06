@@ -469,4 +469,38 @@ none.
 
 ---
 
+## D-023 — Phase 2 runs on concept units: a deterministic partition of the inventory's named things, in the same table and loop as Phase 1
+
+- **date:** 2026-09-06
+- **made-by:** Peter
+- **session:** — (between sessions 013 and 014; applied by the Phase 2 kit)
+- **status:** active
+- **supersedes:** the Phase 2 mode line of §5 ("one subagent per package, or split by concept family")
+- **resolves:** the `STOP: needs Peter` of session 013 (`docs/plan/sessions/013-concept-cards.md` § For Peter); open question 12; method §5 (Phase 2), §6.3.1, §6.5, §7 steps 5–7, §8.1 step 8, §8.2, §9, §10; `templates/concept-card.md`; `scripts/synthesis/{_lib,partition-concepts,units,unit-facts,memo,coverage,concept-index,budget}.ts`; `budget-params.json`
+
+### Decision
+1. **A Phase 2 work unit is a set of at most 30 concept slugs of one package (`cc-<pkg>-N`), at most 300 occurrence rows.** `partition-concepts.ts` derives the units from the inventory cards' `Concepts named` sections — the very lines `coverage.ts` demands a card for — in first-named order, card by card in manifest order, and persists them in `docs/analysis/manifest/units-p2.md`; `--check` says whether the inventory still produces the same units. The inventory names 13,765 distinct things (addy 1,313 · matt 1,193 · rjm 11,259) → 460 units (44 · 40 · 376). Session 013 was right that "one subagent per package" is not a unit: rjm's 11,259 concepts cannot go to one Worker.
+2. **Concept units live in the same status table and go through the same loop.** `units.ts init` adds them as `pending` next to the Phase 1 rows (`readUnits()` reads both manifests); `budget.ts` counts them; §6.3 item 8 dispatches them; `unit-facts.ts <cc-unit>` prints every concept with its verbatim name and every occurrence (inventory card, source path:line, role), the source files to read, the card paths and the memo status; `memo.ts check` derives a concept card's inputs — every source file the inventory cites for it — from the concept index. Nothing in the driver, the budget or the session protocol changes.
+3. **Per-unit verification replaces per-card.** `memo.ts stamp-unit <unit>` stamps every card of a unit in one call with one line of output; `memo.ts verify <unit>` runs `quote-check.ts --summary` on the unit's cards and, at zero FAIL, writes `verified:` into each — one call, not thirty edits. Both apply to Phase 1 units too. Without this a 30-card unit would have cost the primary conversation thirty stamp lines and thirty edit calls: 13,765 edits over the phase, which no budget survives.
+4. **Every named thing gets a card; a name that is not a lifecycle concept is `kind: name-only`.** Coverage stays mechanical (a concept without a card is *pending work*, counted, not a failure — as an uncovered manifest row was in Phase 1; Phase 2 is done at zero); the judgement of what is and is not a lifecycle concept is made by the Worker with the source in view and recorded on the card, where Phase 3 filters on it. The primary agent decides nothing about individual names.
+5. **`_index.md` is derived** by `concept-index.ts` from the cards' frontmatter at §7 step 7, like the manifests' `Checked` column; `coverage.ts` checks it lists every card once.
+6. **The step-up series restarts for the new kind of unit**: `max_clean_run` 16, `last_clean_wall_minutes` null (the first clean Phase 2 run sets it), `max_clean_concurrency` 1. The first concept run is a 24-unit probe; 32 and 48 follow on clean runs, as in Phase 1. A concept Worker writes 30 cards where an inventory Worker wrote about four; the caps are new, so the sizes are re-proven rather than inherited.
+
+### Adopted from
+Session 013's analysis (the count, the four tool couplings it named — `units.ts`, `budget.ts`, `unit-facts.ts`, §6.5 — all addressed above); METHOD §5 Phase 2 as written (what a card contains, one card per named thing, the index); the Phase 1 experience that per-unit script calls, not per-card edits, are what keep the primary conversation inside its budget (D-010, D-021).
+
+### Dropped
+"One subagent per package, or split by concept family" as the Phase 2 mode. Hand-written `_index.md`. Per-card stamping and `verified:` edits by the primary agent.
+
+### Rejected alternatives
+Filtering the inventory's named things down to "real" concepts before Phase 2 — a judgement the primary agent would make without the sources in view, invisible to coverage, and contrary to R6; `kind: name-only` records the same judgement where it can be checked. Grouping units by concept family — the families are Phase 3's output, not Phase 2's input. Inheriting `max_clean_run 48` from Phase 1 — a different kind of Worker task, so the sizes are re-proven (three conversations at most).
+
+### Evidence
+`docs/plan/sessions/013-concept-cards.md`; `docs/analysis/manifest/units-p2.md` (the partition, reproducible with `partition-concepts.ts --check`); the kit's test run on a copy of the tree at `c0de860`: partition, `units.ts init` (861 units, 416 kept), `unit-facts.ts cc-addy-1`, `memo.ts stamp-unit` / `verify` on two fabricated cards, `coverage.ts` clean with 1,203 concepts pending, type check and 89 tests clean.
+
+### Glossary
+none.
+
+---
+
 <!-- Alignment decisions (D-100+) are appended below this line in Phase 4. -->
