@@ -11,8 +11,8 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `1` |
 | **phase_name** | Inventory |
 | **current_unit** | — |
-| **last_session** | 007 |
-| **next_action** | Re-mark rolled-back units inv-rjm-275..inv-rjm-322 to pending and dispatch per budget.ts recommendation |
+| **last_session** | 008 |
+| **next_action** | Run Phase 1V inventory verification across addy, matt, and rjm |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
