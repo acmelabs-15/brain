@@ -412,96 +412,96 @@
 | .claude/skills/panning-for-gold/scripts/pan.py | 7850 | script | [x] |
 | .claude/skills/panning-for-gold/scripts/synthesis.py | 4106 | script | [x] |
 | .claude/skills/panning-for-gold/SKILL.md | 8880 | skill | [x] |
-| .claude/skills/pipeline-validator/references/error-patterns.md | 5863 | reference | [ ] |
-| .claude/skills/pipeline-validator/SKILL.md | 19220 | skill | [ ] |
-| .claude/skills/planner/references/agent-architecture-patterns.md | 2295 | reference | [ ] |
-| .claude/skills/planner/references/design-pit-of-success.md | 3275 | reference | [ ] |
-| .claude/skills/planner/references/DEVELOPMENT.md | 3945 | reference | [ ] |
-| .claude/skills/planner/references/explainers-and-intents.md | 2815 | reference | [ ] |
-| .claude/skills/planner/references/hybrid-memory-architecture.md | 2215 | reference | [ ] |
-| .claude/skills/planner/references/mental-models-galls-law.md | 2380 | reference | [ ] |
-| .claude/skills/planner/references/strategy-ooda-loop.md | 2463 | reference | [ ] |
-| .claude/skills/planner/resources/default-conventions.md | 3845 | skill | [ ] |
-| .claude/skills/planner/resources/diff-format.md | 8051 | skill | [ ] |
-| .claude/skills/planner/resources/plan-format.md | 6246 | skill | [ ] |
-| .claude/skills/planner/resources/temporal-contamination.md | 6182 | skill | [ ] |
-| .claude/skills/planner/scripts/executor.py | 26627 | script | [ ] |
-| .claude/skills/planner/scripts/planner.py | 26519 | script | [ ] |
-| .claude/skills/planner/SKILL.md | 10562 | skill | [ ] |
-| .claude/skills/pre-mortem/references/mental-models-galls-law.md | 2114 | reference | [ ] |
-| .claude/skills/pre-mortem/references/strategy-ooda-loop.md | 2282 | reference | [ ] |
-| .claude/skills/pre-mortem/scripts/pre-mortem.py | 9931 | script | [ ] |
-| .claude/skills/pre-mortem/SKILL.md | 11068 | skill | [ ] |
-| .claude/skills/pre-mortem/templates/risk-inventory.md | 2963 | skill | [ ] |
-| .claude/skills/programming-advisor/references/bitter-lesson-llms.md | 2999 | reference | [ ] |
-| .claude/skills/programming-advisor/references/common-solutions.md | 5290 | reference | [ ] |
-| .claude/skills/programming-advisor/references/integration-patterns.md | 6330 | reference | [ ] |
-| .claude/skills/programming-advisor/references/pricing-data.md | 5910 | reference | [ ] |
-| .claude/skills/programming-advisor/references/token-estimates.md | 4054 | reference | [ ] |
-| .claude/skills/programming-advisor/SKILL.md | 15591 | skill | [ ] |
-| .claude/skills/prompt-engineer/references/prompt-engineering-multi-turn.md | 29728 | reference | [ ] |
-| .claude/skills/prompt-engineer/references/prompt-engineering-single-turn.md | 82025 | reference | [ ] |
-| .claude/skills/prompt-engineer/references/prompting-ai-detection-cliff.md | 2664 | reference | [ ] |
-| .claude/skills/prompt-engineer/references/prompting-anti-patterns.md | 4371 | reference | [ ] |
-| .claude/skills/prompt-engineer/references/workflow.md | 18782 | reference | [ ] |
-| .claude/skills/prompt-engineer/SKILL.md | 8470 | skill | [ ] |
-| .claude/skills/prose-self-check/scripts/burstiness.py | 5394 | script | [ ] |
-| .claude/skills/prose-self-check/scripts/prose_lint.py | 65128 | script | [ ] |
-| .claude/skills/prose-self-check/SKILL.md | 12884 | skill | [ ] |
-| .claude/skills/quality-grades/references/code-qualities.md | 2638 | reference | [ ] |
-| .claude/skills/quality-grades/references/kiss-principle.md | 2056 | reference | [ ] |
-| .claude/skills/quality-grades/references/solid-principles.md | 1742 | reference | [ ] |
-| .claude/skills/quality-grades/scripts/check_grade_changes.py | 5257 | script | [ ] |
-| .claude/skills/quality-grades/scripts/grade_domains.py | 16908 | script | [ ] |
-| .claude/skills/quality-grades/SKILL.md | 5518 | skill | [ ] |
-| .claude/skills/reflect/references/decision-tree-and-examples.md | 5042 | reference | [ ] |
-| .claude/skills/reflect/references/integration-and-design.md | 4009 | reference | [ ] |
-| .claude/skills/reflect/references/phase2-signal-detection.md | 2858 | reference | [ ] |
-| .claude/skills/reflect/references/phase3-4-propose-persist.md | 7881 | reference | [ ] |
-| .claude/skills/reflect/references/triggers.md | 3089 | reference | [ ] |
-| .claude/skills/reflect/SKILL.md | 5587 | skill | [ ] |
-| .claude/skills/reflect/templates/skill-observations-template.md | 638 | skill | [ ] |
-| .claude/skills/requirements-interview/references/mental-models-circle-of-competence.md | 4574 | reference | [ ] |
-| .claude/skills/requirements-interview/SKILL.md | 7928 | skill | [ ] |
-| .claude/skills/research-and-incorporate/references/workflow.md | 15039 | reference | [ ] |
-| .claude/skills/research-and-incorporate/SKILL.md | 10050 | skill | [ ] |
-| .claude/skills/retrospective/references/diagnosis-and-actions.md | 11208 | reference | [ ] |
-| .claude/skills/retrospective/references/frameworks.md | 12954 | reference | [ ] |
-| .claude/skills/retrospective/references/learning-template.md | 4397 | reference | [ ] |
-| .claude/skills/retrospective/scripts/extract_evidence.py | 15069 | script | [ ] |
-| .claude/skills/retrospective/scripts/run_retrospective.py | 16716 | script | [ ] |
-| .claude/skills/retrospective/scripts/score_atomicity.py | 10304 | script | [ ] |
-| .claude/skills/retrospective/SKILL.md | 11109 | skill | [ ] |
-| .claude/skills/review/references/agent-safety.md | 10078 | reference | [ ] |
-| .claude/skills/review/references/analyst.md | 9248 | reference | [ ] |
-| .claude/skills/review/references/architect.md | 10952 | reference | [ ] |
-| .claude/skills/review/references/code-quality.md | 10623 | reference | [ ] |
-| .claude/skills/review/references/decision-rigor.md | 10750 | reference | [ ] |
-| .claude/skills/review/references/devops.md | 15486 | reference | [ ] |
-| .claude/skills/review/references/observability.md | 9429 | reference | [ ] |
-| .claude/skills/review/references/qa.md | 14023 | reference | [ ] |
-| .claude/skills/review/references/reliability.md | 10147 | reference | [ ] |
-| .claude/skills/review/references/roadmap.md | 9560 | reference | [ ] |
-| .claude/skills/review/references/security.md | 11202 | reference | [ ] |
-| .claude/skills/review/references/spec-compliance.md | 12234 | reference | [ ] |
-| .claude/skills/review/scripts/validate_findings_scope.py | 12013 | script | [ ] |
-| .claude/skills/review/scripts/validate_review_marker.py | 16215 | script | [ ] |
-| .claude/skills/review/SKILL.md | 24362 | skill | [ ] |
-| .claude/skills/reviewer-findings/SKILL.md | 20707 | skill | [ ] |
-| .claude/skills/security-detection/detect_infrastructure.py | 5514 | skill | [ ] |
-| .claude/skills/security-detection/SKILL.md | 6692 | skill | [ ] |
-| .claude/skills/security-review/SKILL.md | 9995 | skill | [ ] |
-| .claude/skills/security-scan/references/agent-guardrails-template.md | 3242 | reference | [ ] |
-| .claude/skills/security-scan/references/agent-memory-inference-leakage.md | 3243 | reference | [ ] |
-| .claude/skills/security-scan/references/autonomous-execution-guardrails.md | 1955 | reference | [ ] |
-| .claude/skills/security-scan/references/vulnerability-patterns.md | 6760 | reference | [ ] |
-| .claude/skills/security-scan/scripts/scan_constants.py | 678 | script | [ ] |
-| .claude/skills/security-scan/scripts/scan_format.py | 4262 | script | [ ] |
-| .claude/skills/security-scan/scripts/scan_patterns.py | 6798 | script | [ ] |
-| .claude/skills/security-scan/scripts/scan_vulnerabilities.py | 19702 | script | [ ] |
-| .claude/skills/security-scan/SKILL.md | 11718 | skill | [ ] |
-| .claude/skills/skillforge/.gitignore | 533 | skill | [ ] |
-| .claude/skills/skillforge/.skillignore | 209 | skill | [ ] |
+| .claude/skills/pipeline-validator/references/error-patterns.md | 5863 | reference | [x] |
+| .claude/skills/pipeline-validator/SKILL.md | 19220 | skill | [x] |
+| .claude/skills/planner/references/agent-architecture-patterns.md | 2295 | reference | [x] |
+| .claude/skills/planner/references/design-pit-of-success.md | 3275 | reference | [x] |
+| .claude/skills/planner/references/DEVELOPMENT.md | 3945 | reference | [x] |
+| .claude/skills/planner/references/explainers-and-intents.md | 2815 | reference | [x] |
+| .claude/skills/planner/references/hybrid-memory-architecture.md | 2215 | reference | [x] |
+| .claude/skills/planner/references/mental-models-galls-law.md | 2380 | reference | [x] |
+| .claude/skills/planner/references/strategy-ooda-loop.md | 2463 | reference | [x] |
+| .claude/skills/planner/resources/default-conventions.md | 3845 | skill | [x] |
+| .claude/skills/planner/resources/diff-format.md | 8051 | skill | [x] |
+| .claude/skills/planner/resources/plan-format.md | 6246 | skill | [x] |
+| .claude/skills/planner/resources/temporal-contamination.md | 6182 | skill | [x] |
+| .claude/skills/planner/scripts/executor.py | 26627 | script | [x] |
+| .claude/skills/planner/scripts/planner.py | 26519 | script | [x] |
+| .claude/skills/planner/SKILL.md | 10562 | skill | [x] |
+| .claude/skills/pre-mortem/references/mental-models-galls-law.md | 2114 | reference | [x] |
+| .claude/skills/pre-mortem/references/strategy-ooda-loop.md | 2282 | reference | [x] |
+| .claude/skills/pre-mortem/scripts/pre-mortem.py | 9931 | script | [x] |
+| .claude/skills/pre-mortem/SKILL.md | 11068 | skill | [x] |
+| .claude/skills/pre-mortem/templates/risk-inventory.md | 2963 | skill | [x] |
+| .claude/skills/programming-advisor/references/bitter-lesson-llms.md | 2999 | reference | [x] |
+| .claude/skills/programming-advisor/references/common-solutions.md | 5290 | reference | [x] |
+| .claude/skills/programming-advisor/references/integration-patterns.md | 6330 | reference | [x] |
+| .claude/skills/programming-advisor/references/pricing-data.md | 5910 | reference | [x] |
+| .claude/skills/programming-advisor/references/token-estimates.md | 4054 | reference | [x] |
+| .claude/skills/programming-advisor/SKILL.md | 15591 | skill | [x] |
+| .claude/skills/prompt-engineer/references/prompt-engineering-multi-turn.md | 29728 | reference | [x] |
+| .claude/skills/prompt-engineer/references/prompt-engineering-single-turn.md | 82025 | reference | [x] |
+| .claude/skills/prompt-engineer/references/prompting-ai-detection-cliff.md | 2664 | reference | [x] |
+| .claude/skills/prompt-engineer/references/prompting-anti-patterns.md | 4371 | reference | [x] |
+| .claude/skills/prompt-engineer/references/workflow.md | 18782 | reference | [x] |
+| .claude/skills/prompt-engineer/SKILL.md | 8470 | skill | [x] |
+| .claude/skills/prose-self-check/scripts/burstiness.py | 5394 | script | [x] |
+| .claude/skills/prose-self-check/scripts/prose_lint.py | 65128 | script | [x] |
+| .claude/skills/prose-self-check/SKILL.md | 12884 | skill | [x] |
+| .claude/skills/quality-grades/references/code-qualities.md | 2638 | reference | [x] |
+| .claude/skills/quality-grades/references/kiss-principle.md | 2056 | reference | [x] |
+| .claude/skills/quality-grades/references/solid-principles.md | 1742 | reference | [x] |
+| .claude/skills/quality-grades/scripts/check_grade_changes.py | 5257 | script | [x] |
+| .claude/skills/quality-grades/scripts/grade_domains.py | 16908 | script | [x] |
+| .claude/skills/quality-grades/SKILL.md | 5518 | skill | [x] |
+| .claude/skills/reflect/references/decision-tree-and-examples.md | 5042 | reference | [x] |
+| .claude/skills/reflect/references/integration-and-design.md | 4009 | reference | [x] |
+| .claude/skills/reflect/references/phase2-signal-detection.md | 2858 | reference | [x] |
+| .claude/skills/reflect/references/phase3-4-propose-persist.md | 7881 | reference | [x] |
+| .claude/skills/reflect/references/triggers.md | 3089 | reference | [x] |
+| .claude/skills/reflect/SKILL.md | 5587 | skill | [x] |
+| .claude/skills/reflect/templates/skill-observations-template.md | 638 | skill | [x] |
+| .claude/skills/requirements-interview/references/mental-models-circle-of-competence.md | 4574 | reference | [x] |
+| .claude/skills/requirements-interview/SKILL.md | 7928 | skill | [x] |
+| .claude/skills/research-and-incorporate/references/workflow.md | 15039 | reference | [x] |
+| .claude/skills/research-and-incorporate/SKILL.md | 10050 | skill | [x] |
+| .claude/skills/retrospective/references/diagnosis-and-actions.md | 11208 | reference | [x] |
+| .claude/skills/retrospective/references/frameworks.md | 12954 | reference | [x] |
+| .claude/skills/retrospective/references/learning-template.md | 4397 | reference | [x] |
+| .claude/skills/retrospective/scripts/extract_evidence.py | 15069 | script | [x] |
+| .claude/skills/retrospective/scripts/run_retrospective.py | 16716 | script | [x] |
+| .claude/skills/retrospective/scripts/score_atomicity.py | 10304 | script | [x] |
+| .claude/skills/retrospective/SKILL.md | 11109 | skill | [x] |
+| .claude/skills/review/references/agent-safety.md | 10078 | reference | [x] |
+| .claude/skills/review/references/analyst.md | 9248 | reference | [x] |
+| .claude/skills/review/references/architect.md | 10952 | reference | [x] |
+| .claude/skills/review/references/code-quality.md | 10623 | reference | [x] |
+| .claude/skills/review/references/decision-rigor.md | 10750 | reference | [x] |
+| .claude/skills/review/references/devops.md | 15486 | reference | [x] |
+| .claude/skills/review/references/observability.md | 9429 | reference | [x] |
+| .claude/skills/review/references/qa.md | 14023 | reference | [x] |
+| .claude/skills/review/references/reliability.md | 10147 | reference | [x] |
+| .claude/skills/review/references/roadmap.md | 9560 | reference | [x] |
+| .claude/skills/review/references/security.md | 11202 | reference | [x] |
+| .claude/skills/review/references/spec-compliance.md | 12234 | reference | [x] |
+| .claude/skills/review/scripts/validate_findings_scope.py | 12013 | script | [x] |
+| .claude/skills/review/scripts/validate_review_marker.py | 16215 | script | [x] |
+| .claude/skills/review/SKILL.md | 24362 | skill | [x] |
+| .claude/skills/reviewer-findings/SKILL.md | 20707 | skill | [x] |
+| .claude/skills/security-detection/detect_infrastructure.py | 5514 | skill | [x] |
+| .claude/skills/security-detection/SKILL.md | 6692 | skill | [x] |
+| .claude/skills/security-review/SKILL.md | 9995 | skill | [x] |
+| .claude/skills/security-scan/references/agent-guardrails-template.md | 3242 | reference | [x] |
+| .claude/skills/security-scan/references/agent-memory-inference-leakage.md | 3243 | reference | [x] |
+| .claude/skills/security-scan/references/autonomous-execution-guardrails.md | 1955 | reference | [x] |
+| .claude/skills/security-scan/references/vulnerability-patterns.md | 6760 | reference | [x] |
+| .claude/skills/security-scan/scripts/scan_constants.py | 678 | script | [x] |
+| .claude/skills/security-scan/scripts/scan_format.py | 4262 | script | [x] |
+| .claude/skills/security-scan/scripts/scan_patterns.py | 6798 | script | [x] |
+| .claude/skills/security-scan/scripts/scan_vulnerabilities.py | 19702 | script | [x] |
+| .claude/skills/security-scan/SKILL.md | 11718 | skill | [x] |
+| .claude/skills/skillforge/.gitignore | 533 | skill | [x] |
+| .claude/skills/skillforge/.skillignore | 209 | skill | [x] |
 | .claude/skills/skillforge/assets/images/01-title.png | 1224996 | asset | [x] (asset) |
 | .claude/skills/skillforge/assets/images/02-quality-gap.png | 1226842 | asset | [x] (asset) |
 | .claude/skills/skillforge/assets/images/03-quality-built-in.png | 1340304 | asset | [x] (asset) |
@@ -515,40 +515,40 @@
 | .claude/skills/skillforge/assets/images/11-directory-structure.png | 1019432 | asset | [x] (asset) |
 | .claude/skills/skillforge/assets/images/12-installation.png | 859861 | asset | [x] (asset) |
 | .claude/skills/skillforge/assets/images/13-closing.png | 1209017 | asset | [x] (asset) |
-| .claude/skills/skillforge/assets/templates/script-template.py | 8733 | skill | [ ] |
-| .claude/skills/skillforge/assets/templates/skill-md-template.md | 1478 | skill | [ ] |
-| .claude/skills/skillforge/assets/templates/skill-spec-template.xml | 17558 | skill | [ ] |
-| .claude/skills/skillforge/references/architecture-patterns.md | 1067 | reference | [ ] |
-| .claude/skills/skillforge/references/changelog.md | 1998 | reference | [ ] |
-| .claude/skills/skillforge/references/configuration.md | 530 | reference | [ ] |
-| .claude/skills/skillforge/references/degrees-of-freedom.md | 4428 | reference | [ ] |
-| .claude/skills/skillforge/references/evolution-scoring.md | 8675 | reference | [ ] |
-| .claude/skills/skillforge/references/evolution-timelessness.md | 1126 | reference | [ ] |
-| .claude/skills/skillforge/references/external-skill-source-adaptation.md | 3744 | reference | [ ] |
-| .claude/skills/skillforge/references/iteration-guide.md | 3449 | reference | [ ] |
-| .claude/skills/skillforge/references/modularity-guidelines.md | 3970 | reference | [ ] |
-| .claude/skills/skillforge/references/multi-lens-framework.md | 10549 | reference | [ ] |
-| .claude/skills/skillforge/references/output-structure.md | 5753 | reference | [ ] |
-| .claude/skills/skillforge/references/overview-and-triggers.md | 5742 | reference | [ ] |
-| .claude/skills/skillforge/references/phase0-triage.md | 6246 | reference | [ ] |
-| .claude/skills/skillforge/references/phase1-analysis-deep-dive.md | 5859 | reference | [ ] |
-| .claude/skills/skillforge/references/phase2-specification-deep-dive.md | 2011 | reference | [ ] |
-| .claude/skills/skillforge/references/phase3-generation-deep-dive.md | 2336 | reference | [ ] |
-| .claude/skills/skillforge/references/phase4-synthesis-deep-dive.md | 2619 | reference | [ ] |
-| .claude/skills/skillforge/references/regression-questions.md | 11227 | reference | [ ] |
-| .claude/skills/skillforge/references/script-integration-framework.md | 17457 | reference | [ ] |
-| .claude/skills/skillforge/references/script-patterns-catalog.md | 21550 | reference | [ ] |
-| .claude/skills/skillforge/references/specification-template.md | 16523 | reference | [ ] |
-| .claude/skills/skillforge/references/synthesis-protocol.md | 18142 | reference | [ ] |
-| .claude/skills/skillforge/scripts/_constants.py | 3038 | script | [ ] |
-| .claude/skills/skillforge/scripts/check_docs_safety.py | 2290 | script | [ ] |
-| .claude/skills/skillforge/scripts/discover_skills.py | 16523 | script | [ ] |
-| .claude/skills/skillforge/scripts/frontmatter.py | 1087 | script | [ ] |
-| .claude/skills/skillforge/scripts/init_skill.py | 10511 | script | [ ] |
-| .claude/skills/skillforge/scripts/package_skill.py | 6012 | script | [ ] |
-| .claude/skills/skillforge/scripts/quick_validate.py | 12925 | script | [ ] |
-| .claude/skills/skillforge/scripts/skill_modularity_audit.py | 13332 | script | [ ] |
-| .claude/skills/skillforge/scripts/triage_skill_request.py | 29094 | script | [ ] |
+| .claude/skills/skillforge/assets/templates/script-template.py | 8733 | skill | [x] |
+| .claude/skills/skillforge/assets/templates/skill-md-template.md | 1478 | skill | [x] |
+| .claude/skills/skillforge/assets/templates/skill-spec-template.xml | 17558 | skill | [x] |
+| .claude/skills/skillforge/references/architecture-patterns.md | 1067 | reference | [x] |
+| .claude/skills/skillforge/references/changelog.md | 1998 | reference | [x] |
+| .claude/skills/skillforge/references/configuration.md | 530 | reference | [x] |
+| .claude/skills/skillforge/references/degrees-of-freedom.md | 4428 | reference | [x] |
+| .claude/skills/skillforge/references/evolution-scoring.md | 8675 | reference | [x] |
+| .claude/skills/skillforge/references/evolution-timelessness.md | 1126 | reference | [x] |
+| .claude/skills/skillforge/references/external-skill-source-adaptation.md | 3744 | reference | [x] |
+| .claude/skills/skillforge/references/iteration-guide.md | 3449 | reference | [x] |
+| .claude/skills/skillforge/references/modularity-guidelines.md | 3970 | reference | [x] |
+| .claude/skills/skillforge/references/multi-lens-framework.md | 10549 | reference | [x] |
+| .claude/skills/skillforge/references/output-structure.md | 5753 | reference | [x] |
+| .claude/skills/skillforge/references/overview-and-triggers.md | 5742 | reference | [x] |
+| .claude/skills/skillforge/references/phase0-triage.md | 6246 | reference | [x] |
+| .claude/skills/skillforge/references/phase1-analysis-deep-dive.md | 5859 | reference | [x] |
+| .claude/skills/skillforge/references/phase2-specification-deep-dive.md | 2011 | reference | [x] |
+| .claude/skills/skillforge/references/phase3-generation-deep-dive.md | 2336 | reference | [x] |
+| .claude/skills/skillforge/references/phase4-synthesis-deep-dive.md | 2619 | reference | [x] |
+| .claude/skills/skillforge/references/regression-questions.md | 11227 | reference | [x] |
+| .claude/skills/skillforge/references/script-integration-framework.md | 17457 | reference | [x] |
+| .claude/skills/skillforge/references/script-patterns-catalog.md | 21550 | reference | [x] |
+| .claude/skills/skillforge/references/specification-template.md | 16523 | reference | [x] |
+| .claude/skills/skillforge/references/synthesis-protocol.md | 18142 | reference | [x] |
+| .claude/skills/skillforge/scripts/_constants.py | 3038 | script | [x] |
+| .claude/skills/skillforge/scripts/check_docs_safety.py | 2290 | script | [x] |
+| .claude/skills/skillforge/scripts/discover_skills.py | 16523 | script | [x] |
+| .claude/skills/skillforge/scripts/frontmatter.py | 1087 | script | [x] |
+| .claude/skills/skillforge/scripts/init_skill.py | 10511 | script | [x] |
+| .claude/skills/skillforge/scripts/package_skill.py | 6012 | script | [x] |
+| .claude/skills/skillforge/scripts/quick_validate.py | 12925 | script | [x] |
+| .claude/skills/skillforge/scripts/skill_modularity_audit.py | 13332 | script | [x] |
+| .claude/skills/skillforge/scripts/triage_skill_request.py | 29094 | script | [x] |
 | .claude/skills/skillforge/scripts/validate-skill.py | 31236 | script | [ ] |
 | .claude/skills/skillforge/SKILL.md | 16036 | skill | [ ] |
 | .claude/skills/skillforge/TRANSFORMATION_NOTES.md | 10871 | skill | [ ] |
