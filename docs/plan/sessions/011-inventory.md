@@ -12,7 +12,7 @@ prefix_hash_start: 35b54a71dd713660
 prefix_hash_end: 35b54a71dd713660
 context_used_start: 8.58%
 context_used_peak: 8.58%
-runs: [p1-run-18 (1 × 48)]
+runs: [p1-run-18 (1 × 48), p1-run-19 (1 × 1)]
 compactions: 0
 ---
 
