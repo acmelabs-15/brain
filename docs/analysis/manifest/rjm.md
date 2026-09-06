@@ -3,9 +3,9 @@
 | .agents/AGENT-SYSTEM.md | 53992 | agent | [x] |
 | .agents/analysis/002-project-constraints-consolidation.md | 34898 | agent | [x] |
 | .agents/analysis/adr-045-feasibility-analysis.md | 14627 | agent | [x] |
-| .agents/analysis/adr-045-inventory-audit.md | 26808 | agent | [x] |
-| .agents/analysis/claude-code-plugin-marketplaces.md | 10131 | agent | [x] |
-| .agents/analysis/claude-flow-architecture-analysis.md | 8800 | agent | [x] |
+| .agents/analysis/adr-045-inventory-audit.md | 26808 | agent | [ ] |
+| .agents/analysis/claude-code-plugin-marketplaces.md | 10131 | agent | [ ] |
+| .agents/analysis/claude-flow-architecture-analysis.md | 8800 | agent | [ ] |
 | .agents/analysis/vercel-passive-context-vs-skills-research.md | 9718 | agent | [x] |
 | .agents/architecture/ADR-001-markdown-linting.md | 4386 | agent | [x] |
 | .agents/architecture/ADR-002-agent-model-selection-optimization.md | 10216 | agent | [x] |
@@ -180,12 +180,12 @@
 | .claude/agents/milestone-planner.md | 6740 | agent | [x] |
 | .claude/agents/negotiation.md | 7717 | agent | [x] |
 | .claude/agents/orchestrator.md | 28813 | agent | [x] |
-| .claude/agents/qa.md | 30944 | agent | [x] |
-| .claude/agents/quality-auditor.md | 3892 | agent | [x] |
+| .claude/agents/qa.md | 30944 | agent | [ ] |
+| .claude/agents/quality-auditor.md | 3892 | agent | [ ] |
 | .claude/agents/retrospective.md | 46695 | agent | [x] |
-| .claude/agents/roadmap.md | 6805 | agent | [x] |
-| .claude/agents/security.md | 36096 | agent | [x] |
-| .claude/agents/security/references/dependency-risk-scoring.md | 921 | agent | [x] |
+| .claude/agents/roadmap.md | 6805 | agent | [ ] |
+| .claude/agents/security.md | 36096 | agent | [ ] |
+| .claude/agents/security/references/dependency-risk-scoring.md | 921 | agent | [ ] |
 | .claude/agents/security/references/powershell-security-checklist.md | 7286 | agent | [x] |
 | .claude/agents/security/references/threat-model-template.md | 774 | agent | [x] |
 | .claude/agents/silent-failure-hunter.md | 11659 | agent | [x] |
@@ -252,16 +252,16 @@
 | .claude/skills/ai-agents-validation-and-qa/SKILL.md | 16960 | skill | [x] |
 | .claude/skills/analysis-provenance/scripts/check_provenance.py | 12659 | script | [x] |
 | .claude/skills/analysis-provenance/SKILL.md | 8721 | skill | [x] |
-| .claude/skills/analyze/references/agent-architecture-patterns.md | 2232 | reference | [x] |
-| .claude/skills/analyze/references/context-budget-management.md | 1705 | reference | [x] |
-| .claude/skills/analyze/references/design-legacy-code.md | 2326 | reference | [x] |
-| .claude/skills/analyze/references/design-tell-dont-ask.md | 2271 | reference | [x] |
-| .claude/skills/analyze/references/DEVELOPMENT.md | 2439 | reference | [x] |
-| .claude/skills/analyze/references/engineering-complexity-tiers.md | 5079 | reference | [x] |
-| .claude/skills/analyze/references/quality-boy-scout-rule.md | 1962 | reference | [x] |
-| .claude/skills/analyze/references/reliability-observability-pillars.md | 2988 | reference | [x] |
-| .claude/skills/analyze/references/strategy-ooda-loop.md | 2327 | reference | [x] |
-| .claude/skills/analyze/scripts/analyze.py | 26407 | script | [x] |
+| .claude/skills/analyze/references/agent-architecture-patterns.md | 2232 | reference | [ ] |
+| .claude/skills/analyze/references/context-budget-management.md | 1705 | reference | [ ] |
+| .claude/skills/analyze/references/design-legacy-code.md | 2326 | reference | [ ] |
+| .claude/skills/analyze/references/design-tell-dont-ask.md | 2271 | reference | [ ] |
+| .claude/skills/analyze/references/DEVELOPMENT.md | 2439 | reference | [ ] |
+| .claude/skills/analyze/references/engineering-complexity-tiers.md | 5079 | reference | [ ] |
+| .claude/skills/analyze/references/quality-boy-scout-rule.md | 1962 | reference | [ ] |
+| .claude/skills/analyze/references/reliability-observability-pillars.md | 2988 | reference | [ ] |
+| .claude/skills/analyze/references/strategy-ooda-loop.md | 2327 | reference | [ ] |
+| .claude/skills/analyze/scripts/analyze.py | 26407 | script | [ ] |
 | .claude/skills/analyze/SKILL.md | 7180 | skill | [x] |
 | .claude/skills/autoplan/SKILL.md | 11922 | skill | [x] |
 | .claude/skills/avoiding-manufactured-work/SKILL.md | 1853 | skill | [x] |
@@ -389,14 +389,14 @@
 | .claude/skills/metrics/SKILL.md | 7454 | skill | [x] |
 | .claude/skills/negotiation/references/skills.md | 11804 | reference | [x] |
 | .claude/skills/negotiation/SKILL.md | 5293 | skill | [x] |
-| .claude/skills/observability/references/distributed-systems-fallacies.md | 3765 | reference | [x] |
-| .claude/skills/observability/references/otel-migration-reference.md | 3606 | reference | [x] |
-| .claude/skills/observability/references/otel-semantic-conventions.md | 3474 | reference | [x] |
-| .claude/skills/observability/references/prometheus-recording-rules.md | 3493 | reference | [x] |
-| .claude/skills/observability/references/three-pillars-reference.md | 2985 | reference | [x] |
-| .claude/skills/observability/schema.json | 3163 | skill | [x] |
-| .claude/skills/observability/scripts/query_logs.py | 8860 | script | [x] |
-| .claude/skills/observability/SKILL.md | 6308 | skill | [x] |
+| .claude/skills/observability/references/distributed-systems-fallacies.md | 3765 | reference | [ ] |
+| .claude/skills/observability/references/otel-migration-reference.md | 3606 | reference | [ ] |
+| .claude/skills/observability/references/otel-semantic-conventions.md | 3474 | reference | [ ] |
+| .claude/skills/observability/references/prometheus-recording-rules.md | 3493 | reference | [ ] |
+| .claude/skills/observability/references/three-pillars-reference.md | 2985 | reference | [ ] |
+| .claude/skills/observability/schema.json | 3163 | skill | [ ] |
+| .claude/skills/observability/scripts/query_logs.py | 8860 | script | [ ] |
+| .claude/skills/observability/SKILL.md | 6308 | skill | [ ] |
 | .claude/skills/orphan-ref-validator/scripts/__init__.py | 625 | script | [x] |
 | .claude/skills/orphan-ref-validator/scripts/counts.py | 4325 | script | [x] |
 | .claude/skills/orphan-ref-validator/scripts/envelope.py | 9867 | script | [x] |
@@ -433,12 +433,12 @@
 | .claude/skills/pre-mortem/scripts/pre-mortem.py | 9931 | script | [x] |
 | .claude/skills/pre-mortem/SKILL.md | 11068 | skill | [x] |
 | .claude/skills/pre-mortem/templates/risk-inventory.md | 2963 | skill | [x] |
-| .claude/skills/programming-advisor/references/bitter-lesson-llms.md | 2999 | reference | [x] |
-| .claude/skills/programming-advisor/references/common-solutions.md | 5290 | reference | [x] |
-| .claude/skills/programming-advisor/references/integration-patterns.md | 6330 | reference | [x] |
-| .claude/skills/programming-advisor/references/pricing-data.md | 5910 | reference | [x] |
-| .claude/skills/programming-advisor/references/token-estimates.md | 4054 | reference | [x] |
-| .claude/skills/programming-advisor/SKILL.md | 15591 | skill | [x] |
+| .claude/skills/programming-advisor/references/bitter-lesson-llms.md | 2999 | reference | [ ] |
+| .claude/skills/programming-advisor/references/common-solutions.md | 5290 | reference | [ ] |
+| .claude/skills/programming-advisor/references/integration-patterns.md | 6330 | reference | [ ] |
+| .claude/skills/programming-advisor/references/pricing-data.md | 5910 | reference | [ ] |
+| .claude/skills/programming-advisor/references/token-estimates.md | 4054 | reference | [ ] |
+| .claude/skills/programming-advisor/SKILL.md | 15591 | skill | [ ] |
 | .claude/skills/prompt-engineer/references/prompt-engineering-multi-turn.md | 29728 | reference | [x] |
 | .claude/skills/prompt-engineer/references/prompt-engineering-single-turn.md | 82025 | reference | [x] |
 | .claude/skills/prompt-engineer/references/prompting-ai-detection-cliff.md | 2664 | reference | [x] |
@@ -566,20 +566,20 @@
 | .claude/skills/software-engineering-library/references/enterprise-patterns.md | 11327 | reference | [x] |
 | .claude/skills/software-engineering-library/references/philosophy-of-software-design.md | 14362 | reference | [x] |
 | .claude/skills/software-engineering-library/references/refactoring.md | 13191 | reference | [x] |
-| .claude/skills/software-engineering-library/references/release-it.md | 18625 | reference | [x] |
-| .claude/skills/software-engineering-library/references/working-with-legacy-code.md | 14009 | reference | [x] |
-| .claude/skills/software-engineering-library/SKILL.md | 4840 | skill | [x] |
+| .claude/skills/software-engineering-library/references/release-it.md | 18625 | reference | [ ] |
+| .claude/skills/software-engineering-library/references/working-with-legacy-code.md | 14009 | reference | [ ] |
+| .claude/skills/software-engineering-library/SKILL.md | 4840 | skill | [ ] |
 | .claude/skills/spec-generator/references/spec-prior-art-schema.md | 38288 | reference | [x] |
 | .claude/skills/spec-generator/references/spec-schemas.md | 14040 | reference | [x] |
 | .claude/skills/spec-generator/references/spec-step0-gates.md | 13193 | reference | [x] |
 | .claude/skills/spec-generator/scripts/validate_spec_frontmatter.py | 8387 | script | [x] |
 | .claude/skills/spec-generator/SKILL.md | 12931 | skill | [x] |
-| .claude/skills/steering-matcher/get_applicable_steering.py | 5184 | skill | [x] |
-| .claude/skills/steering-matcher/scripts/get_applicable_steering.py | 5494 | script | [x] |
-| .claude/skills/steering-matcher/SKILL.md | 4840 | skill | [x] |
-| .claude/skills/steering-matcher/steering-matcher.skill | 429 | skill | [x] |
-| .claude/skills/stuck-detection/SKILL.md | 6874 | skill | [x] |
-| .claude/skills/stuck-detection/stuck_detection.py | 11192 | skill | [x] |
+| .claude/skills/steering-matcher/get_applicable_steering.py | 5184 | skill | [ ] |
+| .claude/skills/steering-matcher/scripts/get_applicable_steering.py | 5494 | script | [ ] |
+| .claude/skills/steering-matcher/SKILL.md | 4840 | skill | [ ] |
+| .claude/skills/steering-matcher/steering-matcher.skill | 429 | skill | [ ] |
+| .claude/skills/stuck-detection/SKILL.md | 6874 | skill | [ ] |
+| .claude/skills/stuck-detection/stuck_detection.py | 11192 | skill | [ ] |
 | .claude/skills/style-enforcement/references/dotnet-monorepo-standards.md | 3566 | reference | [x] |
 | .claude/skills/style-enforcement/scripts/check_style.py | 25571 | script | [x] |
 | .claude/skills/style-enforcement/SKILL.md | 12088 | skill | [x] |
@@ -594,9 +594,9 @@
 | .claude/skills/threat-modeling/references/stride-methodology.md | 5003 | reference | [x] |
 | .claude/skills/threat-modeling/scripts/generate_mitigation_roadmap.py | 9837 | script | [x] |
 | .claude/skills/threat-modeling/scripts/generate_threat_matrix.py | 6551 | script | [x] |
-| .claude/skills/threat-modeling/scripts/validate_threat_model.py | 11244 | script | [x] |
-| .claude/skills/threat-modeling/SKILL.md | 16191 | skill | [x] |
-| .claude/skills/threat-modeling/templates/threat-model-template.md | 9202 | skill | [x] |
+| .claude/skills/threat-modeling/scripts/validate_threat_model.py | 11244 | script | [ ] |
+| .claude/skills/threat-modeling/SKILL.md | 16191 | skill | [ ] |
+| .claude/skills/threat-modeling/templates/threat-model-template.md | 9202 | skill | [ ] |
 | .claude/skills/validation-authority/SKILL.md | 5434 | skill | [x] |
 | .claude/skills/windows-image-updater/references/troubleshooting.md | 2186 | reference | [x] |
 | .claude/skills/windows-image-updater/SKILL.md | 7091 | skill | [x] |
@@ -664,18 +664,18 @@
 | docs/skill-reference.md | 9268 | doc | [x] |
 | docs/spec-quality/hedge-phrases.md | 9252 | doc | [x] |
 | docs/task-classification-guide.md | 9276 | doc | [x] |
-| docs/technical-guardrails.md | 8466 | doc | [x] |
-| docs/third-party-license-attribution.md | 4463 | doc | [x] |
-| docs/when-to-use.md | 7161 | doc | [x] |
-| docs/workflow-commands.md | 7471 | doc | [x] |
-| docs/WORKFLOW-VALIDATION.md | 5052 | doc | [x] |
-| pyproject.toml | 12299 | config | [x] |
-| README.md | 29662 | doc | [x] |
-| scripts/__init__.py | 37 | script | [x] |
-| scripts/AGENTS.md | 8224 | script | [x] |
-| scripts/ai_review_common/__init__.py | 2115 | script | [x] |
-| scripts/ai_review_common/cache_guard.py | 5630 | script | [x] |
-| scripts/ai_review_common/feature_review.py | 4232 | script | [x] |
+| docs/technical-guardrails.md | 8466 | doc | [ ] |
+| docs/third-party-license-attribution.md | 4463 | doc | [ ] |
+| docs/when-to-use.md | 7161 | doc | [ ] |
+| docs/workflow-commands.md | 7471 | doc | [ ] |
+| docs/WORKFLOW-VALIDATION.md | 5052 | doc | [ ] |
+| pyproject.toml | 12299 | config | [ ] |
+| README.md | 29662 | doc | [ ] |
+| scripts/__init__.py | 37 | script | [ ] |
+| scripts/AGENTS.md | 8224 | script | [ ] |
+| scripts/ai_review_common/__init__.py | 2115 | script | [ ] |
+| scripts/ai_review_common/cache_guard.py | 5630 | script | [ ] |
+| scripts/ai_review_common/feature_review.py | 4232 | script | [ ] |
 | scripts/ai_review_common/issue_triage.py | 5930 | script | [x] |
 | scripts/ai_review_common/quality_gate.py | 715 | script | [x] |
 | scripts/ai_review_common/retry.py | 2777 | script | [x] |
@@ -700,34 +700,34 @@
 | scripts/ci/build_retrospective_prompt.py | 2952 | script | [x] |
 | scripts/ci/check_ai_review_infra_gate.py | 5148 | script | [x] |
 | scripts/ci/check_bot_identity.py | 9119 | script | [x] |
-| scripts/ci/check_claude_authorization.py | 3643 | script | [x] |
-| scripts/ci/check_codeql_sarif.py | 6889 | script | [x] |
-| scripts/ci/check_metrics_thresholds.py | 3205 | script | [x] |
-| scripts/ci/check_plugin_lib_mirrors.py | 1323 | script | [x] |
-| scripts/ci/check_pr_merge_state.py | 5233 | script | [x] |
-| scripts/ci/classify_semantic_title_result.py | 6309 | script | [x] |
-| scripts/ci/cli_exit_contract_baseline.txt | 3 | script | [x] |
-| scripts/ci/cli_exit_contract_coverage.py | 17656 | script | [x] |
-| scripts/ci/cli_exit_contract_ratchet.py | 7547 | script | [x] |
-| scripts/ci/codeql_integration_summary.py | 2983 | script | [x] |
-| scripts/ci/collect_ai_metrics.py | 3643 | script | [x] |
-| scripts/ci/collect_metrics_and_report.py | 2691 | script | [x] |
-| scripts/ci/combine_pin_coverage.py | 10272 | script | [x] |
-| scripts/ci/commit_and_push.py | 3903 | script | [x] |
+| scripts/ci/check_claude_authorization.py | 3643 | script | [ ] |
+| scripts/ci/check_codeql_sarif.py | 6889 | script | [ ] |
+| scripts/ci/check_metrics_thresholds.py | 3205 | script | [ ] |
+| scripts/ci/check_plugin_lib_mirrors.py | 1323 | script | [ ] |
+| scripts/ci/check_pr_merge_state.py | 5233 | script | [ ] |
+| scripts/ci/classify_semantic_title_result.py | 6309 | script | [ ] |
+| scripts/ci/cli_exit_contract_baseline.txt | 3 | script | [ ] |
+| scripts/ci/cli_exit_contract_coverage.py | 17656 | script | [ ] |
+| scripts/ci/cli_exit_contract_ratchet.py | 7547 | script | [ ] |
+| scripts/ci/codeql_integration_summary.py | 2983 | script | [ ] |
+| scripts/ci/collect_ai_metrics.py | 3643 | script | [ ] |
+| scripts/ci/collect_metrics_and_report.py | 2691 | script | [ ] |
+| scripts/ci/combine_pin_coverage.py | 10272 | script | [ ] |
+| scripts/ci/commit_and_push.py | 3903 | script | [ ] |
 | scripts/ci/count_ratchet.py | 47457 | script | [x] |
 | scripts/ci/detect_human_changes_requested.py | 2466 | script | [x] |
-| scripts/ci/determine_placeholder_range.py | 1525 | script | [x] |
-| scripts/ci/diagnose_copilot_cli.py | 8788 | script | [x] |
-| scripts/ci/diff_line_scope.py | 10035 | script | [x] |
-| scripts/ci/drift_collect_details.py | 2875 | script | [x] |
-| scripts/ci/drift_create_alert_issue.py | 3256 | script | [x] |
-| scripts/ci/drift_run_detection.py | 1954 | script | [x] |
-| scripts/ci/drift_write_summary.py | 1932 | script | [x] |
-| scripts/ci/enforce_pr_validation.py | 1620 | script | [x] |
-| scripts/ci/establish_ai_review_deadline.py | 1789 | script | [x] |
-| scripts/ci/execute_ai_review_post_script.py | 2813 | script | [x] |
-| scripts/ci/failure_classification.py | 3632 | script | [x] |
-| scripts/ci/find_copilot_ready_issues.py | 2212 | script | [x] |
+| scripts/ci/determine_placeholder_range.py | 1525 | script | [ ] |
+| scripts/ci/diagnose_copilot_cli.py | 8788 | script | [ ] |
+| scripts/ci/diff_line_scope.py | 10035 | script | [ ] |
+| scripts/ci/drift_collect_details.py | 2875 | script | [ ] |
+| scripts/ci/drift_create_alert_issue.py | 3256 | script | [ ] |
+| scripts/ci/drift_run_detection.py | 1954 | script | [ ] |
+| scripts/ci/drift_write_summary.py | 1932 | script | [ ] |
+| scripts/ci/enforce_pr_validation.py | 1620 | script | [ ] |
+| scripts/ci/establish_ai_review_deadline.py | 1789 | script | [ ] |
+| scripts/ci/execute_ai_review_post_script.py | 2813 | script | [ ] |
+| scripts/ci/failure_classification.py | 3632 | script | [ ] |
+| scripts/ci/find_copilot_ready_issues.py | 2212 | script | [ ] |
 | scripts/ci/install_copilot_cli.py | 3385 | script | [x] |
 | scripts/ci/install_locked_deps.py | 4671 | script | [x] |
 | scripts/ci/invoke_copilot_cli.py | 17101 | script | [x] |
@@ -743,17 +743,17 @@
 | scripts/ci/parse_ai_review_output.py | 3863 | script | [x] |
 | scripts/ci/parse_drift_results.py | 7947 | script | [x] |
 | scripts/ci/parse_hook_bypass_results.py | 3284 | script | [x] |
-| scripts/ci/parse_memory_health_results.py | 6055 | script | [x] |
-| scripts/ci/parse_memory_validation_results.py | 3300 | script | [x] |
-| scripts/ci/prepare_conflict_context.py | 3314 | script | [x] |
-| scripts/ci/require_job_results.py | 3009 | script | [x] |
-| scripts/ci/retrospective_gate.py | 4571 | script | [x] |
-| scripts/ci/ruff_count_baseline.txt | 2 | script | [x] |
-| scripts/ci/ruff_count_ratchet.py | 7633 | script | [x] |
-| scripts/ci/ruff_ratchet.py | 10285 | script | [x] |
-| scripts/ci/ruleset_context_drift.py | 8063 | script | [x] |
-| scripts/ci/ruleset_required_contexts.py | 898 | script | [x] |
-| scripts/ci/run_copilot_synthesis.py | 1604 | script | [x] |
+| scripts/ci/parse_memory_health_results.py | 6055 | script | [ ] |
+| scripts/ci/parse_memory_validation_results.py | 3300 | script | [ ] |
+| scripts/ci/prepare_conflict_context.py | 3314 | script | [ ] |
+| scripts/ci/require_job_results.py | 3009 | script | [ ] |
+| scripts/ci/retrospective_gate.py | 4571 | script | [ ] |
+| scripts/ci/ruff_count_baseline.txt | 2 | script | [ ] |
+| scripts/ci/ruff_count_ratchet.py | 7633 | script | [ ] |
+| scripts/ci/ruff_ratchet.py | 10285 | script | [ ] |
+| scripts/ci/ruleset_context_drift.py | 8063 | script | [ ] |
+| scripts/ci/ruleset_required_contexts.py | 898 | script | [ ] |
+| scripts/ci/run_copilot_synthesis.py | 1604 | script | [ ] |
 | scripts/ci/run_hook_bypass_audit.py | 3047 | script | [x] |
 | scripts/ci/run_pr_conflict_resolver.py | 2992 | script | [x] |
 | scripts/ci/run_pytest_non_tmp.py | 2410 | script | [x] |
@@ -766,14 +766,14 @@
 | scripts/ci/smoke_install_tarball.py | 2269 | script | [x] |
 | scripts/ci/smoke_report_result.py | 1590 | script | [x] |
 | scripts/ci/spec_external_signal_wrapper.py | 3521 | script | [x] |
-| scripts/ci/spec_extract_refs.py | 6285 | script | [x] |
-| scripts/ci/spec_load_content.py | 5523 | script | [x] |
-| scripts/ci/spec_prepare_context.py | 2833 | script | [x] |
-| scripts/ci/subprocess_encoding_count_baseline.txt | 4 | script | [x] |
-| scripts/ci/subprocess_encoding_count_ratchet.py | 4123 | script | [x] |
-| scripts/ci/sweep_copilot_synthesis.py | 2471 | script | [x] |
-| scripts/ci/taste_count_baseline.txt | 4 | script | [x] |
-| scripts/ci/taste_count_ratchet.py | 12794 | script | [x] |
+| scripts/ci/spec_extract_refs.py | 6285 | script | [ ] |
+| scripts/ci/spec_load_content.py | 5523 | script | [ ] |
+| scripts/ci/spec_prepare_context.py | 2833 | script | [ ] |
+| scripts/ci/subprocess_encoding_count_baseline.txt | 4 | script | [ ] |
+| scripts/ci/subprocess_encoding_count_ratchet.py | 4123 | script | [ ] |
+| scripts/ci/sweep_copilot_synthesis.py | 2471 | script | [ ] |
+| scripts/ci/taste_count_baseline.txt | 4 | script | [ ] |
+| scripts/ci/taste_count_ratchet.py | 12794 | script | [ ] |
 | scripts/ci/test_installed_plugin_hooks.py | 16737 | script | [x] |
 | scripts/ci/type_ignore_count_baseline.txt | 3 | script | [x] |
 | scripts/ci/type_ignore_count_ratchet.py | 5057 | script | [x] |
@@ -839,7 +839,7 @@
 | scripts/eval/eval_run_rollup.py | 8002 | script | [x] |
 | scripts/eval/eval_runtime_parity.py | 16416 | script | [x] |
 | scripts/eval/eval_skill_router.py | 23269 | script | [x] |
-| scripts/eval/eval-agent-vs-baseline.py | 45289 | script | [x] |
+| scripts/eval/eval-agent-vs-baseline.py | 45289 | script | [ ] |
 | scripts/eval/eval-agents.py | 59882 | script | [x] |
 | scripts/eval/eval-e2e-delivery.py | 8656 | script | [x] |
 | scripts/eval/eval-knowledge-integration.py | 35810 | script | [x] |
@@ -883,10 +883,10 @@
 | scripts/github_core/protocol.py | 823 | script | [x] |
 | scripts/github_core/pull_request_targets.py | 4531 | script | [x] |
 | scripts/github_core/rate_limit.py | 11614 | script | [x] |
-| scripts/github_core/recovery_manifest.py | 18439 | script | [x] |
-| scripts/github_core/repo.py | 3658 | script | [x] |
-| scripts/github_core/review_threads.py | 14595 | script | [x] |
-| scripts/github_core/runs_file.py | 9738 | script | [x] |
+| scripts/github_core/recovery_manifest.py | 18439 | script | [ ] |
+| scripts/github_core/repo.py | 3658 | script | [ ] |
+| scripts/github_core/review_threads.py | 14595 | script | [ ] |
+| scripts/github_core/runs_file.py | 9738 | script | [ ] |
 | scripts/github_core/validation.py | 9654 | script | [x] |
 | scripts/github_core/workflow_event_subscriptions.py | 22059 | script | [x] |
 | scripts/github_core/workflow_provenance.py | 6337 | script | [x] |
@@ -905,13 +905,13 @@
 | scripts/invoke_batch_pr_review.py | 10667 | script | [x] |
 | scripts/invoke_pr_maintenance.py | 17011 | script | [x] |
 | scripts/invoke_session_start_gate.py | 10337 | script | [x] |
-| scripts/issue_triage.py | 28826 | script | [x] |
-| scripts/llm_classification/__init__.py | 430 | script | [x] |
-| scripts/llm_classification/cache.py | 2664 | script | [x] |
-| scripts/llm_classification/classifier.py | 5455 | script | [x] |
-| scripts/llm_classification/config.py | 2770 | script | [x] |
+| scripts/issue_triage.py | 28826 | script | [ ] |
+| scripts/llm_classification/__init__.py | 430 | script | [ ] |
+| scripts/llm_classification/cache.py | 2664 | script | [ ] |
+| scripts/llm_classification/classifier.py | 5455 | script | [ ] |
+| scripts/llm_classification/config.py | 2770 | script | [ ] |
 | scripts/maintenance/__init__.py | 0 | script | [x] |
-| scripts/maintenance/_gc_anchors.py | 7917 | script | [x] |
+| scripts/maintenance/_gc_anchors.py | 7917 | script | [ ] |
 | scripts/maintenance/_gc_apply.py | 11235 | script | [x] |
 | scripts/maintenance/_gc_files.py | 2559 | script | [x] |
 | scripts/maintenance/_gc_parse.py | 3190 | script | [x] |
@@ -932,14 +932,14 @@
 | scripts/metrics/__init__.py | 70 | script | [x] |
 | scripts/metrics/check_vendored_install.py | 3039 | script | [x] |
 | scripts/metrics/emit_verdict_mismatch.py | 2809 | script | [x] |
-| scripts/metrics/kill_criteria.py | 19854 | script | [x] |
-| scripts/migrations/req003_inline_plugin_root_bootstrap.py | 5801 | script | [x] |
-| scripts/modules/__init__.py | 34 | script | [x] |
-| scripts/modules/investigation_allowlist.py | 1641 | script | [x] |
-| scripts/modules/slash_command_validator.py | 2500 | script | [x] |
-| scripts/mutation_test_proc_group.py | 5551 | script | [x] |
-| scripts/new_validated_pr.py | 5449 | script | [x] |
-| scripts/normalize_line_endings.py | 3927 | script | [x] |
+| scripts/metrics/kill_criteria.py | 19854 | script | [ ] |
+| scripts/migrations/req003_inline_plugin_root_bootstrap.py | 5801 | script | [ ] |
+| scripts/modules/__init__.py | 34 | script | [ ] |
+| scripts/modules/investigation_allowlist.py | 1641 | script | [ ] |
+| scripts/modules/slash_command_validator.py | 2500 | script | [ ] |
+| scripts/mutation_test_proc_group.py | 5551 | script | [ ] |
+| scripts/new_validated_pr.py | 5449 | script | [ ] |
+| scripts/normalize_line_endings.py | 3927 | script | [ ] |
 | scripts/openclaw_bridge.py | 13093 | script | [x] |
 | scripts/pr_branch_mapping.py | 14798 | script | [x] |
 | scripts/pr_maintenance_rollup.py | 7153 | script | [x] |
@@ -948,14 +948,14 @@
 | scripts/progress/__init__.py | 709 | script | [x] |
 | scripts/progress/py.typed | 0 | script | [x] |
 | scripts/progress/README.md | 3104 | script | [x] |
-| scripts/progress/reporter.py | 5708 | script | [x] |
-| scripts/quality_gate/__init__.py | 305 | script | [x] |
-| scripts/quality_gate/check_critical_failures.py | 4873 | script | [x] |
-| scripts/quality_gate/external_signal_gate.py | 6754 | script | [x] |
-| scripts/quality_gate/path_utils.py | 639 | script | [x] |
-| scripts/quality_gate/resolve_pytest_signal.py | 20467 | script | [x] |
-| scripts/quality_gate/run_pytest.py | 5422 | script | [x] |
-| scripts/quality_gate/spec_external_signal_gate.py | 5749 | script | [x] |
+| scripts/progress/reporter.py | 5708 | script | [ ] |
+| scripts/quality_gate/__init__.py | 305 | script | [ ] |
+| scripts/quality_gate/check_critical_failures.py | 4873 | script | [ ] |
+| scripts/quality_gate/external_signal_gate.py | 6754 | script | [ ] |
+| scripts/quality_gate/path_utils.py | 639 | script | [ ] |
+| scripts/quality_gate/resolve_pytest_signal.py | 20467 | script | [ ] |
+| scripts/quality_gate/run_pytest.py | 5422 | script | [ ] |
+| scripts/quality_gate/spec_external_signal_gate.py | 5749 | script | [ ] |
 | scripts/README.md | 9021 | script | [x] |
 | scripts/redact_secrets.py | 16302 | script | [x] |
 | scripts/report_pr_supersession.py | 12125 | script | [x] |
@@ -1096,11 +1096,11 @@
 | scripts/validation/pre_pr_sequence.py | 23593 | script | [x] |
 | scripts/validation/pre_pr.py | 13180 | script | [x] |
 | scripts/validation/push_lock_resolver.py | 11495 | script | [x] |
-| scripts/validation/push_ref_staleness.py | 9045 | script | [x] |
-| scripts/validation/rule_activation_coverage_baseline.json | 3207 | script | [x] |
-| scripts/validation/ruleset_params_baseline.json | 236 | script | [x] |
-| scripts/validation/run_install_parity_ci.py | 2854 | script | [x] |
-| scripts/validation/run_plugin_version_bump_ci.py | 2939 | script | [x] |
+| scripts/validation/push_ref_staleness.py | 9045 | script | [ ] |
+| scripts/validation/rule_activation_coverage_baseline.json | 3207 | script | [ ] |
+| scripts/validation/ruleset_params_baseline.json | 236 | script | [ ] |
+| scripts/validation/run_install_parity_ci.py | 2854 | script | [ ] |
+| scripts/validation/run_plugin_version_bump_ci.py | 2939 | script | [ ] |
 | scripts/validation/run_workflow_local_test.py | 62233 | script | [x] |
 | scripts/validation/session_scope.py | 14205 | script | [x] |
 | scripts/validation/sha_pinning.py | 9946 | script | [x] |
@@ -1128,14 +1128,14 @@
 | scripts/validation/validate_python_syntax.py | 7984 | script | [x] |
 | scripts/validation/validate_review_marker.py | 16215 | script | [x] |
 | scripts/validation/validate_seed_parity.py | 8418 | script | [x] |
-| scripts/validation/validate_skill_shells.py | 7879 | script | [x] |
-| scripts/validation/validate_skillbook.py | 15489 | script | [x] |
-| scripts/validation/validate_sync_registry.py | 8084 | script | [x] |
-| scripts/validation/vendor_portability_baseline.txt | 1645 | script | [x] |
-| scripts/validation/yaml_utils.py | 1132 | script | [x] |
-| scripts/workflow/__init__.py | 1377 | script | [x] |
-| scripts/workflow/coordinator.py | 7750 | script | [x] |
-| scripts/workflow/executor.py | 6594 | script | [x] |
+| scripts/validation/validate_skill_shells.py | 7879 | script | [ ] |
+| scripts/validation/validate_skillbook.py | 15489 | script | [ ] |
+| scripts/validation/validate_sync_registry.py | 8084 | script | [ ] |
+| scripts/validation/vendor_portability_baseline.txt | 1645 | script | [ ] |
+| scripts/validation/yaml_utils.py | 1132 | script | [ ] |
+| scripts/workflow/__init__.py | 1377 | script | [ ] |
+| scripts/workflow/coordinator.py | 7750 | script | [ ] |
+| scripts/workflow/executor.py | 6594 | script | [ ] |
 | scripts/workflow/loader.py | 3244 | script | [x] |
 | scripts/workflow/parallel.py | 11848 | script | [x] |
 | scripts/workflow/schema.py | 6629 | script | [x] |

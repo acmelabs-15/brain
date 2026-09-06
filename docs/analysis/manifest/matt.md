@@ -1,40 +1,40 @@
 | Path | Bytes | Type | Checked |
 |---|---|---|---|
-| .agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md | 1154 | agent | [x] |
-| .agents/adr/0002-ship-as-a-claude-code-plugin.md | 5528 | agent | [x] |
-| .agents/install-block.md | 2780 | agent | [x] |
-| .agents/invocation.md | 3848 | agent | [x] |
-| .agents/writing-docs.md | 12688 | agent | [x] |
-| .changeset/add-implement-spec-skill.md | 450 | doc | [x] |
-| .changeset/config.json | 380 | config | [x] |
-| .changeset/domain-modeling-trigger-context-adr.md | 437 | doc | [x] |
-| .changeset/fix-yaml-frontmatter-colons.md | 387 | doc | [x] |
-| .changeset/grilling-add-hr-between-questions.md | 169 | doc | [x] |
-| .changeset/grilling-remove-em-dashes.md | 162 | doc | [x] |
-| .changeset/README.md | 512 | doc | [x] |
-| .changeset/remove-em-dashes-repo-wide.md | 350 | doc | [x] |
-| .changeset/skill-tool-invocation-terminology.md | 1006 | doc | [x] |
-| .changeset/user-invoked-skill-invocation.md | 1565 | doc | [x] |
-| .changeset/wait-what-context-map.md | 191 | doc | [x] |
-| .claude-plugin/marketplace.json | 605 | config | [x] |
-| .claude-plugin/plugin.json | 1636 | config | [x] |
-| .github/workflows/release.yml | 780 | config | [x] |
-| .gitignore | 21 | file | [x] |
-| .out-of-scope/mainstream-issue-trackers-only.md | 1573 | doc | [x] |
-| .out-of-scope/question-limits.md | 1259 | doc | [x] |
-| .out-of-scope/setup-skill-verify-mode.md | 1125 | doc | [x] |
+| .agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md | 1154 | agent | [ ] |
+| .agents/adr/0002-ship-as-a-claude-code-plugin.md | 5528 | agent | [ ] |
+| .agents/install-block.md | 2780 | agent | [ ] |
+| .agents/invocation.md | 3848 | agent | [ ] |
+| .agents/writing-docs.md | 12688 | agent | [ ] |
+| .changeset/add-implement-spec-skill.md | 450 | doc | [ ] |
+| .changeset/config.json | 380 | config | [ ] |
+| .changeset/domain-modeling-trigger-context-adr.md | 437 | doc | [ ] |
+| .changeset/fix-yaml-frontmatter-colons.md | 387 | doc | [ ] |
+| .changeset/grilling-add-hr-between-questions.md | 169 | doc | [ ] |
+| .changeset/grilling-remove-em-dashes.md | 162 | doc | [ ] |
+| .changeset/README.md | 512 | doc | [ ] |
+| .changeset/remove-em-dashes-repo-wide.md | 350 | doc | [ ] |
+| .changeset/skill-tool-invocation-terminology.md | 1006 | doc | [ ] |
+| .changeset/user-invoked-skill-invocation.md | 1565 | doc | [ ] |
+| .changeset/wait-what-context-map.md | 191 | doc | [ ] |
+| .claude-plugin/marketplace.json | 605 | config | [ ] |
+| .claude-plugin/plugin.json | 1636 | config | [ ] |
+| .github/workflows/release.yml | 780 | config | [ ] |
+| .gitignore | 21 | file | [ ] |
+| .out-of-scope/mainstream-issue-trackers-only.md | 1573 | doc | [ ] |
+| .out-of-scope/question-limits.md | 1259 | doc | [ ] |
+| .out-of-scope/setup-skill-verify-mode.md | 1125 | doc | [ ] |
 | AGENTS.md | 0 | symlink | [x] (symlink) |
-| CHANGELOG.md | 44408 | doc | [x] |
-| CLAUDE.md | 3703 | doc | [x] |
-| CONTEXT.md | 1768 | doc | [x] |
-| docs/engineering/ask-matt.md | 10723 | doc | [x] |
-| docs/engineering/code-review.md | 10553 | doc | [x] |
-| docs/engineering/codebase-design.md | 12370 | doc | [x] |
-| docs/engineering/diagnosing-bugs.md | 10701 | doc | [x] |
-| docs/engineering/domain-modeling.md | 10742 | doc | [x] |
-| docs/engineering/grill-with-docs.md | 9922 | doc | [x] |
-| docs/engineering/implement.md | 10259 | doc | [x] |
-| docs/engineering/improve-codebase-architecture.md | 11814 | doc | [x] |
+| CHANGELOG.md | 44408 | doc | [ ] |
+| CLAUDE.md | 3703 | doc | [ ] |
+| CONTEXT.md | 1768 | doc | [ ] |
+| docs/engineering/ask-matt.md | 10723 | doc | [ ] |
+| docs/engineering/code-review.md | 10553 | doc | [ ] |
+| docs/engineering/codebase-design.md | 12370 | doc | [ ] |
+| docs/engineering/diagnosing-bugs.md | 10701 | doc | [ ] |
+| docs/engineering/domain-modeling.md | 10742 | doc | [ ] |
+| docs/engineering/grill-with-docs.md | 9922 | doc | [ ] |
+| docs/engineering/implement.md | 10259 | doc | [ ] |
+| docs/engineering/improve-codebase-architecture.md | 11814 | doc | [ ] |
 | docs/engineering/prototype.md | 9630 | doc | [x] |
 | docs/engineering/research.md | 9674 | doc | [x] |
 | docs/engineering/resolving-merge-conflicts.md | 5326 | doc | [x] |
@@ -44,11 +44,11 @@
 | docs/engineering/to-tickets.md | 10724 | doc | [x] |
 | docs/engineering/triage.md | 13140 | doc | [x] |
 | docs/engineering/wayfinder.md | 15976 | doc | [x] |
-| docs/engineering/wizard.md | 9877 | doc | [x] |
-| docs/productivity/grill-me.md | 6489 | doc | [x] |
-| docs/productivity/grilling.md | 10413 | doc | [x] |
-| docs/productivity/handoff.md | 8746 | doc | [x] |
-| docs/productivity/teach.md | 13260 | doc | [x] |
+| docs/engineering/wizard.md | 9877 | doc | [ ] |
+| docs/productivity/grill-me.md | 6489 | doc | [ ] |
+| docs/productivity/grilling.md | 10413 | doc | [ ] |
+| docs/productivity/handoff.md | 8746 | doc | [ ] |
+| docs/productivity/teach.md | 13260 | doc | [ ] |
 | docs/productivity/to-questionnaire.md | 7828 | doc | [x] |
 | docs/productivity/wait-what.md | 3528 | doc | [x] |
 | docs/productivity/writing-for-agents.md | 7784 | doc | [x] |
@@ -102,17 +102,17 @@
 | skills/engineering/ask-matt/SKILL.md | 11417 | skill | [x] |
 | skills/engineering/code-review/agents/openai.yaml | 100 | skill | [x] |
 | skills/engineering/code-review/SKILL.md | 6589 | skill | [x] |
-| skills/engineering/codebase-design/agents/openai.yaml | 102 | skill | [x] |
-| skills/engineering/codebase-design/DEEPENING.md | 2553 | skill | [x] |
-| skills/engineering/codebase-design/DESIGN-IT-TWICE.md | 2664 | skill | [x] |
-| skills/engineering/codebase-design/SKILL.md | 6446 | skill | [x] |
-| skills/engineering/diagnosing-bugs/agents/openai.yaml | 103 | skill | [x] |
-| skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh | 1316 | script | [x] |
-| skills/engineering/diagnosing-bugs/SKILL.md | 8529 | skill | [x] |
-| skills/engineering/domain-modeling/ADR-FORMAT.md | 2733 | skill | [x] |
-| skills/engineering/domain-modeling/agents/openai.yaml | 101 | skill | [x] |
-| skills/engineering/domain-modeling/CONTEXT-FORMAT.md | 2290 | skill | [x] |
-| skills/engineering/domain-modeling/SKILL.md | 3331 | skill | [x] |
+| skills/engineering/codebase-design/agents/openai.yaml | 102 | skill | [ ] |
+| skills/engineering/codebase-design/DEEPENING.md | 2553 | skill | [ ] |
+| skills/engineering/codebase-design/DESIGN-IT-TWICE.md | 2664 | skill | [ ] |
+| skills/engineering/codebase-design/SKILL.md | 6446 | skill | [ ] |
+| skills/engineering/diagnosing-bugs/agents/openai.yaml | 103 | skill | [ ] |
+| skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh | 1316 | script | [ ] |
+| skills/engineering/diagnosing-bugs/SKILL.md | 8529 | skill | [ ] |
+| skills/engineering/domain-modeling/ADR-FORMAT.md | 2733 | skill | [ ] |
+| skills/engineering/domain-modeling/agents/openai.yaml | 101 | skill | [ ] |
+| skills/engineering/domain-modeling/CONTEXT-FORMAT.md | 2290 | skill | [ ] |
+| skills/engineering/domain-modeling/SKILL.md | 3331 | skill | [ ] |
 | skills/engineering/grill-with-docs/agents/openai.yaml | 145 | skill | [x] |
 | skills/engineering/grill-with-docs/SKILL.md | 247 | skill | [x] |
 | skills/engineering/implement/agents/openai.yaml | 139 | skill | [x] |
@@ -125,75 +125,75 @@
 | skills/engineering/prototype/SKILL.md | 2931 | skill | [x] |
 | skills/engineering/prototype/UI.md | 6913 | skill | [x] |
 | skills/engineering/README.md | 3840 | skill | [x] |
-| skills/engineering/research/agents/openai.yaml | 94 | skill | [x] |
-| skills/engineering/research/SKILL.md | 794 | skill | [x] |
-| skills/engineering/resolving-merge-conflicts/agents/openai.yaml | 113 | skill | [x] |
-| skills/engineering/resolving-merge-conflicts/SKILL.md | 918 | skill | [x] |
-| skills/engineering/setup-matt-pocock-skills/agents/openai.yaml | 152 | skill | [x] |
-| skills/engineering/setup-matt-pocock-skills/domain.md | 2033 | skill | [x] |
-| skills/engineering/setup-matt-pocock-skills/issue-tracker-github.md | 3731 | skill | [x] |
-| skills/engineering/setup-matt-pocock-skills/issue-tracker-gitlab.md | 3809 | skill | [x] |
-| skills/engineering/setup-matt-pocock-skills/issue-tracker-local.md | 1810 | skill | [x] |
-| skills/engineering/setup-matt-pocock-skills/SKILL.md | 6841 | skill | [x] |
-| skills/engineering/setup-matt-pocock-skills/triage-labels.md | 1045 | skill | [x] |
-| skills/engineering/tdd/agents/openai.yaml | 87 | skill | [x] |
-| skills/engineering/tdd/mocking.md | 1481 | skill | [x] |
-| skills/engineering/tdd/SKILL.md | 3549 | skill | [x] |
-| skills/engineering/tdd/tests.md | 2214 | skill | [x] |
-| skills/engineering/to-spec/agents/openai.yaml | 135 | skill | [x] |
-| skills/engineering/to-spec/SKILL.md | 3043 | skill | [x] |
-| skills/engineering/to-tickets/agents/openai.yaml | 146 | skill | [x] |
-| skills/engineering/to-tickets/SKILL.md | 5671 | skill | [x] |
-| skills/engineering/triage/AGENT-BRIEF.md | 7942 | skill | [x] |
-| skills/engineering/triage/agents/openai.yaml | 135 | skill | [x] |
-| skills/engineering/triage/OUT-OF-SCOPE.md | 4667 | skill | [x] |
-| skills/engineering/triage/SKILL.md | 6557 | skill | [x] |
-| skills/engineering/wayfinder/agents/openai.yaml | 144 | skill | [x] |
-| skills/engineering/wayfinder/SKILL.md | 11908 | skill | [x] |
-| skills/engineering/wizard/agents/openai.yaml | 96 | skill | [x] |
-| skills/engineering/wizard/SKILL.md | 4123 | skill | [x] |
-| skills/engineering/wizard/template.sh | 8567 | skill | [x] |
-| skills/in-progress/claude-handoff/agents/openai.yaml | 141 | skill | [x] |
-| skills/in-progress/claude-handoff/SKILL.md | 1301 | skill | [x] |
-| skills/in-progress/implement-spec/agents/openai.yaml | 143 | skill | [x] |
-| skills/in-progress/implement-spec/SKILL.md | 2043 | skill | [x] |
-| skills/in-progress/loop-me/agents/openai.yaml | 140 | skill | [x] |
-| skills/in-progress/loop-me/SKILL.md | 2522 | skill | [x] |
-| skills/in-progress/README.md | 2177 | skill | [x] |
-| skills/in-progress/retro/agents/openai.yaml | 146 | skill | [x] |
-| skills/in-progress/retro/SKILL.md | 3388 | skill | [x] |
-| skills/in-progress/setup-ts-deep-modules/agents/openai.yaml | 149 | skill | [x] |
-| skills/in-progress/setup-ts-deep-modules/dependency-cruiser.config.cjs | 3712 | skill | [x] |
-| skills/in-progress/setup-ts-deep-modules/SKILL.md | 7546 | skill | [x] |
-| skills/in-progress/writing-beats/agents/openai.yaml | 142 | skill | [x] |
-| skills/in-progress/writing-beats/SKILL.md | 4855 | skill | [x] |
-| skills/in-progress/writing-fragments/agents/openai.yaml | 140 | skill | [x] |
-| skills/in-progress/writing-fragments/SKILL.md | 3558 | skill | [x] |
-| skills/in-progress/writing-shape/agents/openai.yaml | 144 | skill | [x] |
-| skills/in-progress/writing-shape/SKILL.md | 5922 | skill | [x] |
-| skills/misc/git-guardrails-claude-code/agents/openai.yaml | 112 | skill | [x] |
-| skills/misc/git-guardrails-claude-code/scripts/block-dangerous-git.sh | 507 | script | [x] |
-| skills/misc/git-guardrails-claude-code/SKILL.md | 2313 | skill | [x] |
-| skills/misc/migrate-to-shoehorn/agents/openai.yaml | 110 | skill | [x] |
-| skills/misc/migrate-to-shoehorn/SKILL.md | 2795 | skill | [x] |
-| skills/misc/README.md | 684 | skill | [x] |
-| skills/misc/scaffold-exercises/agents/openai.yaml | 108 | skill | [x] |
-| skills/misc/scaffold-exercises/SKILL.md | 3589 | skill | [x] |
-| skills/misc/setup-pre-commit/agents/openai.yaml | 99 | skill | [x] |
-| skills/misc/setup-pre-commit/SKILL.md | 2258 | skill | [x] |
-| skills/productivity/grill-me/agents/openai.yaml | 137 | skill | [x] |
-| skills/productivity/grill-me/SKILL.md | 157 | skill | [x] |
-| skills/productivity/grilling/agents/openai.yaml | 113 | skill | [x] |
-| skills/productivity/grilling/SKILL.md | 1987 | skill | [x] |
-| skills/productivity/handoff/agents/openai.yaml | 141 | skill | [x] |
-| skills/productivity/handoff/SKILL.md | 894 | skill | [x] |
-| skills/productivity/README.md | 1480 | skill | [x] |
-| skills/productivity/teach/agents/openai.yaml | 139 | skill | [x] |
-| skills/productivity/teach/GLOSSARY-FORMAT.md | 2122 | skill | [x] |
-| skills/productivity/teach/LEARNING-RECORD-FORMAT.md | 2747 | skill | [x] |
-| skills/productivity/teach/MISSION-FORMAT.md | 1540 | skill | [x] |
-| skills/productivity/teach/RESOURCES-FORMAT.md | 1924 | skill | [x] |
-| skills/productivity/teach/SKILL.md | 9506 | skill | [x] |
+| skills/engineering/research/agents/openai.yaml | 94 | skill | [ ] |
+| skills/engineering/research/SKILL.md | 794 | skill | [ ] |
+| skills/engineering/resolving-merge-conflicts/agents/openai.yaml | 113 | skill | [ ] |
+| skills/engineering/resolving-merge-conflicts/SKILL.md | 918 | skill | [ ] |
+| skills/engineering/setup-matt-pocock-skills/agents/openai.yaml | 152 | skill | [ ] |
+| skills/engineering/setup-matt-pocock-skills/domain.md | 2033 | skill | [ ] |
+| skills/engineering/setup-matt-pocock-skills/issue-tracker-github.md | 3731 | skill | [ ] |
+| skills/engineering/setup-matt-pocock-skills/issue-tracker-gitlab.md | 3809 | skill | [ ] |
+| skills/engineering/setup-matt-pocock-skills/issue-tracker-local.md | 1810 | skill | [ ] |
+| skills/engineering/setup-matt-pocock-skills/SKILL.md | 6841 | skill | [ ] |
+| skills/engineering/setup-matt-pocock-skills/triage-labels.md | 1045 | skill | [ ] |
+| skills/engineering/tdd/agents/openai.yaml | 87 | skill | [ ] |
+| skills/engineering/tdd/mocking.md | 1481 | skill | [ ] |
+| skills/engineering/tdd/SKILL.md | 3549 | skill | [ ] |
+| skills/engineering/tdd/tests.md | 2214 | skill | [ ] |
+| skills/engineering/to-spec/agents/openai.yaml | 135 | skill | [ ] |
+| skills/engineering/to-spec/SKILL.md | 3043 | skill | [ ] |
+| skills/engineering/to-tickets/agents/openai.yaml | 146 | skill | [ ] |
+| skills/engineering/to-tickets/SKILL.md | 5671 | skill | [ ] |
+| skills/engineering/triage/AGENT-BRIEF.md | 7942 | skill | [ ] |
+| skills/engineering/triage/agents/openai.yaml | 135 | skill | [ ] |
+| skills/engineering/triage/OUT-OF-SCOPE.md | 4667 | skill | [ ] |
+| skills/engineering/triage/SKILL.md | 6557 | skill | [ ] |
+| skills/engineering/wayfinder/agents/openai.yaml | 144 | skill | [ ] |
+| skills/engineering/wayfinder/SKILL.md | 11908 | skill | [ ] |
+| skills/engineering/wizard/agents/openai.yaml | 96 | skill | [ ] |
+| skills/engineering/wizard/SKILL.md | 4123 | skill | [ ] |
+| skills/engineering/wizard/template.sh | 8567 | skill | [ ] |
+| skills/in-progress/claude-handoff/agents/openai.yaml | 141 | skill | [ ] |
+| skills/in-progress/claude-handoff/SKILL.md | 1301 | skill | [ ] |
+| skills/in-progress/implement-spec/agents/openai.yaml | 143 | skill | [ ] |
+| skills/in-progress/implement-spec/SKILL.md | 2043 | skill | [ ] |
+| skills/in-progress/loop-me/agents/openai.yaml | 140 | skill | [ ] |
+| skills/in-progress/loop-me/SKILL.md | 2522 | skill | [ ] |
+| skills/in-progress/README.md | 2177 | skill | [ ] |
+| skills/in-progress/retro/agents/openai.yaml | 146 | skill | [ ] |
+| skills/in-progress/retro/SKILL.md | 3388 | skill | [ ] |
+| skills/in-progress/setup-ts-deep-modules/agents/openai.yaml | 149 | skill | [ ] |
+| skills/in-progress/setup-ts-deep-modules/dependency-cruiser.config.cjs | 3712 | skill | [ ] |
+| skills/in-progress/setup-ts-deep-modules/SKILL.md | 7546 | skill | [ ] |
+| skills/in-progress/writing-beats/agents/openai.yaml | 142 | skill | [ ] |
+| skills/in-progress/writing-beats/SKILL.md | 4855 | skill | [ ] |
+| skills/in-progress/writing-fragments/agents/openai.yaml | 140 | skill | [ ] |
+| skills/in-progress/writing-fragments/SKILL.md | 3558 | skill | [ ] |
+| skills/in-progress/writing-shape/agents/openai.yaml | 144 | skill | [ ] |
+| skills/in-progress/writing-shape/SKILL.md | 5922 | skill | [ ] |
+| skills/misc/git-guardrails-claude-code/agents/openai.yaml | 112 | skill | [ ] |
+| skills/misc/git-guardrails-claude-code/scripts/block-dangerous-git.sh | 507 | script | [ ] |
+| skills/misc/git-guardrails-claude-code/SKILL.md | 2313 | skill | [ ] |
+| skills/misc/migrate-to-shoehorn/agents/openai.yaml | 110 | skill | [ ] |
+| skills/misc/migrate-to-shoehorn/SKILL.md | 2795 | skill | [ ] |
+| skills/misc/README.md | 684 | skill | [ ] |
+| skills/misc/scaffold-exercises/agents/openai.yaml | 108 | skill | [ ] |
+| skills/misc/scaffold-exercises/SKILL.md | 3589 | skill | [ ] |
+| skills/misc/setup-pre-commit/agents/openai.yaml | 99 | skill | [ ] |
+| skills/misc/setup-pre-commit/SKILL.md | 2258 | skill | [ ] |
+| skills/productivity/grill-me/agents/openai.yaml | 137 | skill | [ ] |
+| skills/productivity/grill-me/SKILL.md | 157 | skill | [ ] |
+| skills/productivity/grilling/agents/openai.yaml | 113 | skill | [ ] |
+| skills/productivity/grilling/SKILL.md | 1987 | skill | [ ] |
+| skills/productivity/handoff/agents/openai.yaml | 141 | skill | [ ] |
+| skills/productivity/handoff/SKILL.md | 894 | skill | [ ] |
+| skills/productivity/README.md | 1480 | skill | [ ] |
+| skills/productivity/teach/agents/openai.yaml | 139 | skill | [ ] |
+| skills/productivity/teach/GLOSSARY-FORMAT.md | 2122 | skill | [ ] |
+| skills/productivity/teach/LEARNING-RECORD-FORMAT.md | 2747 | skill | [ ] |
+| skills/productivity/teach/MISSION-FORMAT.md | 1540 | skill | [ ] |
+| skills/productivity/teach/RESOURCES-FORMAT.md | 1924 | skill | [ ] |
+| skills/productivity/teach/SKILL.md | 9506 | skill | [ ] |
 | skills/productivity/to-questionnaire/agents/openai.yaml | 166 | skill | [x] |
 | skills/productivity/to-questionnaire/SKILL.md | 2904 | skill | [x] |
 | skills/productivity/wait-what/agents/openai.yaml | 158 | skill | [x] |
