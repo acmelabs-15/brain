@@ -8,11 +8,11 @@ This file is the single source of truth for where the project is. It is updated 
 
 | Field | Value |
 |---|---|
-| **phase** | `1` |
-| **phase_name** | Inventory |
+| **phase** | `2` |
+| **phase_name** | Concept cards |
 | **current_unit** | — |
-| **last_session** | 011 |
-| **next_action** | Dispatch verifier subagent for the flagged files across addy, matt, and rjm to verify Phase 1V remediation and rewrite _verification.md to clean; then Phase 2 |
+| **last_session** | 012 |
+| **next_action** | Partition and dispatch Phase 2 concept cards (METHOD.md §5 Phase 2) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -39,8 +39,8 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 |---|---|---|---|---|
 | 0 | Setup | `done` | four manifests and three ledgers exist; units.md initialized; brain-conventions.md written; all §10 checks clean | 000 |
 | 0.5 | Landscape scan | `skipped` — D-007 `landscape_scan: no` | — | — |
-| 1 | Inventory | `pending` | unit extraction done (416/416); 1V remediation complete; verifier re-check pending | 001–008, 011 |
-| 1V | Inventory verification | `in-progress` | 49 flagged units re-run and verified clean (runs 18–19); verifier report rewrites pending | 009, 011 |
+| 1 | Inventory | `done` | unit extraction done (416/416); Phase 1V remediation & re-verification complete (all 3 reports clean) | 001–008, 011–012 |
+| 1V | Inventory verification | `done` | 49 flagged units re-run and verified clean (runs 18–19); all 3 verifier reports rewritten clean (PASS) | 009, 011, 012 |
 | 2 | Concept cards | `pending` | — | — |
 | 3 | Concordance | `pending` | — | — |
 | 4 | Alignment decisions | `pending` | — | — |
@@ -133,7 +133,7 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 |---|---|---|
 | coverage.ts | 2026-09-06 | clean (rows 1595, covered 1567, orphan cards 0) |
 | units.ts check | 2026-09-06 | clean (416 total — pending 0 · in-progress 0 · done 416 · blocked 0 · rolled-back 0) |
-| budget.ts | 2026-09-06 | clean (used=20.78%, peak=20.78%, governing=25.00%, close=1.05%, headroom=3.17%, pending=0 → STOP) |
+| budget.ts | 2026-09-06 | clean (used=12.87%, peak=12.87%, governing=25.00%, close=1.11%, headroom=11.02%, pending=0 → STOP) |
 | glossary-lint.ts | 2026-09-06 | clean |
 | last-unit verification | 2026-09-06 | inv-rjm-310: HIT, quote-check 127 PASS / 0 FAIL |
 | decision consistency (4V) | — | — |
