@@ -10,7 +10,7 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `1` |
 | **phase_name** | Inventory |
-| **current_unit** | inv-rjm-323 |
+| **current_unit** | inv-rjm-275 |
 | **last_session** | 007 |
 | **next_action** | Re-mark rolled-back units inv-rjm-275..inv-rjm-322 to pending and dispatch per budget.ts recommendation |
 | **human_approval** | `PENDING` |
@@ -66,10 +66,10 @@ The unit table is `docs/plan/units.md`, written only by `bun scripts/synthesis/u
 | Status | Units |
 |---|---|
 | pending | 2 |
-| in-progress | 0 |
+| in-progress | 48 |
 | done | 366 |
 | blocked | 0 |
-| rolled-back | 48 |
+| rolled-back | 0 |
 | **total** | **416** |
 
 ### Phase 2 — Concept card units
