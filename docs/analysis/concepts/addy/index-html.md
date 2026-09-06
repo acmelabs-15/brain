@@ -1,0 +1,51 @@
+---
+package: addy
+name: index.html
+slug: index-html
+kind: name-only
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: evals/fixtures/browser-testing-with-devtools/server.js, sha256: 0b35e5dbb0226bb26d69bd7a71c3c1575b1182f2c071e10e46c863533e1be1f6}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-06 quote-check+coverage
+---
+
+# index.html
+
+## Definition — verbatim
+(used, not defined)
+> "res.end(fs.readFileSync(path.join(__dirname, 'index.html')));" — evals/fixtures/browser-testing-with-devtools/server.js:14
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| evals/fixtures/browser-testing-with-devtools/server.js | 14 | consumes | Read and served by the test HTTP server as the default HTML client response. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+defects: doc-drift
+
+## Design notes
+index.html is a fixture file name representing the static HTML page loaded during browser testing evaluation rather than a lifecycle concept.

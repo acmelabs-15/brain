@@ -408,6 +408,25 @@ The runs before that reset — the experiment of sessions 013–014 (runs 01–0
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-19/success_auditor_report.md` (verdict CLEAN)
 - **Probe verdict**: N/A (single-unit run completing Phase 1V remediation set; wall time 9.7 min, 0 FAIL across 127 citations, 1 parallel worker).
 
+### run 19 (Session 015, production p2-run-01)
+
+- **run-id**: `p2-run-01`
+- **session**: 015 (Phase 2 Concept cards)
+- **units**: `cc-addy-1` through `cc-addy-24` (24 units: addy; 720 concept cards, 24 unit reports)
+- **context used**:
+  - at run-start: `used=10.24%` (`[run-start p2-run-01 n=24] budget 2026-09-06T23:10:10.907Z conv=67768d27 model="Gemini 3.8 Flash (High)" used=10.24% peak=10.24% governing=25.00% close=1.11% headroom=13.65% pending=460 → DISPATCH 1 run × 24 units (24 units, cost 2.76%) — PROBE: one step above the proven maximum (1 × 16); a clean result (zero FAIL, zero 429, one Worker per unit at once — no wall-time bound yet for this phase: this run's wall time becomes it) raises max_clean_run`)
+  - at dispatched: `used=10.92%` (`[dispatched p2-run-01] budget 2026-09-06T23:10:37.948Z conv=67768d27 model="Gemini 3.8 Flash (High)" used=10.92% peak=10.92% governing=25.00% close=1.11% headroom=12.97% pending=436 → DISPATCH 1 run × 24 units (24 units, cost 2.76%) — PROBE: one step above the proven maximum (1 × 16); a clean result (zero FAIL, zero 429, one Worker per unit at once — no wall-time bound yet for this phase: this run's wall time becomes it) raises max_clean_run`)
+  - at verified: `used=12.35%` (`[verified p2-run-01] budget 2026-09-06T23:29:02.324Z conv=67768d27 model="Gemini 3.8 Flash (High)" used=12.35% peak=12.35% governing=25.00% close=1.11% headroom=11.54% pending=436 → DISPATCH 1 run × 24 units (24 units, cost 2.76%) — PROBE: one step above the proven maximum (1 × 16); a clean result (zero FAIL, zero 429, one Worker per unit at once — no wall-time bound yet for this phase: this run's wall time becomes it) raises max_clean_run`)
+  - per-unit delta: 0.060% (verified 12.35% − dispatched 10.92% = 1.43% ÷ 24 units = 0.060%)
+- **rot metrics**: none observed (used: 12.35%)
+- **429s and quota.reset_in_seconds**: none (0 quota errors)
+- **wall time**: 17.7 min from dispatch to completion
+- **Workers per unit**: 1 worker per unit (26 workers dispatched concurrently).
+- **quote-check totals**: 882 PASS, 0 FAIL across 744 run files (720 cards); 0% failure rate
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems, 593 concepts pending)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p2-run-01/success_auditor_report.md` (verdict CLEAN)
+- **Probe verdict**: CLEAN PROBE (Phase 2 24-unit probe, 720 concept cards, 0 FAIL across 882 citations, 0 429s, all workers in parallel; wall time 17.7 min establishes `last_clean_wall_minutes=17.7` and raises `max_clean_run` to 24 per D-023).
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.
