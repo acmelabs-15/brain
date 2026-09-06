@@ -11,8 +11,8 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `1` |
 | **phase_name** | Inventory |
 | **current_unit** | — |
-| **last_session** | 009 |
-| **next_action** | Remediate Phase 1V inventory verification findings across addy, matt, and rjm per _verification.md reports |
+| **last_session** | 010 |
+| **next_action** | Resolve tooling contradiction on docs/analysis/inventory/<pkg>/_verification.md with coverage.ts and memo.ts, then remediate Phase 1V findings |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -121,7 +121,7 @@ Anything the agent cannot resolve alone. Each row names what Peter needs to do.
 
 | Since | Unit / item | Reason | Needs |
 |---|---|---|---|
-| — | — | — | — |
+| 2026-09-06 | Phase 1V / coverage.ts & memo.ts | Tooling contradiction: coverage.ts and memo.ts treat docs/analysis/inventory/<pkg>/_verification.md as orphan/unstamped inventory cards, failing §8.1 step 8 and §10 anti-drift checks | Peter decision on fixing coverage.ts/memo.ts filter (!f.startsWith("_")) vs moving _verification.md |
 
 ---
 
@@ -131,10 +131,10 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 
 | Check | Last run | Result |
 |---|---|---|
-| coverage.ts | 2026-09-04 | clean (1595 rows, 0 covered, 1567 uncovered, 0 failures) |
-| units.ts check | 2026-09-04 | clean (416 total — pending 416 · in-progress 0 · done 0 · blocked 0 · rolled-back 0) |
-| budget.ts | 2026-09-04 | clean (used=9.64%, peak=9.64%, governing=25.00%, headroom=14.26%) |
-| glossary-lint.ts | 2026-09-04 | clean |
-| last-unit verification | 2026-09-04 | none (Phase 0) |
+| coverage.ts | 2026-09-06 | 3 failures: orphan cards (docs/analysis/inventory/{addy,matt,rjm}/_verification.md) |
+| units.ts check | 2026-09-06 | clean (416 total — pending 0 · in-progress 0 · done 416 · blocked 0 · rolled-back 0) |
+| budget.ts | 2026-09-06 | clean (used=9.56%, peak=9.56%, governing=25.00%, close=1.05%, headroom=14.39%, pending=0 → STOP) |
+| glossary-lint.ts | 2026-09-06 | clean |
+| last-unit verification | 2026-09-06 | inv-rjm-324: HIT, quote-check 106 PASS / 0 FAIL |
 | decision consistency (4V) | — | — |
 | traceability | — | — |
