@@ -11,7 +11,7 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `2` |
 | **phase_name** | Concept cards |
 | **current_unit** | — |
-| **last_session** | 013 |
+| **last_session** | 014 |
 | **next_action** | Partition and dispatch Phase 2 concept cards (METHOD.md §5 Phase 2) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
