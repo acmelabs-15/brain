@@ -313,6 +313,25 @@ The runs before that reset — the experiment of sessions 013–014 (runs 01–0
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-13/success_auditor_report.md` (verdict CLEAN)
 - **Probe verdict**: CLEAN (48-unit probe; wall time 13.2 min, 0 FAIL across 6047 citations, 48 parallel workers at once). Raises max_clean_run=48, last_clean_wall_minutes=13.2.
 
+### run 14 (Session 007, production p1-run-14)
+
+- **run-id**: `p1-run-14`
+- **session**: 007 (Phase 1)
+- **units**: `inv-rjm-227` through `inv-rjm-274` (48 units, 175 inventory cards, 0 divergence cards, 48 unit reports)
+- **context used**:
+  - at run-start: `used=14.12%` (`[run-start p1-run-14 n=48] budget 2026-09-06T01:43:37.521Z conv=881dadc9 model="Gemini 3.8 Flash (High)" used=14.12% peak=14.12% governing=25.00% close=0.78% headroom=10.10% pending=98 → DISPATCH 1 run × 48 units (48 units, cost 3.33%) — PROBE: k=2 concurrency probe`)
+  - at dispatched: `used=14.66%` (`[dispatched p1-run-14] budget 2026-09-06T01:44:00.330Z conv=881dadc9 model="Gemini 3.8 Flash (High)" used=14.66% peak=14.66% governing=25.00% close=0.78% headroom=9.56% pending=50 → DISPATCH 1 run × 48 units`)
+  - at verified: `used=23.67%` (`[verified p1-run-14] budget 2026-09-06T06:16:05.604Z conv=881dadc9 model="Gemini 3.8 Flash (High)" used=23.67% peak=23.67% governing=25.00% close=0.78% headroom=0.55% pending=50 → STOP — no plan fits the headroom: close per §8.3`)
+  - per-unit delta: 0.188% (verified 23.67% − dispatched 14.66% = 9.01% ÷ 48 units = 0.188%)
+- **rot metrics**: none observed (used: 23.67%)
+- **429s and quota.reset_in_seconds**: Account-level quota reached during worker execution (429: "Individual quota reached. Resets in ~3h30m"); paused cleanly by Sentinel; resumed automatically post-reset at ~05:15 UTC.
+- **wall time**: 270.6 min elapsed from dispatch to completion (including ~3.5h quota pause; active execution time ~15 min).
+- **Workers per unit**: 48 workers (`.agents/worker_1`..`worker_48`), one per unit, dispatched concurrently.
+- **quote-check totals**: 4,565 PASS, 0 FAIL across all 175 cards (0% failure rate)
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p1-run-14/success_auditor_report.md` (verdict CLEAN, confirmed by independent Victory Auditor verdict VICTORY CONFIRMED)
+- **Probe verdict**: Quality clean (0 FAIL across 4,565 citations, 0 rot metrics, 48 parallel workers); probe paused on external 429 quota window (~3.5h), so wall time measures quota pause rather than harness queueing. `max_clean_concurrency` stays 1.
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.

@@ -840,181 +840,181 @@
 | scripts/eval/eval_runtime_parity.py | 16416 | script | [x] |
 | scripts/eval/eval_skill_router.py | 23269 | script | [x] |
 | scripts/eval/eval-agent-vs-baseline.py | 45289 | script | [x] |
-| scripts/eval/eval-agents.py | 59882 | script | [ ] |
-| scripts/eval/eval-e2e-delivery.py | 8656 | script | [ ] |
-| scripts/eval/eval-knowledge-integration.py | 35810 | script | [ ] |
-| scripts/eval/eval-model-panel.py | 9491 | script | [ ] |
-| scripts/eval/eval-model-sweep.py | 22222 | script | [ ] |
-| scripts/eval/eval-oneshot-vs-shipped.py | 11170 | script | [ ] |
-| scripts/eval/eval-prompt-change.py | 30975 | script | [ ] |
-| scripts/eval/eval-reviewer-asymmetry.py | 23467 | script | [ ] |
-| scripts/eval/eval-rule-activation.py | 110937 | script | [ ] |
-| scripts/eval/eval-skill-overlap.py | 37191 | script | [ ] |
-| scripts/eval/eval-suite.py | 20446 | script | [ ] |
-| scripts/eval/examples/e2e-delivery-fixtures.json | 6899 | script | [ ] |
-| scripts/eval/examples/example-overlap-pairs.json | 3183 | script | [ ] |
-| scripts/eval/examples/example-scenarios.json | 2178 | script | [ ] |
-| scripts/eval/examples/overlap-pairs-issue-1949.json | 6925 | script | [ ] |
-| scripts/eval/examples/runtime-parity-fixtures.json | 3828 | script | [ ] |
-| scripts/eval/optimize-artifact.py | 153486 | script | [ ] |
-| scripts/eval/panels/owner-copilot-cli.json | 1102 | script | [ ] |
-| scripts/eval/README.md | 81217 | script | [ ] |
-| scripts/eval/software_engineering_library_activation_ci.py | 7193 | script | [ ] |
-| scripts/eval/software_engineering_library_activation_gate.py | 8686 | script | [ ] |
-| scripts/eval/variance-control.py | 22951 | script | [ ] |
-| scripts/external_signals/__init__.py | 559 | script | [ ] |
-| scripts/external_signals/acceptance_criteria.py | 7510 | script | [ ] |
-| scripts/external_signals/gate_aggregator.py | 6758 | script | [ ] |
-| scripts/generate_third_party_notices.py | 18771 | script | [ ] |
-| scripts/gh_retry_helpers.py | 8741 | script | [ ] |
-| scripts/github_core/__init__.py | 3035 | script | [ ] |
-| scripts/github_core/api.py | 43794 | script | [ ] |
-| scripts/github_core/bot_config.py | 13186 | script | [ ] |
-| scripts/github_core/checks_rollup.py | 8696 | script | [ ] |
+| scripts/eval/eval-agents.py | 59882 | script | [x] |
+| scripts/eval/eval-e2e-delivery.py | 8656 | script | [x] |
+| scripts/eval/eval-knowledge-integration.py | 35810 | script | [x] |
+| scripts/eval/eval-model-panel.py | 9491 | script | [x] |
+| scripts/eval/eval-model-sweep.py | 22222 | script | [x] |
+| scripts/eval/eval-oneshot-vs-shipped.py | 11170 | script | [x] |
+| scripts/eval/eval-prompt-change.py | 30975 | script | [x] |
+| scripts/eval/eval-reviewer-asymmetry.py | 23467 | script | [x] |
+| scripts/eval/eval-rule-activation.py | 110937 | script | [x] |
+| scripts/eval/eval-skill-overlap.py | 37191 | script | [x] |
+| scripts/eval/eval-suite.py | 20446 | script | [x] |
+| scripts/eval/examples/e2e-delivery-fixtures.json | 6899 | script | [x] |
+| scripts/eval/examples/example-overlap-pairs.json | 3183 | script | [x] |
+| scripts/eval/examples/example-scenarios.json | 2178 | script | [x] |
+| scripts/eval/examples/overlap-pairs-issue-1949.json | 6925 | script | [x] |
+| scripts/eval/examples/runtime-parity-fixtures.json | 3828 | script | [x] |
+| scripts/eval/optimize-artifact.py | 153486 | script | [x] |
+| scripts/eval/panels/owner-copilot-cli.json | 1102 | script | [x] |
+| scripts/eval/README.md | 81217 | script | [x] |
+| scripts/eval/software_engineering_library_activation_ci.py | 7193 | script | [x] |
+| scripts/eval/software_engineering_library_activation_gate.py | 8686 | script | [x] |
+| scripts/eval/variance-control.py | 22951 | script | [x] |
+| scripts/external_signals/__init__.py | 559 | script | [x] |
+| scripts/external_signals/acceptance_criteria.py | 7510 | script | [x] |
+| scripts/external_signals/gate_aggregator.py | 6758 | script | [x] |
+| scripts/generate_third_party_notices.py | 18771 | script | [x] |
+| scripts/gh_retry_helpers.py | 8741 | script | [x] |
+| scripts/github_core/__init__.py | 3035 | script | [x] |
+| scripts/github_core/api.py | 43794 | script | [x] |
+| scripts/github_core/bot_config.py | 13186 | script | [x] |
+| scripts/github_core/checks_rollup.py | 8696 | script | [x] |
 | scripts/github_core/CLAUDE.md | 170 | script | [x] |
-| scripts/github_core/comment_classification.py | 2125 | script | [ ] |
-| scripts/github_core/discourse_traversal.py | 8828 | script | [ ] |
-| scripts/github_core/formatting.py | 869 | script | [ ] |
-| scripts/github_core/gh_client.py | 6197 | script | [ ] |
-| scripts/github_core/log_safety.py | 640 | script | [ ] |
-| scripts/github_core/output.py | 11470 | script | [ ] |
-| scripts/github_core/placeholder_identity.py | 4493 | script | [ ] |
-| scripts/github_core/pr_merge_state.py | 9570 | script | [ ] |
-| scripts/github_core/protocol.py | 823 | script | [ ] |
-| scripts/github_core/pull_request_targets.py | 4531 | script | [ ] |
-| scripts/github_core/rate_limit.py | 11614 | script | [ ] |
-| scripts/github_core/recovery_manifest.py | 18439 | script | [ ] |
-| scripts/github_core/repo.py | 3658 | script | [ ] |
-| scripts/github_core/review_threads.py | 14595 | script | [ ] |
-| scripts/github_core/runs_file.py | 9738 | script | [ ] |
-| scripts/github_core/validation.py | 9654 | script | [ ] |
-| scripts/github_core/workflow_event_subscriptions.py | 22059 | script | [ ] |
-| scripts/github_core/workflow_provenance.py | 6337 | script | [ ] |
-| scripts/github_core/workflow_runs.py | 12597 | script | [ ] |
-| scripts/github_core/worktree_identity.py | 3426 | script | [ ] |
-| scripts/guard_diff.py | 7191 | script | [ ] |
-| scripts/hook_utilities/__init__.py | 976 | script | [ ] |
-| scripts/hook_utilities/bootstrap.py | 3683 | script | [ ] |
+| scripts/github_core/comment_classification.py | 2125 | script | [x] |
+| scripts/github_core/discourse_traversal.py | 8828 | script | [x] |
+| scripts/github_core/formatting.py | 869 | script | [x] |
+| scripts/github_core/gh_client.py | 6197 | script | [x] |
+| scripts/github_core/log_safety.py | 640 | script | [x] |
+| scripts/github_core/output.py | 11470 | script | [x] |
+| scripts/github_core/placeholder_identity.py | 4493 | script | [x] |
+| scripts/github_core/pr_merge_state.py | 9570 | script | [x] |
+| scripts/github_core/protocol.py | 823 | script | [x] |
+| scripts/github_core/pull_request_targets.py | 4531 | script | [x] |
+| scripts/github_core/rate_limit.py | 11614 | script | [x] |
+| scripts/github_core/recovery_manifest.py | 18439 | script | [x] |
+| scripts/github_core/repo.py | 3658 | script | [x] |
+| scripts/github_core/review_threads.py | 14595 | script | [x] |
+| scripts/github_core/runs_file.py | 9738 | script | [x] |
+| scripts/github_core/validation.py | 9654 | script | [x] |
+| scripts/github_core/workflow_event_subscriptions.py | 22059 | script | [x] |
+| scripts/github_core/workflow_provenance.py | 6337 | script | [x] |
+| scripts/github_core/workflow_runs.py | 12597 | script | [x] |
+| scripts/github_core/worktree_identity.py | 3426 | script | [x] |
+| scripts/guard_diff.py | 7191 | script | [x] |
+| scripts/hook_utilities/__init__.py | 976 | script | [x] |
+| scripts/hook_utilities/bootstrap.py | 3683 | script | [x] |
 | scripts/hook_utilities/CLAUDE.md | 170 | script | [x] |
-| scripts/hook_utilities/guards.py | 7824 | script | [ ] |
-| scripts/hook_utilities/path_safety.py | 1005 | script | [ ] |
-| scripts/hook_utilities/utilities.py | 11379 | script | [ ] |
-| scripts/incoherence.py | 37983 | script | [ ] |
-| scripts/init_project.py | 19076 | script | [ ] |
-| scripts/install_semgrep.py | 4577 | script | [ ] |
-| scripts/invoke_batch_pr_review.py | 10667 | script | [ ] |
-| scripts/invoke_pr_maintenance.py | 17011 | script | [ ] |
-| scripts/invoke_session_start_gate.py | 10337 | script | [ ] |
-| scripts/issue_triage.py | 28826 | script | [ ] |
-| scripts/llm_classification/__init__.py | 430 | script | [ ] |
-| scripts/llm_classification/cache.py | 2664 | script | [ ] |
-| scripts/llm_classification/classifier.py | 5455 | script | [ ] |
-| scripts/llm_classification/config.py | 2770 | script | [ ] |
-| scripts/maintenance/__init__.py | 0 | script | [ ] |
-| scripts/maintenance/_gc_anchors.py | 7917 | script | [ ] |
-| scripts/maintenance/_gc_apply.py | 11235 | script | [ ] |
-| scripts/maintenance/_gc_files.py | 2559 | script | [ ] |
-| scripts/maintenance/_gc_parse.py | 3190 | script | [ ] |
-| scripts/maintenance/_gc_reasons.py | 12053 | script | [ ] |
-| scripts/maintenance/_gc_remote.py | 2229 | script | [ ] |
-| scripts/maintenance/_gc_stale.py | 19140 | script | [ ] |
-| scripts/maintenance/detect_orphan_commits.py | 9560 | script | [ ] |
-| scripts/maintenance/detect_unlanded_commits.py | 4687 | script | [ ] |
-| scripts/maintenance/gc_worktrees.py | 20410 | script | [ ] |
-| scripts/maintenance/repair_packed_refs.py | 7125 | script | [ ] |
-| scripts/maintenance/repair_worktree_venv.py | 12725 | script | [ ] |
-| scripts/maintenance/worktree_occupancy.py | 4365 | script | [ ] |
-| scripts/maintenance/worktree_report.py | 7422 | script | [ ] |
-| scripts/mcp_cli/__init__.py | 330 | script | [ ] |
-| scripts/mcp_cli/wrapper.py | 6194 | script | [ ] |
-| scripts/measure_context_retrieval_metrics.py | 9980 | script | [ ] |
-| scripts/metrics_writer.py | 7586 | script | [ ] |
-| scripts/metrics/__init__.py | 70 | script | [ ] |
-| scripts/metrics/check_vendored_install.py | 3039 | script | [ ] |
-| scripts/metrics/emit_verdict_mismatch.py | 2809 | script | [ ] |
-| scripts/metrics/kill_criteria.py | 19854 | script | [ ] |
-| scripts/migrations/req003_inline_plugin_root_bootstrap.py | 5801 | script | [ ] |
-| scripts/modules/__init__.py | 34 | script | [ ] |
-| scripts/modules/investigation_allowlist.py | 1641 | script | [ ] |
-| scripts/modules/slash_command_validator.py | 2500 | script | [ ] |
-| scripts/mutation_test_proc_group.py | 5551 | script | [ ] |
-| scripts/new_validated_pr.py | 5449 | script | [ ] |
-| scripts/normalize_line_endings.py | 3927 | script | [ ] |
-| scripts/openclaw_bridge.py | 13093 | script | [ ] |
-| scripts/pr_branch_mapping.py | 14798 | script | [ ] |
-| scripts/pr_maintenance_rollup.py | 7153 | script | [ ] |
-| scripts/pr_maintenance/__init__.py | 791 | script | [ ] |
-| scripts/pr_maintenance/maintenance.py | 6037 | script | [ ] |
-| scripts/progress/__init__.py | 709 | script | [ ] |
-| scripts/progress/py.typed | 0 | script | [ ] |
-| scripts/progress/README.md | 3104 | script | [ ] |
-| scripts/progress/reporter.py | 5708 | script | [ ] |
-| scripts/quality_gate/__init__.py | 305 | script | [ ] |
-| scripts/quality_gate/check_critical_failures.py | 4873 | script | [ ] |
-| scripts/quality_gate/external_signal_gate.py | 6754 | script | [ ] |
-| scripts/quality_gate/path_utils.py | 639 | script | [ ] |
-| scripts/quality_gate/resolve_pytest_signal.py | 20467 | script | [ ] |
-| scripts/quality_gate/run_pytest.py | 5422 | script | [ ] |
-| scripts/quality_gate/spec_external_signal_gate.py | 5749 | script | [ ] |
-| scripts/README.md | 9021 | script | [ ] |
-| scripts/redact_secrets.py | 16302 | script | [ ] |
-| scripts/report_pr_supersession.py | 12125 | script | [ ] |
-| scripts/restructure_memories.py | 13887 | script | [ ] |
-| scripts/review_memory_export_security.py | 6705 | script | [ ] |
-| scripts/scope_pr_base.py | 10045 | script | [ ] |
-| scripts/security/invoke_precommit_security.py | 36974 | script | [ ] |
-| scripts/security/invoke_security_retrospective.py | 25019 | script | [ ] |
-| scripts/security/run_semgrep.py | 20443 | script | [ ] |
-| scripts/skill_description_budget.py | 8517 | script | [ ] |
-| scripts/skill_registry.py | 13095 | script | [ ] |
-| scripts/skillbook.py | 24879 | script | [ ] |
-| scripts/split_bundled_skills.py | 4644 | script | [ ] |
-| scripts/sync_mcp_config.py | 5726 | script | [ ] |
-| scripts/sync_plugin_lib.py | 15589 | script | [ ] |
-| scripts/sync/__init__.py | 332 | script | [ ] |
-| scripts/sync/detect_spec_drift.py | 15534 | script | [ ] |
-| scripts/test_result_helpers/__init__.py | 207 | script | [ ] |
-| scripts/test_result_helpers/helpers.py | 1724 | script | [ ] |
-| scripts/test_selection/__init__.py | 320 | script | [ ] |
-| scripts/test_selection/import_graph.py | 12487 | script | [ ] |
-| scripts/test_selection/runtime_read_patterns.txt | 267 | script | [ ] |
-| scripts/test_selection/select_tests.py | 8199 | script | [ ] |
-| scripts/testing/mutation_harness.py | 12860 | script | [ ] |
-| scripts/testing/mutation_workspace_git.py | 11428 | script | [ ] |
-| scripts/testing/mutation_workspace.py | 17102 | script | [ ] |
-| scripts/todo_db.py | 5204 | script | [ ] |
-| scripts/traceability/__init__.py | 319 | script | [ ] |
-| scripts/traceability/reconstruct_trace.py | 7041 | script | [ ] |
-| scripts/traceability/rename_spec_id.py | 6188 | script | [ ] |
-| scripts/traceability/resolve_orphaned_specs.py | 8405 | script | [ ] |
-| scripts/traceability/show_traceability_graph.py | 10271 | script | [ ] |
-| scripts/traceability/spec_utils.py | 6047 | script | [ ] |
-| scripts/traceability/traceability_cache.py | 4054 | script | [ ] |
-| scripts/traceability/update_spec_references.py | 6526 | script | [ ] |
-| scripts/update_memory_index_tokens.py | 8126 | script | [ ] |
-| scripts/update_reviewer_signal_stats.py | 25752 | script | [ ] |
-| scripts/utils/__init__.py | 45 | script | [ ] |
-| scripts/utils/markdown_parser.py | 46123 | script | [ ] |
-| scripts/utils/path_validation.py | 4486 | script | [ ] |
-| scripts/validate_memory_tier.py | 9824 | script | [ ] |
-| scripts/validate_phase_gates.py | 6656 | script | [ ] |
-| scripts/validate_pr_review_config.py | 15084 | script | [ ] |
-| scripts/validate_quality_gate_output.py | 4551 | script | [ ] |
-| scripts/validate_session_json.py | 70298 | script | [ ] |
-| scripts/validate_skill_format.py | 5925 | script | [ ] |
-| scripts/validate_skill_installation.py | 6165 | script | [ ] |
-| scripts/validate_skill_output.py | 14130 | script | [ ] |
-| scripts/validate_workflows.py | 27795 | script | [ ] |
-| scripts/validate_workspace_budget.py | 6427 | script | [ ] |
-| scripts/validation/__init__.py | 224 | script | [ ] |
-| scripts/validation/active_plan_closeout.py | 6113 | script | [ ] |
-| scripts/validation/adr_lifecycle_baseline.json | 502 | script | [ ] |
-| scripts/validation/agent_registry.py | 9761 | script | [ ] |
-| scripts/validation/agent_skill_discriminator_baseline.py | 12142 | script | [ ] |
-| scripts/validation/assert_smoke_ran.py | 7532 | script | [ ] |
-| scripts/validation/assert_trusted_smoke_context.py | 4367 | script | [ ] |
-| scripts/validation/check_adr_lifecycle.py | 59943 | script | [ ] |
-| scripts/validation/check_adr_links_baseline.txt | 5725 | script | [ ] |
+| scripts/hook_utilities/guards.py | 7824 | script | [x] |
+| scripts/hook_utilities/path_safety.py | 1005 | script | [x] |
+| scripts/hook_utilities/utilities.py | 11379 | script | [x] |
+| scripts/incoherence.py | 37983 | script | [x] |
+| scripts/init_project.py | 19076 | script | [x] |
+| scripts/install_semgrep.py | 4577 | script | [x] |
+| scripts/invoke_batch_pr_review.py | 10667 | script | [x] |
+| scripts/invoke_pr_maintenance.py | 17011 | script | [x] |
+| scripts/invoke_session_start_gate.py | 10337 | script | [x] |
+| scripts/issue_triage.py | 28826 | script | [x] |
+| scripts/llm_classification/__init__.py | 430 | script | [x] |
+| scripts/llm_classification/cache.py | 2664 | script | [x] |
+| scripts/llm_classification/classifier.py | 5455 | script | [x] |
+| scripts/llm_classification/config.py | 2770 | script | [x] |
+| scripts/maintenance/__init__.py | 0 | script | [x] |
+| scripts/maintenance/_gc_anchors.py | 7917 | script | [x] |
+| scripts/maintenance/_gc_apply.py | 11235 | script | [x] |
+| scripts/maintenance/_gc_files.py | 2559 | script | [x] |
+| scripts/maintenance/_gc_parse.py | 3190 | script | [x] |
+| scripts/maintenance/_gc_reasons.py | 12053 | script | [x] |
+| scripts/maintenance/_gc_remote.py | 2229 | script | [x] |
+| scripts/maintenance/_gc_stale.py | 19140 | script | [x] |
+| scripts/maintenance/detect_orphan_commits.py | 9560 | script | [x] |
+| scripts/maintenance/detect_unlanded_commits.py | 4687 | script | [x] |
+| scripts/maintenance/gc_worktrees.py | 20410 | script | [x] |
+| scripts/maintenance/repair_packed_refs.py | 7125 | script | [x] |
+| scripts/maintenance/repair_worktree_venv.py | 12725 | script | [x] |
+| scripts/maintenance/worktree_occupancy.py | 4365 | script | [x] |
+| scripts/maintenance/worktree_report.py | 7422 | script | [x] |
+| scripts/mcp_cli/__init__.py | 330 | script | [x] |
+| scripts/mcp_cli/wrapper.py | 6194 | script | [x] |
+| scripts/measure_context_retrieval_metrics.py | 9980 | script | [x] |
+| scripts/metrics_writer.py | 7586 | script | [x] |
+| scripts/metrics/__init__.py | 70 | script | [x] |
+| scripts/metrics/check_vendored_install.py | 3039 | script | [x] |
+| scripts/metrics/emit_verdict_mismatch.py | 2809 | script | [x] |
+| scripts/metrics/kill_criteria.py | 19854 | script | [x] |
+| scripts/migrations/req003_inline_plugin_root_bootstrap.py | 5801 | script | [x] |
+| scripts/modules/__init__.py | 34 | script | [x] |
+| scripts/modules/investigation_allowlist.py | 1641 | script | [x] |
+| scripts/modules/slash_command_validator.py | 2500 | script | [x] |
+| scripts/mutation_test_proc_group.py | 5551 | script | [x] |
+| scripts/new_validated_pr.py | 5449 | script | [x] |
+| scripts/normalize_line_endings.py | 3927 | script | [x] |
+| scripts/openclaw_bridge.py | 13093 | script | [x] |
+| scripts/pr_branch_mapping.py | 14798 | script | [x] |
+| scripts/pr_maintenance_rollup.py | 7153 | script | [x] |
+| scripts/pr_maintenance/__init__.py | 791 | script | [x] |
+| scripts/pr_maintenance/maintenance.py | 6037 | script | [x] |
+| scripts/progress/__init__.py | 709 | script | [x] |
+| scripts/progress/py.typed | 0 | script | [x] |
+| scripts/progress/README.md | 3104 | script | [x] |
+| scripts/progress/reporter.py | 5708 | script | [x] |
+| scripts/quality_gate/__init__.py | 305 | script | [x] |
+| scripts/quality_gate/check_critical_failures.py | 4873 | script | [x] |
+| scripts/quality_gate/external_signal_gate.py | 6754 | script | [x] |
+| scripts/quality_gate/path_utils.py | 639 | script | [x] |
+| scripts/quality_gate/resolve_pytest_signal.py | 20467 | script | [x] |
+| scripts/quality_gate/run_pytest.py | 5422 | script | [x] |
+| scripts/quality_gate/spec_external_signal_gate.py | 5749 | script | [x] |
+| scripts/README.md | 9021 | script | [x] |
+| scripts/redact_secrets.py | 16302 | script | [x] |
+| scripts/report_pr_supersession.py | 12125 | script | [x] |
+| scripts/restructure_memories.py | 13887 | script | [x] |
+| scripts/review_memory_export_security.py | 6705 | script | [x] |
+| scripts/scope_pr_base.py | 10045 | script | [x] |
+| scripts/security/invoke_precommit_security.py | 36974 | script | [x] |
+| scripts/security/invoke_security_retrospective.py | 25019 | script | [x] |
+| scripts/security/run_semgrep.py | 20443 | script | [x] |
+| scripts/skill_description_budget.py | 8517 | script | [x] |
+| scripts/skill_registry.py | 13095 | script | [x] |
+| scripts/skillbook.py | 24879 | script | [x] |
+| scripts/split_bundled_skills.py | 4644 | script | [x] |
+| scripts/sync_mcp_config.py | 5726 | script | [x] |
+| scripts/sync_plugin_lib.py | 15589 | script | [x] |
+| scripts/sync/__init__.py | 332 | script | [x] |
+| scripts/sync/detect_spec_drift.py | 15534 | script | [x] |
+| scripts/test_result_helpers/__init__.py | 207 | script | [x] |
+| scripts/test_result_helpers/helpers.py | 1724 | script | [x] |
+| scripts/test_selection/__init__.py | 320 | script | [x] |
+| scripts/test_selection/import_graph.py | 12487 | script | [x] |
+| scripts/test_selection/runtime_read_patterns.txt | 267 | script | [x] |
+| scripts/test_selection/select_tests.py | 8199 | script | [x] |
+| scripts/testing/mutation_harness.py | 12860 | script | [x] |
+| scripts/testing/mutation_workspace_git.py | 11428 | script | [x] |
+| scripts/testing/mutation_workspace.py | 17102 | script | [x] |
+| scripts/todo_db.py | 5204 | script | [x] |
+| scripts/traceability/__init__.py | 319 | script | [x] |
+| scripts/traceability/reconstruct_trace.py | 7041 | script | [x] |
+| scripts/traceability/rename_spec_id.py | 6188 | script | [x] |
+| scripts/traceability/resolve_orphaned_specs.py | 8405 | script | [x] |
+| scripts/traceability/show_traceability_graph.py | 10271 | script | [x] |
+| scripts/traceability/spec_utils.py | 6047 | script | [x] |
+| scripts/traceability/traceability_cache.py | 4054 | script | [x] |
+| scripts/traceability/update_spec_references.py | 6526 | script | [x] |
+| scripts/update_memory_index_tokens.py | 8126 | script | [x] |
+| scripts/update_reviewer_signal_stats.py | 25752 | script | [x] |
+| scripts/utils/__init__.py | 45 | script | [x] |
+| scripts/utils/markdown_parser.py | 46123 | script | [x] |
+| scripts/utils/path_validation.py | 4486 | script | [x] |
+| scripts/validate_memory_tier.py | 9824 | script | [x] |
+| scripts/validate_phase_gates.py | 6656 | script | [x] |
+| scripts/validate_pr_review_config.py | 15084 | script | [x] |
+| scripts/validate_quality_gate_output.py | 4551 | script | [x] |
+| scripts/validate_session_json.py | 70298 | script | [x] |
+| scripts/validate_skill_format.py | 5925 | script | [x] |
+| scripts/validate_skill_installation.py | 6165 | script | [x] |
+| scripts/validate_skill_output.py | 14130 | script | [x] |
+| scripts/validate_workflows.py | 27795 | script | [x] |
+| scripts/validate_workspace_budget.py | 6427 | script | [x] |
+| scripts/validation/__init__.py | 224 | script | [x] |
+| scripts/validation/active_plan_closeout.py | 6113 | script | [x] |
+| scripts/validation/adr_lifecycle_baseline.json | 502 | script | [x] |
+| scripts/validation/agent_registry.py | 9761 | script | [x] |
+| scripts/validation/agent_skill_discriminator_baseline.py | 12142 | script | [x] |
+| scripts/validation/assert_smoke_ran.py | 7532 | script | [x] |
+| scripts/validation/assert_trusted_smoke_context.py | 4367 | script | [x] |
+| scripts/validation/check_adr_lifecycle.py | 59943 | script | [x] |
+| scripts/validation/check_adr_links_baseline.txt | 5725 | script | [x] |
 | scripts/validation/check_adr_links.py | 53014 | script | [ ] |
 | scripts/validation/check_adr_uniqueness.py | 5361 | script | [ ] |
 | scripts/validation/check_agent_skill_discriminator.py | 34655 | script | [ ] |
