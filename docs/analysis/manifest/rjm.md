@@ -549,42 +549,42 @@
 | .claude/skills/skillforge/scripts/quick_validate.py | 12925 | script | [x] |
 | .claude/skills/skillforge/scripts/skill_modularity_audit.py | 13332 | script | [x] |
 | .claude/skills/skillforge/scripts/triage_skill_request.py | 29094 | script | [x] |
-| .claude/skills/skillforge/scripts/validate-skill.py | 31236 | script | [ ] |
-| .claude/skills/skillforge/SKILL.md | 16036 | skill | [ ] |
-| .claude/skills/skillforge/TRANSFORMATION_NOTES.md | 10871 | skill | [ ] |
-| .claude/skills/slashcommandcreator/scripts/new_slash_command.py | 3836 | script | [ ] |
-| .claude/skills/slashcommandcreator/scripts/validate_slash_command.py | 7549 | script | [ ] |
-| .claude/skills/slashcommandcreator/SKILL.md | 10780 | skill | [ ] |
-| .claude/skills/slo-designer/references/slo-design-patterns.md | 7081 | reference | [ ] |
-| .claude/skills/slo-designer/scripts/calculate_error_budget.py | 8648 | script | [ ] |
-| .claude/skills/slo-designer/scripts/generate_slo_document.py | 13258 | script | [ ] |
-| .claude/skills/slo-designer/SKILL.md | 10487 | skill | [ ] |
-| .claude/skills/slo-designer/templates/slo-config-template.yaml | 2498 | skill | [ ] |
-| .claude/skills/software-engineering-library/references/clean-architecture.md | 15076 | reference | [ ] |
-| .claude/skills/software-engineering-library/references/data-intensive-applications.md | 14187 | reference | [ ] |
-| .claude/skills/software-engineering-library/references/domain-driven-design.md | 19299 | reference | [ ] |
-| .claude/skills/software-engineering-library/references/enterprise-patterns.md | 11327 | reference | [ ] |
-| .claude/skills/software-engineering-library/references/philosophy-of-software-design.md | 14362 | reference | [ ] |
-| .claude/skills/software-engineering-library/references/refactoring.md | 13191 | reference | [ ] |
-| .claude/skills/software-engineering-library/references/release-it.md | 18625 | reference | [ ] |
-| .claude/skills/software-engineering-library/references/working-with-legacy-code.md | 14009 | reference | [ ] |
-| .claude/skills/software-engineering-library/SKILL.md | 4840 | skill | [ ] |
-| .claude/skills/spec-generator/references/spec-prior-art-schema.md | 38288 | reference | [ ] |
-| .claude/skills/spec-generator/references/spec-schemas.md | 14040 | reference | [ ] |
-| .claude/skills/spec-generator/references/spec-step0-gates.md | 13193 | reference | [ ] |
-| .claude/skills/spec-generator/scripts/validate_spec_frontmatter.py | 8387 | script | [ ] |
-| .claude/skills/spec-generator/SKILL.md | 12931 | skill | [ ] |
-| .claude/skills/steering-matcher/get_applicable_steering.py | 5184 | skill | [ ] |
-| .claude/skills/steering-matcher/scripts/get_applicable_steering.py | 5494 | script | [ ] |
-| .claude/skills/steering-matcher/SKILL.md | 4840 | skill | [ ] |
-| .claude/skills/steering-matcher/steering-matcher.skill | 429 | skill | [ ] |
-| .claude/skills/stuck-detection/SKILL.md | 6874 | skill | [ ] |
-| .claude/skills/stuck-detection/stuck_detection.py | 11192 | skill | [ ] |
-| .claude/skills/style-enforcement/references/dotnet-monorepo-standards.md | 3566 | reference | [ ] |
-| .claude/skills/style-enforcement/scripts/check_style.py | 25571 | script | [ ] |
-| .claude/skills/style-enforcement/SKILL.md | 12088 | skill | [ ] |
-| .claude/skills/taste-lints/scripts/taste_lints.py | 41729 | script | [ ] |
-| .claude/skills/taste-lints/SKILL.md | 3956 | skill | [ ] |
+| .claude/skills/skillforge/scripts/validate-skill.py | 31236 | script | [x] |
+| .claude/skills/skillforge/SKILL.md | 16036 | skill | [x] |
+| .claude/skills/skillforge/TRANSFORMATION_NOTES.md | 10871 | skill | [x] |
+| .claude/skills/slashcommandcreator/scripts/new_slash_command.py | 3836 | script | [x] |
+| .claude/skills/slashcommandcreator/scripts/validate_slash_command.py | 7549 | script | [x] |
+| .claude/skills/slashcommandcreator/SKILL.md | 10780 | skill | [x] |
+| .claude/skills/slo-designer/references/slo-design-patterns.md | 7081 | reference | [x] |
+| .claude/skills/slo-designer/scripts/calculate_error_budget.py | 8648 | script | [x] |
+| .claude/skills/slo-designer/scripts/generate_slo_document.py | 13258 | script | [x] |
+| .claude/skills/slo-designer/SKILL.md | 10487 | skill | [x] |
+| .claude/skills/slo-designer/templates/slo-config-template.yaml | 2498 | skill | [x] |
+| .claude/skills/software-engineering-library/references/clean-architecture.md | 15076 | reference | [x] |
+| .claude/skills/software-engineering-library/references/data-intensive-applications.md | 14187 | reference | [x] |
+| .claude/skills/software-engineering-library/references/domain-driven-design.md | 19299 | reference | [x] |
+| .claude/skills/software-engineering-library/references/enterprise-patterns.md | 11327 | reference | [x] |
+| .claude/skills/software-engineering-library/references/philosophy-of-software-design.md | 14362 | reference | [x] |
+| .claude/skills/software-engineering-library/references/refactoring.md | 13191 | reference | [x] |
+| .claude/skills/software-engineering-library/references/release-it.md | 18625 | reference | [x] |
+| .claude/skills/software-engineering-library/references/working-with-legacy-code.md | 14009 | reference | [x] |
+| .claude/skills/software-engineering-library/SKILL.md | 4840 | skill | [x] |
+| .claude/skills/spec-generator/references/spec-prior-art-schema.md | 38288 | reference | [x] |
+| .claude/skills/spec-generator/references/spec-schemas.md | 14040 | reference | [x] |
+| .claude/skills/spec-generator/references/spec-step0-gates.md | 13193 | reference | [x] |
+| .claude/skills/spec-generator/scripts/validate_spec_frontmatter.py | 8387 | script | [x] |
+| .claude/skills/spec-generator/SKILL.md | 12931 | skill | [x] |
+| .claude/skills/steering-matcher/get_applicable_steering.py | 5184 | skill | [x] |
+| .claude/skills/steering-matcher/scripts/get_applicable_steering.py | 5494 | script | [x] |
+| .claude/skills/steering-matcher/SKILL.md | 4840 | skill | [x] |
+| .claude/skills/steering-matcher/steering-matcher.skill | 429 | skill | [x] |
+| .claude/skills/stuck-detection/SKILL.md | 6874 | skill | [x] |
+| .claude/skills/stuck-detection/stuck_detection.py | 11192 | skill | [x] |
+| .claude/skills/style-enforcement/references/dotnet-monorepo-standards.md | 3566 | reference | [x] |
+| .claude/skills/style-enforcement/scripts/check_style.py | 25571 | script | [x] |
+| .claude/skills/style-enforcement/SKILL.md | 12088 | skill | [x] |
+| .claude/skills/taste-lints/scripts/taste_lints.py | 41729 | script | [x] |
+| .claude/skills/taste-lints/SKILL.md | 3956 | skill | [x] |
 | .claude/skills/threat-modeling/references/advanced-analysis.md | 1286 | reference | [ ] |
 | .claude/skills/threat-modeling/references/risk-rating-guide.md | 4765 | reference | [ ] |
 | .claude/skills/threat-modeling/references/security-defense-in-depth.md | 3103 | reference | [ ] |
