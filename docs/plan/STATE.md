@@ -11,8 +11,8 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `2` |
 | **phase_name** | Concept cards |
 | **current_unit** | cc-rjm-21 |
-| **last_session** | 014 |
-| **next_action** | Phase 2 — dispatch concept units per §8.2 (the partition is done: units-p2.md, cc-* rows pending; D-023) |
+| **last_session** | 015 |
+| **next_action** | Phase 2 — dispatch concept units per §8.2 (current_unit: cc-rjm-21; 356 units pending) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -41,7 +41,7 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 | 0.5 | Landscape scan | `skipped` — D-007 `landscape_scan: no` | — | — |
 | 1 | Inventory | `done` | unit extraction done (416/416); Phase 1V remediation & re-verification complete (all 3 reports clean) | 001–008, 011–012 |
 | 1V | Inventory verification | `done` | 49 flagged units re-run and verified clean (runs 18–19); all 3 verifier reports rewritten clean (PASS) | 009, 011, 012 |
-| 2 | Concept cards | `in-progress` | partitioned: 460 units (D-023) | 013– |
+| 2 | Concept cards | `in-progress` | 104 / 460 units done (addy and matt 100% complete: 44/44, 40/40; rjm 20/376 done) | 013–015 |
 | 3 | Concordance | `pending` | — | — |
 | 4 | Alignment decisions | `pending` | — | — |
 | 4V | Decision review | `pending` | — | — |
@@ -124,11 +124,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 
 ## Blocked
 
-Anything the agent cannot resolve alone. Each row names what Peter needs to do.
-
-| Since | Unit / item | Reason | Needs |
-|---|---|---|---|
-| 2026-09-06 | Phase 2 partitioning & tooling | Phase 2 units are not in units.ts or budget.ts; open question 12 friction encountered (13,765 concept occurrences across 1,313 addy / 1,193 matt / 11,259 rjm concepts cannot be dispatched without partitioning specification and tooling) | Decision on Phase 2 unit definition/partitioning tooling and method amendment |
+*(none)*
 
 ---
 
