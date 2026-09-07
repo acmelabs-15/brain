@@ -78,8 +78,8 @@ Concept units (`cc-<pkg>-N`, up to 30 concept slugs each) come from `partition-c
 
 | Status | Units |
 |---|---|
-| pending | 80 |
-| in-progress | 48 |
+| pending | 32 |
+| in-progress | 96 |
 | done | 332 |
 | blocked | 0 |
 | rolled-back | 0 |
