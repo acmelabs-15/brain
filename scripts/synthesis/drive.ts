@@ -25,8 +25,9 @@
 //   row ended with status ≠ SUCCESS; a conversation ended with `git status --porcelain` non-empty (the §8.3 commit did not happen);
 //   a conversation in a fan-out phase (1 or 2) changed nothing (no subagent step, no new run directory, phase and unit counts
 //   unchanged); the context sum exceeded the window; the STOP file exists.
-// A conversation with status ERROR whose handoff is complete and committed with a clean tree (agy's "The stream was interrupted"
-// after the final paragraph — session 004 of the test series) is a finished conversation: shown yellow, not counted as a failure.
+// A conversation with status ERROR whose handoff is complete and committed with a clean tree is a finished conversation — agy ended
+// after the agent's close ("The stream was interrupted", session 004; "Agent execution terminated due to error", sessions 015–017):
+// shown yellow, not counted as a failure (D-024 note in rationale 10).
 // Everything the driver sees goes to .teamwork/drive/drive.log; the terminal shows one task block per conversation (drive-ui.ts).
 import { readFileSync, existsSync, mkdirSync, appendFileSync, writeFileSync, readdirSync, rmSync } from "fs";
 import { join } from "path";
@@ -166,7 +167,9 @@ for (let n = 1; n <= MAX; n++) {
   // a stream interrupted after the agent finished (handoff complete, tree committed) is a finished conversation, not a failed one
   const handoffComplete = newHandoffs.length > 0 && !/\*\(in progress\)\*/.test(handoffText) && /context_used_peak:\s*[\d.]+%/.test(handoffText);
   let note = "";
-  if (status !== "SUCCESS" && !dirty && handoffComplete && /stream was interrupted/i.test(String(result?.error ?? ""))) { note = " (stream interrupted after the close; handoff committed)"; status = "FINISHED"; }
+  // any error agy reports AFTER the agent's close was committed ("The stream was interrupted", "Agent execution terminated due to
+  // error", "network issue" — sessions 004, 015/016, 017) is the harness ending, not the work failing: the tree is clean and the handoff complete
+  if (status !== "SUCCESS" && !dirty && handoffComplete) { note = ` (agy ended with "${String(result?.error ?? status).slice(0, 60)}" after the close; handoff committed)`; status = "FINISHED"; }
   const detail = `Conversation ${n} · Session ${session} · Phase ${phaseStart}${phaseEnd !== phaseStart ? `→${phaseEnd}` : ""} · ${status} · ${mins} min${unitsLine() ? ` · ${unitsLine()}` : ""} · runs [${newRuns.join(" ") || "none"}]${quality ? ` · ${quality[1]} PASS / ${quality[2]} FAIL` : ""} · peak ${peakPct} · HEAD ${sh("git log -1 --format=%h")}`;
   record(`${detail}${note} — ${steps} steps, context log by ${statuslineSeen ? "statusline" : "drive.ts"}, subagent steps ${subagents}, handoff [${newHandoffs.join(" ")}]`);
   const ok = status === "SUCCESS" || status === "FINISHED";

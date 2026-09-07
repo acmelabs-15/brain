@@ -57,6 +57,8 @@ A fact a script can compute is never typed by the model (R11, M5). A check a scr
 25. **Per-card stamping and `verified:` edits would not scale to 13,765 cards** (found while writing D-023). Phase 1's §7 steps 5–6 cost the primary one stamp line and one edit per card — fine at four cards per unit, impossible at thirty. Fix: `memo.ts stamp-unit <unit>` and `memo.ts verify <unit>`, one call and one line each; `verify` runs quote-check itself and refuses to write on any FAIL.
 26. **A concept without a card was about to be a coverage failure** — which would have stopped every Phase 2 conversation at §8.1 step 8 until the phase was finished. Fix: counted as pending work, like an uncovered manifest row in Phase 1; Phase 2's *Done when* is zero.
 
+27. **The driver's "finished despite ERROR" rule matched one message only** (production sessions 015–017). Sessions 015/016 and 017 committed their closes and were then ended by agy with "Agent execution terminated due to error" (after 11.4 and 5.2 hours); the driver knew only "The stream was interrupted", counted two failures and stopped. Fix: any ERROR with a complete handoff and a clean tree is FINISHED.
+
 ## What was deliberately not built
 
 - A separate reviewer role for `verified:` — the primary agent writes it at §7 step 6, after the scripts pass; a role would add a message without adding a check.
