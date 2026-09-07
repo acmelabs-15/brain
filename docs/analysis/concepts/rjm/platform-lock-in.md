@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Platform Lock-in"
+name: Platform Lock-in
 slug: platform-lock-in
 kind: pattern
 package_phase: none

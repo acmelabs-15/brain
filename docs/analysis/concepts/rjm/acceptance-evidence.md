@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Acceptance Evidence"
+name: Acceptance Evidence
 slug: acceptance-evidence
 kind: gate
 package_phase: cross-phase

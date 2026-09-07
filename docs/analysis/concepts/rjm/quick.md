@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Quick"
+name: Quick
 slug: quick
 kind: pattern
 package_phase: cross-phase

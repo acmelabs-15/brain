@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 4: Long Tail"
+name: Phase 4: Long Tail
 slug: phase-4-long-tail
 kind: name-only
 package_phase: none

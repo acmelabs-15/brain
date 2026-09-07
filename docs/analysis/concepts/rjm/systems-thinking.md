@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Systems Thinking"
+name: Systems Thinking
 slug: systems-thinking
 kind: technique
 package_phase: rjm:cross-phase

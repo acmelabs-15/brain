@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Throughput"
+name: Throughput
 slug: throughput
 kind: pattern
 package_phase: rjm:cross-phase

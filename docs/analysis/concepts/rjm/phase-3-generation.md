@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 3: Generation"
+name: Phase 3: Generation
 slug: phase-3-generation
 kind: phase
 package_phase: rjm:cross-phase

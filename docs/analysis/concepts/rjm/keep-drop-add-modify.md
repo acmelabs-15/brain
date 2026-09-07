@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Keep, Drop, Add, Modify"
+name: Keep, Drop, Add, Modify
 slug: keep-drop-add-modify
 kind: technique
 package_phase: rjm:retrospective

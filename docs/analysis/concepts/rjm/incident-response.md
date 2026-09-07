@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Incident response"
+name: Incident response
 slug: incident-response
 kind: phase
 package_phase: rjm:cross-phase

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 5: Persist and Close"
+name: Phase 5: Persist and Close
 slug: phase-5-persist-and-close
 kind: phase
 package_phase: rjm:retrospective

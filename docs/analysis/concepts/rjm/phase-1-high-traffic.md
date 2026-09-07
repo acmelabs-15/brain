@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 1: High Traffic"
+name: Phase 1: High Traffic
 slug: phase-1-high-traffic
 kind: name-only
 package_phase: none

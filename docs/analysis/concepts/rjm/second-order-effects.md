@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Second-Order Effects"
+name: Second-Order Effects
 slug: second-order-effects
 kind: technique
 package_phase: rjm:cross-phase

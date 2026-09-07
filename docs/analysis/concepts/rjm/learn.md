@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Learn"
+name: Learn
 slug: learn
 kind: technique
 package_phase: rjm:chaos-experiment

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Gate passed"
+name: Gate passed
 slug: gate-passed
 kind: gate
 package_phase: cross-phase

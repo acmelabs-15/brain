@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "operational-dimension"
+name: operational-dimension
 slug: operational-dimension
 kind: checklist
 package_phase: rjm:plan

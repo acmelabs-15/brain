@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Red line criteria"
+name: Red line criteria
 slug: red-line-criteria
 kind: gate
 package_phase: rjm:plan

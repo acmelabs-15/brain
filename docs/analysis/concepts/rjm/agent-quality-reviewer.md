@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "@agent-quality-reviewer"
+name: @agent-quality-reviewer
 slug: agent-quality-reviewer
 kind: role
 package_phase: cross-phase

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Error Budget Mechanics"
+name: Error Budget Mechanics
 slug: error-budget-mechanics
 kind: technique
 package_phase: rjm:cross-phase

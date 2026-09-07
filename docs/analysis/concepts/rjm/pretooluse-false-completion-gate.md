@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "PreToolUse: False Completion Gate"
+name: PreToolUse: False Completion Gate
 slug: pretooluse-false-completion-gate
 kind: gate
 package_phase: cross-phase

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 3: Protocol + Gates"
+name: Phase 3: Protocol + Gates
 slug: phase-3-protocol-gates
 kind: name-only
 package_phase: none

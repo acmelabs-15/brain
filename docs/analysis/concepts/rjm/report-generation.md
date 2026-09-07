@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Report Generation"
+name: Report Generation
 slug: report-generation
 kind: technique
 package_phase: cross-phase

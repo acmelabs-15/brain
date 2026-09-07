@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Never Build"
+name: Never Build
 slug: never-build
 kind: gate
 package_phase: rjm:plan

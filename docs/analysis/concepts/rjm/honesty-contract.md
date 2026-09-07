@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Honesty contract"
+name: Honesty contract
 slug: honesty-contract
 kind: checklist
 package_phase: rjm:research

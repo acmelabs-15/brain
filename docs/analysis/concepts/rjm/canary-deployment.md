@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "canary deployment"
+name: canary deployment
 slug: canary-deployment
 kind: pattern
 package_phase: rjm:chaos-experiment

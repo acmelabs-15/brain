@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "ADR-040-debate-log.md"
+name: ADR-040-debate-log.md
 slug: adr-040-debate-log-md
 kind: name-only
 package_phase: none

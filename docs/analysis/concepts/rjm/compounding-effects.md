@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Compounding Effects"
+name: Compounding Effects
 slug: compounding-effects
 kind: technique
 package_phase: rjm:plan

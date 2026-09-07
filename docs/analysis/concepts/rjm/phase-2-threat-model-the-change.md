@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 2: Threat-Model the Change"
+name: Phase 2: Threat-Model the Change
 slug: phase-2-threat-model-the-change
 kind: phase
 package_phase: rjm:review

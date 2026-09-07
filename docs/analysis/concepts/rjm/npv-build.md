@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "npv_build"
+name: npv_build
 slug: npv-build
 kind: name-only
 package_phase: none

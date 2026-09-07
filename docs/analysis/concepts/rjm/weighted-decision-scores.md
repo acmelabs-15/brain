@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "weighted decision scores"
+name: weighted decision scores
 slug: weighted-decision-scores
 kind: technique
 package_phase: rjm:plan

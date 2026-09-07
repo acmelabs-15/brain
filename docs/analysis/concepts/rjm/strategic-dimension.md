@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "strategic-dimension"
+name: strategic-dimension
 slug: strategic-dimension
 kind: checklist
 package_phase: rjm:plan

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "self-improving loop"
+name: self-improving loop
 slug: self-improving-loop
 kind: pattern
 package_phase: rjm:research

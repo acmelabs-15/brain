@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Privates"
+name: Privates
 slug: privates
 kind: pattern
 package_phase: cross-phase

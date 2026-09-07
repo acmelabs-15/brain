@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Validate-SkillFrontmatter.ps1"
+name: Validate-SkillFrontmatter.ps1
 slug: validate-skillfrontmatter-ps1
 kind: name-only
 package_phase: none

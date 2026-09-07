@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "DISAGREE AND COMMIT"
+name: DISAGREE AND COMMIT
 slug: disagree-and-commit
 kind: technique
 package_phase: cross-phase

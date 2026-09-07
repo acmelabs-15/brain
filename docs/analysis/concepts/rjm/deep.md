@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Deep"
+name: Deep
 slug: deep
 kind: pattern
 package_phase: rjm:plan

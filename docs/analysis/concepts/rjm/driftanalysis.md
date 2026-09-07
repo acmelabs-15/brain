@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "DriftAnalysis"
+name: DriftAnalysis
 slug: driftanalysis
 kind: name-only
 package_phase: none

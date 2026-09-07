@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Quality Scoring"
+name: Quality Scoring
 slug: quality-scoring
 kind: technique
 package_phase: cross-phase

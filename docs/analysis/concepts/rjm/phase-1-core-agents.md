@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 1: Core Agents"
+name: Phase 1: Core Agents
 slug: phase-1-core-agents
 kind: name-only
 package_phase: none

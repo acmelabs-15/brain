@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Probabilistic Thinking"
+name: Probabilistic Thinking
 slug: probabilistic-thinking
 kind: technique
 package_phase: rjm:cross-phase

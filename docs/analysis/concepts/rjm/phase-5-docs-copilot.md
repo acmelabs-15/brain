@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 5: Docs + Copilot"
+name: Phase 5: Docs + Copilot
 slug: phase-5-docs-copilot
 kind: name-only
 package_phase: none

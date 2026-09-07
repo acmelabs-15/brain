@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Error Budget Formula"
+name: Error Budget Formula
 slug: error-budget-formula
 kind: pattern
 package_phase: rjm:cross-phase

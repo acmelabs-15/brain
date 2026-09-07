@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "break-even point"
+name: break-even point
 slug: break-even-point
 kind: technique
 package_phase: rjm:plan

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "DecisionScore"
+name: DecisionScore
 slug: decisionscore
 kind: name-only
 package_phase: none

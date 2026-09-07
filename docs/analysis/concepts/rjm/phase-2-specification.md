@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 2: Specification"
+name: Phase 2: Specification
 slug: phase-2-specification
 kind: phase
 package_phase: rjm:cross-phase

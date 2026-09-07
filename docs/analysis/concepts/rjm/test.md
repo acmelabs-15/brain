@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "test"
+name: test
 slug: test
 kind: phase
 package_phase: rjm:test

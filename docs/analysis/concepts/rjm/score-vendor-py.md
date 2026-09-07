@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "score_vendor.py"
+name: score_vendor.py
 slug: score-vendor-py
 kind: name-only
 package_phase: none

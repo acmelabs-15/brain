@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 2: Execute the Workflow"
+name: Phase 2: Execute the Workflow
 slug: phase-2-execute-the-workflow
 kind: phase
 package_phase: cross-phase

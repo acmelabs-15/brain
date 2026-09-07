@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "PascalCase"
+name: PascalCase
 slug: pascalcase
 kind: name-only
 package_phase: none

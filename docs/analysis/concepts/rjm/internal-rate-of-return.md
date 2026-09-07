@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Internal Rate of Return"
+name: Internal Rate of Return
 slug: internal-rate-of-return
 kind: technique
 package_phase: rjm:plan

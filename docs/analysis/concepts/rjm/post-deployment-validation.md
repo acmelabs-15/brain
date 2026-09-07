@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Post-Deployment Validation"
+name: Post-Deployment Validation
 slug: post-deployment-validation
 kind: gate
 package_phase: cross-phase

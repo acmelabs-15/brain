@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "check_reassessment_triggers.py"
+name: check_reassessment_triggers.py
 slug: check-reassessment-triggers-py
 kind: name-only
 package_phase: none

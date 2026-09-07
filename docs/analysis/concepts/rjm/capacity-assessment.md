@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "capacity-assessment"
+name: capacity-assessment
 slug: capacity-assessment
 kind: checklist
 package_phase: rjm:plan

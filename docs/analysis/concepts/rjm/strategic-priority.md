@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "strategic priority"
+name: strategic priority
 slug: strategic-priority
 kind: gate
 package_phase: rjm:plan

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "OIDC provenance"
+name: OIDC provenance
 slug: oidc-provenance
 kind: technique
 package_phase: rjm:ship

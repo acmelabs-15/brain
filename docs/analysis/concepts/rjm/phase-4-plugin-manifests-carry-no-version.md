@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 4: Plugin Manifests Carry No Version"
+name: Phase 4: Plugin Manifests Carry No Version
 slug: phase-4-plugin-manifests-carry-no-version
 kind: phase
 package_phase: rjm:ship

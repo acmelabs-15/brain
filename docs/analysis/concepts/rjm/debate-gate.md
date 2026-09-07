@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "debate gate"
+name: debate gate
 slug: debate-gate
 kind: gate
 package_phase: rjm:plan

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "assumption drift"
+name: assumption drift
 slug: assumption-drift
 kind: pattern
 package_phase: rjm:plan

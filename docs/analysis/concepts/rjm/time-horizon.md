@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Time Horizon"
+name: Time Horizon
 slug: time-horizon
 kind: technique
 package_phase: rjm:plan

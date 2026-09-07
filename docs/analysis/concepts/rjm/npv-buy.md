@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "npv_buy"
+name: npv_buy
 slug: npv-buy
 kind: name-only
 package_phase: none

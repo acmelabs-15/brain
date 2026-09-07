@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "CodeQL"
+name: CodeQL
 slug: codeql
 kind: reference
 package_phase: cross-phase

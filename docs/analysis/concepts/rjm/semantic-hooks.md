@@ -1,0 +1,52 @@
+---
+package: rjm
+name: semantic_hooks
+slug: semantic-hooks
+kind: name-only
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: .claude/skills/stuck-detection/stuck_detection.py, sha256: 99d4b403cad8ddf03b744832780919354d9fa22f95d9668378a7396cbfa3bc18}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# semantic_hooks
+
+## Definition — verbatim
+(used, not defined)
+
+> "import from `semantic_hooks` so behavior stays deterministic regardless of" — .claude/skills/stuck-detection/stuck_detection.py:13
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .claude/skills/stuck-detection/stuck_detection.py | 13 | used here | Cited in module docstring explaining intentional decoupling to maintain stdlib-only determinism. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+clean
+
+## Design notes
+`semantic_hooks` is an external Python package identifier referenced to explain dependency isolation in `stuck_detection.py` rather than an autonomous lifecycle concept, classified as `kind: name-only` per D-023.

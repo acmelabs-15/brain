@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "ChangedFile"
+name: ChangedFile
 slug: changedfile
 kind: name-only
 package_phase: none

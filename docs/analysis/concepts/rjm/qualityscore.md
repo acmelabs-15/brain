@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "QualityScore"
+name: QualityScore
 slug: qualityscore
 kind: name-only
 package_phase: none

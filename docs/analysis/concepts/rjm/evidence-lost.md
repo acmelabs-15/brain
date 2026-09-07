@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "evidence_lost"
+name: evidence_lost
 slug: evidence-lost
 kind: name-only
 package_phase: none

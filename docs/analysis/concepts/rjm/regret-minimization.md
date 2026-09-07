@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Regret Minimization"
+name: Regret Minimization
 slug: regret-minimization
 kind: technique
 package_phase: rjm:plan

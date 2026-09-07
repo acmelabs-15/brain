@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Reassessment Trigger"
+name: Reassessment Trigger
 slug: reassessment-trigger
 kind: gate
 package_phase: rjm:plan

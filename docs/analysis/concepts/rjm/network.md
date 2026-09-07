@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Network"
+name: Network
 slug: network
 kind: pattern
 package_phase: rjm:chaos-experiment

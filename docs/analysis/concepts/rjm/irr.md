@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "IRR"
+name: IRR
 slug: irr
 kind: technique
 package_phase: rjm:plan

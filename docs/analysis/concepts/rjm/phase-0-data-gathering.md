@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 0: Data Gathering"
+name: Phase 0: Data Gathering
 slug: phase-0-data-gathering
 kind: phase
 package_phase: rjm:retrospective

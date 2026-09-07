@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "SKILL-STANDARDS-RECONCILED.md"
+name: SKILL-STANDARDS-RECONCILED.md
 slug: skill-standards-reconciled-md
 kind: name-only
 package_phase: none

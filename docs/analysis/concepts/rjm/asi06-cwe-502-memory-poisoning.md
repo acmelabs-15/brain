@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "ASI06/CWE-502: Memory Poisoning"
+name: ASI06/CWE-502: Memory Poisoning
 slug: asi06-cwe-502-memory-poisoning
 kind: name-only
 package_phase: none

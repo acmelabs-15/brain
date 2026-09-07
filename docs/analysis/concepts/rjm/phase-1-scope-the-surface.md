@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 1: Scope the Surface"
+name: Phase 1: Scope the Surface
 slug: phase-1-scope-the-surface
 kind: phase
 package_phase: rjm:review

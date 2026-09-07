@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Net Present Value"
+name: Net Present Value
 slug: net-present-value
 kind: technique
 package_phase: rjm:plan

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Instance failure"
+name: Instance failure
 slug: instance-failure
 kind: pattern
 package_phase: rjm:chaos-experiment

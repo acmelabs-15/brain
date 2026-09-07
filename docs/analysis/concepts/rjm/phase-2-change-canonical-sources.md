@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 2: Change Canonical Sources"
+name: Phase 2: Change Canonical Sources
 slug: phase-2-change-canonical-sources
 kind: phase
 package_phase: rjm:cross-phase

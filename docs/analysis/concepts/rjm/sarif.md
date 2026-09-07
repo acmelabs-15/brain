@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "SARIF"
+name: SARIF
 slug: sarif
 kind: reference
 package_phase: cross-phase

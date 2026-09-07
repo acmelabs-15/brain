@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Sergeant"
+name: Sergeant
 slug: sergeant
 kind: pattern
 package_phase: cross-phase

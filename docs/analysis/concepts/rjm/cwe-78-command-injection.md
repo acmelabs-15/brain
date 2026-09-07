@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "CWE-78: Command Injection"
+name: CWE-78: Command Injection
 slug: cwe-78-command-injection
 kind: name-only
 package_phase: none

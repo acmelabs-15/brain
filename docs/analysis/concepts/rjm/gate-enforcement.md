@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Gate Enforcement"
+name: Gate Enforcement
 slug: gate-enforcement
 kind: gate
 package_phase: cross-phase

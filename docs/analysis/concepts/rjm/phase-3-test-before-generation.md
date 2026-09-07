@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 3: Test Before Generation"
+name: Phase 3: Test Before Generation
 slug: phase-3-test-before-generation
 kind: phase
 package_phase: rjm:cross-phase

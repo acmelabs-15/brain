@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Layer 1: Lexical"
+name: Layer 1: Lexical
 slug: layer-1-lexical
 kind: technique
 package_phase: cross-phase

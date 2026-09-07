@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "CWE-88"
+name: CWE-88
 slug: cwe-88
 kind: name-only
 package_phase: none

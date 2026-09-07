@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Depth Selection"
+name: Depth Selection
 slug: depth-selection
 kind: phase
 package_phase: rjm:plan

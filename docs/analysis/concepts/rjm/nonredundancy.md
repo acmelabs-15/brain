@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "nonRedundancy"
+name: nonRedundancy
 slug: nonredundancy
 kind: name-only
 package_phase: none

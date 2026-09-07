@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "SKILL-AUTHORING.md"
+name: SKILL-AUTHORING.md
 slug: skill-authoring-md
 kind: name-only
 package_phase: none

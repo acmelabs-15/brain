@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "claude-code-skill-frontmatter-2026.md"
+name: claude-code-skill-frontmatter-2026.md
 slug: claude-code-skill-frontmatter-2026-md
 kind: name-only
 package_phase: none

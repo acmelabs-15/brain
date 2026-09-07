@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Performance Budgets"
+name: Performance Budgets
 slug: performance-budgets
 kind: pattern
 package_phase: cross-phase

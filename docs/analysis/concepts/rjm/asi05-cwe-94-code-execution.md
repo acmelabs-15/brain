@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "ASI05/CWE-94: Code Execution"
+name: ASI05/CWE-94: Code Execution
 slug: asi05-cwe-94-code-execution
 kind: name-only
 package_phase: none

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "permissionDecision"
+name: permissionDecision
 slug: permissiondecision
 kind: name-only
 package_phase: none

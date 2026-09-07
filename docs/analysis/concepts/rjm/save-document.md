@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "save_document"
+name: save_document
 slug: save-document
 kind: name-only
 package_phase: none

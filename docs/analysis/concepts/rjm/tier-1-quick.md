@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Tier 1: Quick"
+name: Tier 1: Quick
 slug: tier-1-quick
 kind: pattern
 package_phase: rjm:plan

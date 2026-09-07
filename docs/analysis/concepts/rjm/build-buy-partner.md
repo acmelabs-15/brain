@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Build/Buy/Partner"
+name: Build/Buy/Partner
 slug: build-buy-partner
 kind: pattern
 package_phase: rjm:plan

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "SLI (Service Level Indicator)"
+name: SLI (Service Level Indicator)
 slug: sli-service-level-indicator
 kind: artifact
 package_phase: rjm:cross-phase

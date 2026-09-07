@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Multi-Tier Strategy"
+name: Multi-Tier Strategy
 slug: multi-tier-strategy
 kind: pattern
 package_phase: cross-phase

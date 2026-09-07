@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Comparison"
+name: Comparison
 slug: comparison
 kind: technique
 package_phase: cross-phase

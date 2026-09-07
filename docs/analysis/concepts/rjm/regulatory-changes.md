@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "regulatory changes"
+name: regulatory changes
 slug: regulatory-changes
 kind: gate
 package_phase: rjm:plan

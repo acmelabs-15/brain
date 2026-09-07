@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 5: Retirement"
+name: Phase 5: Retirement
 slug: phase-5-retirement
 kind: name-only
 package_phase: none

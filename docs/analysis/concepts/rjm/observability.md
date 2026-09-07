@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Observability"
+name: Observability
 slug: observability
 kind: technique
 package_phase: rjm:cross-phase

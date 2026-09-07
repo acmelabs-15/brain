@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "@imports"
+name: @imports
 slug: imports
 kind: name-only
 package_phase: none

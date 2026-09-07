@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "authored"
+name: authored
 slug: authored
 kind: artifact
 package_phase: cross-phase

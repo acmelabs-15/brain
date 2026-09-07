@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Stop: Auto-Retrospective"
+name: Stop: Auto-Retrospective
 slug: stop-auto-retrospective
 kind: technique
 package_phase: cross-phase

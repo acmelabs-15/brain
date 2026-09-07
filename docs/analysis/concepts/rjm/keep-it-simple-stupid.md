@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Keep It Simple, Stupid"
+name: Keep It Simple, Stupid
 slug: keep-it-simple-stupid
 kind: pattern
 package_phase: cross-phase

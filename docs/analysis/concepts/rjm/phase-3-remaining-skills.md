@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 3: Remaining Skills"
+name: Phase 3: Remaining Skills
 slug: phase-3-remaining-skills
 kind: name-only
 package_phase: none

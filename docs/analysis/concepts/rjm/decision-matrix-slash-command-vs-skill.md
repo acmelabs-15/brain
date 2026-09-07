@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Decision Matrix: Slash Command vs Skill"
+name: Decision Matrix: Slash Command vs Skill
 slug: decision-matrix-slash-command-vs-skill
 kind: pattern
 package_phase: cross-phase

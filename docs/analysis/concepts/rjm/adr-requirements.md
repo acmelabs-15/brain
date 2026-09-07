@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "adr-requirements"
+name: adr-requirements
 slug: adr-requirements
 kind: checklist
 package_phase: rjm:plan

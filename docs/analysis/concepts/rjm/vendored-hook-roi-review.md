@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "vendored-hook ROI review"
+name: vendored-hook ROI review
 slug: vendored-hook-roi-review
 kind: name-only
 package_phase: none

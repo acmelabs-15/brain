@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 2: Framework Skills"
+name: Phase 2: Framework Skills
 slug: phase-2-framework-skills
 kind: name-only
 package_phase: none

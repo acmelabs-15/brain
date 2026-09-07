@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "LCOM"
+name: LCOM
 slug: lcom
 kind: reference
 package_phase: cross-phase

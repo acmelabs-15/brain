@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Layer 4: Semantic"
+name: Layer 4: Semantic
 slug: layer-4-semantic
 kind: name-only
 package_phase: none

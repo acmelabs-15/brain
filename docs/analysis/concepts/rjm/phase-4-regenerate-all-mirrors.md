@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 4: Regenerate All Mirrors"
+name: Phase 4: Regenerate All Mirrors
 slug: phase-4-regenerate-all-mirrors
 kind: phase
 package_phase: rjm:cross-phase

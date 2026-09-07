@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "sensitivity analysis"
+name: sensitivity analysis
 slug: sensitivity-analysis
 kind: technique
 package_phase: rjm:plan

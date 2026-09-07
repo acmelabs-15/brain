@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Observer output"
+name: Observer output
 slug: observer-output
 kind: pattern
 package_phase: rjm:cross-phase

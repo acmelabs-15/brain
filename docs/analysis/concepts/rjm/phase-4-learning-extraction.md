@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 4: Learning Extraction"
+name: Phase 4: Learning Extraction
 slug: phase-4-learning-extraction
 kind: phase
 package_phase: rjm:retrospective

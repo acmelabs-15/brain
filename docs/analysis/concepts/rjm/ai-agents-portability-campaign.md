@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "ai-agents-portability-campaign"
+name: ai-agents-portability-campaign
 slug: ai-agents-portability-campaign
 kind: technique
 package_phase: rjm:cross-phase

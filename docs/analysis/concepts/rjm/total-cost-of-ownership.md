@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Total Cost of Ownership"
+name: Total Cost of Ownership
 slug: total-cost-of-ownership
 kind: technique
 package_phase: rjm:plan

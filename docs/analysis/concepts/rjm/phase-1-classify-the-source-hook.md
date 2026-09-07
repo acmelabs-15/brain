@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 1: Classify the Source Hook"
+name: Phase 1: Classify the Source Hook
 slug: phase-1-classify-the-source-hook
 kind: phase
 package_phase: rjm:cross-phase

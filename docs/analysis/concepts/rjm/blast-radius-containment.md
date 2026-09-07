@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Blast Radius Containment"
+name: Blast Radius Containment
 slug: blast-radius-containment
 kind: technique
 package_phase: rjm:chaos-experiment

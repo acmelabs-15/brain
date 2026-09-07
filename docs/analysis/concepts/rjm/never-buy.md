@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Never Buy"
+name: Never Buy
 slug: never-buy
 kind: gate
 package_phase: rjm:plan

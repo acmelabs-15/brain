@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "technology disruption"
+name: technology disruption
 slug: technology-disruption
 kind: gate
 package_phase: rjm:plan

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "surface: ship"
+name: surface: ship
 slug: surface-ship
 kind: name-only
 package_phase: none

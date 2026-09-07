@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "regression"
+name: regression
 slug: regression
 kind: gate
 package_phase: cross-phase

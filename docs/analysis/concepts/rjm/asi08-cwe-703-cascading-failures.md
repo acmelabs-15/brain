@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "ASI08/CWE-703: Cascading Failures"
+name: ASI08/CWE-703: Cascading Failures
 slug: asi08-cwe-703-cascading-failures
 kind: name-only
 package_phase: none

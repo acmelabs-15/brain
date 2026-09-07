@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "ASI10/CWE-284: Rogue Agents"
+name: ASI10/CWE-284: Rogue Agents
 slug: asi10-cwe-284-rogue-agents
 kind: name-only
 package_phase: none

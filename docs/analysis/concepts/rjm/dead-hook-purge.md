@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "dead-hook purge"
+name: dead-hook purge
 slug: dead-hook-purge
 kind: name-only
 package_phase: none

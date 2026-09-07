@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 3: Return a Verdict"
+name: Phase 3: Return a Verdict
 slug: phase-3-return-a-verdict
 kind: phase
 package_phase: rjm:review

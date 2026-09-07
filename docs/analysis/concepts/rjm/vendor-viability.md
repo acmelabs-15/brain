@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "vendor viability"
+name: vendor viability
 slug: vendor-viability
 kind: gate
 package_phase: rjm:plan

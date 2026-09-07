@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Introduce variables"
+name: Introduce variables
 slug: introduce-variables
 kind: technique
 package_phase: rjm:chaos-experiment

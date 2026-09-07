@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Plugin version field present"
+name: Plugin version field present
 slug: plugin-version-field-present
 kind: gate
 package_phase: rjm:ship

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "npv_partner"
+name: npv_partner
 slug: npv-partner
 kind: name-only
 package_phase: none

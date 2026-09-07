@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "compared"
+name: compared
 slug: compared
 kind: name-only
 package_phase: none

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "FileAssessment"
+name: FileAssessment
 slug: fileassessment
 kind: name-only
 package_phase: none

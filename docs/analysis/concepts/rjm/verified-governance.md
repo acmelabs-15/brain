@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Verified governance"
+name: Verified governance
 slug: verified-governance
 kind: pattern
 package_phase: rjm:research

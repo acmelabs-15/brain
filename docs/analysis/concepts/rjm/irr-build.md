@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "irr_build"
+name: irr_build
 slug: irr-build
 kind: name-only
 package_phase: none

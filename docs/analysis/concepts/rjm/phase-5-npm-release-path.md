@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 5: npm Release Path"
+name: Phase 5: npm Release Path
 slug: phase-5-npm-release-path
 kind: phase
 package_phase: rjm:ship

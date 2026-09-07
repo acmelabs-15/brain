@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Database Caching Strategy"
+name: Database Caching Strategy
 slug: database-caching-strategy
 kind: pattern
 package_phase: cross-phase

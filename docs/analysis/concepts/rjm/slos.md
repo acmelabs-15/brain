@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "SLOs"
+name: SLOs
 slug: slos
 kind: artifact
 package_phase: rjm:cross-phase

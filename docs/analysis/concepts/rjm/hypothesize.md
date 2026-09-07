@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Hypothesize"
+name: Hypothesize
 slug: hypothesize
 kind: technique
 package_phase: rjm:chaos-experiment

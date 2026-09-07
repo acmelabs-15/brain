@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Latency"
+name: Latency
 slug: latency
 kind: pattern
 package_phase: rjm:cross-phase

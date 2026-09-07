@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "SLO / SLI / SLA Reference"
+name: SLO / SLI / SLA Reference
 slug: slo-sli-sla-reference
 kind: reference
 package_phase: rjm:chaos-experiment

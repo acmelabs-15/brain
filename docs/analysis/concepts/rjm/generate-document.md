@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "generate_document"
+name: generate_document
 slug: generate-document
 kind: name-only
 package_phase: none

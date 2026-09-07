@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "REALISTIC MODE"
+name: REALISTIC MODE
 slug: realistic-mode
 kind: pattern
 package_phase: rjm:plan

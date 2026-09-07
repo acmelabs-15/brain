@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "production"
+name: production
 slug: production
 kind: artifact
 package_phase: cross-phase

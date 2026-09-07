@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "NPV"
+name: NPV
 slug: npv
 kind: technique
 package_phase: rjm:plan

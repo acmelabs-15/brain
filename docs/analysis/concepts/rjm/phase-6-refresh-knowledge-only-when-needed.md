@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 6: Refresh Knowledge Only When Needed"
+name: Phase 6: Refresh Knowledge Only When Needed
 slug: phase-6-refresh-knowledge-only-when-needed
 kind: phase
 package_phase: rjm:cross-phase

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Block-style arrays"
+name: Block-style arrays
 slug: block-style-arrays
 kind: pattern
 package_phase: cross-phase

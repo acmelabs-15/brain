@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "ASI04/CWE-426: Supply Chain"
+name: ASI04/CWE-426: Supply Chain
 slug: asi04-cwe-426-supply-chain
 kind: name-only
 package_phase: none

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "automatic abort criteria"
+name: automatic abort criteria
 slug: automatic-abort-criteria
 kind: gate
 package_phase: rjm:chaos-experiment

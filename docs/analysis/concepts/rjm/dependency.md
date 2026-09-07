@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Dependency"
+name: Dependency
 slug: dependency
 kind: pattern
 package_phase: rjm:chaos-experiment

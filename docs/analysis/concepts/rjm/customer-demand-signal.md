@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "customer demand signal"
+name: customer demand signal
 slug: customer-demand-signal
 kind: gate
 package_phase: rjm:plan

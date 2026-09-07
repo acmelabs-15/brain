@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Security Considerations"
+name: Security Considerations
 slug: security-considerations
 kind: name-only
 package_phase: none

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Optionality"
+name: Optionality
 slug: optionality
 kind: technique
 package_phase: rjm:plan

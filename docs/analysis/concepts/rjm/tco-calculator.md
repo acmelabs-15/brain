@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "TCO Calculator"
+name: TCO Calculator
 slug: tco-calculator
 kind: artifact
 package_phase: rjm:plan

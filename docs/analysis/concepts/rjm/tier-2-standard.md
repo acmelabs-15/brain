@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Tier 2: Standard"
+name: Tier 2: Standard
 slug: tier-2-standard
 kind: pattern
 package_phase: rjm:plan

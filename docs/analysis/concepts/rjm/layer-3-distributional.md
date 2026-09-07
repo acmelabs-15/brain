@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Layer 3: Distributional"
+name: Layer 3: Distributional
 slug: layer-3-distributional
 kind: name-only
 package_phase: none

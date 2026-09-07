@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Asymmetric Upside"
+name: Asymmetric Upside
 slug: asymmetric-upside
 kind: technique
 package_phase: rjm:plan

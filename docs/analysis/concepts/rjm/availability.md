@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Availability"
+name: Availability
 slug: availability
 kind: pattern
 package_phase: rjm:cross-phase

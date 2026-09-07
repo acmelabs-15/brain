@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Symbol Extraction"
+name: Symbol Extraction
 slug: symbol-extraction
 kind: technique
 package_phase: cross-phase

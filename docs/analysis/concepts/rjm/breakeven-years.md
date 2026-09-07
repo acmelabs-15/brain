@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "breakeven_years"
+name: breakeven_years
 slug: breakeven-years
 kind: name-only
 package_phase: none

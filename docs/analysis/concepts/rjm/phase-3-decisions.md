@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 3: Decisions"
+name: Phase 3: Decisions
 slug: phase-3-decisions
 kind: phase
 package_phase: rjm:retrospective

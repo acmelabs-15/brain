@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Go/no-go gate"
+name: Go/no-go gate
 slug: go-no-go-gate
 kind: gate
 package_phase: rjm:chaos-experiment

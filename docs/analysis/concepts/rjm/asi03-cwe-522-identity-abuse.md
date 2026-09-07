@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "ASI03/CWE-522: Identity Abuse"
+name: ASI03/CWE-522: Identity Abuse
 slug: asi03-cwe-522-identity-abuse
 kind: name-only
 package_phase: none

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "load_template"
+name: load_template
 slug: load-template
 kind: name-only
 package_phase: none

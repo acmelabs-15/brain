@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Region"
+name: Region
 slug: region
 kind: pattern
 package_phase: rjm:chaos-experiment

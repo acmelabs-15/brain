@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "team capacity"
+name: team capacity
 slug: team-capacity
 kind: gate
 package_phase: rjm:plan

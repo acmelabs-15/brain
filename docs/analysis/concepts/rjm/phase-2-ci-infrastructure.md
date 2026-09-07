@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 2: CI Infrastructure"
+name: Phase 2: CI Infrastructure
 slug: phase-2-ci-infrastructure
 kind: name-only
 package_phase: none

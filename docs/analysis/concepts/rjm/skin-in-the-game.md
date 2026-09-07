@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Skin in the Game"
+name: Skin in the Game
 slug: skin-in-the-game
 kind: technique
 package_phase: rjm:plan

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 0: Load the Settled Contract"
+name: Phase 0: Load the Settled Contract
 slug: phase-0-load-the-settled-contract
 kind: phase
 package_phase: rjm:cross-phase

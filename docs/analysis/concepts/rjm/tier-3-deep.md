@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Tier 3: Deep"
+name: Tier 3: Deep
 slug: tier-3-deep
 kind: pattern
 package_phase: rjm:plan

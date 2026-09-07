@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "cross-harness abstraction"
+name: cross-harness abstraction
 slug: cross-harness-abstraction
 kind: pattern
 package_phase: rjm:research

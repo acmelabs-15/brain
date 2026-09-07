@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "competitive dynamics"
+name: competitive dynamics
 slug: competitive-dynamics
 kind: gate
 package_phase: rjm:plan

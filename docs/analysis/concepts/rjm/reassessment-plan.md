@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "reassessment-plan"
+name: reassessment-plan
 slug: reassessment-plan
 kind: artifact
 package_phase: rjm:plan

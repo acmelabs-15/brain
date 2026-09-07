@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Query Pack Selection"
+name: Query Pack Selection
 slug: query-pack-selection
 kind: pattern
 package_phase: cross-phase

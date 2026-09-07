@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "ASI02/CWE-22: Tool Misuse"
+name: ASI02/CWE-22: Tool Misuse
 slug: asi02-cwe-22-tool-misuse
 kind: name-only
 package_phase: none

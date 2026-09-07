@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Exit Code Standards"
+name: Exit Code Standards
 slug: exit-code-standards
 kind: reference
 package_phase: cross-phase

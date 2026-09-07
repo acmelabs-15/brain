@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Quick tier"
+name: Quick tier
 slug: quick-tier
 kind: gate
 package_phase: rjm:plan

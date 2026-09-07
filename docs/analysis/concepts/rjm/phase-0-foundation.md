@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 0: Foundation"
+name: Phase 0: Foundation
 slug: phase-0-foundation
 kind: name-only
 package_phase: none

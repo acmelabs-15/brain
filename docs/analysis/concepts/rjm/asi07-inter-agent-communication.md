@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "ASI07: Inter-Agent Communication"
+name: ASI07: Inter-Agent Communication
 slug: asi07-inter-agent-communication
 kind: name-only
 package_phase: none

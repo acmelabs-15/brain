@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "new_file"
+name: new_file
 slug: new-file
 kind: name-only
 package_phase: none

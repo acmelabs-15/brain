@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Resource exhaustion"
+name: Resource exhaustion
 slug: resource-exhaustion
 kind: pattern
 package_phase: rjm:chaos-experiment

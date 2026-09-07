@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "absolute"
+name: absolute
 slug: absolute
 kind: gate
 package_phase: cross-phase

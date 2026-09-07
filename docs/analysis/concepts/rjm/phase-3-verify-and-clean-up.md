@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 3: Verify and Clean Up"
+name: Phase 3: Verify and Clean Up
 slug: phase-3-verify-and-clean-up
 kind: phase
 package_phase: cross-phase

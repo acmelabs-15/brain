@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "SLO (Service Level Objective)"
+name: SLO (Service Level Objective)
 slug: slo-service-level-objective
 kind: artifact
 package_phase: rjm:cross-phase

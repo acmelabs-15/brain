@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 5: Test Shipped Artifacts"
+name: Phase 5: Test Shipped Artifacts
 slug: phase-5-test-shipped-artifacts
 kind: phase
 package_phase: rjm:cross-phase

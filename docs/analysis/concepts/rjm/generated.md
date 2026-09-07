@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "generated"
+name: generated
 slug: generated
 kind: artifact
 package_phase: cross-phase

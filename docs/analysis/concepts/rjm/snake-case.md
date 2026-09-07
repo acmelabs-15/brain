@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "snake_case"
+name: snake_case
 slug: snake-case
 kind: name-only
 package_phase: none

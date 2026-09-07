@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "QualityDelta"
+name: QualityDelta
 slug: qualitydelta
 kind: name-only
 package_phase: none

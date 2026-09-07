@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 0: Cleanup"
+name: Phase 0: Cleanup
 slug: phase-0-cleanup
 kind: name-only
 package_phase: none

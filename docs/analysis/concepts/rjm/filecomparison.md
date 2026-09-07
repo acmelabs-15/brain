@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "FileComparison"
+name: FileComparison
 slug: filecomparison
 kind: name-only
 package_phase: none

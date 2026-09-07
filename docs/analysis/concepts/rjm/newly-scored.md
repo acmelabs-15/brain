@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "newly_scored"
+name: newly_scored
 slug: newly-scored
 kind: name-only
 package_phase: none

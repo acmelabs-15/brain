@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 1: Assess the Situation"
+name: Phase 1: Assess the Situation
 slug: phase-1-assess-the-situation
 kind: phase
 package_phase: cross-phase

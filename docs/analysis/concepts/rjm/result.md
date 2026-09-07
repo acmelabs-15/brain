@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Result"
+name: Result
 slug: result
 kind: name-only
 package_phase: none

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Falsifiable milestone"
+name: Falsifiable milestone
 slug: falsifiable-milestone
 kind: pattern
 package_phase: rjm:research

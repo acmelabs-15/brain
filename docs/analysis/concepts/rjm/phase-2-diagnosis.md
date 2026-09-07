@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 2: Diagnosis"
+name: Phase 2: Diagnosis
 slug: phase-2-diagnosis
 kind: phase
 package_phase: rjm:retrospective

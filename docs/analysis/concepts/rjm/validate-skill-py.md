@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "validate-skill.py"
+name: validate-skill.py
 slug: validate-skill-py
 kind: name-only
 package_phase: none

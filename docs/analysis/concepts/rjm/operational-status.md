@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Operational Status"
+name: Operational Status
 slug: operational-status
 kind: name-only
 package_phase: none

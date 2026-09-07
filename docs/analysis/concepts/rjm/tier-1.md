@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Tier 1"
+name: Tier 1
 slug: tier-1
 kind: name-only
 package_phase: none

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "SLA (Service Level Agreement)"
+name: SLA (Service Level Agreement)
 slug: sla-service-level-agreement
 kind: artifact
 package_phase: rjm:cross-phase

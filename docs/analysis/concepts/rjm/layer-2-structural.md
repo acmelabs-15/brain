@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Layer 2: Structural"
+name: Layer 2: Structural
 slug: layer-2-structural
 kind: technique
 package_phase: cross-phase

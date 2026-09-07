@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "generate_experiment_id"
+name: generate_experiment_id
 slug: generate-experiment-id
 kind: name-only
 package_phase: none

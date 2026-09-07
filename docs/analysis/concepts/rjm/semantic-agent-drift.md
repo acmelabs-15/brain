@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Semantic agent drift"
+name: Semantic agent drift
 slug: semantic-agent-drift
 kind: pattern
 package_phase: rjm:ship

@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Decision Matrix Scorer"
+name: Decision Matrix Scorer
 slug: decision-matrix-scorer
 kind: artifact
 package_phase: rjm:plan

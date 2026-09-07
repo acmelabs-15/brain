@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 4: Consumer Wiring"
+name: Phase 4: Consumer Wiring
 slug: phase-4-consumer-wiring
 kind: name-only
 package_phase: none

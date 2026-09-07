@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "buy-vs-build-framework"
+name: buy-vs-build-framework
 slug: buy-vs-build-framework
 kind: technique
 package_phase: rjm:plan

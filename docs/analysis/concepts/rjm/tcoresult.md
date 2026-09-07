@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "TCOResult"
+name: TCOResult
 slug: tcoresult
 kind: name-only
 package_phase: none

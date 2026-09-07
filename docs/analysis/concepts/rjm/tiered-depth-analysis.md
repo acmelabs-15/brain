@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Tiered Depth Analysis"
+name: Tiered Depth Analysis
 slug: tiered-depth-analysis
 kind: technique
 package_phase: rjm:plan

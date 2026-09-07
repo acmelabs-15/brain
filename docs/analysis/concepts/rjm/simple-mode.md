@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "SIMPLE MODE"
+name: SIMPLE MODE
 slug: simple-mode
 kind: pattern
 package_phase: rjm:plan

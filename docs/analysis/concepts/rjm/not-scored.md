@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "not_scored"
+name: not_scored
 slug: not-scored
 kind: name-only
 package_phase: none

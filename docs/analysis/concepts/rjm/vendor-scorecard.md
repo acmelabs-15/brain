@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Vendor Scorecard"
+name: Vendor Scorecard
 slug: vendor-scorecard
 kind: artifact
 package_phase: rjm:plan

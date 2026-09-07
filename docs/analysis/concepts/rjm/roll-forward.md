@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "roll-FORWARD"
+name: roll-FORWARD
 slug: roll-forward
 kind: pattern
 package_phase: rjm:ship

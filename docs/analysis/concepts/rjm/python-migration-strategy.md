@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Python Migration Strategy"
+name: Python Migration Strategy
 slug: python-migration-strategy
 kind: pattern
 package_phase: cross-phase

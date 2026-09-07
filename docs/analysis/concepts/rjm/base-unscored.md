@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "base_unscored"
+name: base_unscored
 slug: base-unscored
 kind: name-only
 package_phase: none

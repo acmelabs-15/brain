@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "score_decision.py"
+name: score_decision.py
 slug: score-decision-py
 kind: name-only
 package_phase: none

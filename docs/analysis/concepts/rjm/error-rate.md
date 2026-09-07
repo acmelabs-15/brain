@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Error rate"
+name: Error rate
 slug: error-rate
 kind: pattern
 package_phase: rjm:cross-phase

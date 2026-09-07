@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "PostToolUse: Plan State Sync"
+name: PostToolUse: Plan State Sync
 slug: posttooluse-plan-state-sync
 kind: technique
 package_phase: cross-phase

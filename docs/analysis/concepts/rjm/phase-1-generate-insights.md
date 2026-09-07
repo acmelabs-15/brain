@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 1: Generate Insights"
+name: Phase 1: Generate Insights
 slug: phase-1-generate-insights
 kind: phase
 package_phase: rjm:retrospective

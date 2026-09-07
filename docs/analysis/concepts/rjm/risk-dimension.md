@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "risk-dimension"
+name: risk-dimension
 slug: risk-dimension
 kind: checklist
 package_phase: rjm:plan

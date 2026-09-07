@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "calculate_tco.py"
+name: calculate_tco.py
 slug: calculate-tco-py
 kind: name-only
 package_phase: none

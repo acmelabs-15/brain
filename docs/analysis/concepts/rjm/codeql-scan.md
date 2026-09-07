@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "codeql-scan"
+name: codeql-scan
 slug: codeql-scan
 kind: technique
 package_phase: cross-phase

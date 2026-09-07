@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "evidence loss"
+name: evidence loss
 slug: evidence-loss
 kind: gate
 package_phase: cross-phase

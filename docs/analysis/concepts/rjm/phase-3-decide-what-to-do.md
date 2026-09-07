@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "Phase 3: Decide What to Do"
+name: Phase 3: Decide What to Do
 slug: phase-3-decide-what-to-do
 kind: phase
 package_phase: rjm:retrospective

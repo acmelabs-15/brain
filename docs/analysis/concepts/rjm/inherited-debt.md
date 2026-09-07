@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "inherited debt"
+name: inherited debt
 slug: inherited-debt
 kind: pattern
 package_phase: cross-phase

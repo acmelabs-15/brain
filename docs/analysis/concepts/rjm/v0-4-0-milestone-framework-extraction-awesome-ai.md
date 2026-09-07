@@ -1,6 +1,6 @@
 ---
 package: rjm
-name: "v0.4.0 Milestone: Framework Extraction (awesome-ai)"
+name: v0.4.0 Milestone: Framework Extraction (awesome-ai)
 slug: v0-4-0-milestone-framework-extraction-awesome-ai
 kind: name-only
 package_phase: none
