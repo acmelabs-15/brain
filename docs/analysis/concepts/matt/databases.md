@@ -1,0 +1,51 @@
+---
+package: matt
+name: Databases
+slug: databases
+kind: pattern
+package_phase: cross-phase
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: skills/engineering/tdd/mocking.md, sha256: 3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# Databases
+
+## Definition — verbatim
+(used, not defined)
+> "- Databases (sometimes - prefer test DB)" — skills/engineering/tdd/mocking.md:6
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| skills/engineering/tdd/mocking.md | 6 | used here | Identified as a system boundary where mocking is sometimes used, though a real test DB is preferred. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+When deciding whether to mock persistence dependencies or use an isolated test database during test-driven development.
+
+## Sub-concepts
+none
+
+## Part of
+mocking, system-boundaries
+
+## Implementation status
+clean
+
+## Design notes
+In Matt's TDD guidance, databases sit at a system boundary where mocking is conditionally permitted but explicitly discouraged in favor of a real test database. While external APIs with network or financial side-effects warrant mocking, mocking database calls frequently causes tests to verify imagined SQL behaviors rather than genuine schema and query constraints.

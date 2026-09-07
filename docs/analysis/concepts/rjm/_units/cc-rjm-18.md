@@ -1,0 +1,517 @@
+---
+unit: cc-rjm-18
+phase: 2
+package: rjm
+session: 016
+subagent_returned: complete
+---
+
+# Unit cc-rjm-18
+
+## Files assigned
+- [x] sources/rjm/.agents/architecture/ADR-037-memory-router-architecture.md
+- [x] sources/rjm/.agents/architecture/ADR-038-reflexion-memory-schema.md
+- [x] sources/rjm/.agents/architecture/ADR-039-agent-model-cost-optimization.md
+- [x] sources/rjm/.agents/architecture/ADR-040-skill-frontmatter-standardization.md
+- [x] sources/rjm/.agents/architecture/ADR-061-hook-matcher-shims-delegate-pattern.md
+- [x] sources/rjm/.agents/architecture/ADR-068-consolidated-hook-dispatcher.md
+- [x] sources/rjm/.claude/agents/dependency-auditor.md
+- [x] sources/rjm/.claude/agents/devops.md
+- [x] sources/rjm/.claude/agents/high-level-advisor.md
+- [x] sources/rjm/.claude/agents/independent-thinker.md
+- [x] sources/rjm/.claude/agents/merge-resolver.md
+- [x] sources/rjm/.claude/agents/qa.md
+- [x] sources/rjm/.claude/agents/quality-auditor.md
+- [x] sources/rjm/.claude/agents/skillbook.md
+- [x] sources/rjm/.claude/agents/task-decomposer.md
+- [x] sources/rjm/.claude/skills/adr-review/scripts/detect_adr_changes.py
+- [x] sources/rjm/.claude/skills/ai-agents-validation-and-qa/SKILL.md
+- [x] sources/rjm/.claude/skills/codeql-scan/SKILL.md
+- [x] sources/rjm/.claude/skills/codeql-scan/scripts/invoke_codeql_scan.py
+- [x] sources/rjm/.claude/skills/codeql-scan/scripts/invoke_codeql_scan_skill.py
+- [x] sources/rjm/.claude/skills/context-optimizer/SKILL.md
+- [x] sources/rjm/.claude/skills/doc-accuracy/scripts/doc_accuracy.py
+- [x] sources/rjm/.claude/skills/doc-accuracy/scripts/pr_snapshot.py
+- [x] sources/rjm/.claude/skills/fix-markdown-fences/SKILL.md
+- [x] sources/rjm/.claude/skills/fix-markdown-fences/scripts/fix_fences.py
+- [x] sources/rjm/.claude/skills/github-url-intercept/scripts/test_url_routing.py
+- [x] sources/rjm/.claude/skills/merge-resolver/scripts/resolve_pr_conflicts.py
+- [x] sources/rjm/.claude/skills/merge-resolver/scripts/verify_no_conflict_markers.py
+- [x] sources/rjm/.claude/skills/metrics/collect_metrics.py
+- [x] sources/rjm/.claude/skills/orphan-ref-validator/SKILL.md
+- [x] sources/rjm/.claude/skills/orphan-ref-validator/scripts/envelope.py
+- [x] sources/rjm/.claude/skills/orphan-ref-validator/scripts/scan.py
+- [x] sources/rjm/.claude/skills/panning-for-gold/scripts/inventory.py
+- [x] sources/rjm/.claude/skills/panning-for-gold/scripts/pan.py
+- [x] sources/rjm/.claude/skills/panning-for-gold/scripts/synthesis.py
+- [x] sources/rjm/.claude/skills/prose-self-check/scripts/burstiness.py
+- [x] sources/rjm/.claude/skills/prose-self-check/scripts/prose_lint.py
+- [x] sources/rjm/.claude/skills/reflect/SKILL.md
+- [x] sources/rjm/.claude/skills/reflect/references/integration-and-design.md
+- [x] sources/rjm/.claude/skills/retrospective/SKILL.md
+- [x] sources/rjm/.claude/skills/retrospective/scripts/run_retrospective.py
+- [x] sources/rjm/.claude/skills/retrospective/scripts/score_atomicity.py
+- [x] sources/rjm/.claude/skills/review/scripts/validate_findings_scope.py
+- [x] sources/rjm/.claude/skills/review/scripts/validate_review_marker.py
+- [x] sources/rjm/.claude/skills/security-detection/detect_infrastructure.py
+- [x] sources/rjm/.claude/skills/skillforge/scripts/skill_modularity_audit.py
+- [x] sources/rjm/.claude/skills/slashcommandcreator/scripts/new_slash_command.py
+- [x] sources/rjm/.claude/skills/slashcommandcreator/scripts/validate_slash_command.py
+- [x] sources/rjm/.claude/skills/steering-matcher/get_applicable_steering.py
+- [x] sources/rjm/.claude/skills/steering-matcher/scripts/get_applicable_steering.py
+- [x] sources/rjm/.claude/skills/stuck-detection/stuck_detection.py
+- [x] sources/rjm/.claude/skills/work-operating-model/scripts/validate_operating_model.py
+- [x] sources/rjm/.codeql/scripts/get_codeql_diagnostics.py
+- [x] sources/rjm/.codeql/scripts/install_codeql.py
+- [x] sources/rjm/.codeql/scripts/install_codeql_integration.py
+- [x] sources/rjm/.codeql/scripts/invoke_codeql_scan.py
+- [x] sources/rjm/.codeql/scripts/test_codeql_config.py
+- [x] sources/rjm/.codeql/scripts/test_codeql_rollout.py
+- [x] sources/rjm/.github/scripts/assign_bot_reviewer.py
+- [x] sources/rjm/.github/scripts/check_design_review_gate.py
+- [x] sources/rjm/.github/scripts/invoke_pr_comment_processing.py
+- [x] sources/rjm/.github/scripts/measure_workflow_coalescing.py
+- [x] sources/rjm/.github/scripts/parse_artifact_insights.py
+- [x] sources/rjm/.github/scripts/parse_pr_standards.py
+- [x] sources/rjm/.github/scripts/post_issue_comment.py
+- [x] sources/rjm/.github/scripts/run_with_retry.py
+- [x] sources/rjm/.github/scripts/set_item_milestone.py
+- [x] sources/rjm/.github/scripts/test_rate_limit.py
+- [x] sources/rjm/.github/scripts/validate_investigation_claims.py
+- [x] sources/rjm/docs/architecture.md
+- [x] sources/rjm/docs/design/external-signal-gating.md
+- [x] sources/rjm/scripts/AGENTS.md
+- [x] sources/rjm/scripts/audit_orphaned_branches.py
+- [x] sources/rjm/scripts/check_skill_exists.py
+- [x] sources/rjm/scripts/ci/apply_ai_conflict_resolution.py
+- [x] sources/rjm/scripts/ci/artifact_build_context.py
+- [x] sources/rjm/scripts/ci/artifact_collect.py
+- [x] sources/rjm/scripts/ci/artifact_create_issues.py
+- [x] sources/rjm/scripts/ci/artifact_write_summary.py
+- [x] sources/rjm/scripts/ci/check_metrics_thresholds.py
+- [x] sources/rjm/scripts/ci/check_plugin_lib_mirrors.py
+- [x] sources/rjm/scripts/ci/classify_semantic_title_result.py
+- [x] sources/rjm/scripts/ci/codeql_integration_summary.py
+- [x] sources/rjm/scripts/ci/collect_metrics_and_report.py
+- [x] sources/rjm/scripts/ci/commit_and_push.py
+- [x] sources/rjm/scripts/ci/detect_human_changes_requested.py
+- [x] sources/rjm/scripts/ci/drift_collect_details.py
+- [x] sources/rjm/scripts/ci/drift_create_alert_issue.py
+- [x] sources/rjm/scripts/ci/drift_run_detection.py
+- [x] sources/rjm/scripts/ci/drift_write_summary.py
+- [x] sources/rjm/scripts/ci/find_copilot_ready_issues.py
+- [x] sources/rjm/scripts/ci/measure_npm_pack_size.py
+- [x] sources/rjm/scripts/ci/parse_drift_results.py
+- [x] sources/rjm/scripts/ci/parse_hook_bypass_results.py
+- [x] sources/rjm/scripts/ci/parse_memory_validation_results.py
+- [x] sources/rjm/scripts/ci/prepare_conflict_context.py
+- [x] sources/rjm/scripts/ci/require_job_results.py
+- [x] sources/rjm/scripts/ci/ruleset_context_drift.py
+- [x] sources/rjm/scripts/ci/run_copilot_synthesis.py
+- [x] sources/rjm/scripts/ci/spec_extract_refs.py
+- [x] sources/rjm/scripts/ci/spec_load_content.py
+- [x] sources/rjm/scripts/ci/spec_prepare_context.py
+- [x] sources/rjm/scripts/ci/sweep_copilot_synthesis.py
+- [x] sources/rjm/scripts/ci/verify_codeql_sarif_structure.py
+- [x] sources/rjm/scripts/ci/verify_npm_package_metadata.py
+- [x] sources/rjm/scripts/ci/verify_npm_published.py
+- [x] sources/rjm/scripts/ci/write_copilot_synthesis_summary.py
+- [x] sources/rjm/scripts/ci/write_drift_job_summary.py
+- [x] sources/rjm/scripts/ci/write_metrics_threshold_summary.py
+- [x] sources/rjm/scripts/ci/write_pr_discovery_summary.py
+- [x] sources/rjm/scripts/ci/write_pr_maintenance_summary.py
+- [x] sources/rjm/scripts/ci/write_synthesis_sweep_summary.py
+- [x] sources/rjm/scripts/detect_skill_violation.py
+- [x] sources/rjm/scripts/detect_test_coverage_gaps.py
+- [x] sources/rjm/scripts/error_classification.py
+- [x] sources/rjm/scripts/eval/analyze-pr-churn.py
+- [x] sources/rjm/scripts/eval/eval-skill-overlap.py
+- [x] sources/rjm/scripts/eval/eval_skill_router.py
+- [x] sources/rjm/scripts/eval/optimize-artifact.py
+- [x] sources/rjm/scripts/external_signals/acceptance_criteria.py
+- [x] sources/rjm/scripts/external_signals/gate_aggregator.py
+- [x] sources/rjm/scripts/generate_third_party_notices.py
+- [x] sources/rjm/scripts/github_core/api.py
+- [x] sources/rjm/scripts/github_core/output.py
+- [x] sources/rjm/scripts/issue_triage.py
+- [x] sources/rjm/scripts/maintenance/gc_worktrees.py
+- [x] sources/rjm/scripts/maintenance/repair_worktree_venv.py
+- [x] sources/rjm/scripts/measure_context_retrieval_metrics.py
+- [x] sources/rjm/scripts/metrics/check_vendored_install.py
+- [x] sources/rjm/scripts/metrics/emit_verdict_mismatch.py
+- [x] sources/rjm/scripts/metrics/kill_criteria.py
+- [x] sources/rjm/scripts/metrics_writer.py
+- [x] sources/rjm/scripts/new_validated_pr.py
+- [x] sources/rjm/scripts/normalize_line_endings.py
+- [x] sources/rjm/scripts/quality_gate/check_critical_failures.py
+- [x] sources/rjm/scripts/quality_gate/external_signal_gate.py
+- [x] sources/rjm/scripts/quality_gate/resolve_pytest_signal.py
+- [x] sources/rjm/scripts/quality_gate/run_pytest.py
+- [x] sources/rjm/scripts/quality_gate/spec_external_signal_gate.py
+- [x] sources/rjm/scripts/redact_secrets.py
+- [x] sources/rjm/scripts/report_pr_supersession.py
+- [x] sources/rjm/scripts/skill_registry.py
+- [x] sources/rjm/scripts/skillbook.py
+- [x] sources/rjm/scripts/split_bundled_skills.py
+- [x] sources/rjm/scripts/sync/detect_spec_drift.py
+- [x] sources/rjm/scripts/traceability/reconstruct_trace.py
+- [x] sources/rjm/scripts/traceability/rename_spec_id.py
+- [x] sources/rjm/scripts/traceability/resolve_orphaned_specs.py
+- [x] sources/rjm/scripts/traceability/show_traceability_graph.py
+- [x] sources/rjm/scripts/traceability/update_spec_references.py
+- [x] sources/rjm/scripts/update_memory_index_tokens.py
+- [x] sources/rjm/scripts/update_reviewer_signal_stats.py
+- [x] sources/rjm/scripts/utils/markdown_parser.py
+- [x] sources/rjm/scripts/validate_memory_tier.py
+- [x] sources/rjm/scripts/validate_phase_gates.py
+- [x] sources/rjm/scripts/validate_pr_review_config.py
+- [x] sources/rjm/scripts/validate_quality_gate_output.py
+- [x] sources/rjm/scripts/validate_session_json.py
+- [x] sources/rjm/scripts/validate_skill_format.py
+- [x] sources/rjm/scripts/validate_skill_installation.py
+- [x] sources/rjm/scripts/validate_workspace_budget.py
+- [x] sources/rjm/scripts/validation/agent_registry.py
+- [x] sources/rjm/scripts/validation/assert_smoke_ran.py
+- [x] sources/rjm/scripts/validation/assert_trusted_smoke_context.py
+- [x] sources/rjm/scripts/validation/check_adr_lifecycle.py
+- [x] sources/rjm/scripts/validation/check_adr_links.py
+- [x] sources/rjm/scripts/validation/check_adr_links_baseline.txt
+- [x] sources/rjm/scripts/validation/check_adr_uniqueness.py
+- [x] sources/rjm/scripts/validation/check_agent_skill_discriminator.py
+- [x] sources/rjm/scripts/validation/check_build_gates.py
+- [x] sources/rjm/scripts/validation/check_canonical_citations.py
+- [x] sources/rjm/scripts/validation/check_ci_dependency_pins.py
+- [x] sources/rjm/scripts/validation/check_citation_freshness.py
+- [x] sources/rjm/scripts/validation/check_copilot_version_pin.py
+- [x] sources/rjm/scripts/validation/check_doc_interpreter_portability.py
+- [x] sources/rjm/scripts/validation/check_dual_priority_labels.py
+- [x] sources/rjm/scripts/validation/check_duplicate_test_helpers.py
+- [x] sources/rjm/scripts/validation/check_generated_staleness.py
+- [x] sources/rjm/scripts/validation/check_git_hook_health.py
+- [x] sources/rjm/scripts/validation/check_nested_tests.py
+- [x] sources/rjm/scripts/validation/check_orchestrator_citations.py
+- [x] sources/rjm/scripts/validation/check_placeholder_identity.py
+- [x] sources/rjm/scripts/validation/check_push_lock_before_commit.py
+- [x] sources/rjm/scripts/validation/check_push_lock_paths.py
+- [x] sources/rjm/scripts/validation/check_python3_entrypoints.py
+- [x] sources/rjm/scripts/validation/check_repo_health.py
+- [x] sources/rjm/scripts/validation/check_ruleset_params_drift.py
+- [x] sources/rjm/scripts/validation/check_skill_memory_references.py
+- [x] sources/rjm/scripts/validation/check_skill_portability.py
+- [x] sources/rjm/scripts/validation/check_skill_skip_clauses.py
+- [x] sources/rjm/scripts/validation/check_spec_id_uniqueness.py
+- [x] sources/rjm/scripts/validation/check_subprocess_encoding.py
+- [x] sources/rjm/scripts/validation/check_test_tree_writes.py
+- [x] sources/rjm/scripts/validation/check_tmp_worktrees.py
+- [x] sources/rjm/scripts/validation/check_unreachable_code.py
+- [x] sources/rjm/scripts/validation/check_vendor_portability.py
+- [x] sources/rjm/scripts/validation/check_worktree_recipes.py
+- [x] sources/rjm/scripts/validation/hook_contracts.py
+- [x] sources/rjm/scripts/validation/instruction_budget.py
+- [x] sources/rjm/scripts/validation/instruction_budget_globs.py
+- [x] sources/rjm/scripts/validation/passive_context_budget.py
+- [x] sources/rjm/scripts/validation/pr_commit_count.py
+- [x] sources/rjm/scripts/validation/pr_description.py
+- [x] sources/rjm/scripts/validation/pre_pr.py
+- [x] sources/rjm/scripts/validation/push_ref_staleness.py
+- [x] sources/rjm/scripts/validation/run_workflow_local_test.py
+- [x] sources/rjm/scripts/validation/validate_agent_catalog.py
+- [x] sources/rjm/scripts/validation/validate_argument_hint.py
+- [x] sources/rjm/scripts/validation/validate_copilot_agent_frontmatter.py
+- [x] sources/rjm/scripts/validation/validate_hook_anchoring.py
+- [x] sources/rjm/scripts/validation/validate_no_orphaned_build_deferrals.py
+- [x] sources/rjm/scripts/validation/validate_python_syntax.py
+- [x] sources/rjm/scripts/validation/validate_review_marker.py
+- [x] sources/rjm/scripts/validation/validate_seed_parity.py
+- [x] sources/rjm/scripts/validation/validate_skill_shells.py
+- [x] sources/rjm/scripts/validation/validate_skillbook.py
+- [x] sources/rjm/scripts/validation/validate_sync_registry.py
+- [x] sources/rjm/templates/agents/independent-thinker.shared.md
+- [x] sources/rjm/templates/agents/quality-auditor.shared.md
+- [x] sources/rjm/templates/agents/skillbook.shared.md
+- [x] sources/rjm/templates/agents/task-decomposer.shared.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-037-memory-router-architecture-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-038-reflexion-memory-schema-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-039-agent-model-cost-optimization-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-040-skill-frontmatter-standardization-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-061-hook-matcher-shims-delegate-pattern-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-068-consolidated-hook-dispatcher-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-dependency-auditor-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-devops-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-high-level-advisor-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-independent-thinker-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-merge-resolver-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-qa-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-quality-auditor-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-skillbook-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-task-decomposer-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-adr-review-scripts-detect-adr-changes-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-ai-agents-validation-and-qa-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-codeql-scan-scripts-invoke-codeql-scan-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-codeql-scan-scripts-invoke-codeql-scan-skill-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-codeql-scan-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-context-optimizer-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-doc-accuracy-scripts-doc-accuracy-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-doc-accuracy-scripts-pr-snapshot-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-fix-markdown-fences-scripts-fix-fences-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-fix-markdown-fences-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-github-url-intercept-scripts-test-url-routing-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-merge-resolver-scripts-resolve-pr-conflicts-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-merge-resolver-scripts-verify-no-conflict-markers-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-metrics-collect-metrics-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-orphan-ref-validator-scripts-envelope-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-orphan-ref-validator-scripts-scan-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-orphan-ref-validator-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-panning-for-gold-scripts-inventory-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-panning-for-gold-scripts-pan-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-panning-for-gold-scripts-synthesis-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-prose-self-check-scripts-burstiness-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-prose-self-check-scripts-prose-lint-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-reflect-references-integration-and-design-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-reflect-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-retrospective-scripts-run-retrospective-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-retrospective-scripts-score-atomicity-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-retrospective-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-review-scripts-validate-findings-scope-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-review-scripts-validate-review-marker-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-security-detection-detect-infrastructure-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-skillforge-scripts-skill-modularity-audit-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-slashcommandcreator-scripts-new-slash-command-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-slashcommandcreator-scripts-validate-slash-command-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-steering-matcher-get-applicable-steering-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-steering-matcher-scripts-get-applicable-steering-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-stuck-detection-stuck-detection-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-work-operating-model-scripts-validate-operating-model-py.md
+- [x] docs/analysis/inventory/rjm/codeql-scripts-get-codeql-diagnostics-py.md
+- [x] docs/analysis/inventory/rjm/codeql-scripts-install-codeql-integration-py.md
+- [x] docs/analysis/inventory/rjm/codeql-scripts-install-codeql-py.md
+- [x] docs/analysis/inventory/rjm/codeql-scripts-invoke-codeql-scan-py.md
+- [x] docs/analysis/inventory/rjm/codeql-scripts-test-codeql-config-py.md
+- [x] docs/analysis/inventory/rjm/codeql-scripts-test-codeql-rollout-py.md
+- [x] docs/analysis/inventory/rjm/docs-architecture-md.md
+- [x] docs/analysis/inventory/rjm/docs-design-external-signal-gating-md.md
+- [x] docs/analysis/inventory/rjm/github-scripts-assign-bot-reviewer-py.md
+- [x] docs/analysis/inventory/rjm/github-scripts-check-design-review-gate-py.md
+- [x] docs/analysis/inventory/rjm/github-scripts-invoke-pr-comment-processing-py.md
+- [x] docs/analysis/inventory/rjm/github-scripts-measure-workflow-coalescing-py.md
+- [x] docs/analysis/inventory/rjm/github-scripts-parse-artifact-insights-py.md
+- [x] docs/analysis/inventory/rjm/github-scripts-parse-pr-standards-py.md
+- [x] docs/analysis/inventory/rjm/github-scripts-post-issue-comment-py.md
+- [x] docs/analysis/inventory/rjm/github-scripts-run-with-retry-py.md
+- [x] docs/analysis/inventory/rjm/github-scripts-set-item-milestone-py.md
+- [x] docs/analysis/inventory/rjm/github-scripts-test-rate-limit-py.md
+- [x] docs/analysis/inventory/rjm/github-scripts-validate-investigation-claims-py.md
+- [x] docs/analysis/inventory/rjm/scripts-agents-md.md
+- [x] docs/analysis/inventory/rjm/scripts-audit-orphaned-branches-py.md
+- [x] docs/analysis/inventory/rjm/scripts-check-skill-exists-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-apply-ai-conflict-resolution-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-artifact-build-context-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-artifact-collect-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-artifact-create-issues-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-artifact-write-summary-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-check-metrics-thresholds-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-check-plugin-lib-mirrors-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-classify-semantic-title-result-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-codeql-integration-summary-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-collect-metrics-and-report-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-commit-and-push-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-detect-human-changes-requested-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-drift-collect-details-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-drift-create-alert-issue-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-drift-run-detection-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-drift-write-summary-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-find-copilot-ready-issues-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-measure-npm-pack-size-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-parse-drift-results-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-parse-hook-bypass-results-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-parse-memory-validation-results-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-prepare-conflict-context-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-require-job-results-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-ruleset-context-drift-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-run-copilot-synthesis-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-spec-extract-refs-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-spec-load-content-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-spec-prepare-context-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-sweep-copilot-synthesis-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-verify-codeql-sarif-structure-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-verify-npm-package-metadata-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-verify-npm-published-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-write-copilot-synthesis-summary-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-write-drift-job-summary-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-write-metrics-threshold-summary-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-write-pr-discovery-summary-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-write-pr-maintenance-summary-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-write-synthesis-sweep-summary-py.md
+- [x] docs/analysis/inventory/rjm/scripts-detect-skill-violation-py.md
+- [x] docs/analysis/inventory/rjm/scripts-detect-test-coverage-gaps-py.md
+- [x] docs/analysis/inventory/rjm/scripts-error-classification-py.md
+- [x] docs/analysis/inventory/rjm/scripts-eval-analyze-pr-churn-py.md
+- [x] docs/analysis/inventory/rjm/scripts-eval-eval-skill-overlap-py.md
+- [x] docs/analysis/inventory/rjm/scripts-eval-eval-skill-router-py.md
+- [x] docs/analysis/inventory/rjm/scripts-eval-optimize-artifact-py.md
+- [x] docs/analysis/inventory/rjm/scripts-external-signals-acceptance-criteria-py.md
+- [x] docs/analysis/inventory/rjm/scripts-external-signals-gate-aggregator-py.md
+- [x] docs/analysis/inventory/rjm/scripts-generate-third-party-notices-py.md
+- [x] docs/analysis/inventory/rjm/scripts-github-core-api-py.md
+- [x] docs/analysis/inventory/rjm/scripts-github-core-output-py.md
+- [x] docs/analysis/inventory/rjm/scripts-issue-triage-py.md
+- [x] docs/analysis/inventory/rjm/scripts-maintenance-gc-worktrees-py.md
+- [x] docs/analysis/inventory/rjm/scripts-maintenance-repair-worktree-venv-py.md
+- [x] docs/analysis/inventory/rjm/scripts-measure-context-retrieval-metrics-py.md
+- [x] docs/analysis/inventory/rjm/scripts-metrics-check-vendored-install-py.md
+- [x] docs/analysis/inventory/rjm/scripts-metrics-emit-verdict-mismatch-py.md
+- [x] docs/analysis/inventory/rjm/scripts-metrics-kill-criteria-py.md
+- [x] docs/analysis/inventory/rjm/scripts-metrics-writer-py.md
+- [x] docs/analysis/inventory/rjm/scripts-new-validated-pr-py.md
+- [x] docs/analysis/inventory/rjm/scripts-normalize-line-endings-py.md
+- [x] docs/analysis/inventory/rjm/scripts-quality-gate-check-critical-failures-py.md
+- [x] docs/analysis/inventory/rjm/scripts-quality-gate-external-signal-gate-py.md
+- [x] docs/analysis/inventory/rjm/scripts-quality-gate-resolve-pytest-signal-py.md
+- [x] docs/analysis/inventory/rjm/scripts-quality-gate-run-pytest-py.md
+- [x] docs/analysis/inventory/rjm/scripts-quality-gate-spec-external-signal-gate-py.md
+- [x] docs/analysis/inventory/rjm/scripts-redact-secrets-py.md
+- [x] docs/analysis/inventory/rjm/scripts-report-pr-supersession-py.md
+- [x] docs/analysis/inventory/rjm/scripts-skill-registry-py.md
+- [x] docs/analysis/inventory/rjm/scripts-skillbook-py.md
+- [x] docs/analysis/inventory/rjm/scripts-split-bundled-skills-py.md
+- [x] docs/analysis/inventory/rjm/scripts-sync-detect-spec-drift-py.md
+- [x] docs/analysis/inventory/rjm/scripts-traceability-reconstruct-trace-py.md
+- [x] docs/analysis/inventory/rjm/scripts-traceability-rename-spec-id-py.md
+- [x] docs/analysis/inventory/rjm/scripts-traceability-resolve-orphaned-specs-py.md
+- [x] docs/analysis/inventory/rjm/scripts-traceability-show-traceability-graph-py.md
+- [x] docs/analysis/inventory/rjm/scripts-traceability-update-spec-references-py.md
+- [x] docs/analysis/inventory/rjm/scripts-update-memory-index-tokens-py.md
+- [x] docs/analysis/inventory/rjm/scripts-update-reviewer-signal-stats-py.md
+- [x] docs/analysis/inventory/rjm/scripts-utils-markdown-parser-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validate-memory-tier-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validate-phase-gates-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validate-pr-review-config-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validate-quality-gate-output-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validate-session-json-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validate-skill-format-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validate-skill-installation-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validate-workspace-budget-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-agent-registry-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-assert-smoke-ran-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-assert-trusted-smoke-context-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-adr-lifecycle-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-adr-links-baseline-txt.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-adr-links-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-adr-uniqueness-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-agent-skill-discriminator-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-build-gates-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-canonical-citations-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-ci-dependency-pins-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-citation-freshness-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-copilot-version-pin-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-doc-interpreter-portability-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-dual-priority-labels-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-duplicate-test-helpers-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-generated-staleness-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-git-hook-health-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-nested-tests-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-orchestrator-citations-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-placeholder-identity-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-push-lock-before-commit-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-push-lock-paths-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-python3-entrypoints-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-repo-health-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-ruleset-params-drift-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-skill-memory-references-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-skill-portability-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-skill-skip-clauses-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-spec-id-uniqueness-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-subprocess-encoding-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-test-tree-writes-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-tmp-worktrees-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-unreachable-code-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-vendor-portability-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-worktree-recipes-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-hook-contracts-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-instruction-budget-globs-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-instruction-budget-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-passive-context-budget-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-pr-commit-count-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-pr-description-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-pre-pr-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-push-ref-staleness-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-run-workflow-local-test-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-agent-catalog-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-argument-hint-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-copilot-agent-frontmatter-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-hook-anchoring-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-no-orphaned-build-deferrals-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-python-syntax-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-review-marker-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-seed-parity-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-skill-shells-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-skillbook-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-sync-registry-py.md
+- [x] docs/analysis/inventory/rjm/templates-agents-independent-thinker-shared-md.md
+- [x] docs/analysis/inventory/rjm/templates-agents-quality-auditor-shared-md.md
+- [x] docs/analysis/inventory/rjm/templates-agents-skillbook-shared-md.md
+- [x] docs/analysis/inventory/rjm/templates-agents-task-decomposer-shared-md.md
+
+## Outputs produced
+- docs/analysis/concepts/rjm/adr-007.md (1865 bytes)
+- docs/analysis/concepts/rjm/adr-017.md (2406 bytes)
+- docs/analysis/concepts/rjm/adr-035.md (32067 bytes)
+- docs/analysis/concepts/rjm/unified-interface.md (1015 bytes)
+- docs/analysis/concepts/rjm/serena-first-routing.md (1066 bytes)
+- docs/analysis/concepts/rjm/result-augmentation.md (1046 bytes)
+- docs/analysis/concepts/rjm/availability-detection.md (992 bytes)
+- docs/analysis/concepts/rjm/cross-platform-guarantee.md (1089 bytes)
+- docs/analysis/concepts/rjm/search-memory.md (923 bytes)
+- docs/analysis/concepts/rjm/get-memory.md (885 bytes)
+- docs/analysis/concepts/rjm/save-memory.md (895 bytes)
+- docs/analysis/concepts/rjm/get-memoryrouterstatus.md (976 bytes)
+- docs/analysis/concepts/rjm/test-forgetfulavailable.md (945 bytes)
+- docs/analysis/concepts/rjm/invoke-serenasearch.md (970 bytes)
+- docs/analysis/concepts/rjm/invoke-forgetfulsearch.md (976 bytes)
+- docs/analysis/concepts/rjm/merge-memoryresults.md (933 bytes)
+- docs/analysis/concepts/rjm/get-contenthash.md (936 bytes)
+- docs/analysis/concepts/rjm/sync-memorytoforgetful.md (951 bytes)
+- docs/analysis/concepts/rjm/sync-serenatoforgetful-ps1.md (943 bytes)
+- docs/analysis/concepts/rjm/test-memoryfreshness-ps1.md (956 bytes)
+- docs/analysis/concepts/rjm/reflexion-memory-schema.md (926 bytes)
+- docs/analysis/concepts/rjm/reflexionmemory.md (1070 bytes)
+- docs/analysis/concepts/rjm/working-memory-tier-0.md (930 bytes)
+- docs/analysis/concepts/rjm/semantic-memory-tier-1.md (957 bytes)
+- docs/analysis/concepts/rjm/episodic-memory-tier-2.md (950 bytes)
+- docs/analysis/concepts/rjm/episodic-memory-schema-tier-2.md (973 bytes)
+- docs/analysis/concepts/rjm/causal-memory-tier-3.md (946 bytes)
+- docs/analysis/concepts/rjm/causal-memory-schema-tier-3.md (978 bytes)
+- docs/analysis/concepts/rjm/four-tier-reflexion-memory-schema.md (1016 bytes)
+- docs/analysis/concepts/rjm/adr-037.md (2723 bytes)
+- docs/analysis/concepts/rjm/_units/cc-rjm-18.md (this file)
+
+## Scripts executed
+- `bun scripts/synthesis/quote-check.ts docs/analysis/concepts/rjm/<30 cards>` (exit code 0, 30 PASS, 0 FAIL, 0 MISSING source across 30 cards)
+- `bun scripts/synthesis/quote-check.ts --summary docs/analysis/concepts/rjm/<30 cards>` (exit code 0, 30 PASS, 0 FAIL, 0 MISSING source across 30 cards)
+
+## Coverage self-check
+- [x] Every assigned file has an entry / card / artifact
+- [x] Every required field in every output is non-empty (`none` written where nothing to report)
+- [x] Every `path:line` cited was confirmed against the file
+- [x] Every referenced path was checked with `ls`
+- [x] Glossary convention applied (package-prefixed before decision; canonical after)
+
+## Cross-unit notes
+- Unit cc-rjm-18 covers 30 concept cards spanning Memory-First Architecture (ADR-007), Tiered Memory Index (ADR-017), Exit Code Standardization (ADR-035), Memory Router Architecture (ADR-037), and Reflexion Memory Schema (ADR-038).
+- All 30 concept cards in this unit were authored from scratch (0 of 30 existed prior to this unit).
+- All 30 concepts in this unit were categorized as `kind: name-only` per METHOD.md D-023:
+  - ADR identifiers (`adr-007`, `adr-017`, `adr-035`, `adr-037`)
+  - Architectural principles and design goals from ADR-037 (`unified-interface`, `serena-first-routing`, `result-augmentation`, `availability-detection`, `cross-platform-guarantee`)
+  - PowerShell cmdlet function identifiers in MemoryRouter module (`search-memory`, `get-memory`, `save-memory`, `get-memoryrouterstatus`, `test-forgetfulavailable`, `invoke-serenasearch`, `invoke-forgetfulsearch`, `merge-memoryresults`, `get-contenthash`, `sync-memorytoforgetful`)
+  - PowerShell script filenames (`sync-serenatoforgetful-ps1`, `test-memoryfreshness-ps1`)
+  - External research pattern name (`reflexionmemory`)
+  - Memory tier classification labels and schema headings from ADR-038 (`reflexion-memory-schema`, `working-memory-tier-0`, `semantic-memory-tier-1`, `episodic-memory-tier-2`, `episodic-memory-schema-tier-2`, `causal-memory-tier-3`, `causal-memory-schema-tier-3`, `four-tier-reflexion-memory-schema`)
+- `ADR-035` (Exit Code Standardization) is the single highest-occurrence concept in unit cc-rjm-18 (201 occurrences), cited across scripts/ci/, scripts/validation/, .claude/skills/, and repository documentation establishing standard return codes (0=success, 1=logic/validation, 2=config/usage, 3=external, 4=auth). All 201 occurrence rows were fully populated in `Where used`.
+- Memory subsystem concepts (ADR-007, ADR-017, ADR-037, ADR-038, and associated cmdlets and schemas) are marked `implementation_in_scope: false` per METHOD.md §1.2 exclusion boundary for the experimental/external memory subsystem. `ADR-035` is marked `implementation_in_scope: true` as it governs all in-scope repository scripts.
+
+## Blocked or uncertain
+none
+
+## Time and size
+Approximate tokens of source read: ~120,000 tokens across 221 source files and 221 citing inventory cards.
+Approximate tokens of output written: ~20,000 tokens across 30 authored concept cards and this unit report.

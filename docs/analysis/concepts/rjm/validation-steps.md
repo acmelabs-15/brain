@@ -1,0 +1,50 @@
+---
+package: rjm
+name: Validation Steps
+slug: validation-steps
+kind: checklist
+package_phase: cross-phase
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: .agents/architecture/ADR-025-github-actions-arm-runners.md, sha256: 262467b9272dfe90621683f336fc4324737a99706a35977ccd260160d3fef6d1}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# Validation Steps
+
+## Definition — verbatim
+> "### Validation Steps" — .agents/architecture/ADR-025-github-actions-arm-runners.md:122
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .agents/architecture/ADR-025-github-actions-arm-runners.md | 122 | defined here | Enumerates post-migration verification procedures to confirm runner stability, compatibility, and cost reduction. |
+
+## Consumes
+Migrated GitHub Actions workflows and initial execution runs.
+
+## Produces
+Operational confirmation of ARM compatibility, absence of regressions, and billing cost reduction.
+
+## When applied
+Executed immediately following workflow runner configuration updates.
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+clean
+
+## Design notes
+A verification checklist defining empirical post-rollout checks to confirm architectural migrations succeed without runtime failures or billing unexpectedness.

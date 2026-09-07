@@ -1,0 +1,52 @@
+---
+package: matt
+name: rebase
+slug: rebase
+kind: name-only
+package_phase: matt:Upkeep
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: external/resolving-merge-conflicts.md, sha256: e4874999d86017e11321cce352bec3d044adcae7eb387f70a9dd5b7d7ae66501}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# rebase
+
+## Definition — verbatim
+(used, not defined)
+
+> "works through an in-progress git merge or rebase, hunk by hunk, then runs the project&#x27;s own checks and finishes the operation with a commit." — external/resolving-merge-conflicts.md:25
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| external/resolving-merge-conflicts.md | 25 | used here | Names git rebase as one of the two in-progress integration operations whose conflicts are resolved. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+resolving-merge-conflicts
+
+## Implementation status
+defects: orphan (external/resolving-merge-conflicts.md:1), doc-drift (external/resolving-merge-conflicts.md:28), doc-drift (external/resolving-merge-conflicts.md:30)
+
+## Design notes
+A standard Git version control operation for reapplying commits onto a new base tip, classified as name-only because it is an external version control command rather than an authored development lifecycle concept.

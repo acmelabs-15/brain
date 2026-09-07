@@ -10,7 +10,7 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `2` |
 | **phase_name** | Concept cards |
-| **current_unit** | cc-matt-13 |
+| **current_unit** | cc-rjm-21 |
 | **last_session** | 014 |
 | **next_action** | Phase 2 — dispatch concept units per §8.2 (the partition is done: units-p2.md, cc-* rows pending; D-023) |
 | **human_approval** | `PENDING` |
@@ -79,8 +79,8 @@ Concept units (`cc-<pkg>-N`, up to 30 concept slugs each) come from `partition-c
 | Status | Units |
 |---|---|
 | pending | 356 |
-| in-progress | 48 |
-| done | 56 |
+| in-progress | 0 |
+| done | 104 |
 | blocked | 0 |
 | rolled-back | 0 |
 | **total** | **460** |
@@ -114,7 +114,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 |---|---|
 | Manifest rows (addy / matt / rjm) | 219 / 201 / 1175 |
 | Inventory units done (addy / matt / rjm) | 46 / 46 / 324 |
-| Concept cards (addy / matt / rjm) | units done 44 / 12 / 0 of 44 / 40 / 376 |
+| Concept cards (addy / matt / rjm) | units done 44 / 40 / 20 of 44 / 40 / 376 |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | — |
 | Decisions (active / superseded / pending-peter) | 18 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
 | Glossary terms | 0 |
