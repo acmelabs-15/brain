@@ -13,7 +13,7 @@ prefix_hash_end: aee575509086c8f2
 context_used_start: 10.52%
 context_used_peak: 24.14%
 runs: [p2-run-04 (1 × 48), p2-run-05 (1 × 48)]
-compactions: 0
+compactions: 1
 ---
 
 # Session 016 — Concept cards
@@ -40,20 +40,30 @@ compactions: 0
 
 ## What was done
 - Completed §8.1 session-start protocol with zero errors.
-- Dispatched and verified Phase 2 Teamwork runs `p2-run-04` and `p2-run-05` (96 units total, 2,880 concept cards, 96 unit reports):
+- Dispatched and verified two Phase 2 Teamwork runs (96 units, 2,880 concept cards, 96 unit reports):
   - `p2-run-04` (1 × 48 units: `cc-rjm-21` through `cc-rjm-68`): 1,440 concept cards in `docs/analysis/concepts/rjm/`, 48 unit reports under `_units/`, 2,328 PASS / 0 FAIL citations. Wall time 22.0 min (clean probe within 25% of 19.0 min, raised `max_clean_run` to 48, updated `last_clean_wall_minutes=22.0`).
-  - `p2-run-05` (1 × 48 units: `cc-rjm-69` through `cc-rjm-116`): 1,440 concept cards in `docs/analysis/concepts/rjm/`, 48 unit reports under `_units/`, 1,562 PASS / 0 FAIL citations. 429 quota exhaustion handled cleanly by Teamwork Sentinel pause/resume. Wall time 296.8 min. Quality clean (1,562 PASS / 0 FAIL across 48 parallel workers).
+  - `p2-run-05` (1 × 48 units: `cc-rjm-69` through `cc-rjm-116`): 1,440 concept cards in `docs/analysis/concepts/rjm/`, 48 unit reports under `_units/`, 1,562 PASS / 0 FAIL citations. Quota exhaustion (429) was handled by Teamwork Sentinel pause/resume. Wall time: 296.8 min. Quality 100% clean (1,562 PASS / 0 FAIL across 48 parallel workers).
 - All 96 completed units stamped with `memo.ts stamp-unit` (model "Gemini 3.8 Flash", effort high) and verified with `memo.ts verify`.
+- Package totals:
+  - `addy`: 44/44 concept units complete (1,313 concept cards, `_index.md` clean).
+  - `matt`: 40/40 concept units complete (1,193 concept cards, `_index.md` clean).
+  - `rjm`: 116/376 concept units complete (3,480 concept cards, 116 unit reports, `_index.md` clean with 3,480 cards across 31 groups).
+- Total project units: 616 units done (416 inventory + 200 concept units); 260 concept units pending (`cc-rjm-117` through `cc-rjm-376`).
 - Regenerated manifests (`manifest.ts --no-fetch`) and concept indexes (`concept-index.ts`).
 - Recorded run entries in `docs/analysis/dynamic-batching-experiment.md` §7 (runs 22 and 23).
-- Updated `budget-params.json` via `budget.ts --set max_clean_run=48 last_clean_wall_minutes=22.0`.
+- Synchronized `STATE.md` (616 units done, 260 pending, current_unit `cc-rjm-117`).
+- Executed §8.3 session close: prefix unchanged (`aee575509086c8f2`), measured parameters via `budget.ts --measure`, updated `docs/plan/budget-params.json` (`max_clean_run=48`, `last_clean_wall_minutes=22.0`, `start_pct=10.24`, `close_pct=3.19`).
 
 ## What the next session must know
+- `addy` (44/44) and `matt` (40/40) concept card extractions are 100% complete.
+- `rjm` concept card extraction is in-progress: units `cc-rjm-1` through `cc-rjm-116` are done; 260 units remain (`cc-rjm-117` through `cc-rjm-376`).
+- `max_clean_run` is proven at 48 (`last_clean_wall_minutes=22.0`).
 
 ## Blocked
 none
 
 ## Next action
+Resume Phase 2 at `cc-rjm-117` (260 units pending).
 
 ## For Peter
 none
@@ -96,6 +106,10 @@ none
 - `bun scripts/synthesis/units.ts mark done --session 016 cc-rjm-69..116` → exit 0
 - `bun scripts/synthesis/manifest.ts --no-fetch && bun scripts/synthesis/concept-index.ts` → exit 0
 - `bun scripts/synthesis/budget.ts --record "verified p2-run-05"` → exit 0 (`used=20.39%`)
+- `bun scripts/synthesis/prefix-check.ts --compare aee575509086c8f2` → exit 0 (prefix: unchanged)
+- `bun scripts/synthesis/budget.ts --record close` → exit 0 (`used=22.57%`)
+- `bun scripts/synthesis/budget.ts --measure` → exit 0
+- `bun scripts/synthesis/budget.ts --set start_pct=10.24 close_pct=3.19` → exit 0
 
 ## Context note
 - `start`: `budget 2026-09-07T05:05:03.675Z conv=67768d27 model="Gemini 3.8 Flash (High)" used=10.52% peak=24.14% governing=25.00% close=2.57% headroom=11.91% pending=356 → DISPATCH 1 run × 48 units (48 units, cost 4.61%) — PROBE: one step above the proven maximum (1 × 32)`
@@ -105,3 +119,7 @@ none
 - `run-start p2-run-05 n=48`: `used=16.55%`
 - `dispatched p2-run-05`: `used=17.13%`
 - `verified p2-run-05`: `used=20.39%`
+- `close`: `budget 2026-09-07T10:29:32.909Z conv=67768d27 model="Gemini 3.8 Flash (High)" used=22.57% peak=24.14% governing=25.00% close=2.57% headroom=-0.14% pending=260 → STOP — no plan fits the headroom: close per §8.3`
+- `verdict at stop`: `STOP — no plan fits the headroom: close per §8.3`
+- `rot metrics`: 0 observed across conversation
+- `compactions`: 1

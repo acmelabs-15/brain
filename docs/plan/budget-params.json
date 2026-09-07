@@ -6,7 +6,7 @@
   "run_fixed_pct_note": "R — cost of one run that does not depend on its size. Measured per run in the test series (run-start to the next run-start or close): first run of a conversation 5.9–6.8, second run 1.8–3.8; 4.6 is kept as the planning value because R + n·u must not under-estimate (a 24-unit run predicted at 9.16 cost 5.94).",
   "per_unit_pct": 0.077,
   "per_unit_pct_note": "u — verification of one unit (quote-check --summary, stamp, head of one card); measured 15,737 tokens / 8 units in session 014. The test series showed no measurable growth of run cost with n between 12 and 24 units, so 0.19 over-estimates; kept as the safe planning value.",
-  "close_pct": 2.57,
+  "close_pct": 3.19,
   "close_pct_note": "C — §8.3 close (results, handoff, checks, commits); measured 1.09–1.87 in the test series (1.87 once, when the close included a stopped dispatch attempt).",
   "ceiling_pct_override": null,
   "ceiling_pct_override_note": "null → the governing ceiling comes from context-ceilings.json for the running model. A number here overrides it (the experiment used 21).",

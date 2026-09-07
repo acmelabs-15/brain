@@ -11,8 +11,8 @@ This file is the single source of truth for where the project is. It is updated 
 | **phase** | `2` |
 | **phase_name** | Concept cards |
 | **current_unit** | cc-rjm-117 |
-| **last_session** | 015 |
-| **next_action** | Phase 2 — dispatch concept units per §8.2 (current_unit: cc-rjm-21; 356 units pending) |
+| **last_session** | 016 |
+| **next_action** | Phase 2 — dispatch concept units per §8.2 (current_unit: cc-rjm-117; 260 units pending) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -41,7 +41,7 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 | 0.5 | Landscape scan | `skipped` — D-007 `landscape_scan: no` | — | — |
 | 1 | Inventory | `done` | unit extraction done (416/416); Phase 1V remediation & re-verification complete (all 3 reports clean) | 001–008, 011–012 |
 | 1V | Inventory verification | `done` | 49 flagged units re-run and verified clean (runs 18–19); all 3 verifier reports rewritten clean (PASS) | 009, 011, 012 |
-| 2 | Concept cards | `in-progress` | 104 / 460 units done (addy and matt 100% complete: 44/44, 40/40; rjm 20/376 done) | 013–015 |
+| 2 | Concept cards | `in-progress` | 200 / 460 units done (addy and matt 100% complete: 44/44, 40/40; rjm 116/376 done) | 013–016 |
 | 3 | Concordance | `pending` | — | — |
 | 4 | Alignment decisions | `pending` | — | — |
 | 4V | Decision review | `pending` | — | — |
