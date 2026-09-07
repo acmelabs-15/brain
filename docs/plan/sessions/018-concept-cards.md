@@ -12,7 +12,7 @@ prefix_hash_start: 4da28465a32c3820
 prefix_hash_end: 
 context_used_start: 9.55%
 context_used_peak: 
-runs: [p2-run-10 (2 × 48), p2-run-11 (2 × 48)]
+runs: [p2-run-10 (2 × 48), p2-run-11 (2 × 48), p2-run-12 (1 × 32)]
 compactions: 0
 ---
 
