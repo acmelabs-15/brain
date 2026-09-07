@@ -1,0 +1,50 @@
+---
+package: rjm
+name: The Transformation Pattern
+slug: the-transformation-pattern
+kind: pattern
+package_phase: rjm:plan
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: .claude/skills/planner/resources/temporal-contamination.md, sha256: e52d341aeaff094b536cc2be2d27bdbe4ecec2b6a107c9019ea32bb5655490d5}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# The Transformation Pattern
+
+## Definition — verbatim
+> "**Extract the technical justification, discard the change narrative.**" — .claude/skills/planner/resources/temporal-contamination.md:101
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .claude/skills/planner/resources/temporal-contamination.md | 99 | defined here | Section heading and core pattern for converting contaminated comments into timeless present form. |
+
+## Consumes
+Temporally contaminated code comments.
+
+## Produces
+Clean, technically justified comments expressing timeless present facts or deletion of content with no technical value.
+
+## When applied
+Applied after a comment has been flagged by the detection heuristic as temporally contaminated.
+
+## Sub-concepts
+none
+
+## Part of
+temporal-contamination-in-code-comments
+
+## Implementation status
+defects: doc-drift, missing-path
+
+## Design notes
+The Transformation Pattern provides the operational rule for fixing contaminated comments: extract any useful technical justification (such as invariants or error handling rationale) and discard the narrative of past changes. If no technical substance remains, the comment is safely removed.

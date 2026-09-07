@@ -1,0 +1,50 @@
+---
+package: rjm
+name: Community and Ecosystem Audit
+slug: community-and-ecosystem-audit
+kind: technique
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+verified: 2026-09-07 quote-check+coverage
+memo_inputs:
+  - {path: .claude/skills/dx-review/SKILL.md, sha256: 3318726b8ddca8d9ea852f25f38bfe20f3d918858d954e5c462358e95db1d435}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+---
+
+# Community and Ecosystem Audit
+
+## Definition — verbatim
+> "### Step 7: Community and Ecosystem Audit" — .claude/skills/dx-review/SKILL.md:151
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .claude/skills/dx-review/SKILL.md | 151 | defined here | Step 7 of the DX review protocol evaluating external community health, discussions, and contributing guidance. |
+
+## Consumes
+Target repository URLs, GitHub Discussions, Discord links, Stack Overflow tags, issue tracker templates, response patterns, and contributing guides.
+
+## Produces
+Community dimension score (0-10) with evidence summary and method label (TESTED, PARTIAL, or INFERRED) for the DX audit scorecard.
+
+## When applied
+Executed during step 7 of the `dx-review` audit process when evaluating the developer ecosystem around a product or repository.
+
+## Sub-concepts
+none
+
+## Part of
+dx-review
+
+## Implementation status
+defects: orphan
+
+## Design notes
+The Community and Ecosystem Audit evaluates external developer community health and responsiveness as a core pillar of developer experience. It ensures third-party adoption friction, issue triage turnaround, and community support channels are systematically measured rather than assumed.

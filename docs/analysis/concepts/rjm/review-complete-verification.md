@@ -1,0 +1,52 @@
+---
+package: rjm
+name: review_complete_verification
+slug: review-complete-verification
+kind: name-only
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: .claude/skills/planner/scripts/planner.py, sha256: 7c8c5cbbaace2e7111150238c7aac48963f1395180196f85ca965bb7ede4dfaf}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# review_complete_verification
+
+## Definition — verbatim
+(used, not defined)
+
+> "<review_complete_verification>" — .claude/skills/planner/scripts/planner.py:474
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .claude/skills/planner/scripts/planner.py | 474 | defined here | XML prompt guidance tag verifying all technical writer and quality review criteria before approving the plan. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+defects: missing-path, doc-drift, internal-contradiction
+
+## Design notes
+review_complete_verification is an XML prompt verification tag in planner.py structuring final review checks rather than an independent lifecycle concept.

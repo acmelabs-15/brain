@@ -1,0 +1,52 @@
+---
+package: rjm
+name: three-dot range syntax
+slug: three-dot-range-syntax
+kind: name-only
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: .claude/skills/review/SKILL.md, sha256: cf8e377d27c1ac99b60acb63a0c4bdda2eae139abc38dda591cc9314be5f5dac}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# three-dot range syntax
+
+## Definition — verbatim
+(used, not defined)
+
+> "Read the diff with three-dot range syntax" — .claude/skills/review/SKILL.md:69
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .claude/skills/review/SKILL.md | 69 | used here | Specifies git diff syntax used to establish review change set. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+review
+
+## Implementation status
+defects: missing-path, doc-drift
+
+## Design notes
+`three-dot range syntax` is a Git command-line syntax pattern scoping changes from the merge-base rather than an operational lifecycle concept, classified as name-only per D-023.
