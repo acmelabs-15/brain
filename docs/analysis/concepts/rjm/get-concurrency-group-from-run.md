@@ -1,0 +1,54 @@
+---
+package: rjm
+name: get_concurrency_group_from_run
+slug: get-concurrency-group-from-run
+kind: name-only
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: scripts/ai_review_common/quality_gate.py, sha256: 4b256216d3a93ee6f649647aa42dde223b52202cbd69d3fa1077d3e3854d8adb}
+  - {path: scripts/ai_review_common/workflow.py, sha256: afc062433185e6daf4a066162000ab7a13caa0b4e33383ff2dd450065de240ea}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# get_concurrency_group_from_run
+
+## Definition — verbatim
+(used, not defined)
+
+> "def get_concurrency_group_from_run(run: dict[str, Any]) -> str:" — scripts/ai_review_common/workflow.py:174
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| scripts/ai_review_common/quality_gate.py | 21 | used here | Re-exports workflow concurrency group identifier extractor. |
+| scripts/ai_review_common/workflow.py | 174 | defined here | Determines the concurrency group name from workflow run metadata and PR associations. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+clean
+
+## Design notes
+A Python helper function identifier (get_concurrency_group_from_run) deriving concurrency group strings from GitHub Actions run objects rather than an SDLC lifecycle concept, classified as kind: name-only per D-023.

@@ -560,6 +560,25 @@ The runs before that reset — the experiment of sessions 013–014 (runs 01–0
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p2-run-08/SUCCESS_AUDITOR_REPORT.md` (verdict CLEAN)
 - **Probe verdict**: N/A (32-unit run, below proven max of 48; wall time 21.2 min; quality 100% clean at 1,102 PASS / 0 FAIL).
 
+### run 27 (Session 017, production p2-run-09)
+
+- **run-id**: `p2-run-09`
+- **session**: 017 (Phase 2 Concept cards)
+- **units**: `cc-rjm-245` through `cc-rjm-248` (4 units, rjm) — 4 units total; 120 concept cards, 4 unit reports
+- **context used**:
+  - at run-start: `used=20.59%` (`[run-start p2-run-09 n=4] budget 2026-09-07T15:17:02.600Z conv=f470ad70 model="Gemini 3.8 Flash (High)" used=20.59% peak=20.59% governing=25.00% close=3.19% headroom=1.22% pending=132 → DISPATCH 1 run × 4 units (4 units, cost 1.22%)`)
+  - at dispatched: `used=20.93%` (`[dispatched p2-run-09] budget 2026-09-07T15:17:42.868Z conv=f470ad70 model="Gemini 3.8 Flash (High)" used=20.93% peak=20.93% governing=25.00% close=3.19% headroom=0.88% pending=128 → STOP — no plan fits the headroom: close per §8.3`)
+  - at verified: `used=21.60%` (`[verified p2-run-09] budget 2026-09-07T15:38:01.244Z conv=f470ad70 model="Gemini 3.8 Flash (High)" used=21.60% peak=21.60% governing=25.00% close=3.19% headroom=0.21% pending=128 → STOP — no plan fits the headroom: close per §8.3`)
+  - per-unit delta: 0.168% (verified 21.60% − dispatched 20.93% = 0.67% ÷ 4 units = 0.1675%)
+- **rot metrics**: none observed (used: 21.60%)
+- **429s and quota.reset_in_seconds**: none (0 quota errors)
+- **wall time**: 19.5 min from dispatch to completion
+- **Workers per unit**: 1 worker per unit (4 workers dispatched concurrently, all in parallel).
+- **quote-check totals**: 134 PASS, 0 FAIL across all 120 concept cards (0% failure rate)
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems, 3819 rjm concepts pending, 0 addy concepts pending, 0 matt concepts pending)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p2-run-09/success_auditor_report.md` (verdict CLEAN)
+- **Probe verdict**: N/A (4-unit tail run filling headroom to stop; wall time 19.5 min; quality 100% clean at 134 PASS / 0 FAIL).
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.
