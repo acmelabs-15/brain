@@ -3,7 +3,7 @@ session: 016
 date: 2026-09-07
 phase_at_start: 2
 phase_at_end: 2
-units_completed: [cc-rjm-21, cc-rjm-22, cc-rjm-23, cc-rjm-24, cc-rjm-25, cc-rjm-26, cc-rjm-27, cc-rjm-28, cc-rjm-29, cc-rjm-30, cc-rjm-31, cc-rjm-32, cc-rjm-33, cc-rjm-34, cc-rjm-35, cc-rjm-36, cc-rjm-37, cc-rjm-38, cc-rjm-39, cc-rjm-40, cc-rjm-41, cc-rjm-42, cc-rjm-43, cc-rjm-44, cc-rjm-45, cc-rjm-46, cc-rjm-47, cc-rjm-48, cc-rjm-49, cc-rjm-50, cc-rjm-51, cc-rjm-52, cc-rjm-53, cc-rjm-54, cc-rjm-55, cc-rjm-56, cc-rjm-57, cc-rjm-58, cc-rjm-59, cc-rjm-60, cc-rjm-61, cc-rjm-62, cc-rjm-63, cc-rjm-64, cc-rjm-65, cc-rjm-66, cc-rjm-67, cc-rjm-68]
+units_completed: [cc-rjm-21, cc-rjm-22, cc-rjm-23, cc-rjm-24, cc-rjm-25, cc-rjm-26, cc-rjm-27, cc-rjm-28, cc-rjm-29, cc-rjm-30, cc-rjm-31, cc-rjm-32, cc-rjm-33, cc-rjm-34, cc-rjm-35, cc-rjm-36, cc-rjm-37, cc-rjm-38, cc-rjm-39, cc-rjm-40, cc-rjm-41, cc-rjm-42, cc-rjm-43, cc-rjm-44, cc-rjm-45, cc-rjm-46, cc-rjm-47, cc-rjm-48, cc-rjm-49, cc-rjm-50, cc-rjm-51, cc-rjm-52, cc-rjm-53, cc-rjm-54, cc-rjm-55, cc-rjm-56, cc-rjm-57, cc-rjm-58, cc-rjm-59, cc-rjm-60, cc-rjm-61, cc-rjm-62, cc-rjm-63, cc-rjm-64, cc-rjm-65, cc-rjm-66, cc-rjm-67, cc-rjm-68, cc-rjm-69, cc-rjm-70, cc-rjm-71, cc-rjm-72, cc-rjm-73, cc-rjm-74, cc-rjm-75, cc-rjm-76, cc-rjm-77, cc-rjm-78, cc-rjm-79, cc-rjm-80, cc-rjm-81, cc-rjm-82, cc-rjm-83, cc-rjm-84, cc-rjm-85, cc-rjm-86, cc-rjm-87, cc-rjm-88, cc-rjm-89, cc-rjm-90, cc-rjm-91, cc-rjm-92, cc-rjm-93, cc-rjm-94, cc-rjm-95, cc-rjm-96, cc-rjm-97, cc-rjm-98, cc-rjm-99, cc-rjm-100, cc-rjm-101, cc-rjm-102, cc-rjm-103, cc-rjm-104, cc-rjm-105, cc-rjm-106, cc-rjm-107, cc-rjm-108, cc-rjm-109, cc-rjm-110, cc-rjm-111, cc-rjm-112, cc-rjm-113, cc-rjm-114, cc-rjm-115, cc-rjm-116]
 units_rolled_back: []
 units_blocked: []
 decisions_added: []
@@ -40,11 +40,12 @@ compactions: 0
 
 ## What was done
 - Completed §8.1 session-start protocol with zero errors.
-- Dispatched and verified Phase 2 Teamwork run `p2-run-04` (48 units, 1,440 concept cards, 48 unit reports):
+- Dispatched and verified Phase 2 Teamwork runs `p2-run-04` and `p2-run-05` (96 units total, 2,880 concept cards, 96 unit reports):
   - `p2-run-04` (1 × 48 units: `cc-rjm-21` through `cc-rjm-68`): 1,440 concept cards in `docs/analysis/concepts/rjm/`, 48 unit reports under `_units/`, 2,328 PASS / 0 FAIL citations. Wall time 22.0 min (clean probe within 25% of 19.0 min, raised `max_clean_run` to 48, updated `last_clean_wall_minutes=22.0`).
-- All 48 completed units stamped with `memo.ts stamp-unit` (model "Gemini 3.8 Flash", effort high) and verified with `memo.ts verify`.
+  - `p2-run-05` (1 × 48 units: `cc-rjm-69` through `cc-rjm-116`): 1,440 concept cards in `docs/analysis/concepts/rjm/`, 48 unit reports under `_units/`, 1,562 PASS / 0 FAIL citations. 429 quota exhaustion handled cleanly by Teamwork Sentinel pause/resume. Wall time 296.8 min. Quality clean (1,562 PASS / 0 FAIL across 48 parallel workers).
+- All 96 completed units stamped with `memo.ts stamp-unit` (model "Gemini 3.8 Flash", effort high) and verified with `memo.ts verify`.
 - Regenerated manifests (`manifest.ts --no-fetch`) and concept indexes (`concept-index.ts`).
-- Recorded run entry in `docs/analysis/dynamic-batching-experiment.md` §7 (run 22).
+- Recorded run entries in `docs/analysis/dynamic-batching-experiment.md` §7 (runs 22 and 23).
 - Updated `budget-params.json` via `budget.ts --set max_clean_run=48 last_clean_wall_minutes=22.0`.
 
 ## What the next session must know
@@ -84,9 +85,23 @@ none
 - `bun scripts/synthesis/manifest.ts --no-fetch && bun scripts/synthesis/concept-index.ts` → exit 0
 - `bun scripts/synthesis/budget.ts --record "verified p2-run-04"` → exit 0 (`used=13.57%`)
 - `bun scripts/synthesis/budget.ts --set max_clean_run=48 last_clean_wall_minutes=22.0` → exit 0
+- `bun scripts/synthesis/budget.ts --record "run-start p2-run-05 n=48"` → exit 0 (`used=16.55%`)
+- `bun scripts/synthesis/unit-facts.ts <u...> | grep -E 'MISSING|^# unit-facts'` (48 units) → exit 0 (0 MISSING)
+- `bun scripts/synthesis/units.ts mark in-progress --session 016 cc-rjm-69..116` → exit 0
+- `bun scripts/synthesis/budget.ts --record "dispatched p2-run-05"` → exit 0 (`used=17.13%`)
+- `bun scripts/synthesis/await-run.ts p2-run-05 --wait 240` → exit 0 (COMPLETE, elapsed 296.8 min)
+- `bun scripts/synthesis/memo.ts stamp-unit cc-rjm-69..116` → exit 0 (1,440 cards stamped)
+- `bun scripts/synthesis/memo.ts verify cc-rjm-69..116` → exit 0 (1,562 PASS, 0 FAIL)
+- `bun scripts/synthesis/coverage.ts --quiet` → exit 0 (clean)
+- `bun scripts/synthesis/units.ts mark done --session 016 cc-rjm-69..116` → exit 0
+- `bun scripts/synthesis/manifest.ts --no-fetch && bun scripts/synthesis/concept-index.ts` → exit 0
+- `bun scripts/synthesis/budget.ts --record "verified p2-run-05"` → exit 0 (`used=20.39%`)
 
 ## Context note
 - `start`: `budget 2026-09-07T05:05:03.675Z conv=67768d27 model="Gemini 3.8 Flash (High)" used=10.52% peak=24.14% governing=25.00% close=2.57% headroom=11.91% pending=356 → DISPATCH 1 run × 48 units (48 units, cost 4.61%) — PROBE: one step above the proven maximum (1 × 32)`
 - `run-start p2-run-04 n=48`: `used=10.86%`
 - `dispatched p2-run-04`: `used=11.51%`
 - `verified p2-run-04`: `used=13.57%`
+- `run-start p2-run-05 n=48`: `used=16.55%`
+- `dispatched p2-run-05`: `used=17.13%`
+- `verified p2-run-05`: `used=20.39%`

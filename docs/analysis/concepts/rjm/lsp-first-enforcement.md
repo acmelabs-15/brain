@@ -3,7 +3,7 @@ package: rjm
 name: LSP-first enforcement
 slug: lsp-first-enforcement
 kind: pattern
-package_phase: build
+package_phase: rjm:build
 implementation_in_scope: true
 deprecated: false
 memo_inputs:

@@ -27,7 +27,7 @@ none
 ## Where used
 | File | Line | Role | How it is used |
 |---|---|---|---|
-| .agents/archive/planning/PR-60/001-pr-60-review-gap-analysis.md | 108 | defined here | Defect tracking entry for silent failure suppression pattern using shell || true. |
+| .agents/archive/planning/PR-60/001-pr-60-review-gap-analysis.md | 108 | defined here | Defect tracking entry for silent failure suppression pattern using shell \|\| true. |
 
 ## Consumes
 none

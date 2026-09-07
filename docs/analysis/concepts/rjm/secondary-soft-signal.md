@@ -3,7 +3,7 @@ package: rjm
 name: SECONDARY soft signal
 slug: secondary-soft-signal
 kind: technique
-package_phase: test
+package_phase: rjm:test
 implementation_in_scope: true
 deprecated: false
 memo_inputs:

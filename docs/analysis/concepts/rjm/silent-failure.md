@@ -29,7 +29,7 @@ none
 ## Where used
 | File | Line | Role | How it is used |
 |---|---|---|---|
-| .agents/archive/planning/PR-60/002-pr-60-remediation-plan.md | 173 | used here | Task 1.3 details remediation of silent failure patterns (`|| true`) in GitHub workflow commands. |
+| .agents/archive/planning/PR-60/002-pr-60-remediation-plan.md | 173 | used here | Task 1.3 details remediation of silent failure patterns (`\|\| true`) in GitHub workflow commands. |
 | .claude/skills/review/references/observability.md | 128 | used here | Defined as an automatic critical failure trigger when a new error path emits neither log, metric, nor trace. |
 
 ## Consumes

@@ -3,7 +3,7 @@ package: rjm
 name: base-alone e2e
 slug: base-alone-e2e
 kind: technique
-package_phase: test
+package_phase: rjm:test
 implementation_in_scope: true
 deprecated: false
 memo_inputs:

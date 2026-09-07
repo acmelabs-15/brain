@@ -1,0 +1,52 @@
+---
+package: rjm
+name: Conventional format
+slug: conventional-format
+kind: pattern
+package_phase: cross-phase
+implementation_in_scope: true
+deprecated: false
+verified: 2026-09-07 quote-check+coverage
+memo_inputs:
+  - {path: .claude/agents/implementer.md, sha256: 053d58a6aa0561ea927aa8383c9bab695e477c89c1210f1d053b627ec8a382a3}
+  - {path: templates/agents/implementer.shared.md, sha256: e6d56f2b4a0192790499debada060e68c8924504f73b3a7142c50bb27d327ab5}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+---
+
+# Conventional format
+
+## Definition — verbatim
+> "- **Conventional format**: `<type>(<scope>): <desc>`" — .claude/agents/implementer.md:349
+
+## Also called — verbatim
+> "- **Conventional format**: `<type>(<scope>): <desc>`" — templates/agents/implementer.shared.md:338
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .claude/agents/implementer.md | 349 | used here | Bullet point mandating conventional commit message structure `<type>(<scope>): <desc>`. |
+| templates/agents/implementer.shared.md | 338 | used here | Bullet point specifying conventional commit message syntax in shared templates. |
+
+## Consumes
+A discrete logical change ready for version control commit.
+
+## Produces
+Standardized commit message header strings adhering to the conventional commits specification.
+
+## When applied
+When writing the subject line for any git commit created by agents.
+
+## Sub-concepts
+none
+
+## Part of
+commit-discipline
+
+## Implementation status
+defects: missing-path, internal-contradiction, cross-file-contradiction, doc-drift
+
+## Design notes
+Conventional format standardizes git commit message headers across rjm using the `<type>(<scope>): <desc>` syntax. This structure enables automated changelog generation, semantic versioning, and immediate human comprehension of commit intent.

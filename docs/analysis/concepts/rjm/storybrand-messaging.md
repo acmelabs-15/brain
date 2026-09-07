@@ -1,0 +1,50 @@
+---
+package: rjm
+name: StoryBrand Messaging
+slug: storybrand-messaging
+kind: reference
+package_phase: rjm:cross-phase
+implementation_in_scope: true
+deprecated: false
+verified: 2026-09-07 quote-check+coverage
+memo_inputs:
+  - {path: .claude/skills/business-strategy/references/storybrand.md, sha256: 77d4aad5404196cbf960a0fbf9858eaba544794ebd675fc4130afe2a77f2e038}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+---
+
+# StoryBrand Messaging
+
+## Definition — verbatim
+> "# StoryBrand Messaging" — .claude/skills/business-strategy/references/storybrand.md:1
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .claude/skills/business-strategy/references/storybrand.md | 1 | defined here | Reference guide title and framework distilling the 7-part narrative messaging framework. |
+
+## Consumes
+Product capabilities, target audience persona, and core market positioning.
+
+## Produces
+Structured 7-part brand narrative, customer-centric website copy, and a concise marketing one-liner.
+
+## When applied
+Used when messaging is unclear, visitors fail to understand the product value in one sentence, or conversion is flat.
+
+## Sub-concepts
+external-problem, internal-problem, philosophical-problem, direct-call-to-action, transitional-call-to-action
+
+## Part of
+business-strategy
+
+## Implementation status
+clean
+
+## Design notes
+StoryBrand Messaging distills Donald Miller's 7-part narrative framework into an actionable messaging reference. In rjm, it inverts common marketing defects by casting the customer as the hero and the vendor as the guide, ensuring messaging focuses on customer transformation rather than vendor technical specifications.

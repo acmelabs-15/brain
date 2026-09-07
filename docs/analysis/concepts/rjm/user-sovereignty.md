@@ -31,7 +31,7 @@ Sovereignty — .claude/skills/autoplan/SKILL.md:170
 |---|---|---|---|
 | .agents/architecture/ADR-062-conditional-lsp-first-enforcement.md | 343 | used here | Invoked to override 6-agent review dissent and proceed with user-chosen enforcement direction. |
 | .agents/architecture/ADR-085-cross-harness-permission-surface-asymmetry.md | 302 | used here | Cited as the authority under which the repository owner overruled reviewer consensus to descope developer-only machinery. |
-| .claude/skills/ai-agents-research-methodology/SKILL.md | 219 | defined here | used here | Defined as the governance principle mandating that agent and model recommendations never override user direction. |
+| .claude/skills/ai-agents-research-methodology/SKILL.md | 219 | defined here \| used here | Defined as the governance principle mandating that agent and model recommendations never override user direction. |
 | .claude/skills/autoplan/SKILL.md | 136 | used here | Applied as a precedence rule where user command or skill naming supersedes automated router table selection. |
 
 ## Consumes

@@ -1,0 +1,50 @@
+---
+package: rjm
+name: post-ship monitoring
+slug: post-ship-monitoring
+kind: phase
+package_phase: rjm:research
+implementation_in_scope: true
+deprecated: false
+verified: 2026-09-07 quote-check+coverage
+memo_inputs:
+  - {path: .claude/skills/ai-agents-research-methodology/SKILL.md, sha256: 7141af7456e2a59337469559ce9bd051294b0413ffac614bab6bae44c49f9b83}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+---
+
+# post-ship monitoring
+
+## Definition — verbatim
+> "from contradiction log through probe, eval baseline, ADR debate, calibrated gate, and post-ship monitoring." — .claude/skills/ai-agents-research-methodology/SKILL.md:7-8
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .claude/skills/ai-agents-research-methodology/SKILL.md | 8 | defined here \| used here | Named as the Stage 6 telemetry phase tracking long-term effectiveness and decay of shipped guards. |
+
+## Consumes
+Runtime execution telemetry, guard interception events, and override frequency data from production sessions.
+
+## Produces
+Periodic health reports, maturity tier classifications, and pruning candidates for obsolete or uncalibrated gates.
+
+## When applied
+Following the deployment of any new guard, validator, or skill during Stage 6 of the research methodology lifecycle.
+
+## Sub-concepts
+none
+
+## Part of
+idea-lifecycle
+
+## Implementation status
+defects: missing-path
+
+## Design notes
+Post-ship monitoring acknowledges that governance rules and enforcement mechanisms degrade as software systems evolve. By tracking real-world intercept events and developer overrides after release, rjm detects when a once-effective guard becomes inert or actively harmful, ensuring continuous refinement and pruning of enforcement overhead.

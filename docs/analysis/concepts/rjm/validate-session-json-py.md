@@ -31,7 +31,7 @@ none
 | File | Line | Role | How it is used |
 |---|---|---|---|
 | .agents/architecture/ADR-060-rework-warning-session-log-persistence.md | 42 | used here | Cited as the validator that checks required session-end items while ignoring unknown optional fields |
-| scripts/AGENTS.md | 240 | defined here | used here | Section heading documenting the validation rules, roles, and schema checks of the validator |
+| scripts/AGENTS.md | 240 | defined here \| used here | Section heading documenting the validation rules, roles, and schema checks of the validator |
 | scripts/README.md | 40 | defined here | Section heading introducing validate_session_json.py as session protocol compliance validator |
 
 ## Consumes

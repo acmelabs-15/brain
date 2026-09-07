@@ -3,7 +3,7 @@ package: rjm
 name: CO-PRIMARY signal
 slug: co-primary-signal
 kind: technique
-package_phase: test
+package_phase: rjm:test
 implementation_in_scope: true
 deprecated: false
 memo_inputs:
