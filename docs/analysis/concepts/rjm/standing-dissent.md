@@ -1,0 +1,50 @@
+---
+package: rjm
+name: Standing Dissent
+slug: standing-dissent
+kind: pattern
+package_phase: cross-phase
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: .agents/architecture/ADR-098-agent-role-metadata-replaces-tier-hierarchy.md, sha256: d094c9283eee8c0798076191cc7f2bb8cb21db28a457234065a56952a25408c5}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# Standing Dissent
+
+## Definition — verbatim
+> "## Standing Dissent" — .agents/architecture/ADR-098-agent-role-metadata-replaces-tier-hierarchy.md:432
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .agents/architecture/ADR-098-agent-role-metadata-replaces-tier-hierarchy.md | 432 | defined here | ADR section recording unresolved review objections alongside explicit conditions for reopening. |
+
+## Consumes
+Multi-agent debate findings and minority objections that were not fully reconciled.
+
+## Produces
+Documented dissent record with pinned reversal and re-evaluation conditions.
+
+## When applied
+During architecture review when decisions proceed under disagree-and-commit consensus.
+
+## Sub-concepts
+none
+
+## Part of
+adr-review
+
+## Implementation status
+defects: doc-drift
+
+## Design notes
+A governance pattern for explicitly recording minority dissent from review debates in the decision record rather than papering over disagreements, linking it to explicit reopening triggers.

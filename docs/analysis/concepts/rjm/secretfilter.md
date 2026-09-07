@@ -1,0 +1,52 @@
+---
+package: rjm
+name: SecretFilter
+slug: secretfilter
+kind: name-only
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: .agents/security/ADR-045-framework-extraction-security-review.md, sha256: 6c350b6780facde5089676879bbebc79c433b725b5505868a7c3b3ce1e14c57b}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# SecretFilter
+
+## Definition — verbatim
+(used, not defined)
+
+> "Plugins include `SecretFilter` utility:" — .agents/security/ADR-045-framework-extraction-security-review.md:462
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .agents/security/ADR-045-framework-extraction-security-review.md | 462 | defined here | Remediation specification defining a Python utility class for filtering credentials and private keys from hook output. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+defects: missing-path
+
+## Design notes
+`SecretFilter` is a security redaction utility class identifier proposed in ADR-045 security review finding H-003 to mask environment variables, API tokens, and private keys from hook stdout/stderr, classified as `kind: name-only` per D-023.

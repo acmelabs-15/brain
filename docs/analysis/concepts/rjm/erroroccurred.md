@@ -1,0 +1,53 @@
+---
+package: rjm
+name: errorOccurred
+slug: erroroccurred
+kind: gate
+package_phase: cross-phase
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: .agents/specs/requirements/REQ-003-multi-tool-artifact-build.md, sha256: 372fb931a8c30981245b40f2f1c4e4e6b9f02ec57dc06bb7afafa88e9cf8f2fd}
+  - {path: .claude/skills/agent-harness-reference/references/official-hook-contracts.md, sha256: 716ac7583eda0f5375bf9e89f29c997c95190a6c6a4c1fb74a30bdbe580b483b}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# errorOccurred
+
+## Definition — verbatim
+> "errorOccurred" — .claude/skills/agent-harness-reference/references/official-hook-contracts.md:93
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| .agents/specs/requirements/REQ-003-multi-tool-artifact-build.md | 56 | used here | Listed in verified facts table as a native Copilot CLI hook event. |
+| .claude/skills/agent-harness-reference/references/official-hook-contracts.md | 93 | defined here | Documented in official hook contract table of native events. |
+| .claude/skills/agent-harness-reference/references/official-hook-contracts.md | 113 | used here | Cited in documented compatibility aliases list paired with `ErrorOccurred`. |
+
+## Consumes
+Error payload, exception trace, and failure context from the CLI harness.
+
+## Produces
+Error telemetry, diagnostic logs, and failure handling actions.
+
+## When applied
+Fired by the CLI harness when an unhandled error or exception interrupts execution.
+
+## Sub-concepts
+none
+
+## Part of
+official-hook-contracts
+
+## Implementation status
+defects: doc-drift, internal-contradiction
+
+## Design notes
+`errorOccurred` is a native hook event in Copilot CLI and Claude Code invoked when an operational failure or execution error happens. It provides an automated interception point for structured error logging, diagnostic capture, and notification before an agent process halts.

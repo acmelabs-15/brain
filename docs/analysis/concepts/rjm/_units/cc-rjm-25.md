@@ -1,0 +1,275 @@
+---
+unit: cc-rjm-25
+phase: 2
+package: rjm
+session: 016
+subagent_returned: complete
+---
+
+# Unit cc-rjm-25
+
+## Files assigned
+- [x] sources/rjm/.agents/architecture/ADR-050-adr-protocol-sync.md
+- [x] sources/rjm/.agents/architecture/ADR-051-synthesis-panel-frontmatter-standard.md
+- [x] sources/rjm/.agents/architecture/ADR-052-template-strategy.md
+- [x] sources/rjm/.agents/architecture/ADR-053-adr-exception-criteria.md
+- [x] sources/rjm/.agents/architecture/ADR-054-local-security-scanning.md
+- [x] sources/rjm/.agents/architecture/ADR-065-orchestrator-as-router.md
+- [x] sources/rjm/.agents/architecture/ADR-074-security-review-quick-pass-mode.md
+- [x] sources/rjm/.agents/architecture/ADR-091-post-merge-version-bot.md
+- [x] sources/rjm/.agents/architecture/ADR-104-gate-tier-placement-and-budgets.md
+- [x] sources/rjm/.agents/archive/planning/PR-60/005-consolidated-agent-review-summary.md
+- [x] sources/rjm/.agents/archive/planning/PRD-quality-gate-prompt-refinement.md
+- [x] sources/rjm/.agents/devops/arm-runner-migration-analysis.md
+- [x] sources/rjm/.agents/governance/SKILL-PHASE-GATES.md
+- [x] sources/rjm/.agents/metrics/baseline-report.md
+- [x] sources/rjm/.agents/security/ADR-045-framework-extraction-security-review.md
+- [x] sources/rjm/.agents/security/static-analysis-checklist.md
+- [x] sources/rjm/.claude/agents/AGENTS.md
+- [x] sources/rjm/.claude/agents/architect.md
+- [x] sources/rjm/.claude/agents/implementer.md
+- [x] sources/rjm/.claude/agents/qa.md
+- [x] sources/rjm/.claude/agents/security.md
+- [x] sources/rjm/.claude/agents/security/references/powershell-security-checklist.md
+- [x] sources/rjm/.claude/skills/adr-review/SKILL.md
+- [x] sources/rjm/.claude/skills/analyze/SKILL.md
+- [x] sources/rjm/.claude/skills/analyze/references/engineering-complexity-tiers.md
+- [x] sources/rjm/.claude/skills/analyze/references/quality-boy-scout-rule.md
+- [x] sources/rjm/.claude/skills/chaos-experiment/SKILL.md
+- [x] sources/rjm/.claude/skills/context-optimizer/scripts/analyze_skill_placement.py
+- [x] sources/rjm/.claude/skills/context-optimizer/scripts/compress_markdown_content.py
+- [x] sources/rjm/.claude/skills/context-optimizer/scripts/path_validation.py
+- [x] sources/rjm/.claude/skills/context-optimizer/scripts/test_skill_passive_compliance.py
+- [x] sources/rjm/.claude/skills/decision-critic/SKILL.md
+- [x] sources/rjm/.claude/skills/decision-critic/references/mental-models-chestertons-fence.md
+- [x] sources/rjm/.claude/skills/decision-critic/references/mental-models-conways-law.md
+- [x] sources/rjm/.claude/skills/decision-critic/references/mental-models-galls-law.md
+- [x] sources/rjm/.claude/skills/decision-critic/references/quality-boy-scout-rule.md
+- [x] sources/rjm/.claude/skills/decision-critic/references/strategic-thinking-systems-thinking.md
+- [x] sources/rjm/.claude/skills/doc-accuracy/scripts/doc_accuracy.py
+- [x] sources/rjm/.claude/skills/dx-review/SKILL.md
+- [x] sources/rjm/.claude/skills/orphan-ref-validator/SKILL.md
+- [x] sources/rjm/.claude/skills/orphan-ref-validator/scripts/envelope.py
+- [x] sources/rjm/.claude/skills/orphan-ref-validator/scripts/scan.py
+- [x] sources/rjm/.claude/skills/orphan-ref-validator/scripts/walking.py
+- [x] sources/rjm/.claude/skills/planner/references/mental-models-galls-law.md
+- [x] sources/rjm/.claude/skills/pre-mortem/references/mental-models-galls-law.md
+- [x] sources/rjm/.claude/skills/reflect/references/triggers.md
+- [x] sources/rjm/.claude/skills/requirements-interview/references/mental-models-circle-of-competence.md
+- [x] sources/rjm/.claude/skills/research-and-incorporate/SKILL.md
+- [x] sources/rjm/.claude/skills/research-and-incorporate/references/workflow.md
+- [x] sources/rjm/.claude/skills/review/SKILL.md
+- [x] sources/rjm/.claude/skills/review/references/agent-safety.md
+- [x] sources/rjm/.claude/skills/review/references/decision-rigor.md
+- [x] sources/rjm/.claude/skills/review/references/devops.md
+- [x] sources/rjm/.claude/skills/review/references/observability.md
+- [x] sources/rjm/.claude/skills/review/references/qa.md
+- [x] sources/rjm/.claude/skills/review/scripts/validate_findings_scope.py
+- [x] sources/rjm/.claude/skills/reviewer-findings/SKILL.md
+- [x] sources/rjm/.claude/skills/security-scan/SKILL.md
+- [x] sources/rjm/.claude/skills/security-scan/references/vulnerability-patterns.md
+- [x] sources/rjm/.claude/skills/security-scan/scripts/scan_vulnerabilities.py
+- [x] sources/rjm/.claude/skills/skillforge/scripts/package_skill.py
+- [x] sources/rjm/.claude/skills/skillforge/scripts/quick_validate.py
+- [x] sources/rjm/.claude/skills/skillforge/scripts/skill_modularity_audit.py
+- [x] sources/rjm/.claude/skills/skillforge/scripts/validate-skill.py
+- [x] sources/rjm/.claude/skills/slashcommandcreator/scripts/new_slash_command.py
+- [x] sources/rjm/.claude/skills/stuck-detection/SKILL.md
+- [x] sources/rjm/.claude/skills/stuck-detection/stuck_detection.py
+- [x] sources/rjm/.claude/skills/taste-lints/scripts/taste_lints.py
+- [x] sources/rjm/.claude/skills/threat-modeling/scripts/validate_threat_model.py
+- [x] sources/rjm/.github/scripts/check_design_review_gate.py
+- [x] sources/rjm/CONTRIBUTING.md
+- [x] sources/rjm/docs/SKILL-AUTHORING.md
+- [x] sources/rjm/docs/agent-metrics.md
+- [x] sources/rjm/docs/customization.md
+- [x] sources/rjm/docs/diagrams/routing-flowchart.md
+- [x] sources/rjm/docs/getting-started.md
+- [x] sources/rjm/docs/technical-guardrails.md
+- [x] sources/rjm/docs/workflow-commands.md
+- [x] sources/rjm/scripts/README.md
+- [x] sources/rjm/scripts/bootstrap-vm.sh
+- [x] sources/rjm/scripts/ci/collect_ai_metrics.py
+- [x] sources/rjm/scripts/ci/spec_prepare_context.py
+- [x] sources/rjm/scripts/ci/test_installed_plugin_hooks.py
+- [x] sources/rjm/scripts/consolidate_skills.py
+- [x] sources/rjm/scripts/eval/_anthropic_api.py
+- [x] sources/rjm/scripts/eval/eval-agent-vs-baseline.py
+- [x] sources/rjm/scripts/eval/eval-skill-overlap.py
+- [x] sources/rjm/scripts/eval/variance-control.py
+- [x] sources/rjm/scripts/github_core/bot_config.py
+- [x] sources/rjm/scripts/github_core/validation.py
+- [x] sources/rjm/scripts/hook_utilities/path_safety.py
+- [x] sources/rjm/scripts/issue_triage.py
+- [x] sources/rjm/scripts/quality_gate/check_critical_failures.py
+- [x] sources/rjm/scripts/security/invoke_security_retrospective.py
+- [x] sources/rjm/scripts/utils/path_validation.py
+- [x] sources/rjm/scripts/validation/check_model_pins.py
+- [x] sources/rjm/scripts/validation/git_hook_policy.py
+- [x] sources/rjm/scripts/validation/portability_common.py
+- [x] sources/rjm/scripts/validation/push_ref_staleness.py
+- [x] sources/rjm/scripts/validation/validate_design_review.py
+- [x] sources/rjm/templates/README.md
+- [x] sources/rjm/templates/agents/architect.shared.md
+- [x] sources/rjm/templates/agents/implementer.shared.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-050-adr-protocol-sync-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-051-synthesis-panel-frontmatter-standard-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-052-template-strategy-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-053-adr-exception-criteria-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-054-local-security-scanning-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-065-orchestrator-as-router-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-074-security-review-quick-pass-mode-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-091-post-merge-version-bot-md.md
+- [x] docs/analysis/inventory/rjm/agents-architecture-adr-104-gate-tier-placement-and-budgets-md.md
+- [x] docs/analysis/inventory/rjm/agents-archive-planning-pr-60-005-consolidated-agent-review-summary-md.md
+- [x] docs/analysis/inventory/rjm/agents-archive-planning-prd-quality-gate-prompt-refinement-md.md
+- [x] docs/analysis/inventory/rjm/agents-devops-arm-runner-migration-analysis-md.md
+- [x] docs/analysis/inventory/rjm/agents-governance-skill-phase-gates-md.md
+- [x] docs/analysis/inventory/rjm/agents-metrics-baseline-report-md.md
+- [x] docs/analysis/inventory/rjm/agents-security-adr-045-framework-extraction-security-review-md.md
+- [x] docs/analysis/inventory/rjm/agents-security-static-analysis-checklist-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-agents-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-architect-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-implementer-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-qa-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-security-md.md
+- [x] docs/analysis/inventory/rjm/claude-agents-security-references-powershell-security-checklist-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-adr-review-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-analyze-references-engineering-complexity-tiers-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-analyze-references-quality-boy-scout-rule-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-analyze-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-chaos-experiment-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-context-optimizer-scripts-analyze-skill-placement-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-context-optimizer-scripts-compress-markdown-content-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-context-optimizer-scripts-path-validation-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-context-optimizer-scripts-test-skill-passive-compliance-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-decision-critic-references-mental-models-chestertons-fence-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-decision-critic-references-mental-models-conways-law-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-decision-critic-references-mental-models-galls-law-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-decision-critic-references-quality-boy-scout-rule-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-decision-critic-references-strategic-thinking-systems-thinking-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-decision-critic-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-doc-accuracy-scripts-doc-accuracy-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-dx-review-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-orphan-ref-validator-scripts-envelope-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-orphan-ref-validator-scripts-scan-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-orphan-ref-validator-scripts-walking-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-orphan-ref-validator-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-planner-references-mental-models-galls-law-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-pre-mortem-references-mental-models-galls-law-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-reflect-references-triggers-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-requirements-interview-references-mental-models-circle-of-competence-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-research-and-incorporate-references-workflow-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-research-and-incorporate-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-review-references-agent-safety-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-review-references-decision-rigor-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-review-references-devops-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-review-references-observability-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-review-references-qa-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-review-scripts-validate-findings-scope-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-review-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-reviewer-findings-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-security-scan-references-vulnerability-patterns-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-security-scan-scripts-scan-vulnerabilities-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-security-scan-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-skillforge-scripts-package-skill-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-skillforge-scripts-quick-validate-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-skillforge-scripts-skill-modularity-audit-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-skillforge-scripts-validate-skill-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-slashcommandcreator-scripts-new-slash-command-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-stuck-detection-skill-md.md
+- [x] docs/analysis/inventory/rjm/claude-skills-stuck-detection-stuck-detection-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-taste-lints-scripts-taste-lints-py.md
+- [x] docs/analysis/inventory/rjm/claude-skills-threat-modeling-scripts-validate-threat-model-py.md
+- [x] docs/analysis/inventory/rjm/contributing-md.md
+- [x] docs/analysis/inventory/rjm/docs-agent-metrics-md.md
+- [x] docs/analysis/inventory/rjm/docs-customization-md.md
+- [x] docs/analysis/inventory/rjm/docs-diagrams-routing-flowchart-md.md
+- [x] docs/analysis/inventory/rjm/docs-getting-started-md.md
+- [x] docs/analysis/inventory/rjm/docs-skill-authoring-md.md
+- [x] docs/analysis/inventory/rjm/docs-technical-guardrails-md.md
+- [x] docs/analysis/inventory/rjm/docs-workflow-commands-md.md
+- [x] docs/analysis/inventory/rjm/github-scripts-check-design-review-gate-py.md
+- [x] docs/analysis/inventory/rjm/scripts-bootstrap-vm-sh.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-collect-ai-metrics-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-spec-prepare-context-py.md
+- [x] docs/analysis/inventory/rjm/scripts-ci-test-installed-plugin-hooks-py.md
+- [x] docs/analysis/inventory/rjm/scripts-consolidate-skills-py.md
+- [x] docs/analysis/inventory/rjm/scripts-eval--anthropic-api-py.md
+- [x] docs/analysis/inventory/rjm/scripts-eval-eval-agent-vs-baseline-py.md
+- [x] docs/analysis/inventory/rjm/scripts-eval-eval-skill-overlap-py.md
+- [x] docs/analysis/inventory/rjm/scripts-eval-variance-control-py.md
+- [x] docs/analysis/inventory/rjm/scripts-github-core-bot-config-py.md
+- [x] docs/analysis/inventory/rjm/scripts-github-core-validation-py.md
+- [x] docs/analysis/inventory/rjm/scripts-hook-utilities-path-safety-py.md
+- [x] docs/analysis/inventory/rjm/scripts-issue-triage-py.md
+- [x] docs/analysis/inventory/rjm/scripts-quality-gate-check-critical-failures-py.md
+- [x] docs/analysis/inventory/rjm/scripts-readme-md.md
+- [x] docs/analysis/inventory/rjm/scripts-security-invoke-security-retrospective-py.md
+- [x] docs/analysis/inventory/rjm/scripts-utils-path-validation-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-check-model-pins-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-git-hook-policy-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-portability-common-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-push-ref-staleness-py.md
+- [x] docs/analysis/inventory/rjm/scripts-validation-validate-design-review-py.md
+- [x] docs/analysis/inventory/rjm/templates-agents-architect-shared-md.md
+- [x] docs/analysis/inventory/rjm/templates-agents-implementer-shared-md.md
+- [x] docs/analysis/inventory/rjm/templates-readme-md.md
+
+## Outputs produced
+- docs/analysis/concepts/rjm/single-source-of-truth-principle.md (1431 bytes)
+- docs/analysis/concepts/rjm/synthesis-panel-frontmatter-standard.md (2018 bytes)
+- docs/analysis/concepts/rjm/design-review.md (2214 bytes)
+- docs/analysis/concepts/rjm/architect-synthesis-panels.md (1734 bytes)
+- docs/analysis/concepts/rjm/frontmatter-schema.md (1124 bytes)
+- docs/analysis/concepts/rjm/field-semantics.md (942 bytes)
+- docs/analysis/concepts/rjm/ci-gate-logic.md (934 bytes)
+- docs/analysis/concepts/rjm/gate-override.md (1559 bytes)
+- docs/analysis/concepts/rjm/codeowners.md (973 bytes)
+- docs/analysis/concepts/rjm/migration-plan.md (1315 bytes)
+- docs/analysis/concepts/rjm/drift-detection.md (2255 bytes)
+- docs/analysis/concepts/rjm/jaccard-similarity.md (1930 bytes)
+- docs/analysis/concepts/rjm/option-b-claude-first.md (1691 bytes)
+- docs/analysis/concepts/rjm/option-a-template-first.md (973 bytes)
+- docs/analysis/concepts/rjm/option-c-independent-platforms.md (991 bytes)
+- docs/analysis/concepts/rjm/catalogerror.md (972 bytes)
+- docs/analysis/concepts/rjm/platform-overrides.md (1524 bytes)
+- docs/analysis/concepts/rjm/chesterton-s-fence.md (5059 bytes)
+- docs/analysis/concepts/rjm/chesterton-s-fence-analysis.md (1688 bytes)
+- docs/analysis/concepts/rjm/adr-exceptions.md (1649 bytes)
+- docs/analysis/concepts/rjm/architect-agent.md (1666 bytes)
+- docs/analysis/concepts/rjm/critical-fail.md (3952 bytes)
+- docs/analysis/concepts/rjm/review-gate.md (1855 bytes)
+- docs/analysis/concepts/rjm/pre-push.md (1876 bytes)
+- docs/analysis/concepts/rjm/security-scan.md (2213 bytes)
+- docs/analysis/concepts/rjm/cwe-22.md (7463 bytes)
+- docs/analysis/concepts/rjm/semgrep.md (1358 bytes)
+- docs/analysis/concepts/rjm/cwe-78.md (4877 bytes)
+- docs/analysis/concepts/rjm/shift-left-security.md (1653 bytes)
+- docs/analysis/concepts/rjm/performance-budget.md (1473 bytes)
+- docs/analysis/concepts/rjm/_units/cc-rjm-25.md (this file)
+
+## Scripts executed
+- `bun scripts/synthesis/quote-check.ts docs/analysis/concepts/rjm/single-source-of-truth-principle.md docs/analysis/concepts/rjm/synthesis-panel-frontmatter-standard.md docs/analysis/concepts/rjm/design-review.md docs/analysis/concepts/rjm/architect-synthesis-panels.md docs/analysis/concepts/rjm/frontmatter-schema.md docs/analysis/concepts/rjm/field-semantics.md docs/analysis/concepts/rjm/ci-gate-logic.md docs/analysis/concepts/rjm/gate-override.md docs/analysis/concepts/rjm/codeowners.md docs/analysis/concepts/rjm/migration-plan.md docs/analysis/concepts/rjm/drift-detection.md docs/analysis/concepts/rjm/jaccard-similarity.md docs/analysis/concepts/rjm/option-b-claude-first.md docs/analysis/concepts/rjm/option-a-template-first.md docs/analysis/concepts/rjm/option-c-independent-platforms.md docs/analysis/concepts/rjm/catalogerror.md docs/analysis/concepts/rjm/platform-overrides.md docs/analysis/concepts/rjm/chesterton-s-fence.md docs/analysis/concepts/rjm/chesterton-s-fence-analysis.md docs/analysis/concepts/rjm/adr-exceptions.md docs/analysis/concepts/rjm/architect-agent.md docs/analysis/concepts/rjm/critical-fail.md docs/analysis/concepts/rjm/review-gate.md docs/analysis/concepts/rjm/pre-push.md docs/analysis/concepts/rjm/security-scan.md docs/analysis/concepts/rjm/cwe-22.md docs/analysis/concepts/rjm/semgrep.md docs/analysis/concepts/rjm/cwe-78.md docs/analysis/concepts/rjm/shift-left-security.md docs/analysis/concepts/rjm/performance-budget.md` (exit code 0, 35 PASS, 0 FAIL, 0 MISSING source across 30 cards)
+
+## Coverage self-check
+- [x] Every assigned file has an entry / card / artifact
+- [x] Every required field in every output is non-empty (`none` written where nothing to report)
+- [x] Every `path:line` cited was confirmed against the file
+- [x] Every referenced path was checked with `ls`
+- [x] Glossary convention applied (package-prefixed before decision; canonical after)
+
+## Cross-unit notes
+- Unit cc-rjm-25 covers 30 concept cards spanning ADR-to-protocol synchronization (ADR-050), design review synthesis panel frontmatter standards (ADR-051), multi-platform agent template strategy and drift detection (ADR-052), ADR exception criteria and Chesterton's Fence governance (ADR-053), and local security scanning guardrails (ADR-054).
+- All 30 cards were newly authored following the concept card template.
+- Non-lifecycle concepts (section headings such as Frontmatter Schema, Field Semantics, CI Gate Logic, and Migration Plan; alternative option headings Option A: Template-First and Option C: Independent Platforms; file names and governance identifiers CODEOWNERS; external tools Semgrep; and code exceptions CatalogError) were categorized as kind: name-only per D-023.
+- Standard lifecycle kinds were applied to operational artifacts (Synthesis Panel Frontmatter Standard, DESIGN-REVIEW, architect synthesis panels, platform-overrides), gates (gate-override, CRITICAL_FAIL, review gate, Performance Budget), phases (pre-push), roles (architect agent), patterns (Single source of truth principle, Option B: Claude-First, Chesterton's Fence, ADR exceptions, Shift-left security), techniques (drift detection, Jaccard similarity, Chesterton's Fence analysis, security-scan), and vulnerability reference taxonomies (CWE-22, CWE-78).
+- Highly cited concepts across the codebase (CWE-22 with 37 occurrences, CWE-78 with 21 occurrences, Chesterton's Fence with 20 occurrences, and CRITICAL_FAIL with 16 occurrences) have each had all occurrences mapped into their Where used tables with exact file paths, line citations, roles, and usage descriptions.
+- Implementation status fields were populated from the citing inventory cards' Defects fields.
+
+## Blocked or uncertain
+none
+
+## Time and size
+Approximate tokens of source read: ~75,000 tokens across 103 source files and 103 inventory cards.
+Approximate tokens of output written: ~20,000 tokens across 30 authored concept cards and 1 unit report.
