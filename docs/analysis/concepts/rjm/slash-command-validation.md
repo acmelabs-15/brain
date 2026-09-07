@@ -1,0 +1,43 @@
+---
+package: rjm
+name: slash command validation
+slug: slash-command-validation
+kind: gate
+package_phase: rjm:test
+implementation_in_scope: true
+deprecated: false
+---
+
+# slash command validation
+
+## Definition — verbatim
+> "Module for slash command validation (ADR-006: logic in modules, not workflows)." — scripts/modules/slash_command_validator.py:1
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| scripts/modules/slash_command_validator.py | 1 | defined here | used here | Validates that all slash command markdown files in `.claude/commands/` satisfy frontmatter and quality rules. |
+
+## Consumes
+Slash command markdown files under `.claude/commands/`.
+
+## Produces
+Validation status report and process exit code (0 for pass, 1 for fail).
+
+## When applied
+Invoked in CI workflows or local test runs to validate slash command markdown files.
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+defects: orphan
+
+## Design notes
+A quality gate that encapsulates slash command validation logic inside a Python module rather than inline workflow YAML per ADR-006.

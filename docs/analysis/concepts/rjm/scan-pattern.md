@@ -1,0 +1,45 @@
+---
+package: rjm
+name: _scan_pattern
+slug: scan-pattern
+kind: name-only
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+---
+
+# _scan_pattern
+
+## Definition — verbatim
+(used, not defined)
+
+> "def _scan_pattern(" — scripts/review_memory_export_security.py:110
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| scripts/review_memory_export_security.py | 110 | defined here | Compiles and scans a regex against all export file lines, returning any detected issue record. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+clean
+
+## Design notes
+`_scan_pattern` is an internal regex scanning helper function in a security review script rather than an SDLC lifecycle concept, classified as `kind: name-only` per D-023.

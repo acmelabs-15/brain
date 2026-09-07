@@ -1,0 +1,45 @@
+---
+package: rjm
+name: .agents/memory/episodes/**
+slug: agents-memory-episodes
+kind: name-only
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+---
+
+# .agents/memory/episodes/**
+
+## Definition — verbatim
+(used, not defined)
+
+> ".agents/memory/episodes/**" — scripts/test_selection/runtime_read_patterns.txt:12
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| scripts/test_selection/runtime_read_patterns.txt | 12 | defined here | Pattern entry triggering full-suite test execution when episodic memory files are modified. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+clean
+
+## Design notes
+`.agents/memory/episodes/**` is a glob path pattern in `scripts/test_selection/runtime_read_patterns.txt` designating episodic memory files rather than an SDLC lifecycle concept, classified as `kind: name-only` per D-023.

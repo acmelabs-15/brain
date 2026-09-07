@@ -1,0 +1,52 @@
+---
+package: rjm
+name: cost_usd
+slug: cost-usd
+kind: name-only
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+memo_inputs:
+  - {path: scripts/eval/_run_rollup_core.py, sha256: 7b724d731f03e48a368c4833f20009d8afbd8265de0771c03c225831de8bcbe6}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+verified: 2026-09-07 quote-check+coverage
+---
+
+# cost_usd
+
+## Definition — verbatim
+(used, not defined)
+
+> "def cost_usd(model_id: str, tokens_in: int, tokens_out: int) -> float | None:" — scripts/eval/_run_rollup_core.py:43
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| scripts/eval/_run_rollup_core.py | 43 | defined here | Calculates estimated USD cost for token consumption against model pricing rates. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+clean
+
+## Design notes
+cost_usd is a helper function that calculates financial cost from token counts rather than a lifecycle concept.
