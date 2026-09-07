@@ -3,7 +3,7 @@ package: rjm
 name: Post-merge auto-bump bot
 slug: post-merge-auto-bump-bot
 kind: role
-package_phase: ship
+package_phase: rjm:ship
 implementation_in_scope: true
 deprecated: false
 memo_inputs:
