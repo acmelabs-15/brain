@@ -51,7 +51,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Matt calls it 'yagni-scoping-filter' while RJM calls it 'yagni'. Both apply the You Aren't Gonna Need It principle to prune premature abstractions and speculative features.
 - **sequencing note:** Specification and task breakdown phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-273
 
 ### dialogue-driven-discovery
 
@@ -69,7 +69,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Addy specifies 'one question at a time' interactive interviewing to keep focus bounded, while Matt uses conversational 'interview' probing to uncover unstated developer intent.
 - **sequencing note:** Discovery / exploration phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-274
 
 ### chestertons-fence
 
@@ -141,7 +141,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/using-agent-skills/SKILL.md:14. The central dispatch mechanism in Addy's meta-skill architecture, matching incoming requests and current development phases against a structured decision tree to select the right skill from the 24-skill library.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-275
 
 ### addy-maintain-scope-discipline
 
@@ -159,7 +159,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/using-agent-skills/SKILL.md:99. A discipline requiring surgical precision during edits, explicitly forbidding orthogonal cleanups, unsolicited refactoring, deleting unfamiliar comments, or adding unrequested features.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-276
 
 ### addy-on-demand-skill-activation
 
@@ -177,7 +177,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in docs/antigravity-setup.md:87. On-demand skill activation enables natural-language intent routing, allowing coding agents to autonomously load relevant methodology skills when developers describe work rather than requiring explicit slash commands.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-277
 
 ### addy-degraded-self-questioning-fallback
 
@@ -429,7 +429,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/test-driven-development/SKILL.md:26. A preparatory technique mandating that agents inspect the repository's build system, checked-in wrappers, and CI configurations before invoking test commands. Without it, agents default to assumptions like `npm test` on non-Node repositories or invoke global binaries rather than project wrappers.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-278
 
 ### addy-on-call-questions
 
@@ -465,7 +465,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in .gemini/commands/constraints.toml:30. A diff inspection technique that guards against stealthy regressions where agents weaken thresholds, disable tests, or add linter suppressions to reach a green build.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-279
 
 ### addy-floor-guard
 
@@ -537,7 +537,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/using-agent-skills/SKILL.md:10. As the meta-skill of the addy pack, `using-agent-skills` acts as an operating system and router for AI coding agents. It pairs an algorithmic decision tree mapping development stages to specific skills with six mandatory operating behaviors (such as pushing back on bad ideas, enforcing simplicity, and verifying before claiming completion) to maintain engineering discipline across the entire lifecycle.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-280
 
 ### addy-guard-against-recurrence
 
@@ -609,7 +609,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in CHANGELOG.md:183. Tracer-bullet vertical slices prioritize building thin, end-to-end functional paths that prove integration across all architectural layers early, preventing the integration risks inherent in horizontal layer-by-layer development.
 - **sequencing note:** Applied in Matt phase matt:to-tickets.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-281
 
 ### matt-prompt-driven
 
@@ -627,7 +627,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in .out-of-scope/setup-skill-verify-mode.md:9. Prompt-driven skill architecture leverages the natural adaptability of large language models to re-scope skill execution on the fly, eliminating the overhead of dedicated CLI flags or redundant sibling commands.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-282
 
 ### matt-most-important-first
 
@@ -645,7 +645,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/productivity/to-questionnaire.md:36. An async prioritization heuristic ensuring that if a busy stakeholder answers only the top few questions before disengaging, the most critical decision-blocking uncertainties are resolved first.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-283
 
 ### matt-capture
 
@@ -663,7 +663,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh:11. An interactive input helper in `hitl-loop.template.sh` that prompts the human operator for observation data and captures the reply into a variable. At loop completion, captured variables are printed as KEY=VALUE pairs for the invoking agent to parse.
 - **sequencing note:** Applied in Matt phase matt:diagnose.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-284
 
 ### matt-stubbing
 
@@ -681,7 +681,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/misc/scaffold-exercises/SKILL.md:25. A progressive authoring technique that scaffolds a full course skeleton with minimal valid placeholder files. Stubbing allows course designers to validate overall structure with linters before investing time in authoring detailed problem and solution content.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-285
 
 ### matt-implement-spec
 
@@ -699,7 +699,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in .changeset/add-implement-spec-skill.md:5. An experimental multi-agent orchestration skill residing in the in-progress bucket. It overcomes the limitation of single-ticket serial execution by modeling tickets as an acyclic task graph, launching concurrent implementer subagents across unblocked frontier tickets in isolated git worktrees, merging outputs via merger subagents, and culminating in a single verified pull request.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-286
 
 ### matt-writing-great-skills
 
@@ -717,7 +717,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/productivity/writing-for-agents.md:7. The original name of the `writing-for-agents` reference skill. It was renamed in v1.1 when practitioners realized that guidelines on information hierarchy, leading words, and pruning applied universally to all agent-facing text (such as AGENTS.md, specifications, and tickets) rather than just skill definitions.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-287
 
 ### matt-scaffold-exercises
 
@@ -735,7 +735,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/misc/scaffold-exercises/SKILL.md:3. A specialized course-authoring skill for scaffolding structured educational modules. It automates the generation of multi-variant exercise directories (`problem/`, `solution/`, `explainer/`) adhering to strict naming and linting conventions, ensuring that course repositories pass automated linter validation.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-288
 
 ### matt-the-prototype-skill
 
@@ -753,7 +753,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/prototype.md:24. A shaping technique that resolves thorny design questions through disposable, runnable code rather than abstract conversational debate. By focusing strictly on answering one question, it prevents agents and developers from over-engineering unverified designs into production.
 - **sequencing note:** Applied in Matt phase matt:Shaping.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-289
 
 ### matt-decision-tree
 
@@ -771,7 +771,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in .out-of-scope/question-limits.md:7. The decision tree represents the structural branching of architectural and design choices that a grilling session systematically traverses to ensure all critical ambiguities are resolved before implementation begins.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-290
 
 ### matt-prototype
 
@@ -789,7 +789,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/prototype.md:3. An empirical exploration technique in matt designed to break deadlocks during requirements gathering. When conversational inquiry cannot settle how a state machine behaves or how a screen feels, the developer detours to a prototype on an isolated branch. The code is written as deliberately throwaway—omitting tests, persistence, and abstractions—so that only the validated answer is preserved and folded into subsequent specifications.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-291
 
 ### matt-relentless-interview
 
@@ -807,7 +807,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/grill-me/SKILL.md:3. The core questioning technique employed by `grill-me` to stress-test designs and plans by recursively interrogating every branch of the design tree until all ambiguities and unexamined assumptions are resolved.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-292
 
 ### matt-to-prd
 
@@ -825,7 +825,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/to-spec.md:39. `to-prd` was the predecessor skill name for `to-spec` in Matt's toolkit prior to version 1.1. It was retired and renamed to standardize the terminology around "spec" across the entire lifecycle rather than using PRD (Product Requirements Document), aligning the destination document with downstream tickets and test seam specifications.
 - **sequencing note:** Applied in Matt phase matt:Spec.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-293
 
 ### matt-to-spec
 
@@ -843,7 +843,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/to-spec.md:25. Synthesizes decisions already made in conversation into a durable specification issue on the project's issue tracker. Designed under the principle that "specs are decision records, not questionnaires", it does not interview the user; instead, it records settled architecture, explicit user stories, implementation decisions, and testing seams so subsequent agent sessions can execute without context drift.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-294
 
 ### matt-research
 
@@ -861,7 +861,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/research.md:3. research is an AFK investigation skill dedicated to uncovering external facts from primary sources. By delegating documentation and API verification to a background subagent, it prevents the primary conversational agent from hallucinating or guessing at external technical constraints.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-295
 
 ### matt-rounds
 
@@ -879,7 +879,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/grilling/SKILL.md:8. `rounds` structure the interactive interview loop in grilling. Rather than asking one question at a time (which is inefficient) or dumping all questions at once (which overwhelms users and asks questions whose prerequisites are unknown), grilling computes the frontier of currently answerable decisions and presents them in discrete, numbered rounds.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-296
 
 ### matt-facts
 
@@ -897,7 +897,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/grilling/SKILL.md:26. In Matt's grilling methodology, facts are empirical truths discoverable from the project environment. Agents are strictly forbidden from interrogating the user for information they can verify themselves; instead, they dispatch background subagents to locate facts, preserving human cognitive bandwidth solely for subjective decisions.
 - **sequencing note:** Applied in Matt phase matt:productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-297
 
 ### matt-context-hygiene
 
@@ -915,7 +915,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/to-spec.md:57. A context management discipline in Matt Pocock's workflow that avoids resetting or compacting agent context between `/to-spec` and `/to-tickets`, ensuring the full specification is directly readable in memory rather than truncated during tracker API round-trips.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-298
 
 ### matt-to-questionnaire
 
@@ -933,7 +933,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/productivity/to-questionnaire.md:3. to-questionnaire bridges the gap between autonomous development and human organizational reality. When progress stalls on unwritten domain knowledge, it packages the ambiguity into a structured, low-friction survey format that respects the stakeholder's time while forcing clear decision options.
 - **sequencing note:** Applied in Matt phase matt:productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-299
 
 ### rjm-review-by
 
@@ -5003,7 +5003,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Matt terms this 'blast-radius' while RJM terms it 'blast-radius-containment'. Both techniques aim to restrict the impact of potential code or deployment failures to localized subsystem boundaries.
 - **sequencing note:** Architecture and planning phases.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-300
 
 ### design-it-twice
 
@@ -5039,7 +5039,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Addy and RJM call this 'thin vertical slices' while Matt calls it 'vertical slices'. All three advocate end-to-end vertical architectural slices rather than horizontal layer-by-layer building.
 - **sequencing note:** Architectural decomposition and task planning.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-301
 
 ### dependency-injection
 
@@ -5075,7 +5075,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Addy names the practice 'working with worktrees', while Matt and RJM call it 'worktrees'. All three leverage git worktrees for isolated parallel branch execution without repository switching overhead.
 - **sequencing note:** Build / execution setup.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-302
 
 ### addy-architecture
 
@@ -5147,7 +5147,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/test-driven-development/SKILL.md:181-182. An integration test in Addy's test strategy corresponds to a Medium test size in the resource model (~15% of test suites) and validates behavior that crosses process or boundary layers like APIs, databases, or filesystems on localhost without external network dependencies.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-303
 
 ### addy-security-and-hardening
 
@@ -5507,7 +5507,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/domain-modeling.md:3. Ubiquitous language in Matt's toolkit represents the shared domain vocabulary continuously sharpened and enforced across code, prompts, and conversation. It is maintained actively through `domain-modeling`, where terms are written inline into `CONTEXT.md` as soon as they are resolved, ensuring models and humans share identical conceptual boundaries without semantic drift.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-304
 
 ### matt-domain-modeling
 
@@ -5525,7 +5525,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/domain-modeling.md:3. The active domain-driven design discipline in matt's ecosystem. Rather than passively reading existing documentation, it actively interrupts design conversations to challenge imprecise terms, enforce ubiquitous language, and record definitions in CONTEXT.md and ADRs at the moment they resolve.
 - **sequencing note:** Applied in Matt phase matt:Engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-305
 
 ### matt-seam-placement
 
@@ -5543,7 +5543,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/codebase-design/DESIGN-IT-TWICE.md:42. The explicit design choice of where to draw the boundary between a module's internal implementation and its external callers. In Design It Twice, seam placement is treated as its own first-class evaluation criterion—distinct from module depth and change locality—to ensure interfaces are drawn where boundaries naturally occur.
 - **sequencing note:** Applied in Matt phase matt:design.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-306
 
 ### matt-replace-don-t-layer
 
@@ -5561,7 +5561,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/codebase-design/DEEPENING.md:32. A testing strategy for module refactoring: when shallow modules are deepened into a cohesive deep module, developers must delete the old unit tests that targeted internal shallow components rather than keeping them as a redundant layer. Tests are rewritten at the deepened interface ("the interface is the test surface").
 - **sequencing note:** Applied in Matt phase matt:test.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-307
 
 ### matt-demo-path
 
@@ -5579,7 +5579,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/to-tickets.md:54. A ticket authoring technique that requires defining an observable, demonstrable path through all layers of a change for every ticket, preventing models from defaulting to layer-by-layer horizontal partitioning.
 - **sequencing note:** Applied in Matt phase matt:The Main Flow.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-308
 
 ### matt-red-green-slice
 
@@ -5597,7 +5597,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  A red-green slice is the micro-iteration technique within implement where TDD is driven in minimal atomic steps: one failing test followed by only enough code to pass it, explicitly avoiding speculative code or batch test generation.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-309
 
 ### matt-one-slice-at-a-time
 
@@ -5615,7 +5615,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/tdd/SKILL.md:37. Enforces strict atomicity in TDD execution: exactly one seam, one test, and one minimal implementation per cycle. This prevents agents and human developers from accumulating unverified code or over-committing to complex architectures before seeing concrete tests pass, ensuring steady, predictable progress.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-310
 
 ### matt-native-blocking-edges
 
@@ -5633,7 +5633,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in CHANGELOG.md:185. Native blocking edges represent prerequisite constraints directly within the issue tracking engine, ensuring that tasks cannot be picked up until their dependencies are completed.
 - **sequencing note:** Applied in Matt phase matt:to-tickets.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-311
 
 ### matt-improve-codebase-architecture
 
@@ -5651,7 +5651,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/improve-codebase-architecture/agents/openai.yaml:2. An architectural survey skill that identifies opportunities to turn shallow modules into deep modules (hiding complexity behind simpler interfaces). Applying Ousterhout's philosophy and a strict "deletion test" (concentrating vs. spreading complexity), it acts as an advisory survey producing an external HTML report and interactive dialogue, deliberately leaving code modification to subsequent separate sessions.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-312
 
 ### matt-tracer-bullet
 
@@ -5669,7 +5669,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/to-tickets.md:5. A core decomposition principle in Matt Pocock's methodology where units of work cut vertically through every layer of the system (database, domain logic, API, UI, tests) rather than horizontally by technical tier. Each tracer bullet proves an end-to-end path immediately, enabling continuous validation and sizing work to fit safely inside a single fresh context window.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-313
 
 ### matt-teaching-decision
 
@@ -5687,7 +5687,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/teach/MISSION-FORMAT.md:3. A teaching decision represents any pedagogical choice made by the agent—determining next topic, selecting resources, or designing exercises. The package requires all such decisions to be anchored in MISSION.md, ensuring that learning activities remain tightly coupled to the user's real-world outcome rather than arbitrary curriculum progression.
 - **sequencing note:** Applied in Matt phase matt:productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-314
 
 ### rjm-layer-1-lexical
 
@@ -7219,7 +7219,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in docs/comparison.md:11. Anti-rationalization guards explicitly enumerate common cognitive excuses coding agents use to skip tests or reviews, proactively dismantling these rationalizations before the agent can act on them.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-315
 
 ### matt-to-tickets
 
@@ -7237,7 +7237,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/to-tickets.md:28. Breaks complex specifications or plans into independently buildable and verifiable vertical slices ("tracer bullets"). By enforcing vertical cuts through all architecture layers (rather than horizontal slicing by layer) and capturing explicit dependency edges, it generates tasks optimized for single-session agent execution without mid-task blocked states.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-316
 
 ### matt-perf-branch
 
@@ -7255,7 +7255,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/diagnosing-bugs/SKILL.md:112. A specialized diagnostic branch in the bug diagnosis workflow that prescribes baseline measurement and bisection instead of log-based debugging for performance regressions.
 - **sequencing note:** Applied in Matt phase none.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-317
 
 ### matt-prefactoring
 
@@ -7273,7 +7273,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/to-tickets.md:31. Prefactoring is the practice of refactoring existing code prior to introducing new features, adhering to Kent Beck's maxim: "Make the change easy, then make the easy change." In `to-tickets`, prefactoring tickets are scheduled first in the dependency graph so that architectural friction is eliminated in standalone, behavior-preserving commits before behavioral feature tickets are attempted.
 - **sequencing note:** Applied in Matt phase matt:Plan.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-318
 
 ### rjm-align-to-roadmap
 
@@ -9237,7 +9237,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Addy calls this 'incremental-implementation' emphasizing small, verifiable diffs with tests at each step, whereas Matt names the skill 'implement'.
 - **sequencing note:** Build phase execution.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-319
 
 ### extract-refactoring
 
@@ -10119,7 +10119,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/using-agent-skills/SKILL.md:51. An operational guardrail requiring agents to explicitly enumerate their assumptions about requirements, architecture, and scope before writing code, preventing costly rework caused by silent, unchecked misunderstandings.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-320
 
 ### addy-test-sizes
 
@@ -10173,7 +10173,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/using-agent-skills/SKILL.md:84. An anti-sycophancy directive instructing agents to voice honest technical objections and provide quantified tradeoffs when a proposed approach is flawed, prioritizing genuine software quality over agreeable compliance.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-321
 
 ### addy-mcp-integrations
 
@@ -10425,7 +10425,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  The git worktree isolation mechanism used by implement-spec to enable concurrent background subagent execution. Allocating an independent worktree to each implementer subagent prevents git lock contention, working directory collisions, and intermediate state interference during parallel ticket execution.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-322
 
 ### matt-replayed-capture
 
@@ -10443,7 +10443,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/diagnosing-bugs.md:38. A diagnostic technique that isolates bugs by re-running saved production artifacts through code paths in local isolation. It avoids the friction of mocking complex upstream dependencies while retaining realistic error triggers.
 - **sequencing note:** Applied in Matt phase matt:diagnosing-bugs.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-323
 
 ### matt-context-pointers
 
@@ -10461,7 +10461,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/writing-for-agents/SKILL.md:12. The foundational architectural mechanism for managing LLM context windows. By placing concise, high-salience pointers in persistent context that specify when and why to load external documents, agents can navigate deep project knowledge without saturating working memory.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-324
 
 ### matt-recommendation
 
@@ -10479,7 +10479,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/grilling.md:34. The recommendation technique requires the agent to propose a concrete, reasoned answer alongside every question it poses. This accelerates human decision-making by allowing users to answer by number ("1 yes, 2 second option") rather than drafting detailed responses from scratch.
 - **sequencing note:** Applied in Matt phase matt:productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-325
 
 ### matt-red-green
 
@@ -10497,7 +10497,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/tdd.md:31. `Red-green` is Matt's streamlined adaptation of classical test-driven development for AI coding agents. Observing that agents routinely fail to execute nuanced refactorings in the middle of implementation, Matt's lifecycle explicitly decouples the red-green authoring loop from refactoring. Developers and agents write a failing test and just enough code to satisfy it, deferring code cleanup and architectural refactoring to a dedicated `code-review` session.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-326
 
 ### matt-background-worktrees
 
@@ -10515,7 +10515,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  The filesystem and version control isolation technique enabling parallel agent execution. Running multiple autonomous agents in a single shared checkout leads to git index lock errors, HEAD contention, and stash collisions; background worktrees give each subagent an independent working tree linked to the same repository.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-327
 
 ### matt-variant
 
@@ -10533,7 +10533,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/prototype.md:35. A query-parameter switching technique that enables rapid switching between radically different UI layout prototypes on a single production route, ensuring variants are evaluated against real layout density and live data rather than in an isolated vacuum.
 - **sequencing note:** Applied in Matt phase matt:Shaping.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-328
 
 ### matt-depth-as-leverage
 
@@ -10551,7 +10551,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/codebase-design.md:35. An architectural evaluation technique in Matt Pocock's codebase-design framework. While John Ousterhout originally defined module depth as the ratio of lines of implementation code to lines of interface specification, codebase-design rejects that formula because it incentivizes bloated implementations. Instead, depth-as-leverage defines depth as the amount of capability, safety, and functionality callers or tests can exercise per unit of interface surface they must learn.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-329
 
 ### matt-codebase-terminology
 
@@ -10569,7 +10569,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  In Matt's toolkit, codebase terminology represents the shared vocabulary and naming conventions embedded within project code and documentation. Triggering domain-modeling on discussions of codebase terminology ensures that ambiguous or overloaded terms are pinned down and recorded inline in CONTEXT.md before code is written.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-330
 
 ### matt-resolving-merge-conflicts
 
@@ -10587,7 +10587,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/resolving-merge-conflicts.md:3. `resolving-merge-conflicts` approaches git conflict resolution as an intent-reconciliation problem rather than a syntactic text-editing task. It forbids blind resolution flags like `--ours` or `--theirs` and disallows `--abort`, insisting that the agent inspect primary sources (commit messages, PR discussions, and issue trackers) on both sides of each hunk. By requiring that the repository's native automated checks (typecheck, tests, format) run before committing, it prevents the introduction of code that looks syntactically harmonious but breaks runtime contracts.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-331
 
 ### matt-desirable-difficulty
 
@@ -10605,7 +10605,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/productivity/teach.md:42. Desirable difficulty is the pedagogical principle that learning tasks should be intentionally challenging to deepen encoding. The teach skill applies difficulty strategically: keeping initial knowledge acquisition frictionless to preserve working memory, while introducing calibrated difficulty during quizzes and drills to solidify storage strength.
 - **sequencing note:** Applied in Matt phase matt:productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-332
 
 ### matt-diagnosing-bugs
 
@@ -10623,7 +10623,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/diagnosing-bugs.md:3. An engineering skill enforcing a rigorous six-phase scientific debugging discipline. It strictly prohibits speculative code modifications by gating hypothesis formation behind an executable, reproducible tight feedback loop (a single command that goes red on the failure and green on resolution).
 - **sequencing note:** Applied in Matt phase matt:Engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-333
 
 ### matt-prefactor
 
@@ -10641,7 +10641,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/to-tickets/SKILL.md:23. Prefactoring embodies the principle "Make the change easy, then make the easy change." Rather than tangling structural adjustments with new feature logic within a single ticket or commit, prefactoring isolates preparatory restructuring into dedicated prerequisite tickets. This keeps diffs clean, lowers cognitive load, and ensures that when new functionality is introduced, the codebase already accommodates it cleanly.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-334
 
 ### matt-git-guardrails-claude-code
 
@@ -10659,7 +10659,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/misc/git-guardrails-claude-code/SKILL.md:8. An interactive setup procedure and skill in the misc bucket that installs an executable PreToolUse hook to intercept dangerous git commands (push, reset --hard, clean, branch -D) before Claude Code executes them. It ensures automated agents cannot inadvertently perform destructive repository mutations or data loss.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-335
 
 ### matt-six-phase-diagnosis
 
@@ -10677,7 +10677,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/diagnosing-bugs.md:25. The core diagnostic methodology in Matt Pocock's diagnosing-bugs skill. It enforces a strict, gated sequence of six phases: (1) build a tight reproduction loop, (2) minimize reproduction code/time, (3) formulate and rank falsifiable hypotheses, (4) add targeted temporary instrumentation, (5) implement the fix with a regression test, and (6) clean up temporary probes. The methodology prevents agents from prematurely editing code or guessing theories before establishing an automated red-green verification signal.
 - **sequencing note:** Applied in Matt phase matt:Upkeep.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-336
 
 ### matt-git-bisect-run
 
@@ -10695,7 +10695,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  The standard git binary search command used to automate regression identification. Matt's lifecycle treats running git bisect as downstream mechanical work that becomes trivial once a reliable test harness exists.
 - **sequencing note:** Applied in Matt phase matt:diagnosing-bugs.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-337
 
 ### matt-bisection-harness
 
@@ -10713,7 +10713,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/diagnosing-bugs/SKILL.md:33. An automated script harness that tests a checkout state and returns a clean exit code for `git bisect run`. In Matt's methodology, constructing this harness turns historical regression isolation into purely mechanical execution.
 - **sequencing note:** Applied in Matt phase matt:diagnosing-bugs.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-338
 
 ### matt-git-worktrees
 
@@ -10731,7 +10731,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  Git worktrees allow multiple working trees to be attached to a single repository checkout. In agent workflows, they provide isolation for concurrent coding agents working on different tickets simultaneously, though Matt notes that shared refs (such as stashes) still require careful handling.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-339
 
 ### matt-scoping
 
@@ -10749,7 +10749,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/wizard.md:30. `scoping` grounds wizard creation in repository evidence. Rather than asking developers open-ended questions about what configuration is required, scoping inspects existing workflow files and configuration schemas to automatically deduce what variables and secrets must be produced.
 - **sequencing note:** Applied in Matt phase matt:Engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-340
 
 ### matt-set-var
 
@@ -10767,7 +10767,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/template.sh:156. A bash helper function in the wizard template library that automates setting non-secret GitHub Actions variables using the GitHub CLI (`gh variable set`), with graceful degradation to a skip list and manual instructions if `gh` is unavailable or unauthenticated.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-341
 
 ### matt-parallel-worktrees
 
@@ -10785,7 +10785,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  The practice of running multiple concurrent agent sessions in isolated git worktrees. To prevent loss of intent during branch reconciliation, matt emphasizes that the session that authored the changes in a worktree should perform the merge back, rather than batching all conflicts onto a separate agent lacking author context.
 - **sequencing note:** Applied in Matt phase matt:Upkeep.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-342
 
 ### matt-refactoring
 
@@ -10803,7 +10803,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  The discipline of restructuring software internals without changing external observable behavior. In Matt Pocock's methodology, refactoring was explicitly decoupled from the classic red-green-refactor TDD inner loop in June 2026. Because coding agents struggled to execute refactoring mid-implementation and authoring sessions suffer from confirmation bias, refactoring is treated as an independent downstream activity driven by code-review and dedicated improvement skills in separate sessions.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-343
 
 ### rjm-inverted-control
 
@@ -12875,7 +12875,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Addy calls it 'characterization-tests' while RJM calls it 'characterization-test'. Both capture the existing behavior of legacy or complex code before making changes to guarantee bug-for-bug parity.
 - **sequencing note:** Verify phase prior to refactoring.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-344
 
 ### bisection-debugging
 
@@ -13109,7 +13109,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in docs/antigravity-setup.md:110. Sandbox mode enforces platform-level permission restrictions on agent shell execution, providing safety guardrails against accidental or malicious system damage during automated runs.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-345
 
 ### addy-e2e-testing-playwright
 
@@ -13325,7 +13325,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/orchestration-patterns.md:174. Competing-hypothesis debugging is an adversarial investigative technique leveraging Agent Teams for complex production defect analysis. Rather than allowing a single agent to fixate on the first plausible explanation, multiple specialized personas concurrently explore competing root-cause hypotheses and actively attempt to disprove each other's theories, ensuring that the surviving explanation is empirically verified before fixes are attempted.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-346
 
 ### addy-tag-the-release
 
@@ -13469,7 +13469,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in hooks/sdd-cache-post.sh:22. Diagnostic tracing technique that logs execution events, parsed parameters, and branch decisions to a local sentinel-triggered log file without contaminating model stdout or stderr channels.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-347
 
 ### addy-e2e-test
 
@@ -13487,7 +13487,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/test-driven-development/SKILL.md:184-185. An E2E test represents the top tier of Addy's test pyramid (~5% of tests), classified as a Large test size that verifies complete end-to-end user flows across the full stack while being strictly limited to critical paths to prevent flaky, slow execution suites.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-348
 
 ### addy-three-tier-eval-framework
 
@@ -13685,7 +13685,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  In TypeScript, `as` type assertions force the compiler to treat a value as a specific type, bypassing static type checking. Matt's workflow flags `as` assertions in test files as a code smell and provides automated migration to safer helper libraries.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-349
 
 ### matt-shoehorn
 
@@ -13703,7 +13703,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/misc/migrate-to-shoehorn/SKILL.md:10. A type-safe testing utility and technique that allows developers to provide partial or mock objects in unit tests while retaining TypeScript type checking on the provided properties.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-350
 
 ### matt-hypothesis-testing
 
@@ -13721,7 +13721,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  A structured inquiry technique in diagnosing-bugs where the agent generates 3–5 ranked, falsifiable explanations for a defect only after an automated reproduction command exists. Hypotheses make explicit predictions tested through minimal probes and temporary instrumentation, preventing speculative code changes until root causes are confirmed.
 - **sequencing note:** Applied in Matt phase matt:Upkeep.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-351
 
 ### matt-falsifiable-hypotheses
 
@@ -13739,7 +13739,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/diagnosing-bugs.md:50. The scientific discipline applied to bug diagnosis: the agent must articulate 3 to 5 ranked, falsifiable predictions regarding the root cause before introducing probes, preventing biased or wandering experimentation.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-352
 
 ### matt-acquiring-wisdom
 
@@ -13757,7 +13757,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/teach/SKILL.md:114. Acquiring Wisdom represents the boundary where simulated in-workspace instruction yields to external reality. Recognising that models cannot synthesize authentic social or professional feedback, the technique bounds agent teaching by routing questions that demand seasoned judgment to external practitioner communities.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-353
 
 ### matt-temporary-instrumentation
 
@@ -13775,7 +13775,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  Temporary diagnostic code inserted to expose internal state during bug diagnosis. Matt's lifecycle treats adding temporary instrumentation as an escalated intervention requiring human permission and disciplined tagging (e.g. `[DEBUG-a4f2]`) to ensure complete removal before fixing.
 - **sequencing note:** Applied in Matt phase matt:diagnosing-bugs.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-354
 
 ### matt-falsifiable
 
@@ -13793,7 +13793,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/diagnosing-bugs/SKILL.md:92. A strict quality standard for debugging hypotheses requiring each hypothesis to formulate an explicit testable prediction. Without falsifiability, hypotheses degenerate into vague intuition that cannot be systematically verified or eliminated.
 - **sequencing note:** Applied in Matt phase none.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-355
 
 ### matt-no-op-test
 
@@ -13811,7 +13811,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/writing-for-agents.md:44. A behavioral editing technique: delete a sentence and test whether the agent's actions change. If behavior does not change, the line is a no-op that wastes context tokens and must be removed. It establishes an empirical, behavioral standard for brevity rather than stylistic preference.
 - **sequencing note:** Applied in Matt phase matt:productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-356
 
 ### matt-reproduction-rate
 
@@ -13829,7 +13829,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/diagnosing-bugs.md:38. A debugging technique for intermittent or flaky bugs. Rather than stalling waiting for a 100% deterministic reproduction, the agent actively increases the reproduction rate through parallel triggers, load, loops, or injected timing delays until the failure happens reliably enough to test hypotheses against.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-357
 
 ### matt-pruning
 
@@ -13847,7 +13847,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/productivity/writing-for-agents.md:30. The continuous editorial discipline of auditing agent-facing text sentence by sentence. Pruning aggressively removes no-ops, deduplicates repeated concepts, and eliminates stale sediment to ensure every token in the agent's window earns its keep.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-358
 
 ### matt-deletion-test
 
@@ -13865,7 +13865,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/codebase-design.md:42. Thought experiment assessing module validity: imagine deleting the module; if complexity simply disappears, it was a pass-through wrapper; if complexity reappears across N call sites, it was genuinely earning its keep.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-359
 
 ### matt-performance-branch
 
@@ -13883,7 +13883,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/diagnosing-bugs.md:55. The performance branch adapts the diagnosing-bugs workflow to latency and resource regressions. Instead of relying on boolean pass/fail tests, it establishes a quantitative baseline measurement, applies bisection, and insists on measuring before and after any code modifications.
 - **sequencing note:** Applied in Matt phase matt:diagnosing-bugs.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-360
 
 ### matt-testability
 
@@ -13901,7 +13901,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  An architectural quality attribute and primary design objective in Matt's lifecycle where deep abstractions provide simple, durable test surfaces, avoiding the antipattern of exposing private implementation details or extracting shallow helper functions solely for unit testing.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-361
 
 ### matt-migrate-to-shoehorn
 
@@ -13919,7 +13919,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/misc/migrate-to-shoehorn/SKILL.md:3. A refactoring technique and workflow in the misc bucket that replaces unsafe `as` type assertions in test files with type-safe shoehorn utilities, preventing test mocks from masking schema regressions.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-362
 
 ### rjm-mcnemar-exact
 
@@ -15883,7 +15883,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Matt names it 'three-dot' and RJM names it 'three-dot-diff'. Both utilize git merge-base diffing ('git diff base...head') to view exclusively changes introduced on a topic branch.
 - **sequencing note:** Review phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-363
 
 ### adversarial-review
 
@@ -16009,7 +16009,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy.  Dependency security safeguards applications against vulnerabilities and supply-chain attacks introduced through external packages. Addy mandates locating the exact installation boundary, verifying consistent package manager tooling, enforcing frozen and immutable lockfile installs in CI, and restricting package lifecycle script execution.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-364
 
 ### addy-caching
 
@@ -17847,7 +17847,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Addy calls it 'metrics' and RJM calls it 'metric'. Both track quantitative execution, performance, and reliability indicators.
 - **sequencing note:** Ship and operations phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-365
 
 ### structured-logging
 
@@ -17991,7 +17991,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/api-and-interface-design/SKILL.md:24. Hyrum's Law forces agents to treat all observable behavior — including timing quirks and undocumented bugs — as contractually binding in mature systems, mandating active migration paths rather than optimistic assumption of contract purity.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-366
 
 ### addy-backfill
 
@@ -18135,7 +18135,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/constraint-driven-development/SKILL.md:16. A development methodology that shifts quality enforcement from post-hoc prose guidelines to explicit, mechanically checked threshold constraints that run inside the inner development loop.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-367
 
 ### addy-branching
 
@@ -18297,7 +18297,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in scripts/run-evals.js:23. A behavioral evaluation technique for skills whose primary artifact is the conversation itself (such as mentoring, code review, or planning) rather than file modifications. Unlike execution evals, dialogue evals require no pre-baked workspace fixtures.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-368
 
 ### addy-rollback
 
@@ -18513,7 +18513,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/retro/SKILL.md:23. An environment improvement category in retrospectives that targets informational bottlenecks. Rather than compensating with complex prompts, this technique provides coding agents with direct runtime visibility (such as teeing background server logs or granting read-only service tokens) to eliminate blind spots.
 - **sequencing note:** Applied in Matt phase none.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-369
 
 ### rjm-agent-observability-event
 
@@ -19739,7 +19739,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/performance-checklist.md:50. The preferred modern web platform API for task-level yielding. Unlike setTimeout(..., 0), scheduler.yield() yields execution to high-priority browser tasks (input handling, rendering) while placing the continuation at the head of the task queue.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-370
 
 ### addy-context-aware-loading
 
@@ -19757,7 +19757,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy.  Context-Aware Loading prevents context window exhaustion and prompt dilution by restricting loaded skill instructions to those required for the current task (e.g. UI engineering during frontend work, debugging during error recovery), preserving model reasoning capacity.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-371
 
 ### addy-interaction-to-next-paint
 
@@ -19793,7 +19793,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/orchestration-patterns.md:345. A structured decision tree for choosing the simplest valid orchestration architecture for a task. It biases strongly toward zero or minimal orchestration (direct invocation or user-driven commands), reserving parallel fan-out only for independent, repeating sub-tasks.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-372
 
 ### addy-rationalization-tables
 
@@ -19811,7 +19811,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy.  Rationalization tables are anti-drift mechanisms embedded in skills that explicitly list the plausible-sounding excuses an agent generates to skip disciplined steps (such as omitting tests, assuming backwards compatibility, or bypassing verification) alongside direct refutations that hold the agent to project standards.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-373
 
 ### addy-writing-test-plans-for-complex-ui-bugs
 
@@ -19847,7 +19847,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/using-agent-skills/SKILL.md:88. A counter-bias mechanism directing agents to resist overengineering and premature abstraction, demanding minimal lines of code and favoring boring, obvious solutions over expensive cleverness.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-374
 
 ### addy-cumulative-layout-shift
 
@@ -19901,7 +19901,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in .gemini/commands/constraints.toml:29. A command utility that runs all configured project constraints against the current branch on demand, reporting immediate compliance status.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-375
 
 ### addy-execution-evals
 
@@ -19937,7 +19937,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/performance-checklist.md:49. A task-chunking technique in browser JavaScript that yields control back to the main thread's event loop during long-running tasks. This prevents thread starvation, keeping the UI responsive and safeguarding INP.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-376
 
 ### addy-browser-testing-with-devtools
 
@@ -19973,7 +19973,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/accessibility-checklist.md:15. In addy, Keyboard Navigation is a foundational WCAG 2.1 AA requirement ensuring that every interactive interface element can be discovered, focused, and triggered without a mouse. It requires semantic elements (<button>), explicit keyboard event handlers (onKeyDown), visible focus styling, and modal focus trapping.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-377
 
 ### addy-contain-intrinsic-size
 
@@ -19991,7 +19991,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/performance-checklist.md:84. A companion CSS property used with `content-visibility: auto` to define a placeholder width and height for unrendered elements, ensuring accurate scrollbar sizing and preventing Cumulative Layout Shift when elements scroll into view.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-378
 
 ### addy-merge-base
 
@@ -20045,7 +20045,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/performance-checklist.md:84. A CSS rendering performance optimization that instructs the browser engine to skip layout, painting, and rendering work for off-screen elements until they approach the viewport, dramatically reducing initial DOM rendering time.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-379
 
 ### addy-behavioral-eval
 
@@ -20135,7 +20135,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy.  The native skills system represents host-level skill auto-discovery and on-demand invocation natively supported by the Gemini CLI. By automatically detecting `SKILL.md` files in `.gemini/skills/` or `.agents/skills/` and activating them only when relevant to the user's prompt, it avoids monolithic system instruction files and preserves context budget.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-380
 
 ### addy-stampede-protection
 
@@ -20153,7 +20153,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/performance-checklist.md:141. Stampede protection is the umbrella architectural safeguard preventing a cache invalidation on a hot key from flooding origin services with concurrent recomputations. Addy notes that naive cache-aside implementations are particularly vulnerable, requiring mitigations such as in-flight promise deduplication, distributed locking, or serving stale data during background revalidation.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-381
 
 ### addy-browser-testing
 
@@ -20189,7 +20189,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in skills/using-agent-skills/SKILL.md:67. A critical behavioral rule halting autonomous execution whenever an agent detects contradictions or ambiguity, requiring it to name the confusion and present tradeoff options rather than guessing and hoping for the best.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-382
 
 ### addy-performance-optimization
 
@@ -20225,7 +20225,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in scripts/run-evals.js:7. Evaluation technique that assesses whether a skill's description will trigger when an agent encounters natural language user requests. Evaluates TF-IDF similarity of positive test prompts against the entire catalog to guarantee target skills rank in the top-k, while ensuring negative prompts do not rank first.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-383
 
 ### addy-ttfb-diagnosis
 
@@ -20243,7 +20243,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/performance-checklist.md:25. A structured diagnostic technique to troubleshoot server response latency (> 800ms). It breaks TTFB into distinct network and compute stages (DNS, connection/TLS, server execution), prescribing targeted remediations for each.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-384
 
 ### addy-bfcache
 
@@ -20261,7 +20261,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/performance-checklist.md:85. The browser back/forward cache that preserves full in-memory page snapshots for instant back/forward navigation. Addy mandates eliminating `unload` listeners and avoiding `Cache-Control: no-store` on HTML documents to keep pages eligible for bfcache.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-385
 
 ### addy-subagents
 
@@ -20279,7 +20279,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/orchestration-patterns.md:125. Subagents in addy represent Claude Code's stable parallelism primitive for executing independent tasks concurrently. Operating in their own context windows, subagents report findings strictly back to the spawning main agent without peer-to-peer messaging, making them ideal for parallel fan-out inspections (such as /ship) and research isolation.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-386
 
 ### addy-scheduler-posttask
 
@@ -20297,7 +20297,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/performance-checklist.md:50. A prioritized task-scheduling browser API allowing web applications to schedule tasks with specific priorities ('user-blocking', 'user-visible', 'background') so critical UI updates take precedence over background work.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-387
 
 ### addy-sso
 
@@ -20351,7 +20351,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in AGENTS.md:74. Skills are the fundamental procedural unit in addy's architecture, providing structured instructions that turn LLM capabilities into deterministic engineering workflows with verifiable exit gates.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-388
 
 ### addy-explicit-context-loading
 
@@ -20369,7 +20369,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy.  Explicit Context Loading allows developers to bypass automated routing heuristics by directly referencing skill files via `@` syntax, providing deterministic execution when entering critical lifecycle phases.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-389
 
 ### addy-redaction
 
@@ -20405,7 +20405,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy.  Cross-session memory represents the architectural ability to preserve and restore learned codebase knowledge, task status, and technical constraints across independent agent invocations without relying on fragile conversational history or manual prompt re-feeding.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-390
 
 ### addy-synthetic
 
@@ -20441,7 +20441,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/performance-checklist.md:51. A standard browser API that schedules tasks during browser idle periods, preventing analytics flushes, telemetry, and prefetching from competing with high-priority rendering or input processing.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-391
 
 ### addy-aria-live-regions
 
@@ -20459,7 +20459,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/accessibility-checklist.md:10. In addy, ARIA Live Regions provide the standard accessibility mechanism for broadcasting asynchronous UI updates to screen readers without shifting keyboard focus, distinguishing polite non-disruptive notifications (role="status") from assertive interruptive alerts (role="alert").
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-392
 
 ### addy-isinputpending
 
@@ -20477,7 +20477,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in references/performance-checklist.md:50. A browser API allowing JavaScript execution loops to inspect the input event queue and yield only when an actual user interaction is waiting, eliminating unnecessary yielding overhead while protecting INP.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-393
 
 ### addy-mcp-integration
 
@@ -20495,7 +20495,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy.  MCP Integration connects AI agents to live runtime environments (such as Chrome DevTools for browser testing), enabling skills to verify real execution state instead of making ungrounded assumptions based solely on static code.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-394
 
 ### addy-want-vs-should-want
 
@@ -20549,7 +20549,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in README.md:342. Anti-rationalization is a defensive prompt-engineering technique that anticipates common cognitive excuses agents use to skip steps (such as "I'll write tests later") and binds them to strict counter-arguments.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-395
 
 ### addy-evals-framework
 
@@ -20567,7 +20567,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy.  The three-tier testing framework in addy that validates skill structure, measures prompt routing accuracy, and runs behavioral test cases against headless agents.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-396
 
 ### addy-confidence-number
 
@@ -20603,7 +20603,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy.  Context Efficiency establishes constraints (keeping SKILL.md under 500 lines, using progressive disclosure, preferring executable scripts over verbose inline code) to minimize prompt overhead and prevent context window degradation during agent operations.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-397
 
 ### addy-negative-triggers
 
@@ -20639,7 +20639,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in AGENTS.md:24. Intent to skill mapping provides an automated classification mechanism that connects ambiguous or natural-language user requests directly to structured skill workflows, ensuring agents adhere to disciplined processes even when users do not explicitly invoke commands.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-398
 
 ### addy-divergent-and-convergent-thinking
 
@@ -20693,7 +20693,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy. Defined in docs/comparison.md:11. The eval framework provides automated testing for the skill pack itself, treating skills as software artifacts that require trigger, routing, and behavioral regression testing against model updates.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-399
 
 ### addy-positive-triggers
 
@@ -20747,7 +20747,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Addy.  Session Hooks automate the injection of meta-skills or environment validation at session start, ensuring the agent is equipped with workflow routing without requiring manual prompt initialization by the developer.
 - **sequencing note:** Applied in Addy phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-400
 
 ### addy-webperf
 
@@ -20785,7 +20785,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/writing-beats/SKILL.md:54. Pulling from the pile defines the core extraction technique of treating raw authoring material as a quarry rather than a rigid outline. Material can be freely split, recombined, or paraphrased to serve the article's voice, while missing ideas are explicitly called out as gaps to be filled or cut.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-401
 
 ### matt-redact
 
@@ -20803,7 +20803,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/diagnosing-bugs/SKILL.md:12. A critical privacy and safety technique in diagnosing bugs that mandates replacing credentials and secrets with `<REDACTED>` and keeping secrets in environment variables. Without this sanitization, auth tokens and credentials would be leaked into terminal context and recorded logs.
 - **sequencing note:** Applied in Matt phase none.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-402
 
 ### matt-merge-rebase
 
@@ -20821,7 +20821,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  Git branch integration operations (merging or rebasing) that result in file-level conflicts. The resolving-merge-conflicts skill provides a structured procedure to inspect conflict state, understand intent from commit messages and PRs, resolve hunks without inventing behavior, and verify with automated checks.
 - **sequencing note:** Applied in Matt phase matt:resolving-merge-conflicts.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-403
 
 ### matt-upserts
 
@@ -20839,7 +20839,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  Upserting combines updating existing values with inserting missing ones. In the wizard skill, the `write_env` helper parses `.env` files line by line, replacing matching key definitions while preserving formatting and comments, or appending new keys when not found.
 - **sequencing note:** Applied in Matt phase matt:Upkeep.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-404
 
 ### matt-write-env
 
@@ -20857,7 +20857,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/template.sh:128. A bash helper function in the wizard template library that performs idempotent upserts into an environment file (`.env`), ensuring that captured credentials and variables are saved without duplicating keys or corrupting file formatting on repeated wizard runs.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-405
 
 ### matt-cross-skill-invocation
 
@@ -20875,7 +20875,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in .changeset/skill-tool-invocation-terminology.md:5. A composition pattern and calling convention where one skill invokes another by explicitly instructing the agent to call the harness Skill tool. This replaces bare slash-command mentions in prose, raising invocation reliability and ensuring harness-neutral interoperability.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-406
 
 ### matt-pause
 
@@ -20893,7 +20893,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/template.sh:77. A synchronization helper function in the wizard framework that halts execution until the user manually performs an out-of-band action (such as navigating a dashboard or confirming an external state) and presses Enter to proceed.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-407
 
 ### matt-typechecking
 
@@ -20911,7 +20911,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  A continuous static verification technique mandated during implementation to provide rapid feedback on type errors and syntax mismatches before running automated tests.
 - **sequencing note:** Applied in Matt phase none.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-408
 
 ### matt-writing-beats
 
@@ -20929,7 +20929,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/writing-beats/SKILL.md:3. An exploit-phase writing skill that organizes prose construction into a sequence of discrete narrative beats. It guarantees reader comprehension by checking that every concept is grounded before any beat relies on it, offering branching choices at each step.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-409
 
 ### matt-grilling-discipline
 
@@ -20947,7 +20947,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/loop-me/SKILL.md:8. The questioning technique governing loop-me interactions: persistent interrogation structured as discrete rounds of questions where every question includes a proposed default answer. This structure accelerates user feedback, eliminates decision paralysis, and rapidly drives specifications toward completion.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-410
 
 ### matt-drill
 
@@ -20965,7 +20965,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/teach.md:39. A drill is an active practice exercise within the teach skill executed via a tight feedback loop where difficulty is utilized as a learning tool. Unlike passive reading, a drill refuses to accept superficial acknowledgment, holding the user accountable until retention and understanding are demonstrated.
 - **sequencing note:** Applied in Matt phase matt:productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-411
 
 ### matt-talk-normal
 
@@ -20983,7 +20983,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  `/talk-normal` is an informal concision command that attempts to de-jargonize agent speech. In Matt's evaluation, such commands lack an anchor in agreed project vocabulary and lead models to strip nuance rather than restate missing foundational premises.
 - **sequencing note:** Applied in Matt phase matt:Productivity Skills.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-412
 
 ### matt-native-blocking-link
 
@@ -21001,7 +21001,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/setup-matt-pocock-skills/issue-tracker-gitlab.md:43. GitLab's platform feature for linking blocked issues to their blockers, used by wayfinder to establish machine-verifiable dependency graphs across tickets.
 - **sequencing note:** Applied in Matt phase matt:wayfinder.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-413
 
 ### matt-compaction
 
@@ -21019,7 +21019,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  An automated or user-initiated context compression mechanism that summarises past conversation turns, which Matt cautions against when transitioning from `/to-spec` to `/to-tickets` because lossy compaction destroys detailed specification context.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-414
 
 ### matt-decision-mapping
 
@@ -21037,7 +21037,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/wayfinder.md:86. `decision-mapping` was the original name of the skill before being reframed and renamed to `wayfinder` in v1.1. The term was retired because 'decision map' was perceived as jargon and inaccurate, given that only a subset of map tickets were pure decisions; it is marked `deprecated: true`.
 - **sequencing note:** Applied in Matt phase matt:Engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-415
 
 ### matt-wizard
 
@@ -21055,7 +21055,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/SKILL.md:8. `wizard` bridges the gap between AI agents and human-only credentials/clicks. Because agents cannot interact with external browser consoles or securely hold human third-party passwords, `wizard` scopes the procedure and authors an interactive bash script that drives the human operator through each screen, capturing values directly into `.env` and GitHub Actions secrets.
 - **sequencing note:** Applied in Matt phase matt:Engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-416
 
 ### matt-shellcheck
 
@@ -21073,7 +21073,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  ShellCheck is an industry-standard static analysis tool for shell scripts. In the wizard authoring workflow, running ShellCheck verifies quoting, variable expansion, and portability, ensuring scripts run reliably across varied user shell environments.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-417
 
 ### matt-grill-me
 
@@ -21091,7 +21091,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/grill-me/SKILL.md:3. A stateless, conversational interview skill that subjects early, uncommitted ideas to relentless inquiry. By asking frontier questions in structured rounds while intentionally refusing to create files or jump into plan generation, it forces the user to confront assumptions and clarify intent.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-418
 
 ### matt-the-research-skill
 
@@ -21109,7 +21109,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/research.md:24. A shaping skill that offloads external documentation and fact-finding to an asynchronous background agent reading primary sources. Producing a cited Markdown file in the repo preserves the main session's context window while providing durable, verifiable evidence for subsequent architectural decisions.
 - **sequencing note:** Applied in Matt phase matt:Shaping.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-419
 
 ### matt-step
 
@@ -21127,7 +21127,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh:10. A terminal helper function in interactive scripts (`template.sh` and `hitl-loop.template.sh`). It presents a discrete human action (such as performing a manual browser step or signing into a service) and pauses execution until confirmed, maintaining clear visual progress during guided operations.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-420
 
 ### matt-writing-shape
 
@@ -21145,7 +21145,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/writing-shape/SKILL.md:3. An in-progress writing skill implementing the exploit phase of article authoring. It processes a fixed pile of raw fragments, forces deliberate opening selection, and grows the piece paragraph by paragraph while enforcing rigorous conceptual grounding and defensible formatting choices.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-421
 
 ### matt-clearing
 
@@ -21163,7 +21163,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  Clearing is the context hygiene discipline of resetting the conversation window between independent units of work. In Matt's architecture, tickets are deliberately sized to execute within a single clean context window, making previous conversation history disposable and preventing cross-task context pollution.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-422
 
 ### matt-wayfinder-routing
 
@@ -21181,7 +21181,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in CHANGELOG.md:108. Wayfinder routing serves as an adaptive on-ramp in `/ask-matt` that identifies projects with high structural ambiguity or multi-session complexity and steers them to `/wayfinder` for incremental mapping rather than attempting premature linear specification.
 - **sequencing note:** Applied in Matt phase matt:ask-matt.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-423
 
 ### matt-domain-modelling
 
@@ -21199,7 +21199,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  `domain modelling` represents the systematic elicitation and documentation of ubiquitous language and architecture decisions in `matt`. Implemented primarily through the `domain-modeling` skill and the `grill-with-docs` workflow, it ensures agents and human engineers share consistent project vocabulary and architectural boundaries.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-424
 
 ### matt-push-right
 
@@ -21217,7 +21217,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/loop-me/SKILL.md:22. A core workflow design heuristic in loop-me: defer human involvement as far right in the process timeline as possible. By executing all preparatory, research, and generation work autonomously first, the human reviewer is engaged only once, late, with fully prepared decision briefs.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-425
 
 ### matt-steps-and-completion-criteria
 
@@ -21235,7 +21235,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/writing-for-agents/SKILL.md:47. Establishes the core behavioural lever for procedural agent execution. By requiring every step to terminate on clear, checkable, and demanding conditions, it prevents agents from declaring premature success or rushing through sequential tasks.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-426
 
 ### matt-continue
 
@@ -21253,7 +21253,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/ask-matt/PHASE-BOUNDARIES.md:11. The first and highest-fidelity context transition option evaluated at phase boundaries. Keeping the unbroken session context preserves design rationale and decisions as a primary source, which lossy summarization or compaction would flatten. Compaction mid-phase causes agents to lose the thread, whereas continuing costs nothing and loses nothing.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-427
 
 ### matt-lint-staged
 
@@ -21271,7 +21271,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/misc/setup-pre-commit/SKILL.md:11. A fast pre-commit optimization technique that scopes formatting tools like Prettier strictly to staged files rather than scanning the entire repository, keeping commit times minimal.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-428
 
 ### matt-round
 
@@ -21289,7 +21289,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/productivity/grilling.md:5. A round is the atomic interaction turn in grilling. Rather than asking questions one by one or dumping an overwhelming checklist all at once, a round asks exactly the subset of decisions whose dependencies are satisfied. This parallelizes independent inquiries while preserving logical causality across iterations.
 - **sequencing note:** Applied in Matt phase matt:productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-429
 
 ### matt-grills
 
@@ -21307,7 +21307,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  Grills is the active verb form of the grilling interview technique. In improve-codebase-architecture, once a candidate is chosen, the agent grills the human on constraints and design trade-offs to ensure consensus before any refactoring takes place.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-430
 
 ### matt-when-to-split
 
@@ -21325,7 +21325,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/writing-for-agents/SKILL.md:56. Establishes the criteria for document decomposition. Because dividing a document spends either context load or cognitive load, splitting is justified only when separating sequential steps prevents premature completion or when independent invocation triggers warrant separate descriptions.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-431
 
 ### matt-progressive-disclosure
 
@@ -21343,7 +21343,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/writing-for-agents/SKILL.md:39. The core architectural discipline of Matt's documentation approach: keep primary files focused on ordered steps and high-priority rules, moving detailed, branch-specific, or voluminous references into separate files accessed only via context pointers when needed.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-432
 
 ### matt-banner
 
@@ -21361,7 +21361,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/template.sh:38. A presentation helper function in the wizard library that clears the terminal and displays an opening banner explaining what the procedure will do and how many stages it contains, establishing clear expectations for the human operator.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-433
 
 ### matt-call-graph-collapse
 
@@ -21379,7 +21379,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/improve-codebase-architecture/HTML-REPORT.md:92. A specialized diagram pattern for HTML architecture reports that illustrates deepening by showing an intricate tree of nested function calls consolidated into a single deep module with internal details faded out.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-434
 
 ### matt-conversational-feel
 
@@ -21397,7 +21397,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/writing-shape/SKILL.md:43. Conversational feel frames the agent's role as an active editorial partner rather than a passive scribe. By inverting the exploratory grilling session to ask what the article is actually arguing and what breaks if a paragraph is cut, the agent enforces rigorous narrative momentum and defends against weak transitions.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-435
 
 ### matt-changesets
 
@@ -21415,7 +21415,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in .changeset/README.md:1. A versioning and release management workflow where contributors declare semantic intent through small markdown change files. These are later aggregated to update changelogs and bump package versions systematically during releases.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-436
 
 ### matt-ai-navigability
 
@@ -21433,7 +21433,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  A design quality attribute in Matt's framework representing how effectively an AI coding agent can understand, navigate, and modify a codebase without having to open and synthesize dozens of shallow, pass-through files to trace a single domain workflow.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-437
 
 ### matt-setup-matt-pocock-skills
 
@@ -21451,7 +21451,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/setup-matt-pocock-skills.md:3. Foundational configuration skill executed once per repository to establish issue tracker destinations, triage label strings, and domain documentation locations. Embodying Matt Pocock's "config is death" philosophy, it replaces global configuration files with committed Markdown files under `docs/agents/`, enabling identical skill instructions to operate portably across GitHub, GitLab, and local scratch trackers without skill modification.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-438
 
 ### matt-note
 
@@ -21469,7 +21469,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/template.sh:62. A terminal output formatting helper function in `template.sh` used to render subtle, dimmed context and summary lines without competing visually with primary instructional steps.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-439
 
 ### matt-splitting-by-invocation
 
@@ -21487,7 +21487,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/writing-for-agents/SKILL-MECHANICS.md:18. Balances autonomous agent reach against permanent context window overhead. Because each model-invoked skill demands always-loaded description tokens, splitting by invocation requires justifying that token cost through a distinct prompt trigger word or cross-skill invocation need.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-440
 
 ### matt-open-url
 
@@ -21505,7 +21505,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/template.sh:65. A cross-platform browser opening utility in the wizard template library that detects and uses available launcher commands (`wslview`, `explorer.exe`, `xdg-open`, or macOS `open`) to navigate the human to the exact dashboard page required, falling back to manual instruction if no browser launcher succeeds.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-441
 
 ### matt-mock
 
@@ -21523,7 +21523,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/tdd/mocking.md:3. A test double technique strictly confined to external system boundaries (third-party APIs, time, external services). Matt Pocock's design philosophy firmly rejects mocking internal modules, classes, or database abstractions, mandating real implementations or in-process stand-ins instead to avoid brittle, tautological tests.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-442
 
 ### matt-frontier-query
 
@@ -21541,7 +21541,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/setup-matt-pocock-skills/issue-tracker-github.md:43. An algorithmic technique used by wayfinder to deterministically select the next ticket from an exploration DAG. By filtering out blocked and assigned tickets, it prevents deadlocks and redundant work.
 - **sequencing note:** Applied in Matt phase matt:wayfinder.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-443
 
 ### matt-grill-with-docs
 
@@ -21559,7 +21559,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/grill-with-docs.md:3. The stateful engineering entry point in matt's lifecycle. It marries the interrogative grilling interview with active domain modeling, ensuring that as decisions and vocabulary are settled, they are written directly to repository files on disk.
 - **sequencing note:** Applied in Matt phase matt:Engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-444
 
 ### matt-finish
 
@@ -21577,7 +21577,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/template.sh:169. A terminal presentation helper function in `template.sh` that provides closure to interactive setup wizards. By clearing intermediate step output and presenting a clean summary of written variables, secrets, and skipped manual tasks, `finish` gives the human operator an unambiguous record of what was accomplished and what remains to be done.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-445
 
 ### matt-prototyping
 
@@ -21595,7 +21595,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  Prototyping is the empirical engine of Wayfinder. Rather than building elaborate speculative roadmaps, Wayfinder relies on rapid, disposable prototypes to flush out technical constraints and invalidate bad assumptions early, keeping multi-session planning agile and evidence-driven.
 - **sequencing note:** Applied in Matt phase matt:situational on-ramp.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-446
 
 ### matt-configuration-management
 
@@ -21613,7 +21613,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in .out-of-scope/setup-skill-verify-mode.md:11. Configuration management unifies setup generation and maintenance within a single skill to ensure that project templates and verification logic remain synchronized as skill packages evolve.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-447
 
 ### matt-legwork
 
@@ -21631,7 +21631,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/writing-for-agents/SKILL.md:50. The depth of autonomous exploration and verification an agent performs. Rather than scripting every micro-action, Matt's methodology induces legwork by framing completion criteria with uncompromising demand, compelling the model to exhaustively investigate before concluding.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-448
 
 ### matt-native-issue-dependencies
 
@@ -21649,7 +21649,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/setup-matt-pocock-skills/issue-tracker-github.md:42. GitHub's built-in issue dependency relationship mechanism, leveraged by wayfinder to establish canonical blocking edges between tickets and enable automated frontier queries.
 - **sequencing note:** Applied in Matt phase matt:wayfinder.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-449
 
 ### matt-fromany
 
@@ -21667,7 +21667,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/misc/migrate-to-shoehorn/SKILL.md:81. A shoehorn utility function designed for negative testing, allowing intentionally invalid values to be passed to typed functions without triggering compile errors while retaining IDE code completion.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-450
 
 ### matt-tool-economy
 
@@ -21685,7 +21685,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/retro/SKILL.md:21. A retrospective evaluation technique focused on tool usage efficiency and context budget preservation. When coding agents execute repetitive or bloated tool calls (such as indiscriminate search or verbose CLI outputs), tool economy audits identify opportunities to streamline calls, filter responses, or rewrite custom MCP tooling to minimize token expenditure and latency.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-451
 
 ### matt-subagent-dispatch
 
@@ -21703,7 +21703,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  Subagent-dispatch enables a primary agent to launch background child agents for focused tasks (such as parallel research or adversarial code review) using harness-agnostic instructions.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-452
 
 ### matt-retro
 
@@ -21721,7 +21721,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/README.md:18. A retrospective analysis skill designed to inspect completed coding session logs and recommend actionable refinements to the agent's environment. It addresses the root causes of agent mistakes by improving navigation pointers, automated checks, coding standards, or tooling efficiency.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-453
 
 ### matt-multi-session-planning
 
@@ -21739,7 +21739,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/grill-with-docs.md:31. Multi-session planning is an architectural strategy designed to combat context window exhaustion on large efforts. Instead of attempting to settle all details at once, it maps the problem into a structured graph of decision tickets that can be tackled across separate, focused sessions, preventing context degradation.
 - **sequencing note:** Applied in Matt phase matt:shaping.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-454
 
 ### matt-wait-what
 
@@ -21757,7 +21757,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/wait-what/SKILL.md:3. A minimalist productivity skill designed to repair conversational comprehension without triggering degenerative 'be concise' caveman responses. By explicitly naming the listener's state ('Wait, you lost me') rather than demanding brevity, it prompts the agent to back up, provide missing context, and re-explain in clear, standardized English using the project's established ubiquitous language.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-455
 
 ### matt-writing-fragments
 
@@ -21775,7 +21775,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/writing-fragments/SKILL.md:3. An in-progress writing skill implementing pure exploratory ideation. By interviewing the author relentlessly and appending ideas to a raw fragments document while forbidding outline generation, it prevents premature structural commitments and preserves rich creative material.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-456
 
 ### matt-grounding
 
@@ -21793,7 +21793,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/writing-beats/SKILL.md:15. An authoring discipline ensuring that every idea or term is firmly understood before the text relies upon it. Concepts are grounded either as explicit audience prerequisites or introduced step-by-step in prior blocks, preventing conceptual leaps that lose readers.
 - **sequencing note:** Applied in Matt phase none.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-457
 
 ### matt-resolve
 
@@ -21811,7 +21811,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/setup-matt-pocock-skills/issue-tracker-github.md:45. The final step in the lifecycle of a wayfinder ticket. The agent records answers on the ticket, marks it closed or resolved, and registers a summary pointer in the parent map so future agents can build upon the decision.
 - **sequencing note:** Applied in Matt phase matt:wayfinder.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-458
 
 ### matt-hidden-entry
 
@@ -21829,7 +21829,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  Hidden entry is a terminal security technique implemented via `read -s` in the wizard template. By disabling character echo during sensitive inputs, it ensures passwords and API keys never persist in terminal logs, screenshots, or screen-sharing sessions.
 - **sequencing note:** Applied in Matt phase matt:Upkeep.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-459
 
 ### matt-hidden-secret-entry
 
@@ -21847,7 +21847,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/SKILL.md:10. A terminal interaction technique in setup wizards that suppresses keyboard character echoing when reading sensitive values like API tokens or passwords, preventing shoulder surfing and ensuring credentials are not retained in terminal scrollback buffers.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-460
 
 ### matt-deduplication
 
@@ -21865,7 +21865,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/triage/OUT-OF-SCOPE.md:6. A triage technique that checks incoming feature requests against previously recorded rejections in `.out-of-scope/`. By matching concepts rather than issue titles, it prevents repetitive discussions and allows agents or maintainers to immediately close redundant requests with authoritative context.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-461
 
 ### matt-re-pitches
 
@@ -21883,7 +21883,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/wait-what.md:25. Re-pitching is Matt's conversational repair technique: rather than forcing the model to simply compress its output into terseness, it instructs the model to step back, identify the missing premise or unstated assumption, and restate the idea in accessible language grounded in project vocabulary.
 - **sequencing note:** Applied in Matt phase matt:Productivity Skills.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-462
 
 ### matt-grill-the-send-not-the-subject
 
@@ -21901,7 +21901,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/to-questionnaire/SKILL.md:9. Prevents interview deadlock when the user is blocked on external knowledge. Probing a user about subject matter they do not understand causes frustration and stalls progress; interviewing them about the transmission context (recipient expertise and desired decision payload) extracts everything needed to frame an effective inquiry.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-463
 
 ### matt-clear
 
@@ -21919,7 +21919,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/ask-matt/PHASE-BOUNDARIES.md:12. A context-management command in Claude Code that erases conversational history to reclaim the full token window. In matt's lifecycle, /clear is the highest-priority context reset move on the phase boundary tree when past work is disposable (such as between independent implementation tickets), eliminating conversational noise and preventing token degradation in the smart zone.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-464
 
 ### matt-skills
 
@@ -21937,7 +21937,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/teach/SKILL.md:27. In `matt`, `skills` has a dual meaning. Within the `teach` skill, it defines the practical, actionable capabilities a learner acquires through interactive practice, complementing factual knowledge and practitioner wisdom. Across the package as a whole, it represents the modular prompt-based behaviors and slash commands that equip coding agents to perform disciplined engineering tasks.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-465
 
 ### matt-trigger-phrasing
 
@@ -21955,7 +21955,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/README.md:17. An authoring technique where rich, descriptive keywords and situation cues are embedded in skill descriptions so models can autonomously select and execute the skill when relevant conditions arise.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-466
 
 ### matt-tldr
 
@@ -21973,7 +21973,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  `/tldr` is analyzed in Matt's design as an anti-pattern for conversational repair. Because it instructs the model to compress output rather than address comprehension failure, it causes the model to delete necessary context and drop into an uninformative register.
 - **sequencing note:** Applied in Matt phase matt:Productivity Skills.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-467
 
 ### matt-grilling
 
@@ -21991,7 +21991,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/productivity/grilling.md:3. The core interrogative interview loop in matt's package. It models problem spaces as design trees, questioning users along the decision frontier in batched rounds to eliminate unstated assumptions and establish firm consensus before code is written.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-468
 
 ### matt-post-mortem
 
@@ -22009,7 +22009,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  In `matt:engineering`, a post-mortem captures systemic architectural lessons from difficult bugs. In earlier iterations of `diagnosing-bugs`, Phase 6 incorporated a post-mortem step that handed off findings directly to `improve-codebase-architecture` whenever the lack of a proper test seam was identified. Because `improve-codebase-architecture` is an interactive user-invoked skill, this autonomous hand-off violated invocation invariants during unattended debugging sessions and was subsequently removed in favor of a clean, checklist-only Phase 6.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-469
 
 ### matt-no-fluff
 
@@ -22027,7 +22027,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  `/no-fluff` represents a common prompt-engineering shortcut that attempts to reduce verbosity by constraining phrasing. Matt notes that focusing on output removal rather than listener needs causes models to become blunt while leaving underlying misunderstandings unresolved.
 - **sequencing note:** Applied in Matt phase matt:Productivity Skills.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-470
 
 ### matt-retrieval-practice
 
@@ -22045,7 +22045,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/teach/SKILL.md:43. Retrieval practice requires learners to actively pull knowledge from memory rather than passively re-reading text. By embedding quizzes and diagnostic drills directly within lessons, the teach skill reinforces memory pathways and confirms understanding before advancing to new material.
 - **sequencing note:** Applied in Matt phase matt:productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-471
 
 ### matt-instrumentation
 
@@ -22063,7 +22063,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  Instrumentation in Matt's lifecycle represents targeted code modifications or logging probes inserted to isolate defective code paths. It is treated as strictly secondary and mechanical: adding probes or logs before establishing a deterministic feedback loop is rejected as speculative guessing.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-472
 
 ### matt-existing
 
@@ -22081,7 +22081,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/template.sh:91. A bash helper function in `template.sh` that checks the target `.env` file for existing key-value pairs. By retrieving prior values, it allows interactive input functions (`ask` and `ask_secret`) to offer current settings as re-run defaults, making wizard execution safe and repeatable without requiring re-entry of unmodified configurations.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-473
 
 ### matt-fromexact
 
@@ -22099,7 +22099,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/misc/migrate-to-shoehorn/SKILL.md:103. A shoehorn utility function that enforces complete interface conformance without allowing missing fields, providing an explicit transition step before relaxing mock constraints with fromPartial().
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-474
 
 ### matt-hitl-bash-script
 
@@ -22117,7 +22117,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/diagnosing-bugs/SKILL.md:35. A human-in-the-loop debugging technique using an interactive bash script to guide human actions and capture observations as structured key-value output. This ensures that even un-automatable bugs retain a structured, repeatable feedback loop.
 - **sequencing note:** Applied in Matt phase none.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-475
 
 ### matt-mermaid-graph
 
@@ -22135,7 +22135,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/improve-codebase-architecture/HTML-REPORT.md:61. The primary diagramming technique recommended for HTML architecture reports to visualize dependencies and call flows, using Mermaid syntax wrapped in Tailwind-styled cards and styled with classDef rules to contrast messy before states against clean deep modules.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-476
 
 ### matt-facts-vs-decisions
 
@@ -22153,7 +22153,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in CHANGELOG.md:171. This distinction prevents conversational fatigue by requiring agents to look up existing technical facts (libraries, schemas, existing patterns) from the workspace rather than asking the human, reserving human dialogue exclusively for true subjective decisions.
 - **sequencing note:** Applied in Matt phase matt:grilling.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-477
 
 ### matt-spacing
 
@@ -22171,7 +22171,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/teach/SKILL.md:44. Spacing distributes practice intervals over time rather than massing instruction into a single marathon session. In the teach skill, spacing leverages the multi-session nature of the standing workspace to re-test previously learned concepts after intervals of decay, transforming transient familiarity into permanent capability.
 - **sequencing note:** Applied in Matt phase matt:productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-478
 
 ### matt-chart-the-map
 
@@ -22189,7 +22189,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wayfinder/SKILL.md:107. The initial exploration phase and technique of wayfinder. In a single dedicated session, the agent pins down the overall destination, grills breadth-first across the problem space to reveal the frontier, creates the index map issue, and creates initial sharp child tickets while sketching remaining uncertainty into Not yet specified.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-479
 
 ### matt-setup-pre-commit
 
@@ -22207,7 +22207,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/misc/setup-pre-commit/SKILL.md:3. An interactive setup skill that configures client-side pre-commit quality gates in a repository. It automatically detects the active package manager, installs Husky, lint-staged, and Prettier as devDependencies, initializes Husky v9+, configures formatting with `.lintstagedrc` and default `.prettierrc`, hooks up typechecking and test scripts if present, verifies the setup, and performs an initial commit as a smoke test.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-480
 
 ### matt-leading-word
 
@@ -22225,7 +22225,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/writing-for-agents/SKILL.md:63. A cornerstone prompt-engineering technique in Matt's design. Rather than spending dozens of tokens explaining nuanced behaviors, authoring documents leverage compact pretrained tokens (e.g. *wait*, *tight*, *red*) that recruit extensive latent model priors at near-zero token cost.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-481
 
 ### matt-single-session-planning
 
@@ -22243,7 +22243,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/grill-with-docs.md:31. Single-session planning is an architectural technique for resolving trade-offs and settling terminology in a single conversation. It prioritizes low overhead and rapid convergence, writing newly crystallized domain terms into CONTEXT.md and significant trade-offs into ADRs before passing the settled conversation directly to downstream specification skills.
 - **sequencing note:** Applied in Matt phase matt:shaping.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-482
 
 ### matt-grilling-session
 
@@ -22261,7 +22261,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in README.md:96. A grilling session is Matt's core conversational alignment technique where the agent relentlessly interviews the developer to expose ambiguities and resolve decision branches before writing code or documents.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-483
 
 ### matt-interleaving
 
@@ -22279,7 +22279,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/teach/SKILL.md:45. A cognitive learning technique used in `teach` to build long-term retention (storage strength) rather than temporary fluency. By alternating among distinct but related topics during practice drills, it forces active discrimination between concepts, preventing rote habituation.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-484
 
 ### matt-npx-skills
 
@@ -22297,7 +22297,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  The CLI execution mechanism used by developers to discover, add, and manage skills within their coding environment (`npx skills@latest add ...`), enabling modular distribution and installation of agent capabilities.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-485
 
 ### matt-leading-words
 
@@ -22315,7 +22315,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/writing-for-agents/SKILL.md:63. A prompt and documentation technique that recruits rich latent concepts already present in an LLM's pretraining using compact tokens. Anchoring to pretrained terms guides complex multi-step behavior without spending context on verbose explanations.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-486
 
 ### matt-prompt-quality
 
@@ -22333,7 +22333,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in .out-of-scope/question-limits.md:14. Prompt-quality emphasizes that conversational precision and relevance must be engineered into the skill prompt itself rather than handled through arbitrary external throttling mechanisms.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-487
 
 ### matt-claims
 
@@ -22351,7 +22351,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wayfinder/SKILL.md:67. The coordination technique used in wayfinder to avoid collision between concurrent agent sessions. By assigning the ticket to the current session driver prior to starting work, unclaimed frontier tickets are immediately distinguishable from in-progress tickets, allowing multiple sessions to safely work the frontier in parallel.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-488
 
 ### matt-wayfinder
 
@@ -22369,7 +22369,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wayfinder/agents/openai.yaml:3. An architectural planning discipline designed for large, multi-session initiatives. Instead of generating speculative implementation tasks, wayfinder charts the unknowns as a shared board of 'decision tickets' on an issue tracker. It methodically resolves decisions one at a time before any implementation code or task slicing begins.
 - **sequencing note:** Applied in Matt phase matt:Engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-489
 
 ### matt-zone-of-proximal-development
 
@@ -22387,7 +22387,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/productivity/teach.md:44. Vygotskian pedagogical principle adapted for AI instruction in `teach`. It balances challenge against current mastery, selecting lessons that require deliberate effort without exceeding working memory or jumping into ungrounded prerequisites.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-490
 
 ### matt-frompartial
 
@@ -22405,7 +22405,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/misc/migrate-to-shoehorn/SKILL.md:65. A TypeScript test helper function from shoehorn that permits partial objects while preserving type validation for all supplied fields, eliminating fragile boilerplate in test fixtures.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-491
 
 ### matt-compact
 
@@ -22423,7 +22423,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/ask-matt/PHASE-BOUNDARIES.md:15. A conversational summarization command in Claude Code that compresses dialogue history to free token capacity. In matt's lifecycle philosophy, /compact is intentionally placed at the bottom of the phase boundary decision tree as a default fallback rather than a first reach; because automated summarization flattens nuances and decisions, developers are advised to supply an explicit focusing instruction when compacting.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-492
 
 ### matt-fluency-strength
 
@@ -22441,7 +22441,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/productivity/teach/SKILL.md:38. A psychological concept defining how easily a learner can access information in the immediate moment. In Matt's teaching design, high fluency strength is explicitly identified as an unreliable indicator of true competence that often masks rapid forgetting once the prompt or session ends.
 - **sequencing note:** Applied in Matt phase matt:productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-493
 
 ### matt-guided-walkthroughs
 
@@ -22459,7 +22459,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/prototype/LOGIC.md:46. Guided walkthroughs provide structured, reproducible scenario sequences inside self-contained logic prototype HTML files, enabling non-technical stakeholders to test domain logic and edge cases before code is written.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-494
 
 ### matt-multi-commit-rebase
 
@@ -22477,7 +22477,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  A multi-commit rebase is identified as an operational hazard for coding agents. Because rebasing across multiple commits with repeated conflict resolution easily causes agents to lose track of intermediate state, the recommended pattern is to abort, squash the branch to a single commit, and rebase cleanly once.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-495
 
 ### matt-warn
 
@@ -22495,7 +22495,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/template.sh:63. A terminal output formatting helper function in `template.sh` providing consistent visual highlighting and alert iconography for non-fatal errors, skipped actions, and cautionary guidance during wizard execution.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-496
 
 ### matt-delegating
 
@@ -22513,7 +22513,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/loop-me/SKILL.md:12. The motivating outcome in loop-me's methodology. Once predictable patterns are formalized into workflows without unresolved questions, execution responsibility can be handed over from the human to autonomous agent routines.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-497
 
 ### matt-plain-english
 
@@ -22531,7 +22531,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  Plain English establishes the communicative baseline for human-agent collaboration in Matt's toolkit. Grounded in ASD-STE100 principles, it prevents models from generating opaque, self-referential prose and forces clear sentence structures without sacrificing technical precision.
 - **sequencing note:** Applied in Matt phase matt:Productivity Skills.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-498
 
 ### matt-prettier
 
@@ -22549,7 +22549,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  An opinionated code formatting tool that enforces consistent styling across a codebase. Integrated into pre-commit workflows so developers and agents do not waste review bandwidth on formatting trivialities.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-499
 
 ### matt-send
 
@@ -22567,7 +22567,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/productivity/to-questionnaire.md:5. The foundational interview scoping technique in `to-questionnaire`. By restricting elicitation strictly to transmission parameters (recipient role, expertise, and required deliverables) instead of probing domain content the user explicitly does not possess, it prevents the interview from derailing into speculative or unanswerable queries.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-500
 
 ### matt-work-through-the-map
 
@@ -22585,7 +22585,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wayfinder/SKILL.md:118. The iterative execution loop of wayfinder. Each session loads the low-resolution map, claims a single frontier decision ticket, investigates or grills to reach a definitive decision, records the resolution, and graduates clarified fog into new tickets until the destination is reached.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-501
 
 ### matt-natural-language-steering
 
@@ -22603,7 +22603,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in .out-of-scope/question-limits.md:12. Natural-language steering establishes conversational dialogue as the primary mechanism for regulating agent depth, keeping control with the human operator rather than imposing rigid numeric thresholds.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-502
 
 ### matt-read-r
 
@@ -22621,7 +22621,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  `read -r` is the POSIX bash built-in command for capturing input without backslash escaping. While lightweight and portable, its lack of terminal line-editing causes escape sequences (such as arrow key movements) to be captured as literal text, presenting a documented UX limitation in setup wizards.
 - **sequencing note:** Applied in Matt phase matt:Upkeep.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-503
 
 ### matt-bash-n
 
@@ -22639,7 +22639,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt.  `bash -n` performs a syntax check on shell scripts without executing commands. Because wizards contain interactive prompts and launch browser windows, the AI cannot run them end-to-end; `bash -n` provides a fast, zero-side-effect syntax gate before handoff.
 - **sequencing note:** Applied in Matt phase matt:Upkeep.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-504
 
 ### matt-wait
 
@@ -22657,7 +22657,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in external/wait-what.md:31. In Matt's prompt design, "wait" is a targeted communicative trigger. Unlike output directives ("be brief", "be concise") that prompt the model to discard explanatory context, "wait" signals listener confusion, causing the agent to step backward, diagnose what went unexplained, and bridge the gap.
 - **sequencing note:** Applied in Matt phase matt:Productivity Skills.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-505
 
 ### matt-teach
 
@@ -22675,7 +22675,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/productivity/teach.md:3. A dedicated pedagogical skill that isolates learning activities from production code. It verifies external learning materials rather than trusting model parametric memory and delivers bite-sized HTML lessons that track progress across sessions.
 - **sequencing note:** Applied in Matt phase matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-506
 
 ### matt-introduced
 
@@ -22693,7 +22693,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/writing-beats/SKILL.md:32. Introduced concepts are explicitly explained and landed within the article itself rather than assumed as audience prerequisites. Once an introduced concept is established by a beat or paragraph, it joins the running grounded set, allowing subsequent sections of the piece to build directly upon it without alienating the reader.
 - **sequencing note:** Applied in Matt phase matt:in-progress.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-507
 
 ### matt-no-ops
 
@@ -22711,7 +22711,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/in-progress/retro/SKILL.md:22. A pruning technique that tests whether an instruction actually changes model behavior relative to default pre-trained behavior. If a model already follows the behavior by default, the instruction consumes valuable context window tokens and attention without altering output, and should be eliminated rather than edited.
 - **sequencing note:** Applied in Matt phase cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-508
 
 ### matt-ask-secret
 
@@ -22729,7 +22729,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/template.sh:113. An interactive secret input helper in the wizard template library. Similar to `ask`, it prompts the user for a configuration value and retains previously saved values on re-run, but uses `read -rs` to suppress terminal echoing, safeguarding API tokens and passwords during setup.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-509
 
 ### matt-free-play-buttons
 
@@ -22747,7 +22747,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/prototype/LOGIC.md:45. Interactive controls in a logic prototype offering one button per domain action. They allow non-technical evaluators to poke at the state machine in arbitrary sequences, exposing unforeseen edge cases or invalid state transitions early.
 - **sequencing note:** Applied in Matt phase matt:Shaping.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-510
 
 ### matt-say
 
@@ -22765,7 +22765,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in skills/engineering/wizard/template.sh:58. A bash output helper function in the wizard library that formats plain text instructions with two spaces of indentation, providing readable visual hierarchy beneath stage headings during interactive setup flows.
 - **sequencing note:** Applied in Matt phase matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-511
 
 ## 10. RJM Lifecycle & Governance Specific Techniques
 

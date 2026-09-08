@@ -6975,3 +6975,8846 @@ RJM `.claude/skills/review/references/thread-severity.md:1`.
 - **decision:** D-272
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-dag-thread-severity-lifecycle`
 - **not to be confused with:** review-phase, review-report
+
+---
+
+## D-273 — yagni
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#yagni
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `yagni`. YAGNI (You Aren't Gonna Need It) is a scoping filter and design discipline that eliminates speculative requirements, premature abstractions, and unneeded extension points during task planning and implementation.
+
+### Adopted from
+Matt `CHANGELOG.md:94`; RJM `.claude/commands/spec.md:151`.
+
+### Dropped
+rjm defects (defects: missing-path, internal-contradiction, cross-file-contradiction) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- yagni-practice (less specific than canonical technique name)
+- generic-yagni (fails to reflect source methodology)
+
+### Evidence
+Matt `CHANGELOG.md:94`; RJM `.claude/commands/spec.md:151`.
+
+### Glossary
+### yagni
+
+- **definition:** YAGNI (You Aren't Gonna Need It) is a scoping filter and design discipline that eliminates speculative requirements, premature abstractions, and unneeded extension points during task planning and implementation.
+- **kind:** technique
+- **source names:** addy: — · matt: `YAGNI scoping filter` · rjm: `YAGNI`
+- **decision:** D-273
+- **concordance:** `docs/analysis/concordance/techniques.md#yagni`
+
+---
+
+## D-274 — dialogue-driven-discovery
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#dialogue-driven-discovery
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `dialogue-driven-discovery`. Dialogue-driven discovery is an interactive elicitation technique that uncovers unstated user intent and architectural constraints through structured, one-question-at-a-time conversational interviews.
+
+### Adopted from
+Addy `skills/interview-me/SKILL.md:62`; Matt `docs/engineering/grill-with-docs.md:3`.
+
+### Dropped
+matt defects (defects: doc-drift (silent failure to write files when run inside external orchestration in docs/engineering/grill-with-docs.md:49), other (failure to load grilling and domain-modeling dependencies in docs/engineering/grill-with-docs.md:52)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- dialogue-driven-discovery-practice (less specific than canonical technique name)
+- generic-dialogue-driven-discovery (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/interview-me/SKILL.md:62`; Matt `docs/engineering/grill-with-docs.md:3`.
+
+### Glossary
+### dialogue-driven-discovery
+
+- **definition:** Dialogue-driven discovery is an interactive elicitation technique that uncovers unstated user intent and architectural constraints through structured, one-question-at-a-time conversational interviews.
+- **kind:** technique
+- **source names:** addy: `one question at a time` · matt: `interview` · rjm: —
+- **decision:** D-274
+- **concordance:** `docs/analysis/concordance/techniques.md#dialogue-driven-discovery`
+
+---
+
+## D-275 — skill-discovery
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-skill-discovery
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `skill-discovery`. Skill discovery is the central dispatch mechanism in Addy's meta-skill architecture, matching incoming requests and current development phases against a structured decision tree to select the right skill from the 24-skill library.
+
+### Adopted from
+Addy `skills/using-agent-skills/SKILL.md:14`.
+
+### Dropped
+addy defects (defects: cross-file-contradiction, internal-contradiction, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- skill-discovery-practice (less specific than canonical technique name)
+- generic-skill-discovery (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/using-agent-skills/SKILL.md:14`.
+
+### Glossary
+### skill-discovery
+
+- **definition:** Skill discovery is the central dispatch mechanism in Addy's meta-skill architecture, matching incoming requests and current development phases against a structured decision tree to select the right skill from the 24-skill library.
+- **kind:** technique
+- **source names:** addy: `Skill Discovery` · matt: — · rjm: —
+- **decision:** D-275
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-skill-discovery`
+
+---
+
+## D-276 — scope-discipline-enforcement
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-maintain-scope-discipline
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `scope-discipline-enforcement`. Scope discipline enforcement is a discipline requiring surgical precision during edits, explicitly forbidding orthogonal cleanups, unsolicited refactoring, deleting unfamiliar comments, or adding unrequested features.
+
+### Adopted from
+Addy `skills/using-agent-skills/SKILL.md:99`.
+
+### Dropped
+addy defects (defects: cross-file-contradiction, internal-contradiction, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- scope-discipline-enforcement-practice (less specific than canonical technique name)
+- generic-scope-discipline (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/using-agent-skills/SKILL.md:99`.
+
+### Glossary
+### scope-discipline-enforcement
+
+- **definition:** Scope discipline enforcement is a discipline requiring surgical precision during edits, explicitly forbidding orthogonal cleanups, unsolicited refactoring, deleting unfamiliar comments, or adding unrequested features.
+- **kind:** technique
+- **source names:** addy: `Maintain Scope Discipline` · matt: — · rjm: —
+- **decision:** D-276
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-maintain-scope-discipline`
+
+---
+
+## D-277 — on-demand-skill-activation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-on-demand-skill-activation
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `on-demand-skill-activation`. On demand skill activation is an engineering technique for on-demand skill activation enables natural-language intent routing, allowing coding agents to autonomously load relevant methodology skills when developers describe work rather than requiring explicit slash commands.
+
+### Adopted from
+Addy `docs/antigravity-setup.md:87`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- on-demand-skill-activation-practice (less specific than canonical technique name)
+- generic-on-demand-skill-activation (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/antigravity-setup.md:87`.
+
+### Glossary
+### on-demand-skill-activation
+
+- **definition:** On demand skill activation is an engineering technique for on-demand skill activation enables natural-language intent routing, allowing coding agents to autonomously load relevant methodology skills when developers describe work rather than requiring explicit slash commands.
+- **kind:** technique
+- **source names:** addy: `On-Demand Skill Activation` · matt: — · rjm: —
+- **decision:** D-277
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-on-demand-skill-activation`
+
+---
+
+## D-278 — discover-the-stack-first
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-discover-the-stack-first
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `discover-the-stack-first`. Discover the stack first is a preparatory technique mandating that agents inspect the repository's build system, checked-in wrappers, and CI configurations before invoking test commands. Without it, agents default to assumptions like `npm test` on non-Node repositories or invoke global binaries rather than project wrappers.
+
+### Adopted from
+Addy `skills/test-driven-development/SKILL.md:26`.
+
+### Dropped
+addy defects (defects: cross-file-contradiction, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- discover-the-stack-first-practice (less specific than canonical technique name)
+- generic-discover-the-stack-first (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/test-driven-development/SKILL.md:26`.
+
+### Glossary
+### discover-the-stack-first
+
+- **definition:** Discover the stack first is a preparatory technique mandating that agents inspect the repository's build system, checked-in wrappers, and CI configurations before invoking test commands. Without it, agents default to assumptions like `npm test` on non-Node repositories or invoke global binaries rather than project wrappers.
+- **kind:** technique
+- **source names:** addy: `Discover the Stack First` · matt: — · rjm: —
+- **decision:** D-278
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-discover-the-stack-first`
+
+---
+
+## D-279 — constraints-guard
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-constraints-guard
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `constraints-guard`. Constraints guard is a diff inspection technique that guards against stealthy regressions where agents weaken thresholds, disable tests, or add linter suppressions to reach a green build.
+
+### Adopted from
+Addy `.gemini/commands/constraints.toml:30`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- constraints-guard-practice (less specific than canonical technique name)
+- generic-constraints-guard (fails to reflect source methodology)
+
+### Evidence
+Addy `.gemini/commands/constraints.toml:30`.
+
+### Glossary
+### constraints-guard
+
+- **definition:** Constraints guard is a diff inspection technique that guards against stealthy regressions where agents weaken thresholds, disable tests, or add linter suppressions to reach a green build.
+- **kind:** technique
+- **source names:** addy: `/constraints guard` · matt: — · rjm: —
+- **decision:** D-279
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-constraints-guard`
+
+---
+
+## D-280 — agent-skill-dispatch-meta-pattern
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-using-agent-skills
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `agent-skill-dispatch-meta-pattern`. Agent skill dispatch meta pattern is an engineering technique that as the meta-skill of the addy pack, `using-agent-skills` acts as an operating system and router for AI coding agents. It pairs an algorithmic decision tree mapping development stages to specific skills with six mandatory operating behaviors (such as pushing back on bad ideas, enforcing simplicity, and verifying before claiming completion) to maintain engineering discipline across the entire lifecycle.
+
+### Adopted from
+Addy `skills/using-agent-skills/SKILL.md:10`.
+
+### Dropped
+addy defects (defects: cross-file-contradiction, internal-contradiction, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- agent-skill-dispatch-meta-pattern-practice (less specific than canonical technique name)
+- generic-agent-skill-dispatch-meta (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/using-agent-skills/SKILL.md:10`.
+
+### Glossary
+### agent-skill-dispatch-meta-pattern
+
+- **definition:** Agent skill dispatch meta pattern is an engineering technique that as the meta-skill of the addy pack, `using-agent-skills` acts as an operating system and router for AI coding agents. It pairs an algorithmic decision tree mapping development stages to specific skills with six mandatory operating behaviors (such as pushing back on bad ideas, enforcing simplicity, and verifying before claiming completion) to maintain engineering discipline across the entire lifecycle.
+- **kind:** technique
+- **source names:** addy: `using-agent-skills` · matt: — · rjm: —
+- **decision:** D-280
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-using-agent-skills`
+
+---
+
+## D-281 — tracer-bullet-vertical-slices
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-tracer-bullet-vertical-slices
+- **preferences consulted:** PREFERENCES.md § Approach and § Depth prioritize thin vertical slices / tracer-bullet vertical slices; followed by adopting this scoped slicing technique.
+
+### Decision
+The canonical term for this technique is `tracer-bullet-vertical-slices`. Tracer bullet vertical slices is an engineering technique for tracer-bullet vertical slices prioritize building thin, end-to-end functional paths that prove integration across all architectural layers early, preventing the integration risks inherent in horizontal layer-by-layer development.
+
+### Adopted from
+Matt `CHANGELOG.md:183`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- tracer-bullet-vertical-slices-practice (less specific than canonical technique name)
+- generic-tracer-bullet-vertical-slices (fails to reflect source methodology)
+
+### Evidence
+Matt `CHANGELOG.md:183`.
+
+### Glossary
+### tracer-bullet-vertical-slices
+
+- **definition:** Tracer bullet vertical slices is an engineering technique for tracer-bullet vertical slices prioritize building thin, end-to-end functional paths that prove integration across all architectural layers early, preventing the integration risks inherent in horizontal layer-by-layer development.
+- **kind:** technique
+- **source names:** addy: — · matt: `tracer-bullet vertical slices` · rjm: —
+- **decision:** D-281
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-tracer-bullet-vertical-slices`
+
+---
+
+## D-282 — prompt-driven-skill-architecture
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-prompt-driven
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `prompt-driven-skill-architecture`. Prompt driven skill architecture is an engineering technique for prompt-driven skill architecture leverages the natural adaptability of large language models to re-scope skill execution on the fly, eliminating the overhead of dedicated CLI flags or redundant sibling commands.
+
+### Adopted from
+Matt `.out-of-scope/setup-skill-verify-mode.md:9`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- prompt-driven-skill-architecture-practice (less specific than canonical technique name)
+- generic-prompt-driven-skill-architecture (fails to reflect source methodology)
+
+### Evidence
+Matt `.out-of-scope/setup-skill-verify-mode.md:9`.
+
+### Glossary
+### prompt-driven-skill-architecture
+
+- **definition:** Prompt driven skill architecture is an engineering technique for prompt-driven skill architecture leverages the natural adaptability of large language models to re-scope skill execution on the fly, eliminating the overhead of dedicated CLI flags or redundant sibling commands.
+- **kind:** technique
+- **source names:** addy: — · matt: `prompt-driven` · rjm: —
+- **decision:** D-282
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prompt-driven`
+
+---
+
+## D-283 — most-important-first
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-most-important-first
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `most-important-first`. Most important first is an async prioritization heuristic ensuring that if a busy stakeholder answers only the top few questions before disengaging, the most critical decision-blocking uncertainties are resolved first.
+
+### Adopted from
+Matt `docs/productivity/to-questionnaire.md:36`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- most-important-first-practice (less specific than canonical technique name)
+- generic-most-important-first (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/productivity/to-questionnaire.md:36`.
+
+### Glossary
+### most-important-first
+
+- **definition:** Most important first is an async prioritization heuristic ensuring that if a busy stakeholder answers only the top few questions before disengaging, the most critical decision-blocking uncertainties are resolved first.
+- **kind:** technique
+- **source names:** addy: — · matt: `most-important-first` · rjm: —
+- **decision:** D-283
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-most-important-first`
+
+---
+
+## D-284 — hitl-capture-helper
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-capture
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `hitl-capture-helper`. Hitl capture helper is an interactive input helper in `hitl-loop.template.sh` that prompts the human operator for observation data and captures the reply into a variable. At loop completion, captured variables are printed as KEY=VALUE pairs for the invoking agent to parse.
+
+### Adopted from
+Matt `skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh:11`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- hitl-capture-helper-practice (less specific than canonical technique name)
+- generic-hitl-capture (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh:11`.
+
+### Glossary
+### hitl-capture-helper
+
+- **definition:** Hitl capture helper is an interactive input helper in `hitl-loop.template.sh` that prompts the human operator for observation data and captures the reply into a variable. At loop completion, captured variables are printed as KEY=VALUE pairs for the invoking agent to parse.
+- **kind:** technique
+- **source names:** addy: — · matt: `capture` · rjm: —
+- **decision:** D-284
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-capture`
+
+---
+
+## D-285 — exercise-skeleton-stubbing
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-stubbing
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `exercise-skeleton-stubbing`. Exercise skeleton stubbing is a progressive authoring technique that scaffolds a full course skeleton with minimal valid placeholder files. Stubbing allows course designers to validate overall structure with linters before investing time in authoring detailed problem and solution content.
+
+### Adopted from
+Matt `skills/misc/scaffold-exercises/SKILL.md:25`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- exercise-skeleton-stubbing-practice (less specific than canonical technique name)
+- generic-exercise-skeleton-stubbing (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/scaffold-exercises/SKILL.md:25`.
+
+### Glossary
+### exercise-skeleton-stubbing
+
+- **definition:** Exercise skeleton stubbing is a progressive authoring technique that scaffolds a full course skeleton with minimal valid placeholder files. Stubbing allows course designers to validate overall structure with linters before investing time in authoring detailed problem and solution content.
+- **kind:** technique
+- **source names:** addy: — · matt: `stubbing` · rjm: —
+- **decision:** D-285
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-stubbing`
+
+---
+
+## D-286 — implement-spec-orchestration
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-implement-spec
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `implement-spec-orchestration`. Implement spec orchestration is an experimental multi-agent orchestration skill residing in the in-progress bucket. It overcomes the limitation of single-ticket serial execution by modeling tickets as an acyclic task graph, launching concurrent implementer subagents across unblocked frontier tickets in isolated git worktrees, merging outputs via merger subagents, and culminating in a single verified pull request.
+
+### Adopted from
+Matt `.changeset/add-implement-spec-skill.md:5`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- implement-spec-orchestration-practice (less specific than canonical technique name)
+- generic-implement-spec-orchestration (fails to reflect source methodology)
+
+### Evidence
+Matt `.changeset/add-implement-spec-skill.md:5`.
+
+### Glossary
+### implement-spec-orchestration
+
+- **definition:** Implement spec orchestration is an experimental multi-agent orchestration skill residing in the in-progress bucket. It overcomes the limitation of single-ticket serial execution by modeling tickets as an acyclic task graph, launching concurrent implementer subagents across unblocked frontier tickets in isolated git worktrees, merging outputs via merger subagents, and culminating in a single verified pull request.
+- **kind:** technique
+- **source names:** addy: — · matt: `implement-spec` · rjm: —
+- **decision:** D-286
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-implement-spec`
+
+---
+
+## D-287 — writing-great-skills
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-writing-great-skills
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `writing-great-skills`. Writing great skills is the original name of the `writing-for-agents` reference skill. It was renamed in v1.1 when practitioners realized that guidelines on information hierarchy, leading words, and pruning applied universally to all agent-facing text (such as AGENTS.md, specifications, and tickets) rather than just skill definitions.
+
+### Adopted from
+Matt `docs/productivity/writing-for-agents.md:7`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- writing-great-skills-practice (less specific than canonical technique name)
+- generic-writing-great-skills (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/productivity/writing-for-agents.md:7`.
+
+### Glossary
+### writing-great-skills
+
+- **definition:** Writing great skills is the original name of the `writing-for-agents` reference skill. It was renamed in v1.1 when practitioners realized that guidelines on information hierarchy, leading words, and pruning applied universally to all agent-facing text (such as AGENTS.md, specifications, and tickets) rather than just skill definitions.
+- **kind:** technique
+- **source names:** addy: — · matt: `writing-great-skills` · rjm: —
+- **decision:** D-287
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-writing-great-skills`
+
+---
+
+## D-288 — scaffold-exercises
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-scaffold-exercises
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `scaffold-exercises`. Scaffold exercises is a specialized course-authoring skill for scaffolding structured educational modules. It automates the generation of multi-variant exercise directories (`problem/`, `solution/`, `explainer/`) adhering to strict naming and linting conventions, ensuring that course repositories pass automated linter validation.
+
+### Adopted from
+Matt `skills/misc/scaffold-exercises/SKILL.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- scaffold-exercises-practice (less specific than canonical technique name)
+- generic-scaffold-exercises (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/scaffold-exercises/SKILL.md:3`.
+
+### Glossary
+### scaffold-exercises
+
+- **definition:** Scaffold exercises is a specialized course-authoring skill for scaffolding structured educational modules. It automates the generation of multi-variant exercise directories (`problem/`, `solution/`, `explainer/`) adhering to strict naming and linting conventions, ensuring that course repositories pass automated linter validation.
+- **kind:** technique
+- **source names:** addy: — · matt: `scaffold-exercises` · rjm: —
+- **decision:** D-288
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-scaffold-exercises`
+
+---
+
+## D-289 — prototype-exploration-technique
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-the-prototype-skill
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `prototype-exploration-technique`. Prototype exploration technique is a shaping technique that resolves thorny design questions through disposable, runnable code rather than abstract conversational debate. By focusing strictly on answering one question, it prevents agents and developers from over-engineering unverified designs into production.
+
+### Adopted from
+Matt `external/prototype.md:24`.
+
+### Dropped
+matt defects (defects: orphan (external/prototype.md:1), doc-drift (external/prototype.md:44 documents retaining prototypes on dedicated branches rather than deleting them), doc-drift (external/prototype.md:46 documents replacing terminal apps with HTML files), other (external/prototype.md:48 notes agents prematurely recommending prototyping for settled designs)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- prototype-exploration-technique-practice (less specific than canonical technique name)
+- generic-prototype-exploration (fails to reflect source methodology)
+
+### Evidence
+Matt `external/prototype.md:24`.
+
+### Glossary
+### prototype-exploration-technique
+
+- **definition:** Prototype exploration technique is a shaping technique that resolves thorny design questions through disposable, runnable code rather than abstract conversational debate. By focusing strictly on answering one question, it prevents agents and developers from over-engineering unverified designs into production.
+- **kind:** technique
+- **source names:** addy: — · matt: `The /prototype Skill` · rjm: —
+- **decision:** D-289
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-the-prototype-skill`
+
+---
+
+## D-290 — scoping-decision-tree
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-decision-tree
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `scoping-decision-tree`. Scoping decision tree is the decision tree represents the structural branching of architectural and design choices that a grilling session systematically traverses to ensure all critical ambiguities are resolved before implementation begins.
+
+### Adopted from
+Matt `.out-of-scope/question-limits.md:7`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- scoping-decision-tree-practice (less specific than canonical technique name)
+- generic-scoping-decision-tree (fails to reflect source methodology)
+
+### Evidence
+Matt `.out-of-scope/question-limits.md:7`.
+
+### Glossary
+### scoping-decision-tree
+
+- **definition:** Scoping decision tree is the decision tree represents the structural branching of architectural and design choices that a grilling session systematically traverses to ensure all critical ambiguities are resolved before implementation begins.
+- **kind:** technique
+- **source names:** addy: — · matt: `decision tree` · rjm: —
+- **decision:** D-290
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-decision-tree`
+
+---
+
+## D-291 — spike-prototyping
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-prototype
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `spike-prototyping`. Spike prototyping is an empirical exploration technique in matt designed to break deadlocks during requirements gathering. When conversational inquiry cannot settle how a state machine behaves or how a screen feels, the developer detours to a prototype on an isolated branch. The code is written as deliberately throwaway—omitting tests, persistence, and abstractions—so that only the validated answer is preserved and folded into subsequent specifications.
+
+### Adopted from
+Matt `docs/engineering/prototype.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- spike-prototyping-practice (less specific than canonical technique name)
+- generic-spike-prototyping (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/prototype.md:3`.
+
+### Glossary
+### spike-prototyping
+
+- **definition:** Spike prototyping is an empirical exploration technique in matt designed to break deadlocks during requirements gathering. When conversational inquiry cannot settle how a state machine behaves or how a screen feels, the developer detours to a prototype on an isolated branch. The code is written as deliberately throwaway—omitting tests, persistence, and abstractions—so that only the validated answer is preserved and folded into subsequent specifications.
+- **kind:** technique
+- **source names:** addy: — · matt: `prototype` · rjm: —
+- **decision:** D-291
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prototype`
+
+---
+
+## D-292 — relentless-interview
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-relentless-interview
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `relentless-interview`. Relentless interview is the core questioning technique employed by `grill-me` to stress-test designs and plans by recursively interrogating every branch of the design tree until all ambiguities and unexamined assumptions are resolved.
+
+### Adopted from
+Matt `skills/productivity/grill-me/SKILL.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- relentless-interview-practice (less specific than canonical technique name)
+- generic-relentless-interview (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/grill-me/SKILL.md:3`.
+
+### Glossary
+### relentless-interview
+
+- **definition:** Relentless interview is the core questioning technique employed by `grill-me` to stress-test designs and plans by recursively interrogating every branch of the design tree until all ambiguities and unexamined assumptions are resolved.
+- **kind:** technique
+- **source names:** addy: — · matt: `relentless interview` · rjm: —
+- **decision:** D-292
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-relentless-interview`
+
+---
+
+## D-293 — to-prd-synthesis
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-to-prd
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `to-prd-synthesis`. To prd synthesis is an engineering technique for `to-prd` was the predecessor skill name for `to-spec` in Matt's toolkit prior to version 1.1. It was retired and renamed to standardize the terminology around "spec" across the entire lifecycle rather than using PRD (Product Requirements Document), aligning the destination document with downstream tickets and test seam specifications.
+
+### Adopted from
+Matt `docs/engineering/to-spec.md:39`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- to-prd-synthesis-practice (less specific than canonical technique name)
+- generic-to-prd (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/to-spec.md:39`.
+
+### Glossary
+### to-prd-synthesis
+
+- **definition:** To prd synthesis is an engineering technique for `to-prd` was the predecessor skill name for `to-spec` in Matt's toolkit prior to version 1.1. It was retired and renamed to standardize the terminology around "spec" across the entire lifecycle rather than using PRD (Product Requirements Document), aligning the destination document with downstream tickets and test seam specifications.
+- **kind:** technique
+- **source names:** addy: — · matt: `to-prd` · rjm: —
+- **decision:** D-293
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-to-prd`
+
+---
+
+## D-294 — to-spec-synthesis
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-to-spec
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `to-spec-synthesis`. To spec synthesis is an engineering technique that synthesizes decisions already made in conversation into a durable specification issue on the project's issue tracker. Designed under the principle that "specs are decision records, not questionnaires", it does not interview the user; instead, it records settled architecture, explicit user stories, implementation decisions, and testing seams so subsequent agent sessions can execute without context drift.
+
+### Adopted from
+Matt `.agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md:7`.
+
+### Dropped
+matt defects (defects: missing-path (references `/setup-matt-pocock-skills` as a command path rather than a skill directory).) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- to-spec-synthesis-practice (less specific than canonical technique name)
+- generic-to-spec (fails to reflect source methodology)
+
+### Evidence
+Matt `.agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md:7`.
+
+### Glossary
+### to-spec-synthesis
+
+- **definition:** To spec synthesis is an engineering technique that synthesizes decisions already made in conversation into a durable specification issue on the project's issue tracker. Designed under the principle that "specs are decision records, not questionnaires", it does not interview the user; instead, it records settled architecture, explicit user stories, implementation decisions, and testing seams so subsequent agent sessions can execute without context drift.
+- **kind:** technique
+- **source names:** addy: — · matt: `to-spec` · rjm: —
+- **decision:** D-294
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-to-spec`
+
+---
+
+## D-295 — afk-research-investigation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-research
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `afk-research-investigation`. Research is an AFK investigation skill dedicated to uncovering external facts from primary sources. By delegating documentation and API verification to a background subagent, it prevents the primary conversational agent from hallucinating or guessing at external technical constraints.
+
+### Adopted from
+Matt `docs/engineering/research.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- afk-research-investigation-practice (less specific than canonical technique name)
+- generic-afk-research-investigation (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/research.md:3`.
+
+### Glossary
+### afk-research-investigation
+
+- **definition:** Research is an AFK investigation skill dedicated to uncovering external facts from primary sources. By delegating documentation and API verification to a background subagent, it prevents the primary conversational agent from hallucinating or guessing at external technical constraints.
+- **kind:** technique
+- **source names:** addy: — · matt: `research` · rjm: —
+- **decision:** D-295
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-research`
+
+---
+
+## D-296 — interview-rounds-structure
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-rounds
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `interview-rounds-structure`. Interview rounds structure is an engineering technique for `rounds` structure the interactive interview loop in grilling. Rather than asking one question at a time (which is inefficient) or dumping all questions at once (which overwhelms users and asks questions whose prerequisites are unknown), grilling computes the frontier of currently answerable decisions and presents them in discrete, numbered rounds.
+
+### Adopted from
+Matt `skills/productivity/grilling/SKILL.md:8`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- interview-rounds-structure-practice (less specific than canonical technique name)
+- generic-interview-rounds-structure (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/grilling/SKILL.md:8`.
+
+### Glossary
+### interview-rounds-structure
+
+- **definition:** Interview rounds structure is an engineering technique for `rounds` structure the interactive interview loop in grilling. Rather than asking one question at a time (which is inefficient) or dumping all questions at once (which overwhelms users and asks questions whose prerequisites are unknown), grilling computes the frontier of currently answerable decisions and presents them in discrete, numbered rounds.
+- **kind:** technique
+- **source names:** addy: — · matt: `rounds` · rjm: —
+- **decision:** D-296
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-rounds`
+
+---
+
+## D-297 — facts-elicitation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-facts
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `facts-elicitation`. Facts elicitation is an engineering technique for in Matt's grilling methodology, facts are empirical truths discoverable from the project environment. Agents are strictly forbidden from interrogating the user for information they can verify themselves; instead, they dispatch background subagents to locate facts, preserving human cognitive bandwidth solely for subjective decisions.
+
+### Adopted from
+Matt `skills/productivity/grilling/SKILL.md:26`.
+
+### Dropped
+matt defects (defects: orphan, doc-drift, other) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- facts-elicitation-practice (less specific than canonical technique name)
+- generic-facts-elicitation (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/grilling/SKILL.md:26`.
+
+### Glossary
+### facts-elicitation
+
+- **definition:** Facts elicitation is an engineering technique for in Matt's grilling methodology, facts are empirical truths discoverable from the project environment. Agents are strictly forbidden from interrogating the user for information they can verify themselves; instead, they dispatch background subagents to locate facts, preserving human cognitive bandwidth solely for subjective decisions.
+- **kind:** technique
+- **source names:** addy: — · matt: `facts` · rjm: —
+- **decision:** D-297
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-facts`
+
+---
+
+## D-298 — context-hygiene
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-context-hygiene
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `context-hygiene`. Context hygiene is a context management discipline in Matt Pocock's workflow that avoids resetting or compacting agent context between `/to-spec` and `/to-tickets`, ensuring the full specification is directly readable in memory rather than truncated during tracker API round-trips.
+
+### Adopted from
+Matt `external/to-spec.md:57`.
+
+### Dropped
+matt defects (defects: doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- context-hygiene-practice (less specific than canonical technique name)
+- generic-context-hygiene (fails to reflect source methodology)
+
+### Evidence
+Matt `external/to-spec.md:57`.
+
+### Glossary
+### context-hygiene
+
+- **definition:** Context hygiene is a context management discipline in Matt Pocock's workflow that avoids resetting or compacting agent context between `/to-spec` and `/to-tickets`, ensuring the full specification is directly readable in memory rather than truncated during tracker API round-trips.
+- **kind:** technique
+- **source names:** addy: — · matt: `context hygiene` · rjm: —
+- **decision:** D-298
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-context-hygiene`
+
+---
+
+## D-299 — to-questionnaire
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-to-questionnaire
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `to-questionnaire`. To questionnaire is an engineering technique for to-questionnaire bridges the gap between autonomous development and human organizational reality. When progress stalls on unwritten domain knowledge, it packages the ambiguity into a structured, low-friction survey format that respects the stakeholder's time while forcing clear decision options.
+
+### Adopted from
+Matt `docs/productivity/to-questionnaire.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- to-questionnaire-practice (less specific than canonical technique name)
+- generic-to-questionnaire (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/productivity/to-questionnaire.md:3`.
+
+### Glossary
+### to-questionnaire
+
+- **definition:** To questionnaire is an engineering technique for to-questionnaire bridges the gap between autonomous development and human organizational reality. When progress stalls on unwritten domain knowledge, it packages the ambiguity into a structured, low-friction survey format that respects the stakeholder's time while forcing clear decision options.
+- **kind:** technique
+- **source names:** addy: — · matt: `to-questionnaire` · rjm: —
+- **decision:** D-299
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-to-questionnaire`
+
+---
+
+## D-300 — blast-radius-containment
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#blast-radius-containment
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `blast-radius-containment`. Blast radius containment is an architectural isolation technique restricting the operational impact of potential subsystem failures or code refactors to strictly bounded component boundaries.
+
+### Adopted from
+Matt `skills/engineering/to-tickets/SKILL.md:40`; RJM `.claude/skills/chaos-experiment/SKILL.md:260`.
+
+### Dropped
+rjm defects (defects: doc-drift, missing-path) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- blast-radius-containment-practice (less specific than canonical technique name)
+- generic-blast-radius-containment (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/to-tickets/SKILL.md:40`; RJM `.claude/skills/chaos-experiment/SKILL.md:260`.
+
+### Glossary
+### blast-radius-containment
+
+- **definition:** Blast radius containment is an architectural isolation technique restricting the operational impact of potential subsystem failures or code refactors to strictly bounded component boundaries.
+- **kind:** technique
+- **source names:** addy: — · matt: `blast radius` · rjm: `Blast Radius Containment`
+- **decision:** D-300
+- **concordance:** `docs/analysis/concordance/techniques.md#blast-radius-containment`
+
+---
+
+## D-301 — thin-vertical-slices
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#vertical-slices
+- **preferences consulted:** PREFERENCES.md § Approach and § Depth prioritize thin vertical slices / tracer-bullet vertical slices; followed by adopting this scoped slicing technique.
+
+### Decision
+The canonical term for this technique is `thin-vertical-slices`. Thin vertical slices is an end-to-end architectural implementation technique that builds fully functional, cross-layer functional paths demonstrating customer value rather than layer-by-layer horizontal scaffolding.
+
+### Adopted from
+Addy `external/api-and-interface-design.md:12`; Matt `skills/engineering/tdd/SKILL.md:32`; RJM `.claude/commands/build.md:2`.
+
+### Dropped
+addy defects (defects: doc-drift), matt defects (defects: internal-contradiction (skills/engineering/tdd/SKILL.md:38 red-green-refactor contradiction)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- thin-vertical-slices-practice (less specific than canonical technique name)
+- generic-thin-vertical-slices (fails to reflect source methodology)
+
+### Evidence
+Addy `external/api-and-interface-design.md:12`; Matt `skills/engineering/tdd/SKILL.md:32`; RJM `.claude/commands/build.md:2`.
+
+### Glossary
+### thin-vertical-slices
+
+- **definition:** Thin vertical slices is an end-to-end architectural implementation technique that builds fully functional, cross-layer functional paths demonstrating customer value rather than layer-by-layer horizontal scaffolding.
+- **kind:** technique
+- **source names:** addy: `thin vertical slices` · matt: `vertical slices` · rjm: `thin vertical slices`
+- **decision:** D-301
+- **concordance:** `docs/analysis/concordance/techniques.md#vertical-slices`
+
+---
+
+## D-302 — git-worktree-isolation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#git-worktrees
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `git-worktree-isolation`. Git worktree isolation is an execution environment management technique providing clean, separate filesystem working trees for parallel branch execution without repository switching overhead.
+
+### Adopted from
+Addy `skills/git-workflow-and-versioning/SKILL.md:147`; Matt `external/implement.md:52`; RJM `.claude/skills/git-advanced-workflows/SKILL.md:4`.
+
+### Dropped
+addy defects (defects: doc-drift, cross-file-contradiction (catalog doc-drift regarding section headings; cross-file contradiction on Ship phase placement vs cross-phase activation)), matt defects (defects: orphan, doc-drift, cross-file-contradiction, other), rjm defects (defects: orphan) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- git-worktree-isolation-practice (less specific than canonical technique name)
+- generic-git-worktree-isolation (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/git-workflow-and-versioning/SKILL.md:147`; Matt `external/implement.md:52`; RJM `.claude/skills/git-advanced-workflows/SKILL.md:4`.
+
+### Glossary
+### git-worktree-isolation
+
+- **definition:** Git worktree isolation is an execution environment management technique providing clean, separate filesystem working trees for parallel branch execution without repository switching overhead.
+- **kind:** technique
+- **source names:** addy: `Working with Worktrees` · matt: `worktrees` · rjm: `worktrees`
+- **decision:** D-302
+- **concordance:** `docs/analysis/concordance/techniques.md#git-worktrees`
+
+---
+
+## D-303 — integration-test
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-integration-test
+- **preferences consulted:** PREFERENCES.md § References highlights testing-patterns.md and verification rigor; followed by adopting this testing technique.
+
+### Decision
+The canonical term for this technique is `integration-test`. Integration test is an integration test in Addy's test strategy corresponds to a Medium test size in the resource model (~15% of test suites) and validates behavior that crosses process or boundary layers like APIs, databases, or filesystems on localhost without external network dependencies.
+
+### Adopted from
+Addy `skills/test-driven-development/SKILL.md:181-182`.
+
+### Dropped
+addy defects (defects: cross-file-contradiction, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- integration-test-practice (less specific than canonical technique name)
+- generic-integration-test (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/test-driven-development/SKILL.md:181-182`.
+
+### Glossary
+### integration-test
+
+- **definition:** Integration test is an integration test in Addy's test strategy corresponds to a Medium test size in the resource model (~15% of test suites) and validates behavior that crosses process or boundary layers like APIs, databases, or filesystems on localhost without external network dependencies.
+- **kind:** technique
+- **source names:** addy: `Integration test` · matt: — · rjm: —
+- **decision:** D-303
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-integration-test`
+
+---
+
+## D-304 — ubiquitous-language
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-ubiquitous-language
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `ubiquitous-language`. Ubiquitous language is an engineering technique that ubiquitous language in Matt's toolkit represents the shared domain vocabulary continuously sharpened and enforced across code, prompts, and conversation. It is maintained actively through `domain-modeling`, where terms are written inline into `CONTEXT.md` as soon as they are resolved, ensuring models and humans share identical conceptual boundaries without semantic drift.
+
+### Adopted from
+Matt `docs/engineering/domain-modeling.md:3`.
+
+### Dropped
+matt defects (defects: missing-path, other (runaway artifact bloat where models turn CONTEXT.md into a running spec instead of a lean ubiquitous language dictionary)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- ubiquitous-language-practice (less specific than canonical technique name)
+- generic-ubiquitous-language (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/domain-modeling.md:3`.
+
+### Glossary
+### ubiquitous-language
+
+- **definition:** Ubiquitous language is an engineering technique that ubiquitous language in Matt's toolkit represents the shared domain vocabulary continuously sharpened and enforced across code, prompts, and conversation. It is maintained actively through `domain-modeling`, where terms are written inline into `CONTEXT.md` as soon as they are resolved, ensuring models and humans share identical conceptual boundaries without semantic drift.
+- **kind:** technique
+- **source names:** addy: — · matt: `ubiquitous language` · rjm: —
+- **decision:** D-304
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-ubiquitous-language`
+
+---
+
+## D-305 — domain-modeling
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-domain-modeling
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `domain-modeling`. Domain modeling is the active domain-driven design discipline in matt's ecosystem. Rather than passively reading existing documentation, it actively interrupts design conversations to challenge imprecise terms, enforce ubiquitous language, and record definitions in CONTEXT.md and ADRs at the moment they resolve.
+
+### Adopted from
+Matt `docs/engineering/domain-modeling.md:3`.
+
+### Dropped
+matt defects (defects: missing-path, other, internal-contradiction, doc-drift, orphan) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- domain-modeling-practice (less specific than canonical technique name)
+- generic-domain-modeling (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/domain-modeling.md:3`.
+
+### Glossary
+### domain-modeling
+
+- **definition:** Domain modeling is the active domain-driven design discipline in matt's ecosystem. Rather than passively reading existing documentation, it actively interrupts design conversations to challenge imprecise terms, enforce ubiquitous language, and record definitions in CONTEXT.md and ADRs at the moment they resolve.
+- **kind:** technique
+- **source names:** addy: — · matt: `domain-modeling` · rjm: —
+- **decision:** D-305
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-domain-modeling`
+
+---
+
+## D-306 — seam-placement
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-seam-placement
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `seam-placement`. Seam placement is the explicit design choice of where to draw the boundary between a module's internal implementation and its external callers. In Design It Twice, seam placement is treated as its own first-class evaluation criterion—distinct from module depth and change locality—to ensure interfaces are drawn where boundaries naturally occur.
+
+### Adopted from
+Matt `skills/engineering/codebase-design/DESIGN-IT-TWICE.md:42`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- seam-placement-practice (less specific than canonical technique name)
+- generic-seam-placement (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/codebase-design/DESIGN-IT-TWICE.md:42`.
+
+### Glossary
+### seam-placement
+
+- **definition:** Seam placement is the explicit design choice of where to draw the boundary between a module's internal implementation and its external callers. In Design It Twice, seam placement is treated as its own first-class evaluation criterion—distinct from module depth and change locality—to ensure interfaces are drawn where boundaries naturally occur.
+- **kind:** technique
+- **source names:** addy: — · matt: `seam placement` · rjm: —
+- **decision:** D-306
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-seam-placement`
+
+---
+
+## D-307 — replace-don-t-layer
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-replace-don-t-layer
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `replace-don-t-layer`. Replace don t layer is a testing strategy for module refactoring: when shallow modules are deepened into a cohesive deep module, developers must delete the old unit tests that targeted internal shallow components rather than keeping them as a redundant layer. Tests are rewritten at the deepened interface ("the interface is the test surface").
+
+### Adopted from
+Matt `skills/engineering/codebase-design/DEEPENING.md:32`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- replace-don-t-layer-practice (less specific than canonical technique name)
+- generic-replace-don-t-layer (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/codebase-design/DEEPENING.md:32`.
+
+### Glossary
+### replace-don-t-layer
+
+- **definition:** Replace don t layer is a testing strategy for module refactoring: when shallow modules are deepened into a cohesive deep module, developers must delete the old unit tests that targeted internal shallow components rather than keeping them as a redundant layer. Tests are rewritten at the deepened interface ("the interface is the test surface").
+- **kind:** technique
+- **source names:** addy: — · matt: `replace, don't layer` · rjm: —
+- **decision:** D-307
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-replace-don-t-layer`
+
+---
+
+## D-308 — demo-path
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-demo-path
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `demo-path`. Demo path is a ticket authoring technique that requires defining an observable, demonstrable path through all layers of a change for every ticket, preventing models from defaulting to layer-by-layer horizontal partitioning.
+
+### Adopted from
+Matt `external/to-tickets.md:54`.
+
+### Dropped
+matt defects (defects: other) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- demo-path-practice (less specific than canonical technique name)
+- generic-demo-path (fails to reflect source methodology)
+
+### Evidence
+Matt `external/to-tickets.md:54`.
+
+### Glossary
+### demo-path
+
+- **definition:** Demo path is a ticket authoring technique that requires defining an observable, demonstrable path through all layers of a change for every ticket, preventing models from defaulting to layer-by-layer horizontal partitioning.
+- **kind:** technique
+- **source names:** addy: — · matt: `demo path` · rjm: —
+- **decision:** D-308
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-demo-path`
+
+---
+
+## D-309 — red-green-slice
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-red-green-slice
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `red-green-slice`. Red green slice is a red-green slice is the micro-iteration technique within implement where TDD is driven in minimal atomic steps: one failing test followed by only enough code to pass it, explicitly avoiding speculative code or batch test generation.
+
+### Adopted from
+Matt `docs/engineering/implement.md:36`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- red-green-slice-practice (less specific than canonical technique name)
+- generic-red-green-slice (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/implement.md:36`.
+
+### Glossary
+### red-green-slice
+
+- **definition:** Red green slice is a red-green slice is the micro-iteration technique within implement where TDD is driven in minimal atomic steps: one failing test followed by only enough code to pass it, explicitly avoiding speculative code or batch test generation.
+- **kind:** technique
+- **source names:** addy: — · matt: `red-green slice` · rjm: —
+- **decision:** D-309
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-red-green-slice`
+
+---
+
+## D-310 — one-slice-at-a-time
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-one-slice-at-a-time
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `one-slice-at-a-time`. One slice at a time is an engineering technique that enforces strict atomicity in TDD execution: exactly one seam, one test, and one minimal implementation per cycle. This prevents agents and human developers from accumulating unverified code or over-committing to complex architectures before seeing concrete tests pass, ensuring steady, predictable progress.
+
+### Adopted from
+Matt `skills/engineering/tdd/SKILL.md:37`.
+
+### Dropped
+matt defects (defects: internal-contradiction (skills/engineering/tdd/SKILL.md:38 red-green-refactor contradiction)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- one-slice-at-a-time-practice (less specific than canonical technique name)
+- generic-one-slice-at-a-time (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/tdd/SKILL.md:37`.
+
+### Glossary
+### one-slice-at-a-time
+
+- **definition:** One slice at a time is an engineering technique that enforces strict atomicity in TDD execution: exactly one seam, one test, and one minimal implementation per cycle. This prevents agents and human developers from accumulating unverified code or over-committing to complex architectures before seeing concrete tests pass, ensuring steady, predictable progress.
+- **kind:** technique
+- **source names:** addy: — · matt: `One slice at a time` · rjm: —
+- **decision:** D-310
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-one-slice-at-a-time`
+
+---
+
+## D-311 — native-blocking-edges
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-native-blocking-edges
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `native-blocking-edges`. Native blocking edges is an engineering technique for native blocking edges represent prerequisite constraints directly within the issue tracking engine, ensuring that tasks cannot be picked up until their dependencies are completed.
+
+### Adopted from
+Matt `CHANGELOG.md:185`.
+
+### Dropped
+matt defects (defects: doc-drift (external/to-tickets.md:58 records issues being created without native blocking edges; issue #513)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- native-blocking-edges-practice (less specific than canonical technique name)
+- generic-native-blocking-edges (fails to reflect source methodology)
+
+### Evidence
+Matt `CHANGELOG.md:185`.
+
+### Glossary
+### native-blocking-edges
+
+- **definition:** Native blocking edges is an engineering technique for native blocking edges represent prerequisite constraints directly within the issue tracking engine, ensuring that tasks cannot be picked up until their dependencies are completed.
+- **kind:** technique
+- **source names:** addy: — · matt: `native blocking edges` · rjm: —
+- **decision:** D-311
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-native-blocking-edges`
+
+---
+
+## D-312 — improve-codebase-architecture
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-improve-codebase-architecture
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `improve-codebase-architecture`. Improve codebase architecture is an architectural survey skill that identifies opportunities to turn shallow modules into deep modules (hiding complexity behind simpler interfaces). Applying Ousterhout's philosophy and a strict "deletion test" (concentrating vs. spreading complexity), it acts as an advisory survey producing an external HTML report and interactive dialogue, deliberately leaving code modification to subsequent separate sessions.
+
+### Adopted from
+Matt `docs/engineering/improve-codebase-architecture.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- improve-codebase-architecture-practice (less specific than canonical technique name)
+- generic-improve-codebase-architecture (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/improve-codebase-architecture.md:3`.
+
+### Glossary
+### improve-codebase-architecture
+
+- **definition:** Improve codebase architecture is an architectural survey skill that identifies opportunities to turn shallow modules into deep modules (hiding complexity behind simpler interfaces). Applying Ousterhout's philosophy and a strict "deletion test" (concentrating vs. spreading complexity), it acts as an advisory survey producing an external HTML report and interactive dialogue, deliberately leaving code modification to subsequent separate sessions.
+- **kind:** technique
+- **source names:** addy: — · matt: `improve-codebase-architecture` · rjm: —
+- **decision:** D-312
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-improve-codebase-architecture`
+
+---
+
+## D-313 — tracer-bullet
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-tracer-bullet
+- **preferences consulted:** PREFERENCES.md § Approach and § Depth prioritize thin vertical slices / tracer-bullet vertical slices; followed by adopting this scoped slicing technique.
+
+### Decision
+The canonical term for this technique is `tracer-bullet`. Tracer bullet is a core decomposition principle in Matt Pocock's methodology where units of work cut vertically through every layer of the system (database, domain logic, API, UI, tests) rather than horizontally by technical tier. Each tracer bullet proves an end-to-end path immediately, enabling continuous validation and sizing work to fit safely inside a single fresh context window.
+
+### Adopted from
+Matt `docs/engineering/to-tickets.md:5`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- tracer-bullet-practice (less specific than canonical technique name)
+- generic-tracer-bullet (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/to-tickets.md:5`.
+
+### Glossary
+### tracer-bullet
+
+- **definition:** Tracer bullet is a core decomposition principle in Matt Pocock's methodology where units of work cut vertically through every layer of the system (database, domain logic, API, UI, tests) rather than horizontally by technical tier. Each tracer bullet proves an end-to-end path immediately, enabling continuous validation and sizing work to fit safely inside a single fresh context window.
+- **kind:** technique
+- **source names:** addy: — · matt: `tracer bullet` · rjm: —
+- **decision:** D-313
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-tracer-bullet`
+
+---
+
+## D-314 — teaching-decision
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-teaching-decision
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `teaching-decision`. Teaching decision is a teaching decision represents any pedagogical choice made by the agent—determining next topic, selecting resources, or designing exercises. The package requires all such decisions to be anchored in MISSION.md, ensuring that learning activities remain tightly coupled to the user's real-world outcome rather than arbitrary curriculum progression.
+
+### Adopted from
+Matt `skills/productivity/teach/MISSION-FORMAT.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- teaching-decision-practice (less specific than canonical technique name)
+- generic-teaching-decision (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/teach/MISSION-FORMAT.md:3`.
+
+### Glossary
+### teaching-decision
+
+- **definition:** Teaching decision is a teaching decision represents any pedagogical choice made by the agent—determining next topic, selecting resources, or designing exercises. The package requires all such decisions to be anchored in MISSION.md, ensuring that learning activities remain tightly coupled to the user's real-world outcome rather than arbitrary curriculum progression.
+- **kind:** technique
+- **source names:** addy: — · matt: `teaching decision` · rjm: —
+- **decision:** D-314
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-teaching-decision`
+
+---
+
+## D-315 — anti-rationalization-guards
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-anti-rationalization-guards
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `anti-rationalization-guards`. Anti rationalization guards is an engineering technique for anti-rationalization guards explicitly enumerate common cognitive excuses coding agents use to skip tests or reviews, proactively dismantling these rationalizations before the agent can act on them.
+
+### Adopted from
+Addy `docs/comparison.md:11`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- anti-rationalization-guards-practice (less specific than canonical technique name)
+- generic-anti-rationalization-guards (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/comparison.md:11`.
+
+### Glossary
+### anti-rationalization-guards
+
+- **definition:** Anti rationalization guards is an engineering technique for anti-rationalization guards explicitly enumerate common cognitive excuses coding agents use to skip tests or reviews, proactively dismantling these rationalizations before the agent can act on them.
+- **kind:** technique
+- **source names:** addy: `anti-rationalization guards` · matt: — · rjm: —
+- **decision:** D-315
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-anti-rationalization-guards`
+
+---
+
+## D-316 — to-tickets
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-to-tickets
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `to-tickets`. To tickets is an engineering technique that breaks complex specifications or plans into independently buildable and verifiable vertical slices ("tracer bullets"). By enforcing vertical cuts through all architecture layers (rather than horizontal slicing by layer) and capturing explicit dependency edges, it generates tasks optimized for single-session agent execution without mid-task blocked states.
+
+### Adopted from
+Matt `.agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md:7`.
+
+### Dropped
+matt defects (defects: missing-path (cites non-existent `commands/setup-matt-pocock-skills.md` in skill body).) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- to-tickets-practice (less specific than canonical technique name)
+- generic-to-tickets (fails to reflect source methodology)
+
+### Evidence
+Matt `.agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md:7`.
+
+### Glossary
+### to-tickets
+
+- **definition:** To tickets is an engineering technique that breaks complex specifications or plans into independently buildable and verifiable vertical slices ("tracer bullets"). By enforcing vertical cuts through all architecture layers (rather than horizontal slicing by layer) and capturing explicit dependency edges, it generates tasks optimized for single-session agent execution without mid-task blocked states.
+- **kind:** technique
+- **source names:** addy: — · matt: `to-tickets` · rjm: —
+- **decision:** D-316
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-to-tickets`
+
+---
+
+## D-317 — perf-branch
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-perf-branch
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `perf-branch`. Perf branch is a specialized diagnostic branch in the bug diagnosis workflow that prescribes baseline measurement and bisection instead of log-based debugging for performance regressions.
+
+### Adopted from
+Matt `skills/engineering/diagnosing-bugs/SKILL.md:112`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- perf-branch-practice (less specific than canonical technique name)
+- generic-perf-branch (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/diagnosing-bugs/SKILL.md:112`.
+
+### Glossary
+### perf-branch
+
+- **definition:** Perf branch is a specialized diagnostic branch in the bug diagnosis workflow that prescribes baseline measurement and bisection instead of log-based debugging for performance regressions.
+- **kind:** technique
+- **source names:** addy: — · matt: `Perf branch` · rjm: —
+- **decision:** D-317
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-perf-branch`
+
+---
+
+## D-318 — prefactoring
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-prefactoring
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `prefactoring`. Prefactoring is the practice of refactoring existing code prior to introducing new features, adhering to Kent Beck's maxim: "Make the change easy, then make the easy change." In `to-tickets`, prefactoring tickets are scheduled first in the dependency graph so that architectural friction is eliminated in standalone, behavior-preserving commits before behavioral feature tickets are attempted.
+
+### Adopted from
+Matt `docs/engineering/to-tickets.md:31`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- prefactoring-practice (less specific than canonical technique name)
+- generic-prefactoring (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/to-tickets.md:31`.
+
+### Glossary
+### prefactoring
+
+- **definition:** Prefactoring is the practice of refactoring existing code prior to introducing new features, adhering to Kent Beck's maxim: "Make the change easy, then make the easy change." In `to-tickets`, prefactoring tickets are scheduled first in the dependency graph so that architectural friction is eliminated in standalone, behavior-preserving commits before behavioral feature tickets are attempted.
+- **kind:** technique
+- **source names:** addy: — · matt: `prefactoring` · rjm: —
+- **decision:** D-318
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prefactoring`
+
+---
+
+## D-319 — incremental-implementation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#incremental-implementation
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `incremental-implementation`. Incremental implementation is an iterative engineering technique that breaks tasks into small, test-verified diffs committing working code continuously with immediate regression feedback.
+
+### Adopted from
+Addy `README.md:249`; Matt `docs/engineering/implement.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- incremental-implementation-practice (less specific than canonical technique name)
+- generic-incremental-implementation (fails to reflect source methodology)
+
+### Evidence
+Addy `README.md:249`; Matt `docs/engineering/implement.md:3`.
+
+### Glossary
+### incremental-implementation
+
+- **definition:** Incremental implementation is an iterative engineering technique that breaks tasks into small, test-verified diffs committing working code continuously with immediate regression feedback.
+- **kind:** technique
+- **source names:** addy: `incremental-implementation` · matt: `implement` · rjm: —
+- **decision:** D-319
+- **concordance:** `docs/analysis/concordance/techniques.md#incremental-implementation`
+
+---
+
+## D-320 — surface-assumptions
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-surface-assumptions
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `surface-assumptions`. Surface assumptions is an operational guardrail requiring agents to explicitly enumerate their assumptions about requirements, architecture, and scope before writing code, preventing costly rework caused by silent, unchecked misunderstandings.
+
+### Adopted from
+Addy `skills/using-agent-skills/SKILL.md:51`.
+
+### Dropped
+addy defects (defects: cross-file-contradiction, internal-contradiction, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- surface-assumptions-practice (less specific than canonical technique name)
+- generic-surface-assumptions (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/using-agent-skills/SKILL.md:51`.
+
+### Glossary
+### surface-assumptions
+
+- **definition:** Surface assumptions is an operational guardrail requiring agents to explicitly enumerate their assumptions about requirements, architecture, and scope before writing code, preventing costly rework caused by silent, unchecked misunderstandings.
+- **kind:** technique
+- **source names:** addy: `Surface Assumptions` · matt: — · rjm: —
+- **decision:** D-320
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-surface-assumptions`
+
+---
+
+## D-321 — push-back-when-warranted
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-push-back-when-warranted
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `push-back-when-warranted`. Push back when warranted is an anti-sycophancy directive instructing agents to voice honest technical objections and provide quantified tradeoffs when a proposed approach is flawed, prioritizing genuine software quality over agreeable compliance.
+
+### Adopted from
+Addy `skills/using-agent-skills/SKILL.md:75`.
+
+### Dropped
+addy defects (defects: cross-file-contradiction, internal-contradiction, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- push-back-when-warranted-practice (less specific than canonical technique name)
+- generic-push-back-when-warranted (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/using-agent-skills/SKILL.md:75`.
+
+### Glossary
+### push-back-when-warranted
+
+- **definition:** Push back when warranted is an anti-sycophancy directive instructing agents to voice honest technical objections and provide quantified tradeoffs when a proposed approach is flawed, prioritizing genuine software quality over agreeable compliance.
+- **kind:** technique
+- **source names:** addy: `Push Back When Warranted` · matt: — · rjm: —
+- **decision:** D-321
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-push-back-when-warranted`
+
+---
+
+## D-322 — worktree
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-worktree
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `worktree`. Worktree is the git worktree isolation mechanism used by implement-spec to enable concurrent background subagent execution. Allocating an independent worktree to each implementer subagent prevents git lock contention, working directory collisions, and intermediate state interference during parallel ticket execution.
+
+### Adopted from
+Matt `skills/in-progress/implement-spec/SKILL.md:25`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- worktree-practice (less specific than canonical technique name)
+- generic-worktree (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/implement-spec/SKILL.md:25`.
+
+### Glossary
+### worktree
+
+- **definition:** Worktree is the git worktree isolation mechanism used by implement-spec to enable concurrent background subagent execution. Allocating an independent worktree to each implementer subagent prevents git lock contention, working directory collisions, and intermediate state interference during parallel ticket execution.
+- **kind:** technique
+- **source names:** addy: — · matt: `worktree` · rjm: —
+- **decision:** D-322
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-worktree`
+
+---
+
+## D-323 — replayed-capture
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-replayed-capture
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `replayed-capture`. Replayed capture is a diagnostic technique that isolates bugs by re-running saved production artifacts through code paths in local isolation. It avoids the friction of mocking complex upstream dependencies while retaining realistic error triggers.
+
+### Adopted from
+Matt `external/diagnosing-bugs.md:38`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- replayed-capture-practice (less specific than canonical technique name)
+- generic-replayed-capture (fails to reflect source methodology)
+
+### Evidence
+Matt `external/diagnosing-bugs.md:38`.
+
+### Glossary
+### replayed-capture
+
+- **definition:** Replayed capture is a diagnostic technique that isolates bugs by re-running saved production artifacts through code paths in local isolation. It avoids the friction of mocking complex upstream dependencies while retaining realistic error triggers.
+- **kind:** technique
+- **source names:** addy: — · matt: `replayed capture` · rjm: —
+- **decision:** D-323
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-replayed-capture`
+
+---
+
+## D-324 — context-pointers
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-context-pointers
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `context-pointers`. Context pointers is the foundational architectural mechanism for managing LLM context windows. By placing concise, high-salience pointers in persistent context that specify when and why to load external documents, agents can navigate deep project knowledge without saturating working memory.
+
+### Adopted from
+Matt `skills/productivity/writing-for-agents/SKILL.md:12`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- context-pointers-practice (less specific than canonical technique name)
+- generic-context-pointers (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/writing-for-agents/SKILL.md:12`.
+
+### Glossary
+### context-pointers
+
+- **definition:** Context pointers is the foundational architectural mechanism for managing LLM context windows. By placing concise, high-salience pointers in persistent context that specify when and why to load external documents, agents can navigate deep project knowledge without saturating working memory.
+- **kind:** technique
+- **source names:** addy: — · matt: `Context pointers` · rjm: —
+- **decision:** D-324
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-context-pointers`
+
+---
+
+## D-325 — recommendation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-recommendation
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `recommendation`. Recommendation is the recommendation technique requires the agent to propose a concrete, reasoned answer alongside every question it poses. This accelerates human decision-making by allowing users to answer by number ("1 yes, 2 second option") rather than drafting detailed responses from scratch.
+
+### Adopted from
+Matt `external/grilling.md:34`.
+
+### Dropped
+matt defects (defects: orphan, doc-drift, other) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- recommendation-practice (less specific than canonical technique name)
+- generic-recommendation (fails to reflect source methodology)
+
+### Evidence
+Matt `external/grilling.md:34`.
+
+### Glossary
+### recommendation
+
+- **definition:** Recommendation is the recommendation technique requires the agent to propose a concrete, reasoned answer alongside every question it poses. This accelerates human decision-making by allowing users to answer by number ("1 yes, 2 second option") rather than drafting detailed responses from scratch.
+- **kind:** technique
+- **source names:** addy: — · matt: `recommendation` · rjm: —
+- **decision:** D-325
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-recommendation`
+
+---
+
+## D-326 — red-green
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-red-green
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `red-green`. Red green is an engineering technique for `Red-green` is Matt's streamlined adaptation of classical test-driven development for AI coding agents. Observing that agents routinely fail to execute nuanced refactorings in the middle of implementation, Matt's lifecycle explicitly decouples the red-green authoring loop from refactoring. Developers and agents write a failing test and just enough code to satisfy it, deferring code cleanup and architectural refactoring to a dedicated `code-review` session.
+
+### Adopted from
+Matt `docs/engineering/tdd.md:31`.
+
+### Dropped
+matt defects (defects: doc-drift (docs/engineering/tdd.md:51 where the skill description still promises "red-green-refactor" while the execution loop has been streamlined to red-green)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- red-green-practice (less specific than canonical technique name)
+- generic-red-green (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/tdd.md:31`.
+
+### Glossary
+### red-green
+
+- **definition:** Red green is an engineering technique for `Red-green` is Matt's streamlined adaptation of classical test-driven development for AI coding agents. Observing that agents routinely fail to execute nuanced refactorings in the middle of implementation, Matt's lifecycle explicitly decouples the red-green authoring loop from refactoring. Developers and agents write a failing test and just enough code to satisfy it, deferring code cleanup and architectural refactoring to a dedicated `code-review` session.
+- **kind:** technique
+- **source names:** addy: — · matt: `Red-green` · rjm: —
+- **decision:** D-326
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-red-green`
+
+---
+
+## D-327 — background-worktrees
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-background-worktrees
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `background-worktrees`. Background worktrees is the filesystem and version control isolation technique enabling parallel agent execution. Running multiple autonomous agents in a single shared checkout leads to git index lock errors, HEAD contention, and stash collisions; background worktrees give each subagent an independent working tree linked to the same repository.
+
+### Adopted from
+Matt `.changeset/add-implement-spec-skill.md:5`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- background-worktrees-practice (less specific than canonical technique name)
+- generic-background-worktrees (fails to reflect source methodology)
+
+### Evidence
+Matt `.changeset/add-implement-spec-skill.md:5`.
+
+### Glossary
+### background-worktrees
+
+- **definition:** Background worktrees is the filesystem and version control isolation technique enabling parallel agent execution. Running multiple autonomous agents in a single shared checkout leads to git index lock errors, HEAD contention, and stash collisions; background worktrees give each subagent an independent working tree linked to the same repository.
+- **kind:** technique
+- **source names:** addy: — · matt: `background worktrees` · rjm: —
+- **decision:** D-327
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-background-worktrees`
+
+---
+
+## D-328 — variant
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-variant
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `variant`. Variant is a query-parameter switching technique that enables rapid switching between radically different UI layout prototypes on a single production route, ensuring variants are evaluated against real layout density and live data rather than in an isolated vacuum.
+
+### Adopted from
+Matt `external/prototype.md:35`.
+
+### Dropped
+matt defects (defects: orphan (external/prototype.md:1), doc-drift (external/prototype.md:44)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- variant-practice (less specific than canonical technique name)
+- generic-variant (fails to reflect source methodology)
+
+### Evidence
+Matt `external/prototype.md:35`.
+
+### Glossary
+### variant
+
+- **definition:** Variant is a query-parameter switching technique that enables rapid switching between radically different UI layout prototypes on a single production route, ensuring variants are evaluated against real layout density and live data rather than in an isolated vacuum.
+- **kind:** technique
+- **source names:** addy: — · matt: `?variant=` · rjm: —
+- **decision:** D-328
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-variant`
+
+---
+
+## D-329 — depth-as-leverage
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-depth-as-leverage
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `depth-as-leverage`. Depth as leverage is an architectural evaluation technique in Matt Pocock's codebase-design framework. While John Ousterhout originally defined module depth as the ratio of lines of implementation code to lines of interface specification, codebase-design rejects that formula because it incentivizes bloated implementations. Instead, depth-as-leverage defines depth as the amount of capability, safety, and functionality callers or tests can exercise per unit of interface surface they must learn.
+
+### Adopted from
+Matt `external/codebase-design.md:35`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- depth-as-leverage-practice (less specific than canonical technique name)
+- generic-depth-as-leverage (fails to reflect source methodology)
+
+### Evidence
+Matt `external/codebase-design.md:35`.
+
+### Glossary
+### depth-as-leverage
+
+- **definition:** Depth as leverage is an architectural evaluation technique in Matt Pocock's codebase-design framework. While John Ousterhout originally defined module depth as the ratio of lines of implementation code to lines of interface specification, codebase-design rejects that formula because it incentivizes bloated implementations. Instead, depth-as-leverage defines depth as the amount of capability, safety, and functionality callers or tests can exercise per unit of interface surface they must learn.
+- **kind:** technique
+- **source names:** addy: — · matt: `depth-as-leverage` · rjm: —
+- **decision:** D-329
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-depth-as-leverage`
+
+---
+
+## D-330 — codebase-terminology
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-codebase-terminology
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `codebase-terminology`. Codebase terminology is an engineering technique for in Matt's toolkit, codebase terminology represents the shared vocabulary and naming conventions embedded within project code and documentation. Triggering domain-modeling on discussions of codebase terminology ensures that ambiguous or overloaded terms are pinned down and recorded inline in CONTEXT.md before code is written.
+
+### Adopted from
+Matt `.changeset/domain-modeling-trigger-context-adr.md:5`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- codebase-terminology-practice (less specific than canonical technique name)
+- generic-codebase-terminology (fails to reflect source methodology)
+
+### Evidence
+Matt `.changeset/domain-modeling-trigger-context-adr.md:5`.
+
+### Glossary
+### codebase-terminology
+
+- **definition:** Codebase terminology is an engineering technique for in Matt's toolkit, codebase terminology represents the shared vocabulary and naming conventions embedded within project code and documentation. Triggering domain-modeling on discussions of codebase terminology ensures that ambiguous or overloaded terms are pinned down and recorded inline in CONTEXT.md before code is written.
+- **kind:** technique
+- **source names:** addy: — · matt: `codebase terminology` · rjm: —
+- **decision:** D-330
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-codebase-terminology`
+
+---
+
+## D-331 — resolving-merge-conflicts
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-resolving-merge-conflicts
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `resolving-merge-conflicts`. Resolving merge conflicts is an engineering technique for `resolving-merge-conflicts` approaches git conflict resolution as an intent-reconciliation problem rather than a syntactic text-editing task. It forbids blind resolution flags like `--ours` or `--theirs` and disallows `--abort`, insisting that the agent inspect primary sources (commit messages, PR discussions, and issue trackers) on both sides of each hunk. By requiring that the repository's native automated checks (typecheck, tests, format) run before committing, it prevents the introduction of code that looks syntactically harmonious but breaks runtime contracts.
+
+### Adopted from
+Matt `docs/engineering/resolving-merge-conflicts.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- resolving-merge-conflicts-practice (less specific than canonical technique name)
+- generic-resolving-merge-conflicts (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/resolving-merge-conflicts.md:3`.
+
+### Glossary
+### resolving-merge-conflicts
+
+- **definition:** Resolving merge conflicts is an engineering technique for `resolving-merge-conflicts` approaches git conflict resolution as an intent-reconciliation problem rather than a syntactic text-editing task. It forbids blind resolution flags like `--ours` or `--theirs` and disallows `--abort`, insisting that the agent inspect primary sources (commit messages, PR discussions, and issue trackers) on both sides of each hunk. By requiring that the repository's native automated checks (typecheck, tests, format) run before committing, it prevents the introduction of code that looks syntactically harmonious but breaks runtime contracts.
+- **kind:** technique
+- **source names:** addy: — · matt: `resolving-merge-conflicts` · rjm: —
+- **decision:** D-331
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-resolving-merge-conflicts`
+
+---
+
+## D-332 — desirable-difficulty
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-desirable-difficulty
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `desirable-difficulty`. Desirable difficulty is an engineering technique for desirable difficulty is the pedagogical principle that learning tasks should be intentionally challenging to deepen encoding. The teach skill applies difficulty strategically: keeping initial knowledge acquisition frictionless to preserve working memory, while introducing calibrated difficulty during quizzes and drills to solidify storage strength.
+
+### Adopted from
+Matt `docs/productivity/teach.md:42`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- desirable-difficulty-practice (less specific than canonical technique name)
+- generic-desirable-difficulty (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/productivity/teach.md:42`.
+
+### Glossary
+### desirable-difficulty
+
+- **definition:** Desirable difficulty is an engineering technique for desirable difficulty is the pedagogical principle that learning tasks should be intentionally challenging to deepen encoding. The teach skill applies difficulty strategically: keeping initial knowledge acquisition frictionless to preserve working memory, while introducing calibrated difficulty during quizzes and drills to solidify storage strength.
+- **kind:** technique
+- **source names:** addy: — · matt: `desirable difficulty` · rjm: —
+- **decision:** D-332
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-desirable-difficulty`
+
+---
+
+## D-333 — diagnosing-bugs
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-diagnosing-bugs
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `diagnosing-bugs`. Diagnosing bugs is an engineering skill enforcing a rigorous six-phase scientific debugging discipline. It strictly prohibits speculative code modifications by gating hypothesis formation behind an executable, reproducible tight feedback loop (a single command that goes red on the failure and green on resolution).
+
+### Adopted from
+Matt `docs/engineering/diagnosing-bugs.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- diagnosing-bugs-practice (less specific than canonical technique name)
+- generic-diagnosing-bugs (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/diagnosing-bugs.md:3`.
+
+### Glossary
+### diagnosing-bugs
+
+- **definition:** Diagnosing bugs is an engineering skill enforcing a rigorous six-phase scientific debugging discipline. It strictly prohibits speculative code modifications by gating hypothesis formation behind an executable, reproducible tight feedback loop (a single command that goes red on the failure and green on resolution).
+- **kind:** technique
+- **source names:** addy: — · matt: `diagnosing-bugs` · rjm: —
+- **decision:** D-333
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-diagnosing-bugs`
+
+---
+
+## D-334 — prefactor
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-prefactor
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `prefactor`. Prefactor is an engineering technique for prefactoring embodies the principle "Make the change easy, then make the easy change." Rather than tangling structural adjustments with new feature logic within a single ticket or commit, prefactoring isolates preparatory restructuring into dedicated prerequisite tickets. This keeps diffs clean, lowers cognitive load, and ensures that when new functionality is introduced, the codebase already accommodates it cleanly.
+
+### Adopted from
+Matt `skills/engineering/to-tickets/SKILL.md:23`.
+
+### Dropped
+matt defects (defects: missing-path (skills/engineering/to-tickets/SKILL.md:11 missing setup command)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- prefactor-practice (less specific than canonical technique name)
+- generic-prefactor (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/to-tickets/SKILL.md:23`.
+
+### Glossary
+### prefactor
+
+- **definition:** Prefactor is an engineering technique for prefactoring embodies the principle "Make the change easy, then make the easy change." Rather than tangling structural adjustments with new feature logic within a single ticket or commit, prefactoring isolates preparatory restructuring into dedicated prerequisite tickets. This keeps diffs clean, lowers cognitive load, and ensures that when new functionality is introduced, the codebase already accommodates it cleanly.
+- **kind:** technique
+- **source names:** addy: — · matt: `prefactor` · rjm: —
+- **decision:** D-334
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prefactor`
+
+---
+
+## D-335 — git-guardrails-claude-code
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-git-guardrails-claude-code
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `git-guardrails-claude-code`. Git guardrails claude code is an interactive setup procedure and skill in the misc bucket that installs an executable PreToolUse hook to intercept dangerous git commands (push, reset --hard, clean, branch -D) before Claude Code executes them. It ensures automated agents cannot inadvertently perform destructive repository mutations or data loss.
+
+### Adopted from
+Matt `skills/misc/git-guardrails-claude-code/SKILL.md:8`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- git-guardrails-claude-code-practice (less specific than canonical technique name)
+- generic-git-guardrails-claude-code (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/git-guardrails-claude-code/SKILL.md:8`.
+
+### Glossary
+### git-guardrails-claude-code
+
+- **definition:** Git guardrails claude code is an interactive setup procedure and skill in the misc bucket that installs an executable PreToolUse hook to intercept dangerous git commands (push, reset --hard, clean, branch -D) before Claude Code executes them. It ensures automated agents cannot inadvertently perform destructive repository mutations or data loss.
+- **kind:** technique
+- **source names:** addy: — · matt: `git-guardrails-claude-code` · rjm: —
+- **decision:** D-335
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-git-guardrails-claude-code`
+
+---
+
+## D-336 — six-phase-diagnosis
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-six-phase-diagnosis
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `six-phase-diagnosis`. Six phase diagnosis is the core diagnostic methodology in Matt Pocock's diagnosing-bugs skill. It enforces a strict, gated sequence of six phases: (1) build a tight reproduction loop, (2) minimize reproduction code/time, (3) formulate and rank falsifiable hypotheses, (4) add targeted temporary instrumentation, (5) implement the fix with a regression test, and (6) clean up temporary probes. The methodology prevents agents from prematurely editing code or guessing theories before establishing an automated red-green verification signal.
+
+### Adopted from
+Matt `external/diagnosing-bugs.md:25`.
+
+### Dropped
+matt defects (defects: doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- six-phase-diagnosis-practice (less specific than canonical technique name)
+- generic-six-phase-diagnosis (fails to reflect source methodology)
+
+### Evidence
+Matt `external/diagnosing-bugs.md:25`.
+
+### Glossary
+### six-phase-diagnosis
+
+- **definition:** Six phase diagnosis is the core diagnostic methodology in Matt Pocock's diagnosing-bugs skill. It enforces a strict, gated sequence of six phases: (1) build a tight reproduction loop, (2) minimize reproduction code/time, (3) formulate and rank falsifiable hypotheses, (4) add targeted temporary instrumentation, (5) implement the fix with a regression test, and (6) clean up temporary probes. The methodology prevents agents from prematurely editing code or guessing theories before establishing an automated red-green verification signal.
+- **kind:** technique
+- **source names:** addy: — · matt: `six-phase diagnosis` · rjm: —
+- **decision:** D-336
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-six-phase-diagnosis`
+
+---
+
+## D-337 — git-bisect-run
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-git-bisect-run
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `git-bisect-run`. Git bisect run is the standard git binary search command used to automate regression identification. Matt's lifecycle treats running git bisect as downstream mechanical work that becomes trivial once a reliable test harness exists.
+
+### Adopted from
+Matt `external/diagnosing-bugs.md:41`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- git-bisect-run-practice (less specific than canonical technique name)
+- generic-git-bisect-run (fails to reflect source methodology)
+
+### Evidence
+Matt `external/diagnosing-bugs.md:41`.
+
+### Glossary
+### git-bisect-run
+
+- **definition:** Git bisect run is the standard git binary search command used to automate regression identification. Matt's lifecycle treats running git bisect as downstream mechanical work that becomes trivial once a reliable test harness exists.
+- **kind:** technique
+- **source names:** addy: — · matt: `git bisect run` · rjm: —
+- **decision:** D-337
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-git-bisect-run`
+
+---
+
+## D-338 — bisection-harness
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-bisection-harness
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `bisection-harness`. Bisection harness is an automated script harness that tests a checkout state and returns a clean exit code for `git bisect run`. In Matt's methodology, constructing this harness turns historical regression isolation into purely mechanical execution.
+
+### Adopted from
+Matt `external/diagnosing-bugs.md:41`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- bisection-harness-practice (less specific than canonical technique name)
+- generic-bisection-harness (fails to reflect source methodology)
+
+### Evidence
+Matt `external/diagnosing-bugs.md:41`.
+
+### Glossary
+### bisection-harness
+
+- **definition:** Bisection harness is an automated script harness that tests a checkout state and returns a clean exit code for `git bisect run`. In Matt's methodology, constructing this harness turns historical regression isolation into purely mechanical execution.
+- **kind:** technique
+- **source names:** addy: — · matt: `bisection harness` · rjm: —
+- **decision:** D-338
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-bisection-harness`
+
+---
+
+## D-339 — git-worktree-isolation-technique
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-git-worktrees
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `git-worktree-isolation-technique`. Git worktree isolation technique is an engineering technique for git worktrees allow multiple working trees to be attached to a single repository checkout. In agent workflows, they provide isolation for concurrent coding agents working on different tickets simultaneously, though Matt notes that shared refs (such as stashes) still require careful handling.
+
+### Adopted from
+Matt `external/implement.md:52`.
+
+### Dropped
+matt defects (defects: orphan, doc-drift, cross-file-contradiction, other) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- git-worktree-isolation-technique-practice (less specific than canonical technique name)
+- generic-git-worktree-isolation (fails to reflect source methodology)
+
+### Evidence
+Matt `external/implement.md:52`.
+
+### Glossary
+### git-worktree-isolation-technique
+
+- **definition:** Git worktree isolation technique is an engineering technique for git worktrees allow multiple working trees to be attached to a single repository checkout. In agent workflows, they provide isolation for concurrent coding agents working on different tickets simultaneously, though Matt notes that shared refs (such as stashes) still require careful handling.
+- **kind:** technique
+- **source names:** addy: — · matt: `Git worktrees` · rjm: —
+- **decision:** D-339
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-git-worktrees`
+
+---
+
+## D-340 — scoping
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-scoping
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `scoping`. Scoping is an engineering technique for `scoping` grounds wizard creation in repository evidence. Rather than asking developers open-ended questions about what configuration is required, scoping inspects existing workflow files and configuration schemas to automatically deduce what variables and secrets must be produced.
+
+### Adopted from
+Matt `docs/engineering/wizard.md:30`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- scoping-practice (less specific than canonical technique name)
+- generic-scoping (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/wizard.md:30`.
+
+### Glossary
+### scoping
+
+- **definition:** Scoping is an engineering technique for `scoping` grounds wizard creation in repository evidence. Rather than asking developers open-ended questions about what configuration is required, scoping inspects existing workflow files and configuration schemas to automatically deduce what variables and secrets must be produced.
+- **kind:** technique
+- **source names:** addy: — · matt: `scoping` · rjm: —
+- **decision:** D-340
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-scoping`
+
+---
+
+## D-341 — set-var
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-set-var
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `set-var`. Set var is a bash helper function in the wizard template library that automates setting non-secret GitHub Actions variables using the GitHub CLI (`gh variable set`), with graceful degradation to a skip list and manual instructions if `gh` is unavailable or unauthenticated.
+
+### Adopted from
+Matt `skills/engineering/wizard/template.sh:156`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- set-var-practice (less specific than canonical technique name)
+- generic-set-var (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/template.sh:156`.
+
+### Glossary
+### set-var
+
+- **definition:** Set var is a bash helper function in the wizard template library that automates setting non-secret GitHub Actions variables using the GitHub CLI (`gh variable set`), with graceful degradation to a skip list and manual instructions if `gh` is unavailable or unauthenticated.
+- **kind:** technique
+- **source names:** addy: — · matt: `set_var` · rjm: —
+- **decision:** D-341
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-set-var`
+
+---
+
+## D-342 — parallel-worktrees
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-parallel-worktrees
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `parallel-worktrees`. Parallel worktrees is the practice of running multiple concurrent agent sessions in isolated git worktrees. To prevent loss of intent during branch reconciliation, matt emphasizes that the session that authored the changes in a worktree should perform the merge back, rather than batching all conflicts onto a separate agent lacking author context.
+
+### Adopted from
+Matt `external/resolving-merge-conflicts.md:39`.
+
+### Dropped
+matt defects (defects: orphan (external/resolving-merge-conflicts.md:1), doc-drift (external/resolving-merge-conflicts.md:28), doc-drift (external/resolving-merge-conflicts.md:30)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- parallel-worktrees-practice (less specific than canonical technique name)
+- generic-parallel-worktrees (fails to reflect source methodology)
+
+### Evidence
+Matt `external/resolving-merge-conflicts.md:39`.
+
+### Glossary
+### parallel-worktrees
+
+- **definition:** Parallel worktrees is the practice of running multiple concurrent agent sessions in isolated git worktrees. To prevent loss of intent during branch reconciliation, matt emphasizes that the session that authored the changes in a worktree should perform the merge back, rather than batching all conflicts onto a separate agent lacking author context.
+- **kind:** technique
+- **source names:** addy: — · matt: `parallel worktrees` · rjm: —
+- **decision:** D-342
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-parallel-worktrees`
+
+---
+
+## D-343 — refactoring
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-refactoring
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `refactoring`. Refactoring is the discipline of restructuring software internals without changing external observable behavior. In Matt Pocock's methodology, refactoring was explicitly decoupled from the classic red-green-refactor TDD inner loop in June 2026. Because coding agents struggled to execute refactoring mid-implementation and authoring sessions suffer from confirmation bias, refactoring is treated as an independent downstream activity driven by code-review and dedicated improvement skills in separate sessions.
+
+### Adopted from
+Matt `external/code-review.md:44`.
+
+### Dropped
+matt defects (defects: doc-drift, other) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- refactoring-practice (less specific than canonical technique name)
+- generic-refactoring (fails to reflect source methodology)
+
+### Evidence
+Matt `external/code-review.md:44`.
+
+### Glossary
+### refactoring
+
+- **definition:** Refactoring is the discipline of restructuring software internals without changing external observable behavior. In Matt Pocock's methodology, refactoring was explicitly decoupled from the classic red-green-refactor TDD inner loop in June 2026. Because coding agents struggled to execute refactoring mid-implementation and authoring sessions suffer from confirmation bias, refactoring is treated as an independent downstream activity driven by code-review and dedicated improvement skills in separate sessions.
+- **kind:** technique
+- **source names:** addy: — · matt: `Refactoring` · rjm: —
+- **decision:** D-343
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-refactoring`
+
+---
+
+## D-344 — characterization-testing
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#characterization-testing
+- **preferences consulted:** PREFERENCES.md § References highlights testing-patterns.md and verification rigor; followed by adopting this testing technique.
+
+### Decision
+The canonical term for this technique is `characterization-testing`. Characterization testing is a verification technique that captures the existing behavior of legacy or complex code before making changes to guarantee bug-for-bug behavioral parity.
+
+### Adopted from
+Addy `docs/adoption-guide.md:90`; RJM `.claude/skills/software-engineering-library/references/working-with-legacy-code.md:24`.
+
+### Dropped
+rjm defects (defects: internal-contradiction) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- characterization-testing-practice (less specific than canonical technique name)
+- generic-characterization-testing (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/adoption-guide.md:90`; RJM `.claude/skills/software-engineering-library/references/working-with-legacy-code.md:24`.
+
+### Glossary
+### characterization-testing
+
+- **definition:** Characterization testing is a verification technique that captures the existing behavior of legacy or complex code before making changes to guarantee bug-for-bug behavioral parity.
+- **kind:** technique
+- **source names:** addy: `characterization tests` · matt: — · rjm: `Characterization test`
+- **decision:** D-344
+- **concordance:** `docs/analysis/concordance/techniques.md#characterization-testing`
+
+---
+
+## D-345 — sandbox-mode
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-sandbox-mode
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `sandbox-mode`. Sandbox mode is an engineering technique for sandbox mode enforces platform-level permission restrictions on agent shell execution, providing safety guardrails against accidental or malicious system damage during automated runs.
+
+### Adopted from
+Addy `docs/antigravity-setup.md:110`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- sandbox-mode-practice (less specific than canonical technique name)
+- generic-sandbox-mode (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/antigravity-setup.md:110`.
+
+### Glossary
+### sandbox-mode
+
+- **definition:** Sandbox mode is an engineering technique for sandbox mode enforces platform-level permission restrictions on agent shell execution, providing safety guardrails against accidental or malicious system damage during automated runs.
+- **kind:** technique
+- **source names:** addy: `Sandbox Mode` · matt: — · rjm: —
+- **decision:** D-345
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-sandbox-mode`
+
+---
+
+## D-346 — competing-hypothesis-debugging
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-competing-hypothesis-debugging
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `competing-hypothesis-debugging`. Competing hypothesis debugging is an engineering technique for competing-hypothesis debugging is an adversarial investigative technique leveraging Agent Teams for complex production defect analysis. Rather than allowing a single agent to fixate on the first plausible explanation, multiple specialized personas concurrently explore competing root-cause hypotheses and actively attempt to disprove each other's theories, ensuring that the surviving explanation is empirically verified before fixes are attempted.
+
+### Adopted from
+Addy `references/orchestration-patterns.md:174`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- competing-hypothesis-debugging-practice (less specific than canonical technique name)
+- generic-competing-hypothesis-debugging (fails to reflect source methodology)
+
+### Evidence
+Addy `references/orchestration-patterns.md:174`.
+
+### Glossary
+### competing-hypothesis-debugging
+
+- **definition:** Competing hypothesis debugging is an engineering technique for competing-hypothesis debugging is an adversarial investigative technique leveraging Agent Teams for complex production defect analysis. Rather than allowing a single agent to fixate on the first plausible explanation, multiple specialized personas concurrently explore competing root-cause hypotheses and actively attempt to disprove each other's theories, ensuring that the surviving explanation is empirically verified before fixes are attempted.
+- **kind:** technique
+- **source names:** addy: `competing-hypothesis debugging` · matt: — · rjm: —
+- **decision:** D-346
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-competing-hypothesis-debugging`
+
+---
+
+## D-347 — debug-logging
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-debug-logging
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `debug-logging`. Debug logging is an engineering technique for diagnostic tracing technique that logs execution events, parsed parameters, and branch decisions to a local sentinel-triggered log file without contaminating model stdout or stderr channels.
+
+### Adopted from
+Addy `hooks/sdd-cache-post.sh:22`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- debug-logging-practice (less specific than canonical technique name)
+- generic-debug-logging (fails to reflect source methodology)
+
+### Evidence
+Addy `hooks/sdd-cache-post.sh:22`.
+
+### Glossary
+### debug-logging
+
+- **definition:** Debug logging is an engineering technique for diagnostic tracing technique that logs execution events, parsed parameters, and branch decisions to a local sentinel-triggered log file without contaminating model stdout or stderr channels.
+- **kind:** technique
+- **source names:** addy: `Debug logging` · matt: — · rjm: —
+- **decision:** D-347
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-debug-logging`
+
+---
+
+## D-348 — e2e-test
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-e2e-test
+- **preferences consulted:** PREFERENCES.md § References highlights testing-patterns.md and verification rigor; followed by adopting this testing technique.
+
+### Decision
+The canonical term for this technique is `e2e-test`. E2e test is an E2E test represents the top tier of Addy's test pyramid (~5% of tests), classified as a Large test size that verifies complete end-to-end user flows across the full stack while being strictly limited to critical paths to prevent flaky, slow execution suites.
+
+### Adopted from
+Addy `skills/test-driven-development/SKILL.md:184-185`.
+
+### Dropped
+addy defects (defects: cross-file-contradiction, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- e2e-test-practice (less specific than canonical technique name)
+- generic-e2e-test (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/test-driven-development/SKILL.md:184-185`.
+
+### Glossary
+### e2e-test
+
+- **definition:** E2e test is an E2E test represents the top tier of Addy's test pyramid (~5% of tests), classified as a Large test size that verifies complete end-to-end user flows across the full stack while being strictly limited to critical paths to prevent flaky, slow execution suites.
+- **kind:** technique
+- **source names:** addy: `E2E test` · matt: — · rjm: —
+- **decision:** D-348
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-e2e-test`
+
+---
+
+## D-349 — type-assertions
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-type-assertions
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `type-assertions`. Type assertions is an engineering technique for in TypeScript, `as` type assertions force the compiler to treat a value as a specific type, bypassing static type checking. Matt's workflow flags `as` assertions in test files as a code smell and provides automated migration to safer helper libraries.
+
+### Adopted from
+Matt `skills/misc/README.md:6`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- type-assertions-practice (less specific than canonical technique name)
+- generic-type-assertions (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/README.md:6`.
+
+### Glossary
+### type-assertions
+
+- **definition:** Type assertions is an engineering technique for in TypeScript, `as` type assertions force the compiler to treat a value as a specific type, bypassing static type checking. Matt's workflow flags `as` assertions in test files as a code smell and provides automated migration to safer helper libraries.
+- **kind:** technique
+- **source names:** addy: — · matt: `type assertions` · rjm: —
+- **decision:** D-349
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-type-assertions`
+
+---
+
+## D-350 — shoehorn
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-shoehorn
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `shoehorn`. Shoehorn is a type-safe testing utility and technique that allows developers to provide partial or mock objects in unit tests while retaining TypeScript type checking on the provided properties.
+
+### Adopted from
+Matt `skills/misc/migrate-to-shoehorn/SKILL.md:10`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- shoehorn-practice (less specific than canonical technique name)
+- generic-shoehorn (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/migrate-to-shoehorn/SKILL.md:10`.
+
+### Glossary
+### shoehorn
+
+- **definition:** Shoehorn is a type-safe testing utility and technique that allows developers to provide partial or mock objects in unit tests while retaining TypeScript type checking on the provided properties.
+- **kind:** technique
+- **source names:** addy: — · matt: `shoehorn` · rjm: —
+- **decision:** D-350
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-shoehorn`
+
+---
+
+## D-351 — hypothesis-testing
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-hypothesis-testing
+- **preferences consulted:** PREFERENCES.md § References highlights testing-patterns.md and verification rigor; followed by adopting this testing technique.
+
+### Decision
+The canonical term for this technique is `hypothesis-testing`. Hypothesis testing is a structured inquiry technique in diagnosing-bugs where the agent generates 3–5 ranked, falsifiable explanations for a defect only after an automated reproduction command exists. Hypotheses make explicit predictions tested through minimal probes and temporary instrumentation, preventing speculative code changes until root causes are confirmed.
+
+### Adopted from
+Matt `external/diagnosing-bugs.md:26`.
+
+### Dropped
+matt defects (defects: doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- hypothesis-testing-practice (less specific than canonical technique name)
+- generic-hypothesis-testing (fails to reflect source methodology)
+
+### Evidence
+Matt `external/diagnosing-bugs.md:26`.
+
+### Glossary
+### hypothesis-testing
+
+- **definition:** Hypothesis testing is a structured inquiry technique in diagnosing-bugs where the agent generates 3–5 ranked, falsifiable explanations for a defect only after an automated reproduction command exists. Hypotheses make explicit predictions tested through minimal probes and temporary instrumentation, preventing speculative code changes until root causes are confirmed.
+- **kind:** technique
+- **source names:** addy: — · matt: `hypothesis-testing` · rjm: —
+- **decision:** D-351
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-hypothesis-testing`
+
+---
+
+## D-352 — falsifiable-hypotheses
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-falsifiable-hypotheses
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `falsifiable-hypotheses`. Falsifiable hypotheses is the scientific discipline applied to bug diagnosis: the agent must articulate 3 to 5 ranked, falsifiable predictions regarding the root cause before introducing probes, preventing biased or wandering experimentation.
+
+### Adopted from
+Matt `docs/engineering/diagnosing-bugs.md:50`.
+
+### Dropped
+matt defects (clean in core technique; associated with workflow gap in docs/engineering/diagnosing-bugs.md:64 (agent proceeds automatically on its own ranking if user is away)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- falsifiable-hypotheses-practice (less specific than canonical technique name)
+- generic-falsifiable-hypotheses (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/diagnosing-bugs.md:50`.
+
+### Glossary
+### falsifiable-hypotheses
+
+- **definition:** Falsifiable hypotheses is the scientific discipline applied to bug diagnosis: the agent must articulate 3 to 5 ranked, falsifiable predictions regarding the root cause before introducing probes, preventing biased or wandering experimentation.
+- **kind:** technique
+- **source names:** addy: — · matt: `falsifiable hypotheses` · rjm: —
+- **decision:** D-352
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-falsifiable-hypotheses`
+
+---
+
+## D-353 — acquiring-wisdom
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-acquiring-wisdom
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `acquiring-wisdom`. Acquiring wisdom is an engineering technique for acquiring Wisdom represents the boundary where simulated in-workspace instruction yields to external reality. Recognising that models cannot synthesize authentic social or professional feedback, the technique bounds agent teaching by routing questions that demand seasoned judgment to external practitioner communities.
+
+### Adopted from
+Matt `skills/productivity/teach/SKILL.md:114`.
+
+### Dropped
+matt defects (defects: doc-drift, other) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- acquiring-wisdom-practice (less specific than canonical technique name)
+- generic-acquiring-wisdom (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/teach/SKILL.md:114`.
+
+### Glossary
+### acquiring-wisdom
+
+- **definition:** Acquiring wisdom is an engineering technique for acquiring Wisdom represents the boundary where simulated in-workspace instruction yields to external reality. Recognising that models cannot synthesize authentic social or professional feedback, the technique bounds agent teaching by routing questions that demand seasoned judgment to external practitioner communities.
+- **kind:** technique
+- **source names:** addy: — · matt: `Acquiring Wisdom` · rjm: —
+- **decision:** D-353
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-acquiring-wisdom`
+
+---
+
+## D-354 — temporary-instrumentation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-temporary-instrumentation
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `temporary-instrumentation`. Temporary instrumentation is an engineering technique for temporary diagnostic code inserted to expose internal state during bug diagnosis. Matt's lifecycle treats adding temporary instrumentation as an escalated intervention requiring human permission and disciplined tagging (e.g. `[DEBUG-a4f2]`) to ensure complete removal before fixing.
+
+### Adopted from
+Matt `external/diagnosing-bugs.md:46`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- temporary-instrumentation-practice (less specific than canonical technique name)
+- generic-temporary-instrumentation (fails to reflect source methodology)
+
+### Evidence
+Matt `external/diagnosing-bugs.md:46`.
+
+### Glossary
+### temporary-instrumentation
+
+- **definition:** Temporary instrumentation is an engineering technique for temporary diagnostic code inserted to expose internal state during bug diagnosis. Matt's lifecycle treats adding temporary instrumentation as an escalated intervention requiring human permission and disciplined tagging (e.g. `[DEBUG-a4f2]`) to ensure complete removal before fixing.
+- **kind:** technique
+- **source names:** addy: — · matt: `temporary instrumentation` · rjm: —
+- **decision:** D-354
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-temporary-instrumentation`
+
+---
+
+## D-355 — falsifiable
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-falsifiable
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `falsifiable`. Falsifiable is a strict quality standard for debugging hypotheses requiring each hypothesis to formulate an explicit testable prediction. Without falsifiability, hypotheses degenerate into vague intuition that cannot be systematically verified or eliminated.
+
+### Adopted from
+Matt `skills/engineering/diagnosing-bugs/SKILL.md:92`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- falsifiable-practice (less specific than canonical technique name)
+- generic-falsifiable (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/diagnosing-bugs/SKILL.md:92`.
+
+### Glossary
+### falsifiable
+
+- **definition:** Falsifiable is a strict quality standard for debugging hypotheses requiring each hypothesis to formulate an explicit testable prediction. Without falsifiability, hypotheses degenerate into vague intuition that cannot be systematically verified or eliminated.
+- **kind:** technique
+- **source names:** addy: — · matt: `falsifiable` · rjm: —
+- **decision:** D-355
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-falsifiable`
+
+---
+
+## D-356 — no-op-test
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-no-op-test
+- **preferences consulted:** PREFERENCES.md § References highlights testing-patterns.md and verification rigor; followed by adopting this testing technique.
+
+### Decision
+The canonical term for this technique is `no-op-test`. No op test is a behavioral editing technique: delete a sentence and test whether the agent's actions change. If behavior does not change, the line is a no-op that wastes context tokens and must be removed. It establishes an empirical, behavioral standard for brevity rather than stylistic preference.
+
+### Adopted from
+Matt `external/writing-for-agents.md:44`.
+
+### Dropped
+matt defects (defects: orphan, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- no-op-test-practice (less specific than canonical technique name)
+- generic-no-op-test (fails to reflect source methodology)
+
+### Evidence
+Matt `external/writing-for-agents.md:44`.
+
+### Glossary
+### no-op-test
+
+- **definition:** No op test is a behavioral editing technique: delete a sentence and test whether the agent's actions change. If behavior does not change, the line is a no-op that wastes context tokens and must be removed. It establishes an empirical, behavioral standard for brevity rather than stylistic preference.
+- **kind:** technique
+- **source names:** addy: — · matt: `no-op test` · rjm: —
+- **decision:** D-356
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-no-op-test`
+
+---
+
+## D-357 — reproduction-rate
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-reproduction-rate
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `reproduction-rate`. Reproduction rate is a debugging technique for intermittent or flaky bugs. Rather than stalling waiting for a 100% deterministic reproduction, the agent actively increases the reproduction rate through parallel triggers, load, loops, or injected timing delays until the failure happens reliably enough to test hypotheses against.
+
+### Adopted from
+Matt `docs/engineering/diagnosing-bugs.md:38`.
+
+### Dropped
+matt defects (clean in core technique; associated with general diagnosis skill defects in docs/engineering/diagnosing-bugs.md:59) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- reproduction-rate-practice (less specific than canonical technique name)
+- generic-reproduction-rate (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/diagnosing-bugs.md:38`.
+
+### Glossary
+### reproduction-rate
+
+- **definition:** Reproduction rate is a debugging technique for intermittent or flaky bugs. Rather than stalling waiting for a 100% deterministic reproduction, the agent actively increases the reproduction rate through parallel triggers, load, loops, or injected timing delays until the failure happens reliably enough to test hypotheses against.
+- **kind:** technique
+- **source names:** addy: — · matt: `reproduction rate` · rjm: —
+- **decision:** D-357
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-reproduction-rate`
+
+---
+
+## D-358 — pruning
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-pruning
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `pruning`. Pruning is the continuous editorial discipline of auditing agent-facing text sentence by sentence. Pruning aggressively removes no-ops, deduplicates repeated concepts, and eliminates stale sediment to ensure every token in the agent's window earns its keep.
+
+### Adopted from
+Matt `docs/productivity/writing-for-agents.md:30`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- pruning-practice (less specific than canonical technique name)
+- generic-pruning (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/productivity/writing-for-agents.md:30`.
+
+### Glossary
+### pruning
+
+- **definition:** Pruning is the continuous editorial discipline of auditing agent-facing text sentence by sentence. Pruning aggressively removes no-ops, deduplicates repeated concepts, and eliminates stale sediment to ensure every token in the agent's window earns its keep.
+- **kind:** technique
+- **source names:** addy: — · matt: `Pruning` · rjm: —
+- **decision:** D-358
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-pruning`
+
+---
+
+## D-359 — deletion-test
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-deletion-test
+- **preferences consulted:** PREFERENCES.md § References highlights testing-patterns.md and verification rigor; followed by adopting this testing technique.
+
+### Decision
+The canonical term for this technique is `deletion-test`. Deletion test is an engineering technique for thought experiment assessing module validity: imagine deleting the module; if complexity simply disappears, it was a pass-through wrapper; if complexity reappears across N call sites, it was genuinely earning its keep.
+
+### Adopted from
+Matt `docs/engineering/codebase-design.md:42`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- deletion-test-practice (less specific than canonical technique name)
+- generic-deletion-test (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/codebase-design.md:42`.
+
+### Glossary
+### deletion-test
+
+- **definition:** Deletion test is an engineering technique for thought experiment assessing module validity: imagine deleting the module; if complexity simply disappears, it was a pass-through wrapper; if complexity reappears across N call sites, it was genuinely earning its keep.
+- **kind:** technique
+- **source names:** addy: — · matt: `deletion test` · rjm: —
+- **decision:** D-359
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-deletion-test`
+
+---
+
+## D-360 — performance-branch
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-performance-branch
+- **preferences consulted:** PREFERENCES.md § References highlights performance-checklist.md; followed by adopting this performance technique.
+
+### Decision
+The canonical term for this technique is `performance-branch`. Performance branch is the performance branch adapts the diagnosing-bugs workflow to latency and resource regressions. Instead of relying on boolean pass/fail tests, it establishes a quantitative baseline measurement, applies bisection, and insists on measuring before and after any code modifications.
+
+### Adopted from
+Matt `external/diagnosing-bugs.md:55`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- performance-branch-practice (less specific than canonical technique name)
+- generic-performance-branch (fails to reflect source methodology)
+
+### Evidence
+Matt `external/diagnosing-bugs.md:55`.
+
+### Glossary
+### performance-branch
+
+- **definition:** Performance branch is the performance branch adapts the diagnosing-bugs workflow to latency and resource regressions. Instead of relying on boolean pass/fail tests, it establishes a quantitative baseline measurement, applies bisection, and insists on measuring before and after any code modifications.
+- **kind:** technique
+- **source names:** addy: — · matt: `performance branch` · rjm: —
+- **decision:** D-360
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-performance-branch`
+
+---
+
+## D-361 — testability
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-testability
+- **preferences consulted:** PREFERENCES.md § References highlights testing-patterns.md and verification rigor; followed by adopting this testing technique.
+
+### Decision
+The canonical term for this technique is `testability`. Testability is an architectural quality attribute and primary design objective in Matt's lifecycle where deep abstractions provide simple, durable test surfaces, avoiding the antipattern of exposing private implementation details or extracting shallow helper functions solely for unit testing.
+
+### Adopted from
+Matt `skills/engineering/improve-codebase-architecture/SKILL.md:9`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- testability-practice (less specific than canonical technique name)
+- generic-testability (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/improve-codebase-architecture/SKILL.md:9`.
+
+### Glossary
+### testability
+
+- **definition:** Testability is an architectural quality attribute and primary design objective in Matt's lifecycle where deep abstractions provide simple, durable test surfaces, avoiding the antipattern of exposing private implementation details or extracting shallow helper functions solely for unit testing.
+- **kind:** technique
+- **source names:** addy: — · matt: `testability` · rjm: —
+- **decision:** D-361
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-testability`
+
+---
+
+## D-362 — migrate-to-shoehorn
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-migrate-to-shoehorn
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `migrate-to-shoehorn`. Migrate to shoehorn is a refactoring technique and workflow in the misc bucket that replaces unsafe `as` type assertions in test files with type-safe shoehorn utilities, preventing test mocks from masking schema regressions.
+
+### Adopted from
+Matt `skills/misc/migrate-to-shoehorn/SKILL.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- migrate-to-shoehorn-practice (less specific than canonical technique name)
+- generic-migrate-to-shoehorn (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/migrate-to-shoehorn/SKILL.md:3`.
+
+### Glossary
+### migrate-to-shoehorn
+
+- **definition:** Migrate to shoehorn is a refactoring technique and workflow in the misc bucket that replaces unsafe `as` type assertions in test files with type-safe shoehorn utilities, preventing test mocks from masking schema regressions.
+- **kind:** technique
+- **source names:** addy: — · matt: `migrate-to-shoehorn` · rjm: —
+- **decision:** D-362
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-migrate-to-shoehorn`
+
+---
+
+## D-363 — three-dot-diff
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#three-dot-diff
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `three-dot-diff`. The three-dot diff is a code review inspection technique utilizing git merge-base diffing ('git diff base...head') to view exclusively changes introduced on a topic branch.
+
+### Adopted from
+Matt `docs/engineering/code-review.md:76`; RJM `.claude/skills/review/scripts/validate_findings_scope.py:6`.
+
+### Dropped
+matt defects (defects: cross-file-contradiction (excludes unstaged/uncommitted changes, causing implement to fail if it reviews before committing)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- three-dot-diff-practice (less specific than canonical technique name)
+- generic-three-dot-diff (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/code-review.md:76`; RJM `.claude/skills/review/scripts/validate_findings_scope.py:6`.
+
+### Glossary
+### three-dot-diff
+
+- **definition:** The three-dot diff is a code review inspection technique utilizing git merge-base diffing ('git diff base...head') to view exclusively changes introduced on a topic branch.
+- **kind:** technique
+- **source names:** addy: — · matt: `three-dot` · rjm: `three-dot diff`
+- **decision:** D-363
+- **concordance:** `docs/analysis/concordance/techniques.md#three-dot-diff`
+
+---
+
+## D-364 — dependency-security
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-dependency-security
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `dependency-security`. Dependency security is an engineering technique for dependency security safeguards applications against vulnerabilities and supply-chain attacks introduced through external packages. Addy mandates locating the exact installation boundary, verifying consistent package manager tooling, enforcing frozen and immutable lockfile installs in CI, and restricting package lifecycle script execution.
+
+### Adopted from
+Addy `references/security-checklist.md:15`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- dependency-security-practice (less specific than canonical technique name)
+- generic-dependency-security (fails to reflect source methodology)
+
+### Evidence
+Addy `references/security-checklist.md:15`.
+
+### Glossary
+### dependency-security
+
+- **definition:** Dependency security is an engineering technique for dependency security safeguards applications against vulnerabilities and supply-chain attacks introduced through external packages. Addy mandates locating the exact installation boundary, verifying consistent package manager tooling, enforcing frozen and immutable lockfile installs in CI, and restricting package lifecycle script execution.
+- **kind:** technique
+- **source names:** addy: `Dependency Security` · matt: — · rjm: —
+- **decision:** D-364
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-dependency-security`
+
+---
+
+## D-365 — operational-metrics
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#operational-metrics
+- **preferences consulted:** PREFERENCES.md § References highlights performance-checklist.md; followed by adopting this performance technique.
+
+### Decision
+The canonical term for this technique is `operational-metrics`. Operational metrics is an observational technique tracking quantitative performance, reliability, and error indicators to verify system health across operational workflows.
+
+### Adopted from
+Addy `references/observability-checklist.md:9`; RJM `.claude/skills/observability/schema.json:22`.
+
+### Dropped
+rjm defects (defects: doc-drift, exit-code-mismatch) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- operational-metrics-practice (less specific than canonical technique name)
+- generic-operational-metrics (fails to reflect source methodology)
+
+### Evidence
+Addy `references/observability-checklist.md:9`; RJM `.claude/skills/observability/schema.json:22`.
+
+### Glossary
+### operational-metrics
+
+- **definition:** Operational metrics is an observational technique tracking quantitative performance, reliability, and error indicators to verify system health across operational workflows.
+- **kind:** technique
+- **source names:** addy: `Metrics` · matt: — · rjm: `metric`
+- **decision:** D-365
+- **concordance:** `docs/analysis/concordance/techniques.md#operational-metrics`
+
+---
+
+## D-366 — hyrum-s-law
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-hyrum-s-law
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `hyrum-s-law`. Hyrum s law is an engineering technique for hyrum's Law forces agents to treat all observable behavior — including timing quirks and undocumented bugs — as contractually binding in mature systems, mandating active migration paths rather than optimistic assumption of contract purity.
+
+### Adopted from
+Addy `skills/api-and-interface-design/SKILL.md:24`.
+
+### Dropped
+addy defects (clean in skills/api-and-interface-design/SKILL.md, skills/deprecation-and-migration/SKILL.md, and docs/adoption-guide.md; defects: doc-drift, cross-file-contradiction in skills/git-workflow-and-versioning/SKILL.md; defects: doc-drift, orphan in external documentation; defects: doc-drift in README.md) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- hyrum-s-law-practice (less specific than canonical technique name)
+- generic-hyrum-s-law (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/api-and-interface-design/SKILL.md:24`.
+
+### Glossary
+### hyrum-s-law
+
+- **definition:** Hyrum s law is an engineering technique for hyrum's Law forces agents to treat all observable behavior — including timing quirks and undocumented bugs — as contractually binding in mature systems, mandating active migration paths rather than optimistic assumption of contract purity.
+- **kind:** technique
+- **source names:** addy: `Hyrum's Law` · matt: — · rjm: —
+- **decision:** D-366
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-hyrum-s-law`
+
+---
+
+## D-367 — constraint-driven-development
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-constraint-driven-development
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `constraint-driven-development`. Constraint driven development is a development methodology that shifts quality enforcement from post-hoc prose guidelines to explicit, mechanically checked threshold constraints that run inside the inner development loop.
+
+### Adopted from
+Addy `.gemini/commands/constraints.toml:4`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- constraint-driven-development-practice (less specific than canonical technique name)
+- generic-constraint-driven-development (fails to reflect source methodology)
+
+### Evidence
+Addy `.gemini/commands/constraints.toml:4`.
+
+### Glossary
+### constraint-driven-development
+
+- **definition:** Constraint driven development is a development methodology that shifts quality enforcement from post-hoc prose guidelines to explicit, mechanically checked threshold constraints that run inside the inner development loop.
+- **kind:** technique
+- **source names:** addy: `constraint-driven-development` · matt: — · rjm: —
+- **decision:** D-367
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-constraint-driven-development`
+
+---
+
+## D-368 — dialogue-evals
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-dialogue-evals
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `dialogue-evals`. Dialogue evals is a behavioral evaluation technique for skills whose primary artifact is the conversation itself (such as mentoring, code review, or planning) rather than file modifications. Unlike execution evals, dialogue evals require no pre-baked workspace fixtures.
+
+### Adopted from
+Addy `scripts/run-evals.js:23`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- dialogue-evals-practice (less specific than canonical technique name)
+- generic-dialogue-evals (fails to reflect source methodology)
+
+### Evidence
+Addy `scripts/run-evals.js:23`.
+
+### Glossary
+### dialogue-evals
+
+- **definition:** Dialogue evals is a behavioral evaluation technique for skills whose primary artifact is the conversation itself (such as mentoring, code review, or planning) rather than file modifications. Unlike execution evals, dialogue evals require no pre-baked workspace fixtures.
+- **kind:** technique
+- **source names:** addy: `dialogue evals` · matt: — · rjm: —
+- **decision:** D-368
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-dialogue-evals`
+
+---
+
+## D-369 — information-access
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-information-access
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `information-access`. Information access is an environment improvement category in retrospectives that targets informational bottlenecks. Rather than compensating with complex prompts, this technique provides coding agents with direct runtime visibility (such as teeing background server logs or granting read-only service tokens) to eliminate blind spots.
+
+### Adopted from
+Matt `skills/in-progress/retro/SKILL.md:23`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- information-access-practice (less specific than canonical technique name)
+- generic-information-access (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/retro/SKILL.md:23`.
+
+### Glossary
+### information-access
+
+- **definition:** Information access is an environment improvement category in retrospectives that targets informational bottlenecks. Rather than compensating with complex prompts, this technique provides coding agents with direct runtime visibility (such as teeing background server logs or granting read-only service tokens) to eliminate blind spots.
+- **kind:** technique
+- **source names:** addy: — · matt: `Information access` · rjm: —
+- **decision:** D-369
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-information-access`
+
+---
+
+## D-370 — scheduler-yield
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-scheduler-yield
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `scheduler-yield`. Scheduler yield is the preferred modern web platform API for task-level yielding. Unlike setTimeout(..., 0), scheduler.yield() yields execution to high-priority browser tasks (input handling, rendering) while placing the continuation at the head of the task queue.
+
+### Adopted from
+Addy `references/performance-checklist.md:50`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- scheduler-yield-practice (less specific than canonical technique name)
+- generic-scheduler-yield (fails to reflect source methodology)
+
+### Evidence
+Addy `references/performance-checklist.md:50`.
+
+### Glossary
+### scheduler-yield
+
+- **definition:** Scheduler yield is the preferred modern web platform API for task-level yielding. Unlike setTimeout(..., 0), scheduler.yield() yields execution to high-priority browser tasks (input handling, rendering) while placing the continuation at the head of the task queue.
+- **kind:** technique
+- **source names:** addy: `scheduler.yield()` · matt: — · rjm: —
+- **decision:** D-370
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-scheduler-yield`
+
+---
+
+## D-371 — context-aware-loading
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-context-aware-loading
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `context-aware-loading`. Context aware loading is an engineering technique for context-Aware Loading prevents context window exhaustion and prompt dilution by restricting loaded skill instructions to those required for the current task (e.g. UI engineering during frontend work, debugging during error recovery), preserving model reasoning capacity.
+
+### Adopted from
+Addy `docs/getting-started.md:67`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- context-aware-loading-practice (less specific than canonical technique name)
+- generic-context-aware-loading (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/getting-started.md:67`.
+
+### Glossary
+### context-aware-loading
+
+- **definition:** Context aware loading is an engineering technique for context-Aware Loading prevents context window exhaustion and prompt dilution by restricting loaded skill instructions to those required for the current task (e.g. UI engineering during frontend work, debugging during error recovery), preserving model reasoning capacity.
+- **kind:** technique
+- **source names:** addy: `Context-Aware Loading` · matt: — · rjm: —
+- **decision:** D-371
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-context-aware-loading`
+
+---
+
+## D-372 — decision-flow
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-decision-flow
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `decision-flow`. Decision flow is a structured decision tree for choosing the simplest valid orchestration architecture for a task. It biases strongly toward zero or minimal orchestration (direct invocation or user-driven commands), reserving parallel fan-out only for independent, repeating sub-tasks.
+
+### Adopted from
+Addy `references/orchestration-patterns.md:345`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- decision-flow-practice (less specific than canonical technique name)
+- generic-decision (fails to reflect source methodology)
+
+### Evidence
+Addy `references/orchestration-patterns.md:345`.
+
+### Glossary
+### decision-flow
+
+- **definition:** Decision flow is a structured decision tree for choosing the simplest valid orchestration architecture for a task. It biases strongly toward zero or minimal orchestration (direct invocation or user-driven commands), reserving parallel fan-out only for independent, repeating sub-tasks.
+- **kind:** technique
+- **source names:** addy: `Decision flow` · matt: — · rjm: —
+- **decision:** D-372
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-decision-flow`
+
+---
+
+## D-373 — rationalization-tables
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-rationalization-tables
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `rationalization-tables`. Rationalization tables is an engineering technique for rationalization tables are anti-drift mechanisms embedded in skills that explicitly list the plausible-sounding excuses an agent generates to skip disciplined steps (such as omitting tests, assuming backwards compatibility, or bypassing verification) alongside direct refutations that hold the agent to project standards.
+
+### Adopted from
+Addy `docs/cursor-setup.md:183`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- rationalization-tables-practice (less specific than canonical technique name)
+- generic-rationalization-tables (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/cursor-setup.md:183`.
+
+### Glossary
+### rationalization-tables
+
+- **definition:** Rationalization tables is an engineering technique for rationalization tables are anti-drift mechanisms embedded in skills that explicitly list the plausible-sounding excuses an agent generates to skip disciplined steps (such as omitting tests, assuming backwards compatibility, or bypassing verification) alongside direct refutations that hold the agent to project standards.
+- **kind:** technique
+- **source names:** addy: `rationalization tables` · matt: — · rjm: —
+- **decision:** D-373
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-rationalization-tables`
+
+---
+
+## D-374 — enforce-simplicity
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-enforce-simplicity
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `enforce-simplicity`. Enforce simplicity is a counter-bias mechanism directing agents to resist overengineering and premature abstraction, demanding minimal lines of code and favoring boring, obvious solutions over expensive cleverness.
+
+### Adopted from
+Addy `skills/using-agent-skills/SKILL.md:88`.
+
+### Dropped
+addy defects (defects: cross-file-contradiction, internal-contradiction, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- enforce-simplicity-practice (less specific than canonical technique name)
+- generic-enforce-simplicity (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/using-agent-skills/SKILL.md:88`.
+
+### Glossary
+### enforce-simplicity
+
+- **definition:** Enforce simplicity is a counter-bias mechanism directing agents to resist overengineering and premature abstraction, demanding minimal lines of code and favoring boring, obvious solutions over expensive cleverness.
+- **kind:** technique
+- **source names:** addy: `Enforce Simplicity` · matt: — · rjm: —
+- **decision:** D-374
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-enforce-simplicity`
+
+---
+
+## D-375 — constraints-check
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-constraints-check
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `constraints-check`. Constraints check is a command utility that runs all configured project constraints against the current branch on demand, reporting immediate compliance status.
+
+### Adopted from
+Addy `.gemini/commands/constraints.toml:29`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- constraints-check-practice (less specific than canonical technique name)
+- generic-constraints-check (fails to reflect source methodology)
+
+### Evidence
+Addy `.gemini/commands/constraints.toml:29`.
+
+### Glossary
+### constraints-check
+
+- **definition:** Constraints check is a command utility that runs all configured project constraints against the current branch on demand, reporting immediate compliance status.
+- **kind:** technique
+- **source names:** addy: `/constraints check` · matt: — · rjm: —
+- **decision:** D-375
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-constraints-check`
+
+---
+
+## D-376 — yieldtomain
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-yieldtomain
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `yieldtomain`. Yieldtomain is a task-chunking technique in browser JavaScript that yields control back to the main thread's event loop during long-running tasks. This prevents thread starvation, keeping the UI responsive and safeguarding INP.
+
+### Adopted from
+Addy `references/performance-checklist.md:49`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- yieldtomain-practice (less specific than canonical technique name)
+- generic-yieldtomain (fails to reflect source methodology)
+
+### Evidence
+Addy `references/performance-checklist.md:49`.
+
+### Glossary
+### yieldtomain
+
+- **definition:** Yieldtomain is a task-chunking technique in browser JavaScript that yields control back to the main thread's event loop during long-running tasks. This prevents thread starvation, keeping the UI responsive and safeguarding INP.
+- **kind:** technique
+- **source names:** addy: `yieldToMain` · matt: — · rjm: —
+- **decision:** D-376
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-yieldtomain`
+
+---
+
+## D-377 — keyboard-navigation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-keyboard-navigation
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `keyboard-navigation`. Keyboard navigation is an engineering technique for in addy, Keyboard Navigation is a foundational WCAG 2.1 AA requirement ensuring that every interactive interface element can be discovered, focused, and triggered without a mouse. It requires semantic elements (<button>), explicit keyboard event handlers (onKeyDown), visible focus styling, and modal focus trapping.
+
+### Adopted from
+Addy `references/accessibility-checklist.md:15`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- keyboard-navigation-practice (less specific than canonical technique name)
+- generic-keyboard-navigation (fails to reflect source methodology)
+
+### Evidence
+Addy `references/accessibility-checklist.md:15`.
+
+### Glossary
+### keyboard-navigation
+
+- **definition:** Keyboard navigation is an engineering technique for in addy, Keyboard Navigation is a foundational WCAG 2.1 AA requirement ensuring that every interactive interface element can be discovered, focused, and triggered without a mouse. It requires semantic elements (<button>), explicit keyboard event handlers (onKeyDown), visible focus styling, and modal focus trapping.
+- **kind:** technique
+- **source names:** addy: `Keyboard Navigation` · matt: — · rjm: —
+- **decision:** D-377
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-keyboard-navigation`
+
+---
+
+## D-378 — contain-intrinsic-size
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-contain-intrinsic-size
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `contain-intrinsic-size`. Contain intrinsic size is a companion CSS property used with `content-visibility: auto` to define a placeholder width and height for unrendered elements, ensuring accurate scrollbar sizing and preventing Cumulative Layout Shift when elements scroll into view.
+
+### Adopted from
+Addy `references/performance-checklist.md:84`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- contain-intrinsic-size-practice (less specific than canonical technique name)
+- generic-contain-intrinsic-size (fails to reflect source methodology)
+
+### Evidence
+Addy `references/performance-checklist.md:84`.
+
+### Glossary
+### contain-intrinsic-size
+
+- **definition:** Contain intrinsic size is a companion CSS property used with `content-visibility: auto` to define a placeholder width and height for unrendered elements, ensuring accurate scrollbar sizing and preventing Cumulative Layout Shift when elements scroll into view.
+- **kind:** technique
+- **source names:** addy: `contain-intrinsic-size` · matt: — · rjm: —
+- **decision:** D-378
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-contain-intrinsic-size`
+
+---
+
+## D-379 — content-visibility-auto
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-content-visibility-auto
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `content-visibility-auto`. Content visibility auto is a CSS rendering performance optimization that instructs the browser engine to skip layout, painting, and rendering work for off-screen elements until they approach the viewport, dramatically reducing initial DOM rendering time.
+
+### Adopted from
+Addy `references/performance-checklist.md:84`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- content-visibility-auto-practice (less specific than canonical technique name)
+- generic-content-visibility-auto (fails to reflect source methodology)
+
+### Evidence
+Addy `references/performance-checklist.md:84`.
+
+### Glossary
+### content-visibility-auto
+
+- **definition:** Content visibility auto is a CSS rendering performance optimization that instructs the browser engine to skip layout, painting, and rendering work for off-screen elements until they approach the viewport, dramatically reducing initial DOM rendering time.
+- **kind:** technique
+- **source names:** addy: `content-visibility: auto` · matt: — · rjm: —
+- **decision:** D-379
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-content-visibility-auto`
+
+---
+
+## D-380 — native-skills-system
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-native-skills-system
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `native-skills-system`. Native skills system is the native skills system represents host-level skill auto-discovery and on-demand invocation natively supported by the Gemini CLI. By automatically detecting `SKILL.md` files in `.gemini/skills/` or `.agents/skills/` and activating them only when relevant to the user's prompt, it avoids monolithic system instruction files and preserves context budget.
+
+### Adopted from
+Addy `docs/gemini-cli-setup.md:7`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- native-skills-system-practice (less specific than canonical technique name)
+- generic-native-skills-system (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/gemini-cli-setup.md:7`.
+
+### Glossary
+### native-skills-system
+
+- **definition:** Native skills system is the native skills system represents host-level skill auto-discovery and on-demand invocation natively supported by the Gemini CLI. By automatically detecting `SKILL.md` files in `.gemini/skills/` or `.agents/skills/` and activating them only when relevant to the user's prompt, it avoids monolithic system instruction files and preserves context budget.
+- **kind:** technique
+- **source names:** addy: `native skills system` · matt: — · rjm: —
+- **decision:** D-380
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-native-skills-system`
+
+---
+
+## D-381 — stampede-protection
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-stampede-protection
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `stampede-protection`. Stampede protection is an engineering technique for stampede protection is the umbrella architectural safeguard preventing a cache invalidation on a hot key from flooding origin services with concurrent recomputations. Addy notes that naive cache-aside implementations are particularly vulnerable, requiring mitigations such as in-flight promise deduplication, distributed locking, or serving stale data during background revalidation.
+
+### Adopted from
+Addy `references/performance-checklist.md:141`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- stampede-protection-practice (less specific than canonical technique name)
+- generic-stampede-protection (fails to reflect source methodology)
+
+### Evidence
+Addy `references/performance-checklist.md:141`.
+
+### Glossary
+### stampede-protection
+
+- **definition:** Stampede protection is an engineering technique for stampede protection is the umbrella architectural safeguard preventing a cache invalidation on a hot key from flooding origin services with concurrent recomputations. Addy notes that naive cache-aside implementations are particularly vulnerable, requiring mitigations such as in-flight promise deduplication, distributed locking, or serving stale data during background revalidation.
+- **kind:** technique
+- **source names:** addy: `stampede protection` · matt: — · rjm: —
+- **decision:** D-381
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-stampede-protection`
+
+---
+
+## D-382 — manage-confusion-actively
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-manage-confusion-actively
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `manage-confusion-actively`. Manage confusion actively is a critical behavioral rule halting autonomous execution whenever an agent detects contradictions or ambiguity, requiring it to name the confusion and present tradeoff options rather than guessing and hoping for the best.
+
+### Adopted from
+Addy `skills/using-agent-skills/SKILL.md:67`.
+
+### Dropped
+addy defects (defects: cross-file-contradiction, internal-contradiction, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- manage-confusion-actively-practice (less specific than canonical technique name)
+- generic-manage-confusion-actively (fails to reflect source methodology)
+
+### Evidence
+Addy `skills/using-agent-skills/SKILL.md:67`.
+
+### Glossary
+### manage-confusion-actively
+
+- **definition:** Manage confusion actively is a critical behavioral rule halting autonomous execution whenever an agent detects contradictions or ambiguity, requiring it to name the confusion and present tradeoff options rather than guessing and hoping for the best.
+- **kind:** technique
+- **source names:** addy: `Manage Confusion Actively` · matt: — · rjm: —
+- **decision:** D-382
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-manage-confusion-actively`
+
+---
+
+## D-383 — trigger-evals
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-trigger-evals
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `trigger-evals`. Trigger evals is an engineering technique for evaluation technique that assesses whether a skill's description will trigger when an agent encounters natural language user requests. Evaluates TF-IDF similarity of positive test prompts against the entire catalog to guarantee target skills rank in the top-k, while ensuring negative prompts do not rank first.
+
+### Adopted from
+Addy `scripts/run-evals.js:7`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- trigger-evals-practice (less specific than canonical technique name)
+- generic-trigger-evals (fails to reflect source methodology)
+
+### Evidence
+Addy `scripts/run-evals.js:7`.
+
+### Glossary
+### trigger-evals
+
+- **definition:** Trigger evals is an engineering technique for evaluation technique that assesses whether a skill's description will trigger when an agent encounters natural language user requests. Evaluates TF-IDF similarity of positive test prompts against the entire catalog to guarantee target skills rank in the top-k, while ensuring negative prompts do not rank first.
+- **kind:** technique
+- **source names:** addy: `Trigger evals` · matt: — · rjm: —
+- **decision:** D-383
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-trigger-evals`
+
+---
+
+## D-384 — ttfb-diagnosis
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-ttfb-diagnosis
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `ttfb-diagnosis`. Ttfb diagnosis is a structured diagnostic technique to troubleshoot server response latency (> 800ms). It breaks TTFB into distinct network and compute stages (DNS, connection/TLS, server execution), prescribing targeted remediations for each.
+
+### Adopted from
+Addy `references/performance-checklist.md:25`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- ttfb-diagnosis-practice (less specific than canonical technique name)
+- generic-ttfb-diagnosis (fails to reflect source methodology)
+
+### Evidence
+Addy `references/performance-checklist.md:25`.
+
+### Glossary
+### ttfb-diagnosis
+
+- **definition:** Ttfb diagnosis is a structured diagnostic technique to troubleshoot server response latency (> 800ms). It breaks TTFB into distinct network and compute stages (DNS, connection/TLS, server execution), prescribing targeted remediations for each.
+- **kind:** technique
+- **source names:** addy: `TTFB Diagnosis` · matt: — · rjm: —
+- **decision:** D-384
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-ttfb-diagnosis`
+
+---
+
+## D-385 — bfcache
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-bfcache
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `bfcache`. Bfcache is the browser back/forward cache that preserves full in-memory page snapshots for instant back/forward navigation. Addy mandates eliminating `unload` listeners and avoiding `Cache-Control: no-store` on HTML documents to keep pages eligible for bfcache.
+
+### Adopted from
+Addy `references/performance-checklist.md:85`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- bfcache-practice (less specific than canonical technique name)
+- generic-bfcache (fails to reflect source methodology)
+
+### Evidence
+Addy `references/performance-checklist.md:85`.
+
+### Glossary
+### bfcache
+
+- **definition:** Bfcache is the browser back/forward cache that preserves full in-memory page snapshots for instant back/forward navigation. Addy mandates eliminating `unload` listeners and avoiding `Cache-Control: no-store` on HTML documents to keep pages eligible for bfcache.
+- **kind:** technique
+- **source names:** addy: `bfcache` · matt: — · rjm: —
+- **decision:** D-385
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-bfcache`
+
+---
+
+## D-386 — subagents
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-subagents
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `subagents`. Subagents is an engineering technique that subagents in addy represent Claude Code's stable parallelism primitive for executing independent tasks concurrently. Operating in their own context windows, subagents report findings strictly back to the spawning main agent without peer-to-peer messaging, making them ideal for parallel fan-out inspections (such as /ship) and research isolation.
+
+### Adopted from
+Addy `references/orchestration-patterns.md:125`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- subagents-practice (less specific than canonical technique name)
+- generic-subagents (fails to reflect source methodology)
+
+### Evidence
+Addy `references/orchestration-patterns.md:125`.
+
+### Glossary
+### subagents
+
+- **definition:** Subagents is an engineering technique that subagents in addy represent Claude Code's stable parallelism primitive for executing independent tasks concurrently. Operating in their own context windows, subagents report findings strictly back to the spawning main agent without peer-to-peer messaging, making them ideal for parallel fan-out inspections (such as /ship) and research isolation.
+- **kind:** technique
+- **source names:** addy: `Subagents` · matt: — · rjm: —
+- **decision:** D-386
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-subagents`
+
+---
+
+## D-387 — scheduler-posttask
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-scheduler-posttask
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `scheduler-posttask`. Scheduler posttask is a prioritized task-scheduling browser API allowing web applications to schedule tasks with specific priorities ('user-blocking', 'user-visible', 'background') so critical UI updates take precedence over background work.
+
+### Adopted from
+Addy `references/performance-checklist.md:50`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- scheduler-posttask-practice (less specific than canonical technique name)
+- generic-scheduler-posttask (fails to reflect source methodology)
+
+### Evidence
+Addy `references/performance-checklist.md:50`.
+
+### Glossary
+### scheduler-posttask
+
+- **definition:** Scheduler posttask is a prioritized task-scheduling browser API allowing web applications to schedule tasks with specific priorities ('user-blocking', 'user-visible', 'background') so critical UI updates take precedence over background work.
+- **kind:** technique
+- **source names:** addy: `scheduler.postTask()` · matt: — · rjm: —
+- **decision:** D-387
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-scheduler-posttask`
+
+---
+
+## D-388 — skill-execution-harness
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-skills
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `skill-execution-harness`. Skill execution harness is an engineering technique that skills are the fundamental procedural unit in addy's architecture, providing structured instructions that turn LLM capabilities into deterministic engineering workflows with verifiable exit gates.
+
+### Adopted from
+Addy `AGENTS.md:74`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- skill-execution-harness-practice (less specific than canonical technique name)
+- generic-skill-execution-harness (fails to reflect source methodology)
+
+### Evidence
+Addy `AGENTS.md:74`.
+
+### Glossary
+### skill-execution-harness
+
+- **definition:** Skill execution harness is an engineering technique that skills are the fundamental procedural unit in addy's architecture, providing structured instructions that turn LLM capabilities into deterministic engineering workflows with verifiable exit gates.
+- **kind:** technique
+- **source names:** addy: `Skills` · matt: — · rjm: —
+- **decision:** D-388
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-skills`
+
+---
+
+## D-389 — explicit-context-loading
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-explicit-context-loading
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `explicit-context-loading`. Explicit context loading is an engineering technique for explicit Context Loading allows developers to bypass automated routing heuristics by directly referencing skill files via `@` syntax, providing deterministic execution when entering critical lifecycle phases.
+
+### Adopted from
+Addy `docs/gemini-cli-setup.md:98`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- explicit-context-loading-practice (less specific than canonical technique name)
+- generic-explicit-context-loading (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/gemini-cli-setup.md:98`.
+
+### Glossary
+### explicit-context-loading
+
+- **definition:** Explicit context loading is an engineering technique for explicit Context Loading allows developers to bypass automated routing heuristics by directly referencing skill files via `@` syntax, providing deterministic execution when entering critical lifecycle phases.
+- **kind:** technique
+- **source names:** addy: `Explicit Context Loading` · matt: — · rjm: —
+- **decision:** D-389
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-explicit-context-loading`
+
+---
+
+## D-390 — cross-session-memory
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-cross-session-memory
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `cross-session-memory`. Cross session memory is an engineering technique that cross-session memory represents the architectural ability to preserve and restore learned codebase knowledge, task status, and technical constraints across independent agent invocations without relying on fragile conversational history or manual prompt re-feeding.
+
+### Adopted from
+Addy `docs/comparison.md:111`.
+
+### Dropped
+addy defects (not-implemented) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- cross-session-memory-practice (less specific than canonical technique name)
+- generic-cross-session-memory (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/comparison.md:111`.
+
+### Glossary
+### cross-session-memory
+
+- **definition:** Cross session memory is an engineering technique that cross-session memory represents the architectural ability to preserve and restore learned codebase knowledge, task status, and technical constraints across independent agent invocations without relying on fragile conversational history or manual prompt re-feeding.
+- **kind:** technique
+- **source names:** addy: `cross-session memory` · matt: — · rjm: —
+- **decision:** D-390
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-cross-session-memory`
+
+---
+
+## D-391 — requestidlecallback
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-requestidlecallback
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `requestidlecallback`. Requestidlecallback is a standard browser API that schedules tasks during browser idle periods, preventing analytics flushes, telemetry, and prefetching from competing with high-priority rendering or input processing.
+
+### Adopted from
+Addy `references/performance-checklist.md:51`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- requestidlecallback-practice (less specific than canonical technique name)
+- generic-requestidlecallback (fails to reflect source methodology)
+
+### Evidence
+Addy `references/performance-checklist.md:51`.
+
+### Glossary
+### requestidlecallback
+
+- **definition:** Requestidlecallback is a standard browser API that schedules tasks during browser idle periods, preventing analytics flushes, telemetry, and prefetching from competing with high-priority rendering or input processing.
+- **kind:** technique
+- **source names:** addy: `requestIdleCallback` · matt: — · rjm: —
+- **decision:** D-391
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-requestidlecallback`
+
+---
+
+## D-392 — aria-live-regions
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-aria-live-regions
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `aria-live-regions`. Aria live regions is an engineering technique for in addy, ARIA Live Regions provide the standard accessibility mechanism for broadcasting asynchronous UI updates to screen readers without shifting keyboard focus, distinguishing polite non-disruptive notifications (role="status") from assertive interruptive alerts (role="alert").
+
+### Adopted from
+Addy `references/accessibility-checklist.md:10`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- aria-live-regions-practice (less specific than canonical technique name)
+- generic-aria-live-regions (fails to reflect source methodology)
+
+### Evidence
+Addy `references/accessibility-checklist.md:10`.
+
+### Glossary
+### aria-live-regions
+
+- **definition:** Aria live regions is an engineering technique for in addy, ARIA Live Regions provide the standard accessibility mechanism for broadcasting asynchronous UI updates to screen readers without shifting keyboard focus, distinguishing polite non-disruptive notifications (role="status") from assertive interruptive alerts (role="alert").
+- **kind:** technique
+- **source names:** addy: `ARIA Live Regions` · matt: — · rjm: —
+- **decision:** D-392
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-aria-live-regions`
+
+---
+
+## D-393 — isinputpending
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-isinputpending
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `isinputpending`. Isinputpending is a browser API allowing JavaScript execution loops to inspect the input event queue and yield only when an actual user interaction is waiting, eliminating unnecessary yielding overhead while protecting INP.
+
+### Adopted from
+Addy `references/performance-checklist.md:50`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- isinputpending-practice (less specific than canonical technique name)
+- generic-isinputpending (fails to reflect source methodology)
+
+### Evidence
+Addy `references/performance-checklist.md:50`.
+
+### Glossary
+### isinputpending
+
+- **definition:** Isinputpending is a browser API allowing JavaScript execution loops to inspect the input event queue and yield only when an actual user interaction is waiting, eliminating unnecessary yielding overhead while protecting INP.
+- **kind:** technique
+- **source names:** addy: `isInputPending()` · matt: — · rjm: —
+- **decision:** D-393
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-isinputpending`
+
+---
+
+## D-394 — mcp-integration
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-mcp-integration
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `mcp-integration`. Mcp integration is an engineering technique for mCP Integration connects AI agents to live runtime environments (such as Chrome DevTools for browser testing), enabling skills to verify real execution state instead of making ungrounded assumptions based solely on static code.
+
+### Adopted from
+Addy `docs/gemini-cli-setup.md:83`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- mcp-integration-practice (less specific than canonical technique name)
+- generic-mcp-integration (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/gemini-cli-setup.md:83`.
+
+### Glossary
+### mcp-integration
+
+- **definition:** Mcp integration is an engineering technique for mCP Integration connects AI agents to live runtime environments (such as Chrome DevTools for browser testing), enabling skills to verify real execution state instead of making ungrounded assumptions based solely on static code.
+- **kind:** technique
+- **source names:** addy: `MCP Integration` · matt: — · rjm: —
+- **decision:** D-394
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-mcp-integration`
+
+---
+
+## D-395 — anti-rationalization
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-anti-rationalization
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `anti-rationalization`. Anti rationalization is an engineering technique for anti-rationalization is a defensive prompt-engineering technique that anticipates common cognitive excuses agents use to skip steps (such as "I'll write tests later") and binds them to strict counter-arguments.
+
+### Adopted from
+Addy `README.md:342`.
+
+### Dropped
+addy defects (defects: doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- anti-rationalization-practice (less specific than canonical technique name)
+- generic-anti-rationalization (fails to reflect source methodology)
+
+### Evidence
+Addy `README.md:342`.
+
+### Glossary
+### anti-rationalization
+
+- **definition:** Anti rationalization is an engineering technique for anti-rationalization is a defensive prompt-engineering technique that anticipates common cognitive excuses agents use to skip steps (such as "I'll write tests later") and binds them to strict counter-arguments.
+- **kind:** technique
+- **source names:** addy: `Anti-Rationalization` · matt: — · rjm: —
+- **decision:** D-395
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-anti-rationalization`
+
+---
+
+## D-396 — evals-framework
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-evals-framework
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `evals-framework`. Evals framework is the three-tier testing framework in addy that validates skill structure, measures prompt routing accuracy, and runs behavioral test cases against headless agents.
+
+### Adopted from
+Addy `external/api-and-interface-design.md:15`.
+
+### Dropped
+addy defects (defects: doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- evals-framework-practice (less specific than canonical technique name)
+- generic-evals-framework (fails to reflect source methodology)
+
+### Evidence
+Addy `external/api-and-interface-design.md:15`.
+
+### Glossary
+### evals-framework
+
+- **definition:** Evals framework is the three-tier testing framework in addy that validates skill structure, measures prompt routing accuracy, and runs behavioral test cases against headless agents.
+- **kind:** technique
+- **source names:** addy: `Evals framework` · matt: — · rjm: —
+- **decision:** D-396
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-evals-framework`
+
+---
+
+## D-397 — context-efficiency
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-context-efficiency
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `context-efficiency`. Context efficiency is an engineering technique for context Efficiency establishes constraints (keeping SKILL.md under 500 lines, using progressive disclosure, preferring executable scripts over verbose inline code) to minimize prompt overhead and prevent context window degradation during agent operations.
+
+### Adopted from
+Addy `docs/skill-anatomy.md:121`.
+
+### Dropped
+addy defects (defects: [doc-drift, internal-contradiction] in docs/skill-anatomy.md) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- context-efficiency-practice (less specific than canonical technique name)
+- generic-context-efficiency (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/skill-anatomy.md:121`.
+
+### Glossary
+### context-efficiency
+
+- **definition:** Context efficiency is an engineering technique for context Efficiency establishes constraints (keeping SKILL.md under 500 lines, using progressive disclosure, preferring executable scripts over verbose inline code) to minimize prompt overhead and prevent context window degradation during agent operations.
+- **kind:** technique
+- **source names:** addy: `Context Efficiency` · matt: — · rjm: —
+- **decision:** D-397
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-context-efficiency`
+
+---
+
+## D-398 — intent-skill-mapping
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-intent-skill-mapping
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `intent-skill-mapping`. Intent skill mapping is an engineering technique for intent to skill mapping provides an automated classification mechanism that connects ambiguous or natural-language user requests directly to structured skill workflows, ensuring agents adhere to disciplined processes even when users do not explicitly invoke commands.
+
+### Adopted from
+Addy `AGENTS.md:24`.
+
+### Dropped
+addy defects (defects: missing-path) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- intent-skill-mapping-practice (less specific than canonical technique name)
+- generic-intent-skill-mapping (fails to reflect source methodology)
+
+### Evidence
+Addy `AGENTS.md:24`.
+
+### Glossary
+### intent-skill-mapping
+
+- **definition:** Intent skill mapping is an engineering technique for intent to skill mapping provides an automated classification mechanism that connects ambiguous or natural-language user requests directly to structured skill workflows, ensuring agents adhere to disciplined processes even when users do not explicitly invoke commands.
+- **kind:** technique
+- **source names:** addy: `Intent → Skill Mapping` · matt: — · rjm: —
+- **decision:** D-398
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-intent-skill-mapping`
+
+---
+
+## D-399 — eval-framework
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-eval-framework
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `eval-framework`. Eval framework is the eval framework provides automated testing for the skill pack itself, treating skills as software artifacts that require trigger, routing, and behavioral regression testing against model updates.
+
+### Adopted from
+Addy `docs/comparison.md:11`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- eval-framework-practice (less specific than canonical technique name)
+- generic-eval-framework (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/comparison.md:11`.
+
+### Glossary
+### eval-framework
+
+- **definition:** Eval framework is the eval framework provides automated testing for the skill pack itself, treating skills as software artifacts that require trigger, routing, and behavioral regression testing against model updates.
+- **kind:** technique
+- **source names:** addy: `eval framework` · matt: — · rjm: —
+- **decision:** D-399
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-eval-framework`
+
+---
+
+## D-400 — session-hooks
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#addy-session-hooks
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `session-hooks`. Session hooks is an engineering technique for session Hooks automate the injection of meta-skills or environment validation at session start, ensuring the agent is equipped with workflow routing without requiring manual prompt initialization by the developer.
+
+### Adopted from
+Addy `docs/gemini-cli-setup.md:92`.
+
+### Dropped
+addy defects (clean (docs/gemini-cli-setup.md has no defects; note hooks/session-start.sh carries defects: script-bug, doc-drift)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- session-hooks-practice (less specific than canonical technique name)
+- generic-session-hooks (fails to reflect source methodology)
+
+### Evidence
+Addy `docs/gemini-cli-setup.md:92`.
+
+### Glossary
+### session-hooks
+
+- **definition:** Session hooks is an engineering technique for session Hooks automate the injection of meta-skills or environment validation at session start, ensuring the agent is equipped with workflow routing without requiring manual prompt initialization by the developer.
+- **kind:** technique
+- **source names:** addy: `Session Hooks` · matt: — · rjm: —
+- **decision:** D-400
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-session-hooks`
+
+---
+
+## D-401 — pulling-from-the-pile
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-pulling-from-the-pile
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `pulling-from-the-pile`. Pulling from the pile is an engineering technique for pulling from the pile defines the core extraction technique of treating raw authoring material as a quarry rather than a rigid outline. Material can be freely split, recombined, or paraphrased to serve the article's voice, while missing ideas are explicitly called out as gaps to be filled or cut.
+
+### Adopted from
+Matt `skills/in-progress/writing-beats/SKILL.md:54`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- pulling-from-the-pile-practice (less specific than canonical technique name)
+- generic-pulling-from-the-pile (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/writing-beats/SKILL.md:54`.
+
+### Glossary
+### pulling-from-the-pile
+
+- **definition:** Pulling from the pile is an engineering technique for pulling from the pile defines the core extraction technique of treating raw authoring material as a quarry rather than a rigid outline. Material can be freely split, recombined, or paraphrased to serve the article's voice, while missing ideas are explicitly called out as gaps to be filled or cut.
+- **kind:** technique
+- **source names:** addy: — · matt: `Pulling from the pile` · rjm: —
+- **decision:** D-401
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-pulling-from-the-pile`
+
+---
+
+## D-402 — redact
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-redact
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `redact`. Redact is a critical privacy and safety technique in diagnosing bugs that mandates replacing credentials and secrets with `<REDACTED>` and keeping secrets in environment variables. Without this sanitization, auth tokens and credentials would be leaked into terminal context and recorded logs.
+
+### Adopted from
+Matt `skills/engineering/diagnosing-bugs/SKILL.md:12`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- redact-practice (less specific than canonical technique name)
+- generic-redact (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/diagnosing-bugs/SKILL.md:12`.
+
+### Glossary
+### redact
+
+- **definition:** Redact is a critical privacy and safety technique in diagnosing bugs that mandates replacing credentials and secrets with `<REDACTED>` and keeping secrets in environment variables. Without this sanitization, auth tokens and credentials would be leaked into terminal context and recorded logs.
+- **kind:** technique
+- **source names:** addy: — · matt: `Redact` · rjm: —
+- **decision:** D-402
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-redact`
+
+---
+
+## D-403 — merge-rebase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-merge-rebase
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `merge-rebase`. Merge rebase is an engineering technique for git branch integration operations (merging or rebasing) that result in file-level conflicts. The resolving-merge-conflicts skill provides a structured procedure to inspect conflict state, understand intent from commit messages and PRs, resolve hunks without inventing behavior, and verify with automated checks.
+
+### Adopted from
+Matt `skills/engineering/resolving-merge-conflicts/SKILL.md:6`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- merge-rebase-practice (less specific than canonical technique name)
+- generic-merge-rebase (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/resolving-merge-conflicts/SKILL.md:6`.
+
+### Glossary
+### merge-rebase
+
+- **definition:** Merge rebase is an engineering technique for git branch integration operations (merging or rebasing) that result in file-level conflicts. The resolving-merge-conflicts skill provides a structured procedure to inspect conflict state, understand intent from commit messages and PRs, resolve hunks without inventing behavior, and verify with automated checks.
+- **kind:** technique
+- **source names:** addy: — · matt: `merge/rebase` · rjm: —
+- **decision:** D-403
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-merge-rebase`
+
+---
+
+## D-404 — upserts
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-upserts
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `upserts`. Upserts is an engineering technique for upserting combines updating existing values with inserting missing ones. In the wizard skill, the `write_env` helper parses `.env` files line by line, replacing matching key definitions while preserving formatting and comments, or appending new keys when not found.
+
+### Adopted from
+Matt `external/wizard.md:40`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- upserts-practice (less specific than canonical technique name)
+- generic-upserts (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wizard.md:40`.
+
+### Glossary
+### upserts
+
+- **definition:** Upserts is an engineering technique for upserting combines updating existing values with inserting missing ones. In the wizard skill, the `write_env` helper parses `.env` files line by line, replacing matching key definitions while preserving formatting and comments, or appending new keys when not found.
+- **kind:** technique
+- **source names:** addy: — · matt: `upserts` · rjm: —
+- **decision:** D-404
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-upserts`
+
+---
+
+## D-405 — write-env
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-write-env
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `write-env`. Write env is a bash helper function in the wizard template library that performs idempotent upserts into an environment file (`.env`), ensuring that captured credentials and variables are saved without duplicating keys or corrupting file formatting on repeated wizard runs.
+
+### Adopted from
+Matt `skills/engineering/wizard/template.sh:128`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- write-env-practice (less specific than canonical technique name)
+- generic-write-env (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/template.sh:128`.
+
+### Glossary
+### write-env
+
+- **definition:** Write env is a bash helper function in the wizard template library that performs idempotent upserts into an environment file (`.env`), ensuring that captured credentials and variables are saved without duplicating keys or corrupting file formatting on repeated wizard runs.
+- **kind:** technique
+- **source names:** addy: — · matt: `write_env` · rjm: —
+- **decision:** D-405
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-write-env`
+
+---
+
+## D-406 — cross-skill-invocation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-cross-skill-invocation
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `cross-skill-invocation`. Cross skill invocation is a composition pattern and calling convention where one skill invokes another by explicitly instructing the agent to call the harness Skill tool. This replaces bare slash-command mentions in prose, raising invocation reliability and ensuring harness-neutral interoperability.
+
+### Adopted from
+Matt `.changeset/skill-tool-invocation-terminology.md:5`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- cross-skill-invocation-practice (less specific than canonical technique name)
+- generic-cross-skill-invocation (fails to reflect source methodology)
+
+### Evidence
+Matt `.changeset/skill-tool-invocation-terminology.md:5`.
+
+### Glossary
+### cross-skill-invocation
+
+- **definition:** Cross skill invocation is a composition pattern and calling convention where one skill invokes another by explicitly instructing the agent to call the harness Skill tool. This replaces bare slash-command mentions in prose, raising invocation reliability and ensuring harness-neutral interoperability.
+- **kind:** technique
+- **source names:** addy: — · matt: `cross-skill invocation` · rjm: —
+- **decision:** D-406
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-cross-skill-invocation`
+
+---
+
+## D-407 — pause
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-pause
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `pause`. Pause is a synchronization helper function in the wizard framework that halts execution until the user manually performs an out-of-band action (such as navigating a dashboard or confirming an external state) and presses Enter to proceed.
+
+### Adopted from
+Matt `skills/engineering/wizard/template.sh:77`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- pause-practice (less specific than canonical technique name)
+- generic-pause (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/template.sh:77`.
+
+### Glossary
+### pause
+
+- **definition:** Pause is a synchronization helper function in the wizard framework that halts execution until the user manually performs an out-of-band action (such as navigating a dashboard or confirming an external state) and presses Enter to proceed.
+- **kind:** technique
+- **source names:** addy: — · matt: `pause` · rjm: —
+- **decision:** D-407
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-pause`
+
+---
+
+## D-408 — typechecking
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-typechecking
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `typechecking`. Typechecking is a continuous static verification technique mandated during implementation to provide rapid feedback on type errors and syntax mismatches before running automated tests.
+
+### Adopted from
+Matt `skills/engineering/implement/SKILL.md:11`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- typechecking-practice (less specific than canonical technique name)
+- generic-typechecking (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/implement/SKILL.md:11`.
+
+### Glossary
+### typechecking
+
+- **definition:** Typechecking is a continuous static verification technique mandated during implementation to provide rapid feedback on type errors and syntax mismatches before running automated tests.
+- **kind:** technique
+- **source names:** addy: — · matt: `typechecking` · rjm: —
+- **decision:** D-408
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-typechecking`
+
+---
+
+## D-409 — writing-beats
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-writing-beats
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `writing-beats`. Writing beats is an exploit-phase writing skill that organizes prose construction into a sequence of discrete narrative beats. It guarantees reader comprehension by checking that every concept is grounded before any beat relies on it, offering branching choices at each step.
+
+### Adopted from
+Matt `skills/in-progress/writing-beats/SKILL.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- writing-beats-practice (less specific than canonical technique name)
+- generic-writing-beats (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/writing-beats/SKILL.md:3`.
+
+### Glossary
+### writing-beats
+
+- **definition:** Writing beats is an exploit-phase writing skill that organizes prose construction into a sequence of discrete narrative beats. It guarantees reader comprehension by checking that every concept is grounded before any beat relies on it, offering branching choices at each step.
+- **kind:** technique
+- **source names:** addy: — · matt: `writing-beats` · rjm: —
+- **decision:** D-409
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-writing-beats`
+
+---
+
+## D-410 — grilling-discipline
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-grilling-discipline
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `grilling-discipline`. Grilling discipline is the questioning technique governing loop-me interactions: persistent interrogation structured as discrete rounds of questions where every question includes a proposed default answer. This structure accelerates user feedback, eliminates decision paralysis, and rapidly drives specifications toward completion.
+
+### Adopted from
+Matt `skills/in-progress/loop-me/SKILL.md:8`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- grilling-discipline-practice (less specific than canonical technique name)
+- generic-grilling-discipline (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/loop-me/SKILL.md:8`.
+
+### Glossary
+### grilling-discipline
+
+- **definition:** Grilling discipline is the questioning technique governing loop-me interactions: persistent interrogation structured as discrete rounds of questions where every question includes a proposed default answer. This structure accelerates user feedback, eliminates decision paralysis, and rapidly drives specifications toward completion.
+- **kind:** technique
+- **source names:** addy: — · matt: `grilling discipline` · rjm: —
+- **decision:** D-410
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grilling-discipline`
+
+---
+
+## D-411 — drill
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-drill
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `drill`. Drill is a drill is an active practice exercise within the teach skill executed via a tight feedback loop where difficulty is utilized as a learning tool. Unlike passive reading, a drill refuses to accept superficial acknowledgment, holding the user accountable until retention and understanding are demonstrated.
+
+### Adopted from
+Matt `external/teach.md:39`.
+
+### Dropped
+matt defects (defects: orphan, doc-drift, missing-path) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- drill-practice (less specific than canonical technique name)
+- generic-drill (fails to reflect source methodology)
+
+### Evidence
+Matt `external/teach.md:39`.
+
+### Glossary
+### drill
+
+- **definition:** Drill is a drill is an active practice exercise within the teach skill executed via a tight feedback loop where difficulty is utilized as a learning tool. Unlike passive reading, a drill refuses to accept superficial acknowledgment, holding the user accountable until retention and understanding are demonstrated.
+- **kind:** technique
+- **source names:** addy: — · matt: `drill` · rjm: —
+- **decision:** D-411
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-drill`
+
+---
+
+## D-412 — talk-normal
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-talk-normal
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `talk-normal`. Talk normal is an engineering technique for `/talk-normal` is an informal concision command that attempts to de-jargonize agent speech. In Matt's evaluation, such commands lack an anchor in agreed project vocabulary and lead models to strip nuance rather than restate missing foundational premises.
+
+### Adopted from
+Matt `external/wait-what.md:32`.
+
+### Dropped
+matt defects (not-implemented) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- talk-normal-practice (less specific than canonical technique name)
+- generic-talk-normal (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wait-what.md:32`.
+
+### Glossary
+### talk-normal
+
+- **definition:** Talk normal is an engineering technique for `/talk-normal` is an informal concision command that attempts to de-jargonize agent speech. In Matt's evaluation, such commands lack an anchor in agreed project vocabulary and lead models to strip nuance rather than restate missing foundational premises.
+- **kind:** technique
+- **source names:** addy: — · matt: `/talk-normal` · rjm: —
+- **decision:** D-412
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-talk-normal`
+
+---
+
+## D-413 — native-blocking-link
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-native-blocking-link
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `native-blocking-link`. Native blocking link is an engineering technique for gitLab's platform feature for linking blocked issues to their blockers, used by wayfinder to establish machine-verifiable dependency graphs across tickets.
+
+### Adopted from
+Matt `skills/engineering/setup-matt-pocock-skills/issue-tracker-gitlab.md:43`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- native-blocking-link-practice (less specific than canonical technique name)
+- generic-native-blocking-link (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/setup-matt-pocock-skills/issue-tracker-gitlab.md:43`.
+
+### Glossary
+### native-blocking-link
+
+- **definition:** Native blocking link is an engineering technique for gitLab's platform feature for linking blocked issues to their blockers, used by wayfinder to establish machine-verifiable dependency graphs across tickets.
+- **kind:** technique
+- **source names:** addy: — · matt: `native blocking link` · rjm: —
+- **decision:** D-413
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-native-blocking-link`
+
+---
+
+## D-414 — compaction
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-compaction
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `compaction`. Compaction is an automated or user-initiated context compression mechanism that summarises past conversation turns, which Matt cautions against when transitioning from `/to-spec` to `/to-tickets` because lossy compaction destroys detailed specification context.
+
+### Adopted from
+Matt `external/to-spec.md:57`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- compaction-practice (less specific than canonical technique name)
+- generic-compaction (fails to reflect source methodology)
+
+### Evidence
+Matt `external/to-spec.md:57`.
+
+### Glossary
+### compaction
+
+- **definition:** Compaction is an automated or user-initiated context compression mechanism that summarises past conversation turns, which Matt cautions against when transitioning from `/to-spec` to `/to-tickets` because lossy compaction destroys detailed specification context.
+- **kind:** technique
+- **source names:** addy: — · matt: `compaction` · rjm: —
+- **decision:** D-414
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-compaction`
+
+---
+
+## D-415 — decision-mapping
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-decision-mapping
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `decision-mapping`. Decision mapping is an engineering technique for `decision-mapping` was the original name of the skill before being reframed and renamed to `wayfinder` in v1.1. The term was retired because 'decision map' was perceived as jargon and inaccurate, given that only a subset of map tickets were pure decisions; it is marked `deprecated: true`.
+
+### Adopted from
+Matt `docs/engineering/wayfinder.md:86`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- decision-mapping-practice (less specific than canonical technique name)
+- generic-decision-mapping (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/wayfinder.md:86`.
+
+### Glossary
+### decision-mapping
+
+- **definition:** Decision mapping is an engineering technique for `decision-mapping` was the original name of the skill before being reframed and renamed to `wayfinder` in v1.1. The term was retired because 'decision map' was perceived as jargon and inaccurate, given that only a subset of map tickets were pure decisions; it is marked `deprecated: true`.
+- **kind:** technique
+- **source names:** addy: — · matt: `decision-mapping` · rjm: —
+- **decision:** D-415
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-decision-mapping`
+
+---
+
+## D-416 — conversational-wizard-flow
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-wizard
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `conversational-wizard-flow`. Conversational wizard flow is an engineering technique for `wizard` bridges the gap between AI agents and human-only credentials/clicks. Because agents cannot interact with external browser consoles or securely hold human third-party passwords, `wizard` scopes the procedure and authors an interactive bash script that drives the human operator through each screen, capturing values directly into `.env` and GitHub Actions secrets.
+
+### Adopted from
+Matt `skills/engineering/wizard/SKILL.md:8`.
+
+### Dropped
+matt defects (defects: doc-drift, script-bug (from external-wizard-md.md: external doc places wizard under upkeep while in repo it is under engineering; arrow keys in ask prompt insert escape codes)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- conversational-wizard-flow-practice (less specific than canonical technique name)
+- generic-conversational-wizard (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/SKILL.md:8`.
+
+### Glossary
+### conversational-wizard-flow
+
+- **definition:** Conversational wizard flow is an engineering technique for `wizard` bridges the gap between AI agents and human-only credentials/clicks. Because agents cannot interact with external browser consoles or securely hold human third-party passwords, `wizard` scopes the procedure and authors an interactive bash script that drives the human operator through each screen, capturing values directly into `.env` and GitHub Actions secrets.
+- **kind:** technique
+- **source names:** addy: — · matt: `wizard` · rjm: —
+- **decision:** D-416
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-wizard`
+
+---
+
+## D-417 — shellcheck
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-shellcheck
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `shellcheck`. Shellcheck is an engineering technique for shellCheck is an industry-standard static analysis tool for shell scripts. In the wizard authoring workflow, running ShellCheck verifies quoting, variable expansion, and portability, ensuring scripts run reliably across varied user shell environments.
+
+### Adopted from
+Matt `external/wizard.md:41`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- shellcheck-practice (less specific than canonical technique name)
+- generic-shellcheck (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wizard.md:41`.
+
+### Glossary
+### shellcheck
+
+- **definition:** Shellcheck is an engineering technique for shellCheck is an industry-standard static analysis tool for shell scripts. In the wizard authoring workflow, running ShellCheck verifies quoting, variable expansion, and portability, ensuring scripts run reliably across varied user shell environments.
+- **kind:** technique
+- **source names:** addy: — · matt: `shellcheck` · rjm: —
+- **decision:** D-417
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-shellcheck`
+
+---
+
+## D-418 — grill-me
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-grill-me
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `grill-me`. Grill me is a stateless, conversational interview skill that subjects early, uncommitted ideas to relentless inquiry. By asking frontier questions in structured rounds while intentionally refusing to create files or jump into plan generation, it forces the user to confront assumptions and clarify intent.
+
+### Adopted from
+Matt `skills/productivity/grill-me/SKILL.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- grill-me-practice (less specific than canonical technique name)
+- generic-grill-me (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/grill-me/SKILL.md:3`.
+
+### Glossary
+### grill-me
+
+- **definition:** Grill me is a stateless, conversational interview skill that subjects early, uncommitted ideas to relentless inquiry. By asking frontier questions in structured rounds while intentionally refusing to create files or jump into plan generation, it forces the user to confront assumptions and clarify intent.
+- **kind:** technique
+- **source names:** addy: — · matt: `grill-me` · rjm: —
+- **decision:** D-418
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grill-me`
+
+---
+
+## D-419 — the-research-skill
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-the-research-skill
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `the-research-skill`. The research skill is a shaping skill that offloads external documentation and fact-finding to an asynchronous background agent reading primary sources. Producing a cited Markdown file in the repo preserves the main session's context window while providing durable, verifiable evidence for subsequent architectural decisions.
+
+### Adopted from
+Matt `external/research.md:24`.
+
+### Dropped
+matt defects (defects: orphan (external/research.md:1), other (external/research.md:38 notes unrestricted agent delegation causes recursive subagent execution), other (external/research.md:49 notes missing stopping criteria leads to excessive or omitted research), other (external/research.md:51 notes subagent delegation on throwaway research branches creates draft PRs)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- the-research-skill-practice (less specific than canonical technique name)
+- generic-the-research-skill (fails to reflect source methodology)
+
+### Evidence
+Matt `external/research.md:24`.
+
+### Glossary
+### the-research-skill
+
+- **definition:** The research skill is a shaping skill that offloads external documentation and fact-finding to an asynchronous background agent reading primary sources. Producing a cited Markdown file in the repo preserves the main session's context window while providing durable, verifiable evidence for subsequent architectural decisions.
+- **kind:** technique
+- **source names:** addy: — · matt: `The /research Skill` · rjm: —
+- **decision:** D-419
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-the-research-skill`
+
+---
+
+## D-420 — plan-step-decomposition
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-step
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `plan-step-decomposition`. Plan step decomposition is a terminal helper function in interactive scripts (`template.sh` and `hitl-loop.template.sh`). It presents a discrete human action (such as performing a manual browser step or signing into a service) and pauses execution until confirmed, maintaining clear visual progress during guided operations.
+
+### Adopted from
+Matt `skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh:10`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- plan-step-decomposition-practice (less specific than canonical technique name)
+- generic-plan-step-decomposition (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh:10`.
+
+### Glossary
+### plan-step-decomposition
+
+- **definition:** Plan step decomposition is a terminal helper function in interactive scripts (`template.sh` and `hitl-loop.template.sh`). It presents a discrete human action (such as performing a manual browser step or signing into a service) and pauses execution until confirmed, maintaining clear visual progress during guided operations.
+- **kind:** technique
+- **source names:** addy: — · matt: `step` · rjm: —
+- **decision:** D-420
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-step`
+
+---
+
+## D-421 — writing-shape
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-writing-shape
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `writing-shape`. Writing shape is an in-progress writing skill implementing the exploit phase of article authoring. It processes a fixed pile of raw fragments, forces deliberate opening selection, and grows the piece paragraph by paragraph while enforcing rigorous conceptual grounding and defensible formatting choices.
+
+### Adopted from
+Matt `skills/in-progress/writing-shape/SKILL.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- writing-shape-practice (less specific than canonical technique name)
+- generic-writing-shape (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/writing-shape/SKILL.md:3`.
+
+### Glossary
+### writing-shape
+
+- **definition:** Writing shape is an in-progress writing skill implementing the exploit phase of article authoring. It processes a fixed pile of raw fragments, forces deliberate opening selection, and grows the piece paragraph by paragraph while enforcing rigorous conceptual grounding and defensible formatting choices.
+- **kind:** technique
+- **source names:** addy: — · matt: `writing-shape` · rjm: —
+- **decision:** D-421
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-writing-shape`
+
+---
+
+## D-422 — terminal-clearing-technique
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-clearing
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `terminal-clearing-technique`. Clearing is the context hygiene discipline of resetting the conversation window between independent units of work. In Matt's architecture, tickets are deliberately sized to execute within a single clean context window, making previous conversation history disposable and preventing cross-task context pollution.
+
+### Adopted from
+Matt `docs/engineering/grill-with-docs.md:39`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- terminal-clearing-technique-practice (less specific than canonical technique name)
+- generic-terminal-clearing (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/grill-with-docs.md:39`.
+
+### Glossary
+### terminal-clearing-technique
+
+- **definition:** Clearing is the context hygiene discipline of resetting the conversation window between independent units of work. In Matt's architecture, tickets are deliberately sized to execute within a single clean context window, making previous conversation history disposable and preventing cross-task context pollution.
+- **kind:** technique
+- **source names:** addy: — · matt: `clearing` · rjm: —
+- **decision:** D-422
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-clearing`
+
+---
+
+## D-423 — wayfinder-routing
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-wayfinder-routing
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `wayfinder-routing`. Wayfinder routing is an engineering technique for wayfinder routing serves as an adaptive on-ramp in `/ask-matt` that identifies projects with high structural ambiguity or multi-session complexity and steers them to `/wayfinder` for incremental mapping rather than attempting premature linear specification.
+
+### Adopted from
+Matt `CHANGELOG.md:108`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- wayfinder-routing-practice (less specific than canonical technique name)
+- generic-wayfinder-routing (fails to reflect source methodology)
+
+### Evidence
+Matt `CHANGELOG.md:108`.
+
+### Glossary
+### wayfinder-routing
+
+- **definition:** Wayfinder routing is an engineering technique for wayfinder routing serves as an adaptive on-ramp in `/ask-matt` that identifies projects with high structural ambiguity or multi-session complexity and steers them to `/wayfinder` for incremental mapping rather than attempting premature linear specification.
+- **kind:** technique
+- **source names:** addy: — · matt: `Wayfinder routing` · rjm: —
+- **decision:** D-423
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-wayfinder-routing`
+
+---
+
+## D-424 — domain-modelling
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-domain-modelling
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `domain-modelling`. Domain modelling is an engineering technique for `domain modelling` represents the systematic elicitation and documentation of ubiquitous language and architecture decisions in `matt`. Implemented primarily through the `domain-modeling` skill and the `grill-with-docs` workflow, it ensures agents and human engineers share consistent project vocabulary and architectural boundaries.
+
+### Adopted from
+Matt `.claude-plugin/marketplace.json:12`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- domain-modelling-practice (less specific than canonical technique name)
+- generic-domain-modelling (fails to reflect source methodology)
+
+### Evidence
+Matt `.claude-plugin/marketplace.json:12`.
+
+### Glossary
+### domain-modelling
+
+- **definition:** Domain modelling is an engineering technique for `domain modelling` represents the systematic elicitation and documentation of ubiquitous language and architecture decisions in `matt`. Implemented primarily through the `domain-modeling` skill and the `grill-with-docs` workflow, it ensures agents and human engineers share consistent project vocabulary and architectural boundaries.
+- **kind:** technique
+- **source names:** addy: — · matt: `domain modelling` · rjm: —
+- **decision:** D-424
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-domain-modelling`
+
+---
+
+## D-425 — push-right
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-push-right
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `push-right`. Push right is a core workflow design heuristic in loop-me: defer human involvement as far right in the process timeline as possible. By executing all preparatory, research, and generation work autonomously first, the human reviewer is engaged only once, late, with fully prepared decision briefs.
+
+### Adopted from
+Matt `skills/in-progress/loop-me/SKILL.md:22`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- push-right-practice (less specific than canonical technique name)
+- generic-push-right (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/loop-me/SKILL.md:22`.
+
+### Glossary
+### push-right
+
+- **definition:** Push right is a core workflow design heuristic in loop-me: defer human involvement as far right in the process timeline as possible. By executing all preparatory, research, and generation work autonomously first, the human reviewer is engaged only once, late, with fully prepared decision briefs.
+- **kind:** technique
+- **source names:** addy: — · matt: `Push right` · rjm: —
+- **decision:** D-425
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-push-right`
+
+---
+
+## D-426 — steps-and-completion-criteria
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-steps-and-completion-criteria
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `steps-and-completion-criteria`. Steps and completion criteria is an engineering technique that establishes the core behavioural lever for procedural agent execution. By requiring every step to terminate on clear, checkable, and demanding conditions, it prevents agents from declaring premature success or rushing through sequential tasks.
+
+### Adopted from
+Matt `skills/productivity/writing-for-agents/SKILL.md:47`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- steps-and-completion-criteria-practice (less specific than canonical technique name)
+- generic-steps-and-completion-criteria (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/writing-for-agents/SKILL.md:47`.
+
+### Glossary
+### steps-and-completion-criteria
+
+- **definition:** Steps and completion criteria is an engineering technique that establishes the core behavioural lever for procedural agent execution. By requiring every step to terminate on clear, checkable, and demanding conditions, it prevents agents from declaring premature success or rushing through sequential tasks.
+- **kind:** technique
+- **source names:** addy: — · matt: `Steps and completion criteria` · rjm: —
+- **decision:** D-426
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-steps-and-completion-criteria`
+
+---
+
+## D-427 — execution-continuation-prompt
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-continue
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `execution-continuation-prompt`. Execution continuation prompt is the first and highest-fidelity context transition option evaluated at phase boundaries. Keeping the unbroken session context preserves design rationale and decisions as a primary source, which lossy summarization or compaction would flatten. Compaction mid-phase causes agents to lose the thread, whereas continuing costs nothing and loses nothing.
+
+### Adopted from
+Matt `skills/engineering/ask-matt/PHASE-BOUNDARIES.md:11`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- execution-continuation-prompt-practice (less specific than canonical technique name)
+- generic-execution-continuation-prompt (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/ask-matt/PHASE-BOUNDARIES.md:11`.
+
+### Glossary
+### execution-continuation-prompt
+
+- **definition:** Execution continuation prompt is the first and highest-fidelity context transition option evaluated at phase boundaries. Keeping the unbroken session context preserves design rationale and decisions as a primary source, which lossy summarization or compaction would flatten. Compaction mid-phase causes agents to lose the thread, whereas continuing costs nothing and loses nothing.
+- **kind:** technique
+- **source names:** addy: — · matt: `Continue` · rjm: —
+- **decision:** D-427
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-continue`
+
+---
+
+## D-428 — lint-staged
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-lint-staged
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `lint-staged`. Lint staged is a fast pre-commit optimization technique that scopes formatting tools like Prettier strictly to staged files rather than scanning the entire repository, keeping commit times minimal.
+
+### Adopted from
+Matt `skills/misc/setup-pre-commit/SKILL.md:11`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- lint-staged-practice (less specific than canonical technique name)
+- generic-lint-staged (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/setup-pre-commit/SKILL.md:11`.
+
+### Glossary
+### lint-staged
+
+- **definition:** Lint staged is a fast pre-commit optimization technique that scopes formatting tools like Prettier strictly to staged files rather than scanning the entire repository, keeping commit times minimal.
+- **kind:** technique
+- **source names:** addy: — · matt: `lint-staged` · rjm: —
+- **decision:** D-428
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-lint-staged`
+
+---
+
+## D-429 — single-interview-round
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-round
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `single-interview-round`. Single interview round is a round is the atomic interaction turn in grilling. Rather than asking questions one by one or dumping an overwhelming checklist all at once, a round asks exactly the subset of decisions whose dependencies are satisfied. This parallelizes independent inquiries while preserving logical causality across iterations.
+
+### Adopted from
+Matt `docs/productivity/grilling.md:5`.
+
+### Dropped
+matt defects (defects: internal-contradiction (round-based default contested by users preferring sequential questioning)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- single-interview-round-practice (less specific than canonical technique name)
+- generic-single-interview-round (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/productivity/grilling.md:5`.
+
+### Glossary
+### single-interview-round
+
+- **definition:** Single interview round is a round is the atomic interaction turn in grilling. Rather than asking questions one by one or dumping an overwhelming checklist all at once, a round asks exactly the subset of decisions whose dependencies are satisfied. This parallelizes independent inquiries while preserving logical causality across iterations.
+- **kind:** technique
+- **source names:** addy: — · matt: `round` · rjm: —
+- **decision:** D-429
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-round`
+
+---
+
+## D-430 — multi-topic-grilling
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-grills
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `multi-topic-grilling`. Multi topic grilling is an engineering technique that grills is the active verb form of the grilling interview technique. In improve-codebase-architecture, once a candidate is chosen, the agent grills the human on constraints and design trade-offs to ensure consensus before any refactoring takes place.
+
+### Adopted from
+Matt `docs/engineering/improve-codebase-architecture.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- multi-topic-grilling-practice (less specific than canonical technique name)
+- generic-multi-topic-grilling (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/improve-codebase-architecture.md:3`.
+
+### Glossary
+### multi-topic-grilling
+
+- **definition:** Multi topic grilling is an engineering technique that grills is the active verb form of the grilling interview technique. In improve-codebase-architecture, once a candidate is chosen, the agent grills the human on constraints and design trade-offs to ensure consensus before any refactoring takes place.
+- **kind:** technique
+- **source names:** addy: — · matt: `grills` · rjm: —
+- **decision:** D-430
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grills`
+
+---
+
+## D-431 — when-to-split
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-when-to-split
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `when-to-split`. When to split is an engineering technique that establishes the criteria for document decomposition. Because dividing a document spends either context load or cognitive load, splitting is justified only when separating sequential steps prevents premature completion or when independent invocation triggers warrant separate descriptions.
+
+### Adopted from
+Matt `skills/productivity/writing-for-agents/SKILL.md:56`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- when-to-split-practice (less specific than canonical technique name)
+- generic-when-to-split (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/writing-for-agents/SKILL.md:56`.
+
+### Glossary
+### when-to-split
+
+- **definition:** When to split is an engineering technique that establishes the criteria for document decomposition. Because dividing a document spends either context load or cognitive load, splitting is justified only when separating sequential steps prevents premature completion or when independent invocation triggers warrant separate descriptions.
+- **kind:** technique
+- **source names:** addy: — · matt: `When to split` · rjm: —
+- **decision:** D-431
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-when-to-split`
+
+---
+
+## D-432 — progressive-disclosure
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-progressive-disclosure
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `progressive-disclosure`. Progressive disclosure is the core architectural discipline of Matt's documentation approach: keep primary files focused on ordered steps and high-priority rules, moving detailed, branch-specific, or voluminous references into separate files accessed only via context pointers when needed.
+
+### Adopted from
+Matt `skills/productivity/writing-for-agents/SKILL.md:39`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- progressive-disclosure-practice (less specific than canonical technique name)
+- generic-progressive-disclosure (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/writing-for-agents/SKILL.md:39`.
+
+### Glossary
+### progressive-disclosure
+
+- **definition:** Progressive disclosure is the core architectural discipline of Matt's documentation approach: keep primary files focused on ordered steps and high-priority rules, moving detailed, branch-specific, or voluminous references into separate files accessed only via context pointers when needed.
+- **kind:** technique
+- **source names:** addy: — · matt: `progressive disclosure` · rjm: —
+- **decision:** D-432
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-progressive-disclosure`
+
+---
+
+## D-433 — cli-banner-display
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-banner
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `cli-banner-display`. Cli banner display is a presentation helper function in the wizard library that clears the terminal and displays an opening banner explaining what the procedure will do and how many stages it contains, establishing clear expectations for the human operator.
+
+### Adopted from
+Matt `skills/engineering/wizard/template.sh:38`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- cli-banner-display-practice (less specific than canonical technique name)
+- generic-cli-banner-display (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/template.sh:38`.
+
+### Glossary
+### cli-banner-display
+
+- **definition:** Cli banner display is a presentation helper function in the wizard library that clears the terminal and displays an opening banner explaining what the procedure will do and how many stages it contains, establishing clear expectations for the human operator.
+- **kind:** technique
+- **source names:** addy: — · matt: `banner` · rjm: —
+- **decision:** D-433
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-banner`
+
+---
+
+## D-434 — call-graph-collapse
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-call-graph-collapse
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `call-graph-collapse`. Call graph collapse is a specialized diagram pattern for HTML architecture reports that illustrates deepening by showing an intricate tree of nested function calls consolidated into a single deep module with internal details faded out.
+
+### Adopted from
+Matt `skills/engineering/improve-codebase-architecture/HTML-REPORT.md:92`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- call-graph-collapse-practice (less specific than canonical technique name)
+- generic-call-graph-collapse (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/improve-codebase-architecture/HTML-REPORT.md:92`.
+
+### Glossary
+### call-graph-collapse
+
+- **definition:** Call graph collapse is a specialized diagram pattern for HTML architecture reports that illustrates deepening by showing an intricate tree of nested function calls consolidated into a single deep module with internal details faded out.
+- **kind:** technique
+- **source names:** addy: — · matt: `Call-graph collapse` · rjm: —
+- **decision:** D-434
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-call-graph-collapse`
+
+---
+
+## D-435 — conversational-feel
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-conversational-feel
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `conversational-feel`. Conversational feel is an engineering technique for conversational feel frames the agent's role as an active editorial partner rather than a passive scribe. By inverting the exploratory grilling session to ask what the article is actually arguing and what breaks if a paragraph is cut, the agent enforces rigorous narrative momentum and defends against weak transitions.
+
+### Adopted from
+Matt `skills/in-progress/writing-shape/SKILL.md:43`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- conversational-feel-practice (less specific than canonical technique name)
+- generic-conversational-feel (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/writing-shape/SKILL.md:43`.
+
+### Glossary
+### conversational-feel
+
+- **definition:** Conversational feel is an engineering technique for conversational feel frames the agent's role as an active editorial partner rather than a passive scribe. By inverting the exploratory grilling session to ask what the article is actually arguing and what breaks if a paragraph is cut, the agent enforces rigorous narrative momentum and defends against weak transitions.
+- **kind:** technique
+- **source names:** addy: — · matt: `Conversational feel` · rjm: —
+- **decision:** D-435
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-conversational-feel`
+
+---
+
+## D-436 — changeset-versioning-technique
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-changesets
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `changeset-versioning-technique`. Changeset versioning technique is a versioning and release management workflow where contributors declare semantic intent through small markdown change files. These are later aggregated to update changelogs and bump package versions systematically during releases.
+
+### Adopted from
+Matt `.changeset/README.md:1`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- changeset-versioning-technique-practice (less specific than canonical technique name)
+- generic-changeset-versioning (fails to reflect source methodology)
+
+### Evidence
+Matt `.changeset/README.md:1`.
+
+### Glossary
+### changeset-versioning-technique
+
+- **definition:** Changeset versioning technique is a versioning and release management workflow where contributors declare semantic intent through small markdown change files. These are later aggregated to update changelogs and bump package versions systematically during releases.
+- **kind:** technique
+- **source names:** addy: — · matt: `Changesets` · rjm: —
+- **decision:** D-436
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-changesets`
+
+---
+
+## D-437 — ai-navigability
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-ai-navigability
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `ai-navigability`. Ai navigability is a design quality attribute in Matt's framework representing how effectively an AI coding agent can understand, navigate, and modify a codebase without having to open and synthesize dozens of shallow, pass-through files to trace a single domain workflow.
+
+### Adopted from
+Matt `skills/engineering/improve-codebase-architecture/SKILL.md:9`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- ai-navigability-practice (less specific than canonical technique name)
+- generic-ai-navigability (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/improve-codebase-architecture/SKILL.md:9`.
+
+### Glossary
+### ai-navigability
+
+- **definition:** Ai navigability is a design quality attribute in Matt's framework representing how effectively an AI coding agent can understand, navigate, and modify a codebase without having to open and synthesize dozens of shallow, pass-through files to trace a single domain workflow.
+- **kind:** technique
+- **source names:** addy: — · matt: `AI-navigability` · rjm: —
+- **decision:** D-437
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-ai-navigability`
+
+---
+
+## D-438 — setup-matt-pocock-skills
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-setup-matt-pocock-skills
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `setup-matt-pocock-skills`. Setup matt pocock skills is an engineering technique for foundational configuration skill executed once per repository to establish issue tracker destinations, triage label strings, and domain documentation locations. Embodying Matt Pocock's "config is death" philosophy, it replaces global configuration files with committed Markdown files under `docs/agents/`, enabling identical skill instructions to operate portably across GitHub, GitLab, and local scratch trackers without skill modification.
+
+### Adopted from
+Matt `docs/engineering/setup-matt-pocock-skills.md:3`.
+
+### Dropped
+matt defects (defects: missing-path, other, doc-drift (references non-existent command path under `commands/`; writes label mappings to `triage-labels.md` without remote tracker label entity provisioning).) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- setup-matt-pocock-skills-practice (less specific than canonical technique name)
+- generic-setup-matt-pocock-skills (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/setup-matt-pocock-skills.md:3`.
+
+### Glossary
+### setup-matt-pocock-skills
+
+- **definition:** Setup matt pocock skills is an engineering technique for foundational configuration skill executed once per repository to establish issue tracker destinations, triage label strings, and domain documentation locations. Embodying Matt Pocock's "config is death" philosophy, it replaces global configuration files with committed Markdown files under `docs/agents/`, enabling identical skill instructions to operate portably across GitHub, GitLab, and local scratch trackers without skill modification.
+- **kind:** technique
+- **source names:** addy: — · matt: `/setup-matt-pocock-skills` · rjm: —
+- **decision:** D-438
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-setup-matt-pocock-skills`
+
+---
+
+## D-439 — decision-note-capture
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-note
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `decision-note-capture`. Decision note capture is a terminal output formatting helper function in `template.sh` used to render subtle, dimmed context and summary lines without competing visually with primary instructional steps.
+
+### Adopted from
+Matt `skills/engineering/wizard/template.sh:62`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- decision-note-capture-practice (less specific than canonical technique name)
+- generic-decision-note-capture (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/template.sh:62`.
+
+### Glossary
+### decision-note-capture
+
+- **definition:** Decision note capture is a terminal output formatting helper function in `template.sh` used to render subtle, dimmed context and summary lines without competing visually with primary instructional steps.
+- **kind:** technique
+- **source names:** addy: — · matt: `note` · rjm: —
+- **decision:** D-439
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-note`
+
+---
+
+## D-440 — splitting-by-invocation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-splitting-by-invocation
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `splitting-by-invocation`. Splitting by invocation is an engineering technique that balances autonomous agent reach against permanent context window overhead. Because each model-invoked skill demands always-loaded description tokens, splitting by invocation requires justifying that token cost through a distinct prompt trigger word or cross-skill invocation need.
+
+### Adopted from
+Matt `skills/productivity/writing-for-agents/SKILL-MECHANICS.md:18`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- splitting-by-invocation-practice (less specific than canonical technique name)
+- generic-splitting-by-invocation (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/writing-for-agents/SKILL-MECHANICS.md:18`.
+
+### Glossary
+### splitting-by-invocation
+
+- **definition:** Splitting by invocation is an engineering technique that balances autonomous agent reach against permanent context window overhead. Because each model-invoked skill demands always-loaded description tokens, splitting by invocation requires justifying that token cost through a distinct prompt trigger word or cross-skill invocation need.
+- **kind:** technique
+- **source names:** addy: — · matt: `Splitting by invocation` · rjm: —
+- **decision:** D-440
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-splitting-by-invocation`
+
+---
+
+## D-441 — open-url
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-open-url
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `open-url`. Open url is a cross-platform browser opening utility in the wizard template library that detects and uses available launcher commands (`wslview`, `explorer.exe`, `xdg-open`, or macOS `open`) to navigate the human to the exact dashboard page required, falling back to manual instruction if no browser launcher succeeds.
+
+### Adopted from
+Matt `skills/engineering/wizard/template.sh:65`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- open-url-practice (less specific than canonical technique name)
+- generic-open-url (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/template.sh:65`.
+
+### Glossary
+### open-url
+
+- **definition:** Open url is a cross-platform browser opening utility in the wizard template library that detects and uses available launcher commands (`wslview`, `explorer.exe`, `xdg-open`, or macOS `open`) to navigate the human to the exact dashboard page required, falling back to manual instruction if no browser launcher succeeds.
+- **kind:** technique
+- **source names:** addy: — · matt: `open_url` · rjm: —
+- **decision:** D-441
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-open-url`
+
+---
+
+## D-442 — mock
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-mock
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `mock`. Mock is a test double technique strictly confined to external system boundaries (third-party APIs, time, external services). Matt Pocock's design philosophy firmly rejects mocking internal modules, classes, or database abstractions, mandating real implementations or in-process stand-ins instead to avoid brittle, tautological tests.
+
+### Adopted from
+Matt `skills/engineering/tdd/mocking.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- mock-practice (less specific than canonical technique name)
+- generic-mock (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/tdd/mocking.md:3`.
+
+### Glossary
+### mock
+
+- **definition:** Mock is a test double technique strictly confined to external system boundaries (third-party APIs, time, external services). Matt Pocock's design philosophy firmly rejects mocking internal modules, classes, or database abstractions, mandating real implementations or in-process stand-ins instead to avoid brittle, tautological tests.
+- **kind:** technique
+- **source names:** addy: — · matt: `Mock` · rjm: —
+- **decision:** D-442
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-mock`
+
+---
+
+## D-443 — frontier-query
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-frontier-query
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `frontier-query`. Frontier query is an algorithmic technique used by wayfinder to deterministically select the next ticket from an exploration DAG. By filtering out blocked and assigned tickets, it prevents deadlocks and redundant work.
+
+### Adopted from
+Matt `skills/engineering/setup-matt-pocock-skills/issue-tracker-github.md:43`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- frontier-query-practice (less specific than canonical technique name)
+- generic-frontier-query (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/setup-matt-pocock-skills/issue-tracker-github.md:43`.
+
+### Glossary
+### frontier-query
+
+- **definition:** Frontier query is an algorithmic technique used by wayfinder to deterministically select the next ticket from an exploration DAG. By filtering out blocked and assigned tickets, it prevents deadlocks and redundant work.
+- **kind:** technique
+- **source names:** addy: — · matt: `Frontier query` · rjm: —
+- **decision:** D-443
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-frontier-query`
+
+---
+
+## D-444 — grill-with-docs
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-grill-with-docs
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `grill-with-docs`. Grill with docs is the stateful engineering entry point in matt's lifecycle. It marries the interrogative grilling interview with active domain modeling, ensuring that as decisions and vocabulary are settled, they are written directly to repository files on disk.
+
+### Adopted from
+Matt `docs/engineering/grill-with-docs.md:3`.
+
+### Dropped
+matt defects (defects: doc-drift, other, orphan) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- grill-with-docs-practice (less specific than canonical technique name)
+- generic-grill-with-docs (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/engineering/grill-with-docs.md:3`.
+
+### Glossary
+### grill-with-docs
+
+- **definition:** Grill with docs is the stateful engineering entry point in matt's lifecycle. It marries the interrogative grilling interview with active domain modeling, ensuring that as decisions and vocabulary are settled, they are written directly to repository files on disk.
+- **kind:** technique
+- **source names:** addy: — · matt: `grill-with-docs` · rjm: —
+- **decision:** D-444
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grill-with-docs`
+
+---
+
+## D-445 — task-completion-verification
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-finish
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `task-completion-verification`. Task completion verification is a terminal presentation helper function in `template.sh` that provides closure to interactive setup wizards. By clearing intermediate step output and presenting a clean summary of written variables, secrets, and skipped manual tasks, `finish` gives the human operator an unambiguous record of what was accomplished and what remains to be done.
+
+### Adopted from
+Matt `skills/engineering/wizard/template.sh:169`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- task-completion-verification-practice (less specific than canonical technique name)
+- generic-task-completion-verification (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/template.sh:169`.
+
+### Glossary
+### task-completion-verification
+
+- **definition:** Task completion verification is a terminal presentation helper function in `template.sh` that provides closure to interactive setup wizards. By clearing intermediate step output and presenting a clean summary of written variables, secrets, and skipped manual tasks, `finish` gives the human operator an unambiguous record of what was accomplished and what remains to be done.
+- **kind:** technique
+- **source names:** addy: — · matt: `finish` · rjm: —
+- **decision:** D-445
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-finish`
+
+---
+
+## D-446 — prototyping
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-prototyping
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `prototyping`. Prototyping is the empirical engine of Wayfinder. Rather than building elaborate speculative roadmaps, Wayfinder relies on rapid, disposable prototypes to flush out technical constraints and invalidate bad assumptions early, keeping multi-session planning agile and evidence-driven.
+
+### Adopted from
+Matt `external/wayfinder.md:60`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- prototyping-practice (less specific than canonical technique name)
+- generic-prototyping (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wayfinder.md:60`.
+
+### Glossary
+### prototyping
+
+- **definition:** Prototyping is the empirical engine of Wayfinder. Rather than building elaborate speculative roadmaps, Wayfinder relies on rapid, disposable prototypes to flush out technical constraints and invalidate bad assumptions early, keeping multi-session planning agile and evidence-driven.
+- **kind:** technique
+- **source names:** addy: — · matt: `prototyping` · rjm: —
+- **decision:** D-446
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prototyping`
+
+---
+
+## D-447 — configuration-management
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-configuration-management
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `configuration-management`. Configuration management is an engineering technique for configuration management unifies setup generation and maintenance within a single skill to ensure that project templates and verification logic remain synchronized as skill packages evolve.
+
+### Adopted from
+Matt `.out-of-scope/setup-skill-verify-mode.md:11`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- configuration-management-practice (less specific than canonical technique name)
+- generic-configuration-management (fails to reflect source methodology)
+
+### Evidence
+Matt `.out-of-scope/setup-skill-verify-mode.md:11`.
+
+### Glossary
+### configuration-management
+
+- **definition:** Configuration management is an engineering technique for configuration management unifies setup generation and maintenance within a single skill to ensure that project templates and verification logic remain synchronized as skill packages evolve.
+- **kind:** technique
+- **source names:** addy: — · matt: `configuration management` · rjm: —
+- **decision:** D-447
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-configuration-management`
+
+---
+
+## D-448 — exploratory-legwork
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-legwork
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `exploratory-legwork`. Exploratory legwork is the depth of autonomous exploration and verification an agent performs. Rather than scripting every micro-action, Matt's methodology induces legwork by framing completion criteria with uncompromising demand, compelling the model to exhaustively investigate before concluding.
+
+### Adopted from
+Matt `skills/productivity/writing-for-agents/SKILL.md:50`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- exploratory-legwork-practice (less specific than canonical technique name)
+- generic-exploratory-legwork (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/writing-for-agents/SKILL.md:50`.
+
+### Glossary
+### exploratory-legwork
+
+- **definition:** Exploratory legwork is the depth of autonomous exploration and verification an agent performs. Rather than scripting every micro-action, Matt's methodology induces legwork by framing completion criteria with uncompromising demand, compelling the model to exhaustively investigate before concluding.
+- **kind:** technique
+- **source names:** addy: — · matt: `legwork` · rjm: —
+- **decision:** D-448
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-legwork`
+
+---
+
+## D-449 — native-issue-dependencies
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-native-issue-dependencies
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `native-issue-dependencies`. Native issue dependencies is an engineering technique for gitHub's built-in issue dependency relationship mechanism, leveraged by wayfinder to establish canonical blocking edges between tickets and enable automated frontier queries.
+
+### Adopted from
+Matt `skills/engineering/setup-matt-pocock-skills/issue-tracker-github.md:42`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- native-issue-dependencies-practice (less specific than canonical technique name)
+- generic-native-issue-dependencies (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/setup-matt-pocock-skills/issue-tracker-github.md:42`.
+
+### Glossary
+### native-issue-dependencies
+
+- **definition:** Native issue dependencies is an engineering technique for gitHub's built-in issue dependency relationship mechanism, leveraged by wayfinder to establish canonical blocking edges between tickets and enable automated frontier queries.
+- **kind:** technique
+- **source names:** addy: — · matt: `native issue dependencies` · rjm: —
+- **decision:** D-449
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-native-issue-dependencies`
+
+---
+
+## D-450 — fromany
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-fromany
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `fromany`. Fromany is a shoehorn utility function designed for negative testing, allowing intentionally invalid values to be passed to typed functions without triggering compile errors while retaining IDE code completion.
+
+### Adopted from
+Matt `skills/misc/migrate-to-shoehorn/SKILL.md:81`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- fromany-practice (less specific than canonical technique name)
+- generic-fromany (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/migrate-to-shoehorn/SKILL.md:81`.
+
+### Glossary
+### fromany
+
+- **definition:** Fromany is a shoehorn utility function designed for negative testing, allowing intentionally invalid values to be passed to typed functions without triggering compile errors while retaining IDE code completion.
+- **kind:** technique
+- **source names:** addy: — · matt: `fromAny()` · rjm: —
+- **decision:** D-450
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-fromany`
+
+---
+
+## D-451 — tool-economy
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-tool-economy
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `tool-economy`. Tool economy is a retrospective evaluation technique focused on tool usage efficiency and context budget preservation. When coding agents execute repetitive or bloated tool calls (such as indiscriminate search or verbose CLI outputs), tool economy audits identify opportunities to streamline calls, filter responses, or rewrite custom MCP tooling to minimize token expenditure and latency.
+
+### Adopted from
+Matt `skills/in-progress/retro/SKILL.md:21`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- tool-economy-practice (less specific than canonical technique name)
+- generic-tool-economy (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/retro/SKILL.md:21`.
+
+### Glossary
+### tool-economy
+
+- **definition:** Tool economy is a retrospective evaluation technique focused on tool usage efficiency and context budget preservation. When coding agents execute repetitive or bloated tool calls (such as indiscriminate search or verbose CLI outputs), tool economy audits identify opportunities to streamline calls, filter responses, or rewrite custom MCP tooling to minimize token expenditure and latency.
+- **kind:** technique
+- **source names:** addy: — · matt: `Tool economy` · rjm: —
+- **decision:** D-451
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-tool-economy`
+
+---
+
+## D-452 — subagent-dispatch
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-subagent-dispatch
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `subagent-dispatch`. Subagent dispatch is an engineering technique for subagent-dispatch enables a primary agent to launch background child agents for focused tasks (such as parallel research or adversarial code review) using harness-agnostic instructions.
+
+### Adopted from
+Matt `CHANGELOG.md:13`.
+
+### Dropped
+matt defects (defects: missing-path, doc-drift (in CHANGELOG.md)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- subagent-dispatch-practice (less specific than canonical technique name)
+- generic-subagent-dispatch (fails to reflect source methodology)
+
+### Evidence
+Matt `CHANGELOG.md:13`.
+
+### Glossary
+### subagent-dispatch
+
+- **definition:** Subagent dispatch is an engineering technique for subagent-dispatch enables a primary agent to launch background child agents for focused tasks (such as parallel research or adversarial code review) using harness-agnostic instructions.
+- **kind:** technique
+- **source names:** addy: — · matt: `subagent-dispatch` · rjm: —
+- **decision:** D-452
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-subagent-dispatch`
+
+---
+
+## D-453 — milestone-retrospective
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-retro
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `milestone-retrospective`. Milestone retrospective is a retrospective analysis skill designed to inspect completed coding session logs and recommend actionable refinements to the agent's environment. It addresses the root causes of agent mistakes by improving navigation pointers, automated checks, coding standards, or tooling efficiency.
+
+### Adopted from
+Matt `skills/in-progress/README.md:18`.
+
+### Dropped
+matt defects (clean in concept definition; not-implemented in execution (marked as STUB in skills/in-progress/README.md:18)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- milestone-retrospective-practice (less specific than canonical technique name)
+- generic-milestone-retrospective (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/README.md:18`.
+
+### Glossary
+### milestone-retrospective
+
+- **definition:** Milestone retrospective is a retrospective analysis skill designed to inspect completed coding session logs and recommend actionable refinements to the agent's environment. It addresses the root causes of agent mistakes by improving navigation pointers, automated checks, coding standards, or tooling efficiency.
+- **kind:** technique
+- **source names:** addy: — · matt: `retro` · rjm: —
+- **decision:** D-453
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-retro`
+
+---
+
+## D-454 — multi-session-planning
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-multi-session-planning
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `multi-session-planning`. Multi session planning is an engineering technique for multi-session planning is an architectural strategy designed to combat context window exhaustion on large efforts. Instead of attempting to settle all details at once, it maps the problem into a structured graph of decision tickets that can be tackled across separate, focused sessions, preventing context degradation.
+
+### Adopted from
+Matt `external/grill-with-docs.md:31`.
+
+### Dropped
+matt defects (defects: orphan, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- multi-session-planning-practice (less specific than canonical technique name)
+- generic-multi-session-planning (fails to reflect source methodology)
+
+### Evidence
+Matt `external/grill-with-docs.md:31`.
+
+### Glossary
+### multi-session-planning
+
+- **definition:** Multi session planning is an engineering technique for multi-session planning is an architectural strategy designed to combat context window exhaustion on large efforts. Instead of attempting to settle all details at once, it maps the problem into a structured graph of decision tickets that can be tackled across separate, focused sessions, preventing context degradation.
+- **kind:** technique
+- **source names:** addy: — · matt: `multi-session planning` · rjm: —
+- **decision:** D-454
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-multi-session-planning`
+
+---
+
+## D-455 — wait-what
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-wait-what
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `wait-what`. Wait what is a minimalist productivity skill designed to repair conversational comprehension without triggering degenerative 'be concise' caveman responses. By explicitly naming the listener's state ('Wait, you lost me') rather than demanding brevity, it prompts the agent to back up, provide missing context, and re-explain in clear, standardized English using the project's established ubiquitous language.
+
+### Adopted from
+Matt `skills/productivity/wait-what/SKILL.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- wait-what-practice (less specific than canonical technique name)
+- generic-wait-what (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/wait-what/SKILL.md:3`.
+
+### Glossary
+### wait-what
+
+- **definition:** Wait what is a minimalist productivity skill designed to repair conversational comprehension without triggering degenerative 'be concise' caveman responses. By explicitly naming the listener's state ('Wait, you lost me') rather than demanding brevity, it prompts the agent to back up, provide missing context, and re-explain in clear, standardized English using the project's established ubiquitous language.
+- **kind:** technique
+- **source names:** addy: — · matt: `wait-what` · rjm: —
+- **decision:** D-455
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-wait-what`
+
+---
+
+## D-456 — writing-fragments
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-writing-fragments
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `writing-fragments`. Writing fragments is an in-progress writing skill implementing pure exploratory ideation. By interviewing the author relentlessly and appending ideas to a raw fragments document while forbidding outline generation, it prevents premature structural commitments and preserves rich creative material.
+
+### Adopted from
+Matt `skills/in-progress/writing-fragments/SKILL.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- writing-fragments-practice (less specific than canonical technique name)
+- generic-writing-fragments (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/writing-fragments/SKILL.md:3`.
+
+### Glossary
+### writing-fragments
+
+- **definition:** Writing fragments is an in-progress writing skill implementing pure exploratory ideation. By interviewing the author relentlessly and appending ideas to a raw fragments document while forbidding outline generation, it prevents premature structural commitments and preserves rich creative material.
+- **kind:** technique
+- **source names:** addy: — · matt: `writing-fragments` · rjm: —
+- **decision:** D-456
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-writing-fragments`
+
+---
+
+## D-457 — grounding
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-grounding
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `grounding`. Grounding is an authoring discipline ensuring that every idea or term is firmly understood before the text relies upon it. Concepts are grounded either as explicit audience prerequisites or introduced step-by-step in prior blocks, preventing conceptual leaps that lose readers.
+
+### Adopted from
+Matt `skills/in-progress/writing-beats/SKILL.md:15`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- grounding-practice (less specific than canonical technique name)
+- generic-grounding (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/writing-beats/SKILL.md:15`.
+
+### Glossary
+### grounding
+
+- **definition:** Grounding is an authoring discipline ensuring that every idea or term is firmly understood before the text relies upon it. Concepts are grounded either as explicit audience prerequisites or introduced step-by-step in prior blocks, preventing conceptual leaps that lose readers.
+- **kind:** technique
+- **source names:** addy: — · matt: `Grounding` · rjm: —
+- **decision:** D-457
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grounding`
+
+---
+
+## D-458 — conflict-resolution-technique
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-resolve
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `conflict-resolution-technique`. Conflict resolution technique is the final step in the lifecycle of a wayfinder ticket. The agent records answers on the ticket, marks it closed or resolved, and registers a summary pointer in the parent map so future agents can build upon the decision.
+
+### Adopted from
+Matt `skills/engineering/setup-matt-pocock-skills/issue-tracker-github.md:45`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- conflict-resolution-technique-practice (less specific than canonical technique name)
+- generic-conflict-resolution (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/setup-matt-pocock-skills/issue-tracker-github.md:45`.
+
+### Glossary
+### conflict-resolution-technique
+
+- **definition:** Conflict resolution technique is the final step in the lifecycle of a wayfinder ticket. The agent records answers on the ticket, marks it closed or resolved, and registers a summary pointer in the parent map so future agents can build upon the decision.
+- **kind:** technique
+- **source names:** addy: — · matt: `Resolve` · rjm: —
+- **decision:** D-458
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-resolve`
+
+---
+
+## D-459 — hidden-entry
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-hidden-entry
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `hidden-entry`. Hidden entry is an engineering technique for hidden entry is a terminal security technique implemented via `read -s` in the wizard template. By disabling character echo during sensitive inputs, it ensures passwords and API keys never persist in terminal logs, screenshots, or screen-sharing sessions.
+
+### Adopted from
+Matt `external/wizard.md:40`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- hidden-entry-practice (less specific than canonical technique name)
+- generic-hidden-entry (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wizard.md:40`.
+
+### Glossary
+### hidden-entry
+
+- **definition:** Hidden entry is an engineering technique for hidden entry is a terminal security technique implemented via `read -s` in the wizard template. By disabling character echo during sensitive inputs, it ensures passwords and API keys never persist in terminal logs, screenshots, or screen-sharing sessions.
+- **kind:** technique
+- **source names:** addy: — · matt: `hidden entry` · rjm: —
+- **decision:** D-459
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-hidden-entry`
+
+---
+
+## D-460 — hidden-secret-entry
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-hidden-secret-entry
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `hidden-secret-entry`. Hidden secret entry is a terminal interaction technique in setup wizards that suppresses keyboard character echoing when reading sensitive values like API tokens or passwords, preventing shoulder surfing and ensuring credentials are not retained in terminal scrollback buffers.
+
+### Adopted from
+Matt `skills/engineering/wizard/SKILL.md:10`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- hidden-secret-entry-practice (less specific than canonical technique name)
+- generic-hidden-secret-entry (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/SKILL.md:10`.
+
+### Glossary
+### hidden-secret-entry
+
+- **definition:** Hidden secret entry is a terminal interaction technique in setup wizards that suppresses keyboard character echoing when reading sensitive values like API tokens or passwords, preventing shoulder surfing and ensuring credentials are not retained in terminal scrollback buffers.
+- **kind:** technique
+- **source names:** addy: — · matt: `hidden secret entry` · rjm: —
+- **decision:** D-460
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-hidden-secret-entry`
+
+---
+
+## D-461 — deduplication
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-deduplication
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `deduplication`. Deduplication is a triage technique that checks incoming feature requests against previously recorded rejections in `.out-of-scope/`. By matching concepts rather than issue titles, it prevents repetitive discussions and allows agents or maintainers to immediately close redundant requests with authoritative context.
+
+### Adopted from
+Matt `skills/engineering/triage/OUT-OF-SCOPE.md:6`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- deduplication-practice (less specific than canonical technique name)
+- generic-deduplication (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/triage/OUT-OF-SCOPE.md:6`.
+
+### Glossary
+### deduplication
+
+- **definition:** Deduplication is a triage technique that checks incoming feature requests against previously recorded rejections in `.out-of-scope/`. By matching concepts rather than issue titles, it prevents repetitive discussions and allows agents or maintainers to immediately close redundant requests with authoritative context.
+- **kind:** technique
+- **source names:** addy: — · matt: `Deduplication` · rjm: —
+- **decision:** D-461
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-deduplication`
+
+---
+
+## D-462 — re-pitches
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-re-pitches
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `re-pitches`. Re pitches is an engineering technique for re-pitching is Matt's conversational repair technique: rather than forcing the model to simply compress its output into terseness, it instructs the model to step back, identify the missing premise or unstated assumption, and restate the idea in accessible language grounded in project vocabulary.
+
+### Adopted from
+Matt `external/wait-what.md:25`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- re-pitches-practice (less specific than canonical technique name)
+- generic-re-pitches (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wait-what.md:25`.
+
+### Glossary
+### re-pitches
+
+- **definition:** Re pitches is an engineering technique for re-pitching is Matt's conversational repair technique: rather than forcing the model to simply compress its output into terseness, it instructs the model to step back, identify the missing premise or unstated assumption, and restate the idea in accessible language grounded in project vocabulary.
+- **kind:** technique
+- **source names:** addy: — · matt: `re-pitches` · rjm: —
+- **decision:** D-462
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-re-pitches`
+
+---
+
+## D-463 — grill-the-send-not-the-subject
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-grill-the-send-not-the-subject
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `grill-the-send-not-the-subject`. Grill the send not the subject is an engineering technique that prevents interview deadlock when the user is blocked on external knowledge. Probing a user about subject matter they do not understand causes frustration and stalls progress; interviewing them about the transmission context (recipient expertise and desired decision payload) extracts everything needed to frame an effective inquiry.
+
+### Adopted from
+Matt `skills/productivity/to-questionnaire/SKILL.md:9`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- grill-the-send-not-the-subject-practice (less specific than canonical technique name)
+- generic-grill-the-send-not-the-subject (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/to-questionnaire/SKILL.md:9`.
+
+### Glossary
+### grill-the-send-not-the-subject
+
+- **definition:** Grill the send not the subject is an engineering technique that prevents interview deadlock when the user is blocked on external knowledge. Probing a user about subject matter they do not understand causes frustration and stalls progress; interviewing them about the transmission context (recipient expertise and desired decision payload) extracts everything needed to frame an effective inquiry.
+- **kind:** technique
+- **source names:** addy: — · matt: `Grill the send, not the subject` · rjm: —
+- **decision:** D-463
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grill-the-send-not-the-subject`
+
+---
+
+## D-464 — session-clear-command
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-clear
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `session-clear-command`. Session clear command is a context-management command in Claude Code that erases conversational history to reclaim the full token window. In matt's lifecycle, /clear is the highest-priority context reset move on the phase boundary tree when past work is disposable (such as between independent implementation tickets), eliminating conversational noise and preventing token degradation in the smart zone.
+
+### Adopted from
+Matt `skills/engineering/ask-matt/PHASE-BOUNDARIES.md:12`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- session-clear-command-practice (less specific than canonical technique name)
+- generic-session-clear-command (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/ask-matt/PHASE-BOUNDARIES.md:12`.
+
+### Glossary
+### session-clear-command
+
+- **definition:** Session clear command is a context-management command in Claude Code that erases conversational history to reclaim the full token window. In matt's lifecycle, /clear is the highest-priority context reset move on the phase boundary tree when past work is disposable (such as between independent implementation tickets), eliminating conversational noise and preventing token degradation in the smart zone.
+- **kind:** technique
+- **source names:** addy: — · matt: `/clear` · rjm: —
+- **decision:** D-464
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-clear`
+
+---
+
+## D-465 — skill-execution-harness-technique
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-skills
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `skill-execution-harness-technique`. Skill execution harness technique is an engineering technique for in `matt`, `skills` has a dual meaning. Within the `teach` skill, it defines the practical, actionable capabilities a learner acquires through interactive practice, complementing factual knowledge and practitioner wisdom. Across the package as a whole, it represents the modular prompt-based behaviors and slash commands that equip coding agents to perform disciplined engineering tasks.
+
+### Adopted from
+Matt `skills/productivity/teach/SKILL.md:27`.
+
+### Dropped
+matt defects (defects: orphan) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- skill-execution-harness-technique-practice (less specific than canonical technique name)
+- generic-skill-execution-harness (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/teach/SKILL.md:27`.
+
+### Glossary
+### skill-execution-harness-technique
+
+- **definition:** Skill execution harness technique is an engineering technique for in `matt`, `skills` has a dual meaning. Within the `teach` skill, it defines the practical, actionable capabilities a learner acquires through interactive practice, complementing factual knowledge and practitioner wisdom. Across the package as a whole, it represents the modular prompt-based behaviors and slash commands that equip coding agents to perform disciplined engineering tasks.
+- **kind:** technique
+- **source names:** addy: — · matt: `skills` · rjm: —
+- **decision:** D-465
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-skills`
+
+---
+
+## D-466 — trigger-phrasing
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-trigger-phrasing
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `trigger-phrasing`. Trigger phrasing is an authoring technique where rich, descriptive keywords and situation cues are embedded in skill descriptions so models can autonomously select and execute the skill when relevant conditions arise.
+
+### Adopted from
+Matt `skills/productivity/README.md:17`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- trigger-phrasing-practice (less specific than canonical technique name)
+- generic-trigger-phrasing (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/README.md:17`.
+
+### Glossary
+### trigger-phrasing
+
+- **definition:** Trigger phrasing is an authoring technique where rich, descriptive keywords and situation cues are embedded in skill descriptions so models can autonomously select and execute the skill when relevant conditions arise.
+- **kind:** technique
+- **source names:** addy: — · matt: `trigger phrasing` · rjm: —
+- **decision:** D-466
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-trigger-phrasing`
+
+---
+
+## D-467 — tldr-abbreviation-command
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-tldr
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `tldr-abbreviation-command`. Tldr abbreviation command is an engineering technique for `/tldr` is analyzed in Matt's design as an anti-pattern for conversational repair. Because it instructs the model to compress output rather than address comprehension failure, it causes the model to delete necessary context and drop into an uninformative register.
+
+### Adopted from
+Matt `external/wait-what.md:32`.
+
+### Dropped
+matt defects (not-implemented) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- tldr-abbreviation-command-practice (less specific than canonical technique name)
+- generic-tldr-abbreviation-command (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wait-what.md:32`.
+
+### Glossary
+### tldr-abbreviation-command
+
+- **definition:** Tldr abbreviation command is an engineering technique for `/tldr` is analyzed in Matt's design as an anti-pattern for conversational repair. Because it instructs the model to compress output rather than address comprehension failure, it causes the model to delete necessary context and drop into an uninformative register.
+- **kind:** technique
+- **source names:** addy: — · matt: `/tldr` · rjm: —
+- **decision:** D-467
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-tldr`
+
+---
+
+## D-468 — adversarial-grilling-technique
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-grilling
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `adversarial-grilling-technique`. Adversarial grilling technique is the core interrogative interview loop in matt's package. It models problem spaces as design trees, questioning users along the decision frontier in batched rounds to eliminate unstated assumptions and establish firm consensus before code is written.
+
+### Adopted from
+Matt `docs/productivity/grilling.md:3`.
+
+### Dropped
+matt defects (defects: doc-drift, internal-contradiction, missing-path, orphan, other) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- adversarial-grilling-technique-practice (less specific than canonical technique name)
+- generic-adversarial-grilling (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/productivity/grilling.md:3`.
+
+### Glossary
+### adversarial-grilling-technique
+
+- **definition:** Adversarial grilling technique is the core interrogative interview loop in matt's package. It models problem spaces as design trees, questioning users along the decision frontier in batched rounds to eliminate unstated assumptions and establish firm consensus before code is written.
+- **kind:** technique
+- **source names:** addy: — · matt: `grilling` · rjm: —
+- **decision:** D-468
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grilling`
+
+---
+
+## D-469 — post-mortem
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-post-mortem
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `post-mortem`. Post mortem is an engineering technique for in `matt:engineering`, a post-mortem captures systemic architectural lessons from difficult bugs. In earlier iterations of `diagnosing-bugs`, Phase 6 incorporated a post-mortem step that handed off findings directly to `improve-codebase-architecture` whenever the lack of a proper test seam was identified. Because `improve-codebase-architecture` is an interactive user-invoked skill, this autonomous hand-off violated invocation invariants during unattended debugging sessions and was subsequently removed in favor of a clean, checklist-only Phase 6.
+
+### Adopted from
+Matt `.changeset/user-invoked-skill-invocation.md:8`.
+
+### Dropped
+matt defects (defects: doc-drift, orphan) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- post-mortem-practice (less specific than canonical technique name)
+- generic-post-mortem (fails to reflect source methodology)
+
+### Evidence
+Matt `.changeset/user-invoked-skill-invocation.md:8`.
+
+### Glossary
+### post-mortem
+
+- **definition:** Post mortem is an engineering technique for in `matt:engineering`, a post-mortem captures systemic architectural lessons from difficult bugs. In earlier iterations of `diagnosing-bugs`, Phase 6 incorporated a post-mortem step that handed off findings directly to `improve-codebase-architecture` whenever the lack of a proper test seam was identified. Because `improve-codebase-architecture` is an interactive user-invoked skill, this autonomous hand-off violated invocation invariants during unattended debugging sessions and was subsequently removed in favor of a clean, checklist-only Phase 6.
+- **kind:** technique
+- **source names:** addy: — · matt: `post-mortem` · rjm: —
+- **decision:** D-469
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-post-mortem`
+
+---
+
+## D-470 — no-fluff
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-no-fluff
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `no-fluff`. No fluff is an engineering technique for `/no-fluff` represents a common prompt-engineering shortcut that attempts to reduce verbosity by constraining phrasing. Matt notes that focusing on output removal rather than listener needs causes models to become blunt while leaving underlying misunderstandings unresolved.
+
+### Adopted from
+Matt `external/wait-what.md:32`.
+
+### Dropped
+matt defects (not-implemented) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- no-fluff-practice (less specific than canonical technique name)
+- generic-no-fluff (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wait-what.md:32`.
+
+### Glossary
+### no-fluff
+
+- **definition:** No fluff is an engineering technique for `/no-fluff` represents a common prompt-engineering shortcut that attempts to reduce verbosity by constraining phrasing. Matt notes that focusing on output removal rather than listener needs causes models to become blunt while leaving underlying misunderstandings unresolved.
+- **kind:** technique
+- **source names:** addy: — · matt: `/no-fluff` · rjm: —
+- **decision:** D-470
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-no-fluff`
+
+---
+
+## D-471 — retrieval-practice
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-retrieval-practice
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `retrieval-practice`. Retrieval practice is an engineering technique for retrieval practice requires learners to actively pull knowledge from memory rather than passively re-reading text. By embedding quizzes and diagnostic drills directly within lessons, the teach skill reinforces memory pathways and confirms understanding before advancing to new material.
+
+### Adopted from
+Matt `skills/productivity/teach/SKILL.md:43`.
+
+### Dropped
+matt defects (defects: internal-contradiction (quiz answers defaulting to slot A impairs retrieval testing)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- retrieval-practice-practice (less specific than canonical technique name)
+- generic-retrieval-practice (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/teach/SKILL.md:43`.
+
+### Glossary
+### retrieval-practice
+
+- **definition:** Retrieval practice is an engineering technique for retrieval practice requires learners to actively pull knowledge from memory rather than passively re-reading text. By embedding quizzes and diagnostic drills directly within lessons, the teach skill reinforces memory pathways and confirms understanding before advancing to new material.
+- **kind:** technique
+- **source names:** addy: — · matt: `retrieval practice` · rjm: —
+- **decision:** D-471
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-retrieval-practice`
+
+---
+
+## D-472 — instrumentation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-instrumentation
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `instrumentation`. Instrumentation is an engineering technique for instrumentation in Matt's lifecycle represents targeted code modifications or logging probes inserted to isolate defective code paths. It is treated as strictly secondary and mechanical: adding probes or logs before establishing a deterministic feedback loop is rejected as speculative guessing.
+
+### Adopted from
+Matt `external/diagnosing-bugs.md:26`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- instrumentation-practice (less specific than canonical technique name)
+- generic-instrumentation (fails to reflect source methodology)
+
+### Evidence
+Matt `external/diagnosing-bugs.md:26`.
+
+### Glossary
+### instrumentation
+
+- **definition:** Instrumentation is an engineering technique for instrumentation in Matt's lifecycle represents targeted code modifications or logging probes inserted to isolate defective code paths. It is treated as strictly secondary and mechanical: adding probes or logs before establishing a deterministic feedback loop is rejected as speculative guessing.
+- **kind:** technique
+- **source names:** addy: — · matt: `instrumentation` · rjm: —
+- **decision:** D-472
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-instrumentation`
+
+---
+
+## D-473 — existing-code-exploration
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-existing
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `existing-code-exploration`. Existing code exploration is a bash helper function in `template.sh` that checks the target `.env` file for existing key-value pairs. By retrieving prior values, it allows interactive input functions (`ask` and `ask_secret`) to offer current settings as re-run defaults, making wizard execution safe and repeatable without requiring re-entry of unmodified configurations.
+
+### Adopted from
+Matt `skills/engineering/wizard/template.sh:91`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- existing-code-exploration-practice (less specific than canonical technique name)
+- generic-existing-code-exploration (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/template.sh:91`.
+
+### Glossary
+### existing-code-exploration
+
+- **definition:** Existing code exploration is a bash helper function in `template.sh` that checks the target `.env` file for existing key-value pairs. By retrieving prior values, it allows interactive input functions (`ask` and `ask_secret`) to offer current settings as re-run defaults, making wizard execution safe and repeatable without requiring re-entry of unmodified configurations.
+- **kind:** technique
+- **source names:** addy: — · matt: `_existing` · rjm: —
+- **decision:** D-473
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-existing`
+
+---
+
+## D-474 — fromexact
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-fromexact
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `fromexact`. Fromexact is a shoehorn utility function that enforces complete interface conformance without allowing missing fields, providing an explicit transition step before relaxing mock constraints with fromPartial().
+
+### Adopted from
+Matt `skills/misc/migrate-to-shoehorn/SKILL.md:103`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- fromexact-practice (less specific than canonical technique name)
+- generic-fromexact (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/migrate-to-shoehorn/SKILL.md:103`.
+
+### Glossary
+### fromexact
+
+- **definition:** Fromexact is a shoehorn utility function that enforces complete interface conformance without allowing missing fields, providing an explicit transition step before relaxing mock constraints with fromPartial().
+- **kind:** technique
+- **source names:** addy: — · matt: `fromExact()` · rjm: —
+- **decision:** D-474
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-fromexact`
+
+---
+
+## D-475 — hitl-bash-script
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-hitl-bash-script
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `hitl-bash-script`. Hitl bash script is a human-in-the-loop debugging technique using an interactive bash script to guide human actions and capture observations as structured key-value output. This ensures that even un-automatable bugs retain a structured, repeatable feedback loop.
+
+### Adopted from
+Matt `skills/engineering/diagnosing-bugs/SKILL.md:35`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- hitl-bash-script-practice (less specific than canonical technique name)
+- generic-hitl-bash-script (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/diagnosing-bugs/SKILL.md:35`.
+
+### Glossary
+### hitl-bash-script
+
+- **definition:** Hitl bash script is a human-in-the-loop debugging technique using an interactive bash script to guide human actions and capture observations as structured key-value output. This ensures that even un-automatable bugs retain a structured, repeatable feedback loop.
+- **kind:** technique
+- **source names:** addy: — · matt: `HITL bash script` · rjm: —
+- **decision:** D-475
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-hitl-bash-script`
+
+---
+
+## D-476 — mermaid-graph
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-mermaid-graph
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `mermaid-graph`. Mermaid graph is the primary diagramming technique recommended for HTML architecture reports to visualize dependencies and call flows, using Mermaid syntax wrapped in Tailwind-styled cards and styled with classDef rules to contrast messy before states against clean deep modules.
+
+### Adopted from
+Matt `skills/engineering/improve-codebase-architecture/HTML-REPORT.md:61`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- mermaid-graph-practice (less specific than canonical technique name)
+- generic-mermaid-graph (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/improve-codebase-architecture/HTML-REPORT.md:61`.
+
+### Glossary
+### mermaid-graph
+
+- **definition:** Mermaid graph is the primary diagramming technique recommended for HTML architecture reports to visualize dependencies and call flows, using Mermaid syntax wrapped in Tailwind-styled cards and styled with classDef rules to contrast messy before states against clean deep modules.
+- **kind:** technique
+- **source names:** addy: — · matt: `Mermaid graph` · rjm: —
+- **decision:** D-476
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-mermaid-graph`
+
+---
+
+## D-477 — facts-vs-decisions
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-facts-vs-decisions
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `facts-vs-decisions`. Facts vs decisions is an engineering technique that this distinction prevents conversational fatigue by requiring agents to look up existing technical facts (libraries, schemas, existing patterns) from the workspace rather than asking the human, reserving human dialogue exclusively for true subjective decisions.
+
+### Adopted from
+Matt `CHANGELOG.md:171`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- facts-vs-decisions-practice (less specific than canonical technique name)
+- generic-facts-vs-decisions (fails to reflect source methodology)
+
+### Evidence
+Matt `CHANGELOG.md:171`.
+
+### Glossary
+### facts-vs-decisions
+
+- **definition:** Facts vs decisions is an engineering technique that this distinction prevents conversational fatigue by requiring agents to look up existing technical facts (libraries, schemas, existing patterns) from the workspace rather than asking the human, reserving human dialogue exclusively for true subjective decisions.
+- **kind:** technique
+- **source names:** addy: — · matt: `Facts vs. decisions` · rjm: —
+- **decision:** D-477
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-facts-vs-decisions`
+
+---
+
+## D-478 — retrieval-spacing-discipline
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-spacing
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `retrieval-spacing-discipline`. Retrieval spacing discipline is an engineering technique for spacing distributes practice intervals over time rather than massing instruction into a single marathon session. In the teach skill, spacing leverages the multi-session nature of the standing workspace to re-test previously learned concepts after intervals of decay, transforming transient familiarity into permanent capability.
+
+### Adopted from
+Matt `skills/productivity/teach/SKILL.md:44`.
+
+### Dropped
+matt defects (defects: internal-contradiction (spacing lacks automated scheduling or calendar integration)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- retrieval-spacing-discipline-practice (less specific than canonical technique name)
+- generic-retrieval-spacing-discipline (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/teach/SKILL.md:44`.
+
+### Glossary
+### retrieval-spacing-discipline
+
+- **definition:** Retrieval spacing discipline is an engineering technique for spacing distributes practice intervals over time rather than massing instruction into a single marathon session. In the teach skill, spacing leverages the multi-session nature of the standing workspace to re-test previously learned concepts after intervals of decay, transforming transient familiarity into permanent capability.
+- **kind:** technique
+- **source names:** addy: — · matt: `spacing` · rjm: —
+- **decision:** D-478
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-spacing`
+
+---
+
+## D-479 — chart-the-map
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-chart-the-map
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `chart-the-map`. Chart the map is the initial exploration phase and technique of wayfinder. In a single dedicated session, the agent pins down the overall destination, grills breadth-first across the problem space to reveal the frontier, creates the index map issue, and creates initial sharp child tickets while sketching remaining uncertainty into Not yet specified.
+
+### Adopted from
+Matt `skills/engineering/wayfinder/SKILL.md:107`.
+
+### Dropped
+matt defects (defects: other) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- chart-the-map-practice (less specific than canonical technique name)
+- generic-chart-the-map (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wayfinder/SKILL.md:107`.
+
+### Glossary
+### chart-the-map
+
+- **definition:** Chart the map is the initial exploration phase and technique of wayfinder. In a single dedicated session, the agent pins down the overall destination, grills breadth-first across the problem space to reveal the frontier, creates the index map issue, and creates initial sharp child tickets while sketching remaining uncertainty into Not yet specified.
+- **kind:** technique
+- **source names:** addy: — · matt: `Chart the map` · rjm: —
+- **decision:** D-479
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-chart-the-map`
+
+---
+
+## D-480 — setup-pre-commit
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-setup-pre-commit
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `setup-pre-commit`. Setup pre commit is an interactive setup skill that configures client-side pre-commit quality gates in a repository. It automatically detects the active package manager, installs Husky, lint-staged, and Prettier as devDependencies, initializes Husky v9+, configures formatting with `.lintstagedrc` and default `.prettierrc`, hooks up typechecking and test scripts if present, verifies the setup, and performs an initial commit as a smoke test.
+
+### Adopted from
+Matt `skills/misc/setup-pre-commit/SKILL.md:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- setup-pre-commit-practice (less specific than canonical technique name)
+- generic-setup-pre-commit (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/setup-pre-commit/SKILL.md:3`.
+
+### Glossary
+### setup-pre-commit
+
+- **definition:** Setup pre commit is an interactive setup skill that configures client-side pre-commit quality gates in a repository. It automatically detects the active package manager, installs Husky, lint-staged, and Prettier as devDependencies, initializes Husky v9+, configures formatting with `.lintstagedrc` and default `.prettierrc`, hooks up typechecking and test scripts if present, verifies the setup, and performs an initial commit as a smoke test.
+- **kind:** technique
+- **source names:** addy: — · matt: `setup-pre-commit` · rjm: —
+- **decision:** D-480
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-setup-pre-commit`
+
+---
+
+## D-481 — leading-word
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-leading-word
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `leading-word`. Leading word is a cornerstone prompt-engineering technique in Matt's design. Rather than spending dozens of tokens explaining nuanced behaviors, authoring documents leverage compact pretrained tokens (e.g. *wait*, *tight*, *red*) that recruit extensive latent model priors at near-zero token cost.
+
+### Adopted from
+Matt `skills/productivity/writing-for-agents/SKILL.md:63`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- leading-word-practice (less specific than canonical technique name)
+- generic-leading-word (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/writing-for-agents/SKILL.md:63`.
+
+### Glossary
+### leading-word
+
+- **definition:** Leading word is a cornerstone prompt-engineering technique in Matt's design. Rather than spending dozens of tokens explaining nuanced behaviors, authoring documents leverage compact pretrained tokens (e.g. *wait*, *tight*, *red*) that recruit extensive latent model priors at near-zero token cost.
+- **kind:** technique
+- **source names:** addy: — · matt: `leading word` · rjm: —
+- **decision:** D-481
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-leading-word`
+
+---
+
+## D-482 — single-session-planning
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-single-session-planning
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `single-session-planning`. Single session planning is an engineering technique for single-session planning is an architectural technique for resolving trade-offs and settling terminology in a single conversation. It prioritizes low overhead and rapid convergence, writing newly crystallized domain terms into CONTEXT.md and significant trade-offs into ADRs before passing the settled conversation directly to downstream specification skills.
+
+### Adopted from
+Matt `external/grill-with-docs.md:31`.
+
+### Dropped
+matt defects (defects: orphan, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- single-session-planning-practice (less specific than canonical technique name)
+- generic-single-session-planning (fails to reflect source methodology)
+
+### Evidence
+Matt `external/grill-with-docs.md:31`.
+
+### Glossary
+### single-session-planning
+
+- **definition:** Single session planning is an engineering technique for single-session planning is an architectural technique for resolving trade-offs and settling terminology in a single conversation. It prioritizes low overhead and rapid convergence, writing newly crystallized domain terms into CONTEXT.md and significant trade-offs into ADRs before passing the settled conversation directly to downstream specification skills.
+- **kind:** technique
+- **source names:** addy: — · matt: `single-session planning` · rjm: —
+- **decision:** D-482
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-single-session-planning`
+
+---
+
+## D-483 — grilling-session
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-grilling-session
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conversational and exploratory grilling techniques; followed by adopting this dialogue elicitation technique.
+
+### Decision
+The canonical term for this technique is `grilling-session`. Grilling session is a grilling session is Matt's core conversational alignment technique where the agent relentlessly interviews the developer to expose ambiguities and resolve decision branches before writing code or documents.
+
+### Adopted from
+Matt `README.md:96`.
+
+### Dropped
+matt defects (clean (in README.md, skills/in-progress/writing-fragments/, skills/in-progress/writing-shape/); defects: missing-path, doc-drift (in CHANGELOG.md)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- grilling-session-practice (less specific than canonical technique name)
+- generic-grilling-session (fails to reflect source methodology)
+
+### Evidence
+Matt `README.md:96`.
+
+### Glossary
+### grilling-session
+
+- **definition:** Grilling session is a grilling session is Matt's core conversational alignment technique where the agent relentlessly interviews the developer to expose ambiguities and resolve decision branches before writing code or documents.
+- **kind:** technique
+- **source names:** addy: — · matt: `grilling session` · rjm: —
+- **decision:** D-483
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grilling-session`
+
+---
+
+## D-484 — interleaving
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-interleaving
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `interleaving`. Interleaving is a cognitive learning technique used in `teach` to build long-term retention (storage strength) rather than temporary fluency. By alternating among distinct but related topics during practice drills, it forces active discrimination between concepts, preventing rote habituation.
+
+### Adopted from
+Matt `skills/productivity/teach/SKILL.md:45`.
+
+### Dropped
+matt defects (defects: internal-contradiction) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- interleaving-practice (less specific than canonical technique name)
+- generic-interleaving (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/teach/SKILL.md:45`.
+
+### Glossary
+### interleaving
+
+- **definition:** Interleaving is a cognitive learning technique used in `teach` to build long-term retention (storage strength) rather than temporary fluency. By alternating among distinct but related topics during practice drills, it forces active discrimination between concepts, preventing rote habituation.
+- **kind:** technique
+- **source names:** addy: — · matt: `interleaving` · rjm: —
+- **decision:** D-484
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-interleaving`
+
+---
+
+## D-485 — npx-skills
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-npx-skills
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `npx-skills`. Npx skills is the CLI execution mechanism used by developers to discover, add, and manage skills within their coding environment (`npx skills@latest add ...`), enabling modular distribution and installation of agent capabilities.
+
+### Adopted from
+Matt `.changeset/fix-yaml-frontmatter-colons.md:5`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- npx-skills-practice (less specific than canonical technique name)
+- generic-npx-skills (fails to reflect source methodology)
+
+### Evidence
+Matt `.changeset/fix-yaml-frontmatter-colons.md:5`.
+
+### Glossary
+### npx-skills
+
+- **definition:** Npx skills is the CLI execution mechanism used by developers to discover, add, and manage skills within their coding environment (`npx skills@latest add ...`), enabling modular distribution and installation of agent capabilities.
+- **kind:** technique
+- **source names:** addy: — · matt: `npx skills` · rjm: —
+- **decision:** D-485
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-npx-skills`
+
+---
+
+## D-486 — leading-words
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-leading-words
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `leading-words`. Leading words is a prompt and documentation technique that recruits rich latent concepts already present in an LLM's pretraining using compact tokens. Anchoring to pretrained terms guides complex multi-step behavior without spending context on verbose explanations.
+
+### Adopted from
+Matt `skills/productivity/writing-for-agents/SKILL.md:63`.
+
+### Dropped
+matt defects (defects: missing-path, doc-drift, orphan) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- leading-words-practice (less specific than canonical technique name)
+- generic-leading-words (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/writing-for-agents/SKILL.md:63`.
+
+### Glossary
+### leading-words
+
+- **definition:** Leading words is a prompt and documentation technique that recruits rich latent concepts already present in an LLM's pretraining using compact tokens. Anchoring to pretrained terms guides complex multi-step behavior without spending context on verbose explanations.
+- **kind:** technique
+- **source names:** addy: — · matt: `leading words` · rjm: —
+- **decision:** D-486
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-leading-words`
+
+---
+
+## D-487 — prompt-quality
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-prompt-quality
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `prompt-quality`. Prompt quality is an engineering technique for prompt-quality emphasizes that conversational precision and relevance must be engineered into the skill prompt itself rather than handled through arbitrary external throttling mechanisms.
+
+### Adopted from
+Matt `.out-of-scope/question-limits.md:14`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- prompt-quality-practice (less specific than canonical technique name)
+- generic-prompt-quality (fails to reflect source methodology)
+
+### Evidence
+Matt `.out-of-scope/question-limits.md:14`.
+
+### Glossary
+### prompt-quality
+
+- **definition:** Prompt quality is an engineering technique for prompt-quality emphasizes that conversational precision and relevance must be engineered into the skill prompt itself rather than handled through arbitrary external throttling mechanisms.
+- **kind:** technique
+- **source names:** addy: — · matt: `prompt-quality` · rjm: —
+- **decision:** D-487
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prompt-quality`
+
+---
+
+## D-488 — claims-verification-technique
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-claims
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `claims-verification-technique`. Claims verification technique is the coordination technique used in wayfinder to avoid collision between concurrent agent sessions. By assigning the ticket to the current session driver prior to starting work, unclaimed frontier tickets are immediately distinguishable from in-progress tickets, allowing multiple sessions to safely work the frontier in parallel.
+
+### Adopted from
+Matt `skills/engineering/wayfinder/SKILL.md:67`.
+
+### Dropped
+matt defects (defects: other) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- claims-verification-technique-practice (less specific than canonical technique name)
+- generic-claims-verification (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wayfinder/SKILL.md:67`.
+
+### Glossary
+### claims-verification-technique
+
+- **definition:** Claims verification technique is the coordination technique used in wayfinder to avoid collision between concurrent agent sessions. By assigning the ticket to the current session driver prior to starting work, unclaimed frontier tickets are immediately distinguishable from in-progress tickets, allowing multiple sessions to safely work the frontier in parallel.
+- **kind:** technique
+- **source names:** addy: — · matt: `claims` · rjm: —
+- **decision:** D-488
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-claims`
+
+---
+
+## D-489 — wayfinder-exploration-skill
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-wayfinder
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `wayfinder-exploration-skill`. Wayfinder exploration skill is an architectural planning discipline designed for large, multi-session initiatives. Instead of generating speculative implementation tasks, wayfinder charts the unknowns as a shared board of 'decision tickets' on an issue tracker. It methodically resolves decisions one at a time before any implementation code or task slicing begins.
+
+### Adopted from
+Matt `skills/engineering/wayfinder/agents/openai.yaml:3`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- wayfinder-exploration-skill-practice (less specific than canonical technique name)
+- generic-wayfinder-exploration-skill (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wayfinder/agents/openai.yaml:3`.
+
+### Glossary
+### wayfinder-exploration-skill
+
+- **definition:** Wayfinder exploration skill is an architectural planning discipline designed for large, multi-session initiatives. Instead of generating speculative implementation tasks, wayfinder charts the unknowns as a shared board of 'decision tickets' on an issue tracker. It methodically resolves decisions one at a time before any implementation code or task slicing begins.
+- **kind:** technique
+- **source names:** addy: — · matt: `wayfinder` · rjm: —
+- **decision:** D-489
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-wayfinder`
+
+---
+
+## D-490 — zone-of-proximal-development
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-zone-of-proximal-development
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `zone-of-proximal-development`. Zone of proximal development is an engineering technique for vygotskian pedagogical principle adapted for AI instruction in `teach`. It balances challenge against current mastery, selecting lessons that require deliberate effort without exceeding working memory or jumping into ungrounded prerequisites.
+
+### Adopted from
+Matt `docs/productivity/teach.md:44`.
+
+### Dropped
+matt defects (defects: other, internal-contradiction) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- zone-of-proximal-development-practice (less specific than canonical technique name)
+- generic-zone-of-proximal-development (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/productivity/teach.md:44`.
+
+### Glossary
+### zone-of-proximal-development
+
+- **definition:** Zone of proximal development is an engineering technique for vygotskian pedagogical principle adapted for AI instruction in `teach`. It balances challenge against current mastery, selecting lessons that require deliberate effort without exceeding working memory or jumping into ungrounded prerequisites.
+- **kind:** technique
+- **source names:** addy: — · matt: `zone of proximal development` · rjm: —
+- **decision:** D-490
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-zone-of-proximal-development`
+
+---
+
+## D-491 — frompartial
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-frompartial
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `frompartial`. Frompartial is a TypeScript test helper function from shoehorn that permits partial objects while preserving type validation for all supplied fields, eliminating fragile boilerplate in test fixtures.
+
+### Adopted from
+Matt `skills/misc/migrate-to-shoehorn/SKILL.md:65`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- frompartial-practice (less specific than canonical technique name)
+- generic-frompartial (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/migrate-to-shoehorn/SKILL.md:65`.
+
+### Glossary
+### frompartial
+
+- **definition:** Frompartial is a TypeScript test helper function from shoehorn that permits partial objects while preserving type validation for all supplied fields, eliminating fragile boilerplate in test fixtures.
+- **kind:** technique
+- **source names:** addy: — · matt: `fromPartial` · rjm: —
+- **decision:** D-491
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-frompartial`
+
+---
+
+## D-492 — context-compaction-command
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-compact
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `context-compaction-command`. Context compaction command is a conversational summarization command in Claude Code that compresses dialogue history to free token capacity. In matt's lifecycle philosophy, /compact is intentionally placed at the bottom of the phase boundary decision tree as a default fallback rather than a first reach; because automated summarization flattens nuances and decisions, developers are advised to supply an explicit focusing instruction when compacting.
+
+### Adopted from
+Matt `skills/engineering/ask-matt/PHASE-BOUNDARIES.md:15`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- context-compaction-command-practice (less specific than canonical technique name)
+- generic-context-compaction-command (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/ask-matt/PHASE-BOUNDARIES.md:15`.
+
+### Glossary
+### context-compaction-command
+
+- **definition:** Context compaction command is a conversational summarization command in Claude Code that compresses dialogue history to free token capacity. In matt's lifecycle philosophy, /compact is intentionally placed at the bottom of the phase boundary decision tree as a default fallback rather than a first reach; because automated summarization flattens nuances and decisions, developers are advised to supply an explicit focusing instruction when compacting.
+- **kind:** technique
+- **source names:** addy: — · matt: `/compact` · rjm: —
+- **decision:** D-492
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-compact`
+
+---
+
+## D-493 — fluency-strength
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-fluency-strength
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `fluency-strength`. Fluency strength is a psychological concept defining how easily a learner can access information in the immediate moment. In Matt's teaching design, high fluency strength is explicitly identified as an unreliable indicator of true competence that often masks rapid forgetting once the prompt or session ends.
+
+### Adopted from
+Matt `skills/productivity/teach/SKILL.md:38`.
+
+### Dropped
+matt defects (defects: doc-drift, other (teach/SKILL.md omits link to GLOSSARY-FORMAT.md; lacks initial knowledge assessment step)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- fluency-strength-practice (less specific than canonical technique name)
+- generic-fluency-strength (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/productivity/teach/SKILL.md:38`.
+
+### Glossary
+### fluency-strength
+
+- **definition:** Fluency strength is a psychological concept defining how easily a learner can access information in the immediate moment. In Matt's teaching design, high fluency strength is explicitly identified as an unreliable indicator of true competence that often masks rapid forgetting once the prompt or session ends.
+- **kind:** technique
+- **source names:** addy: — · matt: `Fluency strength` · rjm: —
+- **decision:** D-493
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-fluency-strength`
+
+---
+
+## D-494 — guided-walkthroughs
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-guided-walkthroughs
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `guided-walkthroughs`. Guided walkthroughs is an engineering technique for guided walkthroughs provide structured, reproducible scenario sequences inside self-contained logic prototype HTML files, enabling non-technical stakeholders to test domain logic and edge cases before code is written.
+
+### Adopted from
+Matt `skills/engineering/prototype/LOGIC.md:46`.
+
+### Dropped
+matt defects (clean (in docs/engineering/prototype.md, skills/engineering/prototype/LOGIC.md); defects: missing-path, doc-drift (in CHANGELOG.md)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- guided-walkthroughs-practice (less specific than canonical technique name)
+- generic-guided-walkthroughs (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/prototype/LOGIC.md:46`.
+
+### Glossary
+### guided-walkthroughs
+
+- **definition:** Guided walkthroughs is an engineering technique for guided walkthroughs provide structured, reproducible scenario sequences inside self-contained logic prototype HTML files, enabling non-technical stakeholders to test domain logic and edge cases before code is written.
+- **kind:** technique
+- **source names:** addy: — · matt: `guided walkthroughs` · rjm: —
+- **decision:** D-494
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-guided-walkthroughs`
+
+---
+
+## D-495 — multi-commit-rebase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-multi-commit-rebase
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `multi-commit-rebase`. Multi commit rebase is a multi-commit rebase is identified as an operational hazard for coding agents. Because rebasing across multiple commits with repeated conflict resolution easily causes agents to lose track of intermediate state, the recommended pattern is to abort, squash the branch to a single commit, and rebase cleanly once.
+
+### Adopted from
+Matt `external/resolving-merge-conflicts.md:48`.
+
+### Dropped
+matt defects (defects: orphan, doc-drift) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- multi-commit-rebase-practice (less specific than canonical technique name)
+- generic-multi-commit-rebase (fails to reflect source methodology)
+
+### Evidence
+Matt `external/resolving-merge-conflicts.md:48`.
+
+### Glossary
+### multi-commit-rebase
+
+- **definition:** Multi commit rebase is a multi-commit rebase is identified as an operational hazard for coding agents. Because rebasing across multiple commits with repeated conflict resolution easily causes agents to lose track of intermediate state, the recommended pattern is to abort, squash the branch to a single commit, and rebase cleanly once.
+- **kind:** technique
+- **source names:** addy: — · matt: `multi-commit rebase` · rjm: —
+- **decision:** D-495
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-multi-commit-rebase`
+
+---
+
+## D-496 — warning-escalation-helper
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-warn
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `warning-escalation-helper`. Warning escalation helper is a terminal output formatting helper function in `template.sh` providing consistent visual highlighting and alert iconography for non-fatal errors, skipped actions, and cautionary guidance during wizard execution.
+
+### Adopted from
+Matt `skills/engineering/wizard/template.sh:63`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- warning-escalation-helper-practice (less specific than canonical technique name)
+- generic-warning-escalation (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/template.sh:63`.
+
+### Glossary
+### warning-escalation-helper
+
+- **definition:** Warning escalation helper is a terminal output formatting helper function in `template.sh` providing consistent visual highlighting and alert iconography for non-fatal errors, skipped actions, and cautionary guidance during wizard execution.
+- **kind:** technique
+- **source names:** addy: — · matt: `warn` · rjm: —
+- **decision:** D-496
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-warn`
+
+---
+
+## D-497 — delegating
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-delegating
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `delegating`. Delegating is the motivating outcome in loop-me's methodology. Once predictable patterns are formalized into workflows without unresolved questions, execution responsibility can be handed over from the human to autonomous agent routines.
+
+### Adopted from
+Matt `skills/in-progress/loop-me/SKILL.md:12`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- delegating-practice (less specific than canonical technique name)
+- generic-delegating (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/loop-me/SKILL.md:12`.
+
+### Glossary
+### delegating
+
+- **definition:** Delegating is the motivating outcome in loop-me's methodology. Once predictable patterns are formalized into workflows without unresolved questions, execution responsibility can be handed over from the human to autonomous agent routines.
+- **kind:** technique
+- **source names:** addy: — · matt: `delegating` · rjm: —
+- **decision:** D-497
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-delegating`
+
+---
+
+## D-498 — plain-english
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-plain-english
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `plain-english`. Plain english is an engineering technique for plain English establishes the communicative baseline for human-agent collaboration in Matt's toolkit. Grounded in ASD-STE100 principles, it prevents models from generating opaque, self-referential prose and forces clear sentence structures without sacrificing technical precision.
+
+### Adopted from
+Matt `external/wait-what.md:25`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- plain-english-practice (less specific than canonical technique name)
+- generic-plain-english (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wait-what.md:25`.
+
+### Glossary
+### plain-english
+
+- **definition:** Plain english is an engineering technique for plain English establishes the communicative baseline for human-agent collaboration in Matt's toolkit. Grounded in ASD-STE100 principles, it prevents models from generating opaque, self-referential prose and forces clear sentence structures without sacrificing technical precision.
+- **kind:** technique
+- **source names:** addy: — · matt: `plain English` · rjm: —
+- **decision:** D-498
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-plain-english`
+
+---
+
+## D-499 — prettier
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-prettier
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `prettier`. Prettier is an opinionated code formatting tool that enforces consistent styling across a codebase. Integrated into pre-commit workflows so developers and agents do not waste review bandwidth on formatting trivialities.
+
+### Adopted from
+Matt `skills/misc/README.md:8`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- prettier-practice (less specific than canonical technique name)
+- generic-prettier (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/misc/README.md:8`.
+
+### Glossary
+### prettier
+
+- **definition:** Prettier is an opinionated code formatting tool that enforces consistent styling across a codebase. Integrated into pre-commit workflows so developers and agents do not waste review bandwidth on formatting trivialities.
+- **kind:** technique
+- **source names:** addy: — · matt: `Prettier` · rjm: —
+- **decision:** D-499
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prettier`
+
+---
+
+## D-500 — intent-dispatch-send
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-send
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `intent-dispatch-send`. Intent dispatch send is the foundational interview scoping technique in `to-questionnaire`. By restricting elicitation strictly to transmission parameters (recipient role, expertise, and required deliverables) instead of probing domain content the user explicitly does not possess, it prevents the interview from derailing into speculative or unanswerable queries.
+
+### Adopted from
+Matt `docs/productivity/to-questionnaire.md:5`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- intent-dispatch-send-practice (less specific than canonical technique name)
+- generic-intent-dispatch-send (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/productivity/to-questionnaire.md:5`.
+
+### Glossary
+### intent-dispatch-send
+
+- **definition:** Intent dispatch send is the foundational interview scoping technique in `to-questionnaire`. By restricting elicitation strictly to transmission parameters (recipient role, expertise, and required deliverables) instead of probing domain content the user explicitly does not possess, it prevents the interview from derailing into speculative or unanswerable queries.
+- **kind:** technique
+- **source names:** addy: — · matt: `send` · rjm: —
+- **decision:** D-500
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-send`
+
+---
+
+## D-501 — work-through-the-map
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-work-through-the-map
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `work-through-the-map`. Work through the map is the iterative execution loop of wayfinder. Each session loads the low-resolution map, claims a single frontier decision ticket, investigates or grills to reach a definitive decision, records the resolution, and graduates clarified fog into new tickets until the destination is reached.
+
+### Adopted from
+Matt `skills/engineering/wayfinder/SKILL.md:118`.
+
+### Dropped
+matt defects (defects: other) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- work-through-the-map-practice (less specific than canonical technique name)
+- generic-work-through-the-map (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wayfinder/SKILL.md:118`.
+
+### Glossary
+### work-through-the-map
+
+- **definition:** Work through the map is the iterative execution loop of wayfinder. Each session loads the low-resolution map, claims a single frontier decision ticket, investigates or grills to reach a definitive decision, records the resolution, and graduates clarified fog into new tickets until the destination is reached.
+- **kind:** technique
+- **source names:** addy: — · matt: `Work through the map` · rjm: —
+- **decision:** D-501
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-work-through-the-map`
+
+---
+
+## D-502 — natural-language-steering
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-natural-language-steering
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `natural-language-steering`. Natural language steering is an engineering technique for natural-language steering establishes conversational dialogue as the primary mechanism for regulating agent depth, keeping control with the human operator rather than imposing rigid numeric thresholds.
+
+### Adopted from
+Matt `.out-of-scope/question-limits.md:12`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- natural-language-steering-practice (less specific than canonical technique name)
+- generic-natural-language-steering (fails to reflect source methodology)
+
+### Evidence
+Matt `.out-of-scope/question-limits.md:12`.
+
+### Glossary
+### natural-language-steering
+
+- **definition:** Natural language steering is an engineering technique for natural-language steering establishes conversational dialogue as the primary mechanism for regulating agent depth, keeping control with the human operator rather than imposing rigid numeric thresholds.
+- **kind:** technique
+- **source names:** addy: — · matt: `natural-language steering` · rjm: —
+- **decision:** D-502
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-natural-language-steering`
+
+---
+
+## D-503 — safe-read-command
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-read-r
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `safe-read-command`. Safe read command is an engineering technique for `read -r` is the POSIX bash built-in command for capturing input without backslash escaping. While lightweight and portable, its lack of terminal line-editing causes escape sequences (such as arrow key movements) to be captured as literal text, presenting a documented UX limitation in setup wizards.
+
+### Adopted from
+Matt `external/wizard.md:49`.
+
+### Dropped
+matt defects (defects: script-bug (Arrow keys in ask prompts insert escape codes rather than moving cursor because read -r lacks line-editing support)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- safe-read-command-practice (less specific than canonical technique name)
+- generic-safe-read-command (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wizard.md:49`.
+
+### Glossary
+### safe-read-command
+
+- **definition:** Safe read command is an engineering technique for `read -r` is the POSIX bash built-in command for capturing input without backslash escaping. While lightweight and portable, its lack of terminal line-editing causes escape sequences (such as arrow key movements) to be captured as literal text, presenting a documented UX limitation in setup wizards.
+- **kind:** technique
+- **source names:** addy: — · matt: `read -r` · rjm: —
+- **decision:** D-503
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-read-r`
+
+---
+
+## D-504 — bash-syntax-check
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-bash-n
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `bash-syntax-check`. Bash syntax check is an engineering technique for `bash -n` performs a syntax check on shell scripts without executing commands. Because wizards contain interactive prompts and launch browser windows, the AI cannot run them end-to-end; `bash -n` provides a fast, zero-side-effect syntax gate before handoff.
+
+### Adopted from
+Matt `external/wizard.md:41`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- bash-syntax-check-practice (less specific than canonical technique name)
+- generic-bash-syntax-check (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wizard.md:41`.
+
+### Glossary
+### bash-syntax-check
+
+- **definition:** Bash syntax check is an engineering technique for `bash -n` performs a syntax check on shell scripts without executing commands. Because wizards contain interactive prompts and launch browser windows, the AI cannot run them end-to-end; `bash -n` provides a fast, zero-side-effect syntax gate before handoff.
+- **kind:** technique
+- **source names:** addy: — · matt: `bash -n` · rjm: —
+- **decision:** D-504
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-bash-n`
+
+---
+
+## D-505 — execution-wait-helper
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-wait
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `execution-wait-helper`. Execution wait helper is an engineering technique for in Matt's prompt design, "wait" is a targeted communicative trigger. Unlike output directives ("be brief", "be concise") that prompt the model to discard explanatory context, "wait" signals listener confusion, causing the agent to step backward, diagnose what went unexplained, and bridge the gap.
+
+### Adopted from
+Matt `external/wait-what.md:31`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- execution-wait-helper-practice (less specific than canonical technique name)
+- generic-execution-wait (fails to reflect source methodology)
+
+### Evidence
+Matt `external/wait-what.md:31`.
+
+### Glossary
+### execution-wait-helper
+
+- **definition:** Execution wait helper is an engineering technique for in Matt's prompt design, "wait" is a targeted communicative trigger. Unlike output directives ("be brief", "be concise") that prompt the model to discard explanatory context, "wait" signals listener confusion, causing the agent to step backward, diagnose what went unexplained, and bridge the gap.
+- **kind:** technique
+- **source names:** addy: — · matt: `wait` · rjm: —
+- **decision:** D-505
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-wait`
+
+---
+
+## D-506 — interactive-teaching-dialogue
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-teach
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `interactive-teaching-dialogue`. Interactive teaching dialogue is a dedicated pedagogical skill that isolates learning activities from production code. It verifies external learning materials rather than trusting model parametric memory and delivers bite-sized HTML lessons that track progress across sessions.
+
+### Adopted from
+Matt `docs/productivity/teach.md:3`.
+
+### Dropped
+matt defects (defects: doc-drift, script-bug, internal-contradiction, orphan, missing-path, other) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- interactive-teaching-dialogue-practice (less specific than canonical technique name)
+- generic-interactive-teaching-dialogue (fails to reflect source methodology)
+
+### Evidence
+Matt `docs/productivity/teach.md:3`.
+
+### Glossary
+### interactive-teaching-dialogue
+
+- **definition:** Interactive teaching dialogue is a dedicated pedagogical skill that isolates learning activities from production code. It verifies external learning materials rather than trusting model parametric memory and delivers bite-sized HTML lessons that track progress across sessions.
+- **kind:** technique
+- **source names:** addy: — · matt: `teach` · rjm: —
+- **decision:** D-506
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-teach`
+
+---
+
+## D-507 — introduced-change-tracking
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-introduced
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `introduced-change-tracking`. Introduced change tracking is an engineering technique for introduced concepts are explicitly explained and landed within the article itself rather than assumed as audience prerequisites. Once an introduced concept is established by a beat or paragraph, it joins the running grounded set, allowing subsequent sections of the piece to build directly upon it without alienating the reader.
+
+### Adopted from
+Matt `skills/in-progress/writing-beats/SKILL.md:32`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- introduced-change-tracking-practice (less specific than canonical technique name)
+- generic-introduced-change-tracking (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/writing-beats/SKILL.md:32`.
+
+### Glossary
+### introduced-change-tracking
+
+- **definition:** Introduced change tracking is an engineering technique for introduced concepts are explicitly explained and landed within the article itself rather than assumed as audience prerequisites. Once an introduced concept is established by a beat or paragraph, it joins the running grounded set, allowing subsequent sections of the piece to build directly upon it without alienating the reader.
+- **kind:** technique
+- **source names:** addy: — · matt: `Introduced` · rjm: —
+- **decision:** D-507
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-introduced`
+
+---
+
+## D-508 — no-ops
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-no-ops
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `no-ops`. No ops is a pruning technique that tests whether an instruction actually changes model behavior relative to default pre-trained behavior. If a model already follows the behavior by default, the instruction consumes valuable context window tokens and attention without altering output, and should be eliminated rather than edited.
+
+### Adopted from
+Matt `skills/in-progress/retro/SKILL.md:22`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- no-ops-practice (less specific than canonical technique name)
+- generic-no-ops (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/in-progress/retro/SKILL.md:22`.
+
+### Glossary
+### no-ops
+
+- **definition:** No ops is a pruning technique that tests whether an instruction actually changes model behavior relative to default pre-trained behavior. If a model already follows the behavior by default, the instruction consumes valuable context window tokens and attention without altering output, and should be eliminated rather than edited.
+- **kind:** technique
+- **source names:** addy: — · matt: `No-ops` · rjm: —
+- **decision:** D-508
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-no-ops`
+
+---
+
+## D-509 — ask-secret
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-ask-secret
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `ask-secret`. Ask secret is an interactive secret input helper in the wizard template library. Similar to `ask`, it prompts the user for a configuration value and retains previously saved values on re-run, but uses `read -rs` to suppress terminal echoing, safeguarding API tokens and passwords during setup.
+
+### Adopted from
+Matt `skills/engineering/wizard/template.sh:113`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- ask-secret-practice (less specific than canonical technique name)
+- generic-ask-secret (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/template.sh:113`.
+
+### Glossary
+### ask-secret
+
+- **definition:** Ask secret is an interactive secret input helper in the wizard template library. Similar to `ask`, it prompts the user for a configuration value and retains previously saved values on re-run, but uses `read -rs` to suppress terminal echoing, safeguarding API tokens and passwords during setup.
+- **kind:** technique
+- **source names:** addy: — · matt: `ask_secret` · rjm: —
+- **decision:** D-509
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-ask-secret`
+
+---
+
+## D-510 — free-play-buttons
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-free-play-buttons
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `free-play-buttons`. Free play buttons is an engineering technique for interactive controls in a logic prototype offering one button per domain action. They allow non-technical evaluators to poke at the state machine in arbitrary sequences, exposing unforeseen edge cases or invalid state transitions early.
+
+### Adopted from
+Matt `skills/engineering/prototype/LOGIC.md:45`.
+
+### Dropped
+matt defects (defects: orphan (external/prototype.md:1), doc-drift (external/prototype.md:44)) (D-006: defects dropped, design intent preserved).
+
+### Rejected alternatives
+- free-play-buttons-practice (less specific than canonical technique name)
+- generic-free-play-buttons (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/prototype/LOGIC.md:45`.
+
+### Glossary
+### free-play-buttons
+
+- **definition:** Free play buttons is an engineering technique for interactive controls in a logic prototype offering one button per domain action. They allow non-technical evaluators to poke at the state machine in arbitrary sequences, exposing unforeseen edge cases or invalid state transitions early.
+- **kind:** technique
+- **source names:** addy: — · matt: `free-play buttons` · rjm: —
+- **decision:** D-510
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-free-play-buttons`
+
+---
+
+## D-511 — direct-feedback-utterance
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 030
+- **status:** active
+- **supersedes:** —
+- **resolves:** techniques.md#matt-say
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
+
+### Decision
+The canonical term for this technique is `direct-feedback-utterance`. Direct feedback utterance is a bash output helper function in the wizard library that formats plain text instructions with two spaces of indentation, providing readable visual hierarchy beneath stage headings during interactive setup flows.
+
+### Adopted from
+Matt `skills/engineering/wizard/template.sh:58`.
+
+### Dropped
+None (clean source technique).
+
+### Rejected alternatives
+- direct-feedback-utterance-practice (less specific than canonical technique name)
+- generic-direct-feedback-utterance (fails to reflect source methodology)
+
+### Evidence
+Matt `skills/engineering/wizard/template.sh:58`.
+
+### Glossary
+### direct-feedback-utterance
+
+- **definition:** Direct feedback utterance is a bash output helper function in the wizard library that formats plain text instructions with two spaces of indentation, providing readable visual hierarchy beneath stage headings during interactive setup flows.
+- **kind:** technique
+- **source names:** addy: — · matt: `say` · rjm: —
+- **decision:** D-511
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-say`

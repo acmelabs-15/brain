@@ -1232,6 +1232,78 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 
 ### Techniques
 
+### acquiring-wisdom
+
+- **definition:** Acquiring wisdom is an engineering technique for acquiring Wisdom represents the boundary where simulated in-workspace instruction yields to external reality. Recognising that models cannot synthesize authentic social or professional feedback, the technique bounds agent teaching by routing questions that demand seasoned judgment to external practitioner communities.
+- **kind:** technique
+- **source names:** addy: — · matt: `Acquiring Wisdom` · rjm: —
+- **decision:** D-353
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-acquiring-wisdom`
+
+### adversarial-grilling-technique
+
+- **definition:** Adversarial grilling technique is the core interrogative interview loop in matt's package. It models problem spaces as design trees, questioning users along the decision frontier in batched rounds to eliminate unstated assumptions and establish firm consensus before code is written.
+- **kind:** technique
+- **source names:** addy: — · matt: `grilling` · rjm: —
+- **decision:** D-468
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grilling`
+
+### afk-research-investigation
+
+- **definition:** Research is an AFK investigation skill dedicated to uncovering external facts from primary sources. By delegating documentation and API verification to a background subagent, it prevents the primary conversational agent from hallucinating or guessing at external technical constraints.
+- **kind:** technique
+- **source names:** addy: — · matt: `research` · rjm: —
+- **decision:** D-295
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-research`
+
+### agent-skill-dispatch-meta-pattern
+
+- **definition:** Agent skill dispatch meta pattern is an engineering technique that as the meta-skill of the addy pack, `using-agent-skills` acts as an operating system and router for AI coding agents. It pairs an algorithmic decision tree mapping development stages to specific skills with six mandatory operating behaviors (such as pushing back on bad ideas, enforcing simplicity, and verifying before claiming completion) to maintain engineering discipline across the entire lifecycle.
+- **kind:** technique
+- **source names:** addy: `using-agent-skills` · matt: — · rjm: —
+- **decision:** D-280
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-using-agent-skills`
+
+### ai-navigability
+
+- **definition:** Ai navigability is a design quality attribute in Matt's framework representing how effectively an AI coding agent can understand, navigate, and modify a codebase without having to open and synthesize dozens of shallow, pass-through files to trace a single domain workflow.
+- **kind:** technique
+- **source names:** addy: — · matt: `AI-navigability` · rjm: —
+- **decision:** D-437
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-ai-navigability`
+
+### anti-rationalization
+
+- **definition:** Anti rationalization is an engineering technique for anti-rationalization is a defensive prompt-engineering technique that anticipates common cognitive excuses agents use to skip steps (such as "I'll write tests later") and binds them to strict counter-arguments.
+- **kind:** technique
+- **source names:** addy: `Anti-Rationalization` · matt: — · rjm: —
+- **decision:** D-395
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-anti-rationalization`
+
+### anti-rationalization-guards
+
+- **definition:** Anti rationalization guards is an engineering technique for anti-rationalization guards explicitly enumerate common cognitive excuses coding agents use to skip tests or reviews, proactively dismantling these rationalizations before the agent can act on them.
+- **kind:** technique
+- **source names:** addy: `anti-rationalization guards` · matt: — · rjm: —
+- **decision:** D-315
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-anti-rationalization-guards`
+
+### aria-live-regions
+
+- **definition:** Aria live regions is an engineering technique for in addy, ARIA Live Regions provide the standard accessibility mechanism for broadcasting asynchronous UI updates to screen readers without shifting keyboard focus, distinguishing polite non-disruptive notifications (role="status") from assertive interruptive alerts (role="alert").
+- **kind:** technique
+- **source names:** addy: `ARIA Live Regions` · matt: — · rjm: —
+- **decision:** D-392
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-aria-live-regions`
+
+### ask-secret
+
+- **definition:** Ask secret is an interactive secret input helper in the wizard template library. Similar to `ask`, it prompts the user for a configuration value and retains previously saved values on re-run, but uses `read -rs` to suppress terminal echoing, safeguarding API tokens and passwords during setup.
+- **kind:** technique
+- **source names:** addy: — · matt: `ask_secret` · rjm: —
+- **decision:** D-509
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-ask-secret`
+
 ### atomic-commit-workflow
 
 - **definition:** The atomic commit workflow is a version control discipline creating small, focused (~100-line) commits with structured messages as checkpoints between discrete implementation tasks.
@@ -1241,6 +1313,1206 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-dag-git-workflow-versioning`
 - **not to be confused with:** commit-message, working-increment
 
+### background-worktrees
+
+- **definition:** Background worktrees is the filesystem and version control isolation technique enabling parallel agent execution. Running multiple autonomous agents in a single shared checkout leads to git index lock errors, HEAD contention, and stash collisions; background worktrees give each subagent an independent working tree linked to the same repository.
+- **kind:** technique
+- **source names:** addy: — · matt: `background worktrees` · rjm: —
+- **decision:** D-327
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-background-worktrees`
+
+### bash-syntax-check
+
+- **definition:** Bash syntax check is an engineering technique for `bash -n` performs a syntax check on shell scripts without executing commands. Because wizards contain interactive prompts and launch browser windows, the AI cannot run them end-to-end; `bash -n` provides a fast, zero-side-effect syntax gate before handoff.
+- **kind:** technique
+- **source names:** addy: — · matt: `bash -n` · rjm: —
+- **decision:** D-504
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-bash-n`
+
+### bfcache
+
+- **definition:** Bfcache is the browser back/forward cache that preserves full in-memory page snapshots for instant back/forward navigation. Addy mandates eliminating `unload` listeners and avoiding `Cache-Control: no-store` on HTML documents to keep pages eligible for bfcache.
+- **kind:** technique
+- **source names:** addy: `bfcache` · matt: — · rjm: —
+- **decision:** D-385
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-bfcache`
+
+### bisection-harness
+
+- **definition:** Bisection harness is an automated script harness that tests a checkout state and returns a clean exit code for `git bisect run`. In Matt's methodology, constructing this harness turns historical regression isolation into purely mechanical execution.
+- **kind:** technique
+- **source names:** addy: — · matt: `bisection harness` · rjm: —
+- **decision:** D-338
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-bisection-harness`
+
+### blast-radius-containment
+
+- **definition:** Blast radius containment is an architectural isolation technique restricting the operational impact of potential subsystem failures or code refactors to strictly bounded component boundaries.
+- **kind:** technique
+- **source names:** addy: — · matt: `blast radius` · rjm: `Blast Radius Containment`
+- **decision:** D-300
+- **concordance:** `docs/analysis/concordance/techniques.md#blast-radius-containment`
+
+### call-graph-collapse
+
+- **definition:** Call graph collapse is a specialized diagram pattern for HTML architecture reports that illustrates deepening by showing an intricate tree of nested function calls consolidated into a single deep module with internal details faded out.
+- **kind:** technique
+- **source names:** addy: — · matt: `Call-graph collapse` · rjm: —
+- **decision:** D-434
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-call-graph-collapse`
+
+### changeset-versioning-technique
+
+- **definition:** Changeset versioning technique is a versioning and release management workflow where contributors declare semantic intent through small markdown change files. These are later aggregated to update changelogs and bump package versions systematically during releases.
+- **kind:** technique
+- **source names:** addy: — · matt: `Changesets` · rjm: —
+- **decision:** D-436
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-changesets`
+
+### characterization-testing
+
+- **definition:** Characterization testing is a verification technique that captures the existing behavior of legacy or complex code before making changes to guarantee bug-for-bug behavioral parity.
+- **kind:** technique
+- **source names:** addy: `characterization tests` · matt: — · rjm: `Characterization test`
+- **decision:** D-344
+- **concordance:** `docs/analysis/concordance/techniques.md#characterization-testing`
+
+### chart-the-map
+
+- **definition:** Chart the map is the initial exploration phase and technique of wayfinder. In a single dedicated session, the agent pins down the overall destination, grills breadth-first across the problem space to reveal the frontier, creates the index map issue, and creates initial sharp child tickets while sketching remaining uncertainty into Not yet specified.
+- **kind:** technique
+- **source names:** addy: — · matt: `Chart the map` · rjm: —
+- **decision:** D-479
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-chart-the-map`
+
+### claims-verification-technique
+
+- **definition:** Claims verification technique is the coordination technique used in wayfinder to avoid collision between concurrent agent sessions. By assigning the ticket to the current session driver prior to starting work, unclaimed frontier tickets are immediately distinguishable from in-progress tickets, allowing multiple sessions to safely work the frontier in parallel.
+- **kind:** technique
+- **source names:** addy: — · matt: `claims` · rjm: —
+- **decision:** D-488
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-claims`
+
+### cli-banner-display
+
+- **definition:** Cli banner display is a presentation helper function in the wizard library that clears the terminal and displays an opening banner explaining what the procedure will do and how many stages it contains, establishing clear expectations for the human operator.
+- **kind:** technique
+- **source names:** addy: — · matt: `banner` · rjm: —
+- **decision:** D-433
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-banner`
+
+### codebase-terminology
+
+- **definition:** Codebase terminology is an engineering technique for in Matt's toolkit, codebase terminology represents the shared vocabulary and naming conventions embedded within project code and documentation. Triggering domain-modeling on discussions of codebase terminology ensures that ambiguous or overloaded terms are pinned down and recorded inline in CONTEXT.md before code is written.
+- **kind:** technique
+- **source names:** addy: — · matt: `codebase terminology` · rjm: —
+- **decision:** D-330
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-codebase-terminology`
+
+### compaction
+
+- **definition:** Compaction is an automated or user-initiated context compression mechanism that summarises past conversation turns, which Matt cautions against when transitioning from `/to-spec` to `/to-tickets` because lossy compaction destroys detailed specification context.
+- **kind:** technique
+- **source names:** addy: — · matt: `compaction` · rjm: —
+- **decision:** D-414
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-compaction`
+
+### competing-hypothesis-debugging
+
+- **definition:** Competing hypothesis debugging is an engineering technique for competing-hypothesis debugging is an adversarial investigative technique leveraging Agent Teams for complex production defect analysis. Rather than allowing a single agent to fixate on the first plausible explanation, multiple specialized personas concurrently explore competing root-cause hypotheses and actively attempt to disprove each other's theories, ensuring that the surviving explanation is empirically verified before fixes are attempted.
+- **kind:** technique
+- **source names:** addy: `competing-hypothesis debugging` · matt: — · rjm: —
+- **decision:** D-346
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-competing-hypothesis-debugging`
+
+### configuration-management
+
+- **definition:** Configuration management is an engineering technique for configuration management unifies setup generation and maintenance within a single skill to ensure that project templates and verification logic remain synchronized as skill packages evolve.
+- **kind:** technique
+- **source names:** addy: — · matt: `configuration management` · rjm: —
+- **decision:** D-447
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-configuration-management`
+
+### conflict-resolution-technique
+
+- **definition:** Conflict resolution technique is the final step in the lifecycle of a wayfinder ticket. The agent records answers on the ticket, marks it closed or resolved, and registers a summary pointer in the parent map so future agents can build upon the decision.
+- **kind:** technique
+- **source names:** addy: — · matt: `Resolve` · rjm: —
+- **decision:** D-458
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-resolve`
+
+### constraint-driven-development
+
+- **definition:** Constraint driven development is a development methodology that shifts quality enforcement from post-hoc prose guidelines to explicit, mechanically checked threshold constraints that run inside the inner development loop.
+- **kind:** technique
+- **source names:** addy: `constraint-driven-development` · matt: — · rjm: —
+- **decision:** D-367
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-constraint-driven-development`
+
+### constraints-check
+
+- **definition:** Constraints check is a command utility that runs all configured project constraints against the current branch on demand, reporting immediate compliance status.
+- **kind:** technique
+- **source names:** addy: `/constraints check` · matt: — · rjm: —
+- **decision:** D-375
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-constraints-check`
+
+### constraints-guard
+
+- **definition:** Constraints guard is a diff inspection technique that guards against stealthy regressions where agents weaken thresholds, disable tests, or add linter suppressions to reach a green build.
+- **kind:** technique
+- **source names:** addy: `/constraints guard` · matt: — · rjm: —
+- **decision:** D-279
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-constraints-guard`
+
+### contain-intrinsic-size
+
+- **definition:** Contain intrinsic size is a companion CSS property used with `content-visibility: auto` to define a placeholder width and height for unrendered elements, ensuring accurate scrollbar sizing and preventing Cumulative Layout Shift when elements scroll into view.
+- **kind:** technique
+- **source names:** addy: `contain-intrinsic-size` · matt: — · rjm: —
+- **decision:** D-378
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-contain-intrinsic-size`
+
+### content-visibility-auto
+
+- **definition:** Content visibility auto is a CSS rendering performance optimization that instructs the browser engine to skip layout, painting, and rendering work for off-screen elements until they approach the viewport, dramatically reducing initial DOM rendering time.
+- **kind:** technique
+- **source names:** addy: `content-visibility: auto` · matt: — · rjm: —
+- **decision:** D-379
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-content-visibility-auto`
+
+### context-aware-loading
+
+- **definition:** Context aware loading is an engineering technique for context-Aware Loading prevents context window exhaustion and prompt dilution by restricting loaded skill instructions to those required for the current task (e.g. UI engineering during frontend work, debugging during error recovery), preserving model reasoning capacity.
+- **kind:** technique
+- **source names:** addy: `Context-Aware Loading` · matt: — · rjm: —
+- **decision:** D-371
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-context-aware-loading`
+
+### context-compaction-command
+
+- **definition:** Context compaction command is a conversational summarization command in Claude Code that compresses dialogue history to free token capacity. In matt's lifecycle philosophy, /compact is intentionally placed at the bottom of the phase boundary decision tree as a default fallback rather than a first reach; because automated summarization flattens nuances and decisions, developers are advised to supply an explicit focusing instruction when compacting.
+- **kind:** technique
+- **source names:** addy: — · matt: `/compact` · rjm: —
+- **decision:** D-492
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-compact`
+
+### context-efficiency
+
+- **definition:** Context efficiency is an engineering technique for context Efficiency establishes constraints (keeping SKILL.md under 500 lines, using progressive disclosure, preferring executable scripts over verbose inline code) to minimize prompt overhead and prevent context window degradation during agent operations.
+- **kind:** technique
+- **source names:** addy: `Context Efficiency` · matt: — · rjm: —
+- **decision:** D-397
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-context-efficiency`
+
+### context-hygiene
+
+- **definition:** Context hygiene is a context management discipline in Matt Pocock's workflow that avoids resetting or compacting agent context between `/to-spec` and `/to-tickets`, ensuring the full specification is directly readable in memory rather than truncated during tracker API round-trips.
+- **kind:** technique
+- **source names:** addy: — · matt: `context hygiene` · rjm: —
+- **decision:** D-298
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-context-hygiene`
+
+### context-pointers
+
+- **definition:** Context pointers is the foundational architectural mechanism for managing LLM context windows. By placing concise, high-salience pointers in persistent context that specify when and why to load external documents, agents can navigate deep project knowledge without saturating working memory.
+- **kind:** technique
+- **source names:** addy: — · matt: `Context pointers` · rjm: —
+- **decision:** D-324
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-context-pointers`
+
+### conversational-feel
+
+- **definition:** Conversational feel is an engineering technique for conversational feel frames the agent's role as an active editorial partner rather than a passive scribe. By inverting the exploratory grilling session to ask what the article is actually arguing and what breaks if a paragraph is cut, the agent enforces rigorous narrative momentum and defends against weak transitions.
+- **kind:** technique
+- **source names:** addy: — · matt: `Conversational feel` · rjm: —
+- **decision:** D-435
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-conversational-feel`
+
+### conversational-wizard-flow
+
+- **definition:** Conversational wizard flow is an engineering technique for `wizard` bridges the gap between AI agents and human-only credentials/clicks. Because agents cannot interact with external browser consoles or securely hold human third-party passwords, `wizard` scopes the procedure and authors an interactive bash script that drives the human operator through each screen, capturing values directly into `.env` and GitHub Actions secrets.
+- **kind:** technique
+- **source names:** addy: — · matt: `wizard` · rjm: —
+- **decision:** D-416
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-wizard`
+
+### cross-session-memory
+
+- **definition:** Cross session memory is an engineering technique that cross-session memory represents the architectural ability to preserve and restore learned codebase knowledge, task status, and technical constraints across independent agent invocations without relying on fragile conversational history or manual prompt re-feeding.
+- **kind:** technique
+- **source names:** addy: `cross-session memory` · matt: — · rjm: —
+- **decision:** D-390
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-cross-session-memory`
+
+### cross-skill-invocation
+
+- **definition:** Cross skill invocation is a composition pattern and calling convention where one skill invokes another by explicitly instructing the agent to call the harness Skill tool. This replaces bare slash-command mentions in prose, raising invocation reliability and ensuring harness-neutral interoperability.
+- **kind:** technique
+- **source names:** addy: — · matt: `cross-skill invocation` · rjm: —
+- **decision:** D-406
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-cross-skill-invocation`
+
+### debug-logging
+
+- **definition:** Debug logging is an engineering technique for diagnostic tracing technique that logs execution events, parsed parameters, and branch decisions to a local sentinel-triggered log file without contaminating model stdout or stderr channels.
+- **kind:** technique
+- **source names:** addy: `Debug logging` · matt: — · rjm: —
+- **decision:** D-347
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-debug-logging`
+
+### decision-flow
+
+- **definition:** Decision flow is a structured decision tree for choosing the simplest valid orchestration architecture for a task. It biases strongly toward zero or minimal orchestration (direct invocation or user-driven commands), reserving parallel fan-out only for independent, repeating sub-tasks.
+- **kind:** technique
+- **source names:** addy: `Decision flow` · matt: — · rjm: —
+- **decision:** D-372
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-decision-flow`
+
+### decision-mapping
+
+- **definition:** Decision mapping is an engineering technique for `decision-mapping` was the original name of the skill before being reframed and renamed to `wayfinder` in v1.1. The term was retired because 'decision map' was perceived as jargon and inaccurate, given that only a subset of map tickets were pure decisions; it is marked `deprecated: true`.
+- **kind:** technique
+- **source names:** addy: — · matt: `decision-mapping` · rjm: —
+- **decision:** D-415
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-decision-mapping`
+
+### decision-note-capture
+
+- **definition:** Decision note capture is a terminal output formatting helper function in `template.sh` used to render subtle, dimmed context and summary lines without competing visually with primary instructional steps.
+- **kind:** technique
+- **source names:** addy: — · matt: `note` · rjm: —
+- **decision:** D-439
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-note`
+
+### deduplication
+
+- **definition:** Deduplication is a triage technique that checks incoming feature requests against previously recorded rejections in `.out-of-scope/`. By matching concepts rather than issue titles, it prevents repetitive discussions and allows agents or maintainers to immediately close redundant requests with authoritative context.
+- **kind:** technique
+- **source names:** addy: — · matt: `Deduplication` · rjm: —
+- **decision:** D-461
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-deduplication`
+
+### delegating
+
+- **definition:** Delegating is the motivating outcome in loop-me's methodology. Once predictable patterns are formalized into workflows without unresolved questions, execution responsibility can be handed over from the human to autonomous agent routines.
+- **kind:** technique
+- **source names:** addy: — · matt: `delegating` · rjm: —
+- **decision:** D-497
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-delegating`
+
+### deletion-test
+
+- **definition:** Deletion test is an engineering technique for thought experiment assessing module validity: imagine deleting the module; if complexity simply disappears, it was a pass-through wrapper; if complexity reappears across N call sites, it was genuinely earning its keep.
+- **kind:** technique
+- **source names:** addy: — · matt: `deletion test` · rjm: —
+- **decision:** D-359
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-deletion-test`
+
+### demo-path
+
+- **definition:** Demo path is a ticket authoring technique that requires defining an observable, demonstrable path through all layers of a change for every ticket, preventing models from defaulting to layer-by-layer horizontal partitioning.
+- **kind:** technique
+- **source names:** addy: — · matt: `demo path` · rjm: —
+- **decision:** D-308
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-demo-path`
+
+### dependency-security
+
+- **definition:** Dependency security is an engineering technique for dependency security safeguards applications against vulnerabilities and supply-chain attacks introduced through external packages. Addy mandates locating the exact installation boundary, verifying consistent package manager tooling, enforcing frozen and immutable lockfile installs in CI, and restricting package lifecycle script execution.
+- **kind:** technique
+- **source names:** addy: `Dependency Security` · matt: — · rjm: —
+- **decision:** D-364
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-dependency-security`
+
+### depth-as-leverage
+
+- **definition:** Depth as leverage is an architectural evaluation technique in Matt Pocock's codebase-design framework. While John Ousterhout originally defined module depth as the ratio of lines of implementation code to lines of interface specification, codebase-design rejects that formula because it incentivizes bloated implementations. Instead, depth-as-leverage defines depth as the amount of capability, safety, and functionality callers or tests can exercise per unit of interface surface they must learn.
+- **kind:** technique
+- **source names:** addy: — · matt: `depth-as-leverage` · rjm: —
+- **decision:** D-329
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-depth-as-leverage`
+
+### desirable-difficulty
+
+- **definition:** Desirable difficulty is an engineering technique for desirable difficulty is the pedagogical principle that learning tasks should be intentionally challenging to deepen encoding. The teach skill applies difficulty strategically: keeping initial knowledge acquisition frictionless to preserve working memory, while introducing calibrated difficulty during quizzes and drills to solidify storage strength.
+- **kind:** technique
+- **source names:** addy: — · matt: `desirable difficulty` · rjm: —
+- **decision:** D-332
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-desirable-difficulty`
+
+### diagnosing-bugs
+
+- **definition:** Diagnosing bugs is an engineering skill enforcing a rigorous six-phase scientific debugging discipline. It strictly prohibits speculative code modifications by gating hypothesis formation behind an executable, reproducible tight feedback loop (a single command that goes red on the failure and green on resolution).
+- **kind:** technique
+- **source names:** addy: — · matt: `diagnosing-bugs` · rjm: —
+- **decision:** D-333
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-diagnosing-bugs`
+
+### dialogue-driven-discovery
+
+- **definition:** Dialogue-driven discovery is an interactive elicitation technique that uncovers unstated user intent and architectural constraints through structured, one-question-at-a-time conversational interviews.
+- **kind:** technique
+- **source names:** addy: `one question at a time` · matt: `interview` · rjm: —
+- **decision:** D-274
+- **concordance:** `docs/analysis/concordance/techniques.md#dialogue-driven-discovery`
+
+### dialogue-evals
+
+- **definition:** Dialogue evals is a behavioral evaluation technique for skills whose primary artifact is the conversation itself (such as mentoring, code review, or planning) rather than file modifications. Unlike execution evals, dialogue evals require no pre-baked workspace fixtures.
+- **kind:** technique
+- **source names:** addy: `dialogue evals` · matt: — · rjm: —
+- **decision:** D-368
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-dialogue-evals`
+
+### direct-feedback-utterance
+
+- **definition:** Direct feedback utterance is a bash output helper function in the wizard library that formats plain text instructions with two spaces of indentation, providing readable visual hierarchy beneath stage headings during interactive setup flows.
+- **kind:** technique
+- **source names:** addy: — · matt: `say` · rjm: —
+- **decision:** D-511
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-say`
+
+### discover-the-stack-first
+
+- **definition:** Discover the stack first is a preparatory technique mandating that agents inspect the repository's build system, checked-in wrappers, and CI configurations before invoking test commands. Without it, agents default to assumptions like `npm test` on non-Node repositories or invoke global binaries rather than project wrappers.
+- **kind:** technique
+- **source names:** addy: `Discover the Stack First` · matt: — · rjm: —
+- **decision:** D-278
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-discover-the-stack-first`
+
+### domain-modeling
+
+- **definition:** Domain modeling is the active domain-driven design discipline in matt's ecosystem. Rather than passively reading existing documentation, it actively interrupts design conversations to challenge imprecise terms, enforce ubiquitous language, and record definitions in CONTEXT.md and ADRs at the moment they resolve.
+- **kind:** technique
+- **source names:** addy: — · matt: `domain-modeling` · rjm: —
+- **decision:** D-305
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-domain-modeling`
+
+### domain-modelling
+
+- **definition:** Domain modelling is an engineering technique for `domain modelling` represents the systematic elicitation and documentation of ubiquitous language and architecture decisions in `matt`. Implemented primarily through the `domain-modeling` skill and the `grill-with-docs` workflow, it ensures agents and human engineers share consistent project vocabulary and architectural boundaries.
+- **kind:** technique
+- **source names:** addy: — · matt: `domain modelling` · rjm: —
+- **decision:** D-424
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-domain-modelling`
+
+### drill
+
+- **definition:** Drill is a drill is an active practice exercise within the teach skill executed via a tight feedback loop where difficulty is utilized as a learning tool. Unlike passive reading, a drill refuses to accept superficial acknowledgment, holding the user accountable until retention and understanding are demonstrated.
+- **kind:** technique
+- **source names:** addy: — · matt: `drill` · rjm: —
+- **decision:** D-411
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-drill`
+
+### e2e-test
+
+- **definition:** E2e test is an E2E test represents the top tier of Addy's test pyramid (~5% of tests), classified as a Large test size that verifies complete end-to-end user flows across the full stack while being strictly limited to critical paths to prevent flaky, slow execution suites.
+- **kind:** technique
+- **source names:** addy: `E2E test` · matt: — · rjm: —
+- **decision:** D-348
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-e2e-test`
+
+### enforce-simplicity
+
+- **definition:** Enforce simplicity is a counter-bias mechanism directing agents to resist overengineering and premature abstraction, demanding minimal lines of code and favoring boring, obvious solutions over expensive cleverness.
+- **kind:** technique
+- **source names:** addy: `Enforce Simplicity` · matt: — · rjm: —
+- **decision:** D-374
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-enforce-simplicity`
+
+### eval-framework
+
+- **definition:** Eval framework is the eval framework provides automated testing for the skill pack itself, treating skills as software artifacts that require trigger, routing, and behavioral regression testing against model updates.
+- **kind:** technique
+- **source names:** addy: `eval framework` · matt: — · rjm: —
+- **decision:** D-399
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-eval-framework`
+
+### evals-framework
+
+- **definition:** Evals framework is the three-tier testing framework in addy that validates skill structure, measures prompt routing accuracy, and runs behavioral test cases against headless agents.
+- **kind:** technique
+- **source names:** addy: `Evals framework` · matt: — · rjm: —
+- **decision:** D-396
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-evals-framework`
+
+### execution-continuation-prompt
+
+- **definition:** Execution continuation prompt is the first and highest-fidelity context transition option evaluated at phase boundaries. Keeping the unbroken session context preserves design rationale and decisions as a primary source, which lossy summarization or compaction would flatten. Compaction mid-phase causes agents to lose the thread, whereas continuing costs nothing and loses nothing.
+- **kind:** technique
+- **source names:** addy: — · matt: `Continue` · rjm: —
+- **decision:** D-427
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-continue`
+
+### execution-wait-helper
+
+- **definition:** Execution wait helper is an engineering technique for in Matt's prompt design, "wait" is a targeted communicative trigger. Unlike output directives ("be brief", "be concise") that prompt the model to discard explanatory context, "wait" signals listener confusion, causing the agent to step backward, diagnose what went unexplained, and bridge the gap.
+- **kind:** technique
+- **source names:** addy: — · matt: `wait` · rjm: —
+- **decision:** D-505
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-wait`
+
+### exercise-skeleton-stubbing
+
+- **definition:** Exercise skeleton stubbing is a progressive authoring technique that scaffolds a full course skeleton with minimal valid placeholder files. Stubbing allows course designers to validate overall structure with linters before investing time in authoring detailed problem and solution content.
+- **kind:** technique
+- **source names:** addy: — · matt: `stubbing` · rjm: —
+- **decision:** D-285
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-stubbing`
+
+### existing-code-exploration
+
+- **definition:** Existing code exploration is a bash helper function in `template.sh` that checks the target `.env` file for existing key-value pairs. By retrieving prior values, it allows interactive input functions (`ask` and `ask_secret`) to offer current settings as re-run defaults, making wizard execution safe and repeatable without requiring re-entry of unmodified configurations.
+- **kind:** technique
+- **source names:** addy: — · matt: `_existing` · rjm: —
+- **decision:** D-473
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-existing`
+
+### explicit-context-loading
+
+- **definition:** Explicit context loading is an engineering technique for explicit Context Loading allows developers to bypass automated routing heuristics by directly referencing skill files via `@` syntax, providing deterministic execution when entering critical lifecycle phases.
+- **kind:** technique
+- **source names:** addy: `Explicit Context Loading` · matt: — · rjm: —
+- **decision:** D-389
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-explicit-context-loading`
+
+### exploratory-legwork
+
+- **definition:** Exploratory legwork is the depth of autonomous exploration and verification an agent performs. Rather than scripting every micro-action, Matt's methodology induces legwork by framing completion criteria with uncompromising demand, compelling the model to exhaustively investigate before concluding.
+- **kind:** technique
+- **source names:** addy: — · matt: `legwork` · rjm: —
+- **decision:** D-448
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-legwork`
+
+### facts-elicitation
+
+- **definition:** Facts elicitation is an engineering technique for in Matt's grilling methodology, facts are empirical truths discoverable from the project environment. Agents are strictly forbidden from interrogating the user for information they can verify themselves; instead, they dispatch background subagents to locate facts, preserving human cognitive bandwidth solely for subjective decisions.
+- **kind:** technique
+- **source names:** addy: — · matt: `facts` · rjm: —
+- **decision:** D-297
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-facts`
+
+### facts-vs-decisions
+
+- **definition:** Facts vs decisions is an engineering technique that this distinction prevents conversational fatigue by requiring agents to look up existing technical facts (libraries, schemas, existing patterns) from the workspace rather than asking the human, reserving human dialogue exclusively for true subjective decisions.
+- **kind:** technique
+- **source names:** addy: — · matt: `Facts vs. decisions` · rjm: —
+- **decision:** D-477
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-facts-vs-decisions`
+
+### falsifiable
+
+- **definition:** Falsifiable is a strict quality standard for debugging hypotheses requiring each hypothesis to formulate an explicit testable prediction. Without falsifiability, hypotheses degenerate into vague intuition that cannot be systematically verified or eliminated.
+- **kind:** technique
+- **source names:** addy: — · matt: `falsifiable` · rjm: —
+- **decision:** D-355
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-falsifiable`
+
+### falsifiable-hypotheses
+
+- **definition:** Falsifiable hypotheses is the scientific discipline applied to bug diagnosis: the agent must articulate 3 to 5 ranked, falsifiable predictions regarding the root cause before introducing probes, preventing biased or wandering experimentation.
+- **kind:** technique
+- **source names:** addy: — · matt: `falsifiable hypotheses` · rjm: —
+- **decision:** D-352
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-falsifiable-hypotheses`
+
+### fluency-strength
+
+- **definition:** Fluency strength is a psychological concept defining how easily a learner can access information in the immediate moment. In Matt's teaching design, high fluency strength is explicitly identified as an unreliable indicator of true competence that often masks rapid forgetting once the prompt or session ends.
+- **kind:** technique
+- **source names:** addy: — · matt: `Fluency strength` · rjm: —
+- **decision:** D-493
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-fluency-strength`
+
+### free-play-buttons
+
+- **definition:** Free play buttons is an engineering technique for interactive controls in a logic prototype offering one button per domain action. They allow non-technical evaluators to poke at the state machine in arbitrary sequences, exposing unforeseen edge cases or invalid state transitions early.
+- **kind:** technique
+- **source names:** addy: — · matt: `free-play buttons` · rjm: —
+- **decision:** D-510
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-free-play-buttons`
+
+### fromany
+
+- **definition:** Fromany is a shoehorn utility function designed for negative testing, allowing intentionally invalid values to be passed to typed functions without triggering compile errors while retaining IDE code completion.
+- **kind:** technique
+- **source names:** addy: — · matt: `fromAny()` · rjm: —
+- **decision:** D-450
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-fromany`
+
+### fromexact
+
+- **definition:** Fromexact is a shoehorn utility function that enforces complete interface conformance without allowing missing fields, providing an explicit transition step before relaxing mock constraints with fromPartial().
+- **kind:** technique
+- **source names:** addy: — · matt: `fromExact()` · rjm: —
+- **decision:** D-474
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-fromexact`
+
+### frompartial
+
+- **definition:** Frompartial is a TypeScript test helper function from shoehorn that permits partial objects while preserving type validation for all supplied fields, eliminating fragile boilerplate in test fixtures.
+- **kind:** technique
+- **source names:** addy: — · matt: `fromPartial` · rjm: —
+- **decision:** D-491
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-frompartial`
+
+### frontier-query
+
+- **definition:** Frontier query is an algorithmic technique used by wayfinder to deterministically select the next ticket from an exploration DAG. By filtering out blocked and assigned tickets, it prevents deadlocks and redundant work.
+- **kind:** technique
+- **source names:** addy: — · matt: `Frontier query` · rjm: —
+- **decision:** D-443
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-frontier-query`
+
+### git-bisect-run
+
+- **definition:** Git bisect run is the standard git binary search command used to automate regression identification. Matt's lifecycle treats running git bisect as downstream mechanical work that becomes trivial once a reliable test harness exists.
+- **kind:** technique
+- **source names:** addy: — · matt: `git bisect run` · rjm: —
+- **decision:** D-337
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-git-bisect-run`
+
+### git-guardrails-claude-code
+
+- **definition:** Git guardrails claude code is an interactive setup procedure and skill in the misc bucket that installs an executable PreToolUse hook to intercept dangerous git commands (push, reset --hard, clean, branch -D) before Claude Code executes them. It ensures automated agents cannot inadvertently perform destructive repository mutations or data loss.
+- **kind:** technique
+- **source names:** addy: — · matt: `git-guardrails-claude-code` · rjm: —
+- **decision:** D-335
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-git-guardrails-claude-code`
+
+### git-worktree-isolation
+
+- **definition:** Git worktree isolation is an execution environment management technique providing clean, separate filesystem working trees for parallel branch execution without repository switching overhead.
+- **kind:** technique
+- **source names:** addy: `Working with Worktrees` · matt: `worktrees` · rjm: `worktrees`
+- **decision:** D-302
+- **concordance:** `docs/analysis/concordance/techniques.md#git-worktrees`
+
+### git-worktree-isolation-technique
+
+- **definition:** Git worktree isolation technique is an engineering technique for git worktrees allow multiple working trees to be attached to a single repository checkout. In agent workflows, they provide isolation for concurrent coding agents working on different tickets simultaneously, though Matt notes that shared refs (such as stashes) still require careful handling.
+- **kind:** technique
+- **source names:** addy: — · matt: `Git worktrees` · rjm: —
+- **decision:** D-339
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-git-worktrees`
+
+### grill-me
+
+- **definition:** Grill me is a stateless, conversational interview skill that subjects early, uncommitted ideas to relentless inquiry. By asking frontier questions in structured rounds while intentionally refusing to create files or jump into plan generation, it forces the user to confront assumptions and clarify intent.
+- **kind:** technique
+- **source names:** addy: — · matt: `grill-me` · rjm: —
+- **decision:** D-418
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grill-me`
+
+### grill-the-send-not-the-subject
+
+- **definition:** Grill the send not the subject is an engineering technique that prevents interview deadlock when the user is blocked on external knowledge. Probing a user about subject matter they do not understand causes frustration and stalls progress; interviewing them about the transmission context (recipient expertise and desired decision payload) extracts everything needed to frame an effective inquiry.
+- **kind:** technique
+- **source names:** addy: — · matt: `Grill the send, not the subject` · rjm: —
+- **decision:** D-463
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grill-the-send-not-the-subject`
+
+### grill-with-docs
+
+- **definition:** Grill with docs is the stateful engineering entry point in matt's lifecycle. It marries the interrogative grilling interview with active domain modeling, ensuring that as decisions and vocabulary are settled, they are written directly to repository files on disk.
+- **kind:** technique
+- **source names:** addy: — · matt: `grill-with-docs` · rjm: —
+- **decision:** D-444
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grill-with-docs`
+
+### grilling-discipline
+
+- **definition:** Grilling discipline is the questioning technique governing loop-me interactions: persistent interrogation structured as discrete rounds of questions where every question includes a proposed default answer. This structure accelerates user feedback, eliminates decision paralysis, and rapidly drives specifications toward completion.
+- **kind:** technique
+- **source names:** addy: — · matt: `grilling discipline` · rjm: —
+- **decision:** D-410
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grilling-discipline`
+
+### grilling-session
+
+- **definition:** Grilling session is a grilling session is Matt's core conversational alignment technique where the agent relentlessly interviews the developer to expose ambiguities and resolve decision branches before writing code or documents.
+- **kind:** technique
+- **source names:** addy: — · matt: `grilling session` · rjm: —
+- **decision:** D-483
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grilling-session`
+
+### grounding
+
+- **definition:** Grounding is an authoring discipline ensuring that every idea or term is firmly understood before the text relies upon it. Concepts are grounded either as explicit audience prerequisites or introduced step-by-step in prior blocks, preventing conceptual leaps that lose readers.
+- **kind:** technique
+- **source names:** addy: — · matt: `Grounding` · rjm: —
+- **decision:** D-457
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grounding`
+
+### guided-walkthroughs
+
+- **definition:** Guided walkthroughs is an engineering technique for guided walkthroughs provide structured, reproducible scenario sequences inside self-contained logic prototype HTML files, enabling non-technical stakeholders to test domain logic and edge cases before code is written.
+- **kind:** technique
+- **source names:** addy: — · matt: `guided walkthroughs` · rjm: —
+- **decision:** D-494
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-guided-walkthroughs`
+
+### hidden-entry
+
+- **definition:** Hidden entry is an engineering technique for hidden entry is a terminal security technique implemented via `read -s` in the wizard template. By disabling character echo during sensitive inputs, it ensures passwords and API keys never persist in terminal logs, screenshots, or screen-sharing sessions.
+- **kind:** technique
+- **source names:** addy: — · matt: `hidden entry` · rjm: —
+- **decision:** D-459
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-hidden-entry`
+
+### hidden-secret-entry
+
+- **definition:** Hidden secret entry is a terminal interaction technique in setup wizards that suppresses keyboard character echoing when reading sensitive values like API tokens or passwords, preventing shoulder surfing and ensuring credentials are not retained in terminal scrollback buffers.
+- **kind:** technique
+- **source names:** addy: — · matt: `hidden secret entry` · rjm: —
+- **decision:** D-460
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-hidden-secret-entry`
+
+### hitl-bash-script
+
+- **definition:** Hitl bash script is a human-in-the-loop debugging technique using an interactive bash script to guide human actions and capture observations as structured key-value output. This ensures that even un-automatable bugs retain a structured, repeatable feedback loop.
+- **kind:** technique
+- **source names:** addy: — · matt: `HITL bash script` · rjm: —
+- **decision:** D-475
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-hitl-bash-script`
+
+### hitl-capture-helper
+
+- **definition:** Hitl capture helper is an interactive input helper in `hitl-loop.template.sh` that prompts the human operator for observation data and captures the reply into a variable. At loop completion, captured variables are printed as KEY=VALUE pairs for the invoking agent to parse.
+- **kind:** technique
+- **source names:** addy: — · matt: `capture` · rjm: —
+- **decision:** D-284
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-capture`
+
+### hypothesis-testing
+
+- **definition:** Hypothesis testing is a structured inquiry technique in diagnosing-bugs where the agent generates 3–5 ranked, falsifiable explanations for a defect only after an automated reproduction command exists. Hypotheses make explicit predictions tested through minimal probes and temporary instrumentation, preventing speculative code changes until root causes are confirmed.
+- **kind:** technique
+- **source names:** addy: — · matt: `hypothesis-testing` · rjm: —
+- **decision:** D-351
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-hypothesis-testing`
+
+### hyrum-s-law
+
+- **definition:** Hyrum s law is an engineering technique for hyrum's Law forces agents to treat all observable behavior — including timing quirks and undocumented bugs — as contractually binding in mature systems, mandating active migration paths rather than optimistic assumption of contract purity.
+- **kind:** technique
+- **source names:** addy: `Hyrum's Law` · matt: — · rjm: —
+- **decision:** D-366
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-hyrum-s-law`
+
+### implement-spec-orchestration
+
+- **definition:** Implement spec orchestration is an experimental multi-agent orchestration skill residing in the in-progress bucket. It overcomes the limitation of single-ticket serial execution by modeling tickets as an acyclic task graph, launching concurrent implementer subagents across unblocked frontier tickets in isolated git worktrees, merging outputs via merger subagents, and culminating in a single verified pull request.
+- **kind:** technique
+- **source names:** addy: — · matt: `implement-spec` · rjm: —
+- **decision:** D-286
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-implement-spec`
+
+### improve-codebase-architecture
+
+- **definition:** Improve codebase architecture is an architectural survey skill that identifies opportunities to turn shallow modules into deep modules (hiding complexity behind simpler interfaces). Applying Ousterhout's philosophy and a strict "deletion test" (concentrating vs. spreading complexity), it acts as an advisory survey producing an external HTML report and interactive dialogue, deliberately leaving code modification to subsequent separate sessions.
+- **kind:** technique
+- **source names:** addy: — · matt: `improve-codebase-architecture` · rjm: —
+- **decision:** D-312
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-improve-codebase-architecture`
+
+### incremental-implementation
+
+- **definition:** Incremental implementation is an iterative engineering technique that breaks tasks into small, test-verified diffs committing working code continuously with immediate regression feedback.
+- **kind:** technique
+- **source names:** addy: `incremental-implementation` · matt: `implement` · rjm: —
+- **decision:** D-319
+- **concordance:** `docs/analysis/concordance/techniques.md#incremental-implementation`
+
+### information-access
+
+- **definition:** Information access is an environment improvement category in retrospectives that targets informational bottlenecks. Rather than compensating with complex prompts, this technique provides coding agents with direct runtime visibility (such as teeing background server logs or granting read-only service tokens) to eliminate blind spots.
+- **kind:** technique
+- **source names:** addy: — · matt: `Information access` · rjm: —
+- **decision:** D-369
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-information-access`
+
+### instrumentation
+
+- **definition:** Instrumentation is an engineering technique for instrumentation in Matt's lifecycle represents targeted code modifications or logging probes inserted to isolate defective code paths. It is treated as strictly secondary and mechanical: adding probes or logs before establishing a deterministic feedback loop is rejected as speculative guessing.
+- **kind:** technique
+- **source names:** addy: — · matt: `instrumentation` · rjm: —
+- **decision:** D-472
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-instrumentation`
+
+### integration-test
+
+- **definition:** Integration test is an integration test in Addy's test strategy corresponds to a Medium test size in the resource model (~15% of test suites) and validates behavior that crosses process or boundary layers like APIs, databases, or filesystems on localhost without external network dependencies.
+- **kind:** technique
+- **source names:** addy: `Integration test` · matt: — · rjm: —
+- **decision:** D-303
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-integration-test`
+
+### intent-dispatch-send
+
+- **definition:** Intent dispatch send is the foundational interview scoping technique in `to-questionnaire`. By restricting elicitation strictly to transmission parameters (recipient role, expertise, and required deliverables) instead of probing domain content the user explicitly does not possess, it prevents the interview from derailing into speculative or unanswerable queries.
+- **kind:** technique
+- **source names:** addy: — · matt: `send` · rjm: —
+- **decision:** D-500
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-send`
+
+### intent-skill-mapping
+
+- **definition:** Intent skill mapping is an engineering technique for intent to skill mapping provides an automated classification mechanism that connects ambiguous or natural-language user requests directly to structured skill workflows, ensuring agents adhere to disciplined processes even when users do not explicitly invoke commands.
+- **kind:** technique
+- **source names:** addy: `Intent → Skill Mapping` · matt: — · rjm: —
+- **decision:** D-398
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-intent-skill-mapping`
+
+### interactive-teaching-dialogue
+
+- **definition:** Interactive teaching dialogue is a dedicated pedagogical skill that isolates learning activities from production code. It verifies external learning materials rather than trusting model parametric memory and delivers bite-sized HTML lessons that track progress across sessions.
+- **kind:** technique
+- **source names:** addy: — · matt: `teach` · rjm: —
+- **decision:** D-506
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-teach`
+
+### interleaving
+
+- **definition:** Interleaving is a cognitive learning technique used in `teach` to build long-term retention (storage strength) rather than temporary fluency. By alternating among distinct but related topics during practice drills, it forces active discrimination between concepts, preventing rote habituation.
+- **kind:** technique
+- **source names:** addy: — · matt: `interleaving` · rjm: —
+- **decision:** D-484
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-interleaving`
+
+### interview-rounds-structure
+
+- **definition:** Interview rounds structure is an engineering technique for `rounds` structure the interactive interview loop in grilling. Rather than asking one question at a time (which is inefficient) or dumping all questions at once (which overwhelms users and asks questions whose prerequisites are unknown), grilling computes the frontier of currently answerable decisions and presents them in discrete, numbered rounds.
+- **kind:** technique
+- **source names:** addy: — · matt: `rounds` · rjm: —
+- **decision:** D-296
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-rounds`
+
+### introduced-change-tracking
+
+- **definition:** Introduced change tracking is an engineering technique for introduced concepts are explicitly explained and landed within the article itself rather than assumed as audience prerequisites. Once an introduced concept is established by a beat or paragraph, it joins the running grounded set, allowing subsequent sections of the piece to build directly upon it without alienating the reader.
+- **kind:** technique
+- **source names:** addy: — · matt: `Introduced` · rjm: —
+- **decision:** D-507
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-introduced`
+
+### isinputpending
+
+- **definition:** Isinputpending is a browser API allowing JavaScript execution loops to inspect the input event queue and yield only when an actual user interaction is waiting, eliminating unnecessary yielding overhead while protecting INP.
+- **kind:** technique
+- **source names:** addy: `isInputPending()` · matt: — · rjm: —
+- **decision:** D-393
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-isinputpending`
+
+### keyboard-navigation
+
+- **definition:** Keyboard navigation is an engineering technique for in addy, Keyboard Navigation is a foundational WCAG 2.1 AA requirement ensuring that every interactive interface element can be discovered, focused, and triggered without a mouse. It requires semantic elements (<button>), explicit keyboard event handlers (onKeyDown), visible focus styling, and modal focus trapping.
+- **kind:** technique
+- **source names:** addy: `Keyboard Navigation` · matt: — · rjm: —
+- **decision:** D-377
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-keyboard-navigation`
+
+### leading-word
+
+- **definition:** Leading word is a cornerstone prompt-engineering technique in Matt's design. Rather than spending dozens of tokens explaining nuanced behaviors, authoring documents leverage compact pretrained tokens (e.g. *wait*, *tight*, *red*) that recruit extensive latent model priors at near-zero token cost.
+- **kind:** technique
+- **source names:** addy: — · matt: `leading word` · rjm: —
+- **decision:** D-481
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-leading-word`
+
+### leading-words
+
+- **definition:** Leading words is a prompt and documentation technique that recruits rich latent concepts already present in an LLM's pretraining using compact tokens. Anchoring to pretrained terms guides complex multi-step behavior without spending context on verbose explanations.
+- **kind:** technique
+- **source names:** addy: — · matt: `leading words` · rjm: —
+- **decision:** D-486
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-leading-words`
+
+### lint-staged
+
+- **definition:** Lint staged is a fast pre-commit optimization technique that scopes formatting tools like Prettier strictly to staged files rather than scanning the entire repository, keeping commit times minimal.
+- **kind:** technique
+- **source names:** addy: — · matt: `lint-staged` · rjm: —
+- **decision:** D-428
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-lint-staged`
+
+### manage-confusion-actively
+
+- **definition:** Manage confusion actively is a critical behavioral rule halting autonomous execution whenever an agent detects contradictions or ambiguity, requiring it to name the confusion and present tradeoff options rather than guessing and hoping for the best.
+- **kind:** technique
+- **source names:** addy: `Manage Confusion Actively` · matt: — · rjm: —
+- **decision:** D-382
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-manage-confusion-actively`
+
+### mcp-integration
+
+- **definition:** Mcp integration is an engineering technique for mCP Integration connects AI agents to live runtime environments (such as Chrome DevTools for browser testing), enabling skills to verify real execution state instead of making ungrounded assumptions based solely on static code.
+- **kind:** technique
+- **source names:** addy: `MCP Integration` · matt: — · rjm: —
+- **decision:** D-394
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-mcp-integration`
+
+### merge-rebase
+
+- **definition:** Merge rebase is an engineering technique for git branch integration operations (merging or rebasing) that result in file-level conflicts. The resolving-merge-conflicts skill provides a structured procedure to inspect conflict state, understand intent from commit messages and PRs, resolve hunks without inventing behavior, and verify with automated checks.
+- **kind:** technique
+- **source names:** addy: — · matt: `merge/rebase` · rjm: —
+- **decision:** D-403
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-merge-rebase`
+
+### mermaid-graph
+
+- **definition:** Mermaid graph is the primary diagramming technique recommended for HTML architecture reports to visualize dependencies and call flows, using Mermaid syntax wrapped in Tailwind-styled cards and styled with classDef rules to contrast messy before states against clean deep modules.
+- **kind:** technique
+- **source names:** addy: — · matt: `Mermaid graph` · rjm: —
+- **decision:** D-476
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-mermaid-graph`
+
+### migrate-to-shoehorn
+
+- **definition:** Migrate to shoehorn is a refactoring technique and workflow in the misc bucket that replaces unsafe `as` type assertions in test files with type-safe shoehorn utilities, preventing test mocks from masking schema regressions.
+- **kind:** technique
+- **source names:** addy: — · matt: `migrate-to-shoehorn` · rjm: —
+- **decision:** D-362
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-migrate-to-shoehorn`
+
+### milestone-retrospective
+
+- **definition:** Milestone retrospective is a retrospective analysis skill designed to inspect completed coding session logs and recommend actionable refinements to the agent's environment. It addresses the root causes of agent mistakes by improving navigation pointers, automated checks, coding standards, or tooling efficiency.
+- **kind:** technique
+- **source names:** addy: — · matt: `retro` · rjm: —
+- **decision:** D-453
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-retro`
+
+### mock
+
+- **definition:** Mock is a test double technique strictly confined to external system boundaries (third-party APIs, time, external services). Matt Pocock's design philosophy firmly rejects mocking internal modules, classes, or database abstractions, mandating real implementations or in-process stand-ins instead to avoid brittle, tautological tests.
+- **kind:** technique
+- **source names:** addy: — · matt: `Mock` · rjm: —
+- **decision:** D-442
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-mock`
+
+### most-important-first
+
+- **definition:** Most important first is an async prioritization heuristic ensuring that if a busy stakeholder answers only the top few questions before disengaging, the most critical decision-blocking uncertainties are resolved first.
+- **kind:** technique
+- **source names:** addy: — · matt: `most-important-first` · rjm: —
+- **decision:** D-283
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-most-important-first`
+
+### multi-commit-rebase
+
+- **definition:** Multi commit rebase is a multi-commit rebase is identified as an operational hazard for coding agents. Because rebasing across multiple commits with repeated conflict resolution easily causes agents to lose track of intermediate state, the recommended pattern is to abort, squash the branch to a single commit, and rebase cleanly once.
+- **kind:** technique
+- **source names:** addy: — · matt: `multi-commit rebase` · rjm: —
+- **decision:** D-495
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-multi-commit-rebase`
+
+### multi-session-planning
+
+- **definition:** Multi session planning is an engineering technique for multi-session planning is an architectural strategy designed to combat context window exhaustion on large efforts. Instead of attempting to settle all details at once, it maps the problem into a structured graph of decision tickets that can be tackled across separate, focused sessions, preventing context degradation.
+- **kind:** technique
+- **source names:** addy: — · matt: `multi-session planning` · rjm: —
+- **decision:** D-454
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-multi-session-planning`
+
+### multi-topic-grilling
+
+- **definition:** Multi topic grilling is an engineering technique that grills is the active verb form of the grilling interview technique. In improve-codebase-architecture, once a candidate is chosen, the agent grills the human on constraints and design trade-offs to ensure consensus before any refactoring takes place.
+- **kind:** technique
+- **source names:** addy: — · matt: `grills` · rjm: —
+- **decision:** D-430
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-grills`
+
+### native-blocking-edges
+
+- **definition:** Native blocking edges is an engineering technique for native blocking edges represent prerequisite constraints directly within the issue tracking engine, ensuring that tasks cannot be picked up until their dependencies are completed.
+- **kind:** technique
+- **source names:** addy: — · matt: `native blocking edges` · rjm: —
+- **decision:** D-311
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-native-blocking-edges`
+
+### native-blocking-link
+
+- **definition:** Native blocking link is an engineering technique for gitLab's platform feature for linking blocked issues to their blockers, used by wayfinder to establish machine-verifiable dependency graphs across tickets.
+- **kind:** technique
+- **source names:** addy: — · matt: `native blocking link` · rjm: —
+- **decision:** D-413
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-native-blocking-link`
+
+### native-issue-dependencies
+
+- **definition:** Native issue dependencies is an engineering technique for gitHub's built-in issue dependency relationship mechanism, leveraged by wayfinder to establish canonical blocking edges between tickets and enable automated frontier queries.
+- **kind:** technique
+- **source names:** addy: — · matt: `native issue dependencies` · rjm: —
+- **decision:** D-449
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-native-issue-dependencies`
+
+### native-skills-system
+
+- **definition:** Native skills system is the native skills system represents host-level skill auto-discovery and on-demand invocation natively supported by the Gemini CLI. By automatically detecting `SKILL.md` files in `.gemini/skills/` or `.agents/skills/` and activating them only when relevant to the user's prompt, it avoids monolithic system instruction files and preserves context budget.
+- **kind:** technique
+- **source names:** addy: `native skills system` · matt: — · rjm: —
+- **decision:** D-380
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-native-skills-system`
+
+### natural-language-steering
+
+- **definition:** Natural language steering is an engineering technique for natural-language steering establishes conversational dialogue as the primary mechanism for regulating agent depth, keeping control with the human operator rather than imposing rigid numeric thresholds.
+- **kind:** technique
+- **source names:** addy: — · matt: `natural-language steering` · rjm: —
+- **decision:** D-502
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-natural-language-steering`
+
+### no-fluff
+
+- **definition:** No fluff is an engineering technique for `/no-fluff` represents a common prompt-engineering shortcut that attempts to reduce verbosity by constraining phrasing. Matt notes that focusing on output removal rather than listener needs causes models to become blunt while leaving underlying misunderstandings unresolved.
+- **kind:** technique
+- **source names:** addy: — · matt: `/no-fluff` · rjm: —
+- **decision:** D-470
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-no-fluff`
+
+### no-op-test
+
+- **definition:** No op test is a behavioral editing technique: delete a sentence and test whether the agent's actions change. If behavior does not change, the line is a no-op that wastes context tokens and must be removed. It establishes an empirical, behavioral standard for brevity rather than stylistic preference.
+- **kind:** technique
+- **source names:** addy: — · matt: `no-op test` · rjm: —
+- **decision:** D-356
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-no-op-test`
+
+### no-ops
+
+- **definition:** No ops is a pruning technique that tests whether an instruction actually changes model behavior relative to default pre-trained behavior. If a model already follows the behavior by default, the instruction consumes valuable context window tokens and attention without altering output, and should be eliminated rather than edited.
+- **kind:** technique
+- **source names:** addy: — · matt: `No-ops` · rjm: —
+- **decision:** D-508
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-no-ops`
+
+### npx-skills
+
+- **definition:** Npx skills is the CLI execution mechanism used by developers to discover, add, and manage skills within their coding environment (`npx skills@latest add ...`), enabling modular distribution and installation of agent capabilities.
+- **kind:** technique
+- **source names:** addy: — · matt: `npx skills` · rjm: —
+- **decision:** D-485
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-npx-skills`
+
+### on-demand-skill-activation
+
+- **definition:** On demand skill activation is an engineering technique for on-demand skill activation enables natural-language intent routing, allowing coding agents to autonomously load relevant methodology skills when developers describe work rather than requiring explicit slash commands.
+- **kind:** technique
+- **source names:** addy: `On-Demand Skill Activation` · matt: — · rjm: —
+- **decision:** D-277
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-on-demand-skill-activation`
+
+### one-slice-at-a-time
+
+- **definition:** One slice at a time is an engineering technique that enforces strict atomicity in TDD execution: exactly one seam, one test, and one minimal implementation per cycle. This prevents agents and human developers from accumulating unverified code or over-committing to complex architectures before seeing concrete tests pass, ensuring steady, predictable progress.
+- **kind:** technique
+- **source names:** addy: — · matt: `One slice at a time` · rjm: —
+- **decision:** D-310
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-one-slice-at-a-time`
+
+### open-url
+
+- **definition:** Open url is a cross-platform browser opening utility in the wizard template library that detects and uses available launcher commands (`wslview`, `explorer.exe`, `xdg-open`, or macOS `open`) to navigate the human to the exact dashboard page required, falling back to manual instruction if no browser launcher succeeds.
+- **kind:** technique
+- **source names:** addy: — · matt: `open_url` · rjm: —
+- **decision:** D-441
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-open-url`
+
+### operational-metrics
+
+- **definition:** Operational metrics is an observational technique tracking quantitative performance, reliability, and error indicators to verify system health across operational workflows.
+- **kind:** technique
+- **source names:** addy: `Metrics` · matt: — · rjm: `metric`
+- **decision:** D-365
+- **concordance:** `docs/analysis/concordance/techniques.md#operational-metrics`
+
+### parallel-worktrees
+
+- **definition:** Parallel worktrees is the practice of running multiple concurrent agent sessions in isolated git worktrees. To prevent loss of intent during branch reconciliation, matt emphasizes that the session that authored the changes in a worktree should perform the merge back, rather than batching all conflicts onto a separate agent lacking author context.
+- **kind:** technique
+- **source names:** addy: — · matt: `parallel worktrees` · rjm: —
+- **decision:** D-342
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-parallel-worktrees`
+
+### pause
+
+- **definition:** Pause is a synchronization helper function in the wizard framework that halts execution until the user manually performs an out-of-band action (such as navigating a dashboard or confirming an external state) and presses Enter to proceed.
+- **kind:** technique
+- **source names:** addy: — · matt: `pause` · rjm: —
+- **decision:** D-407
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-pause`
+
+### perf-branch
+
+- **definition:** Perf branch is a specialized diagnostic branch in the bug diagnosis workflow that prescribes baseline measurement and bisection instead of log-based debugging for performance regressions.
+- **kind:** technique
+- **source names:** addy: — · matt: `Perf branch` · rjm: —
+- **decision:** D-317
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-perf-branch`
+
+### performance-branch
+
+- **definition:** Performance branch is the performance branch adapts the diagnosing-bugs workflow to latency and resource regressions. Instead of relying on boolean pass/fail tests, it establishes a quantitative baseline measurement, applies bisection, and insists on measuring before and after any code modifications.
+- **kind:** technique
+- **source names:** addy: — · matt: `performance branch` · rjm: —
+- **decision:** D-360
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-performance-branch`
+
+### plain-english
+
+- **definition:** Plain english is an engineering technique for plain English establishes the communicative baseline for human-agent collaboration in Matt's toolkit. Grounded in ASD-STE100 principles, it prevents models from generating opaque, self-referential prose and forces clear sentence structures without sacrificing technical precision.
+- **kind:** technique
+- **source names:** addy: — · matt: `plain English` · rjm: —
+- **decision:** D-498
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-plain-english`
+
+### plan-step-decomposition
+
+- **definition:** Plan step decomposition is a terminal helper function in interactive scripts (`template.sh` and `hitl-loop.template.sh`). It presents a discrete human action (such as performing a manual browser step or signing into a service) and pauses execution until confirmed, maintaining clear visual progress during guided operations.
+- **kind:** technique
+- **source names:** addy: — · matt: `step` · rjm: —
+- **decision:** D-420
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-step`
+
+### post-mortem
+
+- **definition:** Post mortem is an engineering technique for in `matt:engineering`, a post-mortem captures systemic architectural lessons from difficult bugs. In earlier iterations of `diagnosing-bugs`, Phase 6 incorporated a post-mortem step that handed off findings directly to `improve-codebase-architecture` whenever the lack of a proper test seam was identified. Because `improve-codebase-architecture` is an interactive user-invoked skill, this autonomous hand-off violated invocation invariants during unattended debugging sessions and was subsequently removed in favor of a clean, checklist-only Phase 6.
+- **kind:** technique
+- **source names:** addy: — · matt: `post-mortem` · rjm: —
+- **decision:** D-469
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-post-mortem`
+
+### prefactor
+
+- **definition:** Prefactor is an engineering technique for prefactoring embodies the principle "Make the change easy, then make the easy change." Rather than tangling structural adjustments with new feature logic within a single ticket or commit, prefactoring isolates preparatory restructuring into dedicated prerequisite tickets. This keeps diffs clean, lowers cognitive load, and ensures that when new functionality is introduced, the codebase already accommodates it cleanly.
+- **kind:** technique
+- **source names:** addy: — · matt: `prefactor` · rjm: —
+- **decision:** D-334
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prefactor`
+
+### prefactoring
+
+- **definition:** Prefactoring is the practice of refactoring existing code prior to introducing new features, adhering to Kent Beck's maxim: "Make the change easy, then make the easy change." In `to-tickets`, prefactoring tickets are scheduled first in the dependency graph so that architectural friction is eliminated in standalone, behavior-preserving commits before behavioral feature tickets are attempted.
+- **kind:** technique
+- **source names:** addy: — · matt: `prefactoring` · rjm: —
+- **decision:** D-318
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prefactoring`
+
+### prettier
+
+- **definition:** Prettier is an opinionated code formatting tool that enforces consistent styling across a codebase. Integrated into pre-commit workflows so developers and agents do not waste review bandwidth on formatting trivialities.
+- **kind:** technique
+- **source names:** addy: — · matt: `Prettier` · rjm: —
+- **decision:** D-499
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prettier`
+
+### progressive-disclosure
+
+- **definition:** Progressive disclosure is the core architectural discipline of Matt's documentation approach: keep primary files focused on ordered steps and high-priority rules, moving detailed, branch-specific, or voluminous references into separate files accessed only via context pointers when needed.
+- **kind:** technique
+- **source names:** addy: — · matt: `progressive disclosure` · rjm: —
+- **decision:** D-432
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-progressive-disclosure`
+
+### prompt-driven-skill-architecture
+
+- **definition:** Prompt driven skill architecture is an engineering technique for prompt-driven skill architecture leverages the natural adaptability of large language models to re-scope skill execution on the fly, eliminating the overhead of dedicated CLI flags or redundant sibling commands.
+- **kind:** technique
+- **source names:** addy: — · matt: `prompt-driven` · rjm: —
+- **decision:** D-282
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prompt-driven`
+
+### prompt-quality
+
+- **definition:** Prompt quality is an engineering technique for prompt-quality emphasizes that conversational precision and relevance must be engineered into the skill prompt itself rather than handled through arbitrary external throttling mechanisms.
+- **kind:** technique
+- **source names:** addy: — · matt: `prompt-quality` · rjm: —
+- **decision:** D-487
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prompt-quality`
+
+### prototype-exploration-technique
+
+- **definition:** Prototype exploration technique is a shaping technique that resolves thorny design questions through disposable, runnable code rather than abstract conversational debate. By focusing strictly on answering one question, it prevents agents and developers from over-engineering unverified designs into production.
+- **kind:** technique
+- **source names:** addy: — · matt: `The /prototype Skill` · rjm: —
+- **decision:** D-289
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-the-prototype-skill`
+
+### prototyping
+
+- **definition:** Prototyping is the empirical engine of Wayfinder. Rather than building elaborate speculative roadmaps, Wayfinder relies on rapid, disposable prototypes to flush out technical constraints and invalidate bad assumptions early, keeping multi-session planning agile and evidence-driven.
+- **kind:** technique
+- **source names:** addy: — · matt: `prototyping` · rjm: —
+- **decision:** D-446
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prototyping`
+
+### pruning
+
+- **definition:** Pruning is the continuous editorial discipline of auditing agent-facing text sentence by sentence. Pruning aggressively removes no-ops, deduplicates repeated concepts, and eliminates stale sediment to ensure every token in the agent's window earns its keep.
+- **kind:** technique
+- **source names:** addy: — · matt: `Pruning` · rjm: —
+- **decision:** D-358
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-pruning`
+
+### pulling-from-the-pile
+
+- **definition:** Pulling from the pile is an engineering technique for pulling from the pile defines the core extraction technique of treating raw authoring material as a quarry rather than a rigid outline. Material can be freely split, recombined, or paraphrased to serve the article's voice, while missing ideas are explicitly called out as gaps to be filled or cut.
+- **kind:** technique
+- **source names:** addy: — · matt: `Pulling from the pile` · rjm: —
+- **decision:** D-401
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-pulling-from-the-pile`
+
+### push-back-when-warranted
+
+- **definition:** Push back when warranted is an anti-sycophancy directive instructing agents to voice honest technical objections and provide quantified tradeoffs when a proposed approach is flawed, prioritizing genuine software quality over agreeable compliance.
+- **kind:** technique
+- **source names:** addy: `Push Back When Warranted` · matt: — · rjm: —
+- **decision:** D-321
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-push-back-when-warranted`
+
+### push-right
+
+- **definition:** Push right is a core workflow design heuristic in loop-me: defer human involvement as far right in the process timeline as possible. By executing all preparatory, research, and generation work autonomously first, the human reviewer is engaged only once, late, with fully prepared decision briefs.
+- **kind:** technique
+- **source names:** addy: — · matt: `Push right` · rjm: —
+- **decision:** D-425
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-push-right`
+
+### rationalization-tables
+
+- **definition:** Rationalization tables is an engineering technique for rationalization tables are anti-drift mechanisms embedded in skills that explicitly list the plausible-sounding excuses an agent generates to skip disciplined steps (such as omitting tests, assuming backwards compatibility, or bypassing verification) alongside direct refutations that hold the agent to project standards.
+- **kind:** technique
+- **source names:** addy: `rationalization tables` · matt: — · rjm: —
+- **decision:** D-373
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-rationalization-tables`
+
+### re-pitches
+
+- **definition:** Re pitches is an engineering technique for re-pitching is Matt's conversational repair technique: rather than forcing the model to simply compress its output into terseness, it instructs the model to step back, identify the missing premise or unstated assumption, and restate the idea in accessible language grounded in project vocabulary.
+- **kind:** technique
+- **source names:** addy: — · matt: `re-pitches` · rjm: —
+- **decision:** D-462
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-re-pitches`
+
+### recommendation
+
+- **definition:** Recommendation is the recommendation technique requires the agent to propose a concrete, reasoned answer alongside every question it poses. This accelerates human decision-making by allowing users to answer by number ("1 yes, 2 second option") rather than drafting detailed responses from scratch.
+- **kind:** technique
+- **source names:** addy: — · matt: `recommendation` · rjm: —
+- **decision:** D-325
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-recommendation`
+
+### red-green
+
+- **definition:** Red green is an engineering technique for `Red-green` is Matt's streamlined adaptation of classical test-driven development for AI coding agents. Observing that agents routinely fail to execute nuanced refactorings in the middle of implementation, Matt's lifecycle explicitly decouples the red-green authoring loop from refactoring. Developers and agents write a failing test and just enough code to satisfy it, deferring code cleanup and architectural refactoring to a dedicated `code-review` session.
+- **kind:** technique
+- **source names:** addy: — · matt: `Red-green` · rjm: —
+- **decision:** D-326
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-red-green`
+
 ### red-green-refactor-loop
 
 - **definition:** The red-green-refactor loop is a micro-implementation discipline requiring writing an automated failing test first, writing minimal code to make the test pass, and refactoring while keeping tests green.
@@ -1249,6 +2521,646 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **decision:** D-261
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-loops-tdd-red-green-refactor`
 - **not to be confused with:** verification-feedback-loop, optimization-workflow
+
+### red-green-slice
+
+- **definition:** Red green slice is a red-green slice is the micro-iteration technique within implement where TDD is driven in minimal atomic steps: one failing test followed by only enough code to pass it, explicitly avoiding speculative code or batch test generation.
+- **kind:** technique
+- **source names:** addy: — · matt: `red-green slice` · rjm: —
+- **decision:** D-309
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-red-green-slice`
+
+### redact
+
+- **definition:** Redact is a critical privacy and safety technique in diagnosing bugs that mandates replacing credentials and secrets with `<REDACTED>` and keeping secrets in environment variables. Without this sanitization, auth tokens and credentials would be leaked into terminal context and recorded logs.
+- **kind:** technique
+- **source names:** addy: — · matt: `Redact` · rjm: —
+- **decision:** D-402
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-redact`
+
+### refactoring
+
+- **definition:** Refactoring is the discipline of restructuring software internals without changing external observable behavior. In Matt Pocock's methodology, refactoring was explicitly decoupled from the classic red-green-refactor TDD inner loop in June 2026. Because coding agents struggled to execute refactoring mid-implementation and authoring sessions suffer from confirmation bias, refactoring is treated as an independent downstream activity driven by code-review and dedicated improvement skills in separate sessions.
+- **kind:** technique
+- **source names:** addy: — · matt: `Refactoring` · rjm: —
+- **decision:** D-343
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-refactoring`
+
+### relentless-interview
+
+- **definition:** Relentless interview is the core questioning technique employed by `grill-me` to stress-test designs and plans by recursively interrogating every branch of the design tree until all ambiguities and unexamined assumptions are resolved.
+- **kind:** technique
+- **source names:** addy: — · matt: `relentless interview` · rjm: —
+- **decision:** D-292
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-relentless-interview`
+
+### replace-don-t-layer
+
+- **definition:** Replace don t layer is a testing strategy for module refactoring: when shallow modules are deepened into a cohesive deep module, developers must delete the old unit tests that targeted internal shallow components rather than keeping them as a redundant layer. Tests are rewritten at the deepened interface ("the interface is the test surface").
+- **kind:** technique
+- **source names:** addy: — · matt: `replace, don't layer` · rjm: —
+- **decision:** D-307
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-replace-don-t-layer`
+
+### replayed-capture
+
+- **definition:** Replayed capture is a diagnostic technique that isolates bugs by re-running saved production artifacts through code paths in local isolation. It avoids the friction of mocking complex upstream dependencies while retaining realistic error triggers.
+- **kind:** technique
+- **source names:** addy: — · matt: `replayed capture` · rjm: —
+- **decision:** D-323
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-replayed-capture`
+
+### reproduction-rate
+
+- **definition:** Reproduction rate is a debugging technique for intermittent or flaky bugs. Rather than stalling waiting for a 100% deterministic reproduction, the agent actively increases the reproduction rate through parallel triggers, load, loops, or injected timing delays until the failure happens reliably enough to test hypotheses against.
+- **kind:** technique
+- **source names:** addy: — · matt: `reproduction rate` · rjm: —
+- **decision:** D-357
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-reproduction-rate`
+
+### requestidlecallback
+
+- **definition:** Requestidlecallback is a standard browser API that schedules tasks during browser idle periods, preventing analytics flushes, telemetry, and prefetching from competing with high-priority rendering or input processing.
+- **kind:** technique
+- **source names:** addy: `requestIdleCallback` · matt: — · rjm: —
+- **decision:** D-391
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-requestidlecallback`
+
+### resolving-merge-conflicts
+
+- **definition:** Resolving merge conflicts is an engineering technique for `resolving-merge-conflicts` approaches git conflict resolution as an intent-reconciliation problem rather than a syntactic text-editing task. It forbids blind resolution flags like `--ours` or `--theirs` and disallows `--abort`, insisting that the agent inspect primary sources (commit messages, PR discussions, and issue trackers) on both sides of each hunk. By requiring that the repository's native automated checks (typecheck, tests, format) run before committing, it prevents the introduction of code that looks syntactically harmonious but breaks runtime contracts.
+- **kind:** technique
+- **source names:** addy: — · matt: `resolving-merge-conflicts` · rjm: —
+- **decision:** D-331
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-resolving-merge-conflicts`
+
+### retrieval-practice
+
+- **definition:** Retrieval practice is an engineering technique for retrieval practice requires learners to actively pull knowledge from memory rather than passively re-reading text. By embedding quizzes and diagnostic drills directly within lessons, the teach skill reinforces memory pathways and confirms understanding before advancing to new material.
+- **kind:** technique
+- **source names:** addy: — · matt: `retrieval practice` · rjm: —
+- **decision:** D-471
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-retrieval-practice`
+
+### retrieval-spacing-discipline
+
+- **definition:** Retrieval spacing discipline is an engineering technique for spacing distributes practice intervals over time rather than massing instruction into a single marathon session. In the teach skill, spacing leverages the multi-session nature of the standing workspace to re-test previously learned concepts after intervals of decay, transforming transient familiarity into permanent capability.
+- **kind:** technique
+- **source names:** addy: — · matt: `spacing` · rjm: —
+- **decision:** D-478
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-spacing`
+
+### safe-read-command
+
+- **definition:** Safe read command is an engineering technique for `read -r` is the POSIX bash built-in command for capturing input without backslash escaping. While lightweight and portable, its lack of terminal line-editing causes escape sequences (such as arrow key movements) to be captured as literal text, presenting a documented UX limitation in setup wizards.
+- **kind:** technique
+- **source names:** addy: — · matt: `read -r` · rjm: —
+- **decision:** D-503
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-read-r`
+
+### sandbox-mode
+
+- **definition:** Sandbox mode is an engineering technique for sandbox mode enforces platform-level permission restrictions on agent shell execution, providing safety guardrails against accidental or malicious system damage during automated runs.
+- **kind:** technique
+- **source names:** addy: `Sandbox Mode` · matt: — · rjm: —
+- **decision:** D-345
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-sandbox-mode`
+
+### scaffold-exercises
+
+- **definition:** Scaffold exercises is a specialized course-authoring skill for scaffolding structured educational modules. It automates the generation of multi-variant exercise directories (`problem/`, `solution/`, `explainer/`) adhering to strict naming and linting conventions, ensuring that course repositories pass automated linter validation.
+- **kind:** technique
+- **source names:** addy: — · matt: `scaffold-exercises` · rjm: —
+- **decision:** D-288
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-scaffold-exercises`
+
+### scheduler-posttask
+
+- **definition:** Scheduler posttask is a prioritized task-scheduling browser API allowing web applications to schedule tasks with specific priorities ('user-blocking', 'user-visible', 'background') so critical UI updates take precedence over background work.
+- **kind:** technique
+- **source names:** addy: `scheduler.postTask()` · matt: — · rjm: —
+- **decision:** D-387
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-scheduler-posttask`
+
+### scheduler-yield
+
+- **definition:** Scheduler yield is the preferred modern web platform API for task-level yielding. Unlike setTimeout(..., 0), scheduler.yield() yields execution to high-priority browser tasks (input handling, rendering) while placing the continuation at the head of the task queue.
+- **kind:** technique
+- **source names:** addy: `scheduler.yield()` · matt: — · rjm: —
+- **decision:** D-370
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-scheduler-yield`
+
+### scope-discipline-enforcement
+
+- **definition:** Scope discipline enforcement is a discipline requiring surgical precision during edits, explicitly forbidding orthogonal cleanups, unsolicited refactoring, deleting unfamiliar comments, or adding unrequested features.
+- **kind:** technique
+- **source names:** addy: `Maintain Scope Discipline` · matt: — · rjm: —
+- **decision:** D-276
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-maintain-scope-discipline`
+
+### scoping
+
+- **definition:** Scoping is an engineering technique for `scoping` grounds wizard creation in repository evidence. Rather than asking developers open-ended questions about what configuration is required, scoping inspects existing workflow files and configuration schemas to automatically deduce what variables and secrets must be produced.
+- **kind:** technique
+- **source names:** addy: — · matt: `scoping` · rjm: —
+- **decision:** D-340
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-scoping`
+
+### scoping-decision-tree
+
+- **definition:** Scoping decision tree is the decision tree represents the structural branching of architectural and design choices that a grilling session systematically traverses to ensure all critical ambiguities are resolved before implementation begins.
+- **kind:** technique
+- **source names:** addy: — · matt: `decision tree` · rjm: —
+- **decision:** D-290
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-decision-tree`
+
+### seam-placement
+
+- **definition:** Seam placement is the explicit design choice of where to draw the boundary between a module's internal implementation and its external callers. In Design It Twice, seam placement is treated as its own first-class evaluation criterion—distinct from module depth and change locality—to ensure interfaces are drawn where boundaries naturally occur.
+- **kind:** technique
+- **source names:** addy: — · matt: `seam placement` · rjm: —
+- **decision:** D-306
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-seam-placement`
+
+### session-clear-command
+
+- **definition:** Session clear command is a context-management command in Claude Code that erases conversational history to reclaim the full token window. In matt's lifecycle, /clear is the highest-priority context reset move on the phase boundary tree when past work is disposable (such as between independent implementation tickets), eliminating conversational noise and preventing token degradation in the smart zone.
+- **kind:** technique
+- **source names:** addy: — · matt: `/clear` · rjm: —
+- **decision:** D-464
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-clear`
+
+### session-hooks
+
+- **definition:** Session hooks is an engineering technique for session Hooks automate the injection of meta-skills or environment validation at session start, ensuring the agent is equipped with workflow routing without requiring manual prompt initialization by the developer.
+- **kind:** technique
+- **source names:** addy: `Session Hooks` · matt: — · rjm: —
+- **decision:** D-400
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-session-hooks`
+
+### set-var
+
+- **definition:** Set var is a bash helper function in the wizard template library that automates setting non-secret GitHub Actions variables using the GitHub CLI (`gh variable set`), with graceful degradation to a skip list and manual instructions if `gh` is unavailable or unauthenticated.
+- **kind:** technique
+- **source names:** addy: — · matt: `set_var` · rjm: —
+- **decision:** D-341
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-set-var`
+
+### setup-matt-pocock-skills
+
+- **definition:** Setup matt pocock skills is an engineering technique for foundational configuration skill executed once per repository to establish issue tracker destinations, triage label strings, and domain documentation locations. Embodying Matt Pocock's "config is death" philosophy, it replaces global configuration files with committed Markdown files under `docs/agents/`, enabling identical skill instructions to operate portably across GitHub, GitLab, and local scratch trackers without skill modification.
+- **kind:** technique
+- **source names:** addy: — · matt: `/setup-matt-pocock-skills` · rjm: —
+- **decision:** D-438
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-setup-matt-pocock-skills`
+
+### setup-pre-commit
+
+- **definition:** Setup pre commit is an interactive setup skill that configures client-side pre-commit quality gates in a repository. It automatically detects the active package manager, installs Husky, lint-staged, and Prettier as devDependencies, initializes Husky v9+, configures formatting with `.lintstagedrc` and default `.prettierrc`, hooks up typechecking and test scripts if present, verifies the setup, and performs an initial commit as a smoke test.
+- **kind:** technique
+- **source names:** addy: — · matt: `setup-pre-commit` · rjm: —
+- **decision:** D-480
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-setup-pre-commit`
+
+### shellcheck
+
+- **definition:** Shellcheck is an engineering technique for shellCheck is an industry-standard static analysis tool for shell scripts. In the wizard authoring workflow, running ShellCheck verifies quoting, variable expansion, and portability, ensuring scripts run reliably across varied user shell environments.
+- **kind:** technique
+- **source names:** addy: — · matt: `shellcheck` · rjm: —
+- **decision:** D-417
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-shellcheck`
+
+### shoehorn
+
+- **definition:** Shoehorn is a type-safe testing utility and technique that allows developers to provide partial or mock objects in unit tests while retaining TypeScript type checking on the provided properties.
+- **kind:** technique
+- **source names:** addy: — · matt: `shoehorn` · rjm: —
+- **decision:** D-350
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-shoehorn`
+
+### single-interview-round
+
+- **definition:** Single interview round is a round is the atomic interaction turn in grilling. Rather than asking questions one by one or dumping an overwhelming checklist all at once, a round asks exactly the subset of decisions whose dependencies are satisfied. This parallelizes independent inquiries while preserving logical causality across iterations.
+- **kind:** technique
+- **source names:** addy: — · matt: `round` · rjm: —
+- **decision:** D-429
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-round`
+
+### single-session-planning
+
+- **definition:** Single session planning is an engineering technique for single-session planning is an architectural technique for resolving trade-offs and settling terminology in a single conversation. It prioritizes low overhead and rapid convergence, writing newly crystallized domain terms into CONTEXT.md and significant trade-offs into ADRs before passing the settled conversation directly to downstream specification skills.
+- **kind:** technique
+- **source names:** addy: — · matt: `single-session planning` · rjm: —
+- **decision:** D-482
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-single-session-planning`
+
+### six-phase-diagnosis
+
+- **definition:** Six phase diagnosis is the core diagnostic methodology in Matt Pocock's diagnosing-bugs skill. It enforces a strict, gated sequence of six phases: (1) build a tight reproduction loop, (2) minimize reproduction code/time, (3) formulate and rank falsifiable hypotheses, (4) add targeted temporary instrumentation, (5) implement the fix with a regression test, and (6) clean up temporary probes. The methodology prevents agents from prematurely editing code or guessing theories before establishing an automated red-green verification signal.
+- **kind:** technique
+- **source names:** addy: — · matt: `six-phase diagnosis` · rjm: —
+- **decision:** D-336
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-six-phase-diagnosis`
+
+### skill-discovery
+
+- **definition:** Skill discovery is the central dispatch mechanism in Addy's meta-skill architecture, matching incoming requests and current development phases against a structured decision tree to select the right skill from the 24-skill library.
+- **kind:** technique
+- **source names:** addy: `Skill Discovery` · matt: — · rjm: —
+- **decision:** D-275
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-skill-discovery`
+
+### skill-execution-harness
+
+- **definition:** Skill execution harness is an engineering technique that skills are the fundamental procedural unit in addy's architecture, providing structured instructions that turn LLM capabilities into deterministic engineering workflows with verifiable exit gates.
+- **kind:** technique
+- **source names:** addy: `Skills` · matt: — · rjm: —
+- **decision:** D-388
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-skills`
+
+### skill-execution-harness-technique
+
+- **definition:** Skill execution harness technique is an engineering technique for in `matt`, `skills` has a dual meaning. Within the `teach` skill, it defines the practical, actionable capabilities a learner acquires through interactive practice, complementing factual knowledge and practitioner wisdom. Across the package as a whole, it represents the modular prompt-based behaviors and slash commands that equip coding agents to perform disciplined engineering tasks.
+- **kind:** technique
+- **source names:** addy: — · matt: `skills` · rjm: —
+- **decision:** D-465
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-skills`
+
+### spike-prototyping
+
+- **definition:** Spike prototyping is an empirical exploration technique in matt designed to break deadlocks during requirements gathering. When conversational inquiry cannot settle how a state machine behaves or how a screen feels, the developer detours to a prototype on an isolated branch. The code is written as deliberately throwaway—omitting tests, persistence, and abstractions—so that only the validated answer is preserved and folded into subsequent specifications.
+- **kind:** technique
+- **source names:** addy: — · matt: `prototype` · rjm: —
+- **decision:** D-291
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-prototype`
+
+### splitting-by-invocation
+
+- **definition:** Splitting by invocation is an engineering technique that balances autonomous agent reach against permanent context window overhead. Because each model-invoked skill demands always-loaded description tokens, splitting by invocation requires justifying that token cost through a distinct prompt trigger word or cross-skill invocation need.
+- **kind:** technique
+- **source names:** addy: — · matt: `Splitting by invocation` · rjm: —
+- **decision:** D-440
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-splitting-by-invocation`
+
+### stampede-protection
+
+- **definition:** Stampede protection is an engineering technique for stampede protection is the umbrella architectural safeguard preventing a cache invalidation on a hot key from flooding origin services with concurrent recomputations. Addy notes that naive cache-aside implementations are particularly vulnerable, requiring mitigations such as in-flight promise deduplication, distributed locking, or serving stale data during background revalidation.
+- **kind:** technique
+- **source names:** addy: `stampede protection` · matt: — · rjm: —
+- **decision:** D-381
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-stampede-protection`
+
+### steps-and-completion-criteria
+
+- **definition:** Steps and completion criteria is an engineering technique that establishes the core behavioural lever for procedural agent execution. By requiring every step to terminate on clear, checkable, and demanding conditions, it prevents agents from declaring premature success or rushing through sequential tasks.
+- **kind:** technique
+- **source names:** addy: — · matt: `Steps and completion criteria` · rjm: —
+- **decision:** D-426
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-steps-and-completion-criteria`
+
+### subagent-dispatch
+
+- **definition:** Subagent dispatch is an engineering technique for subagent-dispatch enables a primary agent to launch background child agents for focused tasks (such as parallel research or adversarial code review) using harness-agnostic instructions.
+- **kind:** technique
+- **source names:** addy: — · matt: `subagent-dispatch` · rjm: —
+- **decision:** D-452
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-subagent-dispatch`
+
+### subagents
+
+- **definition:** Subagents is an engineering technique that subagents in addy represent Claude Code's stable parallelism primitive for executing independent tasks concurrently. Operating in their own context windows, subagents report findings strictly back to the spawning main agent without peer-to-peer messaging, making them ideal for parallel fan-out inspections (such as /ship) and research isolation.
+- **kind:** technique
+- **source names:** addy: `Subagents` · matt: — · rjm: —
+- **decision:** D-386
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-subagents`
+
+### surface-assumptions
+
+- **definition:** Surface assumptions is an operational guardrail requiring agents to explicitly enumerate their assumptions about requirements, architecture, and scope before writing code, preventing costly rework caused by silent, unchecked misunderstandings.
+- **kind:** technique
+- **source names:** addy: `Surface Assumptions` · matt: — · rjm: —
+- **decision:** D-320
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-surface-assumptions`
+
+### talk-normal
+
+- **definition:** Talk normal is an engineering technique for `/talk-normal` is an informal concision command that attempts to de-jargonize agent speech. In Matt's evaluation, such commands lack an anchor in agreed project vocabulary and lead models to strip nuance rather than restate missing foundational premises.
+- **kind:** technique
+- **source names:** addy: — · matt: `/talk-normal` · rjm: —
+- **decision:** D-412
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-talk-normal`
+
+### task-completion-verification
+
+- **definition:** Task completion verification is a terminal presentation helper function in `template.sh` that provides closure to interactive setup wizards. By clearing intermediate step output and presenting a clean summary of written variables, secrets, and skipped manual tasks, `finish` gives the human operator an unambiguous record of what was accomplished and what remains to be done.
+- **kind:** technique
+- **source names:** addy: — · matt: `finish` · rjm: —
+- **decision:** D-445
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-finish`
+
+### teaching-decision
+
+- **definition:** Teaching decision is a teaching decision represents any pedagogical choice made by the agent—determining next topic, selecting resources, or designing exercises. The package requires all such decisions to be anchored in MISSION.md, ensuring that learning activities remain tightly coupled to the user's real-world outcome rather than arbitrary curriculum progression.
+- **kind:** technique
+- **source names:** addy: — · matt: `teaching decision` · rjm: —
+- **decision:** D-314
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-teaching-decision`
+
+### temporary-instrumentation
+
+- **definition:** Temporary instrumentation is an engineering technique for temporary diagnostic code inserted to expose internal state during bug diagnosis. Matt's lifecycle treats adding temporary instrumentation as an escalated intervention requiring human permission and disciplined tagging (e.g. `[DEBUG-a4f2]`) to ensure complete removal before fixing.
+- **kind:** technique
+- **source names:** addy: — · matt: `temporary instrumentation` · rjm: —
+- **decision:** D-354
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-temporary-instrumentation`
+
+### terminal-clearing-technique
+
+- **definition:** Clearing is the context hygiene discipline of resetting the conversation window between independent units of work. In Matt's architecture, tickets are deliberately sized to execute within a single clean context window, making previous conversation history disposable and preventing cross-task context pollution.
+- **kind:** technique
+- **source names:** addy: — · matt: `clearing` · rjm: —
+- **decision:** D-422
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-clearing`
+
+### testability
+
+- **definition:** Testability is an architectural quality attribute and primary design objective in Matt's lifecycle where deep abstractions provide simple, durable test surfaces, avoiding the antipattern of exposing private implementation details or extracting shallow helper functions solely for unit testing.
+- **kind:** technique
+- **source names:** addy: — · matt: `testability` · rjm: —
+- **decision:** D-361
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-testability`
+
+### the-research-skill
+
+- **definition:** The research skill is a shaping skill that offloads external documentation and fact-finding to an asynchronous background agent reading primary sources. Producing a cited Markdown file in the repo preserves the main session's context window while providing durable, verifiable evidence for subsequent architectural decisions.
+- **kind:** technique
+- **source names:** addy: — · matt: `The /research Skill` · rjm: —
+- **decision:** D-419
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-the-research-skill`
+
+### thin-vertical-slices
+
+- **definition:** Thin vertical slices is an end-to-end architectural implementation technique that builds fully functional, cross-layer functional paths demonstrating customer value rather than layer-by-layer horizontal scaffolding.
+- **kind:** technique
+- **source names:** addy: `thin vertical slices` · matt: `vertical slices` · rjm: `thin vertical slices`
+- **decision:** D-301
+- **concordance:** `docs/analysis/concordance/techniques.md#vertical-slices`
+
+### three-dot-diff
+
+- **definition:** The three-dot diff is a code review inspection technique utilizing git merge-base diffing ('git diff base...head') to view exclusively changes introduced on a topic branch.
+- **kind:** technique
+- **source names:** addy: — · matt: `three-dot` · rjm: `three-dot diff`
+- **decision:** D-363
+- **concordance:** `docs/analysis/concordance/techniques.md#three-dot-diff`
+
+### tldr-abbreviation-command
+
+- **definition:** Tldr abbreviation command is an engineering technique for `/tldr` is analyzed in Matt's design as an anti-pattern for conversational repair. Because it instructs the model to compress output rather than address comprehension failure, it causes the model to delete necessary context and drop into an uninformative register.
+- **kind:** technique
+- **source names:** addy: — · matt: `/tldr` · rjm: —
+- **decision:** D-467
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-tldr`
+
+### to-prd-synthesis
+
+- **definition:** To prd synthesis is an engineering technique for `to-prd` was the predecessor skill name for `to-spec` in Matt's toolkit prior to version 1.1. It was retired and renamed to standardize the terminology around "spec" across the entire lifecycle rather than using PRD (Product Requirements Document), aligning the destination document with downstream tickets and test seam specifications.
+- **kind:** technique
+- **source names:** addy: — · matt: `to-prd` · rjm: —
+- **decision:** D-293
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-to-prd`
+
+### to-questionnaire
+
+- **definition:** To questionnaire is an engineering technique for to-questionnaire bridges the gap between autonomous development and human organizational reality. When progress stalls on unwritten domain knowledge, it packages the ambiguity into a structured, low-friction survey format that respects the stakeholder's time while forcing clear decision options.
+- **kind:** technique
+- **source names:** addy: — · matt: `to-questionnaire` · rjm: —
+- **decision:** D-299
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-to-questionnaire`
+
+### to-spec-synthesis
+
+- **definition:** To spec synthesis is an engineering technique that synthesizes decisions already made in conversation into a durable specification issue on the project's issue tracker. Designed under the principle that "specs are decision records, not questionnaires", it does not interview the user; instead, it records settled architecture, explicit user stories, implementation decisions, and testing seams so subsequent agent sessions can execute without context drift.
+- **kind:** technique
+- **source names:** addy: — · matt: `to-spec` · rjm: —
+- **decision:** D-294
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-to-spec`
+
+### to-tickets
+
+- **definition:** To tickets is an engineering technique that breaks complex specifications or plans into independently buildable and verifiable vertical slices ("tracer bullets"). By enforcing vertical cuts through all architecture layers (rather than horizontal slicing by layer) and capturing explicit dependency edges, it generates tasks optimized for single-session agent execution without mid-task blocked states.
+- **kind:** technique
+- **source names:** addy: — · matt: `to-tickets` · rjm: —
+- **decision:** D-316
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-to-tickets`
+
+### tool-economy
+
+- **definition:** Tool economy is a retrospective evaluation technique focused on tool usage efficiency and context budget preservation. When coding agents execute repetitive or bloated tool calls (such as indiscriminate search or verbose CLI outputs), tool economy audits identify opportunities to streamline calls, filter responses, or rewrite custom MCP tooling to minimize token expenditure and latency.
+- **kind:** technique
+- **source names:** addy: — · matt: `Tool economy` · rjm: —
+- **decision:** D-451
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-tool-economy`
+
+### tracer-bullet
+
+- **definition:** Tracer bullet is a core decomposition principle in Matt Pocock's methodology where units of work cut vertically through every layer of the system (database, domain logic, API, UI, tests) rather than horizontally by technical tier. Each tracer bullet proves an end-to-end path immediately, enabling continuous validation and sizing work to fit safely inside a single fresh context window.
+- **kind:** technique
+- **source names:** addy: — · matt: `tracer bullet` · rjm: —
+- **decision:** D-313
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-tracer-bullet`
+
+### tracer-bullet-vertical-slices
+
+- **definition:** Tracer bullet vertical slices is an engineering technique for tracer-bullet vertical slices prioritize building thin, end-to-end functional paths that prove integration across all architectural layers early, preventing the integration risks inherent in horizontal layer-by-layer development.
+- **kind:** technique
+- **source names:** addy: — · matt: `tracer-bullet vertical slices` · rjm: —
+- **decision:** D-281
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-tracer-bullet-vertical-slices`
+
+### trigger-evals
+
+- **definition:** Trigger evals is an engineering technique for evaluation technique that assesses whether a skill's description will trigger when an agent encounters natural language user requests. Evaluates TF-IDF similarity of positive test prompts against the entire catalog to guarantee target skills rank in the top-k, while ensuring negative prompts do not rank first.
+- **kind:** technique
+- **source names:** addy: `Trigger evals` · matt: — · rjm: —
+- **decision:** D-383
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-trigger-evals`
+
+### trigger-phrasing
+
+- **definition:** Trigger phrasing is an authoring technique where rich, descriptive keywords and situation cues are embedded in skill descriptions so models can autonomously select and execute the skill when relevant conditions arise.
+- **kind:** technique
+- **source names:** addy: — · matt: `trigger phrasing` · rjm: —
+- **decision:** D-466
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-trigger-phrasing`
+
+### ttfb-diagnosis
+
+- **definition:** Ttfb diagnosis is a structured diagnostic technique to troubleshoot server response latency (> 800ms). It breaks TTFB into distinct network and compute stages (DNS, connection/TLS, server execution), prescribing targeted remediations for each.
+- **kind:** technique
+- **source names:** addy: `TTFB Diagnosis` · matt: — · rjm: —
+- **decision:** D-384
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-ttfb-diagnosis`
+
+### type-assertions
+
+- **definition:** Type assertions is an engineering technique for in TypeScript, `as` type assertions force the compiler to treat a value as a specific type, bypassing static type checking. Matt's workflow flags `as` assertions in test files as a code smell and provides automated migration to safer helper libraries.
+- **kind:** technique
+- **source names:** addy: — · matt: `type assertions` · rjm: —
+- **decision:** D-349
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-type-assertions`
+
+### typechecking
+
+- **definition:** Typechecking is a continuous static verification technique mandated during implementation to provide rapid feedback on type errors and syntax mismatches before running automated tests.
+- **kind:** technique
+- **source names:** addy: — · matt: `typechecking` · rjm: —
+- **decision:** D-408
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-typechecking`
+
+### ubiquitous-language
+
+- **definition:** Ubiquitous language is an engineering technique that ubiquitous language in Matt's toolkit represents the shared domain vocabulary continuously sharpened and enforced across code, prompts, and conversation. It is maintained actively through `domain-modeling`, where terms are written inline into `CONTEXT.md` as soon as they are resolved, ensuring models and humans share identical conceptual boundaries without semantic drift.
+- **kind:** technique
+- **source names:** addy: — · matt: `ubiquitous language` · rjm: —
+- **decision:** D-304
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-ubiquitous-language`
+
+### upserts
+
+- **definition:** Upserts is an engineering technique for upserting combines updating existing values with inserting missing ones. In the wizard skill, the `write_env` helper parses `.env` files line by line, replacing matching key definitions while preserving formatting and comments, or appending new keys when not found.
+- **kind:** technique
+- **source names:** addy: — · matt: `upserts` · rjm: —
+- **decision:** D-404
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-upserts`
+
+### variant
+
+- **definition:** Variant is a query-parameter switching technique that enables rapid switching between radically different UI layout prototypes on a single production route, ensuring variants are evaluated against real layout density and live data rather than in an isolated vacuum.
+- **kind:** technique
+- **source names:** addy: — · matt: `?variant=` · rjm: —
+- **decision:** D-328
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-variant`
+
+### wait-what
+
+- **definition:** Wait what is a minimalist productivity skill designed to repair conversational comprehension without triggering degenerative 'be concise' caveman responses. By explicitly naming the listener's state ('Wait, you lost me') rather than demanding brevity, it prompts the agent to back up, provide missing context, and re-explain in clear, standardized English using the project's established ubiquitous language.
+- **kind:** technique
+- **source names:** addy: — · matt: `wait-what` · rjm: —
+- **decision:** D-455
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-wait-what`
+
+### warning-escalation-helper
+
+- **definition:** Warning escalation helper is a terminal output formatting helper function in `template.sh` providing consistent visual highlighting and alert iconography for non-fatal errors, skipped actions, and cautionary guidance during wizard execution.
+- **kind:** technique
+- **source names:** addy: — · matt: `warn` · rjm: —
+- **decision:** D-496
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-warn`
+
+### wayfinder-exploration-skill
+
+- **definition:** Wayfinder exploration skill is an architectural planning discipline designed for large, multi-session initiatives. Instead of generating speculative implementation tasks, wayfinder charts the unknowns as a shared board of 'decision tickets' on an issue tracker. It methodically resolves decisions one at a time before any implementation code or task slicing begins.
+- **kind:** technique
+- **source names:** addy: — · matt: `wayfinder` · rjm: —
+- **decision:** D-489
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-wayfinder`
+
+### wayfinder-routing
+
+- **definition:** Wayfinder routing is an engineering technique for wayfinder routing serves as an adaptive on-ramp in `/ask-matt` that identifies projects with high structural ambiguity or multi-session complexity and steers them to `/wayfinder` for incremental mapping rather than attempting premature linear specification.
+- **kind:** technique
+- **source names:** addy: — · matt: `Wayfinder routing` · rjm: —
+- **decision:** D-423
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-wayfinder-routing`
+
+### when-to-split
+
+- **definition:** When to split is an engineering technique that establishes the criteria for document decomposition. Because dividing a document spends either context load or cognitive load, splitting is justified only when separating sequential steps prevents premature completion or when independent invocation triggers warrant separate descriptions.
+- **kind:** technique
+- **source names:** addy: — · matt: `When to split` · rjm: —
+- **decision:** D-431
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-when-to-split`
+
+### work-through-the-map
+
+- **definition:** Work through the map is the iterative execution loop of wayfinder. Each session loads the low-resolution map, claims a single frontier decision ticket, investigates or grills to reach a definitive decision, records the resolution, and graduates clarified fog into new tickets until the destination is reached.
+- **kind:** technique
+- **source names:** addy: — · matt: `Work through the map` · rjm: —
+- **decision:** D-501
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-work-through-the-map`
+
+### worktree
+
+- **definition:** Worktree is the git worktree isolation mechanism used by implement-spec to enable concurrent background subagent execution. Allocating an independent worktree to each implementer subagent prevents git lock contention, working directory collisions, and intermediate state interference during parallel ticket execution.
+- **kind:** technique
+- **source names:** addy: — · matt: `worktree` · rjm: —
+- **decision:** D-322
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-worktree`
+
+### write-env
+
+- **definition:** Write env is a bash helper function in the wizard template library that performs idempotent upserts into an environment file (`.env`), ensuring that captured credentials and variables are saved without duplicating keys or corrupting file formatting on repeated wizard runs.
+- **kind:** technique
+- **source names:** addy: — · matt: `write_env` · rjm: —
+- **decision:** D-405
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-write-env`
+
+### writing-beats
+
+- **definition:** Writing beats is an exploit-phase writing skill that organizes prose construction into a sequence of discrete narrative beats. It guarantees reader comprehension by checking that every concept is grounded before any beat relies on it, offering branching choices at each step.
+- **kind:** technique
+- **source names:** addy: — · matt: `writing-beats` · rjm: —
+- **decision:** D-409
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-writing-beats`
+
+### writing-fragments
+
+- **definition:** Writing fragments is an in-progress writing skill implementing pure exploratory ideation. By interviewing the author relentlessly and appending ideas to a raw fragments document while forbidding outline generation, it prevents premature structural commitments and preserves rich creative material.
+- **kind:** technique
+- **source names:** addy: — · matt: `writing-fragments` · rjm: —
+- **decision:** D-456
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-writing-fragments`
+
+### writing-great-skills
+
+- **definition:** Writing great skills is the original name of the `writing-for-agents` reference skill. It was renamed in v1.1 when practitioners realized that guidelines on information hierarchy, leading words, and pruning applied universally to all agent-facing text (such as AGENTS.md, specifications, and tickets) rather than just skill definitions.
+- **kind:** technique
+- **source names:** addy: — · matt: `writing-great-skills` · rjm: —
+- **decision:** D-287
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-writing-great-skills`
+
+### writing-shape
+
+- **definition:** Writing shape is an in-progress writing skill implementing the exploit phase of article authoring. It processes a fixed pile of raw fragments, forces deliberate opening selection, and grows the piece paragraph by paragraph while enforcing rigorous conceptual grounding and defensible formatting choices.
+- **kind:** technique
+- **source names:** addy: — · matt: `writing-shape` · rjm: —
+- **decision:** D-421
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-writing-shape`
+
+### yagni
+
+- **definition:** YAGNI (You Aren't Gonna Need It) is a scoping filter and design discipline that eliminates speculative requirements, premature abstractions, and unneeded extension points during task planning and implementation.
+- **kind:** technique
+- **source names:** addy: — · matt: `YAGNI scoping filter` · rjm: `YAGNI`
+- **decision:** D-273
+- **concordance:** `docs/analysis/concordance/techniques.md#yagni`
+
+### yieldtomain
+
+- **definition:** Yieldtomain is a task-chunking technique in browser JavaScript that yields control back to the main thread's event loop during long-running tasks. This prevents thread starvation, keeping the UI responsive and safeguarding INP.
+- **kind:** technique
+- **source names:** addy: `yieldToMain` · matt: — · rjm: —
+- **decision:** D-376
+- **concordance:** `docs/analysis/concordance/techniques.md#addy-yieldtomain`
+
+### zone-of-proximal-development
+
+- **definition:** Zone of proximal development is an engineering technique for vygotskian pedagogical principle adapted for AI instruction in `teach`. It balances challenge against current mastery, selecting lessons that require deliberate effort without exceeding working memory or jumping into ungrounded prerequisites.
+- **kind:** technique
+- **source names:** addy: — · matt: `zone of proximal development` · rjm: —
+- **decision:** D-490
+- **concordance:** `docs/analysis/concordance/techniques.md#matt-zone-of-proximal-development`
 
 ### Gates
 

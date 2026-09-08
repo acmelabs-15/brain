@@ -15,12 +15,12 @@ It provides:
 | [Phases](phases.md) | 240 | 271 | 5 | 15 | 2 | 6 | 212 | 0 | **0** (resolved in D-100–D-125) |
 | [Artifacts](artifacts.md) | 726 | 818 | 27 | 32 | 1 | 9 | 657 | 0 | **0** (resolved in D-126–D-229) |
 | [Sequencing](sequencing.md) | 367 | 405 | 4 | 26 | 0 | 1 | 336 | 0 | **0** (resolved in D-230–D-272) |
-| [Techniques](techniques.md) | 2,110 | 2,147 | 24 | 9 | 0 | 0 | 2,077 | 0 | **239** |
+| [Techniques](techniques.md) | 2,110 | 2,147 | 24 | 9 | 0 | 0 | 2,077 | 0 | **0** (resolved in D-273–D-511) |
 | [Gates](gates.md) | 841 | 866 | 17 | 7 | 0 | 0 | 817 | 0 | **7** |
 | [Roles](roles.md) | 192 | 215 | 0 | 18 | 0 | 0 | 174 | 0 | **69** |
 | [References](references.md) | 694 | 720 | 7 | 17 | 0 | 0 | 670 | 0 | **17** |
 | [Invocation Patterns](invocation-patterns.md) | 1,973 | 2,034 | 46 | 11 | 0 | 0 | 1,916 | 0 | **11** |
-| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **369** |
+| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **130** |
 
 ---
 
@@ -222,7 +222,7 @@ Source file: [`docs/analysis/concordance/sequencing.md`](sequencing.md)
 | [`sequencing-dag-adr-lifecycle`](sequencing.md#sequencing-dag-adr-lifecycle) | `UNIQUE` | `ADR Lifecycle` | — | — | Addy defines ADR Lifecycle (skills/documentation-and-adrs/SKILL.md:18): proposed -> accepted -> superseded/deprecated. |
 | [`sequencing-dag-thread-severity-lifecycle`](sequencing.md#sequencing-dag-thread-severity-lifecycle) | `UNIQUE` | — | — | `Thread Severity Classification and Lifecycle` | RJM defines Thread Severity Classification and Lifecycle (.claude/skills/review/references/thread-severity.md:1) for managing review comment… |
 
-### Techniques (239 decisions needed)
+### Techniques (239 decisions needed — resolved in D-273–D-511)
 
 Source file: [`docs/analysis/concordance/techniques.md`](techniques.md)
 
