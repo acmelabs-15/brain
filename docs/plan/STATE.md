@@ -10,9 +10,9 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `3` |
 | **phase_name** | Concordance |
-| **current_unit** | sequencing |
-| **last_session** | 020 |
-| **next_action** | Phase 3 — Concordance (single-threaded orchestrator; continue with sequencing family per METHOD.md §5) |
+| **current_unit** | techniques |
+| **last_session** | 021 |
+| **next_action** | Phase 3 — Concordance (single-threaded orchestrator; continue with techniques family per METHOD.md §5) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -91,7 +91,7 @@ Concept units (`cc-<pkg>-N`, up to 30 concept slugs each) come from `partition-c
 |---|---|---|---|
 | phases | `done` | 019 | `docs/analysis/concordance/phases.md` |
 | artifacts | `done` | 020 | `docs/analysis/concordance/artifacts.md` |
-| sequencing | `pending` | — | `docs/analysis/concordance/sequencing.md` |
+| sequencing | `done` | 021 | `docs/analysis/concordance/sequencing.md` |
 | techniques | `pending` | — | `docs/analysis/concordance/techniques.md` |
 | gates | `pending` | — | `docs/analysis/concordance/gates.md` |
 | roles | `pending` | — | `docs/analysis/concordance/roles.md` |
@@ -115,7 +115,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 | Manifest rows (addy / matt / rjm) | 219 / 201 / 1175 |
 | Inventory units done (addy / matt / rjm) | 46 / 46 / 324 |
 | Concept cards (addy / matt / rjm) | units done 44 / 40 / 376 of 44 / 40 / 376 |
-| Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 967 total: 241 in phases (ALIGNED 5 / SYNONYM 15 / HOMONYM 2 / PARTIAL 6 / UNIQUE 213 / CONFLICT 0); 726 in artifacts (ALIGNED 27 / SYNONYM 32 / HOMONYM 1 / PARTIAL 9 / UNIQUE 657 / CONFLICT 0) |
+| Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 1,334 total: 241 in phases (ALIGNED 5 / SYNONYM 15 / HOMONYM 2 / PARTIAL 6 / UNIQUE 213 / CONFLICT 0); 726 in artifacts (ALIGNED 27 / SYNONYM 32 / HOMONYM 1 / PARTIAL 9 / UNIQUE 657 / CONFLICT 0); 367 in sequencing (ALIGNED 4 / SYNONYM 26 / HOMONYM 0 / PARTIAL 1 / UNIQUE 336 / CONFLICT 0) |
 | Decisions (active / superseded / pending-peter) | 18 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
 | Glossary terms | 0 |
 | Build units (done / total) | — / — |
