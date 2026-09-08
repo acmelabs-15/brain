@@ -8,11 +8,11 @@ This file is the single source of truth for where the project is. It is updated 
 
 | Field | Value |
 |---|---|
-| **phase** | `5` |
-| **phase_name** | Lifecycle spec |
-| **current_unit** | Phase 5 (Lifecycle specification) |
-| **last_session** | 035 |
-| **next_action** | Phase 5 — Lifecycle specification (single-threaded orchestrator per METHOD.md §5) |
+| **phase** | `⏸` |
+| **phase_name** | Human gate (awaiting Peter approval) |
+| **current_unit** | Human gate — review of docs/plan/lifecycle-spec/ |
+| **last_session** | 036 |
+| **next_action** | Awaiting Peter review in docs/plan/REVIEW.md and human_approval in STATE.md |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -45,8 +45,8 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 | 3 | Concordance | `done` | all 8 concordance families complete; 7,143 rows mapping 7,476 concept cards; zero duplicates; _summary.md written | 019–026 |
 | 4 | Alignment decisions | `done` | all 516 non-ALIGNED concordance rows resolved in D-100–D-615 | 027–034 |
 | 4V | Decision review | `done` | adversarial pass complete; 10 findings resolved via D-616–D-625; GLOSSARY.md & concordance aligned; all checks clean | 035 |
-| 5 | Lifecycle spec | `pending` | — | — |
-| ⏸ | **Human gate** | `pending` | — | — |
+| 5 | Lifecycle spec | `done` | all 8 spec files written in docs/plan/lifecycle-spec/; glossary-lint clean; 07-traceability clean (0 unlinked elements); handoff written | 036 |
+| ⏸ | **Human gate** | `in-progress` | — | 036 |
 | 6 | Implementation plan | `pending` | — | — |
 | 7 | Build + review | `pending` | — | — |
 | 8 | Integration verification | `pending` | — | — |
@@ -140,4 +140,4 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 | glossary-lint.ts | 2026-09-08 | clean |
 | last-unit verification | 2026-09-08 | cc-rjm-376: HIT, quote-check 9 PASS / 0 FAIL |
 | decision consistency (4V) | 2026-09-08 | clean (adversarial review complete; 10 findings resolved in D-616–D-625; 0 conflicts; 517 glossary terms aligned) |
-| traceability | — | — |
+| traceability | 2026-09-08 | clean (0 unlinked elements across 28 phases, 55 artifacts, 20 skills, 21 references, 68 roles, 19 patterns, 11 gates) |
