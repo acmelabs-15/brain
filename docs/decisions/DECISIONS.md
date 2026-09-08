@@ -16083,3 +16083,2625 @@ Addy `references/security-checklist.md:8`, `references/security-checklist.md:32`
 - **decision:** D-518
 - **concordance:** `docs/analysis/concordance/gates.md#pre-commit-validation-checks`
 - **not to be confused with:** pretooluse-hook, smoke-testing
+
+---
+
+## D-519 — spec-subagent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#spec-sub-agent
+- **preferences consulted:** PREFERENCES.md § Approach and § Roles emphasize granular role specialization and multi-perspective verification; followed by adopting an isolated specification audit subagent.
+
+### Decision
+The canonical term for this role is `spec-subagent`. A spec-subagent is a specialized subagent persona deployed during specification drafting and code review to audit functional requirements conformance, verify acceptance criteria, and flag scope creep against authoritative design documents.
+
+### Adopted from
+Synthesizes Matt's prompt specification for auditing functional specification conformance and scope creep (`skills/engineering/code-review/SKILL.md:66`) with RJM's dedicated research documentation and PRD analysis domain (`.agents/architecture/ASSESSMENT-session-qa-validation-options.md:78`).
+
+### Dropped
+RJM's heavy multi-page prompt boilerplate and Matt's hyphenated spelling in favor of standard unhyphenated subagent naming.
+
+### Rejected alternatives
+- analyst-agent (overly generic, conflates specification audit with open-ended domain exploration)
+- spec-reviewer (lacks indication that the role is executed as an isolated subagent)
+
+### Evidence
+Matt `skills/engineering/code-review/SKILL.md:66`; RJM `.agents/architecture/ASSESSMENT-session-qa-validation-options.md:78`, `.agents/analysis/002-project-constraints-consolidation.md:853`.
+
+### Glossary
+### spec-subagent
+
+- **definition:** A spec-subagent is a specialized subagent persona deployed during specification drafting and code review to audit functional requirements conformance, verify acceptance criteria, and flag scope creep against authoritative design documents.
+- **kind:** role
+- **source names:** addy: — · matt: `Spec sub-agent` · rjm: `Analyst Agent`
+- **decision:** D-519
+- **concordance:** `docs/analysis/concordance/roles.md#spec-sub-agent`
+- **not to be confused with:** standards-subagent, specification-document
+
+---
+
+## D-520 — brutally-honest-strategic-advisor
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#brutally-honest-strategic-advisor
+- **preferences consulted:** PREFERENCES.md § Approach values RJM's rigorous adversarial critique mechanisms; followed by adopting this specialized advisory persona.
+
+### Decision
+The canonical term for this role is `brutally-honest-strategic-advisor`. A brutally honest strategic advisor is an adversarial advisory persona that cuts through organizational blind spots, directly challenges architectural and roadmap assumptions, and delivers unfiltered critiques of strategic plans.
+
+### Adopted from
+RJM's high-level advisor persona definition in `.claude/agents/high-level-advisor.md:13`.
+
+### Dropped
+Colloquial conversational padding while preserving the rigorous, unsparing verification posture.
+
+### Rejected alternatives
+- strategic-advisor (lacks the explicit mandate for adversarial confrontation and unfiltered critique)
+- executive-critic (narrows the focus to executive management rather than technical strategy)
+
+### Evidence
+RJM `.claude/agents/high-level-advisor.md:13`, `.agents/architecture/ADR-043-role-composition-principles.md:120`.
+
+### Glossary
+### brutally-honest-strategic-advisor
+
+- **definition:** A brutally honest strategic advisor is an adversarial advisory persona that cuts through organizational blind spots, directly challenges architectural and roadmap assumptions, and delivers unfiltered critiques of strategic plans.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Brutally Honest Strategic Advisor`
+- **decision:** D-520
+- **concordance:** `docs/analysis/concordance/roles.md#brutally-honest-strategic-advisor`
+- **not to be confused with:** contrarian-analyst, hostile-expert
+
+---
+
+## D-521 — planner
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#planner
+- **preferences consulted:** PREFERENCES.md § Approach and § Phase mapping highlight planning as an essential lifecycle stage; followed by adopting the dedicated planner persona.
+
+### Decision
+The canonical term for this role is `planner`. A planner is an interactive lifecycle agent role responsible for breaking high-level epics and specifications into structured, phased execution plans with explicit task dependencies.
+
+### Adopted from
+RJM's interactive planning skill in `.claude/skills/planner/SKILL.md:3` and planning command in `.claude/commands/plan.md:32`.
+
+### Dropped
+RJM's complex multi-phase subagent dispatch loop in favor of concise phase-bound task breakdown.
+
+### Rejected alternatives
+- planning-agent (adds redundant suffix to an established functional role)
+- task-decomposer (confuses macroscopic execution planning with microscopic work breakdown)
+
+### Evidence
+RJM `.claude/skills/planner/SKILL.md:3`, `.claude/commands/plan.md:32`, `.agents/analysis/adr-045-feasibility-analysis.md:233`.
+
+### Glossary
+### planner
+
+- **definition:** A planner is an interactive lifecycle agent role responsible for breaking high-level epics and specifications into structured, phased execution plans with explicit task dependencies.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `planner`
+- **decision:** D-521
+- **concordance:** `docs/analysis/concordance/roles.md#planner`
+- **not to be confused with:** task-decomposer, coordinator
+
+---
+
+## D-522 — task-decomposer
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#task-decomposer
+- **preferences consulted:** PREFERENCES.md § Approach favors granular task decomposition and explicit acceptance criteria; followed by adopting task-decomposer.
+
+### Decision
+The canonical term for this role is `task-decomposer`. A task-decomposer is a specialized agent persona that translates high-level planning milestones into atomic, actionable, and testable work tickets with explicit acceptance criteria and boundaries.
+
+### Adopted from
+RJM's task decomposition agent in `.agents/AGENT-SYSTEM.md:120` and `README.md:410`.
+
+### Dropped
+External issue tracker API synchronization logic while preserving atomic decomposition rules.
+
+### Rejected alternatives
+- ticket-creator (emphasizes artifact mechanics rather than the decomposition technique)
+- work-slicer (less established than task-decomposer in agent architectures)
+
+### Evidence
+RJM `.agents/AGENT-SYSTEM.md:120`, `README.md:410`, `.claude/commands/plan.md:158`.
+
+### Glossary
+### task-decomposer
+
+- **definition:** A task-decomposer is a specialized agent persona that translates high-level planning milestones into atomic, actionable, and testable work tickets with explicit acceptance criteria and boundaries.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `task-decomposer`
+- **decision:** D-522
+- **concordance:** `docs/analysis/concordance/roles.md#task-decomposer`
+- **not to be confused with:** planner, needs-slicing-role
+
+---
+
+## D-523 — assignee-role
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#assignee
+- **preferences consulted:** PREFERENCES.md § Approach and § References value clear operational ownership; followed by adopting assignee-role.
+
+### Decision
+The canonical term for this role is `assignee-role`. An assignee role is the operational ownership designation identifying the specific human or autonomous agent responsible for claiming, implementing, and delivering an issue ticket.
+
+### Adopted from
+Matt's issue tracker ownership definition in `skills/engineering/wayfinder/SKILL.md:67`.
+
+### Dropped
+Matt-specific local markdown issue-tracker schema dependencies.
+
+### Rejected alternatives
+- assignee (ambiguous between the identity of the person/agent and the formal lifecycle role)
+- ticket-owner (less standard in issue tracker metadata schemas than assignee)
+
+### Evidence
+Matt `skills/engineering/wayfinder/SKILL.md:67`, `skills/engineering/triage/SKILL.md:32`.
+
+### Glossary
+### assignee-role
+
+- **definition:** An assignee role is the operational ownership designation identifying the specific human or autonomous agent responsible for claiming, implementing, and delivering an issue ticket.
+- **kind:** role
+- **source names:** addy: — · matt: `assignee` · rjm: —
+- **decision:** D-523
+- **concordance:** `docs/analysis/concordance/roles.md#assignee`
+- **not to be confused with:** rollback-owner, driver
+
+---
+
+## D-524 — ask-matt-router
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#ask-matt
+- **preferences consulted:** PREFERENCES.md § Approach supports intuitive conversational routing over skill collections; followed by adopting the router persona pattern.
+
+### Decision
+The canonical term for this role is `ask-matt-router`. An ask-matt router is an interactive triage and dispatch persona that analyzes human developer intent, inspects repository state, and routes work to the appropriate lifecycle skill or command.
+
+### Adopted from
+Matt's skill router definition in `docs/engineering/ask-matt.md:3` and `.agents/invocation.md:18`.
+
+### Dropped
+Matt-specific personal branding in favor of generic lifecycle dispatch.
+
+### Rejected alternatives
+- ask-matt (preserves personal branding unsuitable for brain's canonical lifecycle)
+- skill-router (too generic, masks conversational intent-elicitation behavior)
+
+### Evidence
+Matt `docs/engineering/ask-matt.md:3`, `.agents/invocation.md:18`.
+
+### Glossary
+### ask-matt-router
+
+- **definition:** An ask-matt router is an interactive triage and dispatch persona that analyzes human developer intent, inspects repository state, and routes work to the appropriate lifecycle skill or command.
+- **kind:** role
+- **source names:** addy: — · matt: `ask-matt` · rjm: —
+- **decision:** D-524
+- **concordance:** `docs/analysis/concordance/roles.md#ask-matt`
+- **not to be confused with:** router, coordinator
+
+---
+
+## D-525 — ready-for-agent-role
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#ready-for-agent
+- **preferences consulted:** PREFERENCES.md § Phase mapping recognizes task state transitions; followed by adopting ready-for-agent-role.
+
+### Decision
+The canonical term for this role is `ready-for-agent-role`. A ready-for-agent role is a task triage state designation indicating that a work ticket has a complete specification, verified acceptance criteria, and bounded scope suitable for autonomous agent execution.
+
+### Adopted from
+Matt's triage label specification in `skills/engineering/triage/SKILL.md:35` and `docs/engineering/to-spec.md:42`.
+
+### Dropped
+Uncontrolled background polling triggers that risk runaway token spend.
+
+### Rejected alternatives
+- ready-for-agent (ambiguous between state label and agent role)
+- agent-ready (adjective form rather than formal triage classification role)
+
+### Evidence
+Matt `skills/engineering/triage/SKILL.md:35`, `docs/engineering/to-spec.md:42`.
+
+### Glossary
+### ready-for-agent-role
+
+- **definition:** A ready-for-agent role is a task triage state designation indicating that a work ticket has a complete specification, verified acceptance criteria, and bounded scope suitable for autonomous agent execution.
+- **kind:** role
+- **source names:** addy: — · matt: `ready-for-agent` · rjm: —
+- **decision:** D-525
+- **concordance:** `docs/analysis/concordance/roles.md#ready-for-agent`
+- **not to be confused with:** ready-for-human-role, ready-for-afk-role
+
+---
+
+## D-526 — ready-for-human-role
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#ready-for-human
+- **preferences consulted:** PREFERENCES.md § Constraints and § Approach emphasize clear boundaries between human judgment and agent execution; followed by adopting ready-for-human-role.
+
+### Decision
+The canonical term for this role is `ready-for-human-role`. A ready-for-human role is a task triage state designation marking an issue that requires human implementation, manual credentials, subjective design judgment, or third-party coordination.
+
+### Adopted from
+Matt's triage label definition in `skills/engineering/triage/SKILL.md:36` and `docs/engineering/triage.md:36`.
+
+### Dropped
+Ad-hoc manual tagging in favor of structured triage automation.
+
+### Rejected alternatives
+- human-only (lacks explicit task queue readiness indication)
+- needs-human (less actionable than stating task readiness for human pickup)
+
+### Evidence
+Matt `skills/engineering/triage/SKILL.md:36`, `docs/engineering/triage.md:36`.
+
+### Glossary
+### ready-for-human-role
+
+- **definition:** A ready-for-human role is a task triage state designation marking an issue that requires human implementation, manual credentials, subjective design judgment, or third-party coordination.
+- **kind:** role
+- **source names:** addy: — · matt: `ready-for-human` · rjm: —
+- **decision:** D-526
+- **concordance:** `docs/analysis/concordance/roles.md#ready-for-human`
+- **not to be confused with:** ready-for-agent-role, ask-first-confirmation-gate
+
+---
+
+## D-527 — ready-for-afk-role
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#ready-for-afk
+- **preferences consulted:** PREFERENCES.md § Constraints and § Approach govern unattended execution safety; followed by adopting ready-for-afk-role.
+
+### Decision
+The canonical term for this role is `ready-for-afk-role`. A ready-for-afk role is a task triage state designation indicating that an issue is safe for unattended, background execution without real-time human interaction or supervision.
+
+### Adopted from
+Matt's issue triage state machine definition in `CONTEXT.md:19`.
+
+### Dropped
+Unrestricted shell execution permissions without sandboxing.
+
+### Rejected alternatives
+- afk-ready (adjective form rather than canonical state designation)
+- background-ready (confuses asynchronous worker dispatch with unattended batch execution)
+
+### Evidence
+Matt `CONTEXT.md:19`, `skills/engineering/triage/SKILL.md:35`.
+
+### Glossary
+### ready-for-afk-role
+
+- **definition:** A ready-for-afk role is a task triage state designation indicating that an issue is safe for unattended, background execution without real-time human interaction or supervision.
+- **kind:** role
+- **source names:** addy: — · matt: `ready-for-afk` · rjm: —
+- **decision:** D-527
+- **concordance:** `docs/analysis/concordance/roles.md#ready-for-afk`
+- **not to be confused with:** afk-agent, afk-runner
+
+---
+
+## D-528 — needs-slicing-role
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#needs-slicing
+- **preferences consulted:** PREFERENCES.md § Approach and § Depth favor vertical slice decomposition; followed by adopting needs-slicing-role.
+
+### Decision
+The canonical term for this role is `needs-slicing-role`. A needs-slicing role is a task triage state designation identifying an issue whose scope exceeds single-session context limits or task boundaries, requiring vertical decomposition into smaller tickets before implementation.
+
+### Adopted from
+Matt's triage classification in `external/triage.md:56` and `skills/engineering/triage/SKILL.md:36`.
+
+### Dropped
+Community derivative effort-point estimates.
+
+### Rejected alternatives
+- needs-breakdown (less descriptive of vertical slice decomposition)
+- too-large (evaluative description rather than actionable triage state)
+
+### Evidence
+Matt `external/triage.md:56`, `skills/engineering/triage/SKILL.md:36`.
+
+### Glossary
+### needs-slicing-role
+
+- **definition:** A needs-slicing role is a task triage state designation identifying an issue whose scope exceeds single-session context limits or task boundaries, requiring vertical decomposition into smaller tickets before implementation.
+- **kind:** role
+- **source names:** addy: — · matt: `needs-slicing` · rjm: —
+- **decision:** D-528
+- **concordance:** `docs/analysis/concordance/roles.md#needs-slicing`
+- **not to be confused with:** task-decomposer, vertical-slice-technique
+
+---
+
+## D-529 — principal-engineer-advisor
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#senior-engineer
+- **preferences consulted:** PREFERENCES.md § Approach values high-level technical judgment and strategic perspective; followed by adopting principal-engineer-advisor.
+
+### Decision
+The canonical term for this role is `principal-engineer-advisor`. A principal engineer advisor is an experienced technical persona providing deep system judgment, high-level architectural oversight, and strategic buy-versus-build guidance.
+
+### Adopted from
+Synthesizes Addy's senior-engineer workflow baseline (`external/using-agent-skills.md:13`) with RJM's strategic leadership advisory persona (`.claude/skills/buy-vs-build-framework/SKILL.md:13`).
+
+### Dropped
+RJM's corporate organizational hierarchy assumptions while preserving high-level engineering rigor.
+
+### Rejected alternatives
+- senior-engineer (ambiguous between routine implementation work and macroscopic technical oversight)
+- principal-leader (conflates organizational people management with technical architectural advising)
+
+### Evidence
+Addy `external/using-agent-skills.md:13`; RJM `.claude/skills/buy-vs-build-framework/SKILL.md:13`.
+
+### Glossary
+### principal-engineer-advisor
+
+- **definition:** A principal engineer advisor is an experienced technical persona providing deep system judgment, high-level architectural oversight, and strategic buy-versus-build guidance.
+- **kind:** role
+- **source names:** addy: `senior-engineer` · matt: — · rjm: `Principal+`
+- **decision:** D-529
+- **concordance:** `docs/analysis/concordance/roles.md#senior-engineer`
+- **not to be confused with:** architect, design-authority
+
+---
+
+## D-530 — architect
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#architect
+- **preferences consulted:** PREFERENCES.md § Approach and § Depth value architectural coherence and explicit pattern adherence; followed by adopting architect.
+
+### Decision
+The canonical term for this role is `architect`. An architect is a specialized agent persona responsible for system-level structural integrity, component boundaries, pattern compliance, and Architectural Decision Record authoring.
+
+### Adopted from
+RJM's architect agent in `.agents/AGENT-SYSTEM.md:470` and architectural review guidance in `.claude/skills/review/references/architect.md:5`.
+
+### Dropped
+Heavy multi-tier review overhead for routine or local changes.
+
+### Rejected alternatives
+- software-architect (adds redundant modifier)
+- system-designer (conflates initial design exploration with continuous architectural governance)
+
+### Evidence
+RJM `.agents/AGENT-SYSTEM.md:470`, `.claude/skills/review/references/architect.md:5`.
+
+### Glossary
+### architect
+
+- **definition:** An architect is a specialized agent persona responsible for system-level structural integrity, component boundaries, pattern compliance, and Architectural Decision Record authoring.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `architect`
+- **decision:** D-530
+- **concordance:** `docs/analysis/concordance/roles.md#architect`
+- **not to be confused with:** design-authority, principal-engineer-advisor
+
+---
+
+## D-531 — design-authority
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#design-authority
+- **preferences consulted:** PREFERENCES.md § Constraints and § Approach enforce invariant protection and unyielding architectural gates; followed by adopting design-authority.
+
+### Decision
+The canonical term for this role is `design-authority`. A design authority is a formal governance role that exercises final approval and sign-off authority on architectural invariants, interface contracts, and non-negotiable system standards.
+
+### Adopted from
+RJM's formal sign-off role in `.claude/skills/adr-review/references/zimmermann-review-guidance.md:11`.
+
+### Dropped
+Human committee scheduling delays for routine architectural invariant checks.
+
+### Rejected alternatives
+- architecture-approver (functional description rather than formal governance role)
+- technical-lead (conflates operational delivery with architectural governance)
+
+### Evidence
+RJM `.claude/skills/adr-review/references/zimmermann-review-guidance.md:11`.
+
+### Glossary
+### design-authority
+
+- **definition:** A design authority is a formal governance role that exercises final approval and sign-off authority on architectural invariants, interface contracts, and non-negotiable system standards.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Design Authority`
+- **decision:** D-531
+- **concordance:** `docs/analysis/concordance/roles.md#design-authority`
+- **not to be confused with:** architect, steering-committee
+
+---
+
+## D-532 — implementation-agent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#implementation-agent
+- **preferences consulted:** PREFERENCES.md § Approach and § Phase mapping emphasize rigorous implementation execution; followed by adopting implementation-agent.
+
+### Decision
+The canonical term for this role is `implementation-agent`. An implementation agent is the primary executing agent persona responsible for exploring codebases, authoring production-quality code, running tests, and debugging failures against approved plans.
+
+### Adopted from
+Matt's primary context-bearing coding agent definition in `skills/in-progress/retro/SKILL.md:31` and RJM's production code implementer in `.agents/AGENT-SYSTEM.md:198`.
+
+### Dropped
+RJM's automated direct git push logic without pre-commit gating.
+
+### Rejected alternatives
+- implementer (informal noun that can refer to a human or external script)
+- developer-agent (conflates the broad developer identity with the execution phase persona)
+
+### Evidence
+Matt `skills/in-progress/retro/SKILL.md:31`; RJM `.agents/AGENT-SYSTEM.md:198`, `.claude/agents/implementer.md:3`.
+
+### Glossary
+### implementation-agent
+
+- **definition:** An implementation agent is the primary executing agent persona responsible for exploring codebases, authoring production-quality code, running tests, and debugging failures against approved plans.
+- **kind:** role
+- **source names:** addy: — · matt: `implementation agent` · rjm: `implementer`
+- **decision:** D-532
+- **concordance:** `docs/analysis/concordance/roles.md#implementation-agent`
+- **not to be confused with:** implementer-subagent, driver
+
+---
+
+## D-533 — implementer-subagent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#implementer-subagents
+- **preferences consulted:** PREFERENCES.md § Approach supports parallel subagent execution for bounded work units; followed by adopting implementer-subagent.
+
+### Decision
+The canonical term for this role is `implementer-subagent`. An implementer-subagent is a worker subagent dispatched with isolated context to implement a bounded, atomic slice of a plan concurrently or sequentially in an isolated workspace.
+
+### Adopted from
+Matt's background implementer subagent design in `skills/in-progress/implement-spec/SKILL.md:15` and `.changeset/add-implement-spec-skill.md:5`.
+
+### Dropped
+Plural phrasing in favor of standard singular noun role naming.
+
+### Rejected alternatives
+- implementer-subagents (plural form rejected per GLOSSARY singular noun rules)
+- worker-subagent (too generic, fails to convey the implementation task mandate)
+
+### Evidence
+Matt `skills/in-progress/implement-spec/SKILL.md:15`, `.changeset/add-implement-spec-skill.md:5`; RJM `templates/agents/implementer.shared.md:25`.
+
+### Glossary
+### implementer-subagent
+
+- **definition:** An implementer-subagent is a worker subagent dispatched with isolated context to implement a bounded, atomic slice of a plan concurrently or sequentially in an isolated workspace.
+- **kind:** role
+- **source names:** addy: — · matt: `implementer subagents` · rjm: `implementer agent`
+- **decision:** D-533
+- **concordance:** `docs/analysis/concordance/roles.md#implementer-subagents`
+- **not to be confused with:** implementation-agent, subagent
+
+---
+
+## D-534 — driver
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#driver
+- **preferences consulted:** PREFERENCES.md § Approach values clear separation between passive references and active drivers; followed by adopting driver.
+
+### Decision
+The canonical term for this role is `driver`. A driver is the active conversational or headless entity that directs tool invocations, manages shell execution, and drives the workflow forward.
+
+### Adopted from
+Matt's distinction between passive reference documents and active driving entities in `external/tdd.md:26` and RJM's developer role in `scripts/incoherence.py:568`.
+
+### Dropped
+Interactive-only terminal assumptions (generalized to headless execution drivers).
+
+### Rejected alternatives
+- developer (conflates the persona with the human user or broad software engineer concept)
+- runner (conflates session leadership with background queue runners)
+
+### Evidence
+Matt `external/tdd.md:26`; RJM `scripts/incoherence.py:568`.
+
+### Glossary
+### driver
+
+- **definition:** A driver is the active conversational or headless entity that directs tool invocations, manages shell execution, and drives the workflow forward.
+- **kind:** role
+- **source names:** addy: — · matt: `driver` · rjm: `Developer`
+- **decision:** D-534
+- **concordance:** `docs/analysis/concordance/roles.md#driver`
+- **not to be confused with:** afk-runner, coordinator
+
+---
+
+## D-535 — standards-subagent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#standards-sub-agent
+- **preferences consulted:** PREFERENCES.md § Approach and § Depth prioritize rigorous code standards and automated smell detection; followed by adopting standards-subagent.
+
+### Decision
+The canonical term for this role is `standards-subagent`. A standards-subagent is a specialized subagent persona deployed during code review to audit adherence to repository style rules, lint baselines, code smell standards, and type system contracts.
+
+### Adopted from
+Synthesizes Matt's standards audit prompt in `skills/engineering/code-review/SKILL.md:60` with RJM's type design reviewer in `.claude/agents/type-design-analyzer.md:2`.
+
+### Dropped
+Hyphenated sub-agent spelling and RJM's narrow focus restricted exclusively to TypeScript types.
+
+### Rejected alternatives
+- standards-sub-agent (hyphenated variant rejected per glossary consistency)
+- type-design-analyzer (too narrow, ignores broader code styling and lint invariants)
+
+### Evidence
+Matt `skills/engineering/code-review/SKILL.md:60`; RJM `.claude/agents/type-design-analyzer.md:2`.
+
+### Glossary
+### standards-subagent
+
+- **definition:** A standards-subagent is a specialized subagent persona deployed during code review to audit adherence to repository style rules, lint baselines, code smell standards, and type system contracts.
+- **kind:** role
+- **source names:** addy: — · matt: `Standards sub-agent` · rjm: `type-design-analyzer`
+- **decision:** D-535
+- **concordance:** `docs/analysis/concordance/roles.md#standards-sub-agent`
+- **not to be confused with:** spec-subagent, code-reviewer
+
+---
+
+## D-536 — code-simplifier
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#code-simplifier
+- **preferences consulted:** PREFERENCES.md § Approach values clean code and minimizing accidental complexity; followed by adopting code-simplifier.
+
+### Decision
+The canonical term for this role is `code-simplifier`. A code-simplifier is a post-implementation refactoring persona that reduces accidental complexity, removes dead code, and enhances readability while preserving exact functional behavior.
+
+### Adopted from
+RJM's code-simplifier agent in `.claude/agents/code-simplifier.md:3`.
+
+### Dropped
+Unconstrained aesthetic rewriting by strictly binding simplification passes to passing unit test suites.
+
+### Rejected alternatives
+- refactorer (too broad, implies altering interfaces or architectural contracts)
+- janitor (conflates semantic code simplification with workspace file hygiene)
+
+### Evidence
+RJM `.claude/agents/code-simplifier.md:3`.
+
+### Glossary
+### code-simplifier
+
+- **definition:** A code-simplifier is a post-implementation refactoring persona that reduces accidental complexity, removes dead code, and enhances readability while preserving exact functional behavior.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `code-simplifier`
+- **decision:** D-536
+- **concordance:** `docs/analysis/concordance/roles.md#code-simplifier`
+- **not to be confused with:** janitor, tech-debt-remediation-specialist
+
+---
+
+## D-537 — test-engineer
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#test-engineer
+- **preferences consulted:** PREFERENCES.md § References and § Approach emphasize comprehensive testing patterns; followed by adopting test-engineer.
+
+### Decision
+The canonical term for this role is `test-engineer`. A test-engineer is a specialized agent persona focused on designing comprehensive test strategies, authoring unit and integration suites, and identifying edge-case failure modes.
+
+### Adopted from
+Addy's test engineering persona in `agents/test-engineer.md:3` and RJM's QA specialist in `templates/agents/qa.shared.md:30`.
+
+### Dropped
+Manual clicking paradigms in favor of automated executable test harnesses.
+
+### Rejected alternatives
+- qa-specialist (traditional terminology often associated with manual regression testing)
+- test-author (narrow verb-noun pair that omits test strategy and coverage analysis)
+
+### Evidence
+Addy `agents/test-engineer.md:3`, `.gemini/commands/ship.toml:16`; RJM `templates/agents/qa.shared.md:30`.
+
+### Glossary
+### test-engineer
+
+- **definition:** A test-engineer is a specialized agent persona focused on designing comprehensive test strategies, authoring unit and integration suites, and identifying edge-case failure modes.
+- **kind:** role
+- **source names:** addy: `test-engineer` · matt: — · rjm: `Quality Assurance Specialist`
+- **decision:** D-537
+- **concordance:** `docs/analysis/concordance/roles.md#test-engineer`
+- **not to be confused with:** systematic-bug-hunter, silent-failure-hunter
+
+---
+
+## D-538 — systematic-bug-hunter
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#systematic-bug-hunter
+- **preferences consulted:** PREFERENCES.md § Depth and § Approach value hypothesis-driven debugging techniques; followed by adopting systematic-bug-hunter.
+
+### Decision
+The canonical term for this role is `systematic-bug-hunter`. A systematic bug hunter is an investigative debugging persona that executes hypothesis-driven defect isolation through structured assessment, investigation, reproduction, and resolution phases.
+
+### Adopted from
+RJM's debugging persona definition in `.claude/agents/debug.md:30`.
+
+### Dropped
+Shotgun debugging attempts by requiring a deterministic reproduction test before modifying code.
+
+### Rejected alternatives
+- debugger (too generic, often denotes developer tooling such as gdb or lldb)
+- bug-hunter (omits the critical structured systematic methodology constraint)
+
+### Evidence
+RJM `.claude/agents/debug.md:30`.
+
+### Glossary
+### systematic-bug-hunter
+
+- **definition:** A systematic bug hunter is an investigative debugging persona that executes hypothesis-driven defect isolation through structured assessment, investigation, reproduction, and resolution phases.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Systematic Bug Hunter`
+- **decision:** D-538
+- **concordance:** `docs/analysis/concordance/roles.md#systematic-bug-hunter`
+- **not to be confused with:** silent-failure-hunter, test-engineer
+
+---
+
+## D-539 — silent-failure-hunter
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#silent-failure-hunter
+- **preferences consulted:** PREFERENCES.md § Constraints and § Approach require rigorous defect identification; followed by adopting silent-failure-hunter.
+
+### Decision
+The canonical term for this role is `silent-failure-hunter`. A silent-failure hunter is a specialized code audit persona that identifies unhandled errors, swallowed exceptions, empty catch blocks, unchecked promises, and missing error logging.
+
+### Adopted from
+RJM's review agent definition in `.claude/agents/silent-failure-hunter.md:2` and `docs/agent-catalog.md:43`.
+
+### Dropped
+Shallow string search scripts in favor of semantic AST inspection.
+
+### Rejected alternatives
+- error-checker (too generic, conflates syntax checking with error handling resilience)
+- exception-auditor (omits languages where errors are values rather than thrown exceptions)
+
+### Evidence
+RJM `.claude/agents/silent-failure-hunter.md:2`, `docs/agent-catalog.md:43`.
+
+### Glossary
+### silent-failure-hunter
+
+- **definition:** A silent-failure hunter is a specialized code audit persona that identifies unhandled errors, swallowed exceptions, empty catch blocks, unchecked promises, and missing error logging.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `silent-failure-hunter`
+- **decision:** D-539
+- **concordance:** `docs/analysis/concordance/roles.md#silent-failure-hunter`
+- **not to be confused with:** systematic-bug-hunter, code-reviewer
+
+---
+
+## D-540 — screen-reader-auditor
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#screen-reader
+- **preferences consulted:** PREFERENCES.md § Depth and § Approach mandate thorough accessibility and UX verification; followed by adopting screen-reader-auditor.
+
+### Decision
+The canonical term for this role is `screen-reader-auditor`. A screen-reader auditor is an accessibility evaluation persona that audits user interfaces against screen-reader navigation paradigms, ARIA live region announcements, and semantic accessibility trees.
+
+### Adopted from
+Addy's accessibility checklist in `references/accessibility-checklist.md:58`.
+
+### Dropped
+Physical hardware dependencies by focusing on virtual accessibility object model trees and semantic DOM verification.
+
+### Rejected alternatives
+- screen-reader (refers to the assistive technology software itself rather than the auditing agent persona)
+- a11y-auditor (broader than the specific screen-reader evaluation role)
+
+### Evidence
+Addy `references/accessibility-checklist.md:58`.
+
+### Glossary
+### screen-reader-auditor
+
+- **definition:** A screen-reader auditor is an accessibility evaluation persona that audits user interfaces against screen-reader navigation paradigms, ARIA live region announcements, and semantic accessibility trees.
+- **kind:** role
+- **source names:** addy: `screen-reader` · matt: — · rjm: —
+- **decision:** D-540
+- **concordance:** `docs/analysis/concordance/roles.md#screen-reader`
+- **not to be confused with:** web-performance-auditor, audience-agent
+
+---
+
+## D-541 — security-auditor
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#security-auditor
+- **preferences consulted:** PREFERENCES.md § References and § Constraints emphasize comprehensive security reviews; followed by adopting security-auditor.
+
+### Decision
+The canonical term for this role is `security-auditor`. A security auditor is an expert evaluation persona that inspects code and infrastructure for vulnerabilities, injection attack vectors, secret leakage, OWASP risks, and missing authorization checks.
+
+### Adopted from
+Addy's security persona in `agents/security-auditor.md:3` and RJM's security specialist in `templates/agents/security.shared.md:30`.
+
+### Dropped
+RJM's proprietary enterprise security tool bindings in favor of open static analysis standards.
+
+### Rejected alternatives
+- security-specialist (less prescriptive regarding auditing and gating responsibilities)
+- pen-tester (implies offensive black-box exploitation rather than defensive codebase review)
+
+### Evidence
+Addy `agents/security-auditor.md:3`, `skills/security-and-hardening/SKILL.md:12`; RJM `templates/agents/security.shared.md:30`.
+
+### Glossary
+### security-auditor
+
+- **definition:** A security auditor is an expert evaluation persona that inspects code and infrastructure for vulnerabilities, injection attack vectors, secret leakage, OWASP risks, and missing authorization checks.
+- **kind:** role
+- **source names:** addy: `security-auditor` · matt: — · rjm: `Security Specialist`
+- **decision:** D-541
+- **concordance:** `docs/analysis/concordance/roles.md#security-auditor`
+- **not to be confused with:** supply-chain-risk-scanner, agent-safety-auditor
+
+---
+
+## D-542 — supply-chain-risk-scanner
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#supply-chain-risk-scanner
+- **preferences consulted:** PREFERENCES.md § Constraints and § References mandate rigorous supply chain security; followed by adopting supply-chain-risk-scanner.
+
+### Decision
+The canonical term for this role is `supply-chain-risk-scanner`. A supply-chain risk scanner is an automated security role that audits third-party package dependencies, lockfiles, known CVE vulnerability databases, and open-source software license compliance.
+
+### Adopted from
+RJM's supply chain scanner role in `templates/agents/security.shared.md:144` and `docs/agent-catalog.md:24`.
+
+### Dropped
+Manual vendor audit questionnaires in favor of automated lockfile parsing.
+
+### Rejected alternatives
+- dependency-checker (too generic, conflates version staleness with security vulnerabilities)
+- license-auditor (too narrow, ignores vulnerability scanning)
+
+### Evidence
+RJM `templates/agents/security.shared.md:144`, `docs/agent-catalog.md:24`.
+
+### Glossary
+### supply-chain-risk-scanner
+
+- **definition:** A supply-chain risk scanner is an automated security role that audits third-party package dependencies, lockfiles, known CVE vulnerability databases, and open-source software license compliance.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Supply-chain risk scanner`
+- **decision:** D-542
+- **concordance:** `docs/analysis/concordance/roles.md#supply-chain-risk-scanner`
+- **not to be confused with:** dependency-auditor, security-auditor
+
+---
+
+## D-543 — agent-safety-auditor
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#agent-safety
+- **preferences consulted:** PREFERENCES.md § Constraints govern agent safety boundaries; followed by adopting agent-safety-auditor.
+
+### Decision
+The canonical term for this role is `agent-safety-auditor`. An agent safety auditor is a governance and security role that audits prompt templates, tool permissions, boundary definitions, and autonomous capabilities to prevent unsafe agent tool execution.
+
+### Adopted from
+RJM's agent safety domain in `.claude/skills/ai-agents-config-catalog/SKILL.md:28`.
+
+### Dropped
+RJM-specific permission configurations.
+
+### Rejected alternatives
+- agent-safety (names the discipline rather than the auditor persona)
+- safety-gate (confuses the role with the gating mechanism)
+
+### Evidence
+RJM `.claude/skills/ai-agents-config-catalog/SKILL.md:28`.
+
+### Glossary
+### agent-safety-auditor
+
+- **definition:** An agent safety auditor is a governance and security role that audits prompt templates, tool permissions, boundary definitions, and autonomous capabilities to prevent unsafe agent tool execution.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `agent-safety`
+- **decision:** D-543
+- **concordance:** `docs/analysis/concordance/roles.md#agent-safety`
+- **not to be confused with:** trusted-controller, security-auditor
+
+---
+
+## D-544 — steering-committee
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#steering-committee
+- **preferences consulted:** PREFERENCES.md § Approach and § Governance emphasize balanced architectural decision-making; followed by adopting steering-committee.
+
+### Decision
+The canonical term for this role is `steering-committee`. A steering committee is a multi-stakeholder governance panel that reviews major architectural changes, evaluates system evolution, and balances developer experience with platform constraints.
+
+### Adopted from
+RJM's committee charter in `.agents/governance/steering-committee-charter.md:17` and ADR-043.
+
+### Dropped
+Heavy bureaucratic quarterly meeting schedules in favor of asynchronous architectural sign-offs.
+
+### Rejected alternatives
+- governance-board (too enterprise-oriented)
+- review-panel (conflates routine code review panels with strategic lifecycle governance)
+
+### Evidence
+RJM `.agents/governance/steering-committee-charter.md:17`, `.agents/architecture/ADR-043-role-composition-principles.md:88`.
+
+### Glossary
+### steering-committee
+
+- **definition:** A steering committee is a multi-stakeholder governance panel that reviews major architectural changes, evaluates system evolution, and balances developer experience with platform constraints.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Steering Committee`
+- **decision:** D-544
+- **concordance:** `docs/analysis/concordance/roles.md#steering-committee`
+- **not to be confused with:** six-role-panel, design-authority
+
+---
+
+## D-545 — code-reviewer
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#code-reviewer
+- **preferences consulted:** PREFERENCES.md § Approach and § Phase mapping highlight post-implementation review as load-bearing; followed by adopting code-reviewer.
+
+### Decision
+The canonical term for this role is `code-reviewer`. A code-reviewer is a specialized review persona that evaluates proposed code diffs against architectural patterns, correctness criteria, maintainability standards, and test coverage before merging.
+
+### Adopted from
+Synthesizes Addy's code reviewer persona (`agents/code-reviewer.md:3`), Matt's reviewer agent (`skills/in-progress/retro/SKILL.md:19`), and RJM's code-reviewer (`.claude/agents/code-reviewer.md:2`).
+
+### Dropped
+Monolithic single-pass reviews in favor of multi-perspective, faceted review passes.
+
+### Rejected alternatives
+- reviewer-agent (redundant suffix)
+- diff-reviewer (too narrow, focuses on the artifact rather than the comprehensive engineering role)
+
+### Evidence
+Addy `agents/code-reviewer.md:3`; Matt `skills/in-progress/retro/SKILL.md:19`; RJM `.claude/agents/code-reviewer.md:2`.
+
+### Glossary
+### code-reviewer
+
+- **definition:** A code-reviewer is a specialized review persona that evaluates proposed code diffs against architectural patterns, correctness criteria, maintainability standards, and test coverage before merging.
+- **kind:** role
+- **source names:** addy: `code-reviewer` · matt: `reviewer agent` · rjm: `code-reviewer`
+- **decision:** D-545
+- **concordance:** `docs/analysis/concordance/roles.md#code-reviewer`
+- **not to be confused with:** senior-code-reviewer, fresh-context-reviewer
+
+---
+
+## D-546 — senior-code-reviewer
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#senior-code-reviewer
+- **preferences consulted:** PREFERENCES.md § Approach values deep technical judgment in review; followed by adopting senior-code-reviewer.
+
+### Decision
+The canonical term for this role is `senior-code-reviewer`. A senior-code-reviewer is an advanced code evaluation persona that focuses on deep architectural implications, systemic maintainability, edge cases, and long-term tech debt risk.
+
+### Adopted from
+Addy's staff engineer persona in `agents/code-reviewer.md:8` and RJM's analytical reviewer in `.claude/agents/retrospective.md:13`.
+
+### Dropped
+Matt's assumption that review agents experience no context pressure when evaluating complex multi-file diffs.
+
+### Rejected alternatives
+- staff-engineer-reviewer (overly specific corporate hierarchy title)
+- analytical-reviewer (conflates retrospective analysis with code review)
+
+### Evidence
+Addy `agents/code-reviewer.md:8`; Matt `skills/in-progress/retro/SKILL.md:33`; RJM `.claude/agents/retrospective.md:13`.
+
+### Glossary
+### senior-code-reviewer
+
+- **definition:** A senior-code-reviewer is an advanced code evaluation persona that focuses on deep architectural implications, systemic maintainability, edge cases, and long-term tech debt risk.
+- **kind:** role
+- **source names:** addy: `Senior Code Reviewer` · matt: `review agent` · rjm: `Senior Analytical Reviewer`
+- **decision:** D-546
+- **concordance:** `docs/analysis/concordance/roles.md#senior-code-reviewer`
+- **not to be confused with:** code-reviewer, principal-engineer-advisor
+
+---
+
+## D-547 — fresh-context-reviewer
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#fresh-context-reviewer
+- **preferences consulted:** PREFERENCES.md § Approach and § Constraints emphasize fresh context to eliminate confirmation bias; followed by adopting fresh-context-reviewer.
+
+### Decision
+The canonical term for this role is `fresh-context-reviewer`. A fresh-context reviewer is an adversarial reviewer spawned with an unpolluted context window and zero prior conversation memory, biased to falsify assumptions and verify documentation clarity.
+
+### Adopted from
+Synthesizes Addy's doubt-driven development reviewer (`skills/doubt-driven-development/SKILL.md:10`), Matt's fresh agent (`skills/productivity/handoff/SKILL.md:8`), and RJM's naive reader (`.claude/agents/critic.md:66`).
+
+### Dropped
+Passive reading without explicit verification criteria.
+
+### Rejected alternatives
+- fresh-agent (too broad, does not specify the review function)
+- naive-reader (conflates newcomer perspective with adversarial verification posture)
+
+### Evidence
+Addy `skills/doubt-driven-development/SKILL.md:10`; Matt `skills/productivity/handoff/SKILL.md:8`; RJM `.claude/agents/critic.md:66`.
+
+### Glossary
+### fresh-context-reviewer
+
+- **definition:** A fresh-context reviewer is an adversarial reviewer spawned with an unpolluted context window and zero prior conversation memory, biased to falsify assumptions and verify documentation clarity.
+- **kind:** role
+- **source names:** addy: `fresh-context reviewer` · matt: `fresh agent` · rjm: `Naive Reader`
+- **decision:** D-547
+- **concordance:** `docs/analysis/concordance/roles.md#fresh-context-reviewer`
+- **not to be confused with:** code-reviewer, naive-reader
+
+---
+
+## D-548 — peer-coach
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#peer-coach
+- **preferences consulted:** PREFERENCES.md § Approach values constructive collaboration during early design; followed by adopting peer-coach.
+
+### Decision
+The canonical term for this role is `peer-coach`. A peer-coach is an early-stage review persona providing constructive, low-friction feedback during drafting and brainstorming before formal governance gates or panel reviews.
+
+### Adopted from
+RJM's review guidance in `.claude/skills/adr-review/references/zimmermann-review-guidance.md:9`.
+
+### Dropped
+Slash punctuation (`Peer/Coach`) in favor of canonical kebab-case naming.
+
+### Rejected alternatives
+- peer-reviewer (conflates early draft coaching with formal peer code review)
+- draft-advisor (less focused on peer-level collaboration)
+
+### Evidence
+RJM `.claude/skills/adr-review/references/zimmermann-review-guidance.md:9`.
+
+### Glossary
+### peer-coach
+
+- **definition:** A peer-coach is an early-stage review persona providing constructive, low-friction feedback during drafting and brainstorming before formal governance gates or panel reviews.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Peer/Coach`
+- **decision:** D-548
+- **concordance:** `docs/analysis/concordance/roles.md#peer-coach`
+- **not to be confused with:** brutally-honest-strategic-advisor, code-reviewer
+
+---
+
+## D-549 — cynic
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#cynic
+- **preferences consulted:** PREFERENCES.md § Approach embraces RJM's specialized adversarial review seats; followed by adopting cynic.
+
+### Decision
+The canonical term for this role is `cynic`. A cynic is an adversarial review panel persona that explicitly interrogates unstated assumptions, searches for unspoken dependencies, surfaces ignored failure modes, and rejects baseless optimistic estimates.
+
+### Adopted from
+RJM's critic panel definition in `.claude/agents/critic.md:68`.
+
+### Dropped
+Unconstructive cynicism by requiring explicit citation of the missing mitigation for each identified assumption.
+
+### Rejected alternatives
+- assumption-auditor (flattens the deliberate adversarial posture of the review seat)
+- skeptic (less emphatic than cynic in challenging optimistic projections)
+
+### Evidence
+RJM `.claude/agents/critic.md:68`, `.agents/architecture/ADR-099-remove-commit-limit-bypass-gate.md:249`.
+
+### Glossary
+### cynic
+
+- **definition:** A cynic is an adversarial review panel persona that explicitly interrogates unstated assumptions, searches for unspoken dependencies, surfaces ignored failure modes, and rejects baseless optimistic estimates.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Cynic`
+- **decision:** D-549
+- **concordance:** `docs/analysis/concordance/roles.md#cynic`
+- **not to be confused with:** hostile-expert, contrarian-analyst
+
+---
+
+## D-550 — hostile-expert
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#hostile-expert
+- **preferences consulted:** PREFERENCES.md § Approach and § Depth value adversarial falsification of claims; followed by adopting hostile-expert.
+
+### Decision
+The canonical term for this role is `hostile-expert`. A hostile-expert is an adversarial review panel persona that aggressively attacks the single weakest technical claim, challenges unsourced empirical numbers, and demands proof for waved-away performance trade-offs.
+
+### Adopted from
+RJM's critic persona roster in `.claude/agents/critic.md:67`.
+
+### Dropped
+Personal animus while retaining rigorous technical falsification.
+
+### Rejected alternatives
+- domain-critic (dilutes the intentional aggressive falsification stance)
+- technical-challenger (less distinct within a multi-agent review panel)
+
+### Evidence
+RJM `.claude/agents/critic.md:67`.
+
+### Glossary
+### hostile-expert
+
+- **definition:** A hostile-expert is an adversarial review panel persona that aggressively attacks the single weakest technical claim, challenges unsourced empirical numbers, and demands proof for waved-away performance trade-offs.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Hostile Expert`
+- **decision:** D-550
+- **concordance:** `docs/analysis/concordance/roles.md#hostile-expert`
+- **not to be confused with:** cynic, contrarian-analyst
+
+---
+
+## D-551 — contrarian-analyst
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#contrarian-analyst
+- **preferences consulted:** PREFERENCES.md § Approach emphasizes independent critical thinking and evidence; followed by adopting contrarian-analyst.
+
+### Decision
+The canonical term for this role is `contrarian-analyst`. A contrarian-analyst is an intellectually independent review persona that questions consensus narratives, presents evidence-based alternative solutions, and explicitly declares uncertainty rather than guessing.
+
+### Adopted from
+RJM's independent thinker persona in `.claude/agents/independent-thinker.md:13`.
+
+### Dropped
+Speculative contrarianism without primary-source evidence backing.
+
+### Rejected alternatives
+- devils-advocate (colloquial and often associated with superficial arguments)
+- independent-thinker (too vague, does not specify the analytical critique role)
+
+### Evidence
+RJM `.claude/agents/independent-thinker.md:13`.
+
+### Glossary
+### contrarian-analyst
+
+- **definition:** A contrarian-analyst is an intellectually independent review persona that questions consensus narratives, presents evidence-based alternative solutions, and explicitly declares uncertainty rather than guessing.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Contrarian Analyst`
+- **decision:** D-551
+- **concordance:** `docs/analysis/concordance/roles.md#contrarian-analyst`
+- **not to be confused with:** cynic, hostile-expert
+
+---
+
+## D-552 — critic
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#critic
+- **preferences consulted:** PREFERENCES.md § Approach and § Phase mapping prioritize pre-implementation plan stress-testing; followed by adopting critic.
+
+### Decision
+The canonical term for this role is `critic`. A critic is a pre-implementation validation persona that stress-tests plans, identifies architectural omissions, catches semantic ambiguities, and verifies completeness before execution starts.
+
+### Adopted from
+RJM's critic agent in `.agents/AGENT-SYSTEM.md:347` and `.claude/agents/critic.md:3`.
+
+### Dropped
+Post-hoc code evaluation (reserving critic specifically for pre-implementation plan validation).
+
+### Rejected alternatives
+- plan-validator (functional descriptor that misses the adversarial stress-testing mandate)
+- pre-implementation-reviewer (unwieldy compound term)
+
+### Evidence
+RJM `.agents/AGENT-SYSTEM.md:347`, `.claude/agents/critic.md:3`.
+
+### Glossary
+### critic
+
+- **definition:** A critic is a pre-implementation validation persona that stress-tests plans, identifies architectural omissions, catches semantic ambiguities, and verifies completeness before execution starts.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `critic`
+- **decision:** D-552
+- **concordance:** `docs/analysis/concordance/roles.md#critic`
+- **not to be confused with:** cynic, code-reviewer
+
+---
+
+## D-553 — six-role-panel
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#six-role-panel
+- **preferences consulted:** PREFERENCES.md § Approach favors comprehensive adversarial panels for major architectural reviews; followed by adopting six-role-panel.
+
+### Decision
+The canonical term for this role is `six-role-panel`. A six-role panel is a structured adversarial review assembly composing six complementary personas (such as Architect, Security, QA, Hostile Expert, Cynic, and Naive Reader) to cross-examine non-trivial artifacts from multiple vantage points.
+
+### Adopted from
+Synthesizes RJM's multi-perspective review panel (`.agents/architecture/ADR-099-remove-commit-limit-bypass-gate.md:249`) with Addy's isolated role-based reviewers (`skills/doubt-driven-development/SKILL.md:108`).
+
+### Dropped
+Rigid synchronous attendance requirements when fewer facets are warranted.
+
+### Rejected alternatives
+- review-panel (too generic, fails to convey the multi-role complementary composition)
+- role-based-reviewers (plural descriptive phrase rather than a concrete panel concept)
+
+### Evidence
+RJM `.agents/architecture/ADR-099-remove-commit-limit-bypass-gate.md:249`; Addy `skills/doubt-driven-development/SKILL.md:108`.
+
+### Glossary
+### six-role-panel
+
+- **definition:** A six-role panel is a structured adversarial review assembly composing six complementary personas (such as Architect, Security, QA, Hostile Expert, Cynic, and Naive Reader) to cross-examine non-trivial artifacts from multiple vantage points.
+- **kind:** role
+- **source names:** addy: `role-based reviewers` · matt: — · rjm: `six-role panel`
+- **decision:** D-553
+- **concordance:** `docs/analysis/concordance/roles.md#six-role-panel`
+- **not to be confused with:** adversarial-reviewer, steering-committee
+
+---
+
+## D-554 — adversarial-reviewer
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#adversarial-reviewer
+- **preferences consulted:** PREFERENCES.md § Constraints and § Approach mandate falsification-biased review; followed by adopting adversarial-reviewer.
+
+### Decision
+The canonical term for this role is `adversarial-reviewer`. An adversarial-reviewer is an overarching evaluation role biased to actively falsify hypotheses, challenge design claims, and prove failure modes rather than validate or confirm author intent.
+
+### Adopted from
+RJM's adversarial review framework in `.claude/agents/critic.md:18`.
+
+### Dropped
+Unfocused hostility without actionable, testable defect reports.
+
+### Rejected alternatives
+- falsifier (too abstract, sounds like a test function rather than a review persona)
+- challenger (conflates constructive questioning with systematic falsification)
+
+### Evidence
+RJM `.claude/agents/critic.md:18`.
+
+### Glossary
+### adversarial-reviewer
+
+- **definition:** An adversarial-reviewer is an overarching evaluation role biased to actively falsify hypotheses, challenge design claims, and prove failure modes rather than validate or confirm author intent.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `adversarial reviewer`
+- **decision:** D-554
+- **concordance:** `docs/analysis/concordance/roles.md#adversarial-reviewer`
+- **not to be confused with:** fresh-context-reviewer, hostile-expert
+
+---
+
+## D-555 — devops-specialist
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#devops
+- **preferences consulted:** PREFERENCES.md § References and § Constraints emphasize automated pipelines; followed by adopting devops-specialist.
+
+### Decision
+The canonical term for this role is `devops-specialist`. A devops-specialist is an operational engineering persona responsible for authoring CI/CD pipelines, automating deployment workflows, configuring infrastructure as code, and maintaining runtime stability.
+
+### Adopted from
+RJM's devops agent definition in `.agents/AGENT-SYSTEM.md:240` and `README.md:405`.
+
+### Dropped
+Manual infrastructure provisioning runbooks in favor of declarative CI and automation scripts.
+
+### Rejected alternatives
+- devops (umbrella industry term naming a discipline or cultural movement rather than a distinct agent persona)
+- platform-engineer (too broad, includes internal developer portal maintenance)
+
+### Evidence
+RJM `.agents/AGENT-SYSTEM.md:240`, `README.md:405`.
+
+### Glossary
+### devops-specialist
+
+- **definition:** A devops-specialist is an operational engineering persona responsible for authoring CI/CD pipelines, automating deployment workflows, configuring infrastructure as code, and maintaining runtime stability.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `devops`
+- **decision:** D-555
+- **concordance:** `docs/analysis/concordance/roles.md#devops`
+- **not to be confused with:** build-cop, project-shipper
+
+---
+
+## D-556 — project-shipper
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#project-shipper
+- **preferences consulted:** PREFERENCES.md § Phase mapping and § Approach highlight shipping and launch orchestration; followed by adopting project-shipper.
+
+### Decision
+The canonical term for this role is `project-shipper`. A project-shipper is a release orchestration persona that manages the final publishing sequence, including changelog generation, version tag creation, artifact packaging, and release verification.
+
+### Adopted from
+RJM's release execution role in `.claude/skills/context-optimizer/references/claude-code-productivity-patterns.md:68`.
+
+### Dropped
+Unvalidated release publishing without passing pre-launch verification gates.
+
+### Rejected alternatives
+- release-manager (traditional human job title carrying coordination connotations rather than automated agent execution)
+- publisher (too narrow, focuses only on pushing bytes rather than the full release ceremony)
+
+### Evidence
+RJM `.claude/skills/context-optimizer/references/claude-code-productivity-patterns.md:68`.
+
+### Glossary
+### project-shipper
+
+- **definition:** A project-shipper is a release orchestration persona that manages the final publishing sequence, including changelog generation, version tag creation, artifact packaging, and release verification.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `project-shipper`
+- **decision:** D-556
+- **concordance:** `docs/analysis/concordance/roles.md#project-shipper`
+- **not to be confused with:** launch-sponsor, devops-specialist
+
+---
+
+## D-557 — dependency-auditor
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#dependency-auditor
+- **preferences consulted:** PREFERENCES.md § Constraints and § References mandate thorough dependency auditing; followed by adopting dependency-auditor.
+
+### Decision
+The canonical term for this role is `dependency-auditor`. A dependency-auditor is a pre-release audit persona that analyzes third-party package dependencies for version staleness, security advisories, licensing incompatibilities, and transitive dependency bloat.
+
+### Adopted from
+RJM's dependency auditor agent in `templates/agents/dependency-auditor.shared.md:14` and `docs/agent-catalog.md:24`.
+
+### Dropped
+Manual license review spreadsheets in favor of automated package manifest parsing.
+
+### Rejected alternatives
+- package-auditor (too vague)
+- dependency-checker (minimizes the formal auditing and gating responsibilities)
+
+### Evidence
+RJM `templates/agents/dependency-auditor.shared.md:14`, `docs/agent-catalog.md:24`.
+
+### Glossary
+### dependency-auditor
+
+- **definition:** A dependency-auditor is a pre-release audit persona that analyzes third-party package dependencies for version staleness, security advisories, licensing incompatibilities, and transitive dependency bloat.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `dependency-auditor`
+- **decision:** D-557
+- **concordance:** `docs/analysis/concordance/roles.md#dependency-auditor`
+- **not to be confused with:** supply-chain-risk-scanner, security-auditor
+
+---
+
+## D-558 — build-cop
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#build-cop
+- **preferences consulted:** PREFERENCES.md § Approach and § References value clear operational ownership and unyielding trunk health; followed by adopting build-cop.
+
+### Decision
+The canonical term for this role is `build-cop`. A build-cop is an operational guardianship role designated to monitor CI health, immediately quarantine or revert broken commits on trunk, and preserve mainline build stability.
+
+### Adopted from
+Addy's continuous integration guardianship pattern in `skills/ci-cd-and-automation/SKILL.md:300`.
+
+### Dropped
+Punitive blame dynamics by establishing automated revert-first runbooks.
+
+### Rejected alternatives
+- ci-monitor (passive observation rather than active revert authority)
+- trunk-guard (less recognized in software engineering than build-cop)
+
+### Evidence
+Addy `skills/ci-cd-and-automation/SKILL.md:298`, `skills/ci-cd-and-automation/SKILL.md:300`.
+
+### Glossary
+### build-cop
+
+- **definition:** A build-cop is an operational guardianship role designated to monitor CI health, immediately quarantine or revert broken commits on trunk, and preserve mainline build stability.
+- **kind:** role
+- **source names:** addy: `Build Cop` · matt: — · rjm: —
+- **decision:** D-558
+- **concordance:** `docs/analysis/concordance/roles.md#build-cop`
+- **not to be confused with:** devops-specialist, rollback-owner
+
+---
+
+## D-559 — rollback-owner
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#rollback-owner
+- **preferences consulted:** PREFERENCES.md § References and § Approach value clear operational ownership and emergency recovery; followed by adopting rollback-owner.
+
+### Decision
+The canonical term for this role is `rollback-owner`. A rollback-owner is the designated individual or agent holding explicit authority, verified runbooks, and credentials to execute immediate deployment reversals upon production incident detection.
+
+### Adopted from
+Addy's release incident response framework in `evals/fixtures/shipping-and-launch/launch-status.md:9`.
+
+### Dropped
+Unassigned collective responsibility where no single actor owns deployment reversal.
+
+### Rejected alternatives
+- incident-commander (broader crisis leadership role; rollback-owner specifically owns deployment reversal)
+- revert-operator (focuses on git mechanics rather than production deployment rollback)
+
+### Evidence
+Addy `evals/fixtures/shipping-and-launch/launch-status.md:9`.
+
+### Glossary
+### rollback-owner
+
+- **definition:** A rollback-owner is the designated individual or agent holding explicit authority, verified runbooks, and credentials to execute immediate deployment reversals upon production incident detection.
+- **kind:** role
+- **source names:** addy: `Rollback owner` · matt: — · rjm: —
+- **decision:** D-559
+- **concordance:** `docs/analysis/concordance/roles.md#rollback-owner`
+- **not to be confused with:** build-cop, launch-sponsor
+
+---
+
+## D-560 — launch-sponsor
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#launch-sponsor
+- **preferences consulted:** PREFERENCES.md § Approach and § Constraints emphasize human authorization for high-impact releases; followed by adopting launch-sponsor.
+
+### Decision
+The canonical term for this role is `launch-sponsor`. A launch-sponsor is the executive or engineering stakeholder who authorizes public release dates, accepts residual business risks, and grants final go-live approval.
+
+### Adopted from
+Addy's release governance framework in `evals/fixtures/shipping-and-launch/authority-pressure.md:3`.
+
+### Dropped
+Allowing schedule pressure from launch sponsors to bypass objective quality and security gates.
+
+### Rejected alternatives
+- release-approver (functional title that obscures executive business sponsorship)
+- product-owner (general product role rather than release-authorizing stakeholder)
+
+### Evidence
+Addy `evals/fixtures/shipping-and-launch/authority-pressure.md:3`.
+
+### Glossary
+### launch-sponsor
+
+- **definition:** A launch-sponsor is the executive or engineering stakeholder who authorizes public release dates, accepts residual business risks, and grants final go-live approval.
+- **kind:** role
+- **source names:** addy: `launch sponsor` · matt: — · rjm: —
+- **decision:** D-560
+- **concordance:** `docs/analysis/concordance/roles.md#launch-sponsor`
+- **not to be confused with:** rollback-owner, design-authority
+
+---
+
+## D-561 — web-performance-auditor
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#web-performance-auditor
+- **preferences consulted:** PREFERENCES.md § References and § Depth prioritize web performance and Core Web Vitals verification; followed by adopting web-performance-auditor.
+
+### Decision
+The canonical term for this role is `web-performance-auditor`. A web-performance-auditor is a specialized evaluation persona that profiles bundle sizes, evaluates runtime latency, and audits Core Web Vitals against strict performance budgets.
+
+### Adopted from
+Addy's web performance engineering persona in `agents/web-performance-auditor.md:8`.
+
+### Dropped
+Generic Lighthouse scores in favor of actionable, user-centric performance metrics and Core Web Vitals budgets.
+
+### Rejected alternatives
+- performance-engineer (broad title that could cover backend database tuning)
+- webperf-agent (informal abbreviation)
+
+### Evidence
+Addy `agents/web-performance-auditor.md:8`.
+
+### Glossary
+### web-performance-auditor
+
+- **definition:** A web-performance-auditor is a specialized evaluation persona that profiles bundle sizes, evaluates runtime latency, and audits Core Web Vitals against strict performance budgets.
+- **kind:** role
+- **source names:** addy: `web-performance-auditor` · matt: — · rjm: —
+- **decision:** D-561
+- **concordance:** `docs/analysis/concordance/roles.md#web-performance-auditor`
+- **not to be confused with:** test-engineer, screen-reader-auditor
+
+---
+
+## D-562 — merge-resolver
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#merger-subagent
+- **preferences consulted:** PREFERENCES.md § Approach values clean multi-branch git reconciliation; followed by adopting merge-resolver.
+
+### Decision
+The canonical term for this role is `merge-resolver`. A merge-resolver is a specialized agent persona that analyzes commit history, reconciles divergent git branches, and resolves merge conflicts while preserving intentional changes from both branches.
+
+### Adopted from
+Synthesizes RJM's merge conflict resolution agent (`.agents/AGENT-SYSTEM.md:311`, `README.md:417`) with Matt's merger subagent design (`skills/in-progress/implement-spec/SKILL.md:27`, `.changeset/add-implement-spec-skill.md:5`).
+
+### Dropped
+Blind algorithmic conflict acceptance without running test suites post-merge.
+
+### Rejected alternatives
+- merger-subagent (narrows the role exclusively to subagent invocations, excluding standalone conflict resolution)
+- git-merger (emphasizes the tool rather than semantic conflict resolution)
+
+### Evidence
+Matt `skills/in-progress/implement-spec/SKILL.md:27`, `.changeset/add-implement-spec-skill.md:5`; RJM `.agents/AGENT-SYSTEM.md:311`, `README.md:417`.
+
+### Glossary
+### merge-resolver
+
+- **definition:** A merge-resolver is a specialized agent persona that analyzes commit history, reconciles divergent git branches, and resolves merge conflicts while preserving intentional changes from both branches.
+- **kind:** role
+- **source names:** addy: — · matt: `merger subagent` · rjm: `merge-resolver`
+- **decision:** D-562
+- **concordance:** `docs/analysis/concordance/roles.md#merger-subagent`
+- **not to be confused with:** implementation-agent, driver
+
+---
+
+## D-563 — janitor
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#janitor
+- **preferences consulted:** PREFERENCES.md § Approach values continuous codebase cleanliness and hygiene; followed by adopting janitor.
+
+### Decision
+The canonical term for this role is `janitor`. A janitor is a codebase maintenance persona that performs routine hygiene tasks including removing obsolete files, pruning unused exports, cleaning up scratch scripts, and enforcing formatting consistency.
+
+### Adopted from
+RJM's cleanup and maintenance agent in `README.md:415` and `docs/agent-catalog.md:31`.
+
+### Dropped
+Destructive sweeping without verification against active file references.
+
+### Rejected alternatives
+- cleaner (colloquial and ambiguous with data cleansing tools)
+- hygiene-agent (less standard in software engineering than janitor)
+
+### Evidence
+RJM `README.md:415`, `docs/agent-catalog.md:31`.
+
+### Glossary
+### janitor
+
+- **definition:** A janitor is a codebase maintenance persona that performs routine hygiene tasks including removing obsolete files, pruning unused exports, cleaning up scratch scripts, and enforcing formatting consistency.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `janitor`
+- **decision:** D-563
+- **concordance:** `docs/analysis/concordance/roles.md#janitor`
+- **not to be confused with:** tech-debt-remediation-specialist, code-simplifier
+
+---
+
+## D-564 — tech-debt-remediation-specialist
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#tech-debt-remediation-specialist
+- **preferences consulted:** PREFERENCES.md § Approach and § Depth support systematic remediation of architectural technical debt; followed by adopting tech-debt-remediation-specialist.
+
+### Decision
+The canonical term for this role is `tech-debt-remediation-specialist`. A tech-debt remediation specialist is an engineering refactoring persona that systematically identifies obsolete architectural patterns, eliminates deprecated API usages, and modernizes legacy subsystems.
+
+### Adopted from
+RJM's cleanup and simplification identity in `.claude/agents/janitor.md:30`.
+
+### Dropped
+Indiscriminate code deletion without backwards-compatibility or deprecation periods.
+
+### Rejected alternatives
+- refactoring-specialist (omits the specific focus on technical debt and deprecation)
+- debt-collector (colloquial and misleading)
+
+### Evidence
+RJM `.claude/agents/janitor.md:30`.
+
+### Glossary
+### tech-debt-remediation-specialist
+
+- **definition:** A tech-debt remediation specialist is an engineering refactoring persona that systematically identifies obsolete architectural patterns, eliminates deprecated API usages, and modernizes legacy subsystems.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Tech Debt Remediation Specialist`
+- **decision:** D-564
+- **concordance:** `docs/analysis/concordance/roles.md#tech-debt-remediation-specialist`
+- **not to be confused with:** janitor, code-simplifier
+
+---
+
+## D-565 — comment-analyzer
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#comment-analyzer
+- **preferences consulted:** PREFERENCES.md § Approach and § Constraints emphasize preventing documentation drift; followed by adopting comment-analyzer.
+
+### Decision
+The canonical term for this role is `comment-analyzer`. A comment-analyzer is a documentation audit persona that inspects inline comments, docstrings, and type annotations to detect doc-code drift, remove outdated commentary, and ensure accuracy.
+
+### Adopted from
+RJM's comment analyzer agent in `.claude/agents/comment-analyzer.md:3`.
+
+### Dropped
+Enforcing redundant comment authoring on self-explanatory code.
+
+### Rejected alternatives
+- docstring-checker (too narrow, focuses only on function docstrings)
+- comment-linter (implies simple regex or grammar linting rather than semantic code alignment)
+
+### Evidence
+RJM `.claude/agents/comment-analyzer.md:3`.
+
+### Glossary
+### comment-analyzer
+
+- **definition:** A comment-analyzer is a documentation audit persona that inspects inline comments, docstrings, and type annotations to detect doc-code drift, remove outdated commentary, and ensure accuracy.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `comment-analyzer`
+- **decision:** D-565
+- **concordance:** `docs/analysis/concordance/roles.md#comment-analyzer`
+- **not to be confused with:** technical-writer, audience-agent
+
+---
+
+## D-566 — pr-comment-responder
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#pr-comment-responder
+- **preferences consulted:** PREFERENCES.md § Approach values structured responses to review feedback; followed by adopting pr-comment-responder.
+
+### Decision
+The canonical term for this role is `pr-comment-responder`. A pr-comment-responder is an automated support persona that parses pull request review feedback, implements requested code revisions, and drafts clear responses to reviewer comments.
+
+### Adopted from
+RJM's review response support agent in `.agents/AGENT-SYSTEM.md:758`.
+
+### Dropped
+Auto-resolving review threads without human verification or passing CI test suites.
+
+### Rejected alternatives
+- review-responder (lacks indication that the medium is a pull request discussion thread)
+- feedback-implementer (too broad)
+
+### Evidence
+RJM `.agents/AGENT-SYSTEM.md:758`.
+
+### Glossary
+### pr-comment-responder
+
+- **definition:** A pr-comment-responder is an automated support persona that parses pull request review feedback, implements requested code revisions, and drafts clear responses to reviewer comments.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `pr-comment-responder`
+- **decision:** D-566
+- **concordance:** `docs/analysis/concordance/roles.md#pr-comment-responder`
+- **not to be confused with:** code-reviewer, implementation-agent
+
+---
+
+## D-567 — retrospective-agent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#retrospective-agent
+- **preferences consulted:** PREFERENCES.md § Approach embraces post-ship reflection and iterative improvement; followed by adopting retrospective-agent.
+
+### Decision
+The canonical term for this role is `retrospective-agent`. A retrospective-agent is a meta-process evaluation persona that analyzes completed development sessions, diagnoses agent mistakes or bottlenecks, and updates team skillbooks and instructions.
+
+### Adopted from
+RJM's reflective learning persona in `.claude/agents/retrospective.md:13` and Matt's retro analysis in `skills/in-progress/retro/SKILL.md:19`.
+
+### Dropped
+Vague motivational takeaways in favor of concrete rule additions or deletions in skill documentation.
+
+### Rejected alternatives
+- retro-analyzer (informal abbreviation)
+- post-mortem-lead (conflates routine session retrospectives with catastrophic incident post-mortems)
+
+### Evidence
+RJM `.claude/agents/retrospective.md:13`, `.agents/analysis/002-project-constraints-consolidation.md:564`.
+
+### Glossary
+### retrospective-agent
+
+- **definition:** A retrospective-agent is a meta-process evaluation persona that analyzes completed development sessions, diagnoses agent mistakes or bottlenecks, and updates team skillbooks and instructions.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `retrospective agent`
+- **decision:** D-567
+- **concordance:** `docs/analysis/concordance/roles.md#retrospective-agent`
+- **not to be confused with:** skillbook-curator, retrospective-report
+
+---
+
+## D-568 — technical-writer
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#technical-writer
+- **preferences consulted:** PREFERENCES.md § Approach and § References value clear, comprehensive documentation; followed by adopting technical-writer.
+
+### Decision
+The canonical term for this role is `technical-writer`. A technical-writer is a documentation authoring persona dedicated to producing and maintaining user manuals, reference guides, API specifications, and architectural documentation.
+
+### Adopted from
+RJM's documentation persona assignment in `scripts/incoherence.py:569`.
+
+### Dropped
+Outdated manual PDF generation workflows in favor of Markdown and docsite publication.
+
+### Rejected alternatives
+- doc-author (informal)
+- technical-communicator (overly abstract academic terminology)
+
+### Evidence
+RJM `scripts/incoherence.py:569`.
+
+### Glossary
+### technical-writer
+
+- **definition:** A technical-writer is a documentation authoring persona dedicated to producing and maintaining user manuals, reference guides, API specifications, and architectural documentation.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Technical Writer`
+- **decision:** D-568
+- **concordance:** `docs/analysis/concordance/roles.md#technical-writer`
+- **not to be confused with:** comment-analyzer, audience-agent
+
+---
+
+## D-569 — explorer
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#explore
+- **preferences consulted:** PREFERENCES.md § Approach values read-only exploration prior to modification; followed by adopting explorer.
+
+### Decision
+The canonical term for this role is `explorer`. An explorer is a read-only investigation persona that surveys codebases, traces call graphs, searches documentation, and summarizes existing behavior without modifying any project files.
+
+### Adopted from
+Synthesizes Addy's read-only explore mode (`references/orchestration-patterns.md:113`), Matt's exploration subagent (`skills/engineering/ask-matt/PHASE-BOUNDARIES.md:16`), and RJM's exploratory persona (`.claude/commands/spec.md:45`).
+
+### Dropped
+Writing code or mutating workspace files during exploratory passes.
+
+### Rejected alternatives
+- explore (imperative verb rather than a canonical noun role)
+- exploration-subagent (narrows the role strictly to subagent form factor rather than general conversational persona)
+
+### Evidence
+Addy `references/orchestration-patterns.md:113`; Matt `skills/engineering/ask-matt/PHASE-BOUNDARIES.md:16`; RJM `.claude/commands/spec.md:45`.
+
+### Glossary
+### explorer
+
+- **definition:** An explorer is a read-only investigation persona that surveys codebases, traces call graphs, searches documentation, and summarizes existing behavior without modifying any project files.
+- **kind:** role
+- **source names:** addy: `Explore` · matt: `exploration subagent` · rjm: `Explore`
+- **decision:** D-569
+- **concordance:** `docs/analysis/concordance/roles.md#explore`
+- **not to be confused with:** researcher, analyst
+
+---
+
+## D-570 — agent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#agent
+- **preferences consulted:** PREFERENCES.md § Approach recognizes AI coding agents as primary execution entities; followed by adopting agent.
+
+### Decision
+The canonical term for this role is `agent`. An agent is an autonomous or semi-autonomous LLM-powered computational actor equipped with tool access, system instructions, and goal-directed execution capabilities.
+
+### Adopted from
+Unified standard across Addy (`docs/copilot-setup.md:19`), Matt (`docs/engineering/code-review.md:3`), and RJM (`.agents/AGENT-SYSTEM.md:10`).
+
+### Dropped
+Anthropomorphic assumptions while affirming autonomous tool-using capabilities.
+
+### Rejected alternatives
+- ai-agent (redundant prefix in AI coding toolchains)
+- bot (dated, implies dumb rule-based automation)
+
+### Evidence
+Addy `docs/copilot-setup.md:19`; Matt `docs/engineering/code-review.md:3`; RJM `.agents/AGENT-SYSTEM.md:10`.
+
+### Glossary
+### agent
+
+- **definition:** An agent is an autonomous or semi-autonomous LLM-powered computational actor equipped with tool access, system instructions, and goal-directed execution capabilities.
+- **kind:** role
+- **source names:** addy: `AI coding agents` · matt: `agent` · rjm: `agent`
+- **decision:** D-570
+- **concordance:** `docs/analysis/concordance/roles.md#agent`
+- **not to be confused with:** subagent, driver
+
+---
+
+## D-571 — autonomous-development-agent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#autonomous-development-agent
+- **preferences consulted:** PREFERENCES.md § Approach and § Constraints govern end-to-end autonomous loops; followed by adopting autonomous-development-agent.
+
+### Decision
+The canonical term for this role is `autonomous-development-agent`. An autonomous-development-agent is an end-to-end meta-developer persona capable of ingesting high-level requirements, formulating plans, implementing code, running tests, and preparing pull requests with minimal human intervention.
+
+### Adopted from
+RJM's autonomous development persona in `docs/autonomous-issue-development.md:8`.
+
+### Dropped
+Unsupervised production deployments without mandatory human review gates.
+
+### Rejected alternatives
+- auto-developer (informal abbreviation)
+- autonomous-swe (conflates software engineering title with agent classification)
+
+### Evidence
+RJM `docs/autonomous-issue-development.md:8`.
+
+### Glossary
+### autonomous-development-agent
+
+- **definition:** An autonomous-development-agent is an end-to-end meta-developer persona capable of ingesting high-level requirements, formulating plans, implementing code, running tests, and preparing pull requests with minimal human intervention.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `autonomous development agent`
+- **decision:** D-571
+- **concordance:** `docs/analysis/concordance/roles.md#autonomous-development-agent`
+- **not to be confused with:** implementation-agent, afk-agent
+
+---
+
+## D-572 — claude-code-agent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#coding-agents
+- **preferences consulted:** PREFERENCES.md § Approach and D-009 establish Claude Code as the canonical target with Antigravity parity; followed by adopting claude-code-agent.
+
+### Decision
+The canonical term for this role is `claude-code-agent`. A claude-code-agent is an execution agent hosted natively within the Anthropic Claude Code command-line interface runtime environment.
+
+### Adopted from
+RJM's platform-specific agent definitions in `.agents/architecture/ADR-085-cross-harness-permission-surface-asymmetry.md:15` and Addy's CLI agent usage.
+
+### Dropped
+Platform-specific command limitations (pairing Claude Code native execution with Antigravity mirror parity per D-009).
+
+### Rejected alternatives
+- coding-agent (too generic, fails to identify the canonical Claude Code runtime target)
+- claude-agent (conflates the Anthropic model/assistant with the CLI harness)
+
+### Evidence
+Addy `docs/copilot-setup.md:19`; RJM `.agents/architecture/ADR-085-cross-harness-permission-surface-asymmetry.md:15`.
+
+### Glossary
+### claude-code-agent
+
+- **definition:** A claude-code-agent is an execution agent hosted natively within the Anthropic Claude Code command-line interface runtime environment.
+- **kind:** role
+- **source names:** addy: `coding agents` · matt: — · rjm: `Claude Code Agents`
+- **decision:** D-572
+- **concordance:** `docs/analysis/concordance/roles.md#coding-agents`
+- **not to be confused with:** agent, general-purpose-agent
+
+---
+
+## D-573 — general-purpose-agent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#general-purpose
+- **preferences consulted:** PREFERENCES.md § Approach values clean fallback defaults alongside specialized agents; followed by adopting general-purpose-agent.
+
+### Decision
+The canonical term for this role is `general-purpose-agent`. A general-purpose-agent is a baseline fallback agent persona equipped with standard shell and file editing tools without domain-specific prompt constraints or specialized role restrictions.
+
+### Adopted from
+Synthesizes Addy's default agent configuration (`references/orchestration-patterns.md:158`) with RJM's executor baseline role (`templates/agents/implementer.shared.md:2`).
+
+### Dropped
+Using general-purpose agents for high-risk verification or specialized audit phases.
+
+### Rejected alternatives
+- executor (too abstract, conflicts with standard runtime task executors)
+- default-agent (conflates configuration default with operational capabilities)
+
+### Evidence
+Addy `references/orchestration-patterns.md:158`; RJM `templates/agents/implementer.shared.md:2`.
+
+### Glossary
+### general-purpose-agent
+
+- **definition:** A general-purpose-agent is a baseline fallback agent persona equipped with standard shell and file editing tools without domain-specific prompt constraints or specialized role restrictions.
+- **kind:** role
+- **source names:** addy: `general-purpose` · matt: — · rjm: `executor`
+- **decision:** D-573
+- **concordance:** `docs/analysis/concordance/roles.md#general-purpose`
+- **not to be confused with:** implementation-agent, explorer
+
+---
+
+## D-574 — subagent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#subagent
+- **preferences consulted:** PREFERENCES.md § Approach and § Granularity emphasize context isolation via subagents; followed by adopting subagent.
+
+### Decision
+The canonical term for this role is `subagent`. A subagent is a child agent spawned by a primary agent with an isolated context window, specific prompt instructions, and bounded task scope, returning its deliverables upon completion.
+
+### Adopted from
+Matt's subagent isolation principle in `skills/engineering/ask-matt/PHASE-BOUNDARIES.md:14` and `.agents/writing-docs.md:77`.
+
+### Dropped
+Hyphenated spelling (`sub-agent`) in favor of standard unhyphenated subagent.
+
+### Rejected alternatives
+- sub-agent (hyphenated variant rejected per glossary consistency)
+- child-agent (less prevalent in LLM engineering literature)
+
+### Evidence
+Matt `skills/engineering/ask-matt/PHASE-BOUNDARIES.md:14`, `.agents/writing-docs.md:77`.
+
+### Glossary
+### subagent
+
+- **definition:** A subagent is a child agent spawned by a primary agent with an isolated context window, specific prompt instructions, and bounded task scope, returning its deliverables upon completion.
+- **kind:** role
+- **source names:** addy: — · matt: `subagent` · rjm: —
+- **decision:** D-574
+- **concordance:** `docs/analysis/concordance/roles.md#subagent`
+- **not to be confused with:** agent, background-agent
+
+---
+
+## D-575 — external-swe-agent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#sub-agent
+- **preferences consulted:** PREFERENCES.md § Constraints and § Approach govern cross-environment agent boundaries; followed by adopting external-swe-agent.
+
+### Decision
+The canonical term for this role is `external-swe-agent`. An external-swe-agent is an external autonomous coding agent (such as GitHub Copilot Workspace or an isolated third-party SWE worker) invoked across network or process boundaries to deliver an issue branch.
+
+### Adopted from
+Synthesizes RJM's external SWE agent integration (`scripts/ci/write_copilot_synthesis_summary.py:32`) with Matt's isolated sub-agent cross-referencing (`docs/engineering/code-review.md:3`).
+
+### Dropped
+Proprietary GitHub Copilot API dependencies in favor of harness-agnostic external delegation interfaces.
+
+### Rejected alternatives
+- copilot-swe-agent (vendor-locked term)
+- sub-agent (duplicates D-574 subagent)
+
+### Evidence
+Matt `docs/engineering/code-review.md:3`; RJM `scripts/ci/write_copilot_synthesis_summary.py:32`.
+
+### Glossary
+### external-swe-agent
+
+- **definition:** An external-swe-agent is an external autonomous coding agent (such as GitHub Copilot Workspace or an isolated third-party SWE worker) invoked across network or process boundaries to deliver an issue branch.
+- **kind:** role
+- **source names:** addy: — · matt: `sub-agent` · rjm: `copilot-swe-agent`
+- **decision:** D-575
+- **concordance:** `docs/analysis/concordance/roles.md#sub-agent`
+- **not to be confused with:** subagent, implementation-agent
+
+---
+
+## D-576 — background-agent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#background-agent
+- **preferences consulted:** PREFERENCES.md § Approach and § Granularity support non-blocking asynchronous research; followed by adopting background-agent.
+
+### Decision
+The canonical term for this role is `background-agent`. A background-agent is an asynchronous subagent that runs long-duration research, reading, or compilation tasks out of band without blocking the user or the primary orchestrator conversation.
+
+### Adopted from
+Matt's asynchronous background research pattern in `docs/engineering/research.md:25` and `CHANGELOG.md:177`.
+
+### Dropped
+Unmonitored background runaway loops by requiring explicit timeout bounds.
+
+### Rejected alternatives
+- async-worker (technical concurrency term rather than agent lifecycle persona)
+- detached-agent (implies disconnected process rather than supervised background execution)
+
+### Evidence
+Matt `docs/engineering/research.md:25`, `CHANGELOG.md:177`.
+
+### Glossary
+### background-agent
+
+- **definition:** A background-agent is an asynchronous subagent that runs long-duration research, reading, or compilation tasks out of band without blocking the user or the primary orchestrator conversation.
+- **kind:** role
+- **source names:** addy: — · matt: `background agent` · rjm: —
+- **decision:** D-576
+- **concordance:** `docs/analysis/concordance/roles.md#background-agent`
+- **not to be confused with:** afk-agent, subagent
+
+---
+
+## D-577 — afk-agent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#afk-agent
+- **preferences consulted:** PREFERENCES.md § Constraints and § Approach govern unattended execution safety; followed by adopting afk-agent.
+
+### Decision
+The canonical term for this role is `afk-agent`. An afk-agent is an autonomous execution agent configured to run unattended while the human operator is away from the keyboard, operating strictly against pre-approved agent briefs and safety constraints.
+
+### Adopted from
+Matt's unattended task execution agent in `skills/engineering/triage/AGENT-BRIEF.md:3`.
+
+### Dropped
+Executing ambiguous tasks without pre-existing automated test suites.
+
+### Rejected alternatives
+- unattended-agent (more clinical but less widely recognized than AFK in coding agent workflows)
+- autonomous-worker (lacks the explicit away-from-keyboard supervision context)
+
+### Evidence
+Matt `skills/engineering/triage/AGENT-BRIEF.md:3`.
+
+### Glossary
+### afk-agent
+
+- **definition:** An afk-agent is an autonomous execution agent configured to run unattended while the human operator is away from the keyboard, operating strictly against pre-approved agent briefs and safety constraints.
+- **kind:** role
+- **source names:** addy: — · matt: `AFK agent` · rjm: —
+- **decision:** D-577
+- **concordance:** `docs/analysis/concordance/roles.md#afk-agent`
+- **not to be confused with:** afk-runner, ready-for-afk-role
+
+---
+
+## D-578 — afk-runner
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#afk-runner
+- **preferences consulted:** PREFERENCES.md § Approach and § Granularity support batch queue processing; followed by adopting afk-runner.
+
+### Decision
+The canonical term for this role is `afk-runner`. An afk-runner is an orchestration supervisor process that sequentially polls the task queue, selects tickets marked ready-for-afk, dispatches afk-agents, and logs execution results.
+
+### Adopted from
+Matt's queue-processing supervisor in `external/triage.md:50`.
+
+### Dropped
+Infinite un-throttled polling loops without backoff or rate-limit handling.
+
+### Rejected alternatives
+- queue-runner (too generic)
+- afk-orchestrator (overstates the complexity of the serial dispatch runner loop)
+
+### Evidence
+Matt `external/triage.md:50`.
+
+### Glossary
+### afk-runner
+
+- **definition:** An afk-runner is an orchestration supervisor process that sequentially polls the task queue, selects tickets marked ready-for-afk, dispatches afk-agents, and logs execution results.
+- **kind:** role
+- **source names:** addy: — · matt: `AFK runner` · rjm: —
+- **decision:** D-578
+- **concordance:** `docs/analysis/concordance/roles.md#afk-runner`
+- **not to be confused with:** afk-agent, coordinator
+
+---
+
+## D-579 — coordinator
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#coordinator
+- **preferences consulted:** PREFERENCES.md § Approach and § References value clean multi-agent orchestration; followed by adopting coordinator.
+
+### Decision
+The canonical term for this role is `coordinator`. A coordinator is an orchestrating agent role that sequences multi-stage plans, routes subtasks to specialized workers, and aggregates parallel deliverables into a coherent final state.
+
+### Adopted from
+RJM's multi-agent coordination role in `.agents/AGENT-SYSTEM.md:836`.
+
+### Dropped
+Direct code implementation responsibilities (coordinators delegate, they do not write code).
+
+### Rejected alternatives
+- orchestrator (often used for workflow engines rather than the lifecycle role)
+- team-lead (conflates human management with agent orchestration)
+
+### Evidence
+RJM `.agents/AGENT-SYSTEM.md:836`.
+
+### Glossary
+### coordinator
+
+- **definition:** A coordinator is an orchestrating agent role that sequences multi-stage plans, routes subtasks to specialized workers, and aggregates parallel deliverables into a coherent final state.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `coordinator`
+- **decision:** D-579
+- **concordance:** `docs/analysis/concordance/roles.md#coordinator`
+- **not to be confused with:** router, driver
+
+---
+
+## D-580 — router
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#router
+- **preferences consulted:** PREFERENCES.md § Approach values fast single-hop request dispatch; followed by adopting router.
+
+### Decision
+The canonical term for this role is `router`. A router is a lightweight triage mechanism or persona that inspects incoming user requests or event payloads and routes them to the appropriate skill, command, or agent without executing work itself.
+
+### Adopted from
+RJM's router classification in `.claude/skills/autoplan/SKILL.md:11`.
+
+### Dropped
+Complex multi-step planning (routers make single-hop dispatch decisions).
+
+### Rejected alternatives
+- dispatcher (often conflated with event bus infrastructure)
+- triage-agent (too broad, includes bug verification and label manipulation)
+
+### Evidence
+RJM `.claude/skills/autoplan/SKILL.md:11`.
+
+### Glossary
+### router
+
+- **definition:** A router is a lightweight triage mechanism or persona that inspects incoming user requests or event payloads and routes them to the appropriate skill, command, or agent without executing work itself.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `router`
+- **decision:** D-580
+- **concordance:** `docs/analysis/concordance/roles.md#router`
+- **not to be confused with:** coordinator, ask-matt-router
+
+---
+
+## D-581 — trusted-controller
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#trusted-controller
+- **preferences consulted:** PREFERENCES.md § Constraints and § Depth enforce unyielding integrity of evaluation baselines; followed by adopting trusted-controller.
+
+### Decision
+The canonical term for this role is `trusted-controller`. A trusted-controller is a privileged execution kernel that securely owns evaluation datasets, test assertions, and scoring mechanisms, preventing untrusted or mutating agents from altering verification criteria.
+
+### Adopted from
+RJM's held-out verification architecture in `.agents/architecture/ADR-087-held-out-validated-improvement.md:573`.
+
+### Dropped
+Python evaluation harness dependencies in favor of Bun test runners.
+
+### Rejected alternatives
+- evaluation-harness (describes the software framework rather than the security boundary role)
+- security-kernel (too low-level, sounds like operating system kernel architecture)
+
+### Evidence
+RJM `.agents/architecture/ADR-087-held-out-validated-improvement.md:573`.
+
+### Glossary
+### trusted-controller
+
+- **definition:** A trusted-controller is a privileged execution kernel that securely owns evaluation datasets, test assertions, and scoring mechanisms, preventing untrusted or mutating agents from altering verification criteria.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `trusted controller`
+- **decision:** D-581
+- **concordance:** `docs/analysis/concordance/roles.md#trusted-controller`
+- **not to be confused with:** agent-safety-auditor, build-cop
+
+---
+
+## D-582 — agent-persona
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#agent-personas
+- **preferences consulted:** PREFERENCES.md § Approach embraces Addy's persona architecture; followed by adopting agent-persona.
+
+### Decision
+The canonical term for this role is `agent-persona`. An agent-persona is a structured role definition specifying an agent's behavioral identity, domain expertise, communication tone, tool permissions, and operational constraints.
+
+### Adopted from
+Addy's persona architecture in `docs/copilot-setup.md:19` and `references/agent-personas.md:5`.
+
+### Dropped
+Plural naming in favor of standard singular canonical entry.
+
+### Rejected alternatives
+- agent-personas (plural form rejected per GLOSSARY singular noun rules)
+- system-prompt (conflates the raw prompt string with the structured role identity)
+
+### Evidence
+Addy `docs/copilot-setup.md:19`, `references/agent-personas.md:5`.
+
+### Glossary
+### agent-persona
+
+- **definition:** An agent-persona is a structured role definition specifying an agent's behavioral identity, domain expertise, communication tone, tool permissions, and operational constraints.
+- **kind:** role
+- **source names:** addy: `Agent Personas` · matt: — · rjm: —
+- **decision:** D-582
+- **concordance:** `docs/analysis/concordance/roles.md#agent-personas`
+- **not to be confused with:** specialized-agent-persona, agent
+
+---
+
+## D-583 — specialized-agent-persona
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#specialized-agent-personas
+- **preferences consulted:** PREFERENCES.md § Approach and § Depth prioritize specialized personas for distinct lifecycle stages; followed by adopting specialized-agent-persona.
+
+### Decision
+The canonical term for this role is `specialized-agent-persona`. A specialized-agent-persona is a domain-tailored agent configuration packaged as a standalone agent definition (such as security auditor, test engineer, or web performance auditor) with dedicated tools and narrow verification focus.
+
+### Adopted from
+Addy's plugin agent packaging in `docs/antigravity-setup.md:94` and `docs/antigravity-setup.md:95`.
+
+### Dropped
+Plural naming in favor of standard singular canonical entry.
+
+### Rejected alternatives
+- specialized-agent-personas (plural form rejected per GLOSSARY rules)
+- domain-agent (less expressive of behavioral persona customization)
+
+### Evidence
+Addy `docs/antigravity-setup.md:94`, `docs/antigravity-setup.md:95`.
+
+### Glossary
+### specialized-agent-persona
+
+- **definition:** A specialized-agent-persona is a domain-tailored agent configuration packaged as a standalone agent definition (such as security auditor, test engineer, or web performance auditor) with dedicated tools and narrow verification focus.
+- **kind:** role
+- **source names:** addy: `Specialized Agent Personas` · matt: — · rjm: —
+- **decision:** D-583
+- **concordance:** `docs/analysis/concordance/roles.md#specialized-agent-personas`
+- **not to be confused with:** agent-persona, general-purpose-agent
+
+---
+
+## D-584 — user-representative
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#user-representative
+- **preferences consulted:** PREFERENCES.md § Approach values user experience advocacy in design governance; followed by adopting user-representative.
+
+### Decision
+The canonical term for this role is `user-representative`. A user-representative is a review or governance persona that advocates for end-user ergonomics, developer experience, intuitive interface design, and minimal cognitive friction.
+
+### Adopted from
+RJM's steering committee charter seat in `.agents/governance/steering-committee-charter.md:17`.
+
+### Dropped
+Subjective aesthetic vetoes without concrete usability defect evidence.
+
+### Rejected alternatives
+- ux-advocate (informal and narrow)
+- customer-proxy (commercial business framing rather than developer/user experience focus)
+
+### Evidence
+RJM `.agents/governance/steering-committee-charter.md:17`.
+
+### Glossary
+### user-representative
+
+- **definition:** A user-representative is a review or governance persona that advocates for end-user ergonomics, developer experience, intuitive interface design, and minimal cognitive friction.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `User Representative`
+- **decision:** D-584
+- **concordance:** `docs/analysis/concordance/roles.md#user-representative`
+- **not to be confused with:** audience-agent, naive-reader
+
+---
+
+## D-585 — audience-agent
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#audience-agent
+- **preferences consulted:** PREFERENCES.md § Approach values reader empathy and clear documentation; followed by adopting audience-agent.
+
+### Decision
+The canonical term for this role is `audience-agent`. An audience-agent is a documentation synthesis review persona that audits written guides and references from the reader's perspective, verifying clarity, discoverability, and accessibility to newcomers.
+
+### Adopted from
+RJM's synthesis protocol persona in `.claude/skills/skillforge/references/synthesis-protocol.md:21`.
+
+### Dropped
+Uppercase typography (`AUDIENCE AGENT`) in favor of canonical kebab-case naming.
+
+### Rejected alternatives
+- reader-agent (too generic)
+- usability-agent (conflates UI software usability with document readability)
+
+### Evidence
+RJM `.claude/skills/skillforge/references/synthesis-protocol.md:21`, `.claude/skills/skillforge/references/synthesis-protocol.md:85`.
+
+### Glossary
+### audience-agent
+
+- **definition:** An audience-agent is a documentation synthesis review persona that audits written guides and references from the reader's perspective, verifying clarity, discoverability, and accessibility to newcomers.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `AUDIENCE AGENT`
+- **decision:** D-585
+- **concordance:** `docs/analysis/concordance/roles.md#audience-agent`
+- **not to be confused with:** user-representative, naive-reader
+
+---
+
+## D-586 — prompt-engineer-specialist
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#prompt-engineer
+- **preferences consulted:** PREFERENCES.md § Approach and § Depth value rigorous prompt architecture; followed by adopting prompt-engineer-specialist.
+
+### Decision
+The canonical term for this role is `prompt-engineer-specialist`. A prompt-engineer-specialist is an agent authoring persona that designs, refines, and evaluates system prompts, instruction hierarchies, and few-shot examples for agents and skills.
+
+### Adopted from
+RJM's prompt author role in `.claude/skills/prose-self-check/SKILL.md:269`.
+
+### Dropped
+Conflating prompt authoring with auditing prose emitted during runtime sessions.
+
+### Rejected alternatives
+- prompt-engineer (bare title that can refer to human practitioner rather than dedicated agent persona)
+- prompt-designer (less standard in industry)
+
+### Evidence
+RJM `.claude/skills/prose-self-check/SKILL.md:269`.
+
+### Glossary
+### prompt-engineer-specialist
+
+- **definition:** A prompt-engineer-specialist is an agent authoring persona that designs, refines, and evaluates system prompts, instruction hierarchies, and few-shot examples for agents and skills.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `prompt-engineer`
+- **decision:** D-586
+- **concordance:** `docs/analysis/concordance/roles.md#prompt-engineer`
+- **not to be confused with:** skillbook-curator, technical-writer
+
+---
+
+## D-587 — skillbook-curator
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 032
+- **status:** active
+- **supersedes:** —
+- **resolves:** roles.md#skillbook-agent
+- **preferences consulted:** PREFERENCES.md § Approach supports continuous curation of skill repositories; followed by adopting skillbook-curator.
+
+### Decision
+The canonical term for this role is `skillbook-curator`. A skillbook-curator is a meta-maintenance persona that manages, updates, and validates the repository's library of skill markdown files, ensuring schema compliance and incorporating retrospective learnings.
+
+### Adopted from
+RJM's skillbook agent in `.claude/agents/skillbook.md:10`.
+
+### Dropped
+Unvalidated direct modifications to skill books without automated schema checks.
+
+### Rejected alternatives
+- skillbook-agent (noun-agent compounding rejected in favor of functional curator descriptor)
+- skill-manager (too corporate and vague)
+
+### Evidence
+RJM `.claude/agents/skillbook.md:10`.
+
+### Glossary
+### skillbook-curator
+
+- **definition:** A skillbook-curator is a meta-maintenance persona that manages, updates, and validates the repository's library of skill markdown files, ensuring schema compliance and incorporating retrospective learnings.
+- **kind:** role
+- **source names:** addy: — · matt: — · rjm: `Skillbook Agent`
+- **decision:** D-587
+- **concordance:** `docs/analysis/concordance/roles.md#skillbook-agent`
+- **not to be confused with:** retrospective-agent, prompt-engineer-specialist

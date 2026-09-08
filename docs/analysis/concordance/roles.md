@@ -50,8 +50,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt names a specialized `Spec sub-agent` focused on specification review and requirements verification; RJM defines the `Analyst Agent` responsible for research documentation and PRD analysis.
 - **sequencing note:** Invoked during specification drafting and review prior to task planning.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-519
 
 ### analyst
 
@@ -194,8 +194,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM features the `Brutally Honest Strategic Advisor` to cut through blind spots and challenge strategic assumptions. Unique to RJM.
 - **sequencing note:** Applied during roadmap and planning review.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-520
 
 ### high-level-advisor
 
@@ -286,8 +286,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines an interactive `planner` role and skill for breaking complex epics into structured plans. Addy implements planning as a skill (`planning-and-task-breakdown`) without a distinct named agent persona; Matt uses `to-tickets`.
 - **sequencing note:** Executes in Phase 2 (Plan).
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-521
 
 ### planner-skill
 
@@ -358,8 +358,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM specifies `task-decomposer` for breaking work packages into atomic actionable tickets. Addy and Matt handle decomposition inline.
 - **sequencing note:** Phase 2 (Plan) work breakdown.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-522
 
 ### task-decomposer-agent
 
@@ -448,8 +448,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Matt specifies `assignee` as the entity responsible for task delivery in the local issue tracker (`docs/agents/issue-tracker.md`). Neither Addy nor RJM models issue assignees as explicit concepts.
 - **sequencing note:** Assigned at task initialization.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-523
 
 ### ask-matt
 
@@ -466,8 +466,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Matt defines `ask-matt` as an engineering escalation role when an agent encounters ambiguity or requires human authorization. Unique to Matt.
 - **sequencing note:** Escalation interrupt during task execution.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-524
 
 ### ready-for-agent
 
@@ -484,8 +484,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Matt defines `ready-for-agent` as a triage role designating a task completely specified and validated for autonomous agent pickup. Unique to Matt.
 - **sequencing note:** State gate between triage and execution.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-525
 
 ### agent-ready
 
@@ -503,7 +503,7 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **difference:** Matt defines `agent-ready` as the validation status indicating a spec or plan contains all required context for execution. Unique to Matt.
 - **sequencing note:** Planning exit condition.
 - **needs decision:** no
-- **decision:** —
+- **decision:** D-570
 
 ### ready-for-human
 
@@ -520,8 +520,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Matt defines `ready-for-human` as a triage role marking tickets that require human decision, design choices, or manual credential inputs. Unique to Matt.
 - **sequencing note:** Triage routing state.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-526
 
 ### ready-for-afk
 
@@ -538,8 +538,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Matt specifies `ready-for-afk` for tickets qualified for unattended, background execution by an AFK runner. Unique to Matt.
 - **sequencing note:** Execution queue classification.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-527
 
 ### needs-slicing
 
@@ -556,8 +556,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Matt designates `needs-slicing` as a state role for tickets that exceed single-session context or task bounds and must be broken down. Unique to Matt.
 - **sequencing note:** Decomposition gate in triage.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-528
 
 ### needs-info
 
@@ -792,8 +792,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy designates `senior-engineer` as an experienced technical persona providing deep system judgment; RJM specifies `Principal+` as the senior technical authority for strategic architectural steering.
 - **sequencing note:** Consultative authority during architecture, spec, and review.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-529
 
 ### architect
 
@@ -810,8 +810,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `architect` as the role responsible for system-level structural integrity and pattern compliance. Addy and Matt handle architecture within general engineering discussions.
 - **sequencing note:** Operates across design, planning, and verification.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-530
 
 ### architect-agent
 
@@ -882,8 +882,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM establishes `Design Authority` as the final arbitration role on architectural conflicts and invariant enforcement. Unique to RJM.
 - **sequencing note:** Final review gate before shipping architectural changes.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-531
 
 ### design-agent
 
@@ -1028,8 +1028,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt names `implementation agent` as the worker focused on writing code from approved plans; RJM specifies `implementer` as the role that writes production-quality code following established patterns.
 - **sequencing note:** Core execution role during Phase 3 (Build).
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-532
 
 ### implementer-subagents
 
@@ -1046,8 +1046,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt defines `implementer subagents` as parallel execution units delivering slices of work; RJM defines `implementer agent` (.claude/agents/implementer.md) as the dedicated code authoring agent persona.
 - **sequencing note:** Dispatched during implementation phase.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-533
 
 ### driver
 
@@ -1064,8 +1064,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt specifies `driver` as the active pairing/coding persona driving the keyboard and tool execution; RJM defines `Developer` as the hands-on engineering contributor role.
 - **sequencing note:** Active code construction.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-534
 
 ### agent-developer
 
@@ -1100,8 +1100,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt uses `Standards sub-agent` to check adherence to coding rules and style; RJM uses `type-design-analyzer` to enforce type architecture, interface elegance, and type safety constraints.
 - **sequencing note:** Post-implementation review and refactoring.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-535
 
 ### type-design-analyzer-agent
 
@@ -1136,8 +1136,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM provides `code-simplifier` to reduce accidental complexity and remove dead code after implementation. Unique to RJM.
 - **sequencing note:** Cleanup step at end of build.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-536
 
 ### code-simplifier-agent
 
@@ -1192,8 +1192,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy designates `test-engineer` to author unit tests, edge-case harnesses, and integration suites; RJM specifies `Quality Assurance Specialist` as the QA persona ensuring testing rigor and test plan compliance.
 - **sequencing note:** Phase 4 (Test / Verify).
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-537
 
 ### qa
 
@@ -1318,8 +1318,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM specifies `Systematic Bug Hunter` as an investigative persona applying hypothesis-driven debugging techniques. Unique to RJM.
 - **sequencing note:** Active during defect triage and root-cause analysis.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-538
 
 ### debug
 
@@ -1408,8 +1408,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `silent-failure-hunter` to uncover swallowed exceptions, unhandled rejections, and empty catch blocks. Unique to RJM.
 - **sequencing note:** Audit gate before shipping.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-539
 
 ### silent-failure-hunter-agent
 
@@ -1462,8 +1462,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Addy defines `screen-reader` as an accessibility evaluation persona verifying semantic markup, ARIA roles, and screen reader announcements. Unique to Addy.
 - **sequencing note:** Verification phase accessibility audit.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-540
 
 ## 6. Security, Vulnerability & Governance Roles
 
@@ -1482,8 +1482,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy specifies `security-auditor` for reviewing code against OWASP vulnerabilities and security checklists; RJM specifies `Security Specialist` as the security reviewer conducting threat modeling and vulnerability assessments.
 - **sequencing note:** Phase 5 (Review / Audit).
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-541
 
 ### security
 
@@ -1554,8 +1554,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM provides `Supply-chain risk scanner` to surface vulnerable, outdated, or malicious third-party dependencies. Unique to RJM.
 - **sequencing note:** Test and dependency audit phase.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-542
 
 ### agent-safety
 
@@ -1572,8 +1572,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `agent-safety` to audit prompts, tool execution boundaries, and autonomous permission escalation risks. Unique to RJM.
 - **sequencing note:** Review phase safety audit.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-543
 
 ### steering-committee
 
@@ -1590,8 +1590,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM establishes `Steering Committee` as a multi-stakeholder governance body setting architectural and risk policy. Unique to RJM.
 - **sequencing note:** Cross-phase governance.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-544
 
 ### agent-system-steering-committee
 
@@ -1664,8 +1664,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy and RJM name `code-reviewer` as the foundational persona reviewing code across correctness, readability, architecture, and safety; Matt names `reviewer agent` as the role auditing PR diffs against repository standards.
 - **sequencing note:** Phase 5 (Review) entry role.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-545
 
 ### senior-code-reviewer
 
@@ -1682,8 +1682,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy defines `Senior Code Reviewer` as a senior staff engineering persona evaluating deep architectural and performance dimensions; Matt defines `review agent` as the dedicated low-context diff reviewer; RJM defines `Senior Analytical Reviewer` as a senior analytical audit role.
 - **sequencing note:** Comprehensive review pass.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-546
 
 ### fresh-context-reviewer
 
@@ -1700,8 +1700,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy defines `fresh-context reviewer` to evaluate code with zero prior conversation baggage; Matt defines `fresh agent` with uncluttered context; RJM defines `Naive Reader` to audit comprehension from a newcomer perspective without assumed context.
 - **sequencing note:** Post-implementation review check to avoid context bias.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-547
 
 ### agent-quality-reviewer
 
@@ -1790,8 +1790,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `Peer/Coach` for early, constructive feedback during drafting before wider adversarial panels. Unique to RJM.
 - **sequencing note:** Early drafting stage review.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-548
 
 ### cynic
 
@@ -1808,8 +1808,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM includes `Cynic` as a deliberate adversarial persona questioning utility, adoption, and hidden failure modes. Unique to RJM.
 - **sequencing note:** Adversarial panel member in review phase.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-549
 
 ### hostile-expert
 
@@ -1826,8 +1826,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM features `Hostile Expert` as an aggressive reviewer stress-testing edge cases, race conditions, and architectural boundaries. Unique to RJM.
 - **sequencing note:** Adversarial panel member.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-550
 
 ### contrarian-analyst
 
@@ -1844,8 +1844,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM provides `Contrarian Analyst` to argue against prevailing consensus and propose alternative paradigms. Unique to RJM.
 - **sequencing note:** Design and review challenge.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-551
 
 ### independent-thinker
 
@@ -1898,8 +1898,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `critic` as the role tasked with identifying weaknesses, omissions, and unstated risks in plans and implementations. Unique to RJM.
 - **sequencing note:** Cross-phase critique.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-552
 
 ### critic-agent
 
@@ -1952,8 +1952,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy defines `role-based reviewers` composing diverse perspectives; RJM defines the `six-role panel` formalizing six distinct review angles (Peer, Hostile, Naive, Security, DevOps, Architect).
 - **sequencing note:** Structured review phase panel execution.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-553
 
 ### adversarial-reviewer
 
@@ -1970,8 +1970,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `adversarial reviewer` as the umbrella role executing rigorous falsification passes. Unique to RJM.
 - **sequencing note:** Pre-ship review.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-554
 
 ### review-personas
 
@@ -2008,8 +2008,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `devops` as the infrastructure and CI/CD discipline persona designing pipelines and deployment automation. Neither Addy nor Matt formalizes DevOps as a standalone persona.
 - **sequencing note:** Cross-phase infrastructure stewardship.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-555
 
 ### devops-agent
 
@@ -2098,8 +2098,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `project-shipper` as the release orchestration role executing tags, changelogs, and release publication. Unique to RJM.
 - **sequencing note:** Final step in Phase 6 (Ship).
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-556
 
 ### dependency-auditor
 
@@ -2116,8 +2116,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM provides `dependency-auditor` as a dedicated agent auditing package versions, licenses, and security updates prior to release. Unique to RJM.
 - **sequencing note:** Ship phase dependency gate.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-557
 
 ### build-cop
 
@@ -2134,8 +2134,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Addy specifies `Build Cop` as the operational role monitoring CI health, diagnosing build breaks, and keeping trunk green. Unique to Addy.
 - **sequencing note:** Operational CI governance during build and ship.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-558
 
 ### rollback-owner
 
@@ -2152,8 +2152,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Addy defines `Rollback owner` as the designated individual or agent holding explicit authority and runbooks to execute immediate rollback if post-deploy metrics degrade. Unique to Addy.
 - **sequencing note:** Assigned prior to deployment execution in ship phase.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-559
 
 ### launch-sponsor
 
@@ -2170,8 +2170,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Addy defines `launch sponsor` as the executive or engineering lead granting final go-live authorization. Unique to Addy.
 - **sequencing note:** Pre-launch signoff gate in ship phase.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-560
 
 ### web-performance-auditor
 
@@ -2188,8 +2188,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Addy establishes `web-performance-auditor` to evaluate bundle sizes, Core Web Vitals, and runtime performance against budgets. Unique to Addy.
 - **sequencing note:** Verification and pre-ship performance audit.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-561
 
 ### reliability
 
@@ -2334,8 +2334,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt defines `merger subagent` to reconcile divergent branches and resolve git conflicts; RJM defines `merge-resolver` to resolve conflicts by analyzing commit intent and AST structure.
 - **sequencing note:** Invoked during branch integration or sync.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-562
 
 ### merge-conflict-resolution-specialist
 
@@ -2370,8 +2370,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM establishes `janitor` as the maintenance role responsible for hygiene tasks: removing dead code, cleaning temporary files, and formatting. Unique to RJM.
 - **sequencing note:** Periodic upkeep and repo maintenance.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-563
 
 ### janitor-agent
 
@@ -2406,8 +2406,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `Tech Debt Remediation Specialist` for systematic refactoring of obsolete patterns. Unique to RJM.
 - **sequencing note:** Dedicated refactoring sprints.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-564
 
 ### comment-analyzer
 
@@ -2424,8 +2424,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM provides `comment-analyzer` to audit comments against code implementation to eliminate documentation drift. Unique to RJM.
 - **sequencing note:** Codebase hygiene review.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-565
 
 ### comment-analyzer-agent
 
@@ -2460,8 +2460,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM specifies `pr-comment-responder` to parse and address code review comments automatically. Unique to RJM.
 - **sequencing note:** PR review iteration.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-566
 
 ### retrospective-agent
 
@@ -2478,8 +2478,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `retrospective agent` to extract lessons, update skill books, and log process improvements after project shipping. Unique to RJM.
 - **sequencing note:** Post-ship retrospective phase.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-567
 
 ### reflector
 
@@ -2532,8 +2532,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `Technical Writer` as the documentation author maintaining user guides, reference manuals, and API docs. Unique to RJM.
 - **sequencing note:** Documentation upkeep.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-568
 
 ### agent-technical-writer
 
@@ -2588,8 +2588,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy defines `Explore` as an exploratory persona surveying files without modifying code; Matt defines `exploration subagent` to perform deep codebase queries in isolated context; RJM defines `Explore` for read-only codebase mapping.
 - **sequencing note:** Pre-planning and pre-implementation reconnaissance.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-569
 
 ### explore-agent
 
@@ -2642,8 +2642,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `autonomous development agent` as a meta-developer persona continuously scanning GitHub issues for high-impact work and driving the continuous development loop. Unique to RJM.
 - **sequencing note:** Continuous autonomous issue development driver.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-571
 
 ### coding-agents
 
@@ -2660,8 +2660,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy uses `coding agents` to denote conversational CLI tools executing development tasks; RJM explicitly defines `Claude Code Agents` as the host harness platform persona.
 - **sequencing note:** Harness execution substrate.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-572
 
 ### general-purpose
 
@@ -2678,8 +2678,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy defines `general-purpose` as the fallback, unspecialized agent capable of handling diverse tasks; RJM defines `executor` as the baseline task execution engine running generic operations.
 - **sequencing note:** Default fallback execution role.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-573
 
 ### subagent
 
@@ -2696,8 +2696,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Matt formalizes `subagent` as an independently spawned worker with isolated context window to execute bounded subtasks. Unique to Matt's explicit subagent taxonomy.
 - **sequencing note:** Context-isolated task delegation.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-574
 
 ### subagents
 
@@ -2732,8 +2732,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt uses `sub-agent` (hyphenated) to denote child execution contexts; RJM defines `copilot-swe-agent` as an external child SWE worker spawned to execute bounded tasks.
 - **sequencing note:** Child worker execution.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-575
 
 ### sub-agents
 
@@ -2768,8 +2768,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Matt introduces `background agent` for asynchronous, non-blocking research and monitoring jobs. Unique to Matt.
 - **sequencing note:** Non-blocking background execution.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-576
 
 ### afk-agent
 
@@ -2786,8 +2786,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Matt defines `AFK agent` for fully autonomous, unattended task execution while the human developer is away from keyboard. Unique to Matt.
 - **sequencing note:** Unattended autonomous batch execution.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-577
 
 ### afk-runner
 
@@ -2804,8 +2804,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Matt specifies `AFK runner` as the supervising driver that sequentially loops through the `ready-for-afk` queue. Unique to Matt.
 - **sequencing note:** Batch loop supervisor.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-578
 
 ### coordinator
 
@@ -2822,8 +2822,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `coordinator` to route work, sequence plans, and aggregate parallel results across child agents. Unique to RJM.
 - **sequencing note:** Multi-agent task orchestration.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-579
 
 ### router
 
@@ -2840,8 +2840,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `router` as an automated triage mechanism directing incoming requests to specialized agents or commands. Unique to RJM.
 - **sequencing note:** Initial request dispatch.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-580
 
 ### manager
 
@@ -2876,8 +2876,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM specifies `trusted controller` as the secure kernel authorizing tool calls and validating subagent parameters. Unique to RJM.
 - **sequencing note:** Runtime security kernel.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-581
 
 ### cloud-agent
 
@@ -2948,8 +2948,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Addy formalizes `Agent Personas` as structured behavioral configurations tailoring agent tone, expertise, and operational focus. Unique to Addy.
 - **sequencing note:** Persona configuration at session initialization.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-582
 
 ### personas
 
@@ -3002,8 +3002,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** Addy provides `Specialized Agent Personas` for domain-specific tasks (e.g. security, performance, accessibility). Unique to Addy.
 - **sequencing note:** Domain-specific delegation.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-583
 
 ### expert
 
@@ -3056,8 +3056,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `User Representative` as a proxy persona advocating for user experience, ergonomics, and simplicity. Unique to RJM.
 - **sequencing note:** UX advocacy during spec and review.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-584
 
 ### stakeholder
 
@@ -3110,8 +3110,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `AUDIENCE AGENT` to evaluate documentation clarity, onboarding friction, and cognitive load for users. Unique to RJM.
 - **sequencing note:** Documentation and interface review.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-585
 
 ### audience-usability
 
@@ -3344,8 +3344,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `prompt-engineer` as the persona designing, evaluating, and tuning system prompts and instruction hierarchies. Unique to RJM.
 - **sequencing note:** Meta-engineering of agent behaviors.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-586
 
 ### prompt-optimizer
 
@@ -3398,8 +3398,8 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **class:** UNIQUE
 - **difference:** RJM defines `Skillbook Agent` (.claude/agents/skillbook.md) as the dedicated subagent updating and curating skill recipes. Unique to RJM.
 - **sequencing note:** Post-retrospective skill curation.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-587
 
 ### script-agent
 

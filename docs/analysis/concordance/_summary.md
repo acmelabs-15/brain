@@ -17,10 +17,10 @@ It provides:
 | [Sequencing](sequencing.md) | 367 | 405 | 4 | 26 | 0 | 1 | 336 | 0 | **0** (resolved in D-230–D-272) |
 | [Techniques](techniques.md) | 2,110 | 2,147 | 24 | 9 | 0 | 0 | 2,077 | 0 | **0** (resolved in D-273–D-511) |
 | [Gates](gates.md) | 841 | 866 | 17 | 7 | 0 | 0 | 817 | 0 | **0** (resolved in D-512–D-518) |
-| [Roles](roles.md) | 192 | 215 | 0 | 18 | 0 | 0 | 174 | 0 | **69** |
+| [Roles](roles.md) | 192 | 215 | 0 | 18 | 0 | 0 | 174 | 0 | **0** (resolved in D-519–D-587) |
 | [References](references.md) | 694 | 720 | 7 | 17 | 0 | 0 | 670 | 0 | **17** |
 | [Invocation Patterns](invocation-patterns.md) | 1,973 | 2,034 | 46 | 11 | 0 | 0 | 1,916 | 0 | **11** |
-| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **97** |
+| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **28** |
 
 ---
 
@@ -482,7 +482,7 @@ Source file: [`docs/analysis/concordance/gates.md`](gates.md)
 | [`pretooluse-hook`](gates.md#pretooluse-hook) | `SYNONYM` | `PreToolUse` | `PreToolUse hook` | — | Addy defines PreToolUse as an interception event for permissions and validation; Matt defines PreToolUse hook as an automated boundary check… |
 | [`pre-commit-validation-checks`](gates.md#pre-commit-validation-checks) | `SYNONYM` | `Pre-Commit Checks` | — | `pre-push hook` | Addy defines pre-commit checks as local automated lint/typecheck steps; RJM enforces pre-push hooks at git push boundary to prevent broken c… |
 
-### Roles (69 decisions needed)
+### Roles (0 decisions needed — resolved in D-519–D-587)
 
 Source file: [`docs/analysis/concordance/roles.md`](roles.md)
 
