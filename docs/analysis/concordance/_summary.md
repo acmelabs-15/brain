@@ -18,9 +18,9 @@ It provides:
 | [Techniques](techniques.md) | 2,110 | 2,147 | 24 | 9 | 0 | 0 | 2,077 | 0 | **0** (resolved in D-273–D-511) |
 | [Gates](gates.md) | 841 | 866 | 17 | 7 | 0 | 0 | 817 | 0 | **0** (resolved in D-512–D-518) |
 | [Roles](roles.md) | 192 | 215 | 0 | 18 | 0 | 0 | 174 | 0 | **0** (resolved in D-519–D-587) |
-| [References](references.md) | 694 | 720 | 7 | 17 | 0 | 0 | 670 | 0 | **17** |
+| [References](references.md) | 694 | 720 | 7 | 17 | 0 | 0 | 670 | 0 | **0** (resolved in D-588–D-604) |
 | [Invocation Patterns](invocation-patterns.md) | 1,973 | 2,034 | 46 | 11 | 0 | 0 | 1,916 | 0 | **11** |
-| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **28** |
+| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **11** |
 
 ---
 
@@ -558,7 +558,7 @@ Source file: [`docs/analysis/concordance/roles.md`](roles.md)
 | [`prompt-engineer`](roles.md#prompt-engineer) | `UNIQUE` | — | — | `prompt-engineer` | RJM defines `prompt-engineer` as the persona designing, evaluating, and tuning system prompts and instruction hierarchies. Unique to RJM. |
 | [`skillbook-agent`](roles.md#skillbook-agent) | `UNIQUE` | — | — | `Skillbook Agent` | RJM defines `Skillbook Agent` (.claude/agents/skillbook.md) as the dedicated subagent updating and curating skill recipes. Unique to RJM. |
 
-### References (17 decisions needed)
+### References (0 decisions needed — resolved in D-588–D-604)
 
 Source file: [`docs/analysis/concordance/references.md`](references.md)
 

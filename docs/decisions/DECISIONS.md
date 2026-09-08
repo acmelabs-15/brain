@@ -18705,3 +18705,649 @@ RJM `.claude/agents/skillbook.md:10`.
 - **decision:** D-587
 - **concordance:** `docs/analysis/concordance/roles.md#skillbook-agent`
 - **not to be confused with:** retrospective-agent, prompt-engineer-specialist
+
+---
+
+## D-588 — domain-driven-design
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#domain-driven-design
+- **preferences consulted:** PREFERENCES.md § Depth supports alignment down to named techniques and criteria; followed by formalizing domain-driven design reference standards.
+
+### Decision
+The canonical term is `domain-driven-design`. Domain-Driven Design (DDD) is an architectural reference framework providing strategic patterns (bounded contexts, ubiquitous language, context mapping) and tactical patterns (entities, value objects, aggregates) for structuring software systems around core business domains. Its primary lifecycle utility lies upstream in concept alignment and boundary definition rather than boilerplate tactical ceremony.
+
+### Adopted from
+RJM's reference consolidation in `.claude/skills/software-engineering-library/references/domain-driven-design.md:4` combined with Matt's pragmatic boundary guidance in `docs/engineering/domain-modeling.md:70`.
+
+### Dropped
+Excessive tactical layer ceremonies and dogmatic aggregate patterns where simple procedural or modular designs suffice.
+
+### Rejected alternatives
+- ddd (abbreviation rejected in favor of explicit full name)
+- domain-modeling (too generic, fails to cite the established Evans/Vernon reference patterns)
+
+### Evidence
+Matt `docs/engineering/domain-modeling.md:70`; RJM `.claude/skills/software-engineering-library/references/domain-driven-design.md:4`.
+
+### Glossary
+### domain-driven-design
+
+- **definition:** Domain-Driven Design is an architectural reference framework providing strategic patterns (bounded contexts, ubiquitous language, context mapping) and tactical patterns (entities, value objects, aggregates) for aligning software architecture with business domains.
+- **kind:** reference
+- **source names:** addy: — · matt: `DDD` · rjm: `Domain-Driven Design`
+- **decision:** D-588
+- **concordance:** `docs/analysis/concordance/references.md#domain-driven-design`
+- **not to be confused with:** ubiquitous-language, bounded-context
+
+---
+
+## D-589 — architectural-decision-records-reference
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#architectural-decision-records
+- **preferences consulted:** PREFERENCES.md § Approach and § References; followed by establishing ADR governance guidelines.
+
+### Decision
+The canonical term is `architectural-decision-records-reference`. The architectural decision records reference provides architectural guidance governing the scope, structure, immutable storage, and state lifecycle of architectural decision records (ADRs) within the codebase.
+
+### Adopted from
+Matt's characterization of ADRs as capturing non-obvious engineering decisions and immutable design history in `skills/productivity/teach/SKILL.md:17`, alongside RJM's numbering and policy invariants in `.agents/architecture/ADR-039-agent-model-cost-optimization.md:3`.
+
+### Dropped
+Unindexed or ephemeral ADR storage; RJM's unconsummated supersession references (noted as defects).
+
+### Rejected alternatives
+- adr-reference (abbreviation less explicit than full architectural decision records descriptor)
+- architecture-decision-record (rejected as it is the artifact name D-140; reference suffix required to maintain one-term-one-meaning)
+
+### Evidence
+Matt `skills/productivity/teach/SKILL.md:17`; RJM `.agents/architecture/ADR-039-agent-model-cost-optimization.md:3`.
+
+### Glossary
+### architectural-decision-records-reference
+
+- **definition:** The architectural decision records reference provides engineering guidance governing the format, scope, lifecycle, and immutable preservation of architectural decision records capturing non-obvious design choices.
+- **kind:** reference
+- **source names:** addy: — · matt: `architectural decision records` · rjm: `ADR-002`
+- **decision:** D-589
+- **concordance:** `docs/analysis/concordance/references.md#architectural-decision-records`
+- **not to be confused with:** architecture-decision-record, adr-state-lifecycle
+
+---
+
+## D-590 — definition-of-done
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#complete-acceptance-criteria
+- **preferences consulted:** PREFERENCES.md § References explicitly prioritizes Addy's root `definition-of-done.md` and mandates that `definition-of-done.md` should be part of the build phase in some form; followed directly.
+
+### Decision
+The canonical term is `definition-of-done`. The definition of done is a standing, project-wide quality reference establishing the universal verification criteria across correctness, test coverage, documentation, and operational readiness that every software modification must satisfy before completion.
+
+### Adopted from
+Addy's root reference in `references/definition-of-done.md:3`, incorporating Matt's focus on complete and independently verifiable criteria from `skills/engineering/triage/AGENT-BRIEF.md:28`.
+
+### Dropped
+Task-specific scope conflation where project-wide criteria are mixed into local ticket acceptance criteria.
+
+### Rejected alternatives
+- complete-acceptance-criteria (Matt's term refers to local ticket scopes rather than standing project-wide standards)
+- standing-checklist (too colloquial and non-standard)
+
+### Evidence
+Addy `references/definition-of-done.md:3`; Matt `skills/engineering/triage/AGENT-BRIEF.md:28`.
+
+### Glossary
+### definition-of-done
+
+- **definition:** The definition of done is a standing, project-wide quality reference establishing universal verification criteria across correctness, testing, documentation, and operational readiness that every change must satisfy.
+- **kind:** reference
+- **source names:** addy: `Definition of Done` · matt: `Complete acceptance criteria` · rjm: —
+- **decision:** D-590
+- **concordance:** `docs/analysis/concordance/references.md#complete-acceptance-criteria`
+- **not to be confused with:** quality-gate, task-acceptance-criteria
+
+---
+
+## D-591 — task-sizing-guidelines
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#task-sizing-and-effort
+- **preferences consulted:** PREFERENCES.md § Approach and § Constraints; followed by adopting clear scope boundaries for agent tasks.
+
+### Decision
+The canonical term is `task-sizing-guidelines`. Task sizing guidelines are scope thresholds and breakdown heuristics that categorize engineering tasks by blast radius (from XS at 1 file to XL at 8+ files), enforcing that tasks sized at large (L) or larger must be decomposed into smaller units that comfortably execute within a single context window.
+
+### Adopted from
+Addy's task sizing rules in `skills/planning-and-task-breakdown/SKILL.md:135`, supported by Matt's principle in `docs/engineering/implement.md:71` of splitting oversized tickets rather than raising model reasoning effort.
+
+### Dropped
+Arbitrary t-shirt sizing detached from concrete file count thresholds.
+
+### Rejected alternatives
+- effort (Matt's dictionary term describes model reasoning capacity or subjective work rather than structural task scope)
+- task-sizing (truncated noun phrase without guidelines descriptor)
+
+### Evidence
+Addy `skills/planning-and-task-breakdown/SKILL.md:135`; Matt `docs/engineering/implement.md:71`.
+
+### Glossary
+### task-sizing-guidelines
+
+- **definition:** Task sizing guidelines are scope thresholds and breakdown heuristics classifying tasks by expected file impact (XS to XL) and enforcing decomposition of oversized tasks into single-session units.
+- **kind:** reference
+- **source names:** addy: `Task Sizing Guidelines` · matt: `effort` · rjm: —
+- **decision:** D-591
+- **concordance:** `docs/analysis/concordance/references.md#task-sizing-and-effort`
+- **not to be confused with:** task-breakdown, vertical-slice
+
+---
+
+## D-592 — architectural-anti-patterns-reference
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#code-smell-baseline
+- **preferences consulted:** PREFERENCES.md § Depth; followed by establishing an anti-patterns catalog for architectural review.
+
+### Decision
+The canonical term is `architectural-anti-patterns-reference`. The architectural anti-patterns reference is a catalog of documented structural failure modes, design misconfigurations, and reliability antipatterns (such as unachievable service level objectives, tight coupling across service boundaries, and cascading fallback dependencies) that degrade system maintainability.
+
+### Adopted from
+RJM's anti-patterns catalog in `.claude/skills/slo-designer/references/slo-design-patterns.md:202` and Matt's structural smell guidance in `skills/engineering/code-review/SKILL.md:38`.
+
+### Dropped
+Uncategorized or ad-hoc lists of bad practices without concrete remediation paths.
+
+### Rejected alternatives
+- anti-patterns-to-avoid (imperative heading style rejected in favor of formal noun phrase)
+- fowler-code-smells (Martin Fowler's smells apply to code-level syntax/structure, resolved separately in D-593)
+
+### Evidence
+Matt `skills/engineering/code-review/SKILL.md:38`; RJM `.claude/skills/slo-designer/references/slo-design-patterns.md:202`.
+
+### Glossary
+### architectural-anti-patterns-reference
+
+- **definition:** The architectural anti-patterns reference is a catalog of documented structural failure modes, design misconfigurations, and reliability antipatterns that degrade system resilience and maintainability.
+- **kind:** reference
+- **source names:** addy: — · matt: `Fowler code smells` · rjm: `Anti-Patterns to Avoid`
+- **decision:** D-592
+- **concordance:** `docs/analysis/concordance/references.md#code-smell-baseline`
+- **not to be confused with:** code-smell-baseline, orchestration-antipatterns-reference
+
+---
+
+## D-593 — code-smell-baseline
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#fowler-smell-guidelines
+- **preferences consulted:** PREFERENCES.md § Depth; followed by formalizing a concrete review floor.
+
+### Decision
+The canonical term is `code-smell-baseline`. The code smell baseline is a standardized review floor defining twelve specific Martin Fowler code smells from *Refactoring* chapter 3 (Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, and Refused Bequest) paired with concrete refactoring remediations.
+
+### Adopted from
+Matt's explicit twelve-smell baseline in `docs/engineering/code-review.md:46`.
+
+### Dropped
+Subjective or open-ended smell lists that generate non-deterministic review feedback without refactoring solutions.
+
+### Rejected alternatives
+- smell-baseline (less explicit than code-smell-baseline)
+- fowler-smell-guidelines (row anchor name carries personal attribution rather than functional domain descriptor)
+
+### Evidence
+Matt `docs/engineering/code-review.md:46`.
+
+### Glossary
+### code-smell-baseline
+
+- **definition:** The code smell baseline is a standardized review floor defining twelve specific Martin Fowler code smells paired with concrete refactoring remediation moves applied during code review.
+- **kind:** reference
+- **source names:** addy: — · matt: `smell baseline` · rjm: —
+- **decision:** D-593
+- **concordance:** `docs/analysis/concordance/references.md#fowler-smell-guidelines`
+- **not to be confused with:** architectural-anti-patterns-reference, code-review-checklist-reference
+
+---
+
+## D-594 — static-analysis-standards
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#static-analysis-standards
+- **preferences consulted:** PREFERENCES.md § Depth and § Constraints; followed by formalizing static analysis and inline documentation rules.
+
+### Decision
+The canonical term is `static-analysis-standards`. Static analysis standards are formal quality and security specifications enforcing automated compiler checks, type verification, linter passes, CWE vulnerability detection, and inline documentation rules for non-obvious logic across the codebase.
+
+### Adopted from
+RJM's CWE vulnerability static analysis checklist in `.agents/security/static-analysis-checklist.md:5` synthesized with Addy's inline documentation standards in `skills/documentation-and-adrs/SKILL.md:102`.
+
+### Dropped
+Purely aesthetic linter bikeshedding without functional or security impact.
+
+### Rejected alternatives
+- inline-standards (Addy's term covers only comments, omitting automated AST/type analyzers)
+- static-analysis-checklist (checklist suffix represents artifact rather than the governing standards reference)
+
+### Evidence
+Addy `skills/documentation-and-adrs/SKILL.md:102`; RJM `.agents/security/static-analysis-checklist.md:5`.
+
+### Glossary
+### static-analysis-standards
+
+- **definition:** Static analysis standards are formal quality and security specifications enforcing automated linting, type validation, CWE vulnerability scanning, and documented inline architectural justifications.
+- **kind:** reference
+- **source names:** addy: `inline standards` · matt: — · rjm: `Static Analysis Checklist`
+- **decision:** D-594
+- **concordance:** `docs/analysis/concordance/references.md#static-analysis-standards`
+- **not to be confused with:** quality-gate, code-smell-baseline
+
+---
+
+## D-595 — testing-patterns-reference
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#testing-patterns-and-verification
+- **preferences consulted:** PREFERENCES.md § References explicitly prioritizes Addy's root `testing-patterns.md` as one of four critical references; followed directly.
+
+### Decision
+The canonical term is `testing-patterns-reference`. The testing patterns reference is an engineering manual defining standardized patterns for automated test suites, including Arrange-Act-Assert structures, boundary mocking conventions, integration test strategies, and deterministic verification reproduction steps.
+
+### Adopted from
+Addy's root reference `references/testing-patterns.md:1` per PREFERENCES.md § References, incorporating RJM's explicit verification step requirements in `.agents/architecture/ADR-077-flip-stale-contract-tests.md:48`.
+
+### Dropped
+Flaky end-to-end integration patterns that rely on external live network calls or unseeded state.
+
+### Rejected alternatives
+- testing-patterns-and-verification (concordance anchor compound phrase rejected for concise noun reference)
+- verification-steps (RJM term is an artifact or checklist element rather than a master testing reference)
+
+### Evidence
+Addy `references/testing-patterns.md:1`; RJM `.agents/architecture/ADR-077-flip-stale-contract-tests.md:48`.
+
+### Glossary
+### testing-patterns-reference
+
+- **definition:** The testing patterns reference is an engineering manual defining standardized patterns for unit testing, Arrange-Act-Assert structure, boundary mocking, and deterministic test verification sequences.
+- **kind:** reference
+- **source names:** addy: `Testing Patterns Reference (JavaScript/TypeScript)` · matt: — · rjm: `verification steps`
+- **decision:** D-595
+- **concordance:** `docs/analysis/concordance/references.md#testing-patterns-and-verification`
+- **not to be confused with:** test-driven-development, definition-of-done
+
+---
+
+## D-596 — secrets-handling-reference
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#secret-and-credential-handling
+- **preferences consulted:** PREFERENCES.md § Constraints; followed by enforcing rigorous credential security.
+
+### Decision
+The canonical term is `secrets-handling-reference`. The secrets handling reference is an operational security guide defining protocols for identifying exposed credentials in diffs, scanning for tokens prior to commit, configuring encrypted secrets in CI workflows, and injecting environment variables securely.
+
+### Adopted from
+RJM's security review secret detection checklist in `.claude/skills/review/references/security.md:82` combined with Matt's workflow secrets configuration conventions in `external/wizard.md:36`.
+
+### Dropped
+Hardcoded mock credentials in committed test fixtures without explicit dummy indicators.
+
+### Rejected alternatives
+- secret-detection (covers only the audit scan, omitting workflow configuration and injection hygiene)
+- secrets-and-vars (too specific to GitHub Actions syntax)
+
+### Evidence
+Matt `external/wizard.md:36`; RJM `.claude/skills/review/references/security.md:82`.
+
+### Glossary
+### secrets-handling-reference
+
+- **definition:** The secrets handling reference is an operational security guide defining protocols for detecting exposed credentials, preventing token leaks, and managing environment variable injection securely.
+- **kind:** reference
+- **source names:** addy: — · matt: `secrets.*` · rjm: `Secret Detection`
+- **decision:** D-596
+- **concordance:** `docs/analysis/concordance/references.md#secret-and-credential-handling`
+- **not to be confused with:** security-auditor, static-analysis-standards
+
+---
+
+## D-597 — performance-checklist-reference
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#performance-checklists-and-instruments
+- **preferences consulted:** PREFERENCES.md § References explicitly prioritizes Addy's root `performance-checklist.md`; followed directly.
+
+### Decision
+The canonical term is `performance-checklist-reference`. The performance checklist reference is a comprehensive diagnostic guide establishing quantitative latency thresholds, Core Web Vitals targets, database query optimization rules, and an instrument index mapping diagnostic questions to executable profiling commands.
+
+### Adopted from
+Addy's root reference `references/performance-checklist.md:3` per PREFERENCES.md § References, enriched with RJM's diagnostic instrument index mapping in `.claude/skills/ai-agents-diagnostics-toolkit/SKILL.md:22`.
+
+### Dropped
+Unmeasurable subjective performance advice; unfailable diagnostic gates (flagged as defects).
+
+### Rejected alternatives
+- instrument-index (RJM term represents only the CLI tool table, omitting the performance targets and checklists)
+- web-vitals-reference (too narrow, ignores backend and database latency optimization)
+
+### Evidence
+Addy `references/performance-checklist.md:3`; RJM `.claude/skills/ai-agents-diagnostics-toolkit/SKILL.md:22`.
+
+### Glossary
+### performance-checklist-reference
+
+- **definition:** The performance checklist reference is a diagnostic guide establishing quantitative targets for latency, Core Web Vitals, caching, and an instrument index routing diagnostic questions to profiling tools.
+- **kind:** reference
+- **source names:** addy: `Performance Checklist` · matt: — · rjm: `Instrument Index`
+- **decision:** D-597
+- **concordance:** `docs/analysis/concordance/references.md#performance-checklists-and-instruments`
+- **not to be confused with:** web-performance-auditor, performance-optimization
+
+---
+
+## D-598 — design-system-standards
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#design-system-specifications
+- **preferences consulted:** PREFERENCES.md § Depth; followed by defining interface styling standards.
+
+### Decision
+The canonical term is `design-system-standards`. Design system standards are architectural and visual specifications defining design tokens (color palettes, typography scales, spacing grids), responsive layout conventions, accessible UI component primitives (WCAG 2.1 AA), and utility CSS frameworks.
+
+### Adopted from
+Addy's frontend UI engineering standards in `external/frontend-ui-engineering.md:5` and Matt's utility-first CSS integration patterns in `skills/engineering/improve-codebase-architecture/HTML-REPORT.md:3`.
+
+### Dropped
+Framework-specific CSS-in-JS runtimes that impose heavy runtime bundle overhead.
+
+### Rejected alternatives
+- tailwind (too narrow; names a specific vendor library rather than general design system governance)
+- design-systems (plural noun phrase without standards descriptor)
+
+### Evidence
+Addy `external/frontend-ui-engineering.md:5`; Matt `skills/engineering/improve-codebase-architecture/HTML-REPORT.md:3`.
+
+### Glossary
+### design-system-standards
+
+- **definition:** Design system standards are visual and interface specifications defining design tokens, responsive layouts, accessible UI primitives, and consistent utility styling conventions across components.
+- **kind:** reference
+- **source names:** addy: `design systems` · matt: `Tailwind` · rjm: —
+- **decision:** D-598
+- **concordance:** `docs/analysis/concordance/references.md#design-system-specifications`
+- **not to be confused with:** user-representative, screen-reader-auditor
+
+---
+
+## D-599 — code-review-checklist-reference
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#code-review-standards
+- **preferences consulted:** PREFERENCES.md § Approach and § References; followed by structuring code review criteria.
+
+### Decision
+The canonical term is `code-review-checklist-reference`. The code review checklist reference is a structured evaluation guide defining seven core review axes (Context, Correctness, Readability, Architecture, Security, Performance, and Verification) applied during pre-PR implementer self-reviews and independent peer code reviews.
+
+### Adopted from
+Addy's comprehensive review checklist template in `skills/code-review-and-quality/SKILL.md:302` and RJM's pre-PR layer boundary checklist in `.claude/skills/software-engineering-library/references/clean-architecture.md:167`.
+
+### Dropped
+Unstructured, rubber-stamp code reviews that fail to audit specific architectural seams or security boundaries.
+
+### Rejected alternatives
+- review-checklist (too generic, could apply to spec review or design review)
+- quick-self-review (RJM term covers only author pre-checks, omitting auditor review axes)
+
+### Evidence
+Addy `skills/code-review-and-quality/SKILL.md:302`; RJM `.claude/skills/software-engineering-library/references/clean-architecture.md:167`.
+
+### Glossary
+### code-review-checklist-reference
+
+- **definition:** The code review checklist reference is a structured evaluation guide defining core review axes (including correctness, architecture, security, and verification) for author self-checks and peer reviews.
+- **kind:** reference
+- **source names:** addy: `Review Checklist` · matt: — · rjm: `Quick Self-Review`
+- **decision:** D-599
+- **concordance:** `docs/analysis/concordance/references.md#code-review-standards`
+- **not to be confused with:** code-reviewer, definition-of-done, code-smell-baseline
+
+---
+
+## D-600 — primary-source-reference
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#primary-sources-documentation
+- **preferences consulted:** PREFERENCES.md § Constraints (facts verified through analysis itself); followed by establishing primary source primacy.
+
+### Decision
+The canonical term is `primary-source-reference`. The primary source reference is an epistemological engineering policy requiring that all technical claims, API contracts, architectural decisions, and bug diagnoses be substantiated by direct citations to origin evidence (official vendor documentation, unflattened transcripts, reproducible execution logs, or source code) rather than secondary summaries or parametric model assumptions.
+
+### Adopted from
+RJM's foundational principle in `.claude/skills/ai-agents-external-claims/SKILL.md:50` ("The primary source is the origin, not a summary of the origin") combined with Matt's phase boundary rule in `skills/engineering/ask-matt/PHASE-BOUNDARIES.md:21` and Addy's official documentation mandate.
+
+### Dropped
+Unsubstantiated claims derived from secondary blog posts, forum answers, or unverified LLM memory.
+
+### Rejected alternatives
+- primary-sources-documentation (redundant compound descriptor)
+- official-documentation (Addy term is too narrow, as code execution output and git checkouts are also primary sources)
+
+### Evidence
+Matt `skills/engineering/ask-matt/PHASE-BOUNDARIES.md:21`; RJM `.claude/skills/ai-agents-external-claims/SKILL.md:50`.
+
+### Glossary
+### primary-source-reference
+
+- **definition:** The primary source reference is an epistemological policy requiring technical claims, API contracts, and decisions to be substantiated by direct citations to origin artifacts rather than secondary summaries.
+- **kind:** reference
+- **source names:** addy: `Official documentation` · matt: `primary source` · rjm: `Primary source`
+- **decision:** D-600
+- **concordance:** `docs/analysis/concordance/references.md#primary-sources-documentation`
+- **not to be confused with:** input-contract, ground-truth-verification
+
+---
+
+## D-601 — harness-engineering-reference
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#harness-engineering
+- **preferences consulted:** PREFERENCES.md § Approach requires brain compatibility and dual-target execution (governed by D-009); followed directly.
+
+### Decision
+The canonical term is `harness-engineering-reference`. The harness engineering reference is an architectural manual defining environment abstraction standards, tool declaration conventions, lifecycle hook integration, and dual-target parity guidelines (Claude Code canonical layout with Antigravity mirrors per D-009) to ensure portable agent skill execution across hosting platforms.
+
+### Adopted from
+Addy's Claude Code and Agent Teams interop rules in `AGENTS.md:84`, RJM's harness engineering taste lints in `.claude/skills/taste-lints/SKILL.md:12`, and Matt's multi-harness portability analysis in `docs/engineering/codebase-design.md:72`.
+
+### Dropped
+Harness-specific lock-in that breaks portability across CLI environments.
+
+### Rejected alternatives
+- claude-code-interop (Addy term is single-vendor specific, violating dual-target requirements)
+- harnesses (Matt term is an informal dictionary noun without engineering specification scope)
+
+### Evidence
+Addy `AGENTS.md:84`; Matt `docs/engineering/codebase-design.md:72`; RJM `.claude/skills/taste-lints/SKILL.md:12`.
+
+### Glossary
+### harness-engineering-reference
+
+- **definition:** The harness engineering reference is an architectural manual defining environment abstraction standards, tool conventions, and dual-target parity rules ensuring portable skill execution across agent platforms.
+- **kind:** reference
+- **source names:** addy: `Claude Code interop` · matt: `harnesses` · rjm: `Harness Engineering`
+- **decision:** D-601
+- **concordance:** `docs/analysis/concordance/references.md#harness-engineering`
+- **not to be confused with:** skill-execution-harness, bisection-harness
+
+---
+
+## D-602 — context-window-management-reference
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#context-window-management
+- **preferences consulted:** PREFERENCES.md § Approach and § Constraints; followed by establishing context discipline.
+
+### Decision
+The canonical term is `context-window-management-reference`. The context window management reference is an operational guide governing LLM token budgeting, session lifespan, single-task ticket sizing, context compaction boundaries, and subagent process spawning overhead (spawn tax).
+
+### Adopted from
+Matt's context window boundary analysis in `docs/engineering/grill-with-docs.md:39` and RJM's spawn tax accounting in `.agents/architecture/ADR-062-conditional-lsp-first-enforcement.md:61`.
+
+### Dropped
+Indefinite conversational chaining that degrades reasoning through context bloat.
+
+### Rejected alternatives
+- spawn-tax (RJM term covers only process latency, not token budgeting and context capacity)
+- context-budget-reference (focuses on arithmetic budget rather than holistic window lifecycle and compaction)
+
+### Evidence
+Matt `docs/engineering/grill-with-docs.md:39`; RJM `.agents/architecture/ADR-062-conditional-lsp-first-enforcement.md:61`.
+
+### Glossary
+### context-window-management-reference
+
+- **definition:** The context window management reference is an operational guide governing LLM token budgeting, context compaction boundaries, single-task ticket sizing, and subagent process spawning overhead.
+- **kind:** reference
+- **source names:** addy: — · matt: `context window` · rjm: `spawn tax`
+- **decision:** D-602
+- **concordance:** `docs/analysis/concordance/references.md#context-window-management`
+- **not to be confused with:** task-sizing-guidelines, subagent
+
+---
+
+## D-603 — api-interface-standards-reference
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#api-interface-standards
+- **preferences consulted:** PREFERENCES.md § Depth; followed by standardizing API specification formats.
+
+### Decision
+The canonical term is `api-interface-standards-reference`. The API interface standards reference specifies interface contract guidelines, mandating machine-readable OpenAPI/Swagger schemas for REST service endpoints and prioritizing direct first-party API verification over third-party wrapper abstractions during technical research.
+
+### Adopted from
+Addy's REST schema documentation standards in `skills/documentation-and-adrs/SKILL.md:176` and Matt's research guidelines requiring inspection of first-party APIs in `skills/engineering/research/SKILL.md:10`.
+
+### Dropped
+Undocumented endpoints and unvalidated third-party client library wrappers.
+
+### Rejected alternatives
+- openapi-swagger (too specific to a single tool brand, omits first-party API principles)
+- first-party-apis (Matt term is a research heuristic rather than a full interface standard)
+
+### Evidence
+Addy `skills/documentation-and-adrs/SKILL.md:176`; Matt `skills/engineering/research/SKILL.md:10`.
+
+### Glossary
+### api-interface-standards-reference
+
+- **definition:** The API interface standards reference defines interface contract specifications, mandating machine-readable OpenAPI schemas and prioritizing direct first-party API inspection over wrapper abstractions.
+- **kind:** reference
+- **source names:** addy: `OpenAPI / Swagger` · matt: `first-party APIs` · rjm: —
+- **decision:** D-603
+- **concordance:** `docs/analysis/concordance/references.md#api-interface-standards`
+- **not to be confused with:** primary-source-reference, design-system-standards
+
+---
+
+## D-604 — issue-tracker-governance-reference
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 033
+- **status:** active
+- **supersedes:** —
+- **resolves:** references.md#issue-tracker-references
+- **preferences consulted:** PREFERENCES.md § Approach and § Phase mapping; followed by standardizing issue tracker boundaries.
+
+### Decision
+The canonical term is `issue-tracker-governance-reference`. The issue tracker governance reference defines integration boundaries and metadata schema rules for work item trackers, limiting built-in support to mainstream issue tracking systems while enforcing strict governance over cross-harness exclusion flags and task field schemas.
+
+### Adopted from
+Matt's mainstream issue tracker boundary in `.out-of-scope/mainstream-issue-trackers-only.md:3` and RJM's generic field governance framework in `.agents/architecture/ADR-085-cross-harness-permission-surface-asymmetry.md:483`.
+
+### Dropped
+Support for niche or experimental single-vendor tracking platforms; ungoverned ad-hoc metadata fields.
+
+### Rejected alternatives
+- issue-trackers (Matt term is an informal out-of-scope note rather than a governance reference)
+- generic-field-governance (RJM term covers only exclusion flag policy, not tracker integration boundaries)
+
+### Evidence
+Matt `.out-of-scope/mainstream-issue-trackers-only.md:3`; RJM `.agents/architecture/ADR-085-cross-harness-permission-surface-asymmetry.md:483`.
+
+### Glossary
+### issue-tracker-governance-reference
+
+- **definition:** The issue tracker governance reference defines integration boundaries and metadata schema rules for work item trackers, restricting integration to mainstream platforms and enforcing field governance.
+- **kind:** reference
+- **source names:** addy: — · matt: `issue trackers` · rjm: `Generic field governance`
+- **decision:** D-604
+- **concordance:** `docs/analysis/concordance/references.md#issue-tracker-references`
+- **not to be confused with:** task-tracking-system, task-board

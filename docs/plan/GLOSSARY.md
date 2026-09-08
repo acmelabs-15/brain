@@ -3860,6 +3860,105 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 
 ### References
 
+### api-interface-standards-reference
+
+- **definition:** The API interface standards reference defines interface contract specifications, mandating machine-readable OpenAPI schemas and prioritizing direct first-party API inspection over wrapper abstractions.
+- **kind:** reference
+- **source names:** addy: `OpenAPI / Swagger` · matt: `first-party APIs` · rjm: —
+- **decision:** D-603
+- **concordance:** `docs/analysis/concordance/references.md#api-interface-standards`
+- **not to be confused with:** primary-source-reference, design-system-standards
+
+### architectural-anti-patterns-reference
+
+- **definition:** The architectural anti-patterns reference is a catalog of documented structural failure modes, design misconfigurations, and reliability antipatterns that degrade system resilience and maintainability.
+- **kind:** reference
+- **source names:** addy: — · matt: `Fowler code smells` · rjm: `Anti-Patterns to Avoid`
+- **decision:** D-592
+- **concordance:** `docs/analysis/concordance/references.md#code-smell-baseline`
+- **not to be confused with:** code-smell-baseline, orchestration-antipatterns-reference
+
+### architectural-decision-records-reference
+
+- **definition:** The architectural decision records reference provides engineering guidance governing the format, scope, lifecycle, and immutable preservation of architectural decision records capturing non-obvious design choices.
+- **kind:** reference
+- **source names:** addy: — · matt: `architectural decision records` · rjm: `ADR-002`
+- **decision:** D-589
+- **concordance:** `docs/analysis/concordance/references.md#architectural-decision-records`
+- **not to be confused with:** architecture-decision-record, adr-state-lifecycle
+
+### code-review-checklist-reference
+
+- **definition:** The code review checklist reference is a structured evaluation guide defining core review axes (including correctness, architecture, security, and verification) for author self-checks and peer reviews.
+- **kind:** reference
+- **source names:** addy: `Review Checklist` · matt: — · rjm: `Quick Self-Review`
+- **decision:** D-599
+- **concordance:** `docs/analysis/concordance/references.md#code-review-standards`
+- **not to be confused with:** code-reviewer, definition-of-done, code-smell-baseline
+
+### code-smell-baseline
+
+- **definition:** The code smell baseline is a standardized review floor defining twelve specific Martin Fowler code smells paired with concrete refactoring remediation moves applied during code review.
+- **kind:** reference
+- **source names:** addy: — · matt: `smell baseline` · rjm: —
+- **decision:** D-593
+- **concordance:** `docs/analysis/concordance/references.md#fowler-smell-guidelines`
+- **not to be confused with:** architectural-anti-patterns-reference, code-review-checklist-reference
+
+### context-window-management-reference
+
+- **definition:** The context window management reference is an operational guide governing LLM token budgeting, context compaction boundaries, single-task ticket sizing, and subagent process spawning overhead.
+- **kind:** reference
+- **source names:** addy: — · matt: `context window` · rjm: `spawn tax`
+- **decision:** D-602
+- **concordance:** `docs/analysis/concordance/references.md#context-window-management`
+- **not to be confused with:** task-sizing-guidelines, subagent
+
+### definition-of-done
+
+- **definition:** The definition of done is a standing, project-wide quality reference establishing universal verification criteria across correctness, testing, documentation, and operational readiness that every change must satisfy.
+- **kind:** reference
+- **source names:** addy: `Definition of Done` · matt: `Complete acceptance criteria` · rjm: —
+- **decision:** D-590
+- **concordance:** `docs/analysis/concordance/references.md#complete-acceptance-criteria`
+- **not to be confused with:** quality-gate, task-acceptance-criteria
+
+### design-system-standards
+
+- **definition:** Design system standards are visual and interface specifications defining design tokens, responsive layouts, accessible UI primitives, and consistent utility styling conventions across components.
+- **kind:** reference
+- **source names:** addy: `design systems` · matt: `Tailwind` · rjm: —
+- **decision:** D-598
+- **concordance:** `docs/analysis/concordance/references.md#design-system-specifications`
+- **not to be confused with:** user-representative, screen-reader-auditor
+
+### domain-driven-design
+
+- **definition:** Domain-Driven Design is an architectural reference framework providing strategic patterns (bounded contexts, ubiquitous language, context mapping) and tactical patterns (entities, value objects, aggregates) for aligning software architecture with business domains.
+- **kind:** reference
+- **source names:** addy: — · matt: `DDD` · rjm: `Domain-Driven Design`
+- **decision:** D-588
+- **concordance:** `docs/analysis/concordance/references.md#domain-driven-design`
+- **not to be confused with:** ubiquitous-language, bounded-context
+
+### harness-engineering-reference
+
+- **definition:** The harness engineering reference is an architectural manual defining environment abstraction standards, tool conventions, and dual-target parity rules ensuring portable skill execution across agent platforms.
+- **kind:** reference
+- **source names:** addy: `Claude Code interop` · matt: `harnesses` · rjm: `Harness Engineering`
+- **decision:** D-601
+- **concordance:** `docs/analysis/concordance/references.md#harness-engineering`
+- **not to be confused with:** skill-execution-harness, bisection-harness
+
+### issue-tracker-governance-reference
+
+- **definition:** The issue tracker governance reference defines integration boundaries and metadata schema rules for work item trackers, restricting integration to mainstream platforms and enforcing field governance.
+- **kind:** reference
+- **source names:** addy: — · matt: `issue trackers` · rjm: `Generic field governance`
+- **decision:** D-604
+- **concordance:** `docs/analysis/concordance/references.md#issue-tracker-references`
+- **not to be confused with:** task-tracking-system, task-board
+
 ### lifecycle-anti-recommendations
 
 - **definition:** Lifecycle anti-recommendations are documented negative guidelines defining trivial or mechanical tasks (such as single-line doc typos or dependency pin bumps) where the full lifecycle imposes unnecessary overhead and must be omitted.
@@ -3887,6 +3986,42 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-orchestration-patterns-catalog`
 - **not to be confused with:** orchestration-antipatterns-reference, parallel-fan-out-merge
 
+### performance-checklist-reference
+
+- **definition:** The performance checklist reference is a diagnostic guide establishing quantitative targets for latency, Core Web Vitals, caching, and an instrument index routing diagnostic questions to profiling tools.
+- **kind:** reference
+- **source names:** addy: `Performance Checklist` · matt: — · rjm: `Instrument Index`
+- **decision:** D-597
+- **concordance:** `docs/analysis/concordance/references.md#performance-checklists-and-instruments`
+- **not to be confused with:** web-performance-auditor, performance-optimization
+
+### primary-source-reference
+
+- **definition:** The primary source reference is an epistemological policy requiring technical claims, API contracts, and decisions to be substantiated by direct citations to origin artifacts rather than secondary summaries.
+- **kind:** reference
+- **source names:** addy: `Official documentation` · matt: `primary source` · rjm: `Primary source`
+- **decision:** D-600
+- **concordance:** `docs/analysis/concordance/references.md#primary-sources-documentation`
+- **not to be confused with:** input-contract, ground-truth-verification
+
+### secrets-handling-reference
+
+- **definition:** The secrets handling reference is an operational security guide defining protocols for detecting exposed credentials, preventing token leaks, and managing environment variable injection securely.
+- **kind:** reference
+- **source names:** addy: — · matt: `secrets.*` · rjm: `Secret Detection`
+- **decision:** D-596
+- **concordance:** `docs/analysis/concordance/references.md#secret-and-credential-handling`
+- **not to be confused with:** security-auditor, static-analysis-standards
+
+### static-analysis-standards
+
+- **definition:** Static analysis standards are formal quality and security specifications enforcing automated linting, type validation, CWE vulnerability scanning, and documented inline architectural justifications.
+- **kind:** reference
+- **source names:** addy: `inline standards` · matt: — · rjm: `Static Analysis Checklist`
+- **decision:** D-594
+- **concordance:** `docs/analysis/concordance/references.md#static-analysis-standards`
+- **not to be confused with:** quality-gate, code-smell-baseline
+
 ### task-fitness-guide
 
 - **definition:** The task fitness guide is a decision matrix mapping incoming engineering task shapes (such as full features, hotfixes, spikes, or doc changes) to the appropriate subset of lifecycle phases.
@@ -3895,6 +4030,24 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **decision:** D-241
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-fitness-when-to-use-guide`
 - **not to be confused with:** lifecycle-anti-recommendations, lifecycle-mapping
+
+### task-sizing-guidelines
+
+- **definition:** Task sizing guidelines are scope thresholds and breakdown heuristics classifying tasks by expected file impact (XS to XL) and enforcing decomposition of oversized tasks into single-session units.
+- **kind:** reference
+- **source names:** addy: `Task Sizing Guidelines` · matt: `effort` · rjm: —
+- **decision:** D-591
+- **concordance:** `docs/analysis/concordance/references.md#task-sizing-and-effort`
+- **not to be confused with:** task-breakdown, vertical-slice
+
+### testing-patterns-reference
+
+- **definition:** The testing patterns reference is an engineering manual defining standardized patterns for unit testing, Arrange-Act-Assert structure, boundary mocking, and deterministic test verification sequences.
+- **kind:** reference
+- **source names:** addy: `Testing Patterns Reference (JavaScript/TypeScript)` · matt: — · rjm: `verification steps`
+- **decision:** D-595
+- **concordance:** `docs/analysis/concordance/references.md#testing-patterns-and-verification`
+- **not to be confused with:** test-driven-development, definition-of-done
 
 ### Patterns
 

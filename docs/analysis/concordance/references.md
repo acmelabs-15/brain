@@ -50,8 +50,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt names DDD as architectural guidance for bounded contexts and ubiquitous language; RJM formalizes Domain-Driven Design references across subsystem boundaries.
 - **sequencing note:** Applied during architecture discovery and system decomposition.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-588
 
 ### architectural-decision-records
 
@@ -68,8 +68,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt references Architectural Decision Records as immutable design history; RJM indexes specific numbered ADR documents (e.g. ADR-002) governing architecture invariants.
 - **sequencing note:** Recorded during architectural review; referenced throughout build and test.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-589
 
 ### decision-guide
 
@@ -1024,8 +1024,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt specifies complete acceptance criteria checklists to ensure ticket scope is bounded, whereas Addy encapsulates this in the broader Definition of Done.
 - **sequencing note:** Applied prior to implementation kickoff and re-checked at pull request creation.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-590
 
 ### task-sizing-and-effort
 
@@ -1042,8 +1042,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy provides task sizing guidelines (S/M/L bounds); Matt references effort metrics to constrain scope per task.
 - **sequencing note:** Applied during task decomposition and planning.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-591
 
 ### small
 
@@ -1818,8 +1818,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt cites Martin Fowler code smells as an architectural reference; RJM provides an anti-patterns catalog to identify structural degeneration.
 - **sequencing note:** Evaluated during refactoring passes and peer reviews.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-592
 
 ### fowler-smell-guidelines
 
@@ -1836,8 +1836,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt references Fowler smell baselines to distinguish healthy code from structural debt during task breakdown.
 - **sequencing note:** Referenced during planning and code review.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-593
 
 ### static-analysis-standards
 
@@ -1854,8 +1854,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy provides inline coding standards; RJM enforces a static analysis checklist for automated linter, type, and style verification.
 - **sequencing note:** Executed during code implementation and pre-commit checks.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-594
 
 ### never-do
 
@@ -2378,8 +2378,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy provides a detailed testing patterns reference for JS/TS suites; RJM specifies explicit verification steps and reproduction scripts.
 - **sequencing note:** Referenced during test design and executed during test runner validation.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-595
 
 ### test-anti-patterns-to-avoid
 
@@ -2632,8 +2632,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt documents secrets configuration and environment injection; RJM provides automated secret detection checklists to prevent credential leaks.
 - **sequencing note:** Enforced prior to git commit and repository push.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-596
 
 ### data-protection
 
@@ -3480,8 +3480,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy provides a performance checklist for web vitals and backend latency; RJM maintains an instrument index tracking performance metrics.
 - **sequencing note:** Validated during benchmarking and release readiness review.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-597
 
 ### lcp
 
@@ -3842,8 +3842,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy defines design system adherence standards; Matt references Tailwind CSS utility conventions for component styling.
 - **sequencing note:** Referenced during UI development and visual QA.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-598
 
 ### visual
 
@@ -4366,8 +4366,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy prescribes a comprehensive review checklist for auditors; RJM provides a quick self-review checklist for implementers prior to handoff.
 - **sequencing note:** Applied at code completion before requesting peer or automated review.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-599
 
 ### review-framework
 
@@ -5432,8 +5432,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy requires verifying against official documentation; Matt and RJM mandate citing primary sources rather than LLM parametric assumptions.
 - **sequencing note:** Enforced during research, specification discovery, and technology selection.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-600
 
 ### github-integration
 
@@ -5486,8 +5486,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy references Claude Code interop conventions; Matt references agent harnesses; RJM formalizes comprehensive harness engineering and environment design.
 - **sequencing note:** Established during environment setup and agent configuration.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-601
 
 ### context-window-management
 
@@ -5504,8 +5504,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt references context window limits and working memory; RJM formalizes the spawn tax associated with spawning fresh subagents.
 - **sequencing note:** Guides agent decomposition decisions and subagent lifetime management.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-602
 
 ### api-interface-standards
 
@@ -5522,8 +5522,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy references OpenAPI/Swagger schemas; Matt emphasizes relying on first-party APIs over third-party wrapper abstractions.
 - **sequencing note:** Consulted during interface contract design.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-603
 
 ### issue-tracker-references
 
@@ -5540,8 +5540,8 @@ Total concordance rows: **694** mapping **720** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt documents issue tracker integration patterns; RJM specifies generic field governance for work item ticket schemas.
 - **sequencing note:** Consulted during backlog grooming and ticket state progression.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-604
 
 ### inline-documentation-standards
 
