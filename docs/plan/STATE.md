@@ -10,9 +10,9 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `4` |
 | **phase_name** | Alignment decisions |
-| **current_unit** | D-100 (concordance decisions) |
-| **last_session** | 026 |
-| **next_action** | Phase 4 — Alignment decisions (single-threaded orchestrator; resolve 516 decision rows listed in docs/analysis/concordance/_summary.md per METHOD.md §5) |
+| **current_unit** | D-126 (artifacts concordance decisions) |
+| **last_session** | 027 |
+| **next_action** | Phase 4 — Alignment decisions (single-threaded orchestrator; continue with artifacts family [104 decisions needed] per METHOD.md §5) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -116,8 +116,8 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 | Inventory units done (addy / matt / rjm) | 46 / 46 / 324 |
 | Concept cards (addy / matt / rjm) | units done 44 / 40 / 376 of 44 / 40 / 376 |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 7,143 total: 240 in phases (ALIGNED 5 / SYNONYM 15 / HOMONYM 2 / PARTIAL 6 / UNIQUE 212 / CONFLICT 0); 726 in artifacts (ALIGNED 27 / SYNONYM 32 / HOMONYM 1 / PARTIAL 9 / UNIQUE 657 / CONFLICT 0); 367 in sequencing (ALIGNED 4 / SYNONYM 26 / HOMONYM 0 / PARTIAL 1 / UNIQUE 336 / CONFLICT 0); 2,110 in techniques (ALIGNED 24 / SYNONYM 9 / HOMONYM 0 / PARTIAL 0 / UNIQUE 2077 / CONFLICT 0); 841 in gates (ALIGNED 17 / SYNONYM 7 / HOMONYM 0 / PARTIAL 0 / UNIQUE 817 / CONFLICT 0); 192 in roles (ALIGNED 0 / SYNONYM 18 / HOMONYM 0 / PARTIAL 0 / UNIQUE 174 / CONFLICT 0); 694 in references (ALIGNED 7 / SYNONYM 17 / HOMONYM 0 / PARTIAL 0 / UNIQUE 670 / CONFLICT 0); 1,973 in invocation-patterns (ALIGNED 46 / SYNONYM 11 / HOMONYM 0 / PARTIAL 0 / UNIQUE 1916 / CONFLICT 0) |
-| Decisions (active / superseded / pending-peter) | 18 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
-| Glossary terms | 0 |
+| Decisions (active / superseded / pending-peter) | 44 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
+| Glossary terms | 28 |
 | Build units (done / total) | — / — |
 
 ---
@@ -134,10 +134,10 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 
 | Check | Last run | Result |
 |---|---|---|
-| coverage.ts | 2026-09-07 | clean (rows 1595, covered 1567, concepts without card 0) |
-| units.ts check | 2026-09-07 | clean (876 total — pending 0 · in-progress 0 · done 876 · blocked 0 · rolled-back 0) |
-| budget.ts | 2026-09-07 | clean (used=17.19%, peak=17.19%, governing=25.00%, close=1.39%, headroom=6.42%, pending=0 → STOP) |
-| glossary-lint.ts | 2026-09-07 | clean |
-| last-unit verification | 2026-09-07 | cc-rjm-376: HIT, quote-check 9 PASS / 0 FAIL |
+| coverage.ts | 2026-09-08 | clean (rows 1595, covered 1567, concepts without card 0) |
+| units.ts check | 2026-09-08 | clean (876 total — pending 0 · in-progress 0 · done 876 · blocked 0 · rolled-back 0) |
+| budget.ts | 2026-09-08 | clean (used=16.14%, peak=16.14%, governing=25.00%, close=1.39%, headroom=7.47%, pending=0 → STOP) |
+| glossary-lint.ts | 2026-09-08 | clean |
+| last-unit verification | 2026-09-08 | cc-rjm-376: HIT, quote-check 9 PASS / 0 FAIL |
 | decision consistency (4V) | — | — |
 | traceability | — | — |

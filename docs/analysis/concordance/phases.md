@@ -39,7 +39,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy names this phase DEFINE (skills/spec-driven-development/SKILL.md:12), Matt names it explore (skills/explore/SKILL.md:14), and RJM names it /spec (.claude/commands/spec.md:1). All three govern problem discovery, scope bounding, and requirements definition before planning or coding.
 - **sequencing note:** Terminal entry stage for new feature work across all three packages; precedes planning.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-100
 
 ### lifecycle-stage-plan
 
@@ -93,7 +93,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy calls post-build automated verification VERIFY (skills/verify/SKILL.md:5), whereas RJM calls it test (.claude/commands/test.md:1). Matt embeds automated test execution directly into the build step and reserves diagnosing-bugs for defects.
 - **sequencing note:** Runs immediately after build and before code review.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-101
 
 ### lifecycle-stage-review
 
@@ -149,7 +149,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy catalogs Build phase in external web documentation (external/api-and-interface-design.md:5), aligning with RJM implementation phase (.claude/commands/build.md:126).
 - **sequencing note:** Identical to the build lifecycle stage.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-102
 
 ### catalog-plan-phase
 
@@ -167,7 +167,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy Plan phase (external/api-and-interface-design.md:5) aligns with RJM Execution Planning (.claude/commands/plan.md:183).
 - **sequencing note:** Identical to planning lifecycle stage.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-103
 
 ### catalog-review-phase
 
@@ -185,7 +185,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy Review phase (external/api-and-interface-design.md:5) represents high-level catalog classification, whereas RJM Phase 1: Independent Review (.claude/skills/review/SKILL.md:28) is a concrete sub-phase within review.
 - **sequencing note:** Review stage.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-104
 
 ### catalog-ship-phase
 
@@ -203,7 +203,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy Ship phase (external/api-and-interface-design.md:5) categorizes release tooling, whereas RJM Validation and Packaging (.claude/commands/ship.md:73) is the packaging sub-phase of ship.
 - **sequencing note:** Release stage.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-105
 
 ### catalog-verify-phase
 
@@ -221,7 +221,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy Verify phase (external/api-and-interface-design.md:5) aligns with RJM Quality Assurance (.claude/commands/test.md:144).
 - **sequencing note:** Validation stage.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-106
 
 ## 3. Refactoring, Migration & Code Transformation Phases
 
@@ -259,7 +259,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy EXPAND (references/database-migrations.md:34) applies the expand pattern to database schemas, while Matt Expand (skills/expand-contract-migrate/SKILL.md:18) applies it to codebase interfaces and call sites. Both introduce new structures alongside legacy structures.
 - **sequencing note:** First step in parallel change migration; precedes Migrate.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-107
 
 ### phase-migrate
 
@@ -277,7 +277,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy MIGRATE (references/database-migrations.md:46) transitions data and reads to new schema structures; Matt Migrate (skills/expand-contract-migrate/SKILL.md:24) transitions call sites in batches.
 - **sequencing note:** Follows Expand; precedes Contract.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-108
 
 ### phase-contract
 
@@ -295,7 +295,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt Contract (skills/expand-contract-migrate/SKILL.md:30) defines the clean removal of deprecated legacy interfaces once all call sites are migrated. Addy handles this implicitly without a dedicated card.
 - **sequencing note:** Final step in expand-contract-migrate; follows Migrate.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-109
 
 ### phase-cleanup
 
@@ -313,7 +313,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt Cleanup (skills/diagnosing-bugs/SKILL.md:135) removes temporary debugging instrumentation after a bug fix. RJM Phase D4: Cleanup (.claude/skills/review/SKILL.md:195) removes obsolete dead code after deletion detection.
 - **sequencing note:** Matt executes at end of bug diagnosis; RJM executes at end of deletion review.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-110
 
 ## 4. SDLC, Meta & Orchestration Frameworks
 
@@ -333,7 +333,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy SDLC (skills/spec-driven-development/SKILL.md:14), Matt phase (skills/work-in-phases/SKILL.md:12), and RJM autonomous-development-session (.claude/skills/autonomous-dev/SKILL.md:1) all describe the overarching concept of a phased software development lifecycle.
 - **sequencing note:** Macro container for all lifecycle phases.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-111
 
 ### meta-phase-routing
 
@@ -351,7 +351,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy Meta phase (external/index.md:25) classifies skill discovery and phase routing; Matt productivity (skills/productivity/SKILL.md:5) encompasses workflow assistance and handoffs. RJM has no standalone meta-phase card.
 - **sequencing note:** Pre-session and cross-phase routing.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-112
 
 ### framework-engineering
 
@@ -369,7 +369,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt engineering (skills/engineering/SKILL.md:5) is Matt's top-level container for all implementation, spec, review, and refactoring skills. Addy and RJM structure these directly as distinct lifecycle phases.
 - **sequencing note:** Top-level domain in Matt's taxonomy.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-113
 
 ### framework-triage
 
@@ -387,7 +387,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt triage (skills/triage/SKILL.md:10) provides issue tracker intake, bug verification, and AI label management. Addy and RJM do not include an issue-intake phase card in their lifecycle scope.
 - **sequencing note:** Pre-spec intake phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-114
 
 ### framework-exploit
 
@@ -425,7 +425,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy Phase 0: Scope Check (skills/spec-driven-development/SKILL.md:32) validates whether requirements bundle multiple modules; RJM Phase 0: Recon the target (.claude/commands/autoplan.md:22) maps repository context before planning.
 - **sequencing note:** Initial step in specification/planning breakdown.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-115
 
 ### workflow-phase-0-homonym
 
@@ -443,7 +443,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy Phase 0 (skills/spec-driven-development/SKILL.md:28) is a scope-check gate in specification. RJM Phase 0 (.claude/skills/review/SKILL.md:18) is a related work research and architectural history check in the review phase.
 - **sequencing note:** Addy executes in Define; RJM executes in Review.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-116
 
 ### workflow-phase-1-specify
 
@@ -461,7 +461,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy Phase 1: Specify (skills/spec-driven-development/SKILL.md:40) drafts a six-area specification; RJM PRD to Spec (.claude/commands/spec.md:52) transforms product requirements into technical specifications.
 - **sequencing note:** Core specification drafting step.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-117
 
 ### workflow-phase-2-plan
 
@@ -479,7 +479,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy Phase 2: Plan (skills/spec-driven-development/SKILL.md:52) produces tasks/plan.md; RJM 1-plan (.claude/commands/work.md:30) initiates the plan step of the sequential work cycle.
 - **sequencing note:** Follows specification; produces technical task plan.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-118
 
 ### workflow-phase-3-tasks
 
@@ -497,7 +497,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy Phase 3: Tasks (skills/spec-driven-development/SKILL.md:64) generates tasks/todo.md checklist; RJM Kanban (.claude/commands/plan.md:120) produces the task board.
 - **sequencing note:** Final step of planning; precedes implementation.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-119
 
 ### workflow-phase-4-implement
 
@@ -515,7 +515,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy Phase 4: Implement (skills/spec-driven-development/SKILL.md:76) executes code against tasks/todo.md; RJM 2-impl (.claude/commands/work.md:45) executes the implementation step.
 - **sequencing note:** Core code construction step.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-120
 
 ## 6. Diagnostic & Bug Investigation Phases
 
@@ -535,7 +535,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt Phase 1 (skills/diagnosing-bugs/SKILL.md:25) requires creating a deterministic red-capable automated command proving the defect. RJM Phase 1: Test Strategy (.claude/commands/test.md:34) designs the test strategy.
 - **sequencing note:** Initial phase in defect diagnosis and test generation.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-121
 
 ### diagnosing-phase-2
 
@@ -553,7 +553,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt Phase 2 (skills/diagnosing-bugs/SKILL.md:48) minimizes reproduction steps to load-bearing elements. RJM Establish Baseline (.claude/commands/test.md:62) establishes verified baseline test measurements.
 - **sequencing note:** Second step in diagnostic isolation.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-122
 
 ### diagnosing-phase-3
 
@@ -571,7 +571,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt Phase 3 (skills/diagnosing-bugs/SKILL.md:70) produces 3–5 ranked falsifiable hypotheses. RJM Form Hypothesis (.claude/commands/test.md:88) formulates hypotheses for unexpected test behavior.
 - **sequencing note:** Hypothesis generation prior to probing.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-123
 
 ### diagnosing-phase-4
 
@@ -589,7 +589,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt Phase 4 (skills/diagnosing-bugs/SKILL.md:92) runs targeted probes to test one hypothesis variable at a time. RJM Diagnosis (.claude/commands/test.md:112) runs diagnostic probes against failing systems.
 - **sequencing note:** Diagnostic probing step.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-124
 
 ### diagnosing-phase-5
 
@@ -607,7 +607,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt Phase 5 (skills/diagnosing-bugs/SKILL.md:115) verifies the fix and regression test at the proper seam. RJM Phase 3 (.claude/commands/verify.md:42) runs local drift gates before push.
 - **sequencing note:** Verification and remediation completion.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-125
 
 ## 7. RJM Specific & Sub-phase Workflows
 

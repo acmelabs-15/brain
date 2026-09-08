@@ -12,7 +12,7 @@ It provides:
 
 | Family | Total Rows | Mapped Cards | ALIGNED | SYNONYM | HOMONYM | PARTIAL | UNIQUE | CONFLICT | Needs Decision |
 |---|---|---|---|---|---|---|---|---|---|
-| [Phases](phases.md) | 240 | 271 | 5 | 15 | 2 | 6 | 212 | 0 | **26** |
+| [Phases](phases.md) | 240 | 271 | 5 | 15 | 2 | 6 | 212 | 0 | **0** (resolved in D-100–D-125) |
 | [Artifacts](artifacts.md) | 726 | 818 | 27 | 32 | 1 | 9 | 657 | 0 | **104** |
 | [Sequencing](sequencing.md) | 367 | 405 | 4 | 26 | 0 | 1 | 336 | 0 | **43** |
 | [Techniques](techniques.md) | 2,110 | 2,147 | 24 | 9 | 0 | 0 | 2,077 | 0 | **239** |

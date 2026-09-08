@@ -504,3 +504,984 @@ none.
 ---
 
 <!-- Alignment decisions (D-100+) are appended below this line in Phase 4. -->
+
+---
+
+## D-100 — spec
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#lifecycle-stage-spec
+- **preferences consulted:** PREFERENCES.md § Approach states Peter favours Addy's overall lifecycle framing as the starting frame, but is drawn to RJM's naming and composition choices; followed by adopting RJM's concise `/spec` naming while retaining Addy's requirements-elicitation and scope-bounding rigor.
+
+### Decision
+The canonical name for the initial discovery and specification stage is `spec`. The spec phase is the initial lifecycle stage in which user requirements, problem scope, and system boundaries are explored, clarified, and formalized into an approved technical specification before execution planning.
+
+### Adopted from
+RJM `.claude/commands/spec.md:1` for `/spec` command lifecycle position and role; Addy `skills/spec-driven-development/SKILL.md:12` for six-area specification framing; Matt `skills/explore/SKILL.md:14` for conversational problem exploration.
+
+### Dropped
+Addy's orphan path defects and cross-file contradiction defects (D-006); Matt's unstructured notes approach in favor of a formalized specification artifact; RJM's missing template path defects.
+
+### Rejected alternatives
+explore (Matt: too unstructured; exploration is an activity within spec, not the phase itself), define (Addy: broader product framing, less direct for developer lifecycle than `spec`).
+
+### Evidence
+Addy `skills/spec-driven-development/SKILL.md:12-40`; Matt `skills/explore/SKILL.md:14-30`; RJM `.claude/commands/spec.md:1-50`.
+
+### Glossary
+### spec
+
+- **definition:** The spec phase is the initial lifecycle stage in which user requirements, problem scope, and system boundaries are explored, clarified, and formalized into an approved technical specification before execution planning.
+- **kind:** phase
+- **source names:** addy: `DEFINE` · matt: `explore` · rjm: `/spec`
+- **decision:** D-100
+- **concordance:** `docs/analysis/concordance/phases.md#lifecycle-stage-spec`
+- **not to be confused with:** `specification-drafting`, `plan`
+
+---
+
+## D-101 — test
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#lifecycle-stage-verify-test
+- **preferences consulted:** PREFERENCES.md § Approach favours RJM's naming for lifecycle phases; followed by adopting `test` as the macro lifecycle stage name corresponding to `/test`.
+
+### Decision
+The canonical name for the post-build verification and testing stage is `test`. The test phase is the lifecycle stage in which newly constructed code and automated test suites are executed, baseline behaviors verified, and regressions prevented prior to independent code review.
+
+### Adopted from
+RJM `.claude/commands/test.md:1` for `/test` command lifecycle position and automated verification gates; Addy `skills/verify/SKILL.md:5` for diagnostic verification and execution proof concepts.
+
+### Dropped
+RJM's always-failing drift gates and script bugs (D-006); Addy's cross-file contradiction defects between verify and test.
+
+### Rejected alternatives
+verify (Addy: retained as a sub-concept/assurance gate rather than the top-level command phase name), qa (too narrow, suggests manual QA rather than automated test execution).
+
+### Evidence
+Addy `skills/verify/SKILL.md:5-25`; RJM `.claude/commands/test.md:1-40`.
+
+### Glossary
+### test
+
+- **definition:** The test phase is the lifecycle stage in which newly constructed code and automated test suites are executed, baseline behaviors verified, and regressions prevented prior to independent code review.
+- **kind:** phase
+- **source names:** addy: `VERIFY` · matt: — · rjm: `test`
+- **decision:** D-101
+- **concordance:** `docs/analysis/concordance/phases.md#lifecycle-stage-verify-test`
+- **not to be confused with:** `quality-assurance`, `review`
+
+---
+
+## D-102 — build-phase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#catalog-build-phase
+- **preferences consulted:** PREFERENCES.md § Approach favours Addy's catalog framing while aligning with `/build`; followed by adopting `build-phase`.
+
+### Decision
+The canonical catalog classification for software construction is `build-phase`. The build phase is the implementation stage of the lifecycle where vertical code slices are constructed, unit tests written, and task checklist items executed.
+
+### Adopted from
+Addy `external/api-and-interface-design.md:5` for catalog grouping; RJM `.claude/commands/build.md:126` for implementation phase boundary.
+
+### Dropped
+RJM's missing path defects in build automation (D-006); Addy's doc-drift between catalog text and command files.
+
+### Rejected alternatives
+implementation (RJM: longer name, `build` is standard across brain and CLI commands).
+
+### Evidence
+Addy `external/api-and-interface-design.md:5`; RJM `.claude/commands/build.md:126-140`.
+
+### Glossary
+### build-phase
+
+- **definition:** The build phase is the implementation stage of the lifecycle where vertical code slices are constructed, unit tests written, and task checklist items executed.
+- **kind:** phase
+- **source names:** addy: `Build phase` · matt: — · rjm: `Implementation`
+- **decision:** D-102
+- **concordance:** `docs/analysis/concordance/phases.md#catalog-build-phase`
+- **not to be confused with:** `task-execution`, `plan-phase`
+
+---
+
+## D-103 — plan-phase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#catalog-plan-phase
+- **preferences consulted:** PREFERENCES.md § Approach favours Addy's starting frame and RJM's concise naming; followed by adopting `plan-phase`.
+
+### Decision
+The canonical catalog classification for execution planning is `plan-phase`. The plan phase is the lifecycle stage where technical specifications are decomposed into an acyclic graph of discrete, testable work units with explicit acceptance criteria.
+
+### Adopted from
+Addy `external/api-and-interface-design.md:5`; RJM `.claude/commands/plan.md:183`.
+
+### Dropped
+RJM's exit code mismatches in plan validator scripts (D-006).
+
+### Rejected alternatives
+execution-planning (RJM: names the primary planning activity, not the top-level phase classification).
+
+### Evidence
+Addy `external/api-and-interface-design.md:5`; RJM `.claude/commands/plan.md:183-200`.
+
+### Glossary
+### plan-phase
+
+- **definition:** The plan phase is the lifecycle stage where technical specifications are decomposed into an acyclic graph of discrete, testable work units with explicit acceptance criteria.
+- **kind:** phase
+- **source names:** addy: `"Plan phase"` · matt: — · rjm: `Execution Planning`
+- **decision:** D-103
+- **concordance:** `docs/analysis/concordance/phases.md#catalog-plan-phase`
+- **not to be confused with:** `execution-planning`, `task-decomposition`
+
+---
+
+## D-104 — review-phase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#catalog-review-phase
+- **preferences consulted:** PREFERENCES.md § Approach favours Addy's catalog structure and RJM's multi-perspective reviewer architecture (ADR-064); followed by adopting `review-phase`.
+
+### Decision
+The canonical catalog classification for code inspection is `review-phase`. The review phase is the post-verification lifecycle stage where independent reviewer roles evaluate code quality, security posture, architectural adherence, and maintainability prior to release.
+
+### Adopted from
+Addy `external/api-and-interface-design.md:5` for phase boundary; RJM `.claude/skills/review/SKILL.md:28` and `.agents/architecture/ADR-064-*` for independent reviewer panel design.
+
+### Dropped
+Addy's doc-drift regarding review checklists (D-006).
+
+### Rejected alternatives
+independent-review (RJM: names the first step of review, not the complete phase).
+
+### Evidence
+Addy `external/api-and-interface-design.md:5`; RJM `.claude/skills/review/SKILL.md:28-60`.
+
+### Glossary
+### review-phase
+
+- **definition:** The review phase is the post-verification lifecycle stage where independent reviewer roles evaluate code quality, security posture, architectural adherence, and maintainability prior to release.
+- **kind:** phase
+- **source names:** addy: `Review phase` · matt: — · rjm: `Phase 1: Independent Review`
+- **decision:** D-104
+- **concordance:** `docs/analysis/concordance/phases.md#catalog-review-phase`
+- **not to be confused with:** `test`, `prior-art-review`
+
+---
+
+## D-105 — ship-phase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#catalog-ship-phase
+- **preferences consulted:** PREFERENCES.md § Approach favours Addy's starting frame and RJM's `/ship` command; followed by adopting `ship-phase`.
+
+### Decision
+The canonical catalog classification for delivery is `ship-phase`. The ship phase is the release lifecycle stage where reviewed changes are packaged, documentation and changelogs generated, migrations finalized, and code tagged or deployed.
+
+### Adopted from
+Addy `external/api-and-interface-design.md:5`; RJM `.claude/commands/ship.md:73`.
+
+### Dropped
+RJM's script bug in ship packaging (D-006).
+
+### Rejected alternatives
+release (generic, but `ship` aligns directly with `/ship` command), packaging (RJM: names one sub-step only).
+
+### Evidence
+Addy `external/api-and-interface-design.md:5`; RJM `.claude/commands/ship.md:73-95`.
+
+### Glossary
+### ship-phase
+
+- **definition:** The ship phase is the release lifecycle stage where reviewed changes are packaged, documentation and changelogs generated, migrations finalized, and code tagged or deployed.
+- **kind:** phase
+- **source names:** addy: `Ship phase` · matt: — · rjm: `Validation and Packaging`
+- **decision:** D-105
+- **concordance:** `docs/analysis/concordance/phases.md#catalog-ship-phase`
+- **not to be confused with:** `review-phase`
+
+---
+
+## D-106 — quality-assurance
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#catalog-verify-phase
+- **preferences consulted:** PREFERENCES.md § Approach favours granular synthesis; followed by adopting RJM's `quality-assurance` as the assurance activity within test to avoid colliding with macro `test`.
+
+### Decision
+The canonical term for post-fix verification assurance is `quality-assurance`. Quality assurance is the systematic verification activity within the test phase that ensures bug fixes include permanent regression tests and satisfy quality invariants.
+
+### Adopted from
+RJM `.claude/commands/test.md:144` for QA gate discipline; Addy `external/api-and-interface-design.md:5` for verification criteria.
+
+### Dropped
+Addy's redundant category duplication (D-006).
+
+### Rejected alternatives
+verify-phase (collides with macro stage `test` and causes homonym confusion with verify skill).
+
+### Evidence
+Addy `external/api-and-interface-design.md:5`; RJM `.claude/commands/test.md:144-160`.
+
+### Glossary
+### quality-assurance
+
+- **definition:** Quality assurance is the systematic verification activity within the test phase that ensures bug fixes include permanent regression tests and satisfy quality invariants.
+- **kind:** phase
+- **source names:** addy: `Verify phase` · matt: — · rjm: `Quality Assurance`
+- **decision:** D-106
+- **concordance:** `docs/analysis/concordance/phases.md#catalog-verify-phase`
+- **not to be confused with:** `test`, `defect-remediation`
+
+---
+
+## D-107 — expand-phase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#phase-expand
+- **preferences consulted:** PREFERENCES.md § References highlights Addy's migration patterns; PREFERENCES.md § Approach notes Matt has strengths worth bringing over; followed by unifying Addy's schema expand and Matt's interface expand into a single canonical parallel change phase.
+
+### Decision
+The canonical term for the additive step of a parallel migration is `expand-phase`. The expand phase is the initial stage of a parallel change migration where new database columns, interfaces, or method signatures are introduced additively alongside existing implementations without breaking existing consumers.
+
+### Adopted from
+Addy `references/database-migrations.md:34` for schema expand; Matt `skills/expand-contract-migrate/SKILL.md:18` for codebase interface expand.
+
+### Dropped
+None (both sources clean).
+
+### Rejected alternatives
+additive-phase (non-standard; Expand is the canonical term from Martin Fowler's Parallel Change pattern).
+
+### Evidence
+Addy `references/database-migrations.md:34-45`; Matt `skills/expand-contract-migrate/SKILL.md:18-23`.
+
+### Glossary
+### expand-phase
+
+- **definition:** The expand phase is the initial stage of a parallel change migration where new database columns, interfaces, or method signatures are introduced additively alongside existing implementations without breaking existing consumers.
+- **kind:** phase
+- **source names:** addy: `EXPAND` · matt: `Expand` · rjm: —
+- **decision:** D-107
+- **concordance:** `docs/analysis/concordance/phases.md#phase-expand`
+- **not to be confused with:** `migrate-phase`, `contract-phase`
+
+---
+
+## D-108 — migrate-phase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#phase-migrate
+- **preferences consulted:** PREFERENCES.md § Approach notes granular synthesis; followed by combining Addy's data backfill and Matt's call-site batch transition rules.
+
+### Decision
+The canonical term for the transitional step of a parallel migration is `migrate-phase`. The migrate phase is the intermediate stage of a parallel change migration where active call sites and data reads/writes are incrementally transitioned in batches to the expanded interface.
+
+### Adopted from
+Addy `references/database-migrations.md:46` for dual-write data migration; Matt `skills/expand-contract-migrate/SKILL.md:24` for call-site ticket batching.
+
+### Dropped
+None (clean implementations in both sources).
+
+### Rejected alternatives
+transition-phase (less specific than Migrate).
+
+### Evidence
+Addy `references/database-migrations.md:46-58`; Matt `skills/expand-contract-migrate/SKILL.md:24-29`.
+
+### Glossary
+### migrate-phase
+
+- **definition:** The migrate phase is the intermediate stage of a parallel change migration where active call sites and data reads/writes are incrementally transitioned in batches to the expanded interface.
+- **kind:** phase
+- **source names:** addy: `MIGRATE` · matt: `Migrate` · rjm: —
+- **decision:** D-108
+- **concordance:** `docs/analysis/concordance/phases.md#phase-migrate`
+- **not to be confused with:** `expand-phase`, `contract-phase`
+
+---
+
+## D-109 — contract-phase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#phase-contract
+- **preferences consulted:** PREFERENCES.md § Approach notes Matt has things worth bringing over; followed by adopting Matt's explicit Contract phase to complete the Expand-Migrate-Contract cycle.
+
+### Decision
+The canonical term for the deprecation removal step of a parallel migration is `contract-phase`. The contract phase is the terminal stage of a parallel change migration where deprecated legacy interfaces, schema columns, or compatibility adapters are cleanly removed after all consumers have migrated.
+
+### Adopted from
+Matt `skills/expand-contract-migrate/SKILL.md:30`.
+
+### Dropped
+None.
+
+### Rejected alternatives
+cleanup-phase (collides with diagnostic/deletion cleanup).
+
+### Evidence
+Matt `skills/expand-contract-migrate/SKILL.md:30-36`.
+
+### Glossary
+### contract-phase
+
+- **definition:** The contract phase is the terminal stage of a parallel change migration where deprecated legacy interfaces, schema columns, or compatibility adapters are cleanly removed after all consumers have migrated.
+- **kind:** phase
+- **source names:** addy: — · matt: `Contract` · rjm: —
+- **decision:** D-109
+- **concordance:** `docs/analysis/concordance/phases.md#phase-contract`
+- **not to be confused with:** `expand-phase`, `migrate-phase`, `deletion-cleanup`
+
+---
+
+## D-110 — diagnostic-cleanup and deletion-cleanup
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#phase-cleanup
+- **preferences consulted:** PREFERENCES.md § Approach favours Matt's bug diagnosis workflow and RJM's review rigor; followed by splitting the homonym into `diagnostic-cleanup` (Matt) and `deletion-cleanup` (RJM) per Glossary Rule 3.
+
+### Decision
+The homonym `cleanup` is resolved by establishing two distinct canonical terms: `diagnostic-cleanup` for bug diagnosis, and `deletion-cleanup` for dead-code and ADR deletion review. Diagnostic cleanup is the concluding step of a bug diagnosis workflow in which temporary logging, test probes, and diagnostic scaffolding are removed before committing the fix. Deletion cleanup is the final step of a code deletion review where obsolete references, stale documentation, and deprecated architecture records are systematically removed.
+
+### Adopted from
+Matt `skills/diagnosing-bugs/SKILL.md:135` for diagnostic instrumentation removal; RJM `.claude/skills/review/SKILL.md:195` for dead-code deletion cleanup.
+
+### Dropped
+Generic overloaded term `Cleanup`.
+
+### Rejected alternatives
+cleanup (rejected because it represents two completely distinct operations).
+
+### Evidence
+Matt `skills/diagnosing-bugs/SKILL.md:135-148`; RJM `.claude/skills/review/SKILL.md:195-210`.
+
+### Glossary
+### diagnostic-cleanup
+
+- **definition:** Diagnostic cleanup is the concluding step of a bug diagnosis workflow in which temporary logging, test probes, and diagnostic scaffolding are removed before committing the fix.
+- **kind:** phase
+- **source names:** addy: — · matt: `Cleanup` · rjm: —
+- **decision:** D-110
+- **concordance:** `docs/analysis/concordance/phases.md#phase-cleanup`
+- **not to be confused with:** `deletion-cleanup`, `contract-phase`
+
+### deletion-cleanup
+
+- **definition:** Deletion cleanup is the final step of a code deletion review where obsolete references, stale documentation, and deprecated architecture records are systematically removed.
+- **kind:** phase
+- **source names:** addy: — · matt: — · rjm: `Phase D4: Cleanup`
+- **decision:** D-110
+- **concordance:** `docs/analysis/concordance/phases.md#phase-cleanup`
+- **not to be confused with:** `diagnostic-cleanup`, `contract-phase`
+
+---
+
+## D-111 — lifecycle
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#meta-sdlc
+- **preferences consulted:** PREFERENCES.md § Approach notes result must be compatible with brain; followed by establishing `lifecycle` as the overarching term for brain's development workflow.
+
+### Decision
+The canonical term for the overarching development framework is `lifecycle`. The lifecycle is the structured, multi-phase sequence of engineering stages—spanning specification, planning, implementation, testing, review, and shipping—governing autonomous software development.
+
+### Adopted from
+Addy `skills/spec-driven-development/SKILL.md:14` for phased SDLC framework; Matt `skills/work-in-phases/SKILL.md:12` for phase isolation; RJM `.claude/skills/autonomous-dev/SKILL.md:1` for autonomous session boundaries.
+
+### Dropped
+RJM's missing path defects in autonomous dev scripts (D-006).
+
+### Rejected alternatives
+sdlc (too generic/traditional), workflow (overloaded with CI/CD).
+
+### Evidence
+Addy `skills/spec-driven-development/SKILL.md:14-25`; Matt `skills/work-in-phases/SKILL.md:12-22`; RJM `.claude/skills/autonomous-dev/SKILL.md:1-20`.
+
+### Glossary
+### lifecycle
+
+- **definition:** The lifecycle is the structured, multi-phase sequence of engineering stages—spanning specification, planning, implementation, testing, review, and shipping—governing autonomous software development.
+- **kind:** phase
+- **source names:** addy: `SDLC` · matt: `phase` · rjm: `autonomous development session`
+- **decision:** D-111
+- **concordance:** `docs/analysis/concordance/phases.md#meta-sdlc`
+- **not to be confused with:** `phase-routing`
+
+---
+
+## D-112 — phase-routing
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#meta-phase-routing
+- **preferences consulted:** PREFERENCES.md § Approach favours Addy's skill routing; followed by establishing `phase-routing` as the canonical orchestration entry point.
+
+### Decision
+The canonical term for entry dispatch and stage selection is `phase-routing`. Phase routing is the meta-orchestration mechanism that determines which lifecycle phase, skill, or workflow command is appropriate for an incoming developer request.
+
+### Adopted from
+Addy `external/index.md:25` for skill discovery and phase routing; Matt `skills/productivity/SKILL.md:5` for task orientation.
+
+### Dropped
+Addy's orphan links in external documentation (D-006).
+
+### Rejected alternatives
+meta-phase (Addy: too abstract), productivity (Matt: too broad).
+
+### Evidence
+Addy `external/index.md:25-40`; Matt `skills/productivity/SKILL.md:5-18`.
+
+### Glossary
+### phase-routing
+
+- **definition:** Phase routing is the meta-orchestration mechanism that determines which lifecycle phase, skill, or workflow command is appropriate for an incoming developer request.
+- **kind:** phase
+- **source names:** addy: `Meta phase` · matt: `productivity` · rjm: —
+- **decision:** D-112
+- **concordance:** `docs/analysis/concordance/phases.md#meta-phase-routing`
+- **not to be confused with:** `lifecycle`
+
+---
+
+## D-113 — engineering-domain
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#framework-engineering
+- **preferences consulted:** PREFERENCES.md § Approach favours explicit phases over monolithic containers; followed by classifying Matt's `engineering` container as a catalog domain rather than a single lifecycle phase.
+
+### Decision
+Matt's `engineering` concept is adopted as a catalog domain classification rather than an active lifecycle phase, under the canonical name `engineering-domain`. The engineering domain is the functional container classifying core software construction, testing, and maintenance capabilities within the agent skill catalog.
+
+### Adopted from
+Matt `skills/engineering/SKILL.md:5`.
+
+### Dropped
+Monolithic single-phase view of engineering in favor of discrete lifecycle phases (`spec`, `plan`, `build`, `test`, `review`, `ship`).
+
+### Rejected alternatives
+Treating engineering as an active phase (rejected because it blurs phase boundaries).
+
+### Evidence
+Matt `skills/engineering/SKILL.md:5-20`.
+
+### Glossary
+### engineering-domain
+
+- **definition:** The engineering domain is the functional container classifying core software construction, testing, and maintenance capabilities within the agent skill catalog.
+- **kind:** phase
+- **source names:** addy: — · matt: `engineering` · rjm: —
+- **decision:** D-113
+- **concordance:** `docs/analysis/concordance/phases.md#framework-engineering`
+- **not to be confused with:** `lifecycle`, `build-phase`
+
+---
+
+## D-114 — triage-phase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#framework-triage
+- **preferences consulted:** PREFERENCES.md § Approach notes Matt has strengths worth bringing over; followed by adopting Matt's triage workflow as an intake phase.
+
+### Decision
+The canonical term for issue intake and pre-specification assessment is `triage-phase`. The triage phase is the pre-specification intake stage in which incoming bug reports, issues, or external requests are inspected, reproduced, labeled, and prepared for entry into the lifecycle.
+
+### Adopted from
+Matt `skills/triage/SKILL.md:10`.
+
+### Dropped
+Matt's missing path defect referencing setup-matt-pocock-skills.md (D-006).
+
+### Rejected alternatives
+Omitting triage (rejected because issue intake is an essential real-world lifecycle entry point).
+
+### Evidence
+Matt `skills/triage/SKILL.md:10-45`.
+
+### Glossary
+### triage-phase
+
+- **definition:** The triage phase is the pre-specification intake stage in which incoming bug reports, issues, or external requests are inspected, reproduced, labeled, and prepared for entry into the lifecycle.
+- **kind:** phase
+- **source names:** addy: — · matt: `triage` · rjm: —
+- **decision:** D-114
+- **concordance:** `docs/analysis/concordance/phases.md#framework-triage`
+- **not to be confused with:** `spec`, `reconnaissance`
+
+---
+
+## D-115 — reconnaissance
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#workflow-phase-0-scope
+- **preferences consulted:** PREFERENCES.md § Approach notes RJM naming strengths; followed by adopting `reconnaissance` unifying Addy's scope boundary check and RJM's repo recon.
+
+### Decision
+The canonical term for early environment mapping and capability bounding is `reconnaissance`. Reconnaissance is the preparatory phase within specification or planning that surveys repository conventions, tooling, and modular boundaries to determine feasible scope before detailed design.
+
+### Adopted from
+Addy `skills/spec-driven-development/SKILL.md:32` for modular capability mapping; RJM `.claude/commands/autoplan.md:22` for target repository reconnaissance.
+
+### Dropped
+Addy's doc-drift regarding phase numbering (D-006).
+
+### Rejected alternatives
+scope-check (Addy: names only the boundary check, omitting environmental survey).
+
+### Evidence
+Addy `skills/spec-driven-development/SKILL.md:32-39`; RJM `.claude/commands/autoplan.md:22-35`.
+
+### Glossary
+### reconnaissance
+
+- **definition:** Reconnaissance is the preparatory phase within specification or planning that surveys repository conventions, tooling, and modular boundaries to determine feasible scope before detailed design.
+- **kind:** phase
+- **source names:** addy: `"Phase 0: Scope Check"` · matt: — · rjm: `Phase 0: Recon the target`
+- **decision:** D-115
+- **concordance:** `docs/analysis/concordance/phases.md#workflow-phase-0-scope`
+- **not to be confused with:** `scope-check`, `prior-art-review`
+
+---
+
+## D-116 — scope-check and prior-art-review
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#workflow-phase-0-homonym
+- **preferences consulted:** PREFERENCES.md § Approach notes granular synthesis; followed by splitting the `Phase 0` homonym into `scope-check` (spec) and `prior-art-review` (review) per Glossary Rule 3.
+
+### Decision
+The homonym `Phase 0` is resolved by establishing two distinct canonical terms: `scope-check` for specification modular validation, and `prior-art-review` for code review background research. The scope check is the initial gate in specification that validates whether an incoming request spans multiple independently testable capabilities and decomposes it before drafting. Prior art review is the initial exploratory stage in code review that examines historical context, related architecture decision records, and git history before evaluating diffs.
+
+### Adopted from
+Addy `skills/spec-driven-development/SKILL.md:28` for specification scope checking; RJM `.claude/skills/review/SKILL.md:18` for review prior art research.
+
+### Dropped
+Generic numbered label `Phase 0`.
+
+### Rejected alternatives
+phase-0 (rejected because it means two completely different things in spec vs review).
+
+### Evidence
+Addy `skills/spec-driven-development/SKILL.md:28-35`; RJM `.claude/skills/review/SKILL.md:18-27`.
+
+### Glossary
+### scope-check
+
+- **definition:** The scope check is the initial gate in specification that validates whether an incoming request spans multiple independently testable capabilities and decomposes it before drafting.
+- **kind:** phase
+- **source names:** addy: `Phase 0` · matt: — · rjm: —
+- **decision:** D-116
+- **concordance:** `docs/analysis/concordance/phases.md#workflow-phase-0-homonym`
+- **not to be confused with:** `prior-art-review`, `reconnaissance`
+
+### prior-art-review
+
+- **definition:** Prior art review is the initial exploratory stage in code review that examines historical context, related architecture decision records, and git history before evaluating diffs.
+- **kind:** phase
+- **source names:** addy: — · matt: — · rjm: `Phase 0`
+- **decision:** D-116
+- **concordance:** `docs/analysis/concordance/phases.md#workflow-phase-0-homonym`
+- **not to be confused with:** `scope-check`, `review-phase`
+
+---
+
+## D-117 — specification-drafting
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#workflow-phase-1-specify
+- **preferences consulted:** PREFERENCES.md § Approach favours Addy's comprehensive specification structure; followed by adopting `specification-drafting` combining Addy's six-area template with RJM's PRD conversion.
+
+### Decision
+The canonical term for drafting technical requirements is `specification-drafting`. Specification drafting is the core activity of the spec phase in which user requirements, architecture diagrams, data contracts, and acceptance criteria are written into a structured specification artifact.
+
+### Adopted from
+Addy `skills/spec-driven-development/SKILL.md:40` for six-area specification; RJM `.claude/commands/spec.md:52` for requirements-to-spec transformation.
+
+### Dropped
+Addy's doc-drift regarding phase sequence numbering (D-006).
+
+### Rejected alternatives
+prd-to-spec (RJM: assumes PRD always exists as an input; specification drafting applies to user prompts directly).
+
+### Evidence
+Addy `skills/spec-driven-development/SKILL.md:40-51`; RJM `.claude/commands/spec.md:52-70`.
+
+### Glossary
+### specification-drafting
+
+- **definition:** Specification drafting is the core activity of the spec phase in which user requirements, architecture diagrams, data contracts, and acceptance criteria are written into a structured specification artifact.
+- **kind:** phase
+- **source names:** addy: `"Phase 1: Specify"` · matt: — · rjm: `PRD to Spec`
+- **decision:** D-117
+- **concordance:** `docs/analysis/concordance/phases.md#workflow-phase-1-specify`
+- **not to be confused with:** `spec`, `execution-planning`
+
+---
+
+## D-118 — execution-planning
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#workflow-phase-2-plan
+- **preferences consulted:** PREFERENCES.md § Approach favours Addy's task planning approach and RJM's milestone structuring; followed by adopting `execution-planning`.
+
+### Decision
+The canonical term for technical plan authoring is `execution-planning`. Execution planning is the primary activity of the plan phase in which an approved specification is translated into architectural milestones, target file lists, and technical approach documentation.
+
+### Adopted from
+Addy `skills/spec-driven-development/SKILL.md:52` for `tasks/plan.md` artifact generation; RJM `.claude/commands/work.md:30` and `.claude/commands/plan.md:183` for execution plan structure.
+
+### Dropped
+RJM's legacy `/1-plan` numbered command syntax (D-006).
+
+### Rejected alternatives
+1-plan (RJM: legacy numbering anti-pattern).
+
+### Evidence
+Addy `skills/spec-driven-development/SKILL.md:52-63`; RJM `.claude/commands/work.md:30-44`.
+
+### Glossary
+### execution-planning
+
+- **definition:** Execution planning is the primary activity of the plan phase in which an approved specification is translated into architectural milestones, target file lists, and technical approach documentation.
+- **kind:** phase
+- **source names:** addy: `"Phase 2: Plan"` · matt: — · rjm: `/1-plan`
+- **decision:** D-118
+- **concordance:** `docs/analysis/concordance/phases.md#workflow-phase-2-plan`
+- **not to be confused with:** `plan-phase`, `task-decomposition`
+
+---
+
+## D-119 — task-decomposition
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#workflow-phase-3-tasks
+- **preferences consulted:** PREFERENCES.md § Phase mapping notes both Addy and Matt define task templates with Description, Acceptance Criteria, and Dependencies; PREFERENCES.md § Phase mapping explicitly notes Peter prefers "phase" over "part" as grouping word; followed by adopting `task-decomposition`.
+
+### Decision
+The canonical term for task breakdown is `task-decomposition`. Task decomposition is the final stage of planning in which the execution plan is broken down into an ordered checklist or ticket set of independently testable, bite-sized tasks.
+
+### Adopted from
+Addy `skills/spec-driven-development/SKILL.md:64` for `tasks/todo.md` checklist generation; RJM `.claude/commands/plan.md:120` for task board structure; Matt `skills/to-tickets/SKILL.md:15` for modular ticket sizing.
+
+### Dropped
+Addy's doc-drift regarding checklist sync (D-006).
+
+### Rejected alternatives
+kanban (RJM: names visualization board rather than decomposition activity).
+
+### Evidence
+Addy `skills/spec-driven-development/SKILL.md:64-75`; RJM `.claude/commands/plan.md:120-145`; Matt `skills/to-tickets/SKILL.md:15-35`.
+
+### Glossary
+### task-decomposition
+
+- **definition:** Task decomposition is the final stage of planning in which the execution plan is broken down into an ordered checklist or ticket set of independently testable, bite-sized tasks.
+- **kind:** phase
+- **source names:** addy: `"Phase 3: Tasks"` · matt: — · rjm: `Kanban`
+- **decision:** D-119
+- **concordance:** `docs/analysis/concordance/phases.md#workflow-phase-3-tasks`
+- **not to be confused with:** `execution-planning`, `task-execution`
+
+---
+
+## D-120 — task-execution
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#workflow-phase-4-implement
+- **preferences consulted:** PREFERENCES.md § Approach favours Addy's vertical-slice implementation discipline; followed by adopting `task-execution`.
+
+### Decision
+The canonical term for implementation against tasks is `task-execution`. Task execution is the primary activity of the build phase in which code and tests are iteratively written, compiled, and verified against task acceptance criteria.
+
+### Adopted from
+Addy `skills/spec-driven-development/SKILL.md:76` for task checklist execution; RJM `.claude/commands/work.md:45` for implementation iteration.
+
+### Dropped
+RJM's legacy `/2-impl` command syntax (D-006).
+
+### Rejected alternatives
+2-impl (RJM legacy number), coding (too colloquial).
+
+### Evidence
+Addy `skills/spec-driven-development/SKILL.md:76-90`; RJM `.claude/commands/work.md:45-60`.
+
+### Glossary
+### task-execution
+
+- **definition:** Task execution is the primary activity of the build phase in which code and tests are iteratively written, compiled, and verified against task acceptance criteria.
+- **kind:** phase
+- **source names:** addy: `"Phase 4: Implement"` · matt: — · rjm: `/2-impl`
+- **decision:** D-120
+- **concordance:** `docs/analysis/concordance/phases.md#workflow-phase-4-implement`
+- **not to be confused with:** `build-phase`, `task-decomposition`
+
+---
+
+## D-121 — defect-reproduction
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#diagnosing-phase-1
+- **preferences consulted:** PREFERENCES.md § Approach notes Matt does things better than Addy's version; Matt's `diagnosing-bugs` has a proven 5-phase method for defect isolation; followed by adopting Matt's automated red-command creation for Phase 1.
+
+### Decision
+The canonical term for initial defect reproduction is `defect-reproduction`. Defect reproduction is the initial diagnostic phase in which an automated, deterministic reproduction command is established to reliably demonstrate a reported defect before attempting fixes.
+
+### Adopted from
+Matt `skills/diagnosing-bugs/SKILL.md:25` for deterministic red command; RJM `.claude/commands/test.md:34` for test strategy documentation.
+
+### Dropped
+RJM's missing-path defects in QA test strategy directories (D-006).
+
+### Rejected alternatives
+test-strategy (RJM: broad and covers green-field testing, whereas this phase is bug reproduction).
+
+### Evidence
+Matt `skills/diagnosing-bugs/SKILL.md:25-47`; RJM `.claude/commands/test.md:34-55`.
+
+### Glossary
+### defect-reproduction
+
+- **definition:** Defect reproduction is the initial diagnostic phase in which an automated, deterministic reproduction command is established to reliably demonstrate a reported defect before attempting fixes.
+- **kind:** phase
+- **source names:** addy: — · matt: `Phase 1` · rjm: `Phase 1: Test Strategy`
+- **decision:** D-121
+- **concordance:** `docs/analysis/concordance/phases.md#diagnosing-phase-1`
+- **not to be confused with:** `test`, `baseline-establishment`
+
+---
+
+## D-122 — baseline-establishment
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#diagnosing-phase-2
+- **preferences consulted:** PREFERENCES.md § Approach notes Matt's debugging rigor and RJM's telemetry baseline; followed by synthesizing Matt's reproduction minimization with RJM's steady-state baseline.
+
+### Decision
+The canonical term for reproduction minimization and baseline metrics is `baseline-establishment`. Baseline establishment is the diagnostic phase in which reproduction steps are minimized to only load-bearing elements and steady-state operating telemetry is recorded as a benchmark.
+
+### Adopted from
+Matt `skills/diagnosing-bugs/SKILL.md:48` for load-bearing minimization; RJM `.claude/commands/test.md:62` for steady-state baseline telemetry.
+
+### Dropped
+RJM's exit-code mismatch defect in baseline scripts (D-006).
+
+### Rejected alternatives
+minimization (Matt: describes the reproduction case, but misses baseline validation).
+
+### Evidence
+Matt `skills/diagnosing-bugs/SKILL.md:48-69`; RJM `.claude/commands/test.md:62-85`.
+
+### Glossary
+### baseline-establishment
+
+- **definition:** Baseline establishment is the diagnostic phase in which reproduction steps are minimized to only load-bearing elements and steady-state operating telemetry is recorded as a benchmark.
+- **kind:** phase
+- **source names:** addy: — · matt: `Phase 2` · rjm: `Establish Baseline`
+- **decision:** D-122
+- **concordance:** `docs/analysis/concordance/phases.md#diagnosing-phase-2`
+- **not to be confused with:** `defect-reproduction`, `hypothesis-generation`
+
+---
+
+## D-123 — hypothesis-generation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#diagnosing-phase-3
+- **preferences consulted:** PREFERENCES.md § Approach values scientific bug diagnosis; followed by adopting Matt's 3–5 ranked falsifiable hypotheses rule combined with RJM's hypothesis structure.
+
+### Decision
+The canonical term for formulating root-cause theories is `hypothesis-generation`. Hypothesis generation is the diagnostic phase in which three to five ranked, falsifiable hypotheses with specific observable predictions are formulated to explain an observed failure.
+
+### Adopted from
+Matt `skills/diagnosing-bugs/SKILL.md:70` for ranked falsifiable predictions; RJM `.claude/commands/test.md:88` for hypothesis formulation.
+
+### Dropped
+RJM's script bugs in hypothesis verification (D-006).
+
+### Rejected alternatives
+guessing (anti-pattern; hypotheses must be falsifiable).
+
+### Evidence
+Matt `skills/diagnosing-bugs/SKILL.md:70-91`; RJM `.claude/commands/test.md:88-110`.
+
+### Glossary
+### hypothesis-generation
+
+- **definition:** Hypothesis generation is the diagnostic phase in which three to five ranked, falsifiable hypotheses with specific observable predictions are formulated to explain an observed failure.
+- **kind:** phase
+- **source names:** addy: — · matt: `Phase 3` · rjm: `Form Hypothesis`
+- **decision:** D-123
+- **concordance:** `docs/analysis/concordance/phases.md#diagnosing-phase-3`
+- **not to be confused with:** `hypothesis-probing`
+
+---
+
+## D-124 — hypothesis-probing
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#diagnosing-phase-4
+- **preferences consulted:** PREFERENCES.md § Approach favours Matt's one-variable-at-a-time probe isolation; followed by adopting `hypothesis-probing`.
+
+### Decision
+The canonical term for targeted diagnostic testing is `hypothesis-probing`. Hypothesis probing is the active diagnostic phase in which targeted probes, instrumentation, or logging are applied to isolate and test candidate hypotheses one variable at a time.
+
+### Adopted from
+Matt `skills/diagnosing-bugs/SKILL.md:92` for one-variable probing; RJM `.claude/commands/test.md:112` for diagnostic execution.
+
+### Dropped
+RJM's internal contradiction and missing path defects in diagnosis scripts (D-006).
+
+### Rejected alternatives
+diagnosis (too general; probing is the concrete action).
+
+### Evidence
+Matt `skills/diagnosing-bugs/SKILL.md:92-114`; RJM `.claude/commands/test.md:112-135`.
+
+### Glossary
+### hypothesis-probing
+
+- **definition:** Hypothesis probing is the active diagnostic phase in which targeted probes, instrumentation, or logging are applied to isolate and test candidate hypotheses one variable at a time.
+- **kind:** phase
+- **source names:** addy: — · matt: `Phase 4` · rjm: `Diagnosis`
+- **decision:** D-124
+- **concordance:** `docs/analysis/concordance/phases.md#diagnosing-phase-4`
+- **not to be confused with:** `hypothesis-generation`, `defect-remediation`
+
+---
+
+## D-125 — defect-remediation
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 027
+- **status:** active
+- **supersedes:** —
+- **resolves:** phases.md#diagnosing-phase-5
+- **preferences consulted:** PREFERENCES.md § Approach combines Matt's proper-seam regression testing with RJM's pre-push validation gates; followed by adopting `defect-remediation`.
+
+### Decision
+The canonical term for fix confirmation and regression test locking is `defect-remediation`. Defect remediation is the concluding diagnostic phase in which the verified fix and permanent regression test are confirmed at the proper architectural seam, instrumentation removed, and validation gates passed.
+
+### Adopted from
+Matt `skills/diagnosing-bugs/SKILL.md:115` for regression testing at the right seam and instrumentation cleanup; RJM `.claude/commands/verify.md:42` for pre-push validation gates.
+
+### Dropped
+RJM's unfailable drift gates (D-006).
+
+### Rejected alternatives
+bug-fix (informal and omits the regression testing and drift gate invariants).
+
+### Evidence
+Matt `skills/diagnosing-bugs/SKILL.md:115-140`; RJM `.claude/commands/verify.md:42-65`.
+
+### Glossary
+### defect-remediation
+
+- **definition:** Defect remediation is the concluding diagnostic phase in which the verified fix and permanent regression test are confirmed at the proper architectural seam, instrumentation removed, and validation gates passed.
+- **kind:** phase
+- **source names:** addy: — · matt: `Phase 5` · rjm: `Phase 3: Run the Drift Gates Locally Before Pushing`
+- **decision:** D-125
+- **concordance:** `docs/analysis/concordance/phases.md#diagnosing-phase-5`
+- **not to be confused with:** `quality-assurance`, `diagnostic-cleanup`
+
