@@ -41,7 +41,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines sequential user-driven slash commands (/spec -> /plan -> /build -> /test -> /review -> /ship in references/orchestration-patterns.md:80), RJM defines the Standard Feature Workflow (/spec -> /plan -> /build -> /test -> /review -> /ship in docs/workflow-commands.md:17), while Matt structures development around composable engineering workflows (workflows/*.md). All three enforce sequential progression from requirements to shipping.
 - **sequencing note:** The primary macro execution sequence for non-trivial features across all packages.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-230
 
 ### sequencing-pipeline-macro-lifecycle-sequence
 
@@ -59,7 +59,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy establishes the canonical Lifecycle Sequence (skills/using-agent-skills/SKILL.md:14), RJM defines the six Lifecycle Commands (.claude/commands/ in README.md:543), and Matt organizes daily engineering around General Workflow Tools (README.md:218). Addy and RJM share the six-phase pipeline; Matt uses conversation-first skills without slash commands.
 - **sequencing note:** Establishes stage order and toolchain invocation progression.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-231
 
 ### sequencing-pipeline-spec-plan-build-core
 
@@ -113,7 +113,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines the software development lifecycle concept (README.md:5) as a series of disciplined engineering phases, corresponding to RJM's Workflows construct (docs/workflow-commands.md:14).
 - **sequencing note:** Underpins lifecycle phase progression across the repository.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-232
 
 ### sequencing-pipeline-the-lifecycle-meta
 
@@ -149,7 +149,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines Lifecycle Mapping (skills/using-agent-skills/SKILL.md:28) to route arbitrary incoming developer requests to the appropriate lifecycle phase and skill.
 - **sequencing note:** Acts as the entry router before any lifecycle phase is invoked.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-233
 
 ### sequencing-pipeline-lifecycle-mapping-implicit
 
@@ -167,7 +167,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines implicit command mapping where natural language phrases automatically trigger lifecycle slash commands without explicit /command syntax (skills/using-agent-skills/SKILL.md:35).
 - **sequencing note:** Pre-execution intent routing step.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-234
 
 ### sequencing-pipeline-command-vs-agent-driven
 
@@ -185,7 +185,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy contrasts Command-driven workflow (explicit developer slash commands) with autonomous agent loops (skills/using-agent-skills/SKILL.md:52).
 - **sequencing note:** Governs the control mechanism across all lifecycle phases.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-235
 
 ### sequencing-pipeline-agent-driven-workflow
 
@@ -203,7 +203,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines Agent-driven workflow where subagents autonomously progress through multi-step tasks under strict quality constraints (skills/using-agent-skills/SKILL.md:65).
 - **sequencing note:** Autonomous execution alternative to manual command-by-command progression.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-236
 
 
 ## 2. Phase Precedence, Prerequisites & Front-Gates
@@ -224,7 +224,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** RJM formalizes the 'front-gate-before-pipeline' pattern (.claude/commands/plan.md:15), requiring /spec output before /plan can execute. Matt defines Prerequisite (skills/engineering/implement/SKILL.md:18) where tickets require prior architectural decisions. Addy defines The Gated Workflow (README.md:222) requiring verified phase exit artifacts.
 - **sequencing note:** Strictly enforces that specification must precede planning, and planning must precede building.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-237
 
 ### sequencing-precedence-prerequisites-pattern
 
@@ -242,7 +242,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Matt defines Prerequisites pattern (skills/engineering/to-tickets/SKILL.md:22) where work items cannot be scheduled until blocking dependencies are complete. RJM defines front-gate (.claude/commands/plan.md:18) as the entry assertion for planning.
 - **sequencing note:** Blocks phase entry until prerequisite artifacts are committed to disk.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-238
 
 ### sequencing-precedence-quality-gate-pipeline
 
@@ -260,7 +260,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines quality-gate pipelines (skills/ci-cd-and-automation/SKILL.md:12) enforcing verification checks between lifecycle stages. RJM defines fast-stage-gate (.agents/architecture/ADR-064:42) enforcing rapid pass/fail checks between phases.
 - **sequencing note:** Executes at the transition boundary between every lifecycle phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-239
 
 ### sequencing-precedence-quality-gate-pipeline-singular
 
@@ -296,7 +296,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** RJM defines Full pipeline staleness (.agents/architecture/ADR-064:55) where changes to upstream artifacts (spec or plan) invalidate downstream implementation and test artifacts, requiring a full pipeline rerun.
 - **sequencing note:** Triggers backward invalidation and pipeline re-execution upon upstream modification.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-240
 
 
 ## 3. Task-Shape Fitness, Fast-Tracks & Skip Rules
@@ -317,7 +317,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** RJM provides an explicit Fitness Guide in docs/when-to-use.md:1 mapping eight task shapes to the six lifecycle commands (scaled delivery, compliance, bug mitigation, hotfix, generated artifact, spike, doc-only, context black hole). Addy provides 'When to use' guidance in README.md:228 and skills/using-agent-skills/SKILL.md:18. Matt defines explicit scope boundaries in skills/engineering/triage/SKILL.md:24.
 - **sequencing note:** Evaluated before any command is run to select the minimal sufficient subset of lifecycle phases.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-241
 
 ### sequencing-fitness-quick-fix-workflow
 
@@ -335,7 +335,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** RJM defines Quick Fix Workflow (docs/workflow-commands.md:26) executing /build -> /test -> /ship (bypassing /spec and /plan for localized hotfixes with clear root causes). Addy provides five-step triage in skills/debugging-and-error-recovery/SKILL.md:15 (reproduce -> localize -> reduce -> fix -> guard). Matt handles rapid defect triage via triage roles in skills/engineering/triage/SKILL.md:12.
 - **sequencing note:** Fast-path execution pipeline for defect resolution and small bugfixes.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-242
 
 ### sequencing-fitness-research-first-workflow
 
@@ -353,7 +353,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** RJM defines Research-First Workflow (docs/workflow-commands.md:34) running /spec -> /plan without implementation to investigate exploratory spikes. Matt achieves exploratory spikes via the grilling loop in skills/productivity/grilling/SKILL.md:18.
 - **sequencing note:** Terminates after planning without proceeding to build, test, or ship.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-243
 
 ### sequencing-fitness-triage-first
 
@@ -371,7 +371,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** RJM defines 'Triage first' (docs/workflow-commands.md:42) requiring issue classification and blast-radius estimation before deciding whether to run the full lifecycle or the quick-fix path. Matt provides Triage role (skills/engineering/triage/SKILL.md:30).
 - **sequencing note:** Front-end gate determining pipeline routing.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-244
 
 ### sequencing-fitness-needs-triage-label
 
@@ -389,7 +389,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Matt defines needs-triage issue state in skills/engineering/setup-matt-pocock-skills/triage-labels.md:12. RJM defines Skill-Triage-002 (.claude/skills/triage/SKILL.md:15) as the automated triage dispatch agent.
 - **sequencing note:** Initial entry state for unclassified work items.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-245
 
 ### sequencing-fitness-triage-label-concept
 
@@ -461,7 +461,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines The Triage Checklist (skills/debugging-and-error-recovery/SKILL.md:45) for verifying bug reproduction before fix implementation.
 - **sequencing note:** Pre-fix verification step during defect mitigation.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-246
 
 ### sequencing-fitness-runtime-error-triage
 
@@ -479,7 +479,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines Runtime Error Triage (skills/debugging-and-error-recovery/SKILL.md:58) specializing in production exception and stack trace analysis.
 - **sequencing note:** Diagnostic step preceding code modification.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-247
 
 ### sequencing-fitness-build-failure-triage
 
@@ -533,7 +533,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines SKIPS policy in skills/constraint-driven-development/SKILL.md:32 to govern when checks may be bypassed. RJM defines _DEFAULT_SKIP_POLICY in .claude/commands/ship.md:45.
 - **sequencing note:** Enforces audit logging and justification whenever a lifecycle gate is skipped.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-248
 
 ### sequencing-fitness-on-skip-flag
 
@@ -698,7 +698,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** RJM explicitly documents Anti-recommendations in docs/when-to-use.md:36 for when the full lifecycle is overkill: (1) Typo, comment, or single-line doc fixes; (2) Reverting known-bad commits; (3) Mechanical renames across files. Running /spec or /plan on these task shapes is counter-productive overhead.
 - **sequencing note:** Provides clear boundaries where phases must be deliberately omitted.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-249
 
 
 ## 5. Greenfield vs. Brownfield Sequencing
@@ -719,7 +719,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines Path A (Greenfield: full lifecycle immediately, docs/adoption-guide.md:20) for brand new repositories where gates cost nothing and compound. Matt defines greenfield build in skills/engineering/codebase-design/SKILL.md:30. RJM supports bootstrap iterations for initial project creation (docs/workflow-commands.md:50).
 - **sequencing note:** Establishes day-one full lifecycle enforcement on new projects.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-250
 
 ### sequencing-adoption-greenfield-full-lifecycle
 
@@ -776,7 +776,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Matt defines the Phase Boundaries decision model (skills/engineering/ask-matt/PHASE-BOUNDARIES.md:1) with a strict five-option decision tree evaluated at boundary points: (1) Continue in session; (2) /clear; (3) /handoff; (4) Subagent; (5) /compact. Addy defines three-tier boundary system in skills/using-agent-skills/SKILL.md:40. RJM defines boundary protection in .agents/architecture/ADR-064:30.
 - **sequencing note:** Evaluated strictly at the completion of a logical phase before deciding context retention.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-251
 
 ### sequencing-boundary-phase-boundary-gate
 
@@ -794,7 +794,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Matt defines 'phase boundary' (skills/engineering/ask-matt/PHASE-BOUNDARIES.md:5) as the gap between two phases where context switching belongs. Addy defines boundaries in skills/using-agent-skills/SKILL.md:44. RJM defines boundary translation in .agents/architecture/ADR-064:35.
 - **sequencing note:** The explicit demarcation point between adjacent lifecycle stages.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-252
 
 ### sequencing-boundary-trigger-boundary
 
@@ -848,7 +848,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines Trust boundaries (skills/security-and-hardening/SKILL.md:18) separating trusted internal execution from untrusted inputs. RJM defines Untrusted-content boundary in .claude/commands/spec.md:88.
 - **sequencing note:** Enforced during spec and review phases to evaluate attack surfaces.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-253
 
 ### sequencing-boundary-security-boundaries
 
@@ -1175,7 +1175,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Matt defines /handoff (skills/productivity/handoff/SKILL.md:1) to compact conversation state into a portable markdown document that seeds fresh sessions across directories, harnesses, or colleagues. RJM defines Handoff syntax (.claude/commands/build.md:42) standardizing how active plans and issue handoffs are passed between commands.
 - **sequencing note:** Bridges context across agent sessions and harness boundaries without losing decision rationale.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-254
 
 ### sequencing-handoff-claude-handoff-technique
 
@@ -1232,7 +1232,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines Direct invocation (references/orchestration-patterns.md:11): single persona, single perspective, single artifact, with zero orchestration overhead (user -> code-reviewer -> report -> user). The default baseline for 1-step tasks.
 - **sequencing note:** Simplest orchestration mode with lowest latency and token cost.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-255
 
 ### sequencing-orchestration-parallel-fan-out-merge
 
@@ -1250,7 +1250,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines Parallel fan-out with merge (references/orchestration-patterns.md:48) where multiple specialist personas run concurrently on independent context windows and merge findings into a single decision (e.g. /ship fanning out to review, security, and testing). RJM defines Multi-Agent Orchestration System in docs/workflow-commands.md:85.
 - **sequencing note:** Used in review and shipping phases to achieve multi-perspective verification without context pollution.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-256
 
 ### sequencing-orchestration-parallel-fan-out-alias
 
@@ -1394,7 +1394,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy provides the master Orchestration Patterns reference catalog in references/orchestration-patterns.md:1 establishing endorsed patterns and anti-patterns.
 - **sequencing note:** Core architectural reference for agent orchestration.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-257
 
 ### sequencing-orchestration-patterns-md-alias
 
@@ -1451,7 +1451,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy identifies Meta-orchestrator / Router Persona (references/orchestration-patterns.md:284) as Anti-pattern A: a persona whose only job is deciding which other persona to call, adding two paraphrasing hops and doubling token cost without domain value. RJM addresses this via authority-order in .agents/architecture/ADR-064:65.
 - **sequencing note:** Prohibits intermediate routing agents; requires direct slash command or user dispatch.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-258
 
 ### sequencing-antipattern-sequential-paraphrasing
 
@@ -1469,7 +1469,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy identifies Sequential orchestrator that paraphrases (references/orchestration-patterns.md:316) as Anti-pattern C: an autonomous agent that calls /spec -> /plan -> /build sequentially on the user's behalf, which loses nuance between steps, skips human checkpoints, and doubles token cost. RJM defines causal-order in docs/workflow-commands.md:98.
 - **sequencing note:** Enforces human developer as the primary orchestrator across macro lifecycle boundaries.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-259
 
 ### sequencing-antipattern-catalog
 
@@ -1487,7 +1487,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines orchestration anti-pattern in references/orchestration-patterns.md:280 documenting persona-calls-persona and deep persona trees.
 - **sequencing note:** Architectural guidelines against nested agent hierarchies.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-260
 
 ### sequencing-antipattern-workflow-step-without-process
 
@@ -1526,7 +1526,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines TDD workflow (skills/test-driven-development/SKILL.md:12), Matt defines red-green-refactor loop (skills/engineering/tdd/SKILL.md:18), and RJM defines closed-loop rule (docs/workflow-commands.md:105). All three mandate: (1) write failing test first; (2) write minimal code to pass; (3) refactor with green tests.
 - **sequencing note:** Micro-sequencing loop within the Build and Implementation phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-261
 
 ### sequencing-loops-red-green-loop-matt
 
@@ -1616,7 +1616,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines verification loop (skills/verify/SKILL.md:15), Matt defines feedback loop (skills/engineering/diagnosing-bugs/SKILL.md:18), and RJM defines self-improving loop (.claude/skills/review/SKILL.md:80).
 - **sequencing note:** Automated iterative check-and-fix cycle during verification.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-262
 
 ### sequencing-loops-tight-feedback-loop
 
@@ -1742,7 +1742,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines The Optimization Workflow (skills/performance-optimization/SKILL.md:18): Measure -> Profile -> Optimize -> Verify.
 - **sequencing note:** Performance tuning loop in review and ship phases.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-263
 
 ### sequencing-loops-profiling-workflows
 
@@ -1781,7 +1781,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** RJM strictly enforces the Self-audit round cap (.claude/skills/review/SKILL.md:33): any automated fix-and-rereview loop has a hard stop at 3 rounds maximum. Round 3 escalates to the operator; never loop silently. Matt implements human-in-the-loop scripts (scripts/hitl-loop.template.sh:1). Addy provides loop engineering guidelines in references/orchestration-patterns.md:250.
 - **sequencing note:** Critical safety circuit breaker preventing unbounded agent retry loops and runaway token costs.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-264
 
 ### sequencing-caps-hitl-template-name-only
 
@@ -1817,7 +1817,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Matt formalizes human-in-the-loop (HITL) execution in skills/engineering/diagnosing-bugs/SKILL.md:55.
 - **sequencing note:** Safety pattern ensuring developer checkpoints.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-265
 
 ### sequencing-caps-the-infinite-loop-warning
 
@@ -1892,7 +1892,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines dependency order (skills/planning-and-task-breakdown/SKILL.md:18) where task execution order is strictly determined by topological sort of task dependencies. RJM implements Get-DecisionSequence (.agents/architecture/ADR-064:75) to resolve decision DAGs.
 - **sequencing note:** Governs the scheduling and execution order of decomposed work tasks.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-266
 
 ### sequencing-dag-dependency-graph
 
@@ -1910,7 +1910,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines dependency graph (skills/planning-and-task-breakdown/SKILL.md:25) as the directed acyclic graph of tasks and artifacts. RJM defines Workflow Validation (docs/workflow-commands.md:135) checking DAG acyclicity and reachability.
 - **sequencing note:** Validated during planning phase prior to build execution.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-267
 
 ### sequencing-dag-dependency-ordering-technique
 
@@ -1946,7 +1946,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines Shift Left (skills/ci-cd-and-automation/SKILL.md:15) moving testing and validation upstream to the earliest possible point. RJM defines Shift-left security (docs/workflow-commands.md:142) embedding threat modeling into /spec.
 - **sequencing note:** Architectural sequencing philosophy moving downstream gates into upstream phases.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-268
 
 ### sequencing-dag-git-workflow-versioning
 
@@ -1964,7 +1964,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines git-workflow-and-versioning (skills/git-workflow-and-versioning/SKILL.md:1) enforcing atomic ~100-line commits as save-points between tasks.
 - **sequencing note:** Version control sequencing within build and ship phases.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-269
 
 ### sequencing-dag-feature-flag-lifecycle
 
@@ -1982,7 +1982,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines feature-flag lifecycle (skills/shipping-and-launch/SKILL.md:22): introduction -> testing -> staged rollout -> 100% release -> cleanup.
 - **sequencing note:** Release management lifecycle.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-270
 
 ### sequencing-dag-flag-lifecycle-alias
 
@@ -2018,7 +2018,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** Addy defines ADR Lifecycle (skills/documentation-and-adrs/SKILL.md:18): proposed -> accepted -> superseded/deprecated.
 - **sequencing note:** Decision state machine.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-271
 
 ### sequencing-dag-radar-protocol-sequence
 
@@ -2054,7 +2054,7 @@ Per METHOD.md §5 and §9, this is the third of three structural concordances (a
 - **difference:** RJM defines Thread Severity Classification and Lifecycle (.claude/skills/review/references/thread-severity.md:1) for managing review comment resolution states.
 - **sequencing note:** Review finding lifecycle from open to verified resolved.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-272
 
 
 ## 13. RJM-Specific Pipelines, Validation & Governance Workflows

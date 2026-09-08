@@ -1232,11 +1232,61 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 
 ### Techniques
 
-*(none yet)*
+### atomic-commit-workflow
+
+- **definition:** The atomic commit workflow is a version control discipline creating small, focused (~100-line) commits with structured messages as checkpoints between discrete implementation tasks.
+- **kind:** technique
+- **source names:** addy: `git-workflow-and-versioning` · matt: — · rjm: —
+- **decision:** D-269
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-dag-git-workflow-versioning`
+- **not to be confused with:** commit-message, working-increment
+
+### red-green-refactor-loop
+
+- **definition:** The red-green-refactor loop is a micro-implementation discipline requiring writing an automated failing test first, writing minimal code to make the test pass, and refactoring while keeping tests green.
+- **kind:** technique
+- **source names:** addy: `TDD workflow` · matt: `red-green-refactor loop` · rjm: `closed-loop rule`
+- **decision:** D-261
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-loops-tdd-red-green-refactor`
+- **not to be confused with:** verification-feedback-loop, optimization-workflow
 
 ### Gates
 
-*(none yet)*
+### front-gate-prerequisite
+
+- **definition:** A front-gate prerequisite is an entry assertion that strictly blocks a lifecycle phase or pipeline from initiating until all required upstream artifacts are committed to disk.
+- **kind:** gate
+- **source names:** addy: `The Gated Workflow` · matt: `Prerequisite` · rjm: `front-gate-before-pipeline`
+- **decision:** D-237
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-precedence-front-gate-prerequisite`
+- **not to be confused with:** task-prerequisites, quality-gate-pipeline
+
+### phase-boundary-transition
+
+- **definition:** A phase boundary transition is the explicit stopping and evaluation point between two lifecycle stages where deliverables are verified and session context is reset or handed off.
+- **kind:** gate
+- **source names:** addy: `boundaries` · matt: `phase boundary` · rjm: `Boundary translation`
+- **decision:** D-252
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-boundary-phase-boundary-gate`
+- **not to be confused with:** phase-boundary-decision-model, quality-gate-pipeline
+
+### quality-gate-pipeline
+
+- **definition:** A quality-gate pipeline is a series of automated verification checks and policy assertions enforced at phase boundaries before code or artifacts can transition to subsequent stages.
+- **kind:** gate
+- **source names:** addy: `quality-gate pipelines` · matt: — · rjm: —
+- **decision:** D-239
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-precedence-quality-gate-pipeline`
+- **not to be confused with:** front-gate-prerequisite, phase-boundary-transition
+
+### self-audit-round-cap
+
+- **definition:** The self-audit round cap is a hard limit capping automated review-and-fix iteration loops at three rounds maximum, requiring mandatory escalation to a human developer if unresolved.
+- **kind:** gate
+- **source names:** addy: `Loop engineering` · matt: `hitl-loop.template.sh` · rjm: `Self-audit round cap`
+- **decision:** D-264
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-caps-self-audit-round-cap`
+- **not to be confused with:** human-in-the-loop-checkpoint, quality-gate-pipeline
 
 ### Roles
 
@@ -1244,8 +1294,337 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 
 ### References
 
-*(none yet)*
+### lifecycle-anti-recommendations
+
+- **definition:** Lifecycle anti-recommendations are documented negative guidelines defining trivial or mechanical tasks (such as single-line doc typos or dependency pin bumps) where the full lifecycle imposes unnecessary overhead and must be omitted.
+- **kind:** reference
+- **source names:** addy: — · matt: — · rjm: `idea lifecycle`
+- **decision:** D-249
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-overkill-anti-recommendations`
+- **not to be confused with:** task-fitness-guide, gate-skip-policy
+
+### orchestration-antipatterns-reference
+
+- **definition:** The orchestration anti-patterns reference is a catalog of prohibited multi-agent design structures, including nested subagent hierarchies, router agents, and hidden conversational re-prompting.
+- **kind:** reference
+- **source names:** addy: `orchestration anti-pattern` · matt: — · rjm: —
+- **decision:** D-260
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-antipattern-catalog`
+- **not to be confused with:** orchestration-patterns-reference, meta-orchestrator-antipattern
+
+### orchestration-patterns-reference
+
+- **definition:** The orchestration patterns reference is an architectural specification documenting approved subagent dispatch topologies, communication constraints, and multi-agent coordination models.
+- **kind:** reference
+- **source names:** addy: `orchestration-patterns` · matt: — · rjm: —
+- **decision:** D-257
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-orchestration-patterns-catalog`
+- **not to be confused with:** orchestration-antipatterns-reference, parallel-fan-out-merge
+
+### task-fitness-guide
+
+- **definition:** The task fitness guide is a decision matrix mapping incoming engineering task shapes (such as full features, hotfixes, spikes, or doc changes) to the appropriate subset of lifecycle phases.
+- **kind:** reference
+- **source names:** addy: `When to use` · matt: `Explicit scope boundaries` · rjm: `When to Use`
+- **decision:** D-241
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-fitness-when-to-use-guide`
+- **not to be confused with:** lifecycle-anti-recommendations, lifecycle-mapping
 
 ### Patterns
 
-*(none yet)*
+### adr-state-lifecycle
+
+- **definition:** The ADR state lifecycle is the formal progression governing architectural decision records through proposed, accepted, rejected, and superseded or deprecated states.
+- **kind:** pattern
+- **source names:** addy: `ADR Lifecycle` · matt: — · rjm: —
+- **decision:** D-271
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-dag-adr-lifecycle`
+- **not to be confused with:** architecture-decision-record, considered-options
+
+### agent-driven-workflow
+
+- **definition:** An agent-driven workflow is an autonomous execution paradigm where subagents progress through multi-step task breakdowns within bounded phase constraints without turn-by-turn developer prompting.
+- **kind:** pattern
+- **source names:** addy: `Agent-driven workflow` · matt: — · rjm: —
+- **decision:** D-236
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-pipeline-agent-driven-workflow`
+- **not to be confused with:** command-driven-workflow, standard-feature-workflow
+
+### command-driven-workflow
+
+- **definition:** A command-driven workflow is an execution paradigm where progression through lifecycle phases is explicitly invoked and gated by developer slash commands rather than autonomous loops.
+- **kind:** pattern
+- **source names:** addy: `Command-driven workflow` · matt: — · rjm: —
+- **decision:** D-235
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-pipeline-command-vs-agent-driven`
+- **not to be confused with:** agent-driven-workflow, standard-feature-workflow
+
+### direct-invocation-pattern
+
+- **definition:** The direct invocation pattern is a single-persona execution model where a specialist skill or tool is called directly by the user or primary agent without intermediate coordinator routing.
+- **kind:** pattern
+- **source names:** addy: `Direct invocation` · matt: — · rjm: —
+- **decision:** D-255
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-orchestration-direct-invocation`
+- **not to be confused with:** parallel-fan-out-merge, meta-orchestrator-antipattern
+
+### feature-flag-lifecycle
+
+- **definition:** The feature flag lifecycle is the release management progression governing flag creation, testing, gradual rollout, 100% enablement, and scheduled code cleanup.
+- **kind:** pattern
+- **source names:** addy: `feature-flag lifecycle` · matt: — · rjm: —
+- **decision:** D-270
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-dag-feature-flag-lifecycle`
+- **not to be confused with:** standard-feature-workflow, ship-phase
+
+### gate-skip-policy
+
+- **definition:** A gate skip policy is a formal operational standard specifying permissible conditions, mandatory justifications, and audit trails required to bypass a lifecycle gate or verification check.
+- **kind:** pattern
+- **source names:** addy: `SKIPS` · matt: — · rjm: `_DEFAULT_SKIP_POLICY`
+- **decision:** D-248
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-fitness-skipping-rules-policy`
+- **not to be confused with:** lifecycle-anti-recommendations, front-gate-prerequisite
+
+### greenfield-lifecycle-path
+
+- **definition:** The greenfield lifecycle path is an adoption sequence for new codebases establishing comprehensive specification, strict planning, and rigorous testing gates from project inception.
+- **kind:** pattern
+- **source names:** addy: `Greenfield` · matt: `greenfield build` · rjm: `BOOTSTRAP_ITERATIONS`
+- **decision:** D-250
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-adoption-greenfield-path`
+- **not to be confused with:** standard-feature-workflow, quick-fix-workflow
+
+### human-in-the-loop-checkpoint
+
+- **definition:** A human-in-the-loop checkpoint is a deliberate pause in autonomous execution requiring explicit human confirmation, direction, or approval before high-impact or destructive actions proceed.
+- **kind:** pattern
+- **source names:** addy: — · matt: `human-in-the-loop` · rjm: —
+- **decision:** D-265
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-caps-human-in-the-loop`
+- **not to be confused with:** self-audit-round-cap, phase-boundary-transition
+
+### implicit-command-mapping
+
+- **definition:** Implicit command mapping is the natural-language intent recognition mechanism that infers and activates the appropriate lifecycle skill without requiring explicit slash-command syntax.
+- **kind:** pattern
+- **source names:** addy: `Lifecycle Mapping (Implicit Commands)` · matt: — · rjm: —
+- **decision:** D-234
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-pipeline-lifecycle-mapping-implicit`
+- **not to be confused with:** lifecycle-mapping, command-driven-workflow
+
+### lifecycle-mapping
+
+- **definition:** Lifecycle mapping is the dispatch heuristic that categorizes an incoming developer request and routes it to the corresponding lifecycle phase and skill.
+- **kind:** pattern
+- **source names:** addy: `Lifecycle Mapping` · matt: — · rjm: —
+- **decision:** D-233
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-pipeline-lifecycle-mapping`
+- **not to be confused with:** implicit-command-mapping, phase-routing
+
+### lifecycle-sequence
+
+- **definition:** The lifecycle sequence is the chronologically ordered stage progression defining the entry, handoff, and completion order across all lifecycle phases.
+- **kind:** pattern
+- **source names:** addy: `Lifecycle Sequence` · matt: `General workflow tools` · rjm: `Lifecycle commands`
+- **decision:** D-231
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-pipeline-macro-lifecycle-sequence`
+- **not to be confused with:** standard-feature-workflow, lifecycle-workflow
+
+### lifecycle-workflow
+
+- **definition:** A lifecycle workflow is an end-to-end disciplined engineering sequence governing software creation, validation, and release under explicit gate constraints.
+- **kind:** pattern
+- **source names:** addy: `lifecycle` · matt: — · rjm: `Workflows`
+- **decision:** D-232
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-pipeline-lifecycle-concept`
+- **not to be confused with:** lifecycle-sequence, standard-feature-workflow
+
+### meta-orchestrator-antipattern
+
+- **definition:** The meta-orchestrator anti-pattern is an inefficient architecture where an intermediate agent persona serves solely to route tasks to other agents, introducing paraphrasing loss and unnecessary token consumption.
+- **kind:** pattern
+- **source names:** addy: `meta-orchestrator` · matt: — · rjm: —
+- **decision:** D-258
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-antipattern-meta-orchestrator`
+- **not to be confused with:** sequential-paraphrasing-antipattern, direct-invocation-pattern
+
+### needs-triage-marker
+
+- **definition:** A needs-triage marker is an issue tracking state or label indicating that an incoming work item is unclassified and requires evaluation before entry into the lifecycle.
+- **kind:** pattern
+- **source names:** addy: — · matt: `needs-triage` · rjm: `Skill-Triage-002`
+- **decision:** D-245
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-fitness-needs-triage-label`
+- **not to be confused with:** triage-first-discipline, triage-phase
+
+### optimization-workflow
+
+- **definition:** The optimization workflow is an empirical performance tuning cycle progressing through baseline measurement, profiling, surgical optimization, and regression verification.
+- **kind:** pattern
+- **source names:** addy: `The Optimization Workflow` · matt: — · rjm: —
+- **decision:** D-263
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-loops-optimization-workflow`
+- **not to be confused with:** verification-feedback-loop, red-green-refactor-loop
+
+### parallel-fan-out-merge
+
+- **definition:** Parallel fan-out with merge is an orchestration pattern in which multiple specialist subagents run concurrently with isolated contexts on independent units or perspectives before their outputs are merged into a synthesized verdict.
+- **kind:** pattern
+- **source names:** addy: `Parallel fan-out with merge` · matt: — · rjm: `Multi-Agent Orchestration System`
+- **decision:** D-256
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-orchestration-parallel-fan-out-merge`
+- **not to be confused with:** direct-invocation-pattern, meta-orchestrator-antipattern
+
+### phase-boundary-decision-model
+
+- **definition:** The phase boundary decision model is an architectural protocol evaluated at phase completion to determine context management actions across continuation, clean slate, handoff, subagent dispatch, or compaction.
+- **kind:** pattern
+- **source names:** addy: `three-tier boundary system` · matt: `Phase boundaries` · rjm: `Boundary Protection`
+- **decision:** D-251
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-boundary-decision-model`
+- **not to be confused with:** phase-boundary-transition, session-handoff-protocol
+
+### pipeline-staleness-invalidation
+
+- **definition:** Pipeline staleness invalidation is the dependency invalidation rule where modifications to upstream specification or planning artifacts mark all downstream code and verification outputs stale, requiring pipeline re-execution.
+- **kind:** pattern
+- **source names:** addy: — · matt: — · rjm: `Full pipeline staleness`
+- **decision:** D-240
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-precedence-full-pipeline-staleness`
+- **not to be confused with:** front-gate-prerequisite, quality-gate-pipeline
+
+### quick-fix-workflow
+
+- **definition:** The quick fix workflow is an accelerated, three-stage lifecycle fast path (/build → /test → /ship) bypassing specification and planning for localized defect repairs with verified root causes and bounded blast radii.
+- **kind:** pattern
+- **source names:** addy: `five-step triage` · matt: `triage roles` · rjm: `Quick Fix Workflow`
+- **decision:** D-242
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-fitness-quick-fix-workflow`
+- **not to be confused with:** standard-feature-workflow, research-first-workflow
+
+### research-first-workflow
+
+- **definition:** The research-first workflow is an exploratory lifecycle sequence that executes specification and execution planning (/spec → /plan) to investigate technical spikes and resolve architectural uncertainties without writing implementation code.
+- **kind:** pattern
+- **source names:** addy: — · matt: `grilling loop` · rjm: `Research-First Workflow`
+- **decision:** D-243
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-fitness-research-first-workflow`
+- **not to be confused with:** standard-feature-workflow, quick-fix-workflow
+
+### review-thread-lifecycle
+
+- **definition:** The review thread lifecycle is the resolution sequence for pull request review comments categorizing severity (blocking vs non-blocking) and tracking findings from open to verified resolved.
+- **kind:** pattern
+- **source names:** addy: — · matt: — · rjm: `Thread Severity Classification and Lifecycle`
+- **decision:** D-272
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-dag-thread-severity-lifecycle`
+- **not to be confused with:** review-phase, review-report
+
+### runtime-error-triage
+
+- **definition:** Runtime error triage is a specialized diagnostic sequence isolating exception causes, stack frames, and failure states in production or test environments prior to remediation.
+- **kind:** pattern
+- **source names:** addy: `Runtime Error Triage` · matt: — · rjm: —
+- **decision:** D-247
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-fitness-runtime-error-triage`
+- **not to be confused with:** triage-checklist-sequence, defect-reproduction
+
+### sequential-paraphrasing-antipattern
+
+- **definition:** The sequential paraphrasing anti-pattern is an execution defect where an autonomous agent wraps and chains macro lifecycle commands sequentially on the user's behalf, obscuring underlying output and bypassing human gates.
+- **kind:** pattern
+- **source names:** addy: `Sequential orchestrator that paraphrases` · matt: — · rjm: —
+- **decision:** D-259
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-antipattern-sequential-paraphrasing`
+- **not to be confused with:** meta-orchestrator-antipattern, command-driven-workflow
+
+### session-handoff-protocol
+
+- **definition:** The session handoff protocol is the mechanism of serializing completed phase progress, open decisions, and active context into a structured markdown document on disk to seed subsequent agent conversations.
+- **kind:** pattern
+- **source names:** addy: — · matt: `The /handoff Skill` · rjm: `Handoff syntax`
+- **decision:** D-254
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-handoff-syntax-and-skill`
+- **not to be confused with:** phase-boundary-decision-model, phase-boundary-transition
+
+### shift-left-verification
+
+- **definition:** Shift-left verification is the architectural practice of moving quality, security, and performance assertions upstream into specification and planning phases to minimize remediation costs.
+- **kind:** pattern
+- **source names:** addy: `Shift Left` · matt: — · rjm: `Shift-left security`
+- **decision:** D-268
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-dag-shift-left-lifecycle`
+- **not to be confused with:** quality-gate-pipeline, front-gate-prerequisite
+
+### standard-feature-workflow
+
+- **definition:** The standard feature workflow is the canonical six-stage macro lifecycle execution pipeline (/spec → /plan → /build → /test → /review → /ship) sequentially driven by the human developer for non-trivial capabilities.
+- **kind:** pattern
+- **source names:** addy: `Sequential pipeline as user-driven slash commands` · matt: `workflows/*.md` · rjm: `Standard Feature Workflow`
+- **decision:** D-230
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-pipeline-standard-feature-workflow`
+- **not to be confused with:** quick-fix-workflow, research-first-workflow
+
+### task-dependency-graph
+
+- **definition:** A task dependency graph is a directed acyclic model mapping relationships, prerequisites, and execution constraints among decomposed implementation tasks.
+- **kind:** pattern
+- **source names:** addy: `dependency graph` · matt: — · rjm: `Workflow Validation`
+- **decision:** D-267
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-dag-dependency-graph`
+- **not to be confused with:** topological-dependency-order, task-prerequisites
+
+### task-prerequisites
+
+- **definition:** Task prerequisites are explicit dependencies declared on work items or tickets that prevent execution from beginning until blocking parent tasks or technical decisions are complete.
+- **kind:** pattern
+- **source names:** addy: — · matt: `Prerequisites` · rjm: `Front-gate`
+- **decision:** D-238
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-precedence-prerequisites-pattern`
+- **not to be confused with:** front-gate-prerequisite, task-dependency-graph
+
+### topological-dependency-order
+
+- **definition:** Topological dependency order is the linear scheduling sequence of work units derived from a directed acyclic graph to ensure all foundational components exist before dependent tasks execute.
+- **kind:** pattern
+- **source names:** addy: `dependency order` · matt: — · rjm: `Get-DecisionSequence`
+- **decision:** D-266
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-dag-dependency-order-topological`
+- **not to be confused with:** task-dependency-graph, task-prerequisites
+
+### triage-checklist-sequence
+
+- **definition:** The triage checklist sequence is an ordered defect triage protocol systematically progressing through reproduction, localization, reduction, root cause isolation, recurrence guarding, and verification.
+- **kind:** pattern
+- **source names:** addy: `The Triage Checklist` · matt: — · rjm: —
+- **decision:** D-246
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-fitness-triage-checklist`
+- **not to be confused with:** triage-first-discipline, runtime-error-triage
+
+### triage-first-discipline
+
+- **definition:** The triage-first discipline is the intake sequencing rule requiring issue reproduction, severity assessment, and blast-radius classification before selecting a lifecycle workflow path.
+- **kind:** pattern
+- **source names:** addy: — · matt: `Triage role` · rjm: `Triage first`
+- **decision:** D-244
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-fitness-triage-first`
+- **not to be confused with:** triage-phase, triage-checklist-sequence
+
+### trust-boundary-enforcement
+
+- **definition:** Trust boundary enforcement is an architectural security discipline that isolates trusted agent execution environments and tool invocations from untrusted user inputs, external web content, and third-party data.
+- **kind:** pattern
+- **source names:** addy: `Trust boundaries` · matt: — · rjm: `Untrusted-content boundary`
+- **decision:** D-253
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-boundary-trust-boundaries`
+- **not to be confused with:** phase-boundary-transition, front-gate-prerequisite
+
+### verification-feedback-loop
+
+- **definition:** A verification feedback loop is an iterative diagnostic cycle in which code changes are immediately tested against deterministic verification commands to provide rapid correction signals.
+- **kind:** pattern
+- **source names:** addy: `verification loop` · matt: `feedback loop` · rjm: `self-improving loop`
+- **decision:** D-262
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-loops-feedback-loop-singular`
+- **not to be confused with:** red-green-refactor-loop, optimization-workflow

@@ -14,13 +14,13 @@ It provides:
 |---|---|---|---|---|---|---|---|---|---|
 | [Phases](phases.md) | 240 | 271 | 5 | 15 | 2 | 6 | 212 | 0 | **0** (resolved in D-100–D-125) |
 | [Artifacts](artifacts.md) | 726 | 818 | 27 | 32 | 1 | 9 | 657 | 0 | **0** (resolved in D-126–D-229) |
-| [Sequencing](sequencing.md) | 367 | 405 | 4 | 26 | 0 | 1 | 336 | 0 | **43** |
+| [Sequencing](sequencing.md) | 367 | 405 | 4 | 26 | 0 | 1 | 336 | 0 | **0** (resolved in D-230–D-272) |
 | [Techniques](techniques.md) | 2,110 | 2,147 | 24 | 9 | 0 | 0 | 2,077 | 0 | **239** |
 | [Gates](gates.md) | 841 | 866 | 17 | 7 | 0 | 0 | 817 | 0 | **7** |
 | [Roles](roles.md) | 192 | 215 | 0 | 18 | 0 | 0 | 174 | 0 | **69** |
 | [References](references.md) | 694 | 720 | 7 | 17 | 0 | 0 | 670 | 0 | **17** |
 | [Invocation Patterns](invocation-patterns.md) | 1,973 | 2,034 | 46 | 11 | 0 | 0 | 1,916 | 0 | **11** |
-| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **412** |
+| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **369** |
 
 ---
 
@@ -172,7 +172,7 @@ Source file: [`docs/analysis/concordance/artifacts.md`](artifacts.md)
 | [`artifact-rjm-action-plan`](artifacts.md#artifact-rjm-action-plan) | `UNIQUE` | — | — | `action plan` | Unique to RJM: action plan (action-plan). Defined in rjm:analyze. |
 | [`artifact-rjm-plan-template`](artifacts.md#artifact-rjm-plan-template) | `UNIQUE` | — | — | `Plan Template` | Unique to RJM: Plan Template (plan-template). Defined in rjm:plan. |
 
-### Sequencing (43 decisions needed)
+### Sequencing (43 decisions needed — resolved in D-230–D-272)
 
 Source file: [`docs/analysis/concordance/sequencing.md`](sequencing.md)
 
