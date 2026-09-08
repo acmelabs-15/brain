@@ -8,11 +8,11 @@ This file is the single source of truth for where the project is. It is updated 
 
 | Field | Value |
 |---|---|
-| **phase** | `3` |
-| **phase_name** | Concordance |
-| **current_unit** | invocation-patterns |
-| **last_session** | 025 |
-| **next_action** | Phase 3 — Concordance (single-threaded orchestrator; continue with invocation-patterns family per METHOD.md §5) |
+| **phase** | `4` |
+| **phase_name** | Alignment decisions |
+| **current_unit** | D-100 (concordance decisions) |
+| **last_session** | 026 |
+| **next_action** | Phase 4 — Alignment decisions (single-threaded orchestrator; resolve 516 decision rows listed in docs/analysis/concordance/_summary.md per METHOD.md §5) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -42,7 +42,7 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 | 1 | Inventory | `done` | unit extraction done (416/416); Phase 1V remediation & re-verification complete (all 3 reports clean) | 001–008, 011–012 |
 | 1V | Inventory verification | `done` | 49 flagged units re-run and verified clean (runs 18–19); all 3 verifier reports rewritten clean (PASS) | 009, 011, 012 |
 | 2 | Concept cards | `done` | 460/460 concept units done (addy 44/44, matt 40/40, rjm 376/376); 13,765 concept cards on disk; all checks clean | 013–018 |
-| 3 | Concordance | `in-progress` | — | — |
+| 3 | Concordance | `done` | all 8 concordance families complete; 7,143 rows mapping 7,476 concept cards; zero duplicates; _summary.md written | 019–026 |
 | 4 | Alignment decisions | `pending` | — | — |
 | 4V | Decision review | `pending` | — | — |
 | 5 | Lifecycle spec | `pending` | — | — |
@@ -96,7 +96,7 @@ Concept units (`cc-<pkg>-N`, up to 30 concept slugs each) come from `partition-c
 | gates | `done` | 023 | `docs/analysis/concordance/gates.md` |
 | roles | `done` | 024 | `docs/analysis/concordance/roles.md` |
 | references | `done` | 025 | `docs/analysis/concordance/references.md` |
-| invocation-patterns | `pending` | — | `docs/analysis/concordance/invocation-patterns.md` |
+| invocation-patterns | `done` | 026 | `docs/analysis/concordance/invocation-patterns.md` |
 
 ### Phase 7 — Build units
 
@@ -115,7 +115,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 | Manifest rows (addy / matt / rjm) | 219 / 201 / 1175 |
 | Inventory units done (addy / matt / rjm) | 46 / 46 / 324 |
 | Concept cards (addy / matt / rjm) | units done 44 / 40 / 376 of 44 / 40 / 376 |
-| Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 5,171 total: 241 in phases (ALIGNED 5 / SYNONYM 15 / HOMONYM 2 / PARTIAL 6 / UNIQUE 213 / CONFLICT 0); 726 in artifacts (ALIGNED 27 / SYNONYM 32 / HOMONYM 1 / PARTIAL 9 / UNIQUE 657 / CONFLICT 0); 367 in sequencing (ALIGNED 4 / SYNONYM 26 / HOMONYM 0 / PARTIAL 1 / UNIQUE 336 / CONFLICT 0); 2,110 in techniques (ALIGNED 24 / SYNONYM 9 / HOMONYM 0 / PARTIAL 0 / UNIQUE 2077 / CONFLICT 0); 841 in gates (ALIGNED 17 / SYNONYM 7 / HOMONYM 0 / PARTIAL 0 / UNIQUE 817 / CONFLICT 0); 192 in roles (ALIGNED 0 / SYNONYM 18 / HOMONYM 0 / PARTIAL 0 / UNIQUE 174 / CONFLICT 0); 694 in references (ALIGNED 7 / SYNONYM 17 / HOMONYM 0 / PARTIAL 0 / UNIQUE 670 / CONFLICT 0) |
+| Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 7,143 total: 240 in phases (ALIGNED 5 / SYNONYM 15 / HOMONYM 2 / PARTIAL 6 / UNIQUE 212 / CONFLICT 0); 726 in artifacts (ALIGNED 27 / SYNONYM 32 / HOMONYM 1 / PARTIAL 9 / UNIQUE 657 / CONFLICT 0); 367 in sequencing (ALIGNED 4 / SYNONYM 26 / HOMONYM 0 / PARTIAL 1 / UNIQUE 336 / CONFLICT 0); 2,110 in techniques (ALIGNED 24 / SYNONYM 9 / HOMONYM 0 / PARTIAL 0 / UNIQUE 2077 / CONFLICT 0); 841 in gates (ALIGNED 17 / SYNONYM 7 / HOMONYM 0 / PARTIAL 0 / UNIQUE 817 / CONFLICT 0); 192 in roles (ALIGNED 0 / SYNONYM 18 / HOMONYM 0 / PARTIAL 0 / UNIQUE 174 / CONFLICT 0); 694 in references (ALIGNED 7 / SYNONYM 17 / HOMONYM 0 / PARTIAL 0 / UNIQUE 670 / CONFLICT 0); 1,973 in invocation-patterns (ALIGNED 46 / SYNONYM 11 / HOMONYM 0 / PARTIAL 0 / UNIQUE 1916 / CONFLICT 0) |
 | Decisions (active / superseded / pending-peter) | 18 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
 | Glossary terms | 0 |
 | Build units (done / total) | — / — |
@@ -136,7 +136,7 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 |---|---|---|
 | coverage.ts | 2026-09-07 | clean (rows 1595, covered 1567, concepts without card 0) |
 | units.ts check | 2026-09-07 | clean (876 total — pending 0 · in-progress 0 · done 876 · blocked 0 · rolled-back 0) |
-| budget.ts | 2026-09-07 | clean (used=19.58%, peak=19.58%, governing=25.00%, close=1.13%, headroom=4.29%, pending=0 → STOP) |
+| budget.ts | 2026-09-07 | clean (used=17.19%, peak=17.19%, governing=25.00%, close=1.39%, headroom=6.42%, pending=0 → STOP) |
 | glossary-lint.ts | 2026-09-07 | clean |
 | last-unit verification | 2026-09-07 | cc-rjm-376: HIT, quote-check 9 PASS / 0 FAIL |
 | decision consistency (4V) | — | — |
