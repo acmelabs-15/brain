@@ -97,7 +97,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy defines one-pager as a high-density, single-page summary of scope and goals; Matt defines brief as an agent-ready problem overview.
 - **sequencing note:** Pre-specification summary artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-126
 
 ### artifact-agent-brief
 
@@ -115,7 +115,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy defines product-brief and Matt defines agent-brief as the formal input context framing the feature problem space.
 - **sequencing note:** Entry context artifact for the discovery / specification phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-127
 
 ### artifact-requirements
 
@@ -133,7 +133,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy defines requirements lists; Matt defines user stories expressing user needs; RJM formalizes requirements via a requirement-schema template.
 - **sequencing note:** Core component section of the specification.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-128
 
 ### artifact-structured-requirements
 
@@ -151,7 +151,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy groups specification files across directories; RJM defines structured-requirements as an explicit machine-checkable requirements artifact.
 - **sequencing note:** Specification persistence artifacts.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-129
 
 ### artifact-input-contract
 
@@ -169,7 +169,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy records confirmed user intent; Matt accumulates author notes into an input pile; RJM establishes a formal schema-validated input contract.
 - **sequencing note:** Generated at the onset of interactive interview / exploration.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-130
 
 ### artifact-scope-constraints
 
@@ -187,7 +187,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy uses a not-doing-list for negative scope; Matt documents environmental constraints; RJM performs a formal breaking-change risk assessment.
 - **sequencing note:** Scoping boundary artifact established during specification.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-131
 
 ### artifact-mvp-scope
 
@@ -205,7 +205,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy defines MVP scope boundaries; Matt specifies the concrete 'success looks like' condition for the initial slice.
 - **sequencing note:** Phase boundary definition in specification.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-132
 
 ### artifact-discovery-questionnaire
 
@@ -223,7 +223,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt provides a discovery questionnaire for exploratory grilling; RJM provides an agent interview response template for stakeholder elicitation.
 - **sequencing note:** Interactive discovery artifact preceding formal spec drafting.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-133
 
 ## 2. Work Breakdown, Planning & Task Tracking Artifacts
 
@@ -261,7 +261,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy maintains actionable task checklists in tasks/todo.md; Matt creates modular markdown ticket files; RJM generates structured tasks within its plan manifest.
 - **sequencing note:** Produced in Plan; checked off incrementally during Build.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-134
 
 ### artifact-task-unit
 
@@ -279,7 +279,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy defines task list targets (local markdown or external issue tracker); Matt defines self-contained ticket files; RJM defines structured task definition formats.
 - **sequencing note:** Atomic task unit consumed by implementing worker.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-135
 
 ### artifact-plan-template
 
@@ -297,7 +297,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy provides a plan document template; Matt provides ticket/spec templates; RJM provides task list templates.
 - **sequencing note:** Planning authoring templates.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-136
 
 ### artifact-tasks-plan-file
 
@@ -351,7 +351,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt models sub-tasks as child tickets linked to parent issues; RJM models sub-tasks using nested task schema definitions.
 - **sequencing note:** Plan decomposition artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-137
 
 ### artifact-backlog
 
@@ -369,7 +369,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt maintains a backlog of unworked tickets; RJM organizes candidate tasks into selection groups for batch execution.
 - **sequencing note:** Queue artifact holding unassigned work.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-138
 
 ## 3. Architecture, Decisions & Design Artifacts (ADRs)
 
@@ -461,7 +461,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy names the section alternatives-considered; Matt and RJM name it considered-options.
 - **sequencing note:** Section of an ADR evaluating alternatives.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-139
 
 ### artifact-consequences
 
@@ -497,7 +497,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy formalizes the ADR discipline; Matt refers to architectural decisions; RJM groups related decisions into decision groups.
 - **sequencing note:** Architectural governance concept.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-140
 
 ### artifact-context-map
 
@@ -515,7 +515,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy defines capability maps; Matt and RJM define context maps representing system boundaries and dependencies.
 - **sequencing note:** Structural design artifact informing architectural decisions.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-141
 
 ### artifact-system-context
 
@@ -571,7 +571,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy and Matt target GitHub/GitLab pull requests; RJM defines restoration PRs and review artifacts.
 - **sequencing note:** Produced in Build / Review; merged in Ship.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-142
 
 ### artifact-commit-message
 
@@ -589,7 +589,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy structures change descriptions per commit; Matt defines structured commit messages.
 - **sequencing note:** Produced at task completion in Build.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-143
 
 ### artifact-working-code
 
@@ -607,7 +607,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy refers to working increments; Matt refers to production code deliverables.
 - **sequencing note:** Core deliverable of the Build phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-144
 
 ### artifact-working-tree
 
@@ -625,7 +625,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy defines working-tree as the git filesystem state; Matt defines working-title as the provisional name of a document.
 - **sequencing note:** Addy: VCS artifact. Matt: editorial artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-145
 
 ### artifact-plugin
 
@@ -661,7 +661,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt defines claude-code-plugin packaging; RJM defines marketplace-plugin manifests.
 - **sequencing note:** Plugin distribution artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-146
 
 ### artifact-frontmatter
 
@@ -735,7 +735,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy captures raw error output and test results; Matt isolates failing tests; RJM organizes tests into test groups.
 - **sequencing note:** Output of test runner in Verify / test.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-147
 
 ### artifact-test-coverage
 
@@ -753,7 +753,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy analyzes test coverage; Matt inspects test files; RJM verifies against reference corpus benchmarks.
 - **sequencing note:** Verification gate artifacts.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-148
 
 ### artifact-testing-strategy
 
@@ -771,7 +771,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy outlines a testing strategy; Matt records testing decisions; RJM defines assertion specifications.
 - **sequencing note:** Formulated during Plan; validated during Verify.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-149
 
 ### artifact-verification-evidence
 
@@ -807,7 +807,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy captures Chrome DevTools performance traces; Matt captures runtime debug logs; RJM executes diagnostic probes.
 - **sequencing note:** Diagnostic artifacts during troubleshooting.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-150
 
 ## 6. Review, Audit, Critique & Security Artifacts
 
@@ -845,7 +845,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy provides a review-output template; RJM provides retrospective and review summary formats.
 - **sequencing note:** Produced in Review; gating criteria for Ship.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-151
 
 ### artifact-security-assessment
 
@@ -863,7 +863,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy compiles a formal security audit report; RJM inventories attack vectors and threat models.
 - **sequencing note:** Produced during adversarial Review.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-152
 
 ### artifact-assumption-challenge
 
@@ -881,7 +881,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy records surviving doubts after review; RJM formalizes assumption challenges via an explicit template.
 - **sequencing note:** Adversarial critique artifact in Review.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-153
 
 ## 7. Shipping, Deployment, Rollback & Operations Artifacts
 
@@ -919,7 +919,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy tracks releases; Matt uses changesets to manage version bumps and changelog generation.
 - **sequencing note:** Release management artifact in Ship.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-154
 
 ### artifact-rollback-plan
 
@@ -955,7 +955,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy provides concrete rollback steps; RJM specifies resolution paths for failure recovery.
 - **sequencing note:** Operational procedure in rollback plan.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-155
 
 ### artifact-runbook
 
@@ -973,7 +973,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy defines an operational runbook; RJM defines infrastructure handoff documentation.
 - **sequencing note:** Operational handoff artifact in Ship.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-156
 
 ### artifact-launch-runbook
 
@@ -991,7 +991,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy provides a launch runbook checklist; RJM provides deployment diagrams and topology specs.
 - **sequencing note:** Release execution artifacts in Ship.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-157
 
 ### artifact-monitoring-dashboards
 
@@ -1009,7 +1009,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy tracks metrics on production dashboards; RJM specifies SLI/SLO indicators for service health.
 - **sequencing note:** Post-release telemetry artifacts.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-158
 
 ## 8. Documentation, Knowledge, Glossaries & Education Artifacts
 
@@ -1047,7 +1047,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt defines the explicit README.md file; RJM defines infrastructure documentation formats.
 - **sequencing note:** Repository documentation file.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-159
 
 ### artifact-glossary
 
@@ -1065,7 +1065,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt maintains domain glossaries of project vocabulary; RJM maintains source symbol indexes.
 - **sequencing note:** Living project lexicon artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-160
 
 ### artifact-glossary-md-file
 
@@ -1083,7 +1083,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt stores vocabulary in GLOSSARY.md; RJM stores project knowledge in structured data stores.
 - **sequencing note:** Knowledge storage artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-161
 
 ### artifact-shared-language
 
@@ -1101,7 +1101,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt defines shared language between engineers and agents; RJM maintains user documentation.
 - **sequencing note:** Communication and documentation artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-162
 
 ### artifact-learning-records
 
@@ -1119,7 +1119,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt tracks agent insights in learning records; RJM records synchronization and evolution in sync logs.
 - **sequencing note:** Continuous learning memory artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-163
 
 ### artifact-documentation
 
@@ -1155,7 +1155,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy establishes agent rules; Matt configures per-repo settings; RJM schemas platform configurations.
 - **sequencing note:** Harness and agent configuration artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-164
 
 ### artifact-claude-rules
 
@@ -1173,7 +1173,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy uses CLAUDE.md for agent rules; Matt uses AGENTS.md for agent instructions.
 - **sequencing note:** Harness root instruction artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-165
 
 ### artifact-editor-rules
 
@@ -1191,7 +1191,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy targets .cursorrules for Cursor IDE; Matt targets domain documentation.
 - **sequencing note:** Configuration / documentation artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-166
 
 ### artifact-code-style
 
@@ -1209,7 +1209,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy defines code style conventions; Matt defines general design principles.
 - **sequencing note:** Engineering conventions artifact.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-167
 
 ### artifact-assets-collection
 
@@ -1607,7 +1607,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Addy: .windsurfrules (windsurfrules). Defined in addy:cross-phase. 
 - **sequencing note:** Addy-specific phase: addy:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-168
 
 ### artifact-addy-relevant-source-files
 
@@ -1787,7 +1787,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Addy: floor-guard.mjs (floor-guard-mjs). Defined in addy:Define. 
 - **sequencing note:** Addy-specific phase: addy:Define.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-169
 
 ### artifact-addy-database-change
 
@@ -1859,7 +1859,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Addy: rules files (rules-files). Defined in addy:Build. 
 - **sequencing note:** Addy-specific phase: addy:Build.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-170
 
 ### artifact-addy-command
 
@@ -1895,7 +1895,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Addy: Project rules (project-rules). Defined in addy:cross-phase. 
 - **sequencing note:** Addy-specific phase: addy:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-171
 
 ### artifact-addy-exceptions-table
 
@@ -2147,7 +2147,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Addy: User rules (user-rules). Defined in addy:cross-phase. 
 - **sequencing note:** Addy-specific phase: addy:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-172
 
 ### artifact-addy-project-structure
 
@@ -2401,7 +2401,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: template (template). Defined in matt:Engineering. 
 - **sequencing note:** Matt-specific phase: matt:Engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-173
 
 ### artifact-matt-solutions
 
@@ -2437,7 +2437,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: seed-template schema (seed-template-schema). Defined in matt:none. 
 - **sequencing note:** Matt-specific phase: matt:none.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-174
 
 ### artifact-matt-mission
 
@@ -2545,7 +2545,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: map.md (map-md). Defined in matt:wayfinder. 
 - **sequencing note:** Matt-specific phase: matt:wayfinder.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-175
 
 ### artifact-matt-candidate-card
 
@@ -2617,7 +2617,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: map (map). Defined in matt:Plan. 
 - **sequencing note:** Matt-specific phase: matt:Plan.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-176
 
 ### artifact-matt-glossaries
 
@@ -2797,7 +2797,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: local-ticket-template (local-ticket-template). Defined in matt:cross-phase. 
 - **sequencing note:** Matt-specific phase: matt:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-177
 
 ### artifact-matt-the-mission
 
@@ -2833,7 +2833,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: CONTEXT-MAP.md (context-map-md). Defined in matt:cross-phase. 
 - **sequencing note:** Matt-specific phase: matt:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-178
 
 ### artifact-matt-shared-map
 
@@ -2851,7 +2851,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: shared map (shared-map). Defined in matt:engineering. 
 - **sequencing note:** Matt-specific phase: matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-179
 
 ### artifact-matt-markdown-notes
 
@@ -2923,7 +2923,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: Local-markdown tickets (local-markdown-tickets). Defined in matt:to-tickets. 
 - **sequencing note:** Matt-specific phase: matt:to-tickets.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-180
 
 ### artifact-matt-exercises
 
@@ -3067,7 +3067,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: round template (round-template). Defined in matt:Productivity. 
 - **sequencing note:** Matt-specific phase: matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-181
 
 ### artifact-matt-learning-records-md
 
@@ -3121,7 +3121,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: issue-template (issue-template). Defined in matt:cross-phase. 
 - **sequencing note:** Matt-specific phase: matt:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-182
 
 ### artifact-matt-contexts
 
@@ -3265,7 +3265,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: mapping (mapping). Defined in matt:engineering. 
 - **sequencing note:** Matt-specific phase: matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-183
 
 ### artifact-matt-loose-idea
 
@@ -3337,7 +3337,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: decision ticket (decision-ticket). Defined in matt:cross-phase. 
 - **sequencing note:** Matt-specific phase: matt:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-184
 
 ### artifact-matt-behavioural-contracts
 
@@ -3373,7 +3373,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: tracer-bullet tickets (tracer-bullet-tickets). Defined in matt:engineering. 
 - **sequencing note:** Matt-specific phase: matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-185
 
 ### artifact-matt-issue
 
@@ -3805,7 +3805,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: the map (the-map). Defined in matt:wayfinder. 
 - **sequencing note:** Matt-specific phase: matt:wayfinder.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-186
 
 ### artifact-matt-prototypeswitcher
 
@@ -4129,7 +4129,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: Research tickets (research-tickets). Defined in matt:wayfinder. 
 - **sequencing note:** Matt-specific phase: matt:wayfinder.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-187
 
 ### artifact-matt-task
 
@@ -4255,7 +4255,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: seed templates (seed-templates). Defined in matt:none. 
 - **sequencing note:** Matt-specific phase: matt:none.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-188
 
 ### artifact-matt-lesson
 
@@ -4345,7 +4345,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: decision tickets (decision-tickets). Defined in matt:engineering. 
 - **sequencing note:** Matt-specific phase: matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-189
 
 ### artifact-matt-wayfinder-map
 
@@ -4363,7 +4363,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: wayfinder:map (wayfinder-map). Defined in matt:Wayfinder. 
 - **sequencing note:** Matt-specific phase: matt:Wayfinder.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-190
 
 ### artifact-matt-notes
 
@@ -4399,7 +4399,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: _implementation_ ticket (implementation-ticket). Defined in matt:implementation. 
 - **sequencing note:** Matt-specific phase: matt:implementation.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-191
 
 ### artifact-matt-template-sh
 
@@ -4417,7 +4417,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: template.sh (template-sh). Defined in matt:engineering. 
 - **sequencing note:** Matt-specific phase: matt:engineering.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-192
 
 ### artifact-matt-local-markdown
 
@@ -4471,7 +4471,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to Matt: questionnaire-template (questionnaire-template). Defined in matt:Productivity. 
 - **sequencing note:** Matt-specific phase: matt:Productivity.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-193
 
 ### artifact-matt-triage-notes
 
@@ -4779,7 +4779,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Evolution Score Template (evolution-score-template). Defined in rjm:cross-phase. 
 - **sequencing note:** RJM-specific phase: rjm:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-194
 
 ### artifact-rjm-memory-graph
 
@@ -4869,7 +4869,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: reassessment-plan (reassessment-plan). Defined in rjm:plan. 
 - **sequencing note:** RJM-specific phase: rjm:plan.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-195
 
 ### artifact-rjm-phase-0-evidence
 
@@ -6075,7 +6075,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Skill Specification Template (skill-specification-template). Defined in rjm:Phase 2: Specification. 
 - **sequencing note:** RJM-specific phase: rjm:Phase 2: Specification.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-196
 
 ### artifact-rjm-script-path
 
@@ -6291,7 +6291,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Script Template (script-template). Defined in rjm:Phase 3: Generation. 
 - **sequencing note:** RJM-specific phase: rjm:Phase 3: Generation.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-197
 
 ### artifact-rjm-executionplan
 
@@ -6309,7 +6309,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: ExecutionPlan (executionplan). Defined in rjm:Test. 
 - **sequencing note:** RJM-specific phase: rjm:Test.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-198
 
 ### artifact-rjm-paulo-merson
 
@@ -6381,7 +6381,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Conversation Structure Template (conversation-structure-template). Defined in rjm:cross-phase. 
 - **sequencing note:** RJM-specific phase: rjm:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-199
 
 ### artifact-rjm-expected-answer
 
@@ -6435,7 +6435,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Planguage (planguage). Defined in rjm:spec. 
 - **sequencing note:** RJM-specific phase: rjm:spec.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-200
 
 ### artifact-rjm-operational-notes
 
@@ -6795,7 +6795,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Design Schema (design-schema). Defined in rjm:spec. 
 - **sequencing note:** RJM-specific phase: rjm:spec.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-201
 
 ### artifact-rjm-output-contract
 
@@ -6939,7 +6939,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Lease schema (lease-schema). Defined in rjm:ship. 
 - **sequencing note:** RJM-specific phase: rjm:ship.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-202
 
 ### artifact-rjm-tactical-cost-note
 
@@ -7209,7 +7209,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Template Assessment (template-assessment). Defined in rjm:review. 
 - **sequencing note:** RJM-specific phase: rjm:review.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-203
 
 ### artifact-rjm-slo
 
@@ -7713,7 +7713,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Shared Templates (shared-templates). Defined in rjm:cross-phase. 
 - **sequencing note:** RJM-specific phase: rjm:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-204
 
 ### artifact-rjm-discussion
 
@@ -7893,7 +7893,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Card Template (card-template). Defined in rjm:cross-phase. 
 - **sequencing note:** RJM-specific phase: rjm:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-205
 
 ### artifact-rjm-junit-xml
 
@@ -8181,7 +8181,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: CI Validation Report Template (ci-validation-report-template). Defined in rjm:verify. 
 - **sequencing note:** RJM-specific phase: rjm:verify.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-206
 
 ### artifact-rjm-parity-manifests
 
@@ -8307,7 +8307,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: YAML Front Matter Schema (yaml-front-matter-schema). Defined in rjm:Spec. 
 - **sequencing note:** RJM-specific phase: rjm:Spec.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-207
 
 ### artifact-rjm-dependency-graph
 
@@ -8415,7 +8415,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Diagnosis Template (diagnosis-template). Defined in rjm:cross-phase. 
 - **sequencing note:** RJM-specific phase: rjm:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-208
 
 ### artifact-rjm-overall-agent-safety-score
 
@@ -8523,7 +8523,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: State Management Script Template (state-management-script-template). Defined in rjm:Phase 3: Generation. 
 - **sequencing note:** RJM-specific phase: rjm:Phase 3: Generation.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-209
 
 ### artifact-rjm-git-advanced-workflows
 
@@ -8739,7 +8739,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Learning Extraction Template (learning-extraction-template). Defined in rjm:retrospective. 
 - **sequencing note:** RJM-specific phase: rjm:retrospective.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-210
 
 ### artifact-rjm-business-case
 
@@ -8955,7 +8955,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: visual card template (visual-card-template). Defined in rjm:cross-phase. 
 - **sequencing note:** RJM-specific phase: rjm:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-211
 
 ### artifact-rjm-pipeline-impact-assessment
 
@@ -9135,7 +9135,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: SESSION-PROTOCOL template (session-protocol-template). Defined in rjm:none. 
 - **sequencing note:** RJM-specific phase: rjm:none.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-212
 
 ### artifact-rjm-runrecord
 
@@ -9657,7 +9657,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Agent Guardrails Template (agent-guardrails-template). Defined in rjm:cross-phase. 
 - **sequencing note:** RJM-specific phase: rjm:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-213
 
 ### artifact-rjm-rewrite-diff
 
@@ -9855,7 +9855,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Halt Message Schema (halt-message-schema). Defined in rjm:spec. 
 - **sequencing note:** RJM-specific phase: rjm:spec.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-214
 
 ### artifact-rjm-patch
 
@@ -10017,7 +10017,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Design Review Template (design-review-template). Defined in rjm:cross-phase. 
 - **sequencing note:** RJM-specific phase: rjm:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-215
 
 ### artifact-rjm-migration-plan-template
 
@@ -10035,7 +10035,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Migration Plan Template (migration-plan-template). Defined in rjm:cross-phase. 
 - **sequencing note:** RJM-specific phase: rjm:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-216
 
 ### artifact-rjm-fuzz-baselines
 
@@ -10161,7 +10161,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Generation Script Template (generation-script-template). Defined in rjm:Phase 3: Generation. 
 - **sequencing note:** RJM-specific phase: rjm:Phase 3: Generation.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-217
 
 ### artifact-rjm-related-decisions
 
@@ -10431,7 +10431,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: P1 Deferral Issue Template (p1-deferral-issue-template). Defined in rjm:review. 
 - **sequencing note:** RJM-specific phase: rjm:review.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-218
 
 ### artifact-rjm-traceability-graph
 
@@ -10899,7 +10899,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Architecture Security Audit Template (architecture-security-audit-template). Defined in rjm:cross-phase. 
 - **sequencing note:** RJM-specific phase: rjm:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-219
 
 ### artifact-rjm-specification-structure
 
@@ -11097,7 +11097,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: PIV Report Template (piv-report-template). Defined in rjm:review. 
 - **sequencing note:** RJM-specific phase: rjm:review.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-220
 
 ### artifact-rjm-visual-card-layout
 
@@ -11349,7 +11349,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Root Cause Pattern Template (root-cause-pattern-template). Defined in rjm:retrospective. 
 - **sequencing note:** RJM-specific phase: rjm:retrospective.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-221
 
 ### artifact-rjm-consensus-points
 
@@ -11403,7 +11403,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Validation Script Template (validation-script-template). Defined in rjm:Phase 3: Generation. 
 - **sequencing note:** RJM-specific phase: rjm:Phase 3: Generation.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-222
 
 ### artifact-rjm-archival-format
 
@@ -11457,7 +11457,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: PLAN vs REALITY (plan-vs-reality). Defined in rjm:none. 
 - **sequencing note:** RJM-specific phase: rjm:none.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-223
 
 ### artifact-rjm-investigation-allowlist
 
@@ -11619,7 +11619,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: investigation plan (investigation-plan). Defined in rjm:Investigation Planning. 
 - **sequencing note:** RJM-specific phase: rjm:Investigation Planning.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-224
 
 ### artifact-rjm-skillignore
 
@@ -11691,7 +11691,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Measurement Plan (measurement-plan). Defined in rjm:cross-phase. 
 - **sequencing note:** RJM-specific phase: rjm:cross-phase.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-225
 
 ### artifact-rjm-analysis-summary
 
@@ -12051,7 +12051,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Resolution Summary Template (resolution-summary-template). Defined in rjm:review. 
 - **sequencing note:** RJM-specific phase: rjm:review.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-226
 
 ### artifact-rjm-slo-configuration-template
 
@@ -12069,7 +12069,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: SLO Configuration Template (slo-configuration-template). Defined in rjm:spec. 
 - **sequencing note:** RJM-specific phase: rjm:spec.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-227
 
 ### artifact-rjm-agent-catalog
 
@@ -12753,7 +12753,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: action plan (action-plan). Defined in rjm:analyze. 
 - **sequencing note:** RJM-specific phase: rjm:analyze.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-228
 
 ### artifact-rjm-stop-output
 
@@ -12915,7 +12915,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Unique to RJM: Plan Template (plan-template). Defined in rjm:plan. 
 - **sequencing note:** RJM-specific phase: rjm:plan.
 - **needs decision:** yes
-- **decision:** —
+- **decision:** D-229
 
 ### artifact-rjm-project-canonical
 

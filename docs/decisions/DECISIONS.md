@@ -1485,3 +1485,3861 @@ Matt `skills/diagnosing-bugs/SKILL.md:115-140`; RJM `.claude/commands/verify.md:
 - **concordance:** `docs/analysis/concordance/phases.md#diagnosing-phase-5`
 - **not to be confused with:** `quality-assurance`, `diagnostic-cleanup`
 
+---
+
+## D-126 — one-pager
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-one-pager
+- **preferences consulted:** PREFERENCES.md § Depth notes Addy's one-pager with MVP scope and Not Doing list; followed by adopting Addy's one-pager framing over Matt's brief.
+
+### Decision
+The canonical term for this artifact is `one-pager`. A one-pager is a high-density, single-page summary artifact establishing problem scope, target audience, MVP boundaries, and non-goals prior to detailed specification.
+
+### Adopted from
+ADDY `evals/cases/idea-refine.json:34` for one-pager; MATT `skills/in-progress/loop-me/SKILL.md:23` for Brief.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+brief (Matt: too generic; brief is used for agent task prompts in agent-brief), project-summary (non-standard).
+
+### Evidence
+ADDY `evals/cases/idea-refine.json:34`; MATT `skills/in-progress/loop-me/SKILL.md:23`.
+
+### Glossary
+### one-pager
+
+- **definition:** A one-pager is a high-density, single-page summary artifact establishing problem scope, target audience, MVP boundaries, and non-goals prior to detailed specification.
+- **kind:** artifact
+- **source names:** addy: `one-pager` · matt: `Brief` · rjm: —
+- **decision:** D-126
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-one-pager`
+- **not to be confused with:** `agent-brief, requirements-spec`
+
+---
+
+## D-127 — agent-brief
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-agent-brief
+- **preferences consulted:** PREFERENCES.md § Approach favours Matt's agent-oriented context design; followed by adopting agent-brief for agent task initialization.
+
+### Decision
+The canonical term for this artifact is `agent-brief`. An agent brief is a structured context document specifying problem boundaries, system constraints, user intent, and references necessary to seed an autonomous agent session.
+
+### Adopted from
+ADDY `evals/fixtures/spec-driven-development-decomposition/portal-brief.md:1` for product brief; MATT `skills/engineering/triage/AGENT-BRIEF.md:3` for agent brief.
+
+### Dropped
+MATT's defects: doc-drift (from skills-engineering-triage-agent-brief-md.md: mentions GitHub issue or PR specifically, whereas SKILL.md and design support alternative trackers) defects (D-006).
+
+### Rejected alternatives
+product-brief (Addy: describes human product orientation rather than agent session dispatch).
+
+### Evidence
+ADDY `evals/fixtures/spec-driven-development-decomposition/portal-brief.md:1`; MATT `skills/engineering/triage/AGENT-BRIEF.md:3`.
+
+### Glossary
+### agent-brief
+
+- **definition:** An agent brief is a structured context document specifying problem boundaries, system constraints, user intent, and references necessary to seed an autonomous agent session.
+- **kind:** artifact
+- **source names:** addy: `product brief` · matt: `agent brief` · rjm: —
+- **decision:** D-127
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-agent-brief`
+- **not to be confused with:** `one-pager, input-contract`
+
+---
+
+## D-128 — requirements-spec
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-requirements
+- **preferences consulted:** PREFERENCES.md § Approach values Addy's comprehensive specification structure combined with RJM's requirement schemas; followed by adopting requirements-spec.
+
+### Decision
+The canonical term for this artifact is `requirements-spec`. A requirements specification is a structured catalog of functional and non-functional capability definitions, user stories, and constraints governing system behavior.
+
+### Adopted from
+ADDY `external/spec-driven-development.md:5` for requirements; MATT `skills/engineering/to-spec/SKILL.md:33` for user stories; RJM `.claude/skills/spec-generator/references/spec-schemas.md:75` for Requirement Schema.
+
+### Dropped
+ADDY's defects: doc-drift defects (D-006); RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+user-stories (Matt: format-specific; requirements encompass more than agile stories), requirement-schema (RJM: refers to template structure rather than the artifact).
+
+### Evidence
+ADDY `external/spec-driven-development.md:5`; MATT `skills/engineering/to-spec/SKILL.md:33`; RJM `.claude/skills/spec-generator/references/spec-schemas.md:75`.
+
+### Glossary
+### requirements-spec
+
+- **definition:** A requirements specification is a structured catalog of functional and non-functional capability definitions, user stories, and constraints governing system behavior.
+- **kind:** artifact
+- **source names:** addy: `requirements` · matt: `user stories` · rjm: `Requirement Schema`
+- **decision:** D-128
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-requirements`
+- **not to be confused with:** `structured-requirements, spec`
+
+---
+
+## D-129 — structured-requirements
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-structured-requirements
+- **preferences consulted:** PREFERENCES.md § Approach values RJM's formal verification rigor; followed by adopting RJM's structured-requirements concept.
+
+### Decision
+The canonical term for this artifact is `structured-requirements`. Structured requirements are machine-readable requirement declarations formalized with unique identifiers, acceptance criteria, verification methods, and dependency relationships.
+
+### Adopted from
+ADDY `skills/documentation-and-adrs/SKILL.md:255` for Spec files; RJM `.claude/skills/requirements-interview/SKILL.md:39` for Structured requirements.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+spec-files (Addy: too generic; refers to file distribution rather than machine-readable structure).
+
+### Evidence
+ADDY `skills/documentation-and-adrs/SKILL.md:255`; RJM `.claude/skills/requirements-interview/SKILL.md:39`.
+
+### Glossary
+### structured-requirements
+
+- **definition:** Structured requirements are machine-readable requirement declarations formalized with unique identifiers, acceptance criteria, verification methods, and dependency relationships.
+- **kind:** artifact
+- **source names:** addy: `Spec files` · matt: — · rjm: `Structured requirements`
+- **decision:** D-129
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-structured-requirements`
+- **not to be confused with:** `requirements-spec, task-list`
+
+---
+
+## D-130 — input-contract
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-input-contract
+- **preferences consulted:** PREFERENCES.md § Approach favours RJM's gated pipeline contracts; followed by adopting input-contract.
+
+### Decision
+The canonical term for this artifact is `input-contract`. An input contract is an immutable, schema-validated specification of all caller-provided parameters, prerequisite artifacts, and environmental preconditions required before phase execution.
+
+### Adopted from
+ADDY `skills/interview-me/SKILL.md:136` for confirmed statement of intent; MATT `skills/in-progress/writing-shape/SKILL.md:9` for input pile; RJM `.agents/governance/agent-design-principles.md:259` for Input Contract.
+
+### Dropped
+RJM's defects: other (Principle Compliance Matrix in .agents/governance/agent-design-principles.md:297-302 is an unpopulated placeholder table with blank checkboxes; capability floor detection documented without automated enforcement at line 41) defects (D-006).
+
+### Rejected alternatives
+input-pile (Matt: colloquial and unstructured), confirmed-statement-of-intent (Addy: captures user agreement but lacks formal schema boundaries).
+
+### Evidence
+ADDY `skills/interview-me/SKILL.md:136`; MATT `skills/in-progress/writing-shape/SKILL.md:9`; RJM `.agents/governance/agent-design-principles.md:259`.
+
+### Glossary
+### input-contract
+
+- **definition:** An input contract is an immutable, schema-validated specification of all caller-provided parameters, prerequisite artifacts, and environmental preconditions required before phase execution.
+- **kind:** artifact
+- **source names:** addy: `confirmed statement of intent` · matt: `input pile` · rjm: `Input Contract`
+- **decision:** D-130
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-input-contract`
+- **not to be confused with:** `agent-brief, scope-constraints`
+
+---
+
+## D-131 — scope-constraints
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-scope-constraints
+- **preferences consulted:** PREFERENCES.md § Approach combines Addy's Not Doing list with RJM's breaking-change assessments; followed by adopting scope-constraints.
+
+### Decision
+The canonical term for this artifact is `scope-constraints`. Scope constraints are explicit boundary definitions documenting out-of-scope capabilities, technical invariants, and breaking-change risk assessments for an initiative.
+
+### Adopted from
+ADDY `evals/cases/idea-refine.json:34` for Not Doing list; MATT `skills/productivity/teach/MISSION-FORMAT.md:19` for Constraints; RJM `.claude/skills/review/references/architect.md:138` for Breaking Change Assessment.
+
+### Dropped
+RJM's defects: doc-drift, missing-path, other defects (D-006).
+
+### Rejected alternatives
+not-doing-list (Addy: colloquial sub-section name), constraints (Matt: too broad).
+
+### Evidence
+ADDY `evals/cases/idea-refine.json:34`; MATT `skills/productivity/teach/MISSION-FORMAT.md:19`; RJM `.claude/skills/review/references/architect.md:138`.
+
+### Glossary
+### scope-constraints
+
+- **definition:** Scope constraints are explicit boundary definitions documenting out-of-scope capabilities, technical invariants, and breaking-change risk assessments for an initiative.
+- **kind:** artifact
+- **source names:** addy: `Not Doing list` · matt: `Constraints` · rjm: `Breaking Change Assessment`
+- **decision:** D-131
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-scope-constraints`
+- **not to be confused with:** `input-contract, mvp-scope`
+
+---
+
+## D-132 — mvp-scope
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-mvp-scope
+- **preferences consulted:** PREFERENCES.md § Depth notes Addy's MVP scope framing; followed by adopting mvp-scope.
+
+### Decision
+The canonical term for this artifact is `mvp-scope`. An MVP scope is an explicit specification of the minimal viable capability set and concrete observable success criteria required for initial release.
+
+### Adopted from
+ADDY `evals/cases/idea-refine.json:34` for MVP scope; MATT `skills/productivity/teach/MISSION-FORMAT.md:14` for Success looks like.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+success-looks-like (Matt: colloquial phrased condition).
+
+### Evidence
+ADDY `evals/cases/idea-refine.json:34`; MATT `skills/productivity/teach/MISSION-FORMAT.md:14`.
+
+### Glossary
+### mvp-scope
+
+- **definition:** An MVP scope is an explicit specification of the minimal viable capability set and concrete observable success criteria required for initial release.
+- **kind:** artifact
+- **source names:** addy: `MVP scope` · matt: `Success looks like` · rjm: —
+- **decision:** D-132
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-mvp-scope`
+- **not to be confused with:** `scope-constraints, one-pager`
+
+---
+
+## D-133 — discovery-questionnaire
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-discovery-questionnaire
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's interactive discovery grilling; followed by adopting discovery-questionnaire.
+
+### Decision
+The canonical term for this artifact is `discovery-questionnaire`. A discovery questionnaire is an exploratory inquiry artifact containing structured clarifying questions and recorded stakeholder responses used to resolve ambiguity during specification.
+
+### Adopted from
+MATT `skills/productivity/to-questionnaire/SKILL.md:20` for discovery questionnaire; RJM `.agents/governance/interview-response-template.md:1` for Agent Interview Response Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+agent-interview-response-template (RJM: clumsy template name).
+
+### Evidence
+MATT `skills/productivity/to-questionnaire/SKILL.md:20`; RJM `.agents/governance/interview-response-template.md:1`.
+
+### Glossary
+### discovery-questionnaire
+
+- **definition:** A discovery questionnaire is an exploratory inquiry artifact containing structured clarifying questions and recorded stakeholder responses used to resolve ambiguity during specification.
+- **kind:** artifact
+- **source names:** addy: — · matt: `discovery questionnaire` · rjm: `Agent Interview Response Template`
+- **decision:** D-133
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-discovery-questionnaire`
+- **not to be confused with:** `questionnaire-template, agent-brief`
+
+---
+
+## D-134 — task-list
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-tasks-todo-list
+- **preferences consulted:** PREFERENCES.md § Phase mapping notes both Addy and Matt define task templates; PREFERENCES.md § Phase mapping prefers 'phase' over 'part'; followed by adopting task-list.
+
+### Decision
+The canonical term for this artifact is `task-list`. A task list is an ordered checklist of discrete, testable work units with explicit completion criteria and dependencies governing implementation progress.
+
+### Adopted from
+ADDY `skills/spec-driven-development/SKILL.md:176` for tasks/todo.md; MATT `CHANGELOG.md:183` for tickets; RJM `.github/scripts/generate_spec_report.py:120` for TASK-*.
+
+### Dropped
+ADDY's defects: other defects (D-006); MATT's defects: missing-path defects (D-006); RJM's defects: orphan, missing-path defects (D-006).
+
+### Rejected alternatives
+todo-md (Addy: file-path specific), tickets (Matt: implies ticketing system), kanban (RJM: visual board).
+
+### Evidence
+ADDY `skills/spec-driven-development/SKILL.md:176`; MATT `CHANGELOG.md:183`; RJM `.github/scripts/generate_spec_report.py:120`.
+
+### Glossary
+### task-list
+
+- **definition:** A task list is an ordered checklist of discrete, testable work units with explicit completion criteria and dependencies governing implementation progress.
+- **kind:** artifact
+- **source names:** addy: `tasks/todo.md` · matt: `tickets` · rjm: `TASK-*`
+- **decision:** D-134
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-tasks-todo-list`
+- **not to be confused with:** `task-card, subtask-card`
+
+---
+
+## D-135 — task-card
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-task-unit
+- **preferences consulted:** PREFERENCES.md § Phase mapping notes modular task definitions; followed by adopting task-card.
+
+### Decision
+The canonical term for this artifact is `task-card`. A task card is a self-contained work unit record defining a single implementation change with its objective, target files, acceptance criteria, and verification commands.
+
+### Adopted from
+ADDY `skills/planning-and-task-breakdown/SKILL.md:159` for Task List Target; MATT `CONTEXT.md:13` for ticket; RJM `.claude/agents/task-decomposer.md:105` for Task Definition Format.
+
+### Dropped
+MATT's defects: missing-path, other, doc-drift (proscribed by CONTEXT.md in favor of Issue yet pervasive across skill documentation and wayfinder terminology) defects (D-006).
+
+### Rejected alternatives
+ticket (Matt: suggests external issue tracker), task-definition (RJM: abstract format name).
+
+### Evidence
+ADDY `skills/planning-and-task-breakdown/SKILL.md:159`; MATT `CONTEXT.md:13`; RJM `.claude/agents/task-decomposer.md:105`.
+
+### Glossary
+### task-card
+
+- **definition:** A task card is a self-contained work unit record defining a single implementation change with its objective, target files, acceptance criteria, and verification commands.
+- **kind:** artifact
+- **source names:** addy: `Task List Target` · matt: `ticket` · rjm: `Task Definition Format`
+- **decision:** D-135
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-task-unit`
+- **not to be confused with:** `task-list, subtask-card`
+
+---
+
+## D-136 — plan-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-plan-template
+- **preferences consulted:** PREFERENCES.md § Approach favours Addy's plan document structure; followed by adopting plan-template.
+
+### Decision
+The canonical term for this artifact is `plan-template`. A plan template is a standardized schema defining required sections, headings, risk registers, and milestone structures for execution planning documents.
+
+### Adopted from
+ADDY `skills/planning-and-task-breakdown/SKILL.md:166` for Plan Document Template; MATT `skills/engineering/to-spec/SKILL.md:21` for spec-template; RJM `templates/agents/task-decomposer.shared.md:139` for Task List Template.
+
+### Dropped
+MATT's defects: missing-path (skills/engineering/to-spec/SKILL.md:9 mentions non-existent /setup-matt-pocock-skills command) defects (D-006).
+
+### Rejected alternatives
+spec-template (Matt: conflates spec and plan templates), task-list-template (RJM: narrow focus on tasks only).
+
+### Evidence
+ADDY `skills/planning-and-task-breakdown/SKILL.md:166`; MATT `skills/engineering/to-spec/SKILL.md:21`; RJM `templates/agents/task-decomposer.shared.md:139`.
+
+### Glossary
+### plan-template
+
+- **definition:** A plan template is a standardized schema defining required sections, headings, risk registers, and milestone structures for execution planning documents.
+- **kind:** artifact
+- **source names:** addy: `Plan Document Template` · matt: `spec-template` · rjm: `Task List Template`
+- **decision:** D-136
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-plan-template`
+- **not to be confused with:** `artifact-template, task-list`
+
+---
+
+## D-137 — subtask-card
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-child-ticket
+- **preferences consulted:** PREFERENCES.md § Approach notes Matt's granular ticket breakdown; followed by adopting subtask-card aligned with task-card.
+
+### Decision
+The canonical term for this artifact is `subtask-card`. A subtask card is a subordinate work unit record representing an atomic implementation step linked to a parent task card or feature milestone.
+
+### Adopted from
+MATT `skills/engineering/setup-matt-pocock-skills/issue-tracker-local.md:26` for Child ticket; RJM `.claude/skills/spec-generator/references/spec-schemas.md:284` for Task Schema.
+
+### Dropped
+RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+child-ticket (Matt: ticketing terminology), task-schema (RJM: schema format name).
+
+### Evidence
+MATT `skills/engineering/setup-matt-pocock-skills/issue-tracker-local.md:26`; RJM `.claude/skills/spec-generator/references/spec-schemas.md:284`.
+
+### Glossary
+### subtask-card
+
+- **definition:** A subtask card is a subordinate work unit record representing an atomic implementation step linked to a parent task card or feature milestone.
+- **kind:** artifact
+- **source names:** addy: — · matt: `Child ticket` · rjm: `Task Schema`
+- **decision:** D-137
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-child-ticket`
+- **not to be confused with:** `task-card, task-list`
+
+---
+
+## D-138 — task-backlog
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-backlog
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's issue triage and backlog management; followed by adopting task-backlog.
+
+### Decision
+The canonical term for this artifact is `task-backlog`. A task backlog is an organized repository of pending, unstarted task cards and feature ideas prioritized for future lifecycle iterations.
+
+### Adopted from
+MATT `CONTEXT.md:29` for backlog; RJM `.agents/architecture/ADR-087-held-out-validated-improvement.md:154` for selection group.
+
+### Dropped
+MATT's defects: missing-path, other (from context-md.md: cites non-existent docs/agents/triage-labels.md and subject to runaway artifact bloat in CONTEXT.md) defects (D-006); RJM's defects: doc-drift, internal-contradiction, missing-path defects (D-006).
+
+### Rejected alternatives
+selection-group (RJM: transient execution batch term).
+
+### Evidence
+MATT `CONTEXT.md:29`; RJM `.agents/architecture/ADR-087-held-out-validated-improvement.md:154`.
+
+### Glossary
+### task-backlog
+
+- **definition:** A task backlog is an organized repository of pending, unstarted task cards and feature ideas prioritized for future lifecycle iterations.
+- **kind:** artifact
+- **source names:** addy: — · matt: `backlog` · rjm: `selection group`
+- **decision:** D-138
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-backlog`
+- **not to be confused with:** `task-list, task-card`
+
+---
+
+## D-139 — considered-options
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-considered-options
+- **preferences consulted:** PREFERENCES.md § Approach favours RJM and Matt's naming for design evaluation; followed by adopting considered-options.
+
+### Decision
+The canonical term for this artifact is `considered-options`. A considered options record is an architectural analysis artifact documenting candidate solutions evaluated during design alongside the explicit rationale for rejected alternatives.
+
+### Adopted from
+ADDY `skills/documentation-and-adrs/SKILL.md:69` for Alternatives Considered; MATT `skills/engineering/domain-modeling/ADR-FORMAT.md:22` for Considered Options; RJM `.claude/skills/adr-generator/references/adr-templates-catalog.md:59` for Considered Options.
+
+### Dropped
+RJM's defects: internal-contradiction defects (D-006).
+
+### Rejected alternatives
+alternatives-considered (Addy: slightly less active phrasing than considered-options).
+
+### Evidence
+ADDY `skills/documentation-and-adrs/SKILL.md:69`; MATT `skills/engineering/domain-modeling/ADR-FORMAT.md:22`; RJM `.claude/skills/adr-generator/references/adr-templates-catalog.md:59`.
+
+### Glossary
+### considered-options
+
+- **definition:** A considered options record is an architectural analysis artifact documenting candidate solutions evaluated during design alongside the explicit rationale for rejected alternatives.
+- **kind:** artifact
+- **source names:** addy: `Alternatives Considered` · matt: `Considered Options` · rjm: `Considered Options`
+- **decision:** D-139
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-considered-options`
+- **not to be confused with:** `architecture-decision-record, decision-ticket`
+
+---
+
+## D-140 — architecture-decision-record
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-architecture-decision-records-concept
+- **preferences consulted:** PREFERENCES.md § References and § Depth value explicit architectural decision records; followed by adopting canonical architecture-decision-record.
+
+### Decision
+The canonical term for this artifact is `architecture-decision-record`. An architecture decision record is a durable document capturing a significant architectural choice, its context, consequences, alternatives considered, and current status.
+
+### Adopted from
+ADDY `skills/documentation-and-adrs/SKILL.md:25` for Architecture Decision Records; MATT `.changeset/domain-modeling-trigger-context-adr.md:5` for architectural decision; RJM `.agents/architecture/ADR-087-held-out-validated-improvement.md:150` for decision group.
+
+### Dropped
+RJM's defects: doc-drift, internal-contradiction, missing-path defects (D-006).
+
+### Rejected alternatives
+decision-group (RJM: batching container), architectural-decision (Matt: informal concept).
+
+### Evidence
+ADDY `skills/documentation-and-adrs/SKILL.md:25`; MATT `.changeset/domain-modeling-trigger-context-adr.md:5`; RJM `.agents/architecture/ADR-087-held-out-validated-improvement.md:150`.
+
+### Glossary
+### architecture-decision-record
+
+- **definition:** An architecture decision record is a durable document capturing a significant architectural choice, its context, consequences, alternatives considered, and current status.
+- **kind:** artifact
+- **source names:** addy: `Architecture Decision Records` · matt: `architectural decision` · rjm: `decision group`
+- **decision:** D-140
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-architecture-decision-records-concept`
+- **not to be confused with:** `considered-options, decision-ticket`
+
+---
+
+## D-141 — context-map
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-context-map
+- **preferences consulted:** PREFERENCES.md § Approach adopts Evans DDD terminology used by Matt and RJM; followed by adopting context-map.
+
+### Decision
+The canonical term for this artifact is `context-map`. A context map is a structural diagram and architectural inventory illustrating bounded system domains, component relationships, dependencies, and integration boundaries.
+
+### Adopted from
+ADDY `skills/spec-driven-development/SKILL.md:44` for capability map; MATT `skills/engineering/domain-modeling/CONTEXT-FORMAT.md:39` for Context Map; RJM `.claude/skills/software-engineering-library/references/domain-driven-design.md:24` for Context Map.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+capability-map (Addy: focuses on business capabilities rather than architectural boundaries).
+
+### Evidence
+ADDY `skills/spec-driven-development/SKILL.md:44`; MATT `skills/engineering/domain-modeling/CONTEXT-FORMAT.md:39`; RJM `.claude/skills/software-engineering-library/references/domain-driven-design.md:24`.
+
+### Glossary
+### context-map
+
+- **definition:** A context map is a structural diagram and architectural inventory illustrating bounded system domains, component relationships, dependencies, and integration boundaries.
+- **kind:** artifact
+- **source names:** addy: `capability map` · matt: `Context Map` · rjm: `Context Map`
+- **decision:** D-141
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-context-map`
+- **not to be confused with:** `context-map-file, domain-mapping`
+
+---
+
+## D-142 — pull-request
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-pull-request
+- **preferences consulted:** PREFERENCES.md § Approach supports standard git workflow integration; followed by adopting pull-request.
+
+### Decision
+The canonical term for this artifact is `pull-request`. A pull request is a version control change proposal bundling atomic commits, change descriptions, automated test runs, and reviewer approvals for merging into a target branch.
+
+### Adopted from
+ADDY `evals/cases/git-workflow-and-versioning.json:18` for pull request; MATT `skills/engineering/triage/SKILL.md:11` for Pull requests; RJM `scripts/eval/software_engineering_library_activation_ci.py:147` for restoration PR.
+
+### Dropped
+MATT's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+restoration-pr (RJM: names specific rollback PR subtype only).
+
+### Evidence
+ADDY `evals/cases/git-workflow-and-versioning.json:18`; MATT `skills/engineering/triage/SKILL.md:11`; RJM `scripts/eval/software_engineering_library_activation_ci.py:147`.
+
+### Glossary
+### pull-request
+
+- **definition:** A pull request is a version control change proposal bundling atomic commits, change descriptions, automated test runs, and reviewer approvals for merging into a target branch.
+- **kind:** artifact
+- **source names:** addy: `pull request` · matt: `Pull requests` · rjm: `restoration PR`
+- **decision:** D-142
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-pull-request`
+- **not to be confused with:** `commit-message, working-increment`
+
+---
+
+## D-143 — commit-message
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-commit-message
+- **preferences consulted:** PREFERENCES.md § References highlights git workflow and atomic commit disciplines; followed by adopting commit-message.
+
+### Decision
+The canonical term for this artifact is `commit-message`. A commit message is a structured version control summary describing the intent, scope, and rationale of an atomic code change.
+
+### Adopted from
+ADDY `skills/code-review-and-quality/SKILL.md:132` for Change Descriptions; MATT `external/diagnosing-bugs.md:49` for commit message.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+change-descriptions (Addy: vague plural descriptor).
+
+### Evidence
+ADDY `skills/code-review-and-quality/SKILL.md:132`; MATT `external/diagnosing-bugs.md:49`.
+
+### Glossary
+### commit-message
+
+- **definition:** A commit message is a structured version control summary describing the intent, scope, and rationale of an atomic code change.
+- **kind:** artifact
+- **source names:** addy: `Change Descriptions` · matt: `commit message` · rjm: —
+- **decision:** D-143
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-commit-message`
+- **not to be confused with:** `pull-request, changeset`
+
+---
+
+## D-144 — working-increment
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-working-code
+- **preferences consulted:** PREFERENCES.md § Approach favours Addy's vertical-slice implementation discipline; followed by adopting working-increment.
+
+### Decision
+The canonical term for this artifact is `working-increment`. A working increment is a compiled, functional, and test-verified code slice satisfying a defined subset of task acceptance criteria without regressing existing baselines.
+
+### Adopted from
+ADDY `evals/cases/incremental-implementation.json:10` for working increment; MATT `skills/misc/migrate-to-shoehorn/SKILL.md:12` for production code.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+production-code (Matt: refers to target codebase rather than the incremental artifact).
+
+### Evidence
+ADDY `evals/cases/incremental-implementation.json:10`; MATT `skills/misc/migrate-to-shoehorn/SKILL.md:12`.
+
+### Glossary
+### working-increment
+
+- **definition:** A working increment is a compiled, functional, and test-verified code slice satisfying a defined subset of task acceptance criteria without regressing existing baselines.
+- **kind:** artifact
+- **source names:** addy: `working increment` · matt: `production code` · rjm: —
+- **decision:** D-144
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-working-code`
+- **not to be confused with:** `working-tree, pull-request`
+
+---
+
+## D-145 — working-tree and working-title
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-working-tree
+- **preferences consulted:** PREFERENCES.md § Approach requires unambiguous terminology; followed by splitting homonym into working-tree and working-title per Glossary Rule 3.
+
+### Decision
+The homonym is resolved by establishing two distinct canonical terms: `working-tree` and `working-title`. A working tree is the active filesystem directory structure containing tracked repository files, unstaged modifications, and local artifacts currently checked out by a developer or agent. A working title is a provisional, human-readable identifier assigned to an exploratory document or draft specification prior to formal naming and indexing.
+
+### Adopted from
+ADDY `skills/constraint-driven-development/references/floor-guard.md:9` for working tree; MATT `skills/in-progress/writing-fragments/SKILL.md:45` for Working title.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+working-tree-homonym (unresolved overload).
+
+### Evidence
+ADDY `skills/constraint-driven-development/references/floor-guard.md:9`; MATT `skills/in-progress/writing-fragments/SKILL.md:45`.
+
+### Glossary
+### working-tree
+
+- **definition:** A working tree is the active filesystem directory structure containing tracked repository files, unstaged modifications, and local artifacts currently checked out by a developer or agent.
+- **kind:** artifact
+- **source names:** addy: `working tree` · matt: — · rjm: —
+- **decision:** D-145
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-working-tree`
+- **not to be confused with:** `working-title, working-increment`
+
+### working-title
+
+- **definition:** A working title is a provisional, human-readable identifier assigned to an exploratory document or draft specification prior to formal naming and indexing.
+- **kind:** artifact
+- **source names:** addy: — · matt: `Working title` · rjm: —
+- **decision:** D-145
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-working-tree`
+- **not to be confused with:** `working-tree, spec`
+
+
+---
+
+## D-146 — plugin-manifest
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-claude-plugin-manifest
+- **preferences consulted:** D-009 dual-target decision establishes Claude Code plugin manifest (.claude-plugin/plugin.json) with Antigravity parity; followed by adopting plugin-manifest.
+
+### Decision
+The canonical term for this artifact is `plugin-manifest`. A plugin manifest is a JSON metadata artifact declaring plugin identity, version, entrypoints, permissions, and tool capabilities for agent platform discovery.
+
+### Adopted from
+MATT `.agents/adr/0002-ship-as-a-claude-code-plugin.md:5` for Claude Code plugin; RJM `.agents/architecture/ADR-047-plugin-mode-hook-behavior.md:24` for marketplace plugin.
+
+### Dropped
+RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+marketplace-plugin (RJM: platform-specific marketplace wrapper).
+
+### Evidence
+MATT `.agents/adr/0002-ship-as-a-claude-code-plugin.md:5`; RJM `.agents/architecture/ADR-047-plugin-mode-hook-behavior.md:24`.
+
+### Glossary
+### plugin-manifest
+
+- **definition:** A plugin manifest is a JSON metadata artifact declaring plugin identity, version, entrypoints, permissions, and tool capabilities for agent platform discovery.
+- **kind:** artifact
+- **source names:** addy: — · matt: `Claude Code plugin` · rjm: `marketplace plugin`
+- **decision:** D-146
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-claude-plugin-manifest`
+- **not to be confused with:** `agent-rules-config`
+
+---
+
+## D-147 — test-results
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-test-execution-results
+- **preferences consulted:** PREFERENCES.md § Approach values empirical test output verification; followed by adopting test-results.
+
+### Decision
+The canonical term for this artifact is `test-results`. A test results record is an execution log capturing test suite execution status, assertion outcomes, failure traces, and duration metrics.
+
+### Adopted from
+ADDY `skills/context-engineering/SKILL.md:107` for Error Output / Test Results; MATT `external/diagnosing-bugs.md:34` for failing test; RJM `.agents/architecture/ADR-087-held-out-validated-improvement.md:155` for test group.
+
+### Dropped
+ADDY's defects: doc-drift, orphan defects (D-006); RJM's defects: doc-drift, internal-contradiction, missing-path defects (D-006).
+
+### Rejected alternatives
+error-output (Addy: captures failures only), failing-test (Matt: captures reproduction red-state only), test-group (RJM: organizational structure).
+
+### Evidence
+ADDY `skills/context-engineering/SKILL.md:107`; MATT `external/diagnosing-bugs.md:34`; RJM `.agents/architecture/ADR-087-held-out-validated-improvement.md:155`.
+
+### Glossary
+### test-results
+
+- **definition:** A test results record is an execution log capturing test suite execution status, assertion outcomes, failure traces, and duration metrics.
+- **kind:** artifact
+- **source names:** addy: `Error Output / Test Results` · matt: `failing test` · rjm: `test group`
+- **decision:** D-147
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-test-execution-results`
+- **not to be confused with:** `test-coverage-report, test-strategy`
+
+---
+
+## D-148 — test-coverage-report
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-test-coverage
+- **preferences consulted:** PREFERENCES.md § References highlights testing patterns; followed by adopting test-coverage-report.
+
+### Decision
+The canonical term for this artifact is `test-coverage-report`. A test coverage report is a diagnostic evaluation measuring the proportion of code statements, branches, and critical paths exercised by automated test suites.
+
+### Adopted from
+ADDY `agents/test-engineer.md:64` for Test Coverage Analysis; MATT `skills/misc/README.md:6` for test files; RJM `.agents/architecture/ADR-087-held-out-validated-improvement.md:290` for corpus_verified.
+
+### Dropped
+RJM's defects: doc-drift, internal-contradiction, missing-path, script-bug defects (D-006).
+
+### Rejected alternatives
+test-files (Matt: names the test files themselves), corpus-verified (RJM: benchmark verification status).
+
+### Evidence
+ADDY `agents/test-engineer.md:64`; MATT `skills/misc/README.md:6`; RJM `.agents/architecture/ADR-087-held-out-validated-improvement.md:290`.
+
+### Glossary
+### test-coverage-report
+
+- **definition:** A test coverage report is a diagnostic evaluation measuring the proportion of code statements, branches, and critical paths exercised by automated test suites.
+- **kind:** artifact
+- **source names:** addy: `Test Coverage Analysis` · matt: `test files` · rjm: `corpus_verified`
+- **decision:** D-148
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-test-coverage`
+- **not to be confused with:** `test-results, test-strategy`
+
+---
+
+## D-149 — test-strategy
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-testing-strategy
+- **preferences consulted:** PREFERENCES.md § References highlights testing-patterns.md; followed by adopting test-strategy.
+
+### Decision
+The canonical term for this artifact is `test-strategy`. A test strategy is a specification artifact defining testing levels, assertion specifications, test environment requirements, and verification commands for a project.
+
+### Adopted from
+ADDY `skills/spec-driven-development/SKILL.md:108` for Testing Strategy; MATT `skills/engineering/to-spec/SKILL.md:61` for Testing Decisions; RJM `scripts/eval/_runtime_parity.py:31` for AssertionSpec.
+
+### Dropped
+ADDY's defects: doc-drift defects (D-006).
+
+### Rejected alternatives
+testing-decisions (Matt: informal record), assertion-spec (RJM: specific assertion schema).
+
+### Evidence
+ADDY `skills/spec-driven-development/SKILL.md:108`; MATT `skills/engineering/to-spec/SKILL.md:61`; RJM `scripts/eval/_runtime_parity.py:31`.
+
+### Glossary
+### test-strategy
+
+- **definition:** A test strategy is a specification artifact defining testing levels, assertion specifications, test environment requirements, and verification commands for a project.
+- **kind:** artifact
+- **source names:** addy: `Testing Strategy` · matt: `Testing Decisions` · rjm: `AssertionSpec`
+- **decision:** D-149
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-testing-strategy`
+- **not to be confused with:** `test-results, test-coverage-report`
+
+---
+
+## D-150 — debug-trace
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-debug-trace
+- **preferences consulted:** PREFERENCES.md § Approach notes Matt's debugging rigor and Addy's DevTools integration; followed by adopting debug-trace.
+
+### Decision
+The canonical term for this artifact is `debug-trace`. A debug trace is a chronological diagnostic log or performance capture recording runtime telemetry, function invocations, and variable states during defect investigation.
+
+### Adopted from
+ADDY `commands/webperf.toml:12` for DevTools performance trace; MATT `docs/engineering/diagnosing-bugs.md:51` for debug log; RJM `.claude/skills/ai-agents-empirical-probe-toolkit/SKILL.md:14` for Probe.
+
+### Dropped
+MATT's clean in core technique; associated with risk of secret leakage in unredacted log captures noted in docs/engineering/diagnosing-bugs.md:70 defects (D-006); RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+performance-trace (Addy: performance-specific), debug-log (Matt: unstructured logging), probe (RJM: names diagnostic action).
+
+### Evidence
+ADDY `commands/webperf.toml:12`; MATT `docs/engineering/diagnosing-bugs.md:51`; RJM `.claude/skills/ai-agents-empirical-probe-toolkit/SKILL.md:14`.
+
+### Glossary
+### debug-trace
+
+- **definition:** A debug trace is a chronological diagnostic log or performance capture recording runtime telemetry, function invocations, and variable states during defect investigation.
+- **kind:** artifact
+- **source names:** addy: `DevTools performance trace` · matt: `debug log` · rjm: `Probe`
+- **decision:** D-150
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-debug-trace`
+- **not to be confused with:** `test-results, baseline-establishment`
+
+---
+
+## D-151 — review-report
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-review-report
+- **preferences consulted:** PREFERENCES.md § Approach values RJM's multi-perspective reviewer architecture (ADR-064) and Addy's review checklists; followed by adopting review-report.
+
+### Decision
+The canonical term for this artifact is `review-report`. A review report is an evaluative document summarizing multi-perspective code inspection findings, security assessments, architectural adherence, and required remediation items.
+
+### Adopted from
+ADDY `agents/code-reviewer.md:59` for Review Output Template; RJM `.claude/skills/planner/scripts/executor.py:495` for retrospective_format.
+
+### Dropped
+RJM's defects: missing-path, internal-contradiction, exit-code-mismatch defects (D-006).
+
+### Rejected alternatives
+retrospective-format (RJM: conflates code review with post-mortem retrospective).
+
+### Evidence
+ADDY `agents/code-reviewer.md:59`; RJM `.claude/skills/planner/scripts/executor.py:495`.
+
+### Glossary
+### review-report
+
+- **definition:** A review report is an evaluative document summarizing multi-perspective code inspection findings, security assessments, architectural adherence, and required remediation items.
+- **kind:** artifact
+- **source names:** addy: `Review Output Template` · matt: — · rjm: `retrospective_format`
+- **decision:** D-151
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-review-report`
+- **not to be confused with:** `security-assessment, post-implementation-verification-template`
+
+---
+
+## D-152 — security-assessment
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-security-assessment
+- **preferences consulted:** PREFERENCES.md § Approach emphasizes security verification; followed by adopting security-assessment.
+
+### Decision
+The canonical term for this artifact is `security-assessment`. A security assessment is an analytical audit artifact identifying threat models, attack surfaces, vulnerability scans, and required hardening controls for a software component.
+
+### Adopted from
+ADDY `agents/security-auditor.md:70` for Security Audit Report; RJM `.claude/agents/security/references/threat-model-template.md:18` for Attack Vectors.
+
+### Dropped
+RJM's defects: doc-drift defects (D-006).
+
+### Rejected alternatives
+attack-vectors (RJM: names threat vectors rather than the audit report).
+
+### Evidence
+ADDY `agents/security-auditor.md:70`; RJM `.claude/agents/security/references/threat-model-template.md:18`.
+
+### Glossary
+### security-assessment
+
+- **definition:** A security assessment is an analytical audit artifact identifying threat models, attack surfaces, vulnerability scans, and required hardening controls for a software component.
+- **kind:** artifact
+- **source names:** addy: `Security Audit Report` · matt: — · rjm: `Attack Vectors`
+- **decision:** D-152
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-security-assessment`
+- **not to be confused with:** `review-report, security-audit-template`
+
+---
+
+## D-153 — assumption-challenge
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-assumption-challenge
+- **preferences consulted:** PREFERENCES.md § Depth notes assumption audits in ideation; followed by adopting RJM's explicit assumption-challenge terminology.
+
+### Decision
+The canonical term for this artifact is `assumption-challenge`. An assumption challenge is a structured critique artifact identifying unverified premises, failure modes, and surviving doubts in a specification or architecture.
+
+### Adopted from
+ADDY `evals/cases/doubt-driven-development.json:38` for surviving doubts; RJM `.claude/agents/independent-thinker.md:160` for Assumption Challenge Template.
+
+### Dropped
+RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+surviving-doubts (Addy: informal section header).
+
+### Evidence
+ADDY `evals/cases/doubt-driven-development.json:38`; RJM `.claude/agents/independent-thinker.md:160`.
+
+### Glossary
+### assumption-challenge
+
+- **definition:** An assumption challenge is a structured critique artifact identifying unverified premises, failure modes, and surviving doubts in a specification or architecture.
+- **kind:** artifact
+- **source names:** addy: `surviving doubts` · matt: — · rjm: `Assumption Challenge Template`
+- **decision:** D-153
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-assumption-challenge`
+- **not to be confused with:** `review-report, considered-options`
+
+---
+
+## D-154 — changeset
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-changeset
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's automated versioning and changeset workflow; followed by adopting changeset.
+
+### Decision
+The canonical term for this artifact is `changeset`. A changeset is a versioning artifact documenting atomic package release notes, semver bump classifications, and consumer-facing changelog summaries.
+
+### Adopted from
+ADDY `external/git-workflow-and-versioning.md:5` for releases; MATT `skills/deprecated/README.md:3` for changeset.
+
+### Dropped
+ADDY's defects: doc-drift, orphan defects (D-006); MATT's defects: cross-file-contradiction defects (D-006).
+
+### Rejected alternatives
+releases (Addy: broad milestone container).
+
+### Evidence
+ADDY `external/git-workflow-and-versioning.md:5`; MATT `skills/deprecated/README.md:3`.
+
+### Glossary
+### changeset
+
+- **definition:** A changeset is a versioning artifact documenting atomic package release notes, semver bump classifications, and consumer-facing changelog summaries.
+- **kind:** artifact
+- **source names:** addy: `releases` · matt: `changeset` · rjm: —
+- **decision:** D-154
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-changeset`
+- **not to be confused with:** `commit-message, pull-request`
+
+---
+
+## D-155 — rollback-plan
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rollback-steps
+- **preferences consulted:** PREFERENCES.md § References highlights operational runbooks and migration safety; followed by adopting rollback-plan.
+
+### Decision
+The canonical term for this artifact is `rollback-plan`. A rollback plan is an operational procedure specifying exact commands and steps required to safely revert a failed deployment or migration to a known good state.
+
+### Adopted from
+ADDY `evals/fixtures/shipping-and-launch/authority-pressure.md:5` for rollback steps; RJM `.agents/critique/ADR-045-debate-log.md:133` for Resolution Path.
+
+### Dropped
+RJM's defects: cross-file-contradiction defects (D-006).
+
+### Rejected alternatives
+resolution-path (RJM: broader incident recovery term), rollback-steps (Addy: less formal phrasing).
+
+### Evidence
+ADDY `evals/fixtures/shipping-and-launch/authority-pressure.md:5`; RJM `.agents/critique/ADR-045-debate-log.md:133`.
+
+### Glossary
+### rollback-plan
+
+- **definition:** A rollback plan is an operational procedure specifying exact commands and steps required to safely revert a failed deployment or migration to a known good state.
+- **kind:** artifact
+- **source names:** addy: `rollback steps` · matt: — · rjm: `Resolution Path`
+- **decision:** D-155
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rollback-steps`
+- **not to be confused with:** `runbook, launch-runbook`
+
+---
+
+## D-156 — runbook
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-runbook
+- **preferences consulted:** PREFERENCES.md § References highlights operational documentation; followed by adopting runbook.
+
+### Decision
+The canonical term for this artifact is `runbook`. A runbook is an operational procedure document containing step-by-step instructions for operating, monitoring, diagnosing, and maintaining a software service in production.
+
+### Adopted from
+ADDY `skills/observability-and-instrumentation/SKILL.md:153` for runbook; RJM `.claude/agents/qa.md:833` for Infrastructure Handoff.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+infrastructure-handoff (RJM: handoff milestone rather than operational doc).
+
+### Evidence
+ADDY `skills/observability-and-instrumentation/SKILL.md:153`; RJM `.claude/agents/qa.md:833`.
+
+### Glossary
+### runbook
+
+- **definition:** A runbook is an operational procedure document containing step-by-step instructions for operating, monitoring, diagnosing, and maintaining a software service in production.
+- **kind:** artifact
+- **source names:** addy: `runbook` · matt: — · rjm: `Infrastructure Handoff`
+- **decision:** D-156
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-runbook`
+- **not to be confused with:** `launch-runbook, rollback-plan`
+
+---
+
+## D-157 — launch-runbook
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-launch-runbook
+- **preferences consulted:** PREFERENCES.md § References values launch verification procedures; followed by adopting launch-runbook.
+
+### Decision
+The canonical term for this artifact is `launch-runbook`. A launch runbook is a specialized deployment checklist detailing pre-flight checks, staged cutover steps, rollback criteria, and post-launch verification procedures.
+
+### Adopted from
+ADDY `evals/fixtures/shipping-and-launch/launch-status.md:11` for launch runbook; RJM `.claude/skills/threat-modeling/SKILL.md:112` for Deployment Diagram.
+
+### Dropped
+RJM's defects: exit-code-mismatch, missing-path defects (D-006).
+
+### Rejected alternatives
+deployment-diagram (RJM: visual architecture artifact).
+
+### Evidence
+ADDY `evals/fixtures/shipping-and-launch/launch-status.md:11`; RJM `.claude/skills/threat-modeling/SKILL.md:112`.
+
+### Glossary
+### launch-runbook
+
+- **definition:** A launch runbook is a specialized deployment checklist detailing pre-flight checks, staged cutover steps, rollback criteria, and post-launch verification procedures.
+- **kind:** artifact
+- **source names:** addy: `launch runbook` · matt: — · rjm: `Deployment Diagram`
+- **decision:** D-157
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-launch-runbook`
+- **not to be confused with:** `runbook, rollback-plan`
+
+---
+
+## D-158 — service-dashboard-spec
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-monitoring-dashboards
+- **preferences consulted:** PREFERENCES.md § Approach supports production observability standards; followed by adopting service-dashboard-spec.
+
+### Decision
+The canonical term for this artifact is `service-dashboard-spec`. A service dashboard specification is an operational artifact defining service level indicators (SLIs), alert thresholds, and telemetry visualizations for runtime monitoring.
+
+### Adopted from
+ADDY `references/observability-checklist.md:12` for Dashboards; RJM `.claude/skills/chaos-experiment/references/slo-sli-sla-reference.md:15` for SLI (Service Level Indicator).
+
+### Dropped
+RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+dashboards (Addy: concrete UI dashboard), sli (RJM: names metric, not artifact).
+
+### Evidence
+ADDY `references/observability-checklist.md:12`; RJM `.claude/skills/chaos-experiment/references/slo-sli-sla-reference.md:15`.
+
+### Glossary
+### service-dashboard-spec
+
+- **definition:** A service dashboard specification is an operational artifact defining service level indicators (SLIs), alert thresholds, and telemetry visualizations for runtime monitoring.
+- **kind:** artifact
+- **source names:** addy: `Dashboards` · matt: — · rjm: `SLI (Service Level Indicator)`
+- **decision:** D-158
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-monitoring-dashboards`
+- **not to be confused with:** `slo-configuration-template, runbook`
+
+---
+
+## D-159 — readme-doc
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-readme-md-file
+- **preferences consulted:** PREFERENCES.md § Approach values clear documentation entry points; followed by adopting readme-doc.
+
+### Decision
+The canonical term for this artifact is `readme-doc`. A README document is the primary introductory markdown file at a repository or component root providing purpose, setup instructions, usage examples, and architecture overview.
+
+### Adopted from
+MATT `.changeset/remove-em-dashes-repo-wide.md:5` for README.md; RJM `.claude/agents/devops.md:465` for Infrastructure Documentation Format.
+
+### Dropped
+RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+infrastructure-documentation-format (RJM: overly verbose schema name).
+
+### Evidence
+MATT `.changeset/remove-em-dashes-repo-wide.md:5`; RJM `.claude/agents/devops.md:465`.
+
+### Glossary
+### readme-doc
+
+- **definition:** A README document is the primary introductory markdown file at a repository or component root providing purpose, setup instructions, usage examples, and architecture overview.
+- **kind:** artifact
+- **source names:** addy: — · matt: `README.md` · rjm: `Infrastructure Documentation Format`
+- **decision:** D-159
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-readme-md-file`
+- **not to be confused with:** `agent-instructions-file, glossary-doc`
+
+---
+
+## D-160 — glossary-doc
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-glossary
+- **preferences consulted:** PREFERENCES.md § Depth notes alignment on vocabulary; followed by adopting glossary-doc.
+
+### Decision
+The canonical term for this artifact is `glossary-doc`. A glossary document is an authoritative index defining domain terminology, canonical concepts, source citations, and distinctions for a project.
+
+### Adopted from
+MATT `skills/engineering/grill-with-docs/SKILL.md:3` for glossary; RJM `.claude/skills/doc-accuracy/scripts/doc_accuracy.py:13` for source symbols.
+
+### Dropped
+MATT's defects: other (runaway artifact bloat where CONTEXT.md turns into a running spec in docs/engineering/domain-modeling.md:44-45; missing docs/agents/domain.md path in setup-matt-pocock-skills/domain.md:3) defects (D-006); RJM's defects: script-bug, internal-contradiction, doc-drift defects (D-006).
+
+### Rejected alternatives
+source-symbols (RJM: code symbol index rather than conceptual glossary).
+
+### Evidence
+MATT `skills/engineering/grill-with-docs/SKILL.md:3`; RJM `.claude/skills/doc-accuracy/scripts/doc_accuracy.py:13`.
+
+### Glossary
+### glossary-doc
+
+- **definition:** A glossary document is an authoritative index defining domain terminology, canonical concepts, source citations, and distinctions for a project.
+- **kind:** artifact
+- **source names:** addy: — · matt: `glossary` · rjm: `source symbols`
+- **decision:** D-160
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-glossary`
+- **not to be confused with:** `canonical-glossary-file, shared-vocabulary`
+
+---
+
+## D-161 — canonical-glossary-file
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-glossary-md-file
+- **preferences consulted:** METHOD.md R4 and §9 mandate GLOSSARY.md as project vocabulary store; followed by adopting canonical-glossary-file.
+
+### Decision
+The canonical term for this artifact is `canonical-glossary-file`. A canonical glossary file is the specific tracked repository markdown file (docs/plan/GLOSSARY.md) maintaining the machine-checked vocabulary of the development lifecycle.
+
+### Adopted from
+MATT `skills/productivity/teach/GLOSSARY-FORMAT.md:3` for GLOSSARY.md; RJM `.claude/skills/threat-modeling/SKILL.md:128` for Data Stores.
+
+### Dropped
+MATT's defects: doc-drift (teach/SKILL.md omits linking to GLOSSARY-FORMAT.md in its workspace file list) defects (D-006); RJM's defects: exit-code-mismatch, missing-path defects (D-006).
+
+### Rejected alternatives
+data-stores (RJM: generic data persistence concept).
+
+### Evidence
+MATT `skills/productivity/teach/GLOSSARY-FORMAT.md:3`; RJM `.claude/skills/threat-modeling/SKILL.md:128`.
+
+### Glossary
+### canonical-glossary-file
+
+- **definition:** A canonical glossary file is the specific tracked repository markdown file (docs/plan/GLOSSARY.md) maintaining the machine-checked vocabulary of the development lifecycle.
+- **kind:** artifact
+- **source names:** addy: — · matt: `GLOSSARY.md` · rjm: `Data Stores`
+- **decision:** D-161
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-glossary-md-file`
+- **not to be confused with:** `glossary-doc, shared-vocabulary`
+
+---
+
+## D-162 — shared-vocabulary
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-shared-language
+- **preferences consulted:** PREFERENCES.md § Depth requires shared language across agents; followed by adopting shared-vocabulary.
+
+### Decision
+The canonical term for this artifact is `shared-vocabulary`. A shared vocabulary is a documented semantic model aligning engineering definitions, domain terminology, and user documentation across team and agent interactions.
+
+### Adopted from
+MATT `README.md:115` for shared language; RJM `docs/customization.md:213` for User docs.
+
+### Dropped
+RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+user-docs (RJM: end-user documentation).
+
+### Evidence
+MATT `README.md:115`; RJM `docs/customization.md:213`.
+
+### Glossary
+### shared-vocabulary
+
+- **definition:** A shared vocabulary is a documented semantic model aligning engineering definitions, domain terminology, and user documentation across team and agent interactions.
+- **kind:** artifact
+- **source names:** addy: — · matt: `shared language` · rjm: `User docs`
+- **decision:** D-162
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-shared-language`
+- **not to be confused with:** `glossary-doc, canonical-glossary-file`
+
+---
+
+## D-163 — learning-record
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-learning-records
+- **preferences consulted:** PREFERENCES.md § Approach notes Matt's learning record tracking; followed by adopting learning-record.
+
+### Decision
+The canonical term for this artifact is `learning-record`. A learning record is an iterative reflection document capturing operational insights, agent adaptation notes, and process improvements across lifecycle sessions.
+
+### Adopted from
+MATT `skills/productivity/teach/LEARNING-RECORD-FORMAT.md:3` for learning-records; RJM `.claude/skills/skillforge/TRANSFORMATION_NOTES.md:9` for Sync log.
+
+### Dropped
+MATT's defects: internal-contradiction (lack of initial assessment leaves first session with zero learning records) defects (D-006); RJM's defects: orphan, missing-path, internal-contradiction, doc-drift defects (D-006).
+
+### Rejected alternatives
+sync-log (RJM: operational sync file).
+
+### Evidence
+MATT `skills/productivity/teach/LEARNING-RECORD-FORMAT.md:3`; RJM `.claude/skills/skillforge/TRANSFORMATION_NOTES.md:9`.
+
+### Glossary
+### learning-record
+
+- **definition:** A learning record is an iterative reflection document capturing operational insights, agent adaptation notes, and process improvements across lifecycle sessions.
+- **kind:** artifact
+- **source names:** addy: — · matt: `learning-records` · rjm: `Sync log`
+- **decision:** D-163
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-learning-records`
+- **not to be confused with:** `review-report, learning-extraction-template`
+
+---
+
+## D-164 — agent-rules-config
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rules-configuration
+- **preferences consulted:** D-009 dual-target standards establish Claude Code and Antigravity rule configs; followed by adopting agent-rules-config.
+
+### Decision
+The canonical term for this artifact is `agent-rules-config`. An agent rules configuration is a repository or platform policy file governing autonomous agent behavior, coding constraints, tool access, and lifecycle execution parameters.
+
+### Adopted from
+ADDY `docs/cursor-setup.md:9` for rules; MATT `.agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md:3` for per-repo config; RJM `templates/README.md:310` for Platform Configuration Schema.
+
+### Dropped
+RJM's defects: cross-file-contradiction, doc-drift defects (D-006).
+
+### Rejected alternatives
+per-repo-config (Matt: generic config name), platform-configuration-schema (RJM: platform schema).
+
+### Evidence
+ADDY `docs/cursor-setup.md:9`; MATT `.agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md:3`; RJM `templates/README.md:310`.
+
+### Glossary
+### agent-rules-config
+
+- **definition:** An agent rules configuration is a repository or platform policy file governing autonomous agent behavior, coding constraints, tool access, and lifecycle execution parameters.
+- **kind:** artifact
+- **source names:** addy: `rules` · matt: `per-repo config` · rjm: `Platform Configuration Schema`
+- **decision:** D-164
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rules-configuration`
+- **not to be confused with:** `agent-instructions-file, editor-rules-config`
+
+---
+
+## D-165 — agent-instructions-file
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-claude-rules
+- **preferences consulted:** D-009 specifies CLAUDE.md canonical with AGENTS.md mirror; followed by adopting agent-instructions-file.
+
+### Decision
+The canonical term for this artifact is `agent-instructions-file`. An agent instructions file is the repository-level context file (CLAUDE.md or AGENTS.md) instructing AI coding agents on project layout, build commands, and coding guidelines.
+
+### Adopted from
+ADDY `skills/context-engineering/SKILL.md:42` for CLAUDE.md; MATT `docs/productivity/writing-for-agents.md:3` for AGENTS.md.
+
+### Dropped
+ADDY's defects: other, doc-drift, orphan defects (D-006).
+
+### Rejected alternatives
+claude-rules (Claude-specific, lacks dual-target parity framing).
+
+### Evidence
+ADDY `skills/context-engineering/SKILL.md:42`; MATT `docs/productivity/writing-for-agents.md:3`.
+
+### Glossary
+### agent-instructions-file
+
+- **definition:** An agent instructions file is the repository-level context file (CLAUDE.md or AGENTS.md) instructing AI coding agents on project layout, build commands, and coding guidelines.
+- **kind:** artifact
+- **source names:** addy: `CLAUDE.md` · matt: `AGENTS.md` · rjm: —
+- **decision:** D-165
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-claude-rules`
+- **not to be confused with:** `agent-rules-config, editor-rules-config`
+
+---
+
+## D-166 — editor-rules-config
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-editor-rules
+- **preferences consulted:** D-009 prioritizes Claude Code CLI and Antigravity parity over editor-specific configs; followed by classifying editor-rules-config.
+
+### Decision
+The canonical term for this artifact is `editor-rules-config`. An editor rules configuration is an IDE-specific context file (.cursorrules or equivalent) providing environment-specific guidelines and prompts to in-editor AI assistants.
+
+### Adopted from
+ADDY `docs/cursor-setup.md:29` for cursorrules; MATT `skills/engineering/setup-matt-pocock-skills/domain.md:3` for Domain docs.
+
+### Dropped
+ADDY's defects: doc-drift, orphan defects (D-006); MATT's defects: missing-path (skills/engineering/setup-matt-pocock-skills/domain.md:3 references docs/agents/domain.md which is not present in source repo root and must be instantiated by setup-matt-pocock-skills) defects (D-006).
+
+### Rejected alternatives
+domain-docs (Matt: broad domain documentation).
+
+### Evidence
+ADDY `docs/cursor-setup.md:29`; MATT `skills/engineering/setup-matt-pocock-skills/domain.md:3`.
+
+### Glossary
+### editor-rules-config
+
+- **definition:** An editor rules configuration is an IDE-specific context file (.cursorrules or equivalent) providing environment-specific guidelines and prompts to in-editor AI assistants.
+- **kind:** artifact
+- **source names:** addy: `cursorrules` · matt: `Domain docs` · rjm: —
+- **decision:** D-166
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-editor-rules`
+- **not to be confused with:** `agent-instructions-file, agent-rules-config`
+
+---
+
+## D-167 — code-style-guidelines
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-code-style
+- **preferences consulted:** PREFERENCES.md § Approach emphasizes code consistency; followed by adopting code-style-guidelines.
+
+### Decision
+The canonical term for this artifact is `code-style-guidelines`. Code style guidelines are documented conventions specifying naming patterns, syntax rules, formatting standards, and structural idioms for a codebase.
+
+### Adopted from
+ADDY `skills/spec-driven-development/SKILL.md:106` for Code Style; MATT `external/grill-with-docs.md:50` for design principles.
+
+### Dropped
+ADDY's defects: doc-drift defects (D-006); MATT's defects: orphan, doc-drift defects (D-006).
+
+### Rejected alternatives
+design-principles (Matt: higher-level architectural principles rather than code style).
+
+### Evidence
+ADDY `skills/spec-driven-development/SKILL.md:106`; MATT `external/grill-with-docs.md:50`.
+
+### Glossary
+### code-style-guidelines
+
+- **definition:** Code style guidelines are documented conventions specifying naming patterns, syntax rules, formatting standards, and structural idioms for a codebase.
+- **kind:** artifact
+- **source names:** addy: `Code Style` · matt: `design principles` · rjm: —
+- **decision:** D-167
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-code-style`
+- **not to be confused with:** `project-rules, agent-rules-config`
+
+---
+
+## D-168 — windsurf-rules
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-addy-windsurfrules
+- **preferences consulted:** D-009 specifies dual-target Claude Code and Antigravity standards; followed by dropping Windsurf-specific rules.
+
+### Decision
+The canonical term for this artifact is `windsurf-rules`. A windsurf rules artifact is an IDE-specific configuration file (.windsurfrules) for the Windsurf development environment, dropped from canonical lifecycle output in favor of dual-target Claude and Antigravity standards.
+
+### Adopted from
+ADDY `docs/windsurf-setup.md:7` for .windsurfrules.
+
+### Dropped
+ADDY's defects: doc-drift defects (D-006).
+
+### Rejected alternatives
+adopting-windsurfrules (violates D-009 dual-target standard).
+
+### Evidence
+ADDY `docs/windsurf-setup.md:7`.
+
+### Glossary
+### windsurf-rules
+
+- **definition:** A windsurf rules artifact is an IDE-specific configuration file (.windsurfrules) for the Windsurf development environment, dropped from canonical lifecycle output in favor of dual-target Claude and Antigravity standards.
+- **kind:** artifact
+- **source names:** addy: `.windsurfrules` · matt: — · rjm: —
+- **decision:** D-168
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-addy-windsurfrules`
+- **not to be confused with:** `editor-rules-config, agent-rules-config`
+
+---
+
+## D-169 — floor-guard-script
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-addy-floor-guard-mjs
+- **preferences consulted:** D-003 mandates pure Bun and no standalone JS/Node scripts; followed by reimplementing floor-guard invariant checking in Bun.
+
+### Decision
+The canonical term for this artifact is `floor-guard-script`. A floor guard script is an automated validation script enforcing quality baselines and invariant checks, implemented in pure Bun rather than ported as standalone external scripts.
+
+### Adopted from
+ADDY `skills/constraint-driven-development/references/floor-guard.md:19` for floor-guard.mjs.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+floor-guard-mjs (D-003 forbids .mjs/Node scripts).
+
+### Evidence
+ADDY `skills/constraint-driven-development/references/floor-guard.md:19`.
+
+### Glossary
+### floor-guard-script
+
+- **definition:** A floor guard script is an automated validation script enforcing quality baselines and invariant checks, implemented in pure Bun rather than ported as standalone external scripts.
+- **kind:** artifact
+- **source names:** addy: `floor-guard.mjs` · matt: — · rjm: —
+- **decision:** D-169
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-addy-floor-guard-mjs`
+- **not to be confused with:** `validation-script-template, script-template`
+
+---
+
+## D-170 — rule-file-set
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-addy-rules-files
+- **preferences consulted:** PREFERENCES.md § Approach favours structured agent instructions; followed by adopting rule-file-set.
+
+### Decision
+The canonical term for this artifact is `rule-file-set`. A rule file set is a composite collection of specialized rule documents partitioned by domain or lifecycle phase to guide agent behavior without context bloat.
+
+### Adopted from
+ADDY `skills/context-engineering/SKILL.md:26` for rules files.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+rules-files (unhyphenated plural descriptor).
+
+### Evidence
+ADDY `skills/context-engineering/SKILL.md:26`.
+
+### Glossary
+### rule-file-set
+
+- **definition:** A rule file set is a composite collection of specialized rule documents partitioned by domain or lifecycle phase to guide agent behavior without context bloat.
+- **kind:** artifact
+- **source names:** addy: `rules files` · matt: — · rjm: —
+- **decision:** D-170
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-addy-rules-files`
+- **not to be confused with:** `agent-rules-config, project-rules`
+
+---
+
+## D-171 — project-rules
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-addy-project-rules
+- **preferences consulted:** PREFERENCES.md § Approach values explicit repository constraints; followed by adopting project-rules.
+
+### Decision
+The canonical term for this artifact is `project-rules`. Project rules are repository-scoped behavioral directives and architectural constraints that apply unconditionally to all agents and developers working in a repository.
+
+### Adopted from
+ADDY `docs/cursor-setup.md:13` for Project rules.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+repo-rules (less formal naming).
+
+### Evidence
+ADDY `docs/cursor-setup.md:13`.
+
+### Glossary
+### project-rules
+
+- **definition:** Project rules are repository-scoped behavioral directives and architectural constraints that apply unconditionally to all agents and developers working in a repository.
+- **kind:** artifact
+- **source names:** addy: `Project rules` · matt: — · rjm: —
+- **decision:** D-171
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-addy-project-rules`
+- **not to be confused with:** `user-rules, agent-rules-config`
+
+---
+
+## D-172 — user-rules
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-addy-user-rules
+- **preferences consulted:** PREFERENCES.md § Approach values separation of user preferences from project rules; followed by adopting user-rules.
+
+### Decision
+The canonical term for this artifact is `user-rules`. User rules are developer-scoped personal configuration directives and preferences applied across projects in an agent's global configuration environment.
+
+### Adopted from
+ADDY `docs/cursor-setup.md:15` for User rules.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+developer-rules (less standard than user-rules).
+
+### Evidence
+ADDY `docs/cursor-setup.md:15`.
+
+### Glossary
+### user-rules
+
+- **definition:** User rules are developer-scoped personal configuration directives and preferences applied across projects in an agent's global configuration environment.
+- **kind:** artifact
+- **source names:** addy: `User rules` · matt: — · rjm: —
+- **decision:** D-172
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-addy-user-rules`
+- **not to be confused with:** `project-rules, agent-rules-config`
+
+---
+
+## D-173 — artifact-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-template
+- **preferences consulted:** PREFERENCES.md § Approach values structured artifact templates; followed by adopting artifact-template.
+
+### Decision
+The canonical term for this artifact is `artifact-template`. An artifact template is a standardized document boilerplate defining mandatory sections, markdown formatting, and prompt instructions for generating lifecycle deliverables.
+
+### Adopted from
+MATT `docs/engineering/wizard.md:44` for template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+template (too generic, causes homonym collision).
+
+### Evidence
+MATT `docs/engineering/wizard.md:44`.
+
+### Glossary
+### artifact-template
+
+- **definition:** An artifact template is a standardized document boilerplate defining mandatory sections, markdown formatting, and prompt instructions for generating lifecycle deliverables.
+- **kind:** artifact
+- **source names:** addy: — · matt: `template` · rjm: —
+- **decision:** D-173
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-template`
+- **not to be confused with:** `plan-template, seed-template-schema`
+
+---
+
+## D-174 — seed-template-schema
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-seed-template-schema
+- **preferences consulted:** PREFERENCES.md § Approach values schema validation for templates; followed by adopting seed-template-schema.
+
+### Decision
+The canonical term for this artifact is `seed-template-schema`. A seed template schema is a formal specification defining the frontmatter properties, validation rules, and structural fields required for initializing new skills or templates.
+
+### Adopted from
+MATT `.out-of-scope/setup-skill-verify-mode.md:7` for seed-template schema.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+seed-schema (less descriptive).
+
+### Evidence
+MATT `.out-of-scope/setup-skill-verify-mode.md:7`.
+
+### Glossary
+### seed-template-schema
+
+- **definition:** A seed template schema is a formal specification defining the frontmatter properties, validation rules, and structural fields required for initializing new skills or templates.
+- **kind:** artifact
+- **source names:** addy: — · matt: `seed-template schema` · rjm: —
+- **decision:** D-174
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-seed-template-schema`
+- **not to be confused with:** `artifact-template, seed-template-collection`
+
+---
+
+## D-175 — exploration-map-file
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-map-md
+- **preferences consulted:** PREFERENCES.md § Approach notes Matt's wayfinder and exploration skills; followed by adopting exploration-map-file.
+
+### Decision
+The canonical term for this artifact is `exploration-map-file`. An exploration map file is a lightweight markdown artifact (map.md) recording navigated concepts, open questions, and discovered paths during conversational exploration.
+
+### Adopted from
+MATT `skills/engineering/setup-matt-pocock-skills/issue-tracker-local.md:25` for map.md.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+map-md (path-specific naming).
+
+### Evidence
+MATT `skills/engineering/setup-matt-pocock-skills/issue-tracker-local.md:25`.
+
+### Glossary
+### exploration-map-file
+
+- **definition:** An exploration map file is a lightweight markdown artifact (map.md) recording navigated concepts, open questions, and discovered paths during conversational exploration.
+- **kind:** artifact
+- **source names:** addy: — · matt: `map.md` · rjm: —
+- **decision:** D-175
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-map-md`
+- **not to be confused with:** `exploration-map, context-map-file`
+
+---
+
+## D-176 — exploration-map
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-map
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's conceptual mapping during discovery; followed by adopting exploration-map.
+
+### Decision
+The canonical term for this artifact is `exploration-map`. An exploration map is a conceptual graph or outline charting the explored problem space, related domains, and potential technical directions during discovery.
+
+### Adopted from
+MATT `docs/engineering/wayfinder.md:3` for map.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+map (too generic; collides with data structure).
+
+### Evidence
+MATT `docs/engineering/wayfinder.md:3`.
+
+### Glossary
+### exploration-map
+
+- **definition:** An exploration map is a conceptual graph or outline charting the explored problem space, related domains, and potential technical directions during discovery.
+- **kind:** artifact
+- **source names:** addy: — · matt: `map` · rjm: —
+- **decision:** D-176
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-map`
+- **not to be confused with:** `exploration-map-file, context-map`
+
+---
+
+## D-177 — local-ticket-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-local-ticket-template
+- **preferences consulted:** PREFERENCES.md § Phase mapping notes task templates with Description and Acceptance Criteria; followed by adopting local-ticket-template.
+
+### Decision
+The canonical term for this artifact is `local-ticket-template`. A local ticket template is a markdown boilerplate specifying the description, acceptance criteria, dependencies, and verification steps for an in-repo task ticket.
+
+### Adopted from
+MATT `skills/engineering/to-tickets/SKILL.md:69` for local-ticket-template.
+
+### Dropped
+MATT's defects: missing-path (skills/engineering/to-tickets/SKILL.md:11 missing setup command) defects (D-006).
+
+### Rejected alternatives
+ticket-template (lacks in-repo local distinction).
+
+### Evidence
+MATT `skills/engineering/to-tickets/SKILL.md:69`.
+
+### Glossary
+### local-ticket-template
+
+- **definition:** A local ticket template is a markdown boilerplate specifying the description, acceptance criteria, dependencies, and verification steps for an in-repo task ticket.
+- **kind:** artifact
+- **source names:** addy: — · matt: `local-ticket-template` · rjm: —
+- **decision:** D-177
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-local-ticket-template`
+- **not to be confused with:** `task-card, local-markdown-tickets`
+
+---
+
+## D-178 — context-map-file
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-context-map-md
+- **preferences consulted:** PREFERENCES.md § Approach values DDD context mapping in markdown; followed by adopting context-map-file.
+
+### Decision
+The canonical term for this artifact is `context-map-file`. A context map file is a dedicated markdown document (CONTEXT-MAP.md) detailing service boundaries, module interactions, and interface contracts across a repository.
+
+### Adopted from
+MATT `skills/engineering/domain-modeling/CONTEXT-FORMAT.md:36` for CONTEXT-MAP.md.
+
+### Dropped
+MATT's defects: doc-drift, orphan defects (D-006).
+
+### Rejected alternatives
+context-map-md (filename-specific naming).
+
+### Evidence
+MATT `skills/engineering/domain-modeling/CONTEXT-FORMAT.md:36`.
+
+### Glossary
+### context-map-file
+
+- **definition:** A context map file is a dedicated markdown document (CONTEXT-MAP.md) detailing service boundaries, module interactions, and interface contracts across a repository.
+- **kind:** artifact
+- **source names:** addy: — · matt: `CONTEXT-MAP.md` · rjm: —
+- **decision:** D-178
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-context-map-md`
+- **not to be confused with:** `context-map, exploration-map-file`
+
+---
+
+## D-179 — shared-exploration-map
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-shared-map
+- **preferences consulted:** PREFERENCES.md § Approach values collaborative exploration; followed by adopting shared-exploration-map.
+
+### Decision
+The canonical term for this artifact is `shared-exploration-map`. A shared exploration map is a collaborative context artifact shared across developer and agent turns to synchronize understanding of system topology and problem scope.
+
+### Adopted from
+MATT `skills/engineering/wayfinder/SKILL.md:7` for shared map.
+
+### Dropped
+MATT's defects: other defects (D-006).
+
+### Rejected alternatives
+shared-map (too generic).
+
+### Evidence
+MATT `skills/engineering/wayfinder/SKILL.md:7`.
+
+### Glossary
+### shared-exploration-map
+
+- **definition:** A shared exploration map is a collaborative context artifact shared across developer and agent turns to synchronize understanding of system topology and problem scope.
+- **kind:** artifact
+- **source names:** addy: — · matt: `shared map` · rjm: —
+- **decision:** D-179
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-shared-map`
+- **not to be confused with:** `exploration-map, wayfinder-map`
+
+---
+
+## D-180 — local-markdown-tickets
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-local-markdown-tickets
+- **preferences consulted:** PREFERENCES.md § Phase mapping notes local issue tracking in repo docs; followed by adopting local-markdown-tickets.
+
+### Decision
+The canonical term for this artifact is `local-markdown-tickets`. Local markdown tickets are file-based task definitions stored directly within a repository's version-controlled documentation to track implementation tasks without external tools.
+
+### Adopted from
+MATT `CHANGELOG.md:120` for Local-markdown tickets.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+markdown-tickets (lacks local repository scope).
+
+### Evidence
+MATT `CHANGELOG.md:120`.
+
+### Glossary
+### local-markdown-tickets
+
+- **definition:** Local markdown tickets are file-based task definitions stored directly within a repository's version-controlled documentation to track implementation tasks without external tools.
+- **kind:** artifact
+- **source names:** addy: — · matt: `Local-markdown tickets` · rjm: —
+- **decision:** D-180
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-local-markdown-tickets`
+- **not to be confused with:** `local-ticket-template, task-card`
+
+---
+
+## D-181 — round-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-round-template
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's iterative review rounds; followed by adopting round-template.
+
+### Decision
+The canonical term for this artifact is `round-template`. A round template is a structured interaction schema defining prompt framing, expected feedback categories, and exit criteria for iterative review or grilling rounds.
+
+### Adopted from
+MATT `.changeset/grilling-add-hr-between-questions.md:5` for round template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+round (too generic).
+
+### Evidence
+MATT `.changeset/grilling-add-hr-between-questions.md:5`.
+
+### Glossary
+### round-template
+
+- **definition:** A round template is a structured interaction schema defining prompt framing, expected feedback categories, and exit criteria for iterative review or grilling rounds.
+- **kind:** artifact
+- **source names:** addy: — · matt: `round template` · rjm: —
+- **decision:** D-181
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-round-template`
+- **not to be confused with:** `questionnaire-template, discovery-questionnaire`
+
+---
+
+## D-182 — issue-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-issue-template
+- **preferences consulted:** PREFERENCES.md § Approach values structured issue intake; followed by adopting issue-template.
+
+### Decision
+The canonical term for this artifact is `issue-template`. An issue template is a standardized form specification guiding developers and agents in submitting complete bug reports, feature requests, or investigation briefs.
+
+### Adopted from
+MATT `skills/engineering/to-tickets/SKILL.md:84` for issue-template.
+
+### Dropped
+MATT's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+ticket-template (collides with implementation tickets).
+
+### Evidence
+MATT `skills/engineering/to-tickets/SKILL.md:84`.
+
+### Glossary
+### issue-template
+
+- **definition:** An issue template is a standardized form specification guiding developers and agents in submitting complete bug reports, feature requests, or investigation briefs.
+- **kind:** artifact
+- **source names:** addy: — · matt: `issue-template` · rjm: —
+- **decision:** D-182
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-issue-template`
+- **not to be confused with:** `deferral-issue-template, local-ticket-template`
+
+---
+
+## D-183 — domain-mapping
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-mapping
+- **preferences consulted:** PREFERENCES.md § Depth values deep domain and technique alignment; followed by adopting domain-mapping.
+
+### Decision
+The canonical term for this artifact is `domain-mapping`. A domain mapping is an analytical artifact charting domain models, entity relationships, and operational flows across complex software subsystems.
+
+### Adopted from
+MATT `external/setup-matt-pocock-skills.md:50` for mapping.
+
+### Dropped
+MATT's defects: orphan, doc-drift defects (D-006).
+
+### Rejected alternatives
+mapping (too generic).
+
+### Evidence
+MATT `external/setup-matt-pocock-skills.md:50`.
+
+### Glossary
+### domain-mapping
+
+- **definition:** A domain mapping is an analytical artifact charting domain models, entity relationships, and operational flows across complex software subsystems.
+- **kind:** artifact
+- **source names:** addy: — · matt: `mapping` · rjm: —
+- **decision:** D-183
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-mapping`
+- **not to be confused with:** `context-map, exploration-map`
+
+---
+
+## D-184 — decision-ticket
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-decision-ticket
+- **preferences consulted:** PREFERENCES.md § Approach values explicitly tracked decision units; followed by adopting decision-ticket.
+
+### Decision
+The canonical term for this artifact is `decision-ticket`. A decision ticket is an actionable task unit whose primary deliverable is an architectural or technical choice documented with trade-offs and rationale rather than code.
+
+### Adopted from
+MATT `CONTEXT.md:16` for decision ticket.
+
+### Dropped
+MATT's defects: missing-path, other (in CONTEXT.md); missing-path, doc-drift (in CHANGELOG.md) defects (D-006).
+
+### Rejected alternatives
+decision-task (less standard in ticket workflows).
+
+### Evidence
+MATT `CONTEXT.md:16`.
+
+### Glossary
+### decision-ticket
+
+- **definition:** A decision ticket is an actionable task unit whose primary deliverable is an architectural or technical choice documented with trade-offs and rationale rather than code.
+- **kind:** artifact
+- **source names:** addy: — · matt: `decision ticket` · rjm: —
+- **decision:** D-184
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-decision-ticket`
+- **not to be confused with:** `architecture-decision-record, decision-ticket-set`
+
+---
+
+## D-185 — tracer-bullet-ticket
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-tracer-bullet-tickets
+- **preferences consulted:** PREFERENCES.md § Approach values rapid end-to-end architectural validation; followed by adopting tracer-bullet-ticket.
+
+### Decision
+The canonical term for this artifact is `tracer-bullet-ticket`. A tracer bullet ticket is an end-to-end implementation task designed to rapidly validate an architectural path, integration seam, or technological feasibility through a minimal functional slice.
+
+### Adopted from
+MATT `README.md:200` for tracer-bullet tickets.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+spike-ticket (tracer bullets produce production code; spikes produce disposable prototypes).
+
+### Evidence
+MATT `README.md:200`.
+
+### Glossary
+### tracer-bullet-ticket
+
+- **definition:** A tracer bullet ticket is an end-to-end implementation task designed to rapidly validate an architectural path, integration seam, or technological feasibility through a minimal functional slice.
+- **kind:** artifact
+- **source names:** addy: — · matt: `tracer-bullet tickets` · rjm: —
+- **decision:** D-185
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-tracer-bullet-tickets`
+- **not to be confused with:** `implementation-ticket, task-card`
+
+---
+
+## D-186 — navigational-map
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-the-map
+- **preferences consulted:** PREFERENCES.md § Approach values wayfinding skills; followed by adopting navigational-map.
+
+### Decision
+The canonical term for this artifact is `navigational-map`. A navigational map is the active, evolving orientation document maintained by wayfinding skills to guide users and agents through unfamiliar codebases.
+
+### Adopted from
+MATT `CHANGELOG.md:193` for the map.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+the-map (colloquial definite article).
+
+### Evidence
+MATT `CHANGELOG.md:193`.
+
+### Glossary
+### navigational-map
+
+- **definition:** A navigational map is the active, evolving orientation document maintained by wayfinding skills to guide users and agents through unfamiliar codebases.
+- **kind:** artifact
+- **source names:** addy: — · matt: `the map` · rjm: —
+- **decision:** D-186
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-the-map`
+- **not to be confused with:** `wayfinder-map, exploration-map`
+
+---
+
+## D-187 — research-ticket
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-research-tickets
+- **preferences consulted:** PREFERENCES.md § Approach values bounded research exploration; followed by adopting research-ticket.
+
+### Decision
+The canonical term for this artifact is `research-ticket`. A research ticket is an exploratory task card dedicated to investigating third-party libraries, algorithmic approaches, or performance characteristics prior to design.
+
+### Adopted from
+MATT `CHANGELOG.md:86` for Research tickets.
+
+### Dropped
+MATT's defects: other (external/research.md:51 notes subagents opening draft PRs on throwaway branches and branch deletion breaking context pointers) defects (D-006).
+
+### Rejected alternatives
+spike (less specific than research-ticket).
+
+### Evidence
+MATT `CHANGELOG.md:86`.
+
+### Glossary
+### research-ticket
+
+- **definition:** A research ticket is an exploratory task card dedicated to investigating third-party libraries, algorithmic approaches, or performance characteristics prior to design.
+- **kind:** artifact
+- **source names:** addy: — · matt: `Research tickets` · rjm: —
+- **decision:** D-187
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-research-tickets`
+- **not to be confused with:** `decision-ticket, implementation-ticket`
+
+---
+
+## D-188 — seed-template-collection
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-seed-templates
+- **preferences consulted:** PREFERENCES.md § Approach values modular plugin scaffolding; followed by adopting seed-template-collection.
+
+### Decision
+The canonical term for this artifact is `seed-template-collection`. A seed template collection is a bundled library of baseline skill definitions, command scaffolds, and configuration files used to bootstrap new plugin extensions.
+
+### Adopted from
+MATT `.out-of-scope/setup-skill-verify-mode.md:9` for seed templates.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+seed-templates (unhyphenated plural).
+
+### Evidence
+MATT `.out-of-scope/setup-skill-verify-mode.md:9`.
+
+### Glossary
+### seed-template-collection
+
+- **definition:** A seed template collection is a bundled library of baseline skill definitions, command scaffolds, and configuration files used to bootstrap new plugin extensions.
+- **kind:** artifact
+- **source names:** addy: — · matt: `seed templates` · rjm: —
+- **decision:** D-188
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-seed-templates`
+- **not to be confused with:** `seed-template-schema, shared-template-library`
+
+---
+
+## D-189 — decision-ticket-set
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-decision-tickets
+- **preferences consulted:** PREFERENCES.md § Approach values resolving architectural decisions before coding; followed by adopting decision-ticket-set.
+
+### Decision
+The canonical term for this artifact is `decision-ticket-set`. A decision ticket set is a grouped collection of open technical questions and architectural forks that must be resolved prior to scheduling implementation tickets.
+
+### Adopted from
+MATT `skills/engineering/wayfinder/SKILL.md:7` for decision tickets.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+decision-tickets (unhyphenated plural).
+
+### Evidence
+MATT `skills/engineering/wayfinder/SKILL.md:7`.
+
+### Glossary
+### decision-ticket-set
+
+- **definition:** A decision ticket set is a grouped collection of open technical questions and architectural forks that must be resolved prior to scheduling implementation tickets.
+- **kind:** artifact
+- **source names:** addy: — · matt: `decision tickets` · rjm: —
+- **decision:** D-189
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-decision-tickets`
+- **not to be confused with:** `decision-ticket, architecture-decision-record`
+
+---
+
+## D-190 — wayfinder-map
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-wayfinder-map
+- **preferences consulted:** PREFERENCES.md § Approach values wayfinder skills; followed by adopting wayfinder-map.
+
+### Decision
+The canonical term for this artifact is `wayfinder-map`. A wayfinder map is a structured architectural overview artifact produced by wayfinding skills to orient developers and agents within a repository's file structure and workflows.
+
+### Adopted from
+MATT `skills/engineering/wayfinder/SKILL.md:21` for wayfinder:map.
+
+### Dropped
+MATT's defects: other (Notes override in wayfinder permits agents to self-authorize execution inside the map) defects (D-006).
+
+### Rejected alternatives
+wayfinder:map (contains illegal colon identifier character).
+
+### Evidence
+MATT `skills/engineering/wayfinder/SKILL.md:21`.
+
+### Glossary
+### wayfinder-map
+
+- **definition:** A wayfinder map is a structured architectural overview artifact produced by wayfinding skills to orient developers and agents within a repository's file structure and workflows.
+- **kind:** artifact
+- **source names:** addy: — · matt: `wayfinder:map` · rjm: —
+- **decision:** D-190
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-wayfinder-map`
+- **not to be confused with:** `navigational-map, exploration-map`
+
+---
+
+## D-191 — implementation-ticket
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-implementation-ticket
+- **preferences consulted:** PREFERENCES.md § Phase mapping values modular implementation tasks; followed by adopting implementation-ticket.
+
+### Decision
+The canonical term for this artifact is `implementation-ticket`. An implementation ticket is a concrete, self-contained task unit specifying code changes, test additions, and verification steps required to deliver a feature slice.
+
+### Adopted from
+MATT `CHANGELOG.md:84` for _implementation_ ticket.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+code-ticket (narrow focus on code rather than tests and verification).
+
+### Evidence
+MATT `CHANGELOG.md:84`.
+
+### Glossary
+### implementation-ticket
+
+- **definition:** An implementation ticket is a concrete, self-contained task unit specifying code changes, test additions, and verification steps required to deliver a feature slice.
+- **kind:** artifact
+- **source names:** addy: — · matt: `_implementation_ ticket` · rjm: —
+- **decision:** D-191
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-implementation-ticket`
+- **not to be confused with:** `tracer-bullet-ticket, task-card`
+
+---
+
+## D-192 — shell-template-scaffold
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-template-sh
+- **preferences consulted:** D-003 forbids shell scripts longer than one-liners and mandates pure Bun; followed by dropping template.sh.
+
+### Decision
+The canonical term for this artifact is `shell-template-scaffold`. A shell template scaffold is a script boilerplate used in Matt's toolkit for generating executable templates, dropped from brain in favor of pure Bun tooling per D-003.
+
+### Adopted from
+MATT `skills/engineering/wizard/SKILL.md:10` for template.sh.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+template-sh (violates D-003).
+
+### Evidence
+MATT `skills/engineering/wizard/SKILL.md:10`.
+
+### Glossary
+### shell-template-scaffold
+
+- **definition:** A shell template scaffold is a script boilerplate used in Matt's toolkit for generating executable templates, dropped from brain in favor of pure Bun tooling per D-003.
+- **kind:** artifact
+- **source names:** addy: — · matt: `template.sh` · rjm: —
+- **decision:** D-192
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-template-sh`
+- **not to be confused with:** `generation-script-template, script-template`
+
+---
+
+## D-193 — questionnaire-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-matt-questionnaire-template
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's interactive interviewing skills; followed by adopting questionnaire-template.
+
+### Decision
+The canonical term for this artifact is `questionnaire-template`. A questionnaire template is a structured interviewing document providing standard diagnostic and requirements elicitation questions for user grilling.
+
+### Adopted from
+MATT `skills/productivity/to-questionnaire/SKILL.md:20` for questionnaire-template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+interview-template (too broad).
+
+### Evidence
+MATT `skills/productivity/to-questionnaire/SKILL.md:20`.
+
+### Glossary
+### questionnaire-template
+
+- **definition:** A questionnaire template is a structured interviewing document providing standard diagnostic and requirements elicitation questions for user grilling.
+- **kind:** artifact
+- **source names:** addy: — · matt: `questionnaire-template` · rjm: —
+- **decision:** D-193
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-matt-questionnaire-template`
+- **not to be confused with:** `discovery-questionnaire, round-template`
+
+---
+
+## D-194 — evolution-score-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-evolution-score-template
+- **preferences consulted:** PREFERENCES.md § Approach values quantitative architecture assessment; followed by adopting evolution-score-template.
+
+### Decision
+The canonical term for this artifact is `evolution-score-template`. An evolution score template is an evaluation rubric measuring codebase maturity, architectural drift, and maintainability progression across development milestones.
+
+### Adopted from
+RJM `.claude/skills/skillforge/references/evolution-scoring.md:323` for Evolution Score Template.
+
+### Dropped
+RJM's defects: doc-drift defects (D-006).
+
+### Rejected alternatives
+maturity-model (too generic enterprise term).
+
+### Evidence
+RJM `.claude/skills/skillforge/references/evolution-scoring.md:323`.
+
+### Glossary
+### evolution-score-template
+
+- **definition:** An evolution score template is an evaluation rubric measuring codebase maturity, architectural drift, and maintainability progression across development milestones.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Evolution Score Template`
+- **decision:** D-194
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-evolution-score-template`
+- **not to be confused with:** `template-assessment, security-audit-template`
+
+---
+
+## D-195 — reassessment-plan
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-reassessment-plan
+- **preferences consulted:** PREFERENCES.md § Approach values continuous architectural verification; followed by adopting reassessment-plan.
+
+### Decision
+The canonical term for this artifact is `reassessment-plan`. A reassessment plan is a scheduled review document outlining verification checkpoints, metrics, and criteria for re-evaluating architectural decisions and system performance.
+
+### Adopted from
+RJM `.claude/skills/buy-vs-build-framework/references/SKILL_SPEC.xml:247` for reassessment-plan.
+
+### Dropped
+RJM's defects: doc-drift, exit-code-mismatch, missing-doc, missing-path defects (D-006).
+
+### Rejected alternatives
+review-schedule (lacks explicit evaluation criteria).
+
+### Evidence
+RJM `.claude/skills/buy-vs-build-framework/references/SKILL_SPEC.xml:247`.
+
+### Glossary
+### reassessment-plan
+
+- **definition:** A reassessment plan is a scheduled review document outlining verification checkpoints, metrics, and criteria for re-evaluating architectural decisions and system performance.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `reassessment-plan`
+- **decision:** D-195
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-reassessment-plan`
+- **not to be confused with:** `investigation-plan, remediation-action-plan`
+
+---
+
+## D-196 — skill-specification-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-skill-specification-template
+- **preferences consulted:** PREFERENCES.md § Approach and D-009 govern skill authoring standards; followed by adopting skill-specification-template.
+
+### Decision
+The canonical term for this artifact is `skill-specification-template`. A skill specification template is a standardized schema defining skill metadata, input/output schemas, invocation triggers, composed tools, and verification invariants.
+
+### Adopted from
+RJM `.claude/skills/skillforge/references/specification-template.md:3` for Skill Specification Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+skill-template (collides with skill directory templates).
+
+### Evidence
+RJM `.claude/skills/skillforge/references/specification-template.md:3`.
+
+### Glossary
+### skill-specification-template
+
+- **definition:** A skill specification template is a standardized schema defining skill metadata, input/output schemas, invocation triggers, composed tools, and verification invariants.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Skill Specification Template`
+- **decision:** D-196
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-skill-specification-template`
+- **not to be confused with:** `artifact-template, yaml-frontmatter-schema`
+
+---
+
+## D-197 — script-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-script-template
+- **preferences consulted:** D-003 mandates pure Bun/TypeScript for all scripts; followed by adopting script-template for Bun scripts.
+
+### Decision
+The canonical term for this artifact is `script-template`. A script template is a boilerplate structure for executable automation scripts defining standard argument parsing, logging, error handling, and exit code conventions.
+
+### Adopted from
+RJM `.claude/skills/skillforge/references/script-patterns-catalog.md:831` for Script Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+python-script-template (D-003 forbids Python).
+
+### Evidence
+RJM `.claude/skills/skillforge/references/script-patterns-catalog.md:831`.
+
+### Glossary
+### script-template
+
+- **definition:** A script template is a boilerplate structure for executable automation scripts defining standard argument parsing, logging, error handling, and exit code conventions.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Script Template`
+- **decision:** D-197
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-script-template`
+- **not to be confused with:** `validation-script-template, state-management-script-template`
+
+---
+
+## D-198 — execution-plan-doc
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-executionplan
+- **preferences consulted:** PREFERENCES.md § References highlights migration and execution patterns; followed by adopting execution-plan-doc.
+
+### Decision
+The canonical term for this artifact is `execution-plan-doc`. An execution plan document is a detailed procedural roadmap defining concrete milestones, testing gates, command invocations, and rollback checkpoints for a complex migration.
+
+### Adopted from
+RJM `scripts/eval/_eval_agent_types.py:204` for ExecutionPlan.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+execution-plan (collides with plan-phase execution-planning).
+
+### Evidence
+RJM `scripts/eval/_eval_agent_types.py:204`.
+
+### Glossary
+### execution-plan-doc
+
+- **definition:** An execution plan document is a detailed procedural roadmap defining concrete milestones, testing gates, command invocations, and rollback checkpoints for a complex migration.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `ExecutionPlan`
+- **decision:** D-198
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-executionplan`
+- **not to be confused with:** `lifecycle-plan-template, plan-template`
+
+---
+
+## D-199 — conversation-structure-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-conversation-structure-template
+- **preferences consulted:** PREFERENCES.md § Approach values structured agent interaction; followed by adopting conversation-structure-template.
+
+### Decision
+The canonical term for this artifact is `conversation-structure-template`. A conversation structure template is a conversational prompt schema defining turn-taking phases, agent personas, and required artifact handoffs in interactive workflows.
+
+### Adopted from
+RJM `.claude/skills/prompt-engineer/references/prompt-engineering-multi-turn.md:548` for Conversation Structure Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+chat-template (informal).
+
+### Evidence
+RJM `.claude/skills/prompt-engineer/references/prompt-engineering-multi-turn.md:548`.
+
+### Glossary
+### conversation-structure-template
+
+- **definition:** A conversation structure template is a conversational prompt schema defining turn-taking phases, agent personas, and required artifact handoffs in interactive workflows.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Conversation Structure Template`
+- **decision:** D-199
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-conversation-structure-template`
+- **not to be confused with:** `round-template, agent-brief`
+
+---
+
+## D-200 — planguage-requirement-schema
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-planguage
+- **preferences consulted:** PREFERENCES.md § Approach and § Depth value precise technical verification; followed by adopting planguage-requirement-schema.
+
+### Decision
+The canonical term for this artifact is `planguage-requirement-schema`. A planguage requirement schema is a formal requirements syntax specifying keyword-value tags (TAG, GIST, SCALE, METER, MUST, WISH) for unambiguous technical verification.
+
+### Adopted from
+RJM `.claude/skills/adr-generator/references/adr-templates-catalog.md:15` for Planguage.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+planguage (unqualified proper noun).
+
+### Evidence
+RJM `.claude/skills/adr-generator/references/adr-templates-catalog.md:15`.
+
+### Glossary
+### planguage-requirement-schema
+
+- **definition:** A planguage requirement schema is a formal requirements syntax specifying keyword-value tags (TAG, GIST, SCALE, METER, MUST, WISH) for unambiguous technical verification.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Planguage`
+- **decision:** D-200
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-planguage`
+- **not to be confused with:** `structured-requirements, requirements-spec`
+
+---
+
+## D-201 — design-schema
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-design-schema
+- **preferences consulted:** PREFERENCES.md § Approach values structured design artifacts; followed by adopting design-schema.
+
+### Decision
+The canonical term for this artifact is `design-schema`. A design schema is a formal data contract specifying the structure, fields, validation rules, and relationships required for architectural design documents.
+
+### Adopted from
+RJM `.claude/skills/spec-generator/references/spec-schemas.md:186` for Design Schema.
+
+### Dropped
+RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+architecture-schema (less common in RJM source).
+
+### Evidence
+RJM `.claude/skills/spec-generator/references/spec-schemas.md:186`.
+
+### Glossary
+### design-schema
+
+- **definition:** A design schema is a formal data contract specifying the structure, fields, validation rules, and relationships required for architectural design documents.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Design Schema`
+- **decision:** D-201
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-design-schema`
+- **not to be confused with:** `design-review-template, yaml-frontmatter-schema`
+
+---
+
+## D-202 — resource-lease-schema
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-lease-schema
+- **preferences consulted:** PREFERENCES.md § Approach supports safe multi-agent execution; followed by adopting resource-lease-schema.
+
+### Decision
+The canonical term for this artifact is `resource-lease-schema`. A resource lease schema is a concurrency control specification defining lease durations, ownership tokens, and expiration conditions for shared development environments.
+
+### Adopted from
+RJM `.agents/architecture/ADR-090-pr-branch-holder-lease.md:83` for Lease schema.
+
+### Dropped
+RJM's not-implemented (ADR-090 proposed; citing inventory card records defects: none) defects (D-006).
+
+### Rejected alternatives
+lease-schema (unqualified noun).
+
+### Evidence
+RJM `.agents/architecture/ADR-090-pr-branch-holder-lease.md:83`.
+
+### Glossary
+### resource-lease-schema
+
+- **definition:** A resource lease schema is a concurrency control specification defining lease durations, ownership tokens, and expiration conditions for shared development environments.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Lease schema`
+- **decision:** D-202
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-lease-schema`
+- **not to be confused with:** `input-contract, state-management-script-template`
+
+---
+
+## D-203 — template-assessment
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-template-assessment
+- **preferences consulted:** PREFERENCES.md § Approach values anti-drift template audits; followed by adopting template-assessment.
+
+### Decision
+The canonical term for this artifact is `template-assessment`. A template assessment is an evaluative report auditing template completeness, drift against source implementations, and adherence to platform formatting conventions.
+
+### Adopted from
+RJM `.claude/skills/review/references/devops.md:227` for Template Assessment.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+template-audit (less aligned with RJM naming).
+
+### Evidence
+RJM `.claude/skills/review/references/devops.md:227`.
+
+### Glossary
+### template-assessment
+
+- **definition:** A template assessment is an evaluative report auditing template completeness, drift against source implementations, and adherence to platform formatting conventions.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Template Assessment`
+- **decision:** D-203
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-template-assessment`
+- **not to be confused with:** `evolution-score-template, review-report`
+
+---
+
+## D-204 — shared-template-library
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-shared-templates
+- **preferences consulted:** PREFERENCES.md § References values organized shared references; followed by adopting shared-template-library.
+
+### Decision
+The canonical term for this artifact is `shared-template-library`. A shared template library is a centralized directory of reusable document schemas, checklists, and prompt scaffolds accessible across multiple lifecycle commands.
+
+### Adopted from
+RJM `.agents/architecture/ADR-036-two-source-agent-template-architecture.md:60` for Shared Templates.
+
+### Dropped
+RJM's defects: doc-drift, internal-contradiction, missing-path defects (D-006).
+
+### Rejected alternatives
+shared-templates (unhyphenated plural).
+
+### Evidence
+RJM `.agents/architecture/ADR-036-two-source-agent-template-architecture.md:60`.
+
+### Glossary
+### shared-template-library
+
+- **definition:** A shared template library is a centralized directory of reusable document schemas, checklists, and prompt scaffolds accessible across multiple lifecycle commands.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Shared Templates`
+- **decision:** D-204
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-shared-templates`
+- **not to be confused with:** `artifact-template, seed-template-collection`
+
+---
+
+## D-205 — concept-card-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-card-template
+- **preferences consulted:** METHOD.md §5 and templates/concept-card.md govern concept cards; followed by adopting concept-card-template.
+
+### Decision
+The canonical term for this artifact is `concept-card-template`. A concept card template is a structured schema defining required fields, verbatim quotation citations, occurrence tables, and design intent for lifecycle concepts.
+
+### Adopted from
+RJM `.claude/skills/prompt-engineer/references/workflow.md:115` for Card Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+card-template (too generic).
+
+### Evidence
+RJM `.claude/skills/prompt-engineer/references/workflow.md:115`.
+
+### Glossary
+### concept-card-template
+
+- **definition:** A concept card template is a structured schema defining required fields, verbatim quotation citations, occurrence tables, and design intent for lifecycle concepts.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Card Template`
+- **decision:** D-205
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-card-template`
+- **not to be confused with:** `artifact-template, visual-card-template`
+
+---
+
+## D-206 — ci-validation-report-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-ci-validation-report-template
+- **preferences consulted:** PREFERENCES.md § Approach supports automated CI gates; followed by adopting ci-validation-report-template.
+
+### Decision
+The canonical term for this artifact is `ci-validation-report-template`. A CI validation report template is a standardized schema formatting continuous integration pipeline results, gate checks, and test summaries for release review.
+
+### Adopted from
+RJM `.claude/agents/devops.md:425` for CI Validation Report Template.
+
+### Dropped
+RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+ci-report (too informal).
+
+### Evidence
+RJM `.claude/agents/devops.md:425`.
+
+### Glossary
+### ci-validation-report-template
+
+- **definition:** A CI validation report template is a standardized schema formatting continuous integration pipeline results, gate checks, and test summaries for release review.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `CI Validation Report Template`
+- **decision:** D-206
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-ci-validation-report-template`
+- **not to be confused with:** `test-results, post-implementation-verification-template`
+
+---
+
+## D-207 — yaml-frontmatter-schema
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-yaml-front-matter-schema
+- **preferences consulted:** METHOD.md R1–R11 enforce strict frontmatter validation; followed by adopting yaml-frontmatter-schema.
+
+### Decision
+The canonical term for this artifact is `yaml-frontmatter-schema`. A YAML frontmatter schema is a formal specification defining the required metadata keys, types, and constraints embedded at the head of markdown documentation.
+
+### Adopted from
+RJM `.agents/governance/ears-format.md:173` for YAML Front Matter Schema.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+frontmatter-schema (lacks YAML format specification).
+
+### Evidence
+RJM `.agents/governance/ears-format.md:173`.
+
+### Glossary
+### yaml-frontmatter-schema
+
+- **definition:** A YAML frontmatter schema is a formal specification defining the required metadata keys, types, and constraints embedded at the head of markdown documentation.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `YAML Front Matter Schema`
+- **decision:** D-207
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-yaml-front-matter-schema`
+- **not to be confused with:** `design-schema, seed-template-schema`
+
+---
+
+## D-208 — diagnosis-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-diagnosis-template
+- **preferences consulted:** PREFERENCES.md § Approach values Matt's diagnosing-bugs and RJM's diagnosis templates; followed by adopting diagnosis-template.
+
+### Decision
+The canonical term for this artifact is `diagnosis-template`. A diagnosis template is a structured investigation schema guiding root-cause analysis through defect reproduction, baseline metrics, ranked hypotheses, and targeted probes.
+
+### Adopted from
+RJM `.claude/skills/retrospective/references/diagnosis-and-actions.md:83` for Diagnosis Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+bug-diagnosis-template (overly specific).
+
+### Evidence
+RJM `.claude/skills/retrospective/references/diagnosis-and-actions.md:83`.
+
+### Glossary
+### diagnosis-template
+
+- **definition:** A diagnosis template is a structured investigation schema guiding root-cause analysis through defect reproduction, baseline metrics, ranked hypotheses, and targeted probes.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Diagnosis Template`
+- **decision:** D-208
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-diagnosis-template`
+- **not to be confused with:** `investigation-plan, resolution-summary-template`
+
+---
+
+## D-209 — state-management-script-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-state-management-script-template
+- **preferences consulted:** METHOD.md §7 and §8 govern state management scripts in pure Bun; followed by adopting state-management-script-template.
+
+### Decision
+The canonical term for this artifact is `state-management-script-template`. A state management script template is a boilerplate for scripts that read, mutate, and synchronize repository state tables and phase markers under concurrent access.
+
+### Adopted from
+RJM `.claude/skills/skillforge/references/script-patterns-catalog.md:682` for State Management Script Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+state-script (too brief).
+
+### Evidence
+RJM `.claude/skills/skillforge/references/script-patterns-catalog.md:682`.
+
+### Glossary
+### state-management-script-template
+
+- **definition:** A state management script template is a boilerplate for scripts that read, mutate, and synchronize repository state tables and phase markers under concurrent access.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `State Management Script Template`
+- **decision:** D-209
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-state-management-script-template`
+- **not to be confused with:** `script-template, validation-script-template`
+
+---
+
+## D-210 — learning-extraction-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-learning-extraction-template
+- **preferences consulted:** PREFERENCES.md § Approach values retrospective learning; followed by adopting learning-extraction-template.
+
+### Decision
+The canonical term for this artifact is `learning-extraction-template`. A learning extraction template is a retrospective schema capturing root-cause patterns, process improvements, and model failure modes from completed workflows.
+
+### Adopted from
+RJM `.claude/skills/retrospective/references/learning-template.md:1` for Learning Extraction Template.
+
+### Dropped
+RJM's defects: internal-contradiction in .claude/skills/retrospective/SKILL.md; clean in .claude/skills/retrospective/references/learning-template.md defects (D-006).
+
+### Rejected alternatives
+retrospective-template (conflates general retrospective with learning extraction).
+
+### Evidence
+RJM `.claude/skills/retrospective/references/learning-template.md:1`.
+
+### Glossary
+### learning-extraction-template
+
+- **definition:** A learning extraction template is a retrospective schema capturing root-cause patterns, process improvements, and model failure modes from completed workflows.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Learning Extraction Template`
+- **decision:** D-210
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-learning-extraction-template`
+- **not to be confused with:** `learning-record, root-cause-pattern-template`
+
+---
+
+## D-211 — visual-card-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-visual-card-template
+- **preferences consulted:** PREFERENCES.md § Approach values high-density visual summaries; followed by adopting visual-card-template.
+
+### Decision
+The canonical term for this artifact is `visual-card-template`. A visual card template is a presentation schema for displaying concise task status, gate metrics, and architectural diagrams in terminal or chat interfaces.
+
+### Adopted from
+RJM `.claude/skills/prompt-engineer/SKILL.md:84` for visual card template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+ui-card (implies GUI web UI rather than terminal/chat).
+
+### Evidence
+RJM `.claude/skills/prompt-engineer/SKILL.md:84`.
+
+### Glossary
+### visual-card-template
+
+- **definition:** A visual card template is a presentation schema for displaying concise task status, gate metrics, and architectural diagrams in terminal or chat interfaces.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `visual card template`
+- **decision:** D-211
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-visual-card-template`
+- **not to be confused with:** `concept-card-template, task-card`
+
+---
+
+## D-212 — session-protocol-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-session-protocol-template
+- **preferences consulted:** METHOD.md §8 specifies strict session protocols; followed by adopting session-protocol-template.
+
+### Decision
+The canonical term for this artifact is `session-protocol-template`. A session protocol template is a standardized operational checklist defining startup, work-loop, and shutdown steps for autonomous agent conversations.
+
+### Adopted from
+RJM `.agents/projects/v0.4.0/PLAN.md:252` for SESSION-PROTOCOL template.
+
+### Dropped
+RJM's defects: missing-path, doc-drift defects (D-006).
+
+### Rejected alternatives
+session-checklist (less formal than protocol).
+
+### Evidence
+RJM `.agents/projects/v0.4.0/PLAN.md:252`.
+
+### Glossary
+### session-protocol-template
+
+- **definition:** A session protocol template is a standardized operational checklist defining startup, work-loop, and shutdown steps for autonomous agent conversations.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `SESSION-PROTOCOL template`
+- **decision:** D-212
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-session-protocol-template`
+- **not to be confused with:** `agent-guardrails-template, halt-message-schema`
+
+---
+
+## D-213 — agent-guardrails-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-agent-guardrails-template
+- **preferences consulted:** METHOD.md §2 and DO-NOT-READ.md embody agent guardrails; followed by adopting agent-guardrails-template.
+
+### Decision
+The canonical term for this artifact is `agent-guardrails-template`. An agent guardrails template is a security and governance schema specifying tool constraints, file fence boundaries, and safety invariants for autonomous subagents.
+
+### Adopted from
+RJM `.claude/skills/security-scan/references/agent-guardrails-template.md:7` for Agent Guardrails Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+guardrails (names concept rather than template artifact).
+
+### Evidence
+RJM `.claude/skills/security-scan/references/agent-guardrails-template.md:7`.
+
+### Glossary
+### agent-guardrails-template
+
+- **definition:** An agent guardrails template is a security and governance schema specifying tool constraints, file fence boundaries, and safety invariants for autonomous subagents.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Agent Guardrails Template`
+- **decision:** D-213
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-agent-guardrails-template`
+- **not to be confused with:** `session-protocol-template, agent-rules-config`
+
+---
+
+## D-214 — halt-message-schema
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-halt-message-schema
+- **preferences consulted:** METHOD.md §8.3 specifies STOP escalation protocol; followed by adopting halt-message-schema.
+
+### Decision
+The canonical term for this artifact is `halt-message-schema`. A halt message schema is a structured escalation contract defining the error taxonomy, blocking reason, required human input, and resume token when an agent stops.
+
+### Adopted from
+RJM `.agents/specs/requirements/REQ-016-spec-step0-first-principles-gate.md:220` for Halt Message Schema.
+
+### Dropped
+RJM's defects: doc-drift, missing-path defects (D-006).
+
+### Rejected alternatives
+stop-schema (less descriptive).
+
+### Evidence
+RJM `.agents/specs/requirements/REQ-016-spec-step0-first-principles-gate.md:220`.
+
+### Glossary
+### halt-message-schema
+
+- **definition:** A halt message schema is a structured escalation contract defining the error taxonomy, blocking reason, required human input, and resume token when an agent stops.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Halt Message Schema`
+- **decision:** D-214
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-halt-message-schema`
+- **not to be confused with:** `session-protocol-template, resolution-summary-template`
+
+---
+
+## D-215 — design-review-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-design-review-template
+- **preferences consulted:** PREFERENCES.md § Approach values pre-implementation architectural review; followed by adopting design-review-template.
+
+### Decision
+The canonical term for this artifact is `design-review-template`. A design review template is an evaluative schema specifying criteria, checklists, and scoring rubrics for assessing architectural designs before implementation.
+
+### Adopted from
+RJM `.claude/agents/architect.md:411` for Design Review Template.
+
+### Dropped
+RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+spec-review-template (narrows focus to specs only).
+
+### Evidence
+RJM `.claude/agents/architect.md:411`.
+
+### Glossary
+### design-review-template
+
+- **definition:** A design review template is an evaluative schema specifying criteria, checklists, and scoring rubrics for assessing architectural designs before implementation.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Design Review Template`
+- **decision:** D-215
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-design-review-template`
+- **not to be confused with:** `review-report, design-schema`
+
+---
+
+## D-216 — migration-plan-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-migration-plan-template
+- **preferences consulted:** PREFERENCES.md § References highlights database-migrations.md; followed by adopting migration-plan-template.
+
+### Decision
+The canonical term for this artifact is `migration-plan-template`. A migration plan template is a structured schema defining parallel change phases, schema expansions, data backfills, and deprecation contractions for system migrations.
+
+### Adopted from
+RJM `.agents/governance/agent-consolidation-process.md:121` for Migration Plan Template.
+
+### Dropped
+RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+cutover-template (covers only the cutover phase).
+
+### Evidence
+RJM `.agents/governance/agent-consolidation-process.md:121`.
+
+### Glossary
+### migration-plan-template
+
+- **definition:** A migration plan template is a structured schema defining parallel change phases, schema expansions, data backfills, and deprecation contractions for system migrations.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Migration Plan Template`
+- **decision:** D-216
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-migration-plan-template`
+- **not to be confused with:** `execution-plan-doc, rollback-plan`
+
+---
+
+## D-217 — generation-script-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-generation-script-template
+- **preferences consulted:** D-003 requires pure Bun for all code generation; followed by adopting generation-script-template.
+
+### Decision
+The canonical term for this artifact is `generation-script-template`. A generation script template is a code scaffolding template defining boilerplate generators and artifact synthesis utilities implemented in pure Bun.
+
+### Adopted from
+RJM `.claude/skills/skillforge/references/script-patterns-catalog.md:743` for Generation Script Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+scaffold-template (less descriptive of generation logic).
+
+### Evidence
+RJM `.claude/skills/skillforge/references/script-patterns-catalog.md:743`.
+
+### Glossary
+### generation-script-template
+
+- **definition:** A generation script template is a code scaffolding template defining boilerplate generators and artifact synthesis utilities implemented in pure Bun.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Generation Script Template`
+- **decision:** D-217
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-generation-script-template`
+- **not to be confused with:** `script-template, validation-script-template`
+
+---
+
+## D-218 — deferral-issue-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-p1-deferral-issue-template
+- **preferences consulted:** PREFERENCES.md § Approach values disciplined technical debt deferral; followed by adopting deferral-issue-template.
+
+### Decision
+The canonical term for this artifact is `deferral-issue-template`. A deferral issue template is a formal issue tracking schema for recording non-blocking review findings and technical debt deferred to subsequent iterations.
+
+### Adopted from
+RJM `.claude/skills/adr-review/references/issue-resolution.md:67` for P1 Deferral Issue Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+p1-deferral (priority label is platform-specific).
+
+### Evidence
+RJM `.claude/skills/adr-review/references/issue-resolution.md:67`.
+
+### Glossary
+### deferral-issue-template
+
+- **definition:** A deferral issue template is a formal issue tracking schema for recording non-blocking review findings and technical debt deferred to subsequent iterations.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `P1 Deferral Issue Template`
+- **decision:** D-218
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-p1-deferral-issue-template`
+- **not to be confused with:** `issue-template, task-backlog`
+
+---
+
+## D-219 — security-audit-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-architecture-security-audit-template
+- **preferences consulted:** PREFERENCES.md § Approach emphasizes security auditing rigor; followed by adopting security-audit-template.
+
+### Decision
+The canonical term for this artifact is `security-audit-template`. A security audit template is a comprehensive inspection schema defining threat modeling checks, dependency vulnerability scans, and access control verifications.
+
+### Adopted from
+RJM `.agents/security/architecture-security-template.md:1` for Architecture Security Audit Template.
+
+### Dropped
+RJM's defects: missing-path defects (D-006).
+
+### Rejected alternatives
+architecture-security-audit-template (unnecessarily verbose).
+
+### Evidence
+RJM `.agents/security/architecture-security-template.md:1`.
+
+### Glossary
+### security-audit-template
+
+- **definition:** A security audit template is a comprehensive inspection schema defining threat modeling checks, dependency vulnerability scans, and access control verifications.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Architecture Security Audit Template`
+- **decision:** D-219
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-architecture-security-audit-template`
+- **not to be confused with:** `security-assessment, review-report`
+
+---
+
+## D-220 — post-implementation-verification-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-piv-report-template
+- **preferences consulted:** PREFERENCES.md § Approach values post-implementation verification; followed by adopting post-implementation-verification-template.
+
+### Decision
+The canonical term for this artifact is `post-implementation-verification-template`. A post-implementation verification template is a reporting schema summarizing automated test runs, regression verifications, and deployment sanity checks.
+
+### Adopted from
+RJM `.claude/agents/security.md:504` for PIV Report Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+piv-report (obscure acronym).
+
+### Evidence
+RJM `.claude/agents/security.md:504`.
+
+### Glossary
+### post-implementation-verification-template
+
+- **definition:** A post-implementation verification template is a reporting schema summarizing automated test runs, regression verifications, and deployment sanity checks.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `PIV Report Template`
+- **decision:** D-220
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-piv-report-template`
+- **not to be confused with:** `review-report, ci-validation-report-template`
+
+---
+
+## D-221 — root-cause-pattern-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-root-cause-pattern-template
+- **preferences consulted:** PREFERENCES.md § Approach values systematic defect learning; followed by adopting root-cause-pattern-template.
+
+### Decision
+The canonical term for this artifact is `root-cause-pattern-template`. A root cause pattern template is an analytical schema cataloging recurring failure modes, architectural anti-patterns, and diagnostic indicators across defects.
+
+### Adopted from
+RJM `.claude/agents/retrospective.md:864` for Root Cause Pattern Template.
+
+### Dropped
+RJM's defects: missing-path, internal-contradiction defects (D-006).
+
+### Rejected alternatives
+failure-pattern (less specific than root-cause).
+
+### Evidence
+RJM `.claude/agents/retrospective.md:864`.
+
+### Glossary
+### root-cause-pattern-template
+
+- **definition:** A root cause pattern template is an analytical schema cataloging recurring failure modes, architectural anti-patterns, and diagnostic indicators across defects.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Root Cause Pattern Template`
+- **decision:** D-221
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-root-cause-pattern-template`
+- **not to be confused with:** `learning-extraction-template, diagnosis-template`
+
+---
+
+## D-222 — validation-script-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-validation-script-template
+- **preferences consulted:** METHOD.md §10 anti-drift checks are validation scripts in pure Bun; followed by adopting validation-script-template.
+
+### Decision
+The canonical term for this artifact is `validation-script-template`. A validation script template is a test harness boilerplate for deterministic verification scripts that assert file invariants and execution success.
+
+### Adopted from
+RJM `.claude/skills/skillforge/references/script-patterns-catalog.md:633` for Validation Script Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+test-script-template (conflates unit tests with invariant validation scripts).
+
+### Evidence
+RJM `.claude/skills/skillforge/references/script-patterns-catalog.md:633`.
+
+### Glossary
+### validation-script-template
+
+- **definition:** A validation script template is a test harness boilerplate for deterministic verification scripts that assert file invariants and execution success.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Validation Script Template`
+- **decision:** D-222
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-validation-script-template`
+- **not to be confused with:** `script-template, generation-script-template`
+
+---
+
+## D-223 — plan-vs-reality-record
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-plan-vs-reality
+- **preferences consulted:** PREFERENCES.md § Approach values empirical tracking of plan accuracy; followed by adopting plan-vs-reality-record.
+
+### Decision
+The canonical term for this artifact is `plan-vs-reality-record`. A plan versus reality record is a variance analysis artifact comparing planned estimates and milestones against actual execution duration and scope adjustments.
+
+### Adopted from
+RJM `.claude/skills/dx-review/SKILL.md:216` for PLAN vs REALITY.
+
+### Dropped
+RJM's defects: orphan defects (D-006).
+
+### Rejected alternatives
+variance-report (too financial/generic).
+
+### Evidence
+RJM `.claude/skills/dx-review/SKILL.md:216`.
+
+### Glossary
+### plan-vs-reality-record
+
+- **definition:** A plan versus reality record is a variance analysis artifact comparing planned estimates and milestones against actual execution duration and scope adjustments.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `PLAN vs REALITY`
+- **decision:** D-223
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-plan-vs-reality`
+- **not to be confused with:** `execution-plan-doc, learning-record`
+
+---
+
+## D-224 — investigation-plan
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-investigation-plan
+- **preferences consulted:** PREFERENCES.md § Approach values structured troubleshooting; followed by adopting investigation-plan.
+
+### Decision
+The canonical term for this artifact is `investigation-plan`. An investigation plan is a diagnostic roadmap specifying reproduction steps, telemetry captures, and analytical hypotheses for troubleshooting complex issues.
+
+### Adopted from
+RJM `.claude/skills/analyze/SKILL.md:117` for investigation plan.
+
+### Dropped
+RJM's defects: missing-path, doc-drift defects (D-006).
+
+### Rejected alternatives
+debug-plan (informal).
+
+### Evidence
+RJM `.claude/skills/analyze/SKILL.md:117`.
+
+### Glossary
+### investigation-plan
+
+- **definition:** An investigation plan is a diagnostic roadmap specifying reproduction steps, telemetry captures, and analytical hypotheses for troubleshooting complex issues.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `investigation plan`
+- **decision:** D-224
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-investigation-plan`
+- **not to be confused with:** `diagnosis-template, remediation-action-plan`
+
+---
+
+## D-225 — measurement-plan
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-measurement-plan
+- **preferences consulted:** METHOD.md §8.2 D-010 is an empirical measurement plan; followed by adopting measurement-plan.
+
+### Decision
+The canonical term for this artifact is `measurement-plan`. A measurement plan is an experimental artifact defining performance indicators, data collection methods, benchmark baselines, and statistical criteria for validation.
+
+### Adopted from
+RJM `.agents/metrics/baseline-report.md:198` for Measurement Plan.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+metrics-plan (less comprehensive than measurement plan).
+
+### Evidence
+RJM `.agents/metrics/baseline-report.md:198`.
+
+### Glossary
+### measurement-plan
+
+- **definition:** A measurement plan is an experimental artifact defining performance indicators, data collection methods, benchmark baselines, and statistical criteria for validation.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Measurement Plan`
+- **decision:** D-225
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-measurement-plan`
+- **not to be confused with:** `slo-configuration-template, service-dashboard-spec`
+
+---
+
+## D-226 — resolution-summary-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-resolution-summary-template
+- **preferences consulted:** PREFERENCES.md § Approach values post-incident resolution rigor; followed by adopting resolution-summary-template.
+
+### Decision
+The canonical term for this artifact is `resolution-summary-template`. A resolution summary template is a post-mortem document schema summarizing problem statement, root cause, fix implementation, and regression prevention measures.
+
+### Adopted from
+RJM `.claude/skills/adr-review/references/issue-resolution.md:174` for Resolution Summary Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+incident-summary (narrow focus on live outages).
+
+### Evidence
+RJM `.claude/skills/adr-review/references/issue-resolution.md:174`.
+
+### Glossary
+### resolution-summary-template
+
+- **definition:** A resolution summary template is a post-mortem document schema summarizing problem statement, root cause, fix implementation, and regression prevention measures.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Resolution Summary Template`
+- **decision:** D-226
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-resolution-summary-template`
+- **not to be confused with:** `diagnosis-template, remediation-action-plan`
+
+---
+
+## D-227 — slo-configuration-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-slo-configuration-template
+- **preferences consulted:** PREFERENCES.md § Approach supports production observability standards; followed by adopting slo-configuration-template.
+
+### Decision
+The canonical term for this artifact is `slo-configuration-template`. An SLO configuration template is a declarative schema specifying service level objectives, error budget thresholds, and alerting policies for production services.
+
+### Adopted from
+RJM `.claude/skills/slo-designer/templates/slo-config-template.yaml:1` for SLO Configuration Template.
+
+### Dropped
+RJM's defects: orphan, internal-contradiction defects (D-006).
+
+### Rejected alternatives
+slo-template (unqualified template name).
+
+### Evidence
+RJM `.claude/skills/slo-designer/templates/slo-config-template.yaml:1`.
+
+### Glossary
+### slo-configuration-template
+
+- **definition:** An SLO configuration template is a declarative schema specifying service level objectives, error budget thresholds, and alerting policies for production services.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `SLO Configuration Template`
+- **decision:** D-227
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-slo-configuration-template`
+- **not to be confused with:** `service-dashboard-spec, measurement-plan`
+
+---
+
+## D-228 — remediation-action-plan
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-action-plan
+- **preferences consulted:** PREFERENCES.md § Approach values accountable remediation; followed by adopting remediation-action-plan.
+
+### Decision
+The canonical term for this artifact is `remediation-action-plan`. A remediation action plan is a structured operational roadmap specifying corrective actions, assignees, deadlines, and verification gates following an incident or audit.
+
+### Adopted from
+RJM `.claude/skills/analyze/SKILL.md:127` for action plan.
+
+### Dropped
+RJM's defects: missing-path, doc-drift defects (D-006).
+
+### Rejected alternatives
+action-plan (too generic; collides with general planning).
+
+### Evidence
+RJM `.claude/skills/analyze/SKILL.md:127`.
+
+### Glossary
+### remediation-action-plan
+
+- **definition:** A remediation action plan is a structured operational roadmap specifying corrective actions, assignees, deadlines, and verification gates following an incident or audit.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `action plan`
+- **decision:** D-228
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-action-plan`
+- **not to be confused with:** `investigation-plan, resolution-summary-template`
+
+---
+
+## D-229 — lifecycle-plan-template
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 028
+- **status:** active
+- **supersedes:** —
+- **resolves:** artifacts.md#artifact-rjm-plan-template
+- **preferences consulted:** PREFERENCES.md § Approach and § Phase mapping govern lifecycle plan templates; followed by adopting lifecycle-plan-template.
+
+### Decision
+The canonical term for this artifact is `lifecycle-plan-template`. A lifecycle plan template is an overarching execution plan schema defining work breakdown structures, risk matrices, and milestone delivery schedules.
+
+### Adopted from
+RJM `.claude/agents/milestone-planner.md:119` for Plan Template.
+
+### Dropped
+None (source implementations clean).
+
+### Rejected alternatives
+plan-template (already used for D-136 artifact-plan-template).
+
+### Evidence
+RJM `.claude/agents/milestone-planner.md:119`.
+
+### Glossary
+### lifecycle-plan-template
+
+- **definition:** A lifecycle plan template is an overarching execution plan schema defining work breakdown structures, risk matrices, and milestone delivery schedules.
+- **kind:** artifact
+- **source names:** addy: — · matt: — · rjm: `Plan Template`
+- **decision:** D-229
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-rjm-plan-template`
+- **not to be confused with:** `plan-template, execution-plan-doc`
+

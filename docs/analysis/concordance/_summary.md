@@ -13,14 +13,14 @@ It provides:
 | Family | Total Rows | Mapped Cards | ALIGNED | SYNONYM | HOMONYM | PARTIAL | UNIQUE | CONFLICT | Needs Decision |
 |---|---|---|---|---|---|---|---|---|---|
 | [Phases](phases.md) | 240 | 271 | 5 | 15 | 2 | 6 | 212 | 0 | **0** (resolved in D-100–D-125) |
-| [Artifacts](artifacts.md) | 726 | 818 | 27 | 32 | 1 | 9 | 657 | 0 | **104** |
+| [Artifacts](artifacts.md) | 726 | 818 | 27 | 32 | 1 | 9 | 657 | 0 | **0** (resolved in D-126–D-229) |
 | [Sequencing](sequencing.md) | 367 | 405 | 4 | 26 | 0 | 1 | 336 | 0 | **43** |
 | [Techniques](techniques.md) | 2,110 | 2,147 | 24 | 9 | 0 | 0 | 2,077 | 0 | **239** |
 | [Gates](gates.md) | 841 | 866 | 17 | 7 | 0 | 0 | 817 | 0 | **7** |
 | [Roles](roles.md) | 192 | 215 | 0 | 18 | 0 | 0 | 174 | 0 | **69** |
 | [References](references.md) | 694 | 720 | 7 | 17 | 0 | 0 | 670 | 0 | **17** |
 | [Invocation Patterns](invocation-patterns.md) | 1,973 | 2,034 | 46 | 11 | 0 | 0 | 1,916 | 0 | **11** |
-| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **516** |
+| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **412** |
 
 ---
 
@@ -61,7 +61,7 @@ Source file: [`docs/analysis/concordance/phases.md`](phases.md)
 | [`diagnosing-phase-4`](phases.md#diagnosing-phase-4) | `SYNONYM` | — | `Phase 4` | `Diagnosis` | Matt Phase 4 (skills/diagnosing-bugs/SKILL.md:92) runs targeted probes to test one hypothesis variable at a time. RJM Diagnosis (.claude/com… |
 | [`diagnosing-phase-5`](phases.md#diagnosing-phase-5) | `PARTIAL` | — | `Phase 5` | `Phase 3: Run the Drift Gates Locally Before Pushing` | Matt Phase 5 (skills/diagnosing-bugs/SKILL.md:115) verifies the fix and regression test at the proper seam. RJM Phase 3 (.claude/commands/ve… |
 
-### Artifacts (104 decisions needed)
+### Artifacts (104 decisions needed — resolved in D-126–D-229)
 
 Source file: [`docs/analysis/concordance/artifacts.md`](artifacts.md)
 
