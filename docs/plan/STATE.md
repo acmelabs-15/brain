@@ -10,9 +10,9 @@ This file is the single source of truth for where the project is. It is updated 
 |---|---|
 | **phase** | `3` |
 | **phase_name** | Concordance |
-| **current_unit** | roles |
-| **last_session** | 023 |
-| **next_action** | Phase 3 — Concordance (single-threaded orchestrator; continue with roles family per METHOD.md §5) |
+| **current_unit** | references |
+| **last_session** | 024 |
+| **next_action** | Phase 3 — Concordance (single-threaded orchestrator; continue with references family per METHOD.md §5) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -94,7 +94,7 @@ Concept units (`cc-<pkg>-N`, up to 30 concept slugs each) come from `partition-c
 | sequencing | `done` | 021 | `docs/analysis/concordance/sequencing.md` |
 | techniques | `done` | 022 | `docs/analysis/concordance/techniques.md` |
 | gates | `done` | 023 | `docs/analysis/concordance/gates.md` |
-| roles | `pending` | — | `docs/analysis/concordance/roles.md` |
+| roles | `done` | 024 | `docs/analysis/concordance/roles.md` |
 | references | `pending` | — | `docs/analysis/concordance/references.md` |
 | invocation-patterns | `pending` | — | `docs/analysis/concordance/invocation-patterns.md` |
 
@@ -115,7 +115,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 | Manifest rows (addy / matt / rjm) | 219 / 201 / 1175 |
 | Inventory units done (addy / matt / rjm) | 46 / 46 / 324 |
 | Concept cards (addy / matt / rjm) | units done 44 / 40 / 376 of 44 / 40 / 376 |
-| Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 4,285 total: 241 in phases (ALIGNED 5 / SYNONYM 15 / HOMONYM 2 / PARTIAL 6 / UNIQUE 213 / CONFLICT 0); 726 in artifacts (ALIGNED 27 / SYNONYM 32 / HOMONYM 1 / PARTIAL 9 / UNIQUE 657 / CONFLICT 0); 367 in sequencing (ALIGNED 4 / SYNONYM 26 / HOMONYM 0 / PARTIAL 1 / UNIQUE 336 / CONFLICT 0); 2,110 in techniques (ALIGNED 24 / SYNONYM 9 / HOMONYM 0 / PARTIAL 0 / UNIQUE 2077 / CONFLICT 0); 841 in gates (ALIGNED 17 / SYNONYM 7 / HOMONYM 0 / PARTIAL 0 / UNIQUE 817 / CONFLICT 0) |
+| Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 4,477 total: 241 in phases (ALIGNED 5 / SYNONYM 15 / HOMONYM 2 / PARTIAL 6 / UNIQUE 213 / CONFLICT 0); 726 in artifacts (ALIGNED 27 / SYNONYM 32 / HOMONYM 1 / PARTIAL 9 / UNIQUE 657 / CONFLICT 0); 367 in sequencing (ALIGNED 4 / SYNONYM 26 / HOMONYM 0 / PARTIAL 1 / UNIQUE 336 / CONFLICT 0); 2,110 in techniques (ALIGNED 24 / SYNONYM 9 / HOMONYM 0 / PARTIAL 0 / UNIQUE 2077 / CONFLICT 0); 841 in gates (ALIGNED 17 / SYNONYM 7 / HOMONYM 0 / PARTIAL 0 / UNIQUE 817 / CONFLICT 0); 192 in roles (ALIGNED 0 / SYNONYM 18 / HOMONYM 0 / PARTIAL 0 / UNIQUE 174 / CONFLICT 0) |
 | Decisions (active / superseded / pending-peter) | 18 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
 | Glossary terms | 0 |
 | Build units (done / total) | — / — |
