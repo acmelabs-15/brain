@@ -50,8 +50,8 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **class:** SYNONYM
 - **difference:** Matt establishes single source of truth for issue tracker state and requirements; RJM formalizes the principle for knowledge files and schemas.
 - **sequencing note:** Governs data models and specifications across all phases.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-605
 
 ### router-dispatch-pattern
 
@@ -68,8 +68,8 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **class:** SYNONYM
 - **difference:** Matt defines router for conversational intent dispatch; RJM defines router-pattern for deterministic subagent task routing.
 - **sequencing note:** Entry point of skill and command orchestration.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-606
 
 ### slash-commands
 
@@ -176,8 +176,8 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **class:** SYNONYM
 - **difference:** Names and nuances differ slightly between addy and rjm (addy: Prompt Injection, rjm: prompt-injection).
 - **sequencing note:** Invoked or enforced according to package lifecycle conventions.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-607
 
 ### broken-access-control
 
@@ -356,8 +356,8 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **class:** SYNONYM
 - **difference:** Names and nuances differ slightly between matt and rjm (matt: pass-through, rjm: Pass Through).
 - **sequencing note:** Invoked or enforced according to package lifecycle conventions.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-608
 
 ### drift
 
@@ -7756,8 +7756,8 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **class:** SYNONYM
 - **difference:** Matt specifies multi-agent-framework for subagent coordination; RJM defines multi-agent architecture with formal personas and review panels.
 - **sequencing note:** Used during complex task fan-out and multi-perspective review.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-609
 
 ### progressive-disclosure-strategy
 
@@ -7774,8 +7774,8 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **class:** SYNONYM
 - **difference:** Addy applies progressive disclosure to CLI help and user guidance; RJM formalizes it to protect agent context by loading references on demand.
 - **sequencing note:** Governs reference loading and tool discovery at invocation time.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-610
 
 ### vertical-slice
 
@@ -13158,8 +13158,8 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **class:** SYNONYM
 - **difference:** Addy defines adapter-pattern as an architectural decoupling layer; Matt and RJM define Adapter as an interface wrapping legacy or external APIs.
 - **sequencing note:** Applied during component design and implementation to isolate external dependencies.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-611
 
 ### deep
 
@@ -15608,8 +15608,8 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **class:** SYNONYM
 - **difference:** Addy names this strangler-pattern for incremental system replacement; RJM names it strangler-fig-pattern with explicit routing interception.
 - **sequencing note:** Used across migration and refactoring phases.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-612
 
 ### error-handling-architecture
 
@@ -15626,8 +15626,8 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **class:** SYNONYM
 - **difference:** Addy defines error-handling conventions in runtime components; RJM standardizes error-handling-pattern across tool invocations and subagents.
 - **sequencing note:** Executed during implementation and runtime verification.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-613
 
 ### idempotency-control
 
@@ -15644,8 +15644,8 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **class:** SYNONYM
 - **difference:** Addy focuses on honoring client-supplied idempotency keys in API requests; Matt and RJM specify idempotency for safe script and tool re-execution.
 - **sequencing note:** Applied during API integration, script execution, and retry routines.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-614
 
 ### expand-contract
 
@@ -15662,8 +15662,8 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **class:** SYNONYM
 - **difference:** Names and nuances differ slightly between addy and matt and rjm (addy: Expand/Contract, matt: expand–contract, rjm: expand-contract).
 - **sequencing note:** Invoked or enforced according to package lifecycle conventions.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-615
 
 ### ssrf
 

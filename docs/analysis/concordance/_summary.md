@@ -19,12 +19,12 @@ It provides:
 | [Gates](gates.md) | 841 | 866 | 17 | 7 | 0 | 0 | 817 | 0 | **0** (resolved in D-512–D-518) |
 | [Roles](roles.md) | 192 | 215 | 0 | 18 | 0 | 0 | 174 | 0 | **0** (resolved in D-519–D-587) |
 | [References](references.md) | 694 | 720 | 7 | 17 | 0 | 0 | 670 | 0 | **0** (resolved in D-588–D-604) |
-| [Invocation Patterns](invocation-patterns.md) | 1,973 | 2,034 | 46 | 11 | 0 | 0 | 1,916 | 0 | **11** |
-| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **11** |
+| [Invocation Patterns](invocation-patterns.md) | 1,973 | 2,034 | 46 | 11 | 0 | 0 | 1,916 | 0 | **0** (resolved in D-605–D-615) |
+| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **0** |
 
 ---
 
-## 2. Phase 4 Work List — Rows Requiring Alignment Decisions (516 total)
+## 2. Phase 4 Work List — Rows Requiring Alignment Decisions (516 total — all resolved)
 
 Every row with `needs decision: yes` must be resolved by a dedicated decision in `docs/decisions/DECISIONS.md` (template `docs/plan/templates/decision.md`, numbering D-100+) and added to `docs/plan/GLOSSARY.md`.
 
@@ -582,7 +582,7 @@ Source file: [`docs/analysis/concordance/references.md`](references.md)
 | [`api-interface-standards`](references.md#api-interface-standards) | `SYNONYM` | `OpenAPI / Swagger` | `first-party APIs` | — | Addy references OpenAPI/Swagger schemas; Matt emphasizes relying on first-party APIs over third-party wrapper abstractions. |
 | [`issue-tracker-references`](references.md#issue-tracker-references) | `SYNONYM` | — | `issue trackers` | `Generic field governance` | Matt documents issue tracker integration patterns; RJM specifies generic field governance for work item ticket schemas. |
 
-### Invocation Patterns (11 decisions needed)
+### Invocation Patterns (0 decisions needed — resolved in D-605–D-615)
 
 Source file: [`docs/analysis/concordance/invocation-patterns.md`](invocation-patterns.md)
 

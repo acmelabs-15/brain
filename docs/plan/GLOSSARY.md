@@ -4051,6 +4051,15 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 
 ### Patterns
 
+### adapter-pattern
+
+- **definition:** The adapter pattern is a structural integration pattern that translates calls between incompatible interfaces or wraps external dependencies to isolate consumers from backend changes.
+- **kind:** pattern
+- **source names:** addy: `Adapter Pattern` · matt: `Adapter` · rjm: `Adapter`
+- **decision:** D-611
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#adapter-pattern`
+- **not to be confused with:** pass-through-antipattern, facade-pattern
+
 ### adr-state-lifecycle
 
 - **definition:** The ADR state lifecycle is the formal progression governing architectural decision records through proposed, accepted, rejected, and superseded or deprecated states.
@@ -4087,6 +4096,24 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-orchestration-direct-invocation`
 - **not to be confused with:** parallel-fan-out-merge, meta-orchestrator-antipattern
 
+### error-handling-pattern
+
+- **definition:** The error handling pattern is a runtime discipline that combines fail-fast script execution with sanitized, non-leaking error responses across production interfaces.
+- **kind:** pattern
+- **source names:** addy: `Error Handling` · matt: — · rjm: `Error Handling Pattern`
+- **decision:** D-613
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#error-handling-architecture`
+- **not to be confused with:** runtime-error-triage, defect-remediation
+
+### expand-contract-pattern
+
+- **definition:** The expand-contract pattern is a refactoring and migration discipline that deploys new structures alongside old ones, migrates consumers incrementally, and contracts by deleting obsolete code.
+- **kind:** pattern
+- **source names:** addy: `Expand/Contract` · matt: `expand–contract` · rjm: `expand-contract`
+- **decision:** D-615
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#expand-contract`
+- **not to be confused with:** expand-phase, contract-phase, strangler-fig-pattern
+
 ### feature-flag-lifecycle
 
 - **definition:** The feature flag lifecycle is the release management progression governing flag creation, testing, gradual rollout, 100% enablement, and scheduled code cleanup.
@@ -4122,6 +4149,15 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **decision:** D-265
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-caps-human-in-the-loop`
 - **not to be confused with:** self-audit-round-cap, phase-boundary-transition
+
+### idempotency-pattern
+
+- **definition:** The idempotency pattern is an operational and interface design rule ensuring that repeated execution of an action or request produces the same state without unintended side effects.
+- **kind:** pattern
+- **source names:** addy: `Honouring an Idempotency Key` · matt: `idempotent` · rjm: `Idempotency`
+- **decision:** D-614
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#idempotency-control`
+- **not to be confused with:** deterministic-replay, atomic-write
 
 ### implicit-command-mapping
 
@@ -4168,6 +4204,15 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-antipattern-meta-orchestrator`
 - **not to be confused with:** sequential-paraphrasing-antipattern, direct-invocation-pattern
 
+### multi-agent-orchestration
+
+- **definition:** Multi-agent orchestration is a coordination pattern where a primary orchestrator delegates bounded tasks to specialized subagents with fresh contexts and synthesizes their results into unified artifacts.
+- **kind:** pattern
+- **source names:** addy: — · matt: `multi-agent framework` · rjm: `Multi-agent`
+- **decision:** D-609
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#multi-agent-orchestration`
+- **not to be confused with:** agent-driven-workflow, parallel-fan-out-merge
+
 ### needs-triage-marker
 
 - **definition:** A needs-triage marker is an issue tracking state or label indicating that an incoming work item is unclassified and requires evaluation before entry into the lifecycle.
@@ -4195,6 +4240,15 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-orchestration-parallel-fan-out-merge`
 - **not to be confused with:** direct-invocation-pattern, meta-orchestrator-antipattern
 
+### pass-through-antipattern
+
+- **definition:** The pass-through antipattern is a lifecycle defect where a module merely forwards calls without absorbing complexity, or an agent approves an artifact without executing substantive evaluation.
+- **kind:** pattern
+- **source names:** addy: — · matt: `pass-through` · rjm: `Pass Through`
+- **decision:** D-608
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#pass-through`
+- **not to be confused with:** router-dispatch-pattern, adapter-pattern
+
 ### phase-boundary-decision-model
 
 - **definition:** The phase boundary decision model is an architectural protocol evaluated at phase completion to determine context management actions across continuation, clean slate, handoff, subagent dispatch, or compaction.
@@ -4212,6 +4266,24 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **decision:** D-240
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-precedence-full-pipeline-staleness`
 - **not to be confused with:** front-gate-prerequisite, quality-gate-pipeline
+
+### progressive-disclosure-strategy
+
+- **definition:** The progressive disclosure strategy is an information architecture pattern that minimizes initial context overhead by keeping primary skill definitions concise and loading detailed reference material on demand.
+- **kind:** pattern
+- **source names:** addy: `progressive disclosure` · matt: — · rjm: `Progressive Disclosure Pattern`
+- **decision:** D-610
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#progressive-disclosure-strategy`
+- **not to be confused with:** context-window-management-reference, documentation-scoping
+
+### prompt-injection-defense
+
+- **definition:** Prompt injection defense is an architectural security pattern that treats untrusted external content strictly as data rather than instructions and enforces permissions in deterministic code rather than LLM prompts.
+- **kind:** pattern
+- **source names:** addy: `Prompt Injection` · matt: — · rjm: `prompt-injection`
+- **decision:** D-607
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#prompt-injection`
+- **not to be confused with:** trust-boundary-enforcement, input-validation
 
 ### quick-fix-workflow
 
@@ -4239,6 +4311,15 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **decision:** D-272
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-dag-thread-severity-lifecycle`
 - **not to be confused with:** review-phase, review-report
+
+### router-dispatch-pattern
+
+- **definition:** The router dispatch pattern is an orchestration mechanism where an intake component classifies incoming requests and delegates them to specialized downstream skills without executing domain logic itself.
+- **kind:** pattern
+- **source names:** addy: — · matt: `router` · rjm: `router pattern`
+- **decision:** D-606
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#router-dispatch-pattern`
+- **not to be confused with:** router, phase-routing
 
 ### runtime-error-triage
 
@@ -4276,6 +4357,15 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-dag-shift-left-lifecycle`
 - **not to be confused with:** quality-gate-pipeline, front-gate-prerequisite
 
+### single-source-of-truth-principle
+
+- **definition:** The single source of truth principle is the architectural rule requiring each system meaning, configuration, or requirement to reside in exactly one authoritative location to prevent duplication and ensure one-place edits.
+- **kind:** pattern
+- **source names:** addy: — · matt: `Single source of truth` · rjm: `Single source of truth principle`
+- **decision:** D-605
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#single-source-of-truth-pattern`
+- **not to be confused with:** primary-source-reference, canonical-specification
+
 ### standard-feature-workflow
 
 - **definition:** The standard feature workflow is the canonical six-stage macro lifecycle execution pipeline (/spec → /plan → /build → /test → /review → /ship) sequentially driven by the human developer for non-trivial capabilities.
@@ -4284,6 +4374,15 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **decision:** D-230
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-pipeline-standard-feature-workflow`
 - **not to be confused with:** quick-fix-workflow, research-first-workflow
+
+### strangler-fig-pattern
+
+- **definition:** The strangler fig pattern is an architectural migration pattern that incrementally replaces a legacy system by routing traffic to new implementations until the legacy component is retired.
+- **kind:** pattern
+- **source names:** addy: `Strangler Pattern` · matt: — · rjm: `Strangler Fig Pattern`
+- **decision:** D-612
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#strangler-fig-migration`
+- **not to be confused with:** expand-contract-pattern, canary-deployment
 
 ### task-dependency-graph
 

@@ -19351,3 +19351,421 @@ Matt `.out-of-scope/mainstream-issue-trackers-only.md:3`; RJM `.agents/architect
 - **decision:** D-604
 - **concordance:** `docs/analysis/concordance/references.md#issue-tracker-references`
 - **not to be confused with:** task-tracking-system, task-board
+
+---
+
+## D-605 — single-source-of-truth-principle
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 034
+- **status:** active
+- **supersedes:** —
+- **resolves:** invocation-patterns.md#single-source-of-truth-pattern
+- **preferences consulted:** PREFERENCES.md § Approach; followed by establishing singular authoritative locations for lifecycle meanings and prompt instructions.
+
+### Decision
+The canonical term is `single-source-of-truth-principle`. The single source of truth principle is the architectural rule requiring each system meaning, configuration, or requirement to reside in exactly one authoritative location to prevent duplication, token inflation, and maintenance divergence, ensuring that behavioral modifications are always one-place edits.
+
+### Adopted from
+Matt's documentation pruning and prompt rule in `skills/productivity/writing-for-agents/SKILL.md:78` and RJM's protocol sync architecture evaluation in `.agents/architecture/ADR-050-adr-protocol-sync.md:63`.
+
+### Dropped
+Fragmented per-file or ad-hoc rule duplication across skills and disparate knowledge files.
+
+### Rejected alternatives
+- single-source-of-truth (shorter, but "principle" distinguishes the architectural governance rule from specific data stores)
+- ssot (unexpanded acronym, less explicit in documentation)
+
+### Evidence
+Matt `skills/productivity/writing-for-agents/SKILL.md:78`; RJM `.agents/architecture/ADR-050-adr-protocol-sync.md:63`.
+
+### Glossary
+### single-source-of-truth-principle
+
+- **definition:** The single source of truth principle is the architectural rule requiring each system meaning, configuration, or requirement to reside in exactly one authoritative location to prevent duplication and ensure one-place edits.
+- **kind:** pattern
+- **source names:** addy: — · matt: `Single source of truth` · rjm: `Single source of truth principle`
+- **decision:** D-605
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#single-source-of-truth-pattern`
+- **not to be confused with:** primary-source-reference, canonical-specification
+
+---
+
+## D-606 — router-dispatch-pattern
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 034
+- **status:** active
+- **supersedes:** —
+- **resolves:** invocation-patterns.md#router-dispatch-pattern
+- **preferences consulted:** PREFERENCES.md § Approach and § Phase mapping; followed by standardizing skill discovery and delegation mechanics.
+
+### Decision
+The canonical term is `router-dispatch-pattern`. The router dispatch pattern is an orchestration mechanism where an intake component inspects incoming user intent, task parameters, or roadblocks and classifies or delegates the request to specialized downstream skills or subagents without performing domain work directly.
+
+### Adopted from
+Matt's conversational router model in `CLAUDE.md:21` and RJM's architectural sub-skill routing framework in `.agents/architecture/ADR-063-memory-skill-decomposition.md:63`.
+
+### Dropped
+Stale or disconnected routing indices that route to nonexistent skills or omit newly added capabilities.
+
+### Rejected alternatives
+- router (overloaded with the router agent role defined in D-566)
+- intent-router (overly conversational; fails to capture programmatic subagent dispatch)
+
+### Evidence
+Matt `CLAUDE.md:21`; RJM `.agents/architecture/ADR-063-memory-skill-decomposition.md:63`.
+
+### Glossary
+### router-dispatch-pattern
+
+- **definition:** The router dispatch pattern is an orchestration mechanism where an intake component classifies incoming requests and delegates them to specialized downstream skills without executing domain logic itself.
+- **kind:** pattern
+- **source names:** addy: — · matt: `router` · rjm: `router pattern`
+- **decision:** D-606
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#router-dispatch-pattern`
+- **not to be confused with:** router, phase-routing
+
+---
+
+## D-607 — prompt-injection-defense
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 034
+- **status:** active
+- **supersedes:** —
+- **resolves:** invocation-patterns.md#prompt-injection
+- **preferences consulted:** PREFERENCES.md § Approach and § Constraints; followed by enforcing robust safety boundaries without relying on brittle prompt-level instructions.
+
+### Decision
+The canonical term is `prompt-injection-defense`. Prompt injection defense is an architectural security pattern that treats untrusted external content strictly as data rather than instructions and enforces permissions and access controls in deterministic code rather than LLM prompts.
+
+### Adopted from
+Addy's security checklist in `references/security-checklist.md:154` and RJM's agent safety review guidelines in `.claude/skills/review/references/agent-safety.md:80`.
+
+### Dropped
+Prompt-only permission checking and reliance on system prompt warnings to guard against malicious instruction overrides.
+
+### Rejected alternatives
+- prompt-injection (names the vulnerability or threat vector rather than the defensive pattern)
+- untrusted-content-isolation (vague; does not explicitly target LLM instruction hijacking)
+
+### Evidence
+Addy `references/security-checklist.md:154`; RJM `.claude/skills/review/references/agent-safety.md:80`.
+
+### Glossary
+### prompt-injection-defense
+
+- **definition:** Prompt injection defense is an architectural security pattern that treats untrusted external content strictly as data rather than instructions and enforces permissions in deterministic code rather than LLM prompts.
+- **kind:** pattern
+- **source names:** addy: `Prompt Injection` · matt: — · rjm: `prompt-injection`
+- **decision:** D-607
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#prompt-injection`
+- **not to be confused with:** trust-boundary-enforcement, input-validation
+
+---
+
+## D-608 — pass-through-antipattern
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 034
+- **status:** active
+- **supersedes:** —
+- **resolves:** invocation-patterns.md#pass-through
+- **preferences consulted:** PREFERENCES.md § Constraints; followed by establishing clear detection criteria for low-value code wrappers and uncritical reviews.
+
+### Decision
+The canonical term is `pass-through-antipattern`. The pass-through antipattern is a lifecycle defect occurring when an architectural module acts as a shallow wrapper without absorbing complexity (failing the deletion test), or when a reviewing agent rubber-stamps an artifact without substantive critique or verification.
+
+### Adopted from
+Matt's module deletion test in `external/codebase-design.md:39` and RJM's review quality framework in `.claude/skills/adr-generator/references/ad-quality-frameworks.md:137`.
+
+### Dropped
+Shallow forwarding layers that increase indirection without creating genuine architectural seams; uncritical review approvals that skip deep evaluation.
+
+### Rejected alternatives
+- pass-through (ambiguous; frequently used in routing or network contexts with positive connotation)
+- rubber-stamp (only describes the review evaluation defect, omitting the structural module defect)
+
+### Evidence
+Matt `external/codebase-design.md:39`; RJM `.claude/skills/adr-generator/references/ad-quality-frameworks.md:137`.
+
+### Glossary
+### pass-through-antipattern
+
+- **definition:** The pass-through antipattern is a lifecycle defect where a module merely forwards calls without absorbing complexity, or an agent approves an artifact without executing substantive evaluation.
+- **kind:** pattern
+- **source names:** addy: — · matt: `pass-through` · rjm: `Pass Through`
+- **decision:** D-608
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#pass-through`
+- **not to be confused with:** router-dispatch-pattern, adapter-pattern
+
+---
+
+## D-609 — multi-agent-orchestration
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 034
+- **status:** active
+- **supersedes:** —
+- **resolves:** invocation-patterns.md#multi-agent-orchestration
+- **preferences consulted:** PREFERENCES.md § Approach; followed by standardizing disciplined multi-agent delegation without ungrounded complexity.
+
+### Decision
+The canonical term is `multi-agent-orchestration`. Multi-agent orchestration is a coordination pattern where a primary orchestrator delegates bounded tasks to specialized subagents with fresh contexts and synthesizes their results into unified artifacts, prioritizing lean hierarchical structures over uncoordinated swarms.
+
+### Adopted from
+Matt's multi-agent execution framework context in `external/grill-with-docs.md:44` and RJM's hierarchical planner-to-specialist architecture in `.claude/skills/programming-advisor/references/bitter-lesson-llms.md:51`.
+
+### Dropped
+Unbounded swarms, gossip protocols, and uncoordinated peer-to-peer agent networks.
+
+### Rejected alternatives
+- multi-agent-framework (names external third-party toolings rather than the lifecycle orchestration pattern)
+- agent-swarm (rejected per RJM bitter-lesson finding that 2-agent hierarchies outperform complex swarms)
+
+### Evidence
+Matt `external/grill-with-docs.md:44`; RJM `.claude/skills/programming-advisor/references/bitter-lesson-llms.md:51`.
+
+### Glossary
+### multi-agent-orchestration
+
+- **definition:** Multi-agent orchestration is a coordination pattern where a primary orchestrator delegates bounded tasks to specialized subagents with fresh contexts and synthesizes their results into unified artifacts.
+- **kind:** pattern
+- **source names:** addy: — · matt: `multi-agent framework` · rjm: `Multi-agent`
+- **decision:** D-609
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#multi-agent-orchestration`
+- **not to be confused with:** agent-driven-workflow, parallel-fan-out-merge
+
+---
+
+## D-610 — progressive-disclosure-strategy
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 034
+- **status:** active
+- **supersedes:** —
+- **resolves:** invocation-patterns.md#progressive-disclosure-strategy
+- **preferences consulted:** PREFERENCES.md § Approach and § References; followed by structuring skill definitions and reference materials for maximum context efficiency.
+
+### Decision
+The canonical term is `progressive-disclosure-strategy`. The progressive disclosure strategy is an information architecture pattern that minimizes initial context overhead by keeping primary skill definitions concise and loading detailed reference material, checklists, and schemas on demand only when execution reaches the step requiring them.
+
+### Adopted from
+Addy's skill anatomy guidelines in `docs/skill-anatomy.md:127` and RJM's modular documentation separation in `.claude/skills/skillforge/TRANSFORMATION_NOTES.md:123`.
+
+### Dropped
+Monolithic all-in-one skill prompt documents that consume excessive context tokens during initial dispatch.
+
+### Rejected alternatives
+- progressive-disclosure (generic UI term; adding "strategy" emphasizes lifecycle context management)
+- lazy-loading-pattern (focuses narrowly on asset loading rather than prompt and skill structure)
+
+### Evidence
+Addy `docs/skill-anatomy.md:127`; RJM `.claude/skills/skillforge/TRANSFORMATION_NOTES.md:123`.
+
+### Glossary
+### progressive-disclosure-strategy
+
+- **definition:** The progressive disclosure strategy is an information architecture pattern that minimizes initial context overhead by keeping primary skill definitions concise and loading detailed reference material on demand.
+- **kind:** pattern
+- **source names:** addy: `progressive disclosure` · matt: — · rjm: `Progressive Disclosure Pattern`
+- **decision:** D-610
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#progressive-disclosure-strategy`
+- **not to be confused with:** context-window-management-reference, documentation-scoping
+
+---
+
+## D-611 — adapter-pattern
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 034
+- **status:** active
+- **supersedes:** —
+- **resolves:** invocation-patterns.md#adapter-pattern
+- **preferences consulted:** PREFERENCES.md § Approach; followed by standardizing dependency decoupling across architectural seams.
+
+### Decision
+The canonical term is `adapter-pattern`. The adapter pattern is a structural integration pattern that translates calls between incompatible interfaces or wraps external dependencies, decoupling consumers from underlying implementation details or legacy services during migrations and maintenance.
+
+### Adopted from
+Addy's backend migration decoupling pattern in `skills/deprecation-and-migration/SKILL.md:134,136`, Matt's architectural seam definition in `docs/engineering/codebase-design.md:33`, and RJM's GoF pattern selection guideline in `.claude/skills/cva-analysis/references/gof-pattern-selection.md:19`.
+
+### Dropped
+Direct, unmediated coupling between high-level business logic and volatile third-party or legacy interfaces.
+
+### Rejected alternatives
+- adapter (names the concrete class or role, whereas adapter-pattern specifies the architectural technique)
+- wrapper-pattern (informal name often confused with pass-through antipatterns)
+
+### Evidence
+Addy `skills/deprecation-and-migration/SKILL.md:134,136`; Matt `docs/engineering/codebase-design.md:33`; RJM `.claude/skills/cva-analysis/references/gof-pattern-selection.md:19`.
+
+### Glossary
+### adapter-pattern
+
+- **definition:** The adapter pattern is a structural integration pattern that translates calls between incompatible interfaces or wraps external dependencies to isolate consumers from backend changes.
+- **kind:** pattern
+- **source names:** addy: `Adapter Pattern` · matt: `Adapter` · rjm: `Adapter`
+- **decision:** D-611
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#adapter-pattern`
+- **not to be confused with:** pass-through-antipattern, facade-pattern
+
+---
+
+## D-612 — strangler-fig-pattern
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 034
+- **status:** active
+- **supersedes:** —
+- **resolves:** invocation-patterns.md#strangler-fig-migration
+- **preferences consulted:** PREFERENCES.md § Approach; followed by adopting proven incremental migration practices.
+
+### Decision
+The canonical term is `strangler-fig-pattern`. The strangler fig pattern is an architectural migration pattern that incrementally replaces a legacy system by routing traffic to new implementations until the legacy component handles 0% of traffic and can be safely retired.
+
+### Adopted from
+Addy's traffic cutover and parallel execution rules in `skills/deprecation-and-migration/SKILL.md:122,124` and RJM's architectural modernization definition in `templates/agents/architect.shared.md:613`.
+
+### Dropped
+High-risk big-bang rewrites and unverified cutovers.
+
+### Rejected alternatives
+- strangler-pattern (historical colloquial name; modern architectural literature standardizes on "strangler fig")
+- incremental-migration (too broad; does not specify the proxy routing and coexistence mechanism)
+
+### Evidence
+Addy `skills/deprecation-and-migration/SKILL.md:122,124`; RJM `templates/agents/architect.shared.md:613`.
+
+### Glossary
+### strangler-fig-pattern
+
+- **definition:** The strangler fig pattern is an architectural migration pattern that incrementally replaces a legacy system by routing traffic to new implementations until the legacy component is retired.
+- **kind:** pattern
+- **source names:** addy: `Strangler Pattern` · matt: — · rjm: `Strangler Fig Pattern`
+- **decision:** D-612
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#strangler-fig-migration`
+- **not to be confused with:** expand-contract-pattern, canary-deployment
+
+---
+
+## D-613 — error-handling-pattern
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 034
+- **status:** active
+- **supersedes:** —
+- **resolves:** invocation-patterns.md#error-handling-architecture
+- **preferences consulted:** PREFERENCES.md § Constraints; followed by enforcing robust diagnostic exits and production security.
+
+### Decision
+The canonical term is `error-handling-pattern`. The error handling pattern is a runtime discipline that combines fail-fast script execution with non-zero exit codes and clear diagnostics for automated tools, while enforcing sanitized, non-leaking error responses across production interfaces.
+
+### Adopted from
+Addy's production error sanitization rules in `references/security-checklist.md:162` and RJM's script error handling pattern in `scripts/AGENTS.md:81`.
+
+### Dropped
+Silent error suppression, zero-exit failures, and leaking internal exception stack traces or database syntax to production callers.
+
+### Rejected alternatives
+- error-handling (too generic; names a programming concept rather than a lifecycle architectural pattern)
+- fail-fast-pattern (covers only execution termination, omitting production response sanitization)
+
+### Evidence
+Addy `references/security-checklist.md:162`; RJM `scripts/AGENTS.md:81`.
+
+### Glossary
+### error-handling-pattern
+
+- **definition:** The error handling pattern is a runtime discipline that combines fail-fast script execution with sanitized, non-leaking error responses across production interfaces.
+- **kind:** pattern
+- **source names:** addy: `Error Handling` · matt: — · rjm: `Error Handling Pattern`
+- **decision:** D-613
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#error-handling-architecture`
+- **not to be confused with:** runtime-error-triage, defect-remediation
+
+---
+
+## D-614 — idempotency-pattern
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 034
+- **status:** active
+- **supersedes:** —
+- **resolves:** invocation-patterns.md#idempotency-control
+- **preferences consulted:** PREFERENCES.md § Approach; followed by standardizing replay-safe execution for scripts and APIs.
+
+### Decision
+The canonical term is `idempotency-pattern`. The idempotency pattern is an operational and interface design rule ensuring that repeated execution of an action, mutation, or write request produces the exact same system state and response without unintended duplicate side effects.
+
+### Adopted from
+Addy's atomic idempotency key reservation contract in `skills/api-and-interface-design/SKILL.md:158`, Matt's idempotent script writes in `external/wizard.md:40`, and RJM's replay-safe write handler standard in `.claude/skills/software-engineering-library/references/data-intensive-applications.md:47`.
+
+### Dropped
+Non-idempotent mutation endpoints without duplicate protection, and configuration scripts that duplicate state upon rerun.
+
+### Rejected alternatives
+- idempotent (adjective rather than pattern name)
+- honouring-an-idempotency-key (HTTP-specific implementation mechanism rather than general lifecycle pattern)
+
+### Evidence
+Addy `skills/api-and-interface-design/SKILL.md:158`; Matt `external/wizard.md:40`; RJM `.claude/skills/software-engineering-library/references/data-intensive-applications.md:47`.
+
+### Glossary
+### idempotency-pattern
+
+- **definition:** The idempotency pattern is an operational and interface design rule ensuring that repeated execution of an action or request produces the same state without unintended side effects.
+- **kind:** pattern
+- **source names:** addy: `Honouring an Idempotency Key` · matt: `idempotent` · rjm: `Idempotency`
+- **decision:** D-614
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#idempotency-control`
+- **not to be confused with:** deterministic-replay, atomic-write
+
+---
+
+## D-615 — expand-contract-pattern
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 034
+- **status:** active
+- **supersedes:** —
+- **resolves:** invocation-patterns.md#expand-contract
+- **preferences consulted:** PREFERENCES.md § Approach and § Phase mapping; followed by adopting disciplined zero-downtime refactoring and migration sequences.
+
+### Decision
+The canonical term is `expand-contract-pattern`. The expand-contract pattern is a refactoring and migration discipline that deploys new structures alongside old ones (expand), migrates consumers incrementally in batches (migrate), and deletes obsolete code once all callers have transitioned (contract), preventing downtime and broken builds.
+
+### Adopted from
+Addy's database schema migration pattern in `skills/deprecation-and-migration/SKILL.md:164`, Matt's ticket breakdown for wide refactors in `skills/engineering/to-tickets/SKILL.md:40`, and RJM's parallel deployment architecture in `templates/agents/architect.shared.md:636`.
+
+### Dropped
+Big-bang refactoring edits that simultaneously break callers across the codebase without maintaining backward compatibility.
+
+### Rejected alternatives
+- expand-contract (hyphenated phrase; adding "pattern" standardizes it alongside other lifecycle patterns)
+- parallel-change (generic term that omits the explicit expand-migrate-contract three-stage sequence)
+
+### Evidence
+Addy `skills/deprecation-and-migration/SKILL.md:164`; Matt `skills/engineering/to-tickets/SKILL.md:40`; RJM `templates/agents/architect.shared.md:636`.
+
+### Glossary
+### expand-contract-pattern
+
+- **definition:** The expand-contract pattern is a refactoring and migration discipline that deploys new structures alongside old ones, migrates consumers incrementally, and contracts by deleting obsolete code.
+- **kind:** pattern
+- **source names:** addy: `Expand/Contract` · matt: `expand–contract` · rjm: `expand-contract`
+- **decision:** D-615
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#expand-contract`
+- **not to be confused with:** expand-phase, contract-phase, strangler-fig-pattern
