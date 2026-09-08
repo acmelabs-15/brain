@@ -1,0 +1,52 @@
+---
+package: rjm
+name: _count_punct_and_symbols
+slug: count-punct-and-symbols
+kind: name-only
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+verified: 2026-09-08 quote-check+coverage
+memo_inputs:
+  - {path: scripts/validation/token_budget.py, sha256: 02ab5e547356da50e609eac3e1cf435dc4ab028583074fe3a9f445757651ffe4}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+---
+
+# _count_punct_and_symbols
+
+## Definition — verbatim
+(used, not defined)
+
+> "def _count_punct_and_symbols(text: str) -> int:" — scripts/validation/token_budget.py:30
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| scripts/validation/token_budget.py | 30 | defined here | Counts Unicode punctuation and symbol characters to evaluate tokenization density of code-like text. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+clean
+
+## Design notes
+A Python helper function identifier in `token_budget.py` measuring punctuation density for token estimation, classified as name-only per D-023.

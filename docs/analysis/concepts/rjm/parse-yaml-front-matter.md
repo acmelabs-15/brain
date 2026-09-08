@@ -1,0 +1,52 @@
+---
+package: rjm
+name: parse_yaml_front_matter
+slug: parse-yaml-front-matter
+kind: name-only
+package_phase: none
+implementation_in_scope: true
+deprecated: false
+verified: 2026-09-08 quote-check+coverage
+memo_inputs:
+  - {path: scripts/validation/traceability.py, sha256: 40c7c048372c9e5232f2b8e2b4f5e31a1153f88fdde32afb7e069d5b065fd1a3}
+method_sha: b35a07084cd4385d27423211bbcad6af860acbab8221e7e66315f877d3f517c7
+template_sha: 3e61be0a9dc1130cfb6ab5843021cbb28fd311e8dbec954b613ae0383a494290
+model: Gemini 3.8 Flash
+effort: high
+---
+
+# parse_yaml_front_matter
+
+## Definition — verbatim
+(used, not defined)
+
+> "def parse_yaml_front_matter(file_path: Path) -> SpecInfo | None:" — scripts/validation/traceability.py:93
+
+## Also called — verbatim
+none
+
+## Where used
+| File | Line | Role | How it is used |
+|---|---|---|---|
+| scripts/validation/traceability.py | 93 | defined here | Parser function extracting YAML front matter from markdown specification documents using regex matching. |
+
+## Consumes
+none
+
+## Produces
+none
+
+## When applied
+none
+
+## Sub-concepts
+none
+
+## Part of
+none
+
+## Implementation status
+clean
+
+## Design notes
+A helper function identifier in scripts/validation/traceability.py for front matter parsing, classified as name-only per D-023.

@@ -8,11 +8,11 @@ This file is the single source of truth for where the project is. It is updated 
 
 | Field | Value |
 |---|---|
-| **phase** | `2` |
-| **phase_name** | Concept cards |
-| **current_unit** | cc-rjm-345 |
-| **last_session** | 017 |
-| **next_action** | Phase 2 — dispatch concept units per §8.2 (current_unit: cc-rjm-249; 128 units pending) |
+| **phase** | `3` |
+| **phase_name** | Concordance |
+| **current_unit** | phases |
+| **last_session** | 018 |
+| **next_action** | Phase 3 — Concordance (single-threaded orchestrator; begin with phases family per METHOD.md §5) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -41,8 +41,8 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 | 0.5 | Landscape scan | `skipped` — D-007 `landscape_scan: no` | — | — |
 | 1 | Inventory | `done` | unit extraction done (416/416); Phase 1V remediation & re-verification complete (all 3 reports clean) | 001–008, 011–012 |
 | 1V | Inventory verification | `done` | 49 flagged units re-run and verified clean (runs 18–19); all 3 verifier reports rewritten clean (PASS) | 009, 011, 012 |
-| 2 | Concept cards | `in-progress` | 332 / 460 units done (addy and matt 100% complete: 44/44, 40/40; rjm 248/376 done) | 013–017 |
-| 3 | Concordance | `pending` | — | — |
+| 2 | Concept cards | `done` | 460/460 concept units done (addy 44/44, matt 40/40, rjm 376/376); 13,765 concept cards on disk; all checks clean | 013–018 |
+| 3 | Concordance | `in-progress` | — | — |
 | 4 | Alignment decisions | `pending` | — | — |
 | 4V | Decision review | `pending` | — | — |
 | 5 | Lifecycle spec | `pending` | — | — |
@@ -79,8 +79,8 @@ Concept units (`cc-<pkg>-N`, up to 30 concept slugs each) come from `partition-c
 | Status | Units |
 |---|---|
 | pending | 0 |
-| in-progress | 32 |
-| done | 428 |
+| in-progress | 0 |
+| done | 460 |
 | blocked | 0 |
 | rolled-back | 0 |
 | **total** | **460** |
@@ -114,7 +114,7 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 |---|---|
 | Manifest rows (addy / matt / rjm) | 219 / 201 / 1175 |
 | Inventory units done (addy / matt / rjm) | 46 / 46 / 324 |
-| Concept cards (addy / matt / rjm) | units done 44 / 40 / 344 of 44 / 40 / 376 |
+| Concept cards (addy / matt / rjm) | units done 44 / 40 / 376 of 44 / 40 / 376 |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | — |
 | Decisions (active / superseded / pending-peter) | 18 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
 | Glossary terms | 0 |
@@ -134,10 +134,10 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 
 | Check | Last run | Result |
 |---|---|---|
-| coverage.ts | 2026-09-06 | clean (rows 1595, covered 1567, orphan cards 0) |
-| units.ts check | 2026-09-06 | clean (416 total — pending 0 · in-progress 0 · done 416 · blocked 0 · rolled-back 0) |
-| budget.ts | 2026-09-06 | clean (used=12.87%, peak=12.87%, governing=25.00%, close=1.11%, headroom=11.02%, pending=0 → STOP) |
-| glossary-lint.ts | 2026-09-06 | clean |
-| last-unit verification | 2026-09-06 | inv-rjm-310: HIT, quote-check 127 PASS / 0 FAIL |
+| coverage.ts | 2026-09-07 | clean (rows 1595, covered 1567, concepts without card 0) |
+| units.ts check | 2026-09-07 | clean (876 total — pending 0 · in-progress 0 · done 876 · blocked 0 · rolled-back 0) |
+| budget.ts | 2026-09-07 | clean (used=19.58%, peak=19.58%, governing=25.00%, close=1.13%, headroom=4.29%, pending=0 → STOP) |
+| glossary-lint.ts | 2026-09-07 | clean |
+| last-unit verification | 2026-09-07 | cc-rjm-376: HIT, quote-check 9 PASS / 0 FAIL |
 | decision consistency (4V) | — | — |
 | traceability | — | — |

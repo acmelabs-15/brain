@@ -617,6 +617,25 @@ The runs before that reset — the experiment of sessions 013–014 (runs 01–0
 - **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p2-run-11/SUCCESS_AUDITOR_REPORT.md` (verdict CLEAN)
 - **Probe verdict**: N/A for concurrency step-up (2 × 48 probe encountered quota pause, so per §8.2 wall time measures quota pause rather than harness; probe repeated next time). Quality 100% clean.
 
+### run 30 (Session 018, production p2-run-12)
+
+- **run-id**: `p2-run-12`
+- **session**: 018 (Phase 2 Concept cards)
+- **units**: `cc-rjm-345` through `cc-rjm-376` (32 units, rjm) — 32 units total; 939 concept cards, 32 unit reports
+- **context used**:
+  - at run-start: `used=16.67%` (`[run-start p2-run-12 n=32] budget 2026-09-07T19:38:30.484Z conv=7f51e350 model="Gemini 3.8 Flash (High)" used=16.67% peak=16.67% governing=25.00% close=1.13% headroom=7.20% pending=32 → DISPATCH 1 run × 32 units (32 units, cost 3.37%)`)
+  - at dispatched: `used=17.08%` (`[dispatched p2-run-12] budget 2026-09-07T19:38:52.174Z conv=7f51e350 model="Gemini 3.8 Flash (High)" used=17.08% peak=17.08% governing=25.00% close=1.13% headroom=6.79% pending=0 → STOP — no plan fits the headroom: close per §8.3`)
+  - at verified: `used=19.58%` (`[verified p2-run-12] budget 2026-09-08T00:23:41.336Z conv=7f51e350 model="Gemini 3.8 Flash (High)" used=19.58% peak=19.58% governing=25.00% close=1.13% headroom=4.29% pending=0 → STOP — nothing pending in the unit table: this phase's dispatch is complete`)
+  - per-unit delta: 0.078% (verified 19.58% − dispatched 17.08% = 2.50% ÷ 32 units = 0.0781%)
+- **rot metrics**: none observed (used: 19.58%)
+- **429s and quota.reset_in_seconds**: quota pause encountered during run; Sentinel paused and resumed cleanly
+- **wall time**: 283.9 min from dispatch to completion
+- **Workers per unit**: 1 worker per unit (32 workers dispatched concurrently, all in parallel).
+- **quote-check totals**: 942 PASS, 0 FAIL across run-12 cards (100% clean)
+- **coverage check**: clean (0 failures, 0 empty required fields, 0 orphan cards, 0 alias problems, 0 variant problems, 0 rjm concepts pending, 0 addy concepts pending, 0 matt concepts pending)
+- **Success Auditor report path**: `/Users/peterkloss/Dev/ACMElabs/brain-v2/.teamwork/p2-run-12/SUCCESS_AUDITOR_REPORT.md` (verdict CLEAN)
+- **Probe verdict**: N/A (32-unit final tail run completing Phase 2; quota pause handled cleanly; wall time 283.9 min; quality 100% clean at 942 PASS / 0 FAIL).
+
 ## 8. Objective
 
 Not quota. No session approaches the rot metrics; within that, the most work per unit of wall time — bigger runs and simultaneous runs, never fewer checks.
