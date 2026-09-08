@@ -16,11 +16,11 @@ It provides:
 | [Artifacts](artifacts.md) | 726 | 818 | 27 | 32 | 1 | 9 | 657 | 0 | **0** (resolved in D-126–D-229) |
 | [Sequencing](sequencing.md) | 367 | 405 | 4 | 26 | 0 | 1 | 336 | 0 | **0** (resolved in D-230–D-272) |
 | [Techniques](techniques.md) | 2,110 | 2,147 | 24 | 9 | 0 | 0 | 2,077 | 0 | **0** (resolved in D-273–D-511) |
-| [Gates](gates.md) | 841 | 866 | 17 | 7 | 0 | 0 | 817 | 0 | **7** |
+| [Gates](gates.md) | 841 | 866 | 17 | 7 | 0 | 0 | 817 | 0 | **0** (resolved in D-512–D-518) |
 | [Roles](roles.md) | 192 | 215 | 0 | 18 | 0 | 0 | 174 | 0 | **69** |
 | [References](references.md) | 694 | 720 | 7 | 17 | 0 | 0 | 670 | 0 | **17** |
 | [Invocation Patterns](invocation-patterns.md) | 1,973 | 2,034 | 46 | 11 | 0 | 0 | 1,916 | 0 | **11** |
-| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **130** |
+| **TOTAL** | **7,143** | **7,476** | **130** | **135** | **3** | **16** | **6,859** | **0** | **97** |
 
 ---
 
@@ -468,7 +468,7 @@ Source file: [`docs/analysis/concordance/techniques.md`](techniques.md)
 | [`matt-free-play-buttons`](techniques.md#matt-free-play-buttons) | `UNIQUE` | — | `free-play buttons` | — | Unique to Matt. Defined in skills/engineering/prototype/LOGIC.md:45. Interactive controls in a logic prototype offering one button per domai… |
 | [`matt-say`](techniques.md#matt-say) | `UNIQUE` | — | `say` | — | Unique to Matt. Defined in skills/engineering/wizard/template.sh:58. A bash output helper function in the wizard library that formats plain … |
 
-### Gates (7 decisions needed)
+### Gates (0 decisions needed — resolved in D-512–D-518)
 
 Source file: [`docs/analysis/concordance/gates.md`](gates.md)
 

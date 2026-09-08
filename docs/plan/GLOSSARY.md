@@ -3164,41 +3164,76 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 
 ### Gates
 
-### front-gate-prerequisite
+### ask-first-confirmation-gate
 
-- **definition:** A front-gate prerequisite is an entry assertion that strictly blocks a lifecycle phase or pipeline from initiating until all required upstream artifacts are committed to disk.
+- **definition:** An ask-first confirmation gate is a mandatory human-in-the-loop pause requiring explicit human approval before an autonomous agent executes irreversible, destructive, security-sensitive, or architecturally breaking operations.
 - **kind:** gate
-- **source names:** addy: `The Gated Workflow` · matt: `Prerequisite` · rjm: `front-gate-before-pipeline`
-- **decision:** D-237
-- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-precedence-front-gate-prerequisite`
-- **not to be confused with:** task-prerequisites, quality-gate-pipeline
+- **source names:** addy: `Ask First` · matt: `confirmation gate` · rjm: `Ask First`
+- **decision:** D-512
+- **concordance:** `docs/analysis/concordance/gates.md#ask-first-confirmation-gate`
+- **not to be confused with:** human-checkpoint, front-gate-prerequisite
+
+### completion-criteria-quality-gate
+
+- **definition:** A completion-criteria quality gate is an exit evaluation checkpoint requiring concrete, observable, and verifiable proof that all specified task objectives and constraints are satisfied before work is marked done.
+- **kind:** gate
+- **source names:** addy: — · matt: `Completion criteria` · rjm: `Quality Gate`
+- **decision:** D-513
+- **concordance:** `docs/analysis/concordance/gates.md#completion-criteria-quality-gate`
+- **not to be confused with:** definition-of-done, quality-gate-pipeline
+
+### front-gate-prerequisite
 
 ### phase-boundary-transition
 
-- **definition:** A phase boundary transition is the explicit stopping and evaluation point between two lifecycle stages where deliverables are verified and session context is reset or handed off.
+### pre-commit-validation-checks
+
+- **definition:** Pre-commit validation checks are an automated gate running local linters, typecheckers, security secret scans, and tests before a git commit or push is created, ensuring broken or non-compliant changes never enter version control.
 - **kind:** gate
-- **source names:** addy: `boundaries` · matt: `phase boundary` · rjm: `Boundary translation`
-- **decision:** D-252
-- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-boundary-phase-boundary-gate`
-- **not to be confused with:** phase-boundary-decision-model, quality-gate-pipeline
+- **source names:** addy: `Pre-Commit Checks` · matt: — · rjm: `pre-push hook`
+- **decision:** D-518
+- **concordance:** `docs/analysis/concordance/gates.md#pre-commit-validation-checks`
+- **not to be confused with:** pretooluse-hook, smoke-testing
+
+### pretooluse-hook
+
+- **definition:** A pretooluse hook is an automated lifecycle interception gate executed by the agent harness prior to any tool call invocation, validating arguments, enforcing security boundaries, or mutating input parameters before execution.
+- **kind:** gate
+- **source names:** addy: `PreToolUse` · matt: `PreToolUse hook` · rjm: —
+- **decision:** D-517
+- **concordance:** `docs/analysis/concordance/gates.md#pretooluse-hook`
+- **not to be confused with:** pre-commit-validation-checks, posttooluse-hook
 
 ### quality-gate-pipeline
 
-- **definition:** A quality-gate pipeline is a series of automated verification checks and policy assertions enforced at phase boundaries before code or artifacts can transition to subsequent stages.
-- **kind:** gate
-- **source names:** addy: `quality-gate pipelines` · matt: — · rjm: —
-- **decision:** D-239
-- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-precedence-quality-gate-pipeline`
-- **not to be confused with:** front-gate-prerequisite, phase-boundary-transition
-
 ### self-audit-round-cap
 
-- **definition:** The self-audit round cap is a hard limit capping automated review-and-fix iteration loops at three rounds maximum, requiring mandatory escalation to a human developer if unresolved.
+### smoke-testing
+
+- **definition:** Smoke testing is a rapid, preliminary verification gate that exercises critical execution pathways or basic system availability immediately after changes or deployments to confirm fundamental functionality before initiating exhaustive test suites.
 - **kind:** gate
-- **source names:** addy: `Loop engineering` · matt: `hitl-loop.template.sh` · rjm: `Self-audit round cap`
-- **decision:** D-264
-- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-caps-self-audit-round-cap`
-- **not to be confused with:** human-in-the-loop-checkpoint, quality-gate-pipeline
+- **source names:** addy: `Staging smoke test` · matt: `smoke test` · rjm: —
+- **decision:** D-515
+- **concordance:** `docs/analysis/concordance/gates.md#smoke-testing`
+- **not to be confused with:** unit-testing-suite, integration-test
+
+### stop-the-line-andon-cord
+
+- **definition:** A stop-the-line andon cord is a non-negotiable operational gate that immediately halts all forward execution, progression, or promotion upon the detection of an unexpected failure, broken invariant, or regression until root-cause diagnosis is complete.
+- **kind:** gate
+- **source names:** addy: `Stop-the-line rule` · matt: — · rjm: `andon-cord`
+- **decision:** D-514
+- **concordance:** `docs/analysis/concordance/gates.md#stop-the-line-andon-cord`
+- **not to be confused with:** front-gate-prerequisite, self-audit-round-cap
+
+### unit-testing-suite
+
+- **definition:** A unit-testing suite is an automated verification gate comprising fast, isolated test assertions that validate individual functions, modules, or component behaviors against their specifications.
+- **kind:** gate
+- **source names:** addy: `Unit tests` · matt: `test suite` · rjm: —
+- **decision:** D-516
+- **concordance:** `docs/analysis/concordance/gates.md#unit-testing-suite`
+- **not to be confused with:** integration-test, smoke-testing
 
 ### Roles
 

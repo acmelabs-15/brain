@@ -86,8 +86,8 @@ Total concordance rows: **841** mapping **866** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy and RJM name this Ask First; Matt names it confirmation gate. All three enforce the rule that autonomous agents must seek explicit confirmation before modifying critical project assets or resolving ambiguities.
 - **sequencing note:** Triggered during requirements gathering, design decisions, and destructive actions.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-512
 
 ### checkpoint
 
@@ -212,8 +212,8 @@ Total concordance rows: **841** mapping **866** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Matt defines completion criteria as the concrete, observable proof that a task's objective is satisfied; RJM operationalizes quality gates to verify completion.
 - **sequencing note:** Defined in planning; verified at task exit.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-513
 
 ### addy-check-task
 
@@ -2810,8 +2810,8 @@ Total concordance rows: **841** mapping **866** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy names this the Stop-the-Line Rule (skills/implement-spec/SKILL.md:120); RJM names it the andon-cord (.claude/skills/review/SKILL.md:85). Both draw on the manufacturing principle of immediately halting all forward progression upon detecting an unexpected failure.
 - **sequencing note:** Active across all construction, test, and review phases.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-514
 
 ### addy-clean-baseline
 
@@ -3875,8 +3875,8 @@ Total concordance rows: **841** mapping **866** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy defines staging smoke test as an automated checkout/navigation pass on staging; Matt defines smoke test as a rapid sanity check of critical paths before running comprehensive suites.
 - **sequencing note:** Executed immediately following deployment or build completion.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-515
 
 ### unit-testing-suite
 
@@ -3893,8 +3893,8 @@ Total concordance rows: **841** mapping **866** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy defines unit tests as isolated component/function level assertions; Matt defines test suite as the comprehensive set of executable specifications.
 - **sequencing note:** Core verification gate during implementation and testing phases.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-516
 
 ### addy-tier-1
 
@@ -8891,8 +8891,8 @@ Total concordance rows: **841** mapping **866** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy defines PreToolUse as an interception event for permissions and validation; Matt defines PreToolUse hook as an automated boundary check preventing unsafe file edits.
 - **sequencing note:** Fires immediately prior to tool execution in the agent harness.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-517
 
 ### pre-commit-validation-checks
 
@@ -8909,8 +8909,8 @@ Total concordance rows: **841** mapping **866** concept cards across 10 logical 
 - **class:** SYNONYM
 - **difference:** Addy defines pre-commit checks as local automated lint/typecheck steps; RJM enforces pre-push hooks at git push boundary to prevent broken commits reaching remote.
 - **sequencing note:** Gating commits locally or pushes remotely.
-- **needs decision:** yes
-- **decision:** —
+- **needs decision:** no
+- **decision:** D-518
 
 ### addy-posttooluse
 

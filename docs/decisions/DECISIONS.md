@@ -15818,3 +15818,268 @@ Matt `skills/engineering/wizard/template.sh:58`.
 - **source names:** addy: — · matt: `say` · rjm: —
 - **decision:** D-511
 - **concordance:** `docs/analysis/concordance/techniques.md#matt-say`
+---
+
+## D-512 — ask-first-confirmation-gate
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 031
+- **status:** active
+- **supersedes:** —
+- **resolves:** gates.md#ask-first-confirmation-gate
+- **preferences consulted:** PREFERENCES.md § Constraints and § Approach emphasize human verification for high-impact decisions and unyielding gates; followed by establishing an explicit confirmation gate.
+
+### Decision
+The canonical term for this gate is `ask-first-confirmation-gate`. An ask-first confirmation gate is a mandatory human-in-the-loop pause requiring explicit human approval before an autonomous agent executes irreversible, destructive, security-sensitive, or architecturally breaking operations.
+
+### Adopted from
+Synthesizes Addy's security trigger criteria (`skills/security-and-hardening/SKILL.md:55`), Matt's shared-understanding closure barrier (`external/grilling.md:50`), and RJM's repository-level mandatory pause categories (`AGENTS.md:25`).
+
+### Dropped
+Matt's narrow restriction of confirmation gates solely to conversational interview closure in grilling (generalized to high-impact lifecycle boundary gates).
+
+### Rejected alternatives
+- ask-first (ambiguous between conversational posture and explicit gating mechanism)
+- confirmation-gate (lacks explicit indication that the gate is an upstream "ask-first" barrier rather than post-facto confirmation)
+
+### Evidence
+Addy `skills/security-and-hardening/SKILL.md:55`; Matt `external/grilling.md:50`, `CHANGELOG.md:169`; RJM `AGENTS.md:25`, `.claude/skills/autoplan/SKILL.md:172`.
+
+### Glossary
+### ask-first-confirmation-gate
+
+- **definition:** An ask-first confirmation gate is a mandatory human-in-the-loop pause requiring explicit human approval before an autonomous agent executes irreversible, destructive, security-sensitive, or architecturally breaking operations.
+- **kind:** gate
+- **source names:** addy: `Ask First` · matt: `confirmation gate` · rjm: `Ask First`
+- **decision:** D-512
+- **concordance:** `docs/analysis/concordance/gates.md#ask-first-confirmation-gate`
+- **not to be confused with:** human-checkpoint, front-gate-prerequisite
+
+---
+
+## D-513 — completion-criteria-quality-gate
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 031
+- **status:** active
+- **supersedes:** —
+- **resolves:** gates.md#completion-criteria-quality-gate
+- **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by formalizing completion criteria within the quality gate taxonomy.
+
+### Decision
+The canonical term for this gate is `completion-criteria-quality-gate`. A completion-criteria quality gate is an exit evaluation checkpoint requiring concrete, observable, and verifiable proof that all specified task objectives and constraints are satisfied before work is marked done.
+
+### Adopted from
+Synthesizes Matt's operational rule that every step must end on concrete verifiable completion conditions (`skills/productivity/writing-for-agents/SKILL.md:47`) with RJM's formal validation checkpoint mechanism (`README.md:148`).
+
+### Dropped
+RJM's heavyweight subagent multi-role orchestration where a lightweight local criterion verification suffices.
+
+### Rejected alternatives
+- completion-criteria (identifies the criteria list rather than the enforcement gate itself)
+- quality-gate (overly generic; overlaps with pipeline quality gates and definition-of-done)
+
+### Evidence
+Matt `skills/productivity/writing-for-agents/SKILL.md:47`, `docs/productivity/writing-for-agents.md:28`; RJM `README.md:148`.
+
+### Glossary
+### completion-criteria-quality-gate
+
+- **definition:** A completion-criteria quality gate is an exit evaluation checkpoint requiring concrete, observable, and verifiable proof that all specified task objectives and constraints are satisfied before work is marked done.
+- **kind:** gate
+- **source names:** addy: — · matt: `Completion criteria` · rjm: `Quality Gate`
+- **decision:** D-513
+- **concordance:** `docs/analysis/concordance/gates.md#completion-criteria-quality-gate`
+- **not to be confused with:** definition-of-done, quality-gate-pipeline
+
+---
+
+## D-514 — stop-the-line-andon-cord
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 031
+- **status:** active
+- **supersedes:** —
+- **resolves:** gates.md#stop-the-line-andon-cord
+- **preferences consulted:** PREFERENCES.md § Constraints and § Approach favor unyielding failure handling and immediate defect remediation; followed by establishing an explicit stop-the-line gate.
+
+### Decision
+The canonical term for this gate is `stop-the-line-andon-cord`. A stop-the-line andon cord is a non-negotiable operational gate that immediately halts all forward execution, progression, or promotion upon the detection of an unexpected failure, broken invariant, or regression until root-cause diagnosis is complete.
+
+### Adopted from
+Synthesizes Addy's debugging discipline halting progression to fix root cause rather than guessing (`external/debugging-and-error-recovery.md:5`) and RJM's explicit Toyota/Lean andon-cord threshold mechanism (`.claude/skills/decision-critic/references/decision-pre-committed-metrics.md:23`).
+
+### Dropped
+None (both packages share identical lean manufacturing operational intent).
+
+### Rejected alternatives
+- stop-the-line-rule (names a policy rule rather than the mechanical gate itself)
+- andon-cord (domain metaphor that may obscure software execution semantics without "stop-the-line")
+
+### Evidence
+Addy `external/debugging-and-error-recovery.md:5`, `skills/browser-testing-with-devtools/SKILL.md:12`; RJM `.claude/skills/decision-critic/references/decision-pre-committed-metrics.md:23`, `.claude/skills/review/SKILL.md:85`.
+
+### Glossary
+### stop-the-line-andon-cord
+
+- **definition:** A stop-the-line andon cord is a non-negotiable operational gate that immediately halts all forward execution, progression, or promotion upon the detection of an unexpected failure, broken invariant, or regression until root-cause diagnosis is complete.
+- **kind:** gate
+- **source names:** addy: `Stop-the-line rule` · matt: — · rjm: `andon-cord`
+- **decision:** D-514
+- **concordance:** `docs/analysis/concordance/gates.md#stop-the-line-andon-cord`
+- **not to be confused with:** front-gate-prerequisite, self-audit-round-cap
+
+---
+
+## D-515 — smoke-testing
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 031
+- **status:** active
+- **supersedes:** —
+- **resolves:** gates.md#smoke-testing
+- **preferences consulted:** PREFERENCES.md § References and § Depth emphasize rigorous testing patterns and clear gate definitions; followed by adopting smoke-testing.
+
+### Decision
+The canonical term for this gate is `smoke-testing`. Smoke testing is a rapid, preliminary verification gate that exercises critical execution pathways or basic system availability immediately after changes or deployments to confirm fundamental functionality before initiating exhaustive test suites.
+
+### Adopted from
+Combines Addy's post-deployment staging environment readiness check (`evals/fixtures/shipping-and-launch/launch-status.md:5`) with Matt's immediate post-configuration pipeline execution check (`skills/misc/setup-pre-commit/SKILL.md:85`).
+
+### Dropped
+Addy's staging-only contextual restriction (smoke testing applies equally to local build artifacts and CI environments).
+
+### Rejected alternatives
+- staging-smoke-test (overly specific to remote staging deployment environments)
+- sanity-check (colloquial and less descriptive than smoke-testing)
+
+### Evidence
+Addy `evals/fixtures/shipping-and-launch/launch-status.md:5`; Matt `skills/misc/setup-pre-commit/SKILL.md:85`.
+
+### Glossary
+### smoke-testing
+
+- **definition:** Smoke testing is a rapid, preliminary verification gate that exercises critical execution pathways or basic system availability immediately after changes or deployments to confirm fundamental functionality before initiating exhaustive test suites.
+- **kind:** gate
+- **source names:** addy: `Staging smoke test` · matt: `smoke test` · rjm: —
+- **decision:** D-515
+- **concordance:** `docs/analysis/concordance/gates.md#smoke-testing`
+- **not to be confused with:** unit-testing-suite, integration-test
+
+---
+
+## D-516 — unit-testing-suite
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 031
+- **status:** active
+- **supersedes:** —
+- **resolves:** gates.md#unit-testing-suite
+- **preferences consulted:** PREFERENCES.md § References highlights `testing-patterns.md` and verification rigor; followed by adopting unit-testing-suite.
+
+### Decision
+The canonical term for this gate is `unit-testing-suite`. A unit-testing suite is an automated verification gate comprising fast, isolated test assertions that validate individual functions, modules, or component behaviors against their specifications.
+
+### Adopted from
+Synthesizes Addy's CI pipeline unit test gate specification using runners like Jest/Vitest (`skills/ci-cd-and-automation/SKILL.md:37`) with Matt's implementation cadence requiring regular single-file test runs and full test suite verification (`skills/engineering/implement/SKILL.md:11`).
+
+### Dropped
+Matt's non-standard tool invocation patterns in favor of Bun-native test runner execution (D-003).
+
+### Rejected alternatives
+- unit-tests (describes individual test cases rather than the collective gate)
+- test-suite (ambiguous; encompasses end-to-end, integration, and performance suites as well as unit tests)
+
+### Evidence
+Addy `skills/ci-cd-and-automation/SKILL.md:37`, `evals/fixtures/shipping-and-launch/launch-status.md:3`; Matt `skills/engineering/implement/SKILL.md:11`.
+
+### Glossary
+### unit-testing-suite
+
+- **definition:** A unit-testing suite is an automated verification gate comprising fast, isolated test assertions that validate individual functions, modules, or component behaviors against their specifications.
+- **kind:** gate
+- **source names:** addy: `Unit tests` · matt: `test suite` · rjm: —
+- **decision:** D-516
+- **concordance:** `docs/analysis/concordance/gates.md#unit-testing-suite`
+- **not to be confused with:** integration-test, smoke-testing
+
+---
+
+## D-517 — pretooluse-hook
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 031
+- **status:** active
+- **supersedes:** —
+- **resolves:** gates.md#pretooluse-hook
+- **preferences consulted:** PREFERENCES.md § Constraints and § Approach emphasize deterministic boundaries, safety guardrails, and dual-target parity (D-009); followed by formalizing pretooluse-hook.
+
+### Decision
+The canonical term for this gate is `pretooluse-hook`. A pretooluse hook is an automated lifecycle interception gate executed by the agent harness prior to any tool call invocation, validating arguments, enforcing security boundaries, or mutating input parameters before execution.
+
+### Adopted from
+Combines Addy's hook event registration conventions for caching and filtering (`hooks/sdd-cache-pre.sh:2`, `hooks/SIMPLIFY-IGNORE.md:24`) with Matt's safety guardrails intercepting and blocking dangerous tool commands (`skills/misc/git-guardrails-claude-code/SKILL.md:8`).
+
+### Dropped
+Matt's bash-only script wrapper implementation in favor of cross-platform Bun TypeScript execution (D-003) and Antigravity hook parity (D-009).
+
+### Rejected alternatives
+- pretooluse (refers to the raw harness event identifier rather than the operational gate)
+- tool-interception-guard (avoids invented terminology when the canonical hook name is standardized)
+
+### Evidence
+Addy `hooks/sdd-cache-pre.sh:2`, `hooks/SIMPLIFY-IGNORE.md:24`; Matt `skills/misc/git-guardrails-claude-code/SKILL.md:8`.
+
+### Glossary
+### pretooluse-hook
+
+- **definition:** A pretooluse hook is an automated lifecycle interception gate executed by the agent harness prior to any tool call invocation, validating arguments, enforcing security boundaries, or mutating input parameters before execution.
+- **kind:** gate
+- **source names:** addy: `PreToolUse` · matt: `PreToolUse hook` · rjm: —
+- **decision:** D-517
+- **concordance:** `docs/analysis/concordance/gates.md#pretooluse-hook`
+- **not to be confused with:** pre-commit-validation-checks, posttooluse-hook
+
+---
+
+## D-518 — pre-commit-validation-checks
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 031
+- **status:** active
+- **supersedes:** —
+- **resolves:** gates.md#pre-commit-validation-checks
+- **preferences consulted:** PREFERENCES.md § References and § Constraints emphasize rigorous validation and preventing defect leakage; followed by adopting pre-commit-validation-checks.
+
+### Decision
+The canonical term for this gate is `pre-commit-validation-checks`. Pre-commit validation checks are an automated gate running local linters, typecheckers, security secret scans, and tests before a git commit or push is created, ensuring broken or non-compliant changes never enter version control.
+
+### Adopted from
+Synthesizes Addy's pre-commit security checklist preventing secrets in code (`references/security-checklist.md:8`, `references/security-checklist.md:32`) with RJM's automated gate-ladder hook assertions run via Lefthook (`.claude/skills/ai-agents-change-control/references/gate-ladder.md:15`).
+
+### Dropped
+RJM's Lefthook dependency in favor of standard git hooks and Bun validation scripts (D-003).
+
+### Rejected alternatives
+- pre-commit-checks (less specific than naming the validation and gating role)
+- pre-push-hook (refers only to the remote push boundary, missing the earlier local commit gate)
+
+### Evidence
+Addy `references/security-checklist.md:8`, `references/security-checklist.md:32`; RJM `.claude/skills/ai-agents-change-control/references/gate-ladder.md:15`, `.agents/architecture/ADR-090-pr-branch-holder-lease.md:69`.
+
+### Glossary
+### pre-commit-validation-checks
+
+- **definition:** Pre-commit validation checks are an automated gate running local linters, typecheckers, security secret scans, and tests before a git commit or push is created, ensuring broken or non-compliant changes never enter version control.
+- **kind:** gate
+- **source names:** addy: `Pre-Commit Checks` · matt: — · rjm: `pre-push hook`
+- **decision:** D-518
+- **concordance:** `docs/analysis/concordance/gates.md#pre-commit-validation-checks`
+- **not to be confused with:** pretooluse-hook, smoke-testing
