@@ -8,11 +8,11 @@ This file is the single source of truth for where the project is. It is updated 
 
 | Field | Value |
 |---|---|
-| **phase** | `4V` |
-| **phase_name** | Decision review (4V) |
-| **current_unit** | 4V (Adversarial decision review pass) |
-| **last_session** | 034 |
-| **next_action** | Phase 4V — Decision review (adversarial pass per METHOD.md §5) |
+| **phase** | `5` |
+| **phase_name** | Lifecycle spec |
+| **current_unit** | Phase 5 (Lifecycle specification) |
+| **last_session** | 035 |
+| **next_action** | Phase 5 — Lifecycle specification (single-threaded orchestrator per METHOD.md §5) |
 | **human_approval** | `PENDING` |
 | **human_approval_date** | — |
 | **landscape_scan** | `no` — set by Peter in D-007, 2026-09-02 |
@@ -44,7 +44,7 @@ Recorded in Phase 0. Every session analyses exactly these commits.
 | 2 | Concept cards | `done` | 460/460 concept units done (addy 44/44, matt 40/40, rjm 376/376); 13,765 concept cards on disk; all checks clean | 013–018 |
 | 3 | Concordance | `done` | all 8 concordance families complete; 7,143 rows mapping 7,476 concept cards; zero duplicates; _summary.md written | 019–026 |
 | 4 | Alignment decisions | `done` | all 516 non-ALIGNED concordance rows resolved in D-100–D-615 | 027–034 |
-| 4V | Decision review | `pending` | — | — |
+| 4V | Decision review | `done` | adversarial pass complete; 10 findings resolved via D-616–D-625; GLOSSARY.md & concordance aligned; all checks clean | 035 |
 | 5 | Lifecycle spec | `pending` | — | — |
 | ⏸ | **Human gate** | `pending` | — | — |
 | 6 | Implementation plan | `pending` | — | — |
@@ -116,8 +116,8 @@ Updated at every unit boundary (`units.ts sync` writes the inventory rows).
 | Inventory units done (addy / matt / rjm) | 46 / 46 / 324 |
 | Concept cards (addy / matt / rjm) | units done 44 / 40 / 376 of 44 / 40 / 376 |
 | Concordance rows (by class: ALIGNED / SYNONYM / HOMONYM / PARTIAL / UNIQUE / CONFLICT) | 7,143 total: 240 in phases (ALIGNED 5 / SYNONYM 15 / HOMONYM 2 / PARTIAL 6 / UNIQUE 212 / CONFLICT 0); 726 in artifacts (ALIGNED 27 / SYNONYM 32 / HOMONYM 1 / PARTIAL 9 / UNIQUE 657 / CONFLICT 0); 367 in sequencing (ALIGNED 4 / SYNONYM 26 / HOMONYM 0 / PARTIAL 1 / UNIQUE 336 / CONFLICT 0); 2,110 in techniques (ALIGNED 24 / SYNONYM 9 / HOMONYM 0 / PARTIAL 0 / UNIQUE 2077 / CONFLICT 0); 841 in gates (ALIGNED 17 / SYNONYM 7 / HOMONYM 0 / PARTIAL 0 / UNIQUE 817 / CONFLICT 0); 192 in roles (ALIGNED 0 / SYNONYM 18 / HOMONYM 0 / PARTIAL 0 / UNIQUE 174 / CONFLICT 0); 694 in references (ALIGNED 7 / SYNONYM 17 / HOMONYM 0 / PARTIAL 0 / UNIQUE 670 / CONFLICT 0); 1,973 in invocation-patterns (ALIGNED 46 / SYNONYM 11 / HOMONYM 0 / PARTIAL 0 / UNIQUE 1916 / CONFLICT 0; all 11 resolved in D-605–D-615) |
-| Decisions (active / superseded / pending-peter) | 534 / 2 / 1 (D-008 — moot: D-007 skipped the scan) |
-| Glossary terms | 519 |
+| Decisions (active / superseded / pending-peter) | 536 / 12 / 1 (D-008 — moot: D-007 skipped the scan) |
+| Glossary terms | 517 |
 | Build units (done / total) | — / — |
 
 ---
@@ -139,5 +139,5 @@ Last result of each check (METHOD.md §10). Filled at session start and phase ga
 | budget.ts | 2026-09-08 | clean (used=16.14%, peak=16.14%, governing=25.00%, close=1.39%, headroom=7.47%, pending=0 → STOP) |
 | glossary-lint.ts | 2026-09-08 | clean |
 | last-unit verification | 2026-09-08 | cc-rjm-376: HIT, quote-check 9 PASS / 0 FAIL |
-| decision consistency (4V) | — | — |
+| decision consistency (4V) | 2026-09-08 | clean (adversarial review complete; 10 findings resolved in D-616–D-625; 0 conflicts; 517 glossary terms aligned) |
 | traceability | — | — |

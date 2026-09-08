@@ -39,7 +39,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy names this phase DEFINE (skills/spec-driven-development/SKILL.md:12), Matt names it explore (skills/explore/SKILL.md:14), and RJM names it /spec (.claude/commands/spec.md:1). All three govern problem discovery, scope bounding, and requirements definition before planning or coding.
 - **sequencing note:** Terminal entry stage for new feature work across all three packages; precedes planning.
 - **needs decision:** yes
-- **decision:** D-100
+- **decision:** D-620
 
 ### lifecycle-stage-plan
 
@@ -259,7 +259,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy EXPAND (references/database-migrations.md:34) applies the expand pattern to database schemas, while Matt Expand (skills/expand-contract-migrate/SKILL.md:18) applies it to codebase interfaces and call sites. Both introduce new structures alongside legacy structures.
 - **sequencing note:** First step in parallel change migration; precedes Migrate.
 - **needs decision:** yes
-- **decision:** D-107
+- **decision:** D-621
 
 ### phase-migrate
 
@@ -277,7 +277,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy MIGRATE (references/database-migrations.md:46) transitions data and reads to new schema structures; Matt Migrate (skills/expand-contract-migrate/SKILL.md:24) transitions call sites in batches.
 - **sequencing note:** Follows Expand; precedes Contract.
 - **needs decision:** yes
-- **decision:** D-108
+- **decision:** D-622
 
 ### phase-contract
 
@@ -295,7 +295,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Matt Contract (skills/expand-contract-migrate/SKILL.md:30) defines the clean removal of deprecated legacy interfaces once all call sites are migrated. Addy handles this implicitly without a dedicated card.
 - **sequencing note:** Final step in expand-contract-migrate; follows Migrate.
 - **needs decision:** yes
-- **decision:** D-109
+- **decision:** D-623
 
 ### phase-cleanup
 

@@ -21037,7 +21037,7 @@ Total concordance rows: **2110** mapping **2147** concept cards across 10 logica
 - **difference:** Unique to Matt. Defined in docs/engineering/wayfinder.md:86. `decision-mapping` was the original name of the skill before being reframed and renamed to `wayfinder` in v1.1. The term was retired because 'decision map' was perceived as jargon and inaccurate, given that only a subset of map tickets were pure decisions; it is marked `deprecated: true`.
 - **sequencing note:** Applied in Matt phase matt:Engineering.
 - **needs decision:** yes
-- **decision:** D-415
+- **decision:** D-618 (deprecated; dropped in favor of D-489)
 
 ### matt-wizard
 

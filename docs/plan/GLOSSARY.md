@@ -54,7 +54,7 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **definition:** The contract phase is the terminal stage of a parallel change migration where deprecated legacy interfaces, schema columns, or compatibility adapters are cleanly removed after all consumers have migrated.
 - **kind:** phase
 - **source names:** addy: — · matt: `Contract` · rjm: —
-- **decision:** D-109
+- **decision:** D-623
 - **concordance:** `docs/analysis/concordance/phases.md#phase-contract`
 - **not to be confused with:** `expand-phase`, `migrate-phase`, `deletion-cleanup`
 
@@ -81,7 +81,7 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **definition:** Deletion cleanup is the final step of a code deletion review where obsolete references, stale documentation, and deprecated architecture records are systematically removed.
 - **kind:** phase
 - **source names:** addy: — · matt: — · rjm: `Phase D4: Cleanup`
-- **decision:** D-110
+- **decision:** D-624
 - **concordance:** `docs/analysis/concordance/phases.md#phase-cleanup`
 - **not to be confused with:** `diagnostic-cleanup`, `contract-phase`
 
@@ -90,7 +90,7 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **definition:** Diagnostic cleanup is the concluding step of a bug diagnosis workflow in which temporary logging, test probes, and diagnostic scaffolding are removed before committing the fix.
 - **kind:** phase
 - **source names:** addy: — · matt: `Cleanup` · rjm: —
-- **decision:** D-110
+- **decision:** D-624
 - **concordance:** `docs/analysis/concordance/phases.md#phase-cleanup`
 - **not to be confused with:** `deletion-cleanup`, `contract-phase`
 
@@ -117,7 +117,7 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **definition:** The expand phase is the initial stage of a parallel change migration where new database columns, interfaces, or method signatures are introduced additively alongside existing implementations without breaking existing consumers.
 - **kind:** phase
 - **source names:** addy: `EXPAND` · matt: `Expand` · rjm: —
-- **decision:** D-107
+- **decision:** D-621
 - **concordance:** `docs/analysis/concordance/phases.md#phase-expand`
 - **not to be confused with:** `migrate-phase`, `contract-phase`
 
@@ -153,7 +153,7 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **definition:** The migrate phase is the intermediate stage of a parallel change migration where active call sites and data reads/writes are incrementally transitioned in batches to the expanded interface.
 - **kind:** phase
 - **source names:** addy: `MIGRATE` · matt: `Migrate` · rjm: —
-- **decision:** D-108
+- **decision:** D-622
 - **concordance:** `docs/analysis/concordance/phases.md#phase-migrate`
 - **not to be confused with:** `expand-phase`, `contract-phase`
 
@@ -234,7 +234,7 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **definition:** The spec phase is the initial lifecycle stage in which user requirements, problem scope, and system boundaries are explored, clarified, and formalized into an approved technical specification before execution planning.
 - **kind:** phase
 - **source names:** addy: `DEFINE` · matt: `explore` · rjm: `/spec`
-- **decision:** D-100
+- **decision:** D-620
 - **concordance:** `docs/analysis/concordance/phases.md#lifecycle-stage-spec`
 - **not to be confused with:** `specification-drafting`, `plan`
 
@@ -362,7 +362,7 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **definition:** A changeset is a versioning artifact documenting atomic package release notes, semver bump classifications, and consumer-facing changelog summaries.
 - **kind:** artifact
 - **source names:** addy: `releases` · matt: `changeset` · rjm: —
-- **decision:** D-154
+- **decision:** D-617
 - **concordance:** `docs/analysis/concordance/artifacts.md#artifact-changeset`
 - **not to be confused with:** `commit-message, pull-request`
 
@@ -1569,13 +1569,6 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **decision:** D-372
 - **concordance:** `docs/analysis/concordance/techniques.md#addy-decision-flow`
 
-### decision-mapping
-
-- **definition:** Decision mapping is an engineering technique for `decision-mapping` was the original name of the skill before being reframed and renamed to `wayfinder` in v1.1. The term was retired because 'decision map' was perceived as jargon and inaccurate, given that only a subset of map tickets were pure decisions; it is marked `deprecated: true`.
-- **kind:** technique
-- **source names:** addy: — · matt: `decision-mapping` · rjm: —
-- **decision:** D-415
-- **concordance:** `docs/analysis/concordance/techniques.md#matt-decision-mapping`
 
 ### decision-note-capture
 
@@ -3184,7 +3177,21 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 
 ### front-gate-prerequisite
 
+- **definition:** A front-gate prerequisite is an entry assertion that strictly blocks a lifecycle phase or pipeline from initiating until all required upstream artifacts are committed to disk.
+- **kind:** gate
+- **source names:** addy: `The Gated Workflow` · matt: `Prerequisite` · rjm: `front-gate-before-pipeline`
+- **decision:** D-237
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-precedence-front-gate-prerequisite`
+- **not to be confused with:** task-prerequisites, quality-gate-pipeline
+
 ### phase-boundary-transition
+
+- **definition:** A phase boundary transition is the explicit stopping and evaluation point between two lifecycle stages where deliverables are verified and session context is reset or handed off.
+- **kind:** gate
+- **source names:** addy: `boundaries` · matt: `phase boundary` · rjm: `Boundary translation`
+- **decision:** D-252
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-boundary-phase-boundary-gate`
+- **not to be confused with:** phase-boundary-decision-model, quality-gate-pipeline
 
 ### pre-commit-validation-checks
 
@@ -3206,7 +3213,21 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 
 ### quality-gate-pipeline
 
+- **definition:** A quality-gate pipeline is a series of automated verification checks and policy assertions enforced at phase boundaries before code or artifacts can transition to subsequent stages.
+- **kind:** gate
+- **source names:** addy: `quality-gate pipelines` · matt: — · rjm: —
+- **decision:** D-239
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-precedence-quality-gate-pipeline`
+- **not to be confused with:** front-gate-prerequisite, phase-boundary-transition
+
 ### self-audit-round-cap
+
+- **definition:** The self-audit round cap is a hard limit capping automated review-and-fix iteration loops at three rounds maximum, requiring mandatory escalation to a human developer if unresolved.
+- **kind:** gate
+- **source names:** addy: `Loop engineering` · matt: `hitl-loop.template.sh` · rjm: `Self-audit round cap`
+- **decision:** D-264
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-caps-self-audit-round-cap`
+- **not to be confused with:** human-in-the-loop-checkpoint, quality-gate-pipeline
 
 ### smoke-testing
 
@@ -3588,14 +3609,6 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **concordance:** `docs/analysis/concordance/roles.md#planner`
 - **not to be confused with:** task-decomposer, coordinator
 
-### pr-comment-responder
-
-- **definition:** A pr-comment-responder is an automated support persona that parses pull request review feedback, implements requested code revisions, and drafts clear responses to reviewer comments.
-- **kind:** role
-- **source names:** addy: — · matt: — · rjm: `pr-comment-responder`
-- **decision:** D-566
-- **concordance:** `docs/analysis/concordance/roles.md#pr-comment-responder`
-- **not to be confused with:** code-reviewer, implementation-agent
 
 ### principal-engineer-advisor
 
@@ -4200,7 +4213,7 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **definition:** The meta-orchestrator anti-pattern is an inefficient architecture where an intermediate agent persona serves solely to route tasks to other agents, introducing paraphrasing loss and unnecessary token consumption.
 - **kind:** pattern
 - **source names:** addy: `meta-orchestrator` · matt: — · rjm: —
-- **decision:** D-258
+- **decision:** D-625
 - **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-antipattern-meta-orchestrator`
 - **not to be confused with:** sequential-paraphrasing-antipattern, direct-invocation-pattern
 
@@ -4317,7 +4330,7 @@ The single source of vocabulary for the lifecycle. Empty until Phase 4. Every te
 - **definition:** The router dispatch pattern is an orchestration mechanism where an intake component classifies incoming requests and delegates them to specialized downstream skills without executing domain logic itself.
 - **kind:** pattern
 - **source names:** addy: — · matt: `router` · rjm: `router pattern`
-- **decision:** D-606
+- **decision:** D-619
 - **concordance:** `docs/analysis/concordance/invocation-patterns.md#router-dispatch-pattern`
 - **not to be confused with:** router, phase-routing
 

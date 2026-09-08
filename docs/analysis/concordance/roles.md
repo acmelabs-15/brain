@@ -2461,7 +2461,7 @@ Total concordance rows: **192** mapping **215** concept cards across 10 logical 
 - **difference:** RJM specifies `pr-comment-responder` to parse and address code review comments automatically. Unique to RJM.
 - **sequencing note:** PR review iteration.
 - **needs decision:** no
-- **decision:** D-566
+- **decision:** D-616 (excluded per METHOD §1.2)
 
 ### retrospective-agent
 

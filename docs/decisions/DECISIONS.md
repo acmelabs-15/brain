@@ -517,6 +517,7 @@ none.
 - **resolves:** phases.md#lifecycle-stage-spec
 - **preferences consulted:** PREFERENCES.md § Approach states Peter favours Addy's overall lifecycle framing as the starting frame, but is drawn to RJM's naming and composition choices; followed by adopting RJM's concise `/spec` naming while retaining Addy's requirements-elicitation and scope-bounding rigor.
 
+- **superseded-by:** D-620
 ### Decision
 The canonical name for the initial discovery and specification stage is `spec`. The spec phase is the initial lifecycle stage in which user requirements, problem scope, and system boundaries are explored, clarified, and formalized into an approved technical specification before execution planning.
 
@@ -776,6 +777,7 @@ Addy `external/api-and-interface-design.md:5`; RJM `.claude/commands/test.md:144
 - **resolves:** phases.md#phase-expand
 - **preferences consulted:** PREFERENCES.md § References highlights Addy's migration patterns; PREFERENCES.md § Approach notes Matt has strengths worth bringing over; followed by unifying Addy's schema expand and Matt's interface expand into a single canonical parallel change phase.
 
+- **superseded-by:** D-621
 ### Decision
 The canonical term for the additive step of a parallel migration is `expand-phase`. The expand phase is the initial stage of a parallel change migration where new database columns, interfaces, or method signatures are introduced additively alongside existing implementations without breaking existing consumers.
 
@@ -813,6 +815,7 @@ Addy `references/database-migrations.md:34-45`; Matt `skills/expand-contract-mig
 - **resolves:** phases.md#phase-migrate
 - **preferences consulted:** PREFERENCES.md § Approach notes granular synthesis; followed by combining Addy's data backfill and Matt's call-site batch transition rules.
 
+- **superseded-by:** D-622
 ### Decision
 The canonical term for the transitional step of a parallel migration is `migrate-phase`. The migrate phase is the intermediate stage of a parallel change migration where active call sites and data reads/writes are incrementally transitioned in batches to the expanded interface.
 
@@ -850,6 +853,7 @@ Addy `references/database-migrations.md:46-58`; Matt `skills/expand-contract-mig
 - **resolves:** phases.md#phase-contract
 - **preferences consulted:** PREFERENCES.md § Approach notes Matt has things worth bringing over; followed by adopting Matt's explicit Contract phase to complete the Expand-Migrate-Contract cycle.
 
+- **superseded-by:** D-623
 ### Decision
 The canonical term for the deprecation removal step of a parallel migration is `contract-phase`. The contract phase is the terminal stage of a parallel change migration where deprecated legacy interfaces, schema columns, or compatibility adapters are cleanly removed after all consumers have migrated.
 
@@ -887,6 +891,7 @@ Matt `skills/expand-contract-migrate/SKILL.md:30-36`.
 - **resolves:** phases.md#phase-cleanup
 - **preferences consulted:** PREFERENCES.md § Approach favours Matt's bug diagnosis workflow and RJM's review rigor; followed by splitting the homonym into `diagnostic-cleanup` (Matt) and `deletion-cleanup` (RJM) per Glossary Rule 3.
 
+- **superseded-by:** D-624
 ### Decision
 The homonym `cleanup` is resolved by establishing two distinct canonical terms: `diagnostic-cleanup` for bug diagnosis, and `deletion-cleanup` for dead-code and ADR deletion review. Diagnostic cleanup is the concluding step of a bug diagnosis workflow in which temporary logging, test probes, and diagnostic scaffolding are removed before committing the fix. Deletion cleanup is the final step of a code deletion review where obsolete references, stale documentation, and deprecated architecture records are systematically removed.
 
@@ -2543,6 +2548,7 @@ ADDY `evals/cases/doubt-driven-development.json:38`; RJM `.claude/agents/indepen
 - **resolves:** artifacts.md#artifact-changeset
 - **preferences consulted:** PREFERENCES.md § Approach values Matt's automated versioning and changeset workflow; followed by adopting changeset.
 
+- **superseded-by:** D-617
 ### Decision
 The canonical term for this artifact is `changeset`. A changeset is a versioning artifact documenting atomic package release notes, semver bump classifications, and consumer-facing changelog summaries.
 
@@ -6418,6 +6424,7 @@ Addy `references/orchestration-patterns.md:1-120`.
 - **resolves:** sequencing.md#sequencing-antipattern-meta-orchestrator
 - **preferences consulted:** PREFERENCES.md § References endorses Addy's orchestration rules; followed by proscribing the meta-orchestrator anti-pattern.
 
+- **superseded-by:** D-625
 ### Decision
 The canonical term for this sequencing concept is `meta-orchestrator-antipattern`. The meta-orchestrator anti-pattern is an inefficient architecture where an intermediate agent persona serves solely to route tasks to other agents, introducing paraphrasing loss and unnecessary token consumption.
 
@@ -12242,6 +12249,7 @@ Matt `external/to-spec.md:57`.
 - **resolves:** techniques.md#matt-decision-mapping
 - **preferences consulted:** PREFERENCES.md § Depth requires aligning down to named techniques and criteria; followed by establishing canonical definition and boundaries.
 
+- **superseded-by:** D-618
 ### Decision
 The canonical term for this technique is `decision-mapping`. Decision mapping is an engineering technique for `decision-mapping` was the original name of the skill before being reframed and renamed to `wayfinder` in v1.1. The term was retired because 'decision map' was perceived as jargon and inaccurate, given that only a subset of map tickets were pure decisions; it is marked `deprecated: true`.
 
@@ -17882,6 +17890,7 @@ RJM `.claude/agents/comment-analyzer.md:3`.
 - **resolves:** roles.md#pr-comment-responder
 - **preferences consulted:** PREFERENCES.md § Approach values structured responses to review feedback; followed by adopting pr-comment-responder.
 
+- **superseded-by:** D-616
 ### Decision
 The canonical term for this role is `pr-comment-responder`. A pr-comment-responder is an automated support persona that parses pull request review feedback, implements requested code revisions, and drafts clear responses to reviewer comments.
 
@@ -19402,6 +19411,7 @@ Matt `skills/productivity/writing-for-agents/SKILL.md:78`; RJM `.agents/architec
 - **resolves:** invocation-patterns.md#router-dispatch-pattern
 - **preferences consulted:** PREFERENCES.md § Approach and § Phase mapping; followed by standardizing skill discovery and delegation mechanics.
 
+- **superseded-by:** D-619
 ### Decision
 The canonical term is `router-dispatch-pattern`. The router dispatch pattern is an orchestration mechanism where an intake component inspects incoming user intent, task parameters, or roadblocks and classifies or delegates the request to specialized downstream skills or subagents without performing domain work directly.
 
@@ -19769,3 +19779,369 @@ Addy `skills/deprecation-and-migration/SKILL.md:164`; Matt `skills/engineering/t
 - **decision:** D-615
 - **concordance:** `docs/analysis/concordance/invocation-patterns.md#expand-contract`
 - **not to be confused with:** expand-phase, contract-phase, strangler-fig-pattern
+
+---
+
+## D-616 — pr-comment-responder-exclusion
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 035
+- **status:** active
+- **supersedes:** D-566
+- **resolves:** roles.md#pr-comment-responder
+- **preferences consulted:** PREFERENCES.md § Constraints and project decision D-001 govern scope fence enforcement; followed by excluding PR tooling.
+
+### Decision
+The role `pr-comment-responder` is excluded from brain's canonical lifecycle specification and role taxonomy per METHOD.md §1.2 and project decision D-001. D-566 is superseded.
+
+### Adopted from
+METHOD.md §1.2 ("Exclusion boundary (never descend into): ... github, pr-*, push-pr, pr-autofix, pr-quality/, pr-comment-responder (PR tooling, not lifecycle)") and project decision D-001.
+
+### Dropped
+D-566's adoption of `pr-comment-responder` from RJM `.agents/AGENT-SYSTEM.md:758`, which breached the explicit repo scope exclusion boundary.
+
+### Rejected alternatives
+adopting-pr-comment-responder (rejected: PR tooling is excluded from lifecycle scope).
+
+### Evidence
+METHOD.md:54; DECISIONS.md:20 (D-001).
+
+### Glossary
+none (excluded from canonical lifecycle taxonomy).
+
+---
+
+## D-617 — changeset
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 035
+- **status:** active
+- **supersedes:** D-154
+- **resolves:** artifacts.md#artifact-changeset
+- **preferences consulted:** PREFERENCES.md § Approach and project decision D-001; followed by grounding changeset in active, approved source files.
+
+### Decision
+The canonical term for this artifact is `changeset`. A changeset is a versioning artifact documenting atomic package release notes, semver bump classifications, and consumer-facing changelog summaries. D-154 is superseded.
+
+### Adopted from
+Matt's active repository toolchain in `package.json:12` (`@changesets/cli`) and Addy's release notes workflow in `external/git-workflow-and-versioning.md:5`.
+
+### Dropped
+Reliance on Matt's `skills/deprecated/README.md:3` (METHOD.md §1.1 and D-001 strictly forbid adopting deprecated content; changeset is properly grounded in Matt's active root package.json toolchain).
+
+### Rejected alternatives
+releases (Addy: broad milestone container rather than atomic versioning artifact).
+
+### Evidence
+Matt `package.json:12`; Addy `external/git-workflow-and-versioning.md:5`.
+
+### Glossary
+### changeset
+
+- **definition:** A changeset is a versioning artifact documenting atomic package release notes, semver bump classifications, and consumer-facing changelog summaries.
+- **kind:** artifact
+- **source names:** addy: `releases` · matt: `changeset` · rjm: —
+- **decision:** D-617
+- **concordance:** `docs/analysis/concordance/artifacts.md#artifact-changeset`
+- **not to be confused with:** `commit-message`, `pull-request`
+
+---
+
+## D-618 — decision-mapping-exclusion
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 035
+- **status:** active
+- **supersedes:** D-415
+- **resolves:** techniques.md#matt-decision-mapping
+- **preferences consulted:** PREFERENCES.md § Approach, § Constraints, and project decision D-001; followed by rejecting deprecated legacy terminology.
+
+### Decision
+`decision-mapping` is dropped from canonical lifecycle taxonomy per METHOD.md §1.1 and D-001 (deprecated content is never adopted). In Matt v1.1 (`docs/engineering/wayfinder.md:86`), `decision-mapping` was retired and replaced by `wayfinder` (canonically adopted in D-489 as `wayfinder-exploration-skill`). D-415 is superseded.
+
+### Adopted from
+Matt `docs/engineering/wayfinder.md:86`.
+
+### Dropped
+D-415's adoption of deprecated technique `decision-mapping`.
+
+### Rejected alternatives
+adopting-decision-mapping (rejected: retired as jargon and superseded by wayfinder).
+
+### Evidence
+Matt `docs/engineering/wayfinder.md:86`; DECISIONS.md (D-489).
+
+### Glossary
+none (deprecated; superseded by wayfinder-exploration-skill in D-489).
+
+---
+
+## D-619 — router-dispatch-pattern
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 035
+- **status:** active
+- **supersedes:** D-606
+- **resolves:** invocation-patterns.md#router-dispatch-pattern
+- **preferences consulted:** PREFERENCES.md § Approach and § Phase mapping; followed by re-issuing router dispatch pattern with corrected cross-references.
+
+### Decision
+The canonical term is `router-dispatch-pattern`. The router dispatch pattern is an orchestration mechanism where an intake component inspects incoming user intent, task parameters, or roadblocks and classifies or delegates the request to specialized downstream skills or subagents without performing domain work directly. D-606 is superseded.
+
+### Adopted from
+Matt's conversational router model in `CLAUDE.md:21` and RJM's architectural sub-skill routing framework in `.agents/architecture/ADR-063-memory-skill-decomposition.md:63`.
+
+### Dropped
+Stale or disconnected routing indices that route to nonexistent skills.
+
+### Rejected alternatives
+- router (overloaded with the router agent role defined in D-580; correcting D-606's erratum)
+- intent-router (overly conversational; fails to capture programmatic subagent dispatch)
+
+### Evidence
+Matt `CLAUDE.md:21`; RJM `.agents/architecture/ADR-063-memory-skill-decomposition.md:63`.
+
+### Glossary
+### router-dispatch-pattern
+
+- **definition:** The router dispatch pattern is an orchestration mechanism where an intake component classifies incoming requests and delegates them to specialized downstream skills without executing domain logic itself.
+- **kind:** pattern
+- **source names:** addy: — · matt: `router` · rjm: `router pattern`
+- **decision:** D-619
+- **concordance:** `docs/analysis/concordance/invocation-patterns.md#router-dispatch-pattern`
+- **not to be confused with:** router, phase-routing
+
+---
+
+## D-620 — spec
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 035
+- **status:** active
+- **supersedes:** D-100
+- **resolves:** phases.md#lifecycle-stage-spec
+- **preferences consulted:** PREFERENCES.md § Approach; followed by correcting Matt explore source path citation to verified concept card location.
+
+### Decision
+The canonical name for the initial discovery and specification stage is `spec`. The spec phase is the initial lifecycle stage in which user requirements, problem scope, and system boundaries are explored, clarified, and formalized into an approved technical specification before execution planning. D-100 is superseded.
+
+### Adopted from
+RJM `.claude/commands/spec.md:1` for `/spec` command lifecycle position; Addy `skills/spec-driven-development/SKILL.md:12` for six-area specification framing; Matt `skills/in-progress/writing-fragments/SKILL.md:9` for conversational problem exploration (correcting D-100's non-existent path citation).
+
+### Dropped
+Addy's orphan path defects; Matt's unstructured notes approach in favor of a formalized specification artifact; RJM's missing template path defects.
+
+### Rejected alternatives
+explore (Matt: exploration is an activity within spec, not the phase itself), define (Addy: broader product framing).
+
+### Evidence
+Addy `skills/spec-driven-development/SKILL.md:12-40`; Matt `skills/in-progress/writing-fragments/SKILL.md:9`; RJM `.claude/commands/spec.md:1-50`.
+
+### Glossary
+### spec
+
+- **definition:** The spec phase is the initial lifecycle stage in which user requirements, problem scope, and system boundaries are explored, clarified, and formalized into an approved technical specification before execution planning.
+- **kind:** phase
+- **source names:** addy: `DEFINE` · matt: `explore` · rjm: `/spec`
+- **decision:** D-620
+- **concordance:** `docs/analysis/concordance/phases.md#lifecycle-stage-spec`
+- **not to be confused with:** `specification-drafting`, `plan`
+
+---
+
+## D-621 — expand-phase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 035
+- **status:** active
+- **supersedes:** D-107
+- **resolves:** phases.md#phase-expand
+- **preferences consulted:** PREFERENCES.md § Approach; followed by correcting source citations to verified locations.
+
+### Decision
+The canonical term for the initial additive step of a parallel migration is `expand-phase`. The expand phase is the additive initial stage of a parallel change migration where new database columns, interfaces, or endpoints are deployed alongside legacy implementations without breaking changes to existing callers. D-107 is superseded.
+
+### Adopted from
+Addy `skills/deprecation-and-migration/SKILL.md:169` (correcting D-107's citation to non-existent `references/database-migrations.md`); Matt `docs/engineering/to-tickets.md:50` (correcting D-107's citation to non-existent `skills/expand-contract-migrate/`).
+
+### Dropped
+Big-bang schema or interface mutations that break existing consumers.
+
+### Rejected alternatives
+additive-phase (less recognizable than Expand).
+
+### Evidence
+Addy `skills/deprecation-and-migration/SKILL.md:169-177`; Matt `docs/engineering/to-tickets.md:50`.
+
+### Glossary
+### expand-phase
+
+- **definition:** The expand phase is the additive initial stage of a parallel change migration where new database columns, interfaces, or endpoints are deployed alongside legacy implementations without breaking changes to existing callers.
+- **kind:** phase
+- **source names:** addy: `EXPAND` · matt: `Expand` · rjm: —
+- **decision:** D-621
+- **concordance:** `docs/analysis/concordance/phases.md#phase-expand`
+- **not to be confused with:** `migrate-phase`, `contract-phase`
+
+---
+
+## D-622 — migrate-phase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 035
+- **status:** active
+- **supersedes:** D-108
+- **resolves:** phases.md#phase-migrate
+- **preferences consulted:** PREFERENCES.md § Approach; followed by correcting source citations to verified locations.
+
+### Decision
+The canonical term for the transitional step of a parallel migration is `migrate-phase`. The migrate phase is the intermediate stage of a parallel change migration where active call sites and data reads/writes are incrementally transitioned in batches to the expanded interface. D-108 is superseded.
+
+### Adopted from
+Addy `skills/deprecation-and-migration/SKILL.md:169` for dual-write data migration (correcting D-108's citation to `references/database-migrations.md`); Matt `docs/engineering/to-tickets.md:51` for call-site ticket batching (correcting D-108's citation to `skills/expand-contract-migrate/`).
+
+### Dropped
+Unbatched wide migrations that risk unrecoverable regressions.
+
+### Rejected alternatives
+transition-phase (less specific than Migrate).
+
+### Evidence
+Addy `skills/deprecation-and-migration/SKILL.md:169-185`; Matt `docs/engineering/to-tickets.md:51`.
+
+### Glossary
+### migrate-phase
+
+- **definition:** The migrate phase is the intermediate stage of a parallel change migration where active call sites and data reads/writes are incrementally transitioned in batches to the expanded interface.
+- **kind:** phase
+- **source names:** addy: `MIGRATE` · matt: `Migrate` · rjm: —
+- **decision:** D-622
+- **concordance:** `docs/analysis/concordance/phases.md#phase-migrate`
+- **not to be confused with:** `expand-phase`, `contract-phase`
+
+---
+
+## D-623 — contract-phase
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 035
+- **status:** active
+- **supersedes:** D-109
+- **resolves:** phases.md#phase-contract
+- **preferences consulted:** PREFERENCES.md § Approach; followed by correcting source citations to verified locations.
+
+### Decision
+The canonical term for the deprecation removal step of a parallel migration is `contract-phase`. The contract phase is the terminal stage of a parallel change migration where deprecated legacy interfaces, schema columns, or compatibility adapters are cleanly removed after all consumers have migrated. D-109 is superseded.
+
+### Adopted from
+Matt `docs/engineering/to-tickets.md:52` (correcting D-109's citation to non-existent `skills/expand-contract-migrate/SKILL.md:30`); Addy `skills/deprecation-and-migration/SKILL.md:169`.
+
+### Dropped
+Premature deletion of deprecated paths before consumer migration is verified.
+
+### Rejected alternatives
+cleanup-phase (too broad; contract specifically balances expand).
+
+### Evidence
+Matt `docs/engineering/to-tickets.md:52`; Addy `skills/deprecation-and-migration/SKILL.md:169`.
+
+### Glossary
+### contract-phase
+
+- **definition:** The contract phase is the terminal stage of a parallel change migration where deprecated legacy interfaces, schema columns, or compatibility adapters are cleanly removed after all consumers have migrated.
+- **kind:** phase
+- **source names:** addy: — · matt: `Contract` · rjm: —
+- **decision:** D-623
+- **concordance:** `docs/analysis/concordance/phases.md#phase-contract`
+- **not to be confused with:** `expand-phase`, `migrate-phase`, `deletion-cleanup`
+
+---
+
+## D-624 — diagnostic-cleanup and deletion-cleanup
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 035
+- **status:** active
+- **supersedes:** D-110
+- **resolves:** phases.md#phase-cleanup
+- **preferences consulted:** PREFERENCES.md § Approach; followed by correcting file path and attribution citations.
+
+### Decision
+The canonical terms for safe deprecation and code removal are `diagnostic-cleanup` and `deletion-cleanup`. Diagnostic cleanup is the concluding step of a bug diagnosis workflow in which temporary logging, test probes, and diagnostic scaffolding are removed before committing the fix. Deletion cleanup is the final step of a code deletion review where obsolete references, stale documentation, and deprecated architecture records are systematically removed. D-110 is superseded.
+
+### Adopted from
+Matt `skills/engineering/diagnosing-bugs/SKILL.md:135` for diagnostic cleanup (correcting D-110's path); RJM `.claude/skills/adr-review/references/deletion-workflow.md:81` for Phase D4 Cleanup (correcting D-110's file attribution).
+
+### Dropped
+Generic overloaded term `Cleanup`.
+
+### Rejected alternatives
+cleanup (rejected because it conflates two completely distinct operations).
+
+### Evidence
+Matt `skills/engineering/diagnosing-bugs/SKILL.md:135-148`; RJM `.claude/skills/adr-review/references/deletion-workflow.md:81-95`.
+
+### Glossary
+### diagnostic-cleanup
+
+- **definition:** Diagnostic cleanup is the concluding step of a bug diagnosis workflow in which temporary logging, test probes, and diagnostic scaffolding are removed before committing the fix.
+- **kind:** phase
+- **source names:** addy: — · matt: `Cleanup` · rjm: —
+- **decision:** D-624
+- **concordance:** `docs/analysis/concordance/phases.md#phase-cleanup`
+- **not to be confused with:** `deletion-cleanup`, `contract-phase`
+
+### deletion-cleanup
+
+- **definition:** Deletion cleanup is the final step of a code deletion review where obsolete references, stale documentation, and deprecated architecture records are systematically removed.
+- **kind:** phase
+- **source names:** addy: — · matt: — · rjm: `Phase D4: Cleanup`
+- **decision:** D-624
+- **concordance:** `docs/analysis/concordance/phases.md#phase-cleanup`
+- **not to be confused with:** `diagnostic-cleanup`, `contract-phase`
+
+---
+
+## D-625 — meta-orchestrator-antipattern
+
+- **date:** 2026-09-08
+- **made-by:** agent
+- **session:** 035
+- **status:** active
+- **supersedes:** D-258
+- **resolves:** sequencing.md#sequencing-antipattern-meta-orchestrator
+- **preferences consulted:** PREFERENCES.md § Constraints and D-014; followed by correcting ADR-064 filename and citation.
+
+### Decision
+The canonical term for this antipattern is `meta-orchestrator-antipattern`. A meta-orchestrator antipattern is a sequencing defect in which an unspecialized top-level coordinator injects multiple levels of redundant subagent indirection, inflating context token costs and latency without improving task quality. D-258 is superseded.
+
+### Adopted from
+Addy `references/orchestration-patterns.md:210` (coordination anti-patterns); RJM `.agents/architecture/ADR-064-commands-to-skills-migration.md:105` (correcting D-258's filename and citation).
+
+### Dropped
+Deep hierarchical nesting of coordinator agents without task specialization.
+
+### Rejected alternatives
+coordinator-overload (captures capacity exhaustion rather than structural indirection).
+
+### Evidence
+Addy `references/orchestration-patterns.md:210-230`; RJM `.agents/architecture/ADR-064-commands-to-skills-migration.md:105-120`.
+
+### Glossary
+### meta-orchestrator-antipattern
+
+- **definition:** The meta-orchestrator antipattern is a sequencing defect where an unspecialized top-level coordinator injects multiple levels of redundant subagent indirection, inflating context token consumption and latency without improving execution quality.
+- **kind:** pattern
+- **source names:** addy: `The "Do Everything" Coordinator` · matt: — · rjm: `Meta-orchestrator anti-pattern`
+- **decision:** D-625
+- **concordance:** `docs/analysis/concordance/sequencing.md#sequencing-antipattern-meta-orchestrator`
+- **not to be confused with:** `parallel-fan-out-merge`, `router-dispatch-pattern`

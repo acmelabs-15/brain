@@ -919,7 +919,7 @@ Per METHOD.md §5 and §9, this is one of three structural concordances that est
 - **difference:** Addy tracks releases; Matt uses changesets to manage version bumps and changelog generation.
 - **sequencing note:** Release management artifact in Ship.
 - **needs decision:** yes
-- **decision:** D-154
+- **decision:** D-617
 
 ### artifact-rollback-plan
 

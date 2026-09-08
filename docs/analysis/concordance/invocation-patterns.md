@@ -69,7 +69,7 @@ Total concordance rows: **1973** mapping **2034** concept cards across 10 logica
 - **difference:** Matt defines router for conversational intent dispatch; RJM defines router-pattern for deterministic subagent task routing.
 - **sequencing note:** Entry point of skill and command orchestration.
 - **needs decision:** no
-- **decision:** D-606
+- **decision:** D-619
 
 ### slash-commands
 
