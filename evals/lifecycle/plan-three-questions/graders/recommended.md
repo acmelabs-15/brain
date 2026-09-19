@@ -1,6 +1,6 @@
 ---
 type: regex
 target: last_message
-pattern: "\\(Recommended\\)"
+pattern: "[Rr]ecommend"
 arm: both
 ---
