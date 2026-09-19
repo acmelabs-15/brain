@@ -14,7 +14,8 @@ brain skills assume is there:
 2. The issue tracker and the label vocabulary, `docs/agents/issue-tracker.md` and
    `docs/agents/triage-labels.md`, which the triage and wayfinder skills read. The spec
    and the plan still live in the repo; only issues go to the tracker.
-3. Once per machine, the plain-talk block in the Codex global `AGENTS.md`.
+3. The plain-talk block for Codex: once per machine in the Codex global `AGENTS.md`, or,
+   at project scope, in this repo's `AGENTS.md`.
 
 It is the brain counterpart of matt's `setup-matt-pocock-skills`, cut down to what
 brain's lifecycle needs.
@@ -32,6 +33,11 @@ request, openai/codex#18115), and the Codex docs put "how Codex communicates wit
 in the global file, so the block goes to `$CODEX_HOME/AGENTS.md`, `~/.codex` by
 default, once per machine. Item 3 replaces the old item 1.
 
+**Amended 2026-09-19, second time.** Peter asked for a project scope for Codex as well: a
+user who wants plain talk in some Codex repos only. `--codex-scope project` writes the block
+into the repo's `AGENTS.md` and leaves the global file alone. Global stays the default and
+the recommendation, because a Codex plugin install is global.
+
 Users: anyone who installs brain, once per repo. The skill is user-invoked only.
 
 ## Process the skill follows
@@ -45,7 +51,8 @@ Users: anyone who installs brain, once per repo. The skill is user-invoked only.
    written without a question. The Codex file is written when the Codex home exists and
    skipped when it does not.
 3. **Ask the questions that are the user's, through ask-user-question, one per call.** The
-   tracker, always; the layout, only when monorepo signals exist. Nothing else forks.
+   tracker, always; the layout, only when monorepo signals exist; the Codex scope, global or
+   this repo, only when a Codex home exists on the machine. Nothing else forks.
 4. **Show, then write.** Show the dry run and, when the Codex file is in it, the block as
    it will appear there. Then run the writer script, which is the only thing that touches
    files.
@@ -58,7 +65,7 @@ Users: anyone who installs brain, once per repo. The skill is user-invoked only.
 tested, and the skill prose only decides and explains.
 
 ```
-bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker local|github|gitlab] [--repo owner/name] [--codex-home <dir> | --no-codex] [--dry-run]
+bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker local|github|gitlab] [--repo owner/name] [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--dry-run]
 ```
 
 - Writes `docs/agents/domain.md` from the skill's `domain.md`, the consumer rules, with the
@@ -71,7 +78,10 @@ bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker lo
   there is written through and stays a symlink. When the Codex home directory does not
   exist, the change is reported as `skipped` and nothing is created. `--codex-home`
   names the directory; `--no-codex` leaves the step out.
-- Never writes the repo's `AGENTS.md`, `CLAUDE.md` or `GEMINI.md`.
+- With `--codex-scope project`, the same block goes into the repo's `AGENTS.md` instead,
+  created if absent, and the global file is not read or written.
+- Never writes the repo's `CLAUDE.md` or `GEMINI.md`, and writes the repo's `AGENTS.md`
+  only at project scope.
 - Creates no `CONTEXT.md`, `CONTEXT-MAP.md` or `docs/adr/`. Those are created lazily by
   the vendored `domain-modeling` skill when the first term or decision is resolved,
   which is that skill's rule.
@@ -125,7 +135,8 @@ Named exports, explicit types, kebab-case files, no em-dashes in prose.
 Codex homes in a temp directory: a repo with no files; a repo whose `AGENTS.md`,
 `CLAUDE.md` and `GEMINI.md` stay byte-identical; a Codex home without `AGENTS.md`; one
 with other content and an old block; one whose `AGENTS.md` is a symlink; a missing Codex
-home; `codexHome: null`; a second run on each is byte-identical; `--dry-run` writes
+home; `codexHome: null`; project scope, where the block lands in the repo `AGENTS.md`, other
+text kept, and the global file is untouched; a second run on each is byte-identical; `--dry-run` writes
 nothing and lists every change; multi layout names the map in `domain.md`.
 
 The conversation in the skill, exploring and asking, is not tested here. `evals` owns it.
@@ -134,7 +145,7 @@ The conversation in the skill, exploring and asking, is not tested here. `evals`
 
 - **Always:** write through the script; keep text outside the markers untouched; show before writing.
 - **Ask first:** the layout, only when monorepo signals exist; any change to what the block says, which is `plain-talk`'s.
-- **Never:** write a repo's `AGENTS.md`, `CLAUDE.md` or `GEMINI.md`; create `CONTEXT.md` or an ADR here; put the spec or the plan in the tracker.
+- **Never:** write a repo's `CLAUDE.md` or `GEMINI.md`; write a repo's `AGENTS.md` outside project scope; create `CONTEXT.md` or an ADR here; put the spec or the plan in the tracker.
 
 ## Success Criteria
 

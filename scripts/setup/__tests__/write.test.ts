@@ -192,6 +192,59 @@ describe("writeSetup, the Codex global file", () => {
   });
 });
 
+describe("writeSetup, Codex project scope", () => {
+  test("project scope writes the block into the repo AGENTS.md and skips the global file", async () => {
+    const root = await repo("scope-project");
+    const home = await codexHome("scope-project", "# Mine\n");
+    const changes = await writeSetup({
+      brain,
+      root,
+      ...base,
+      codexHome: home,
+      codexScope: "project",
+    });
+    expect(changes[0]).toEqual({ path: "AGENTS.md", action: "created" });
+    expect(changes.some((c) => c.path === `${home}/AGENTS.md`)).toBe(false);
+    expect(await Bun.file(`${root}/AGENTS.md`).text()).toBe(block);
+    expect(await Bun.file(`${home}/AGENTS.md`).text()).toBe("# Mine\n");
+  });
+
+  test("project scope keeps the repo text outside the markers and replaces an old block", async () => {
+    const before = `# Repo\n\nKeep.\n\n${startMarker}\nold\n${endMarker}\n\nTail.\n`;
+    const root = await repo("scope-project-existing", { "AGENTS.md": before });
+    const changes = await writeSetup({ brain, root, ...base, codexScope: "project" });
+    expect(changes[0]).toEqual({ path: "AGENTS.md", action: "updated" });
+    expect(await Bun.file(`${root}/AGENTS.md`).text()).toBe(`# Repo\n\nKeep.\n\n${block}\nTail.\n`);
+  });
+
+  test("project scope: a second run is unchanged, a dry run writes nothing, CLAUDE.md and GEMINI.md stay", async () => {
+    const root = await repo("scope-project-twice", { "CLAUDE.md": "# C\n", "GEMINI.md": "# G\n" });
+    await writeSetup({ brain, root, ...base, codexScope: "project" });
+    const again = await writeSetup({ brain, root, ...base, codexScope: "project" });
+    expect(again[0]).toEqual({ path: "AGENTS.md", action: "unchanged" });
+    const dry = await repo("scope-project-dry");
+    const changes = await writeSetup({
+      brain,
+      root: dry,
+      ...base,
+      codexScope: "project",
+      dryRun: true,
+    });
+    expect(changes[0]).toEqual({ path: "AGENTS.md", action: "created" });
+    expect(await exists(`${dry}/AGENTS.md`)).toBe(false);
+    expect(await Bun.file(`${root}/CLAUDE.md`).text()).toBe("# C\n");
+    expect(await Bun.file(`${root}/GEMINI.md`).text()).toBe("# G\n");
+  });
+
+  test("the default scope is global", async () => {
+    const root = await repo("scope-default");
+    const home = await codexHome("scope-default");
+    const changes = await writeSetup({ brain, root, ...base, codexHome: home });
+    expect(changes[0]).toEqual({ path: `${home}/AGENTS.md`, action: "created" });
+    expect(await exists(`${root}/AGENTS.md`)).toBe(false);
+  });
+});
+
 describe("writeSetup, tracker", () => {
   test("the default tracker is local markdown, and both tracker files are written from the templates", async () => {
     const root = await repo("tracker-local");
