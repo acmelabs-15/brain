@@ -90,31 +90,19 @@
     },
     "skills/ask-user-question/SKILL.md": {
       "upstream": "ask-user-question",
-      "sha256": "2b6e01b83798748d51bca16b525f8620ead703b1789834492f6f731760042aca"
+      "sha256": "5b475a863ae235f7e9c89dee942c744cb227f028fa9d620da59fc52db1ae623c"
     },
-    "skills/ask-user-question/examples.md": {
+    "skills/ask-user-question/references/claude-code.md": {
       "upstream": "ask-user-question",
-      "sha256": "03b4df4912de5f2b833725bee8f30ef1b8cfa7ab37f06f1b5c56ea3f4d78c204"
+      "sha256": "22de38a8a66b3e9af60f4f198b6114f3cc42a1cc1ac23bf312e8d43f93411a20"
     },
-    "skills/ask-user-question/references/asking-again.md": {
+    "skills/ask-user-question/references/codex.md": {
       "upstream": "ask-user-question",
-      "sha256": "1b264754fe31932578ea1b3bf402e69a5714ba419ffee71a99a36ea31bf1e928"
+      "sha256": "3d05a959c144b10352aad8394f4bc8817ad24ec78976cff6a96f94fe5c4fdd28"
     },
-    "skills/ask-user-question/references/failed-question.md": {
+    "skills/ask-user-question/references/gemini-cli.md": {
       "upstream": "ask-user-question",
-      "sha256": "9ef0a2a41b6fae4d9dbdde38463b3d45fc245ea466582d69f82628224fc1195c"
-    },
-    "skills/ask-user-question/references/layout.md": {
-      "upstream": "ask-user-question",
-      "sha256": "ef02b8fadc02fdb23ec20c14201ff207bfea5e75e3e6e7511f257c9bf98d533c"
-    },
-    "skills/ask-user-question/references/reading-answers.md": {
-      "upstream": "ask-user-question",
-      "sha256": "b3031e05e8fdad56a43798a2b4ea9eb6aac224caa841ae64d0118ace3a768c5d"
-    },
-    "skills/ask-user-question/references/wording.md": {
-      "upstream": "ask-user-question",
-      "sha256": "cc37357c40ae02ff40d7e382dbc24305612d8aed4305f57c879bec6e2cbf9ffe"
+      "sha256": "b0f63e8a01dbdf87fd4dac0c31bb3419dbbdbdb00a57177d10f559a3cec31b06"
     },
     "skills/browser-testing-with-devtools/SKILL.md": {
       "upstream": "agent-skills",
