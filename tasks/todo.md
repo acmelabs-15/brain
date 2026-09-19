@@ -28,7 +28,7 @@
   - Acceptance: prefactor task first; the wide-refactor rule; the three approval questions through the question tool; glossary words; files list kept
   - Verify: a read against RES-002 §2
   - Files: skills/planning-and-task-breakdown/SKILL.md
-- [ ] Task 8: combined test-driven-development and mockability reference
+- [x] Task 8: combined test-driven-development and mockability reference
   - Acceptance: seams asked before the first test; codebase-design vocabulary named; tautological-test anti-pattern; `references/brain/mockability.md` adapted from matt's mocking notes with attribution; glossary words in test names; refactor inside the loop
   - Verify: a read against RES-002 §3; `sync -- --check` still clean, the reference is brain-owned
   - Files: skills/test-driven-development/SKILL.md, references/brain/mockability.md
