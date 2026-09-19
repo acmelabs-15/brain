@@ -31,8 +31,8 @@ their install pages.
 |---|---|---|---|
 | `plain-talk/context-first` | "Explain in a few paragraphs how git rebase differs from git merge." | `regex` on `last_message`, `match: not_contains`, pattern `—`, `arm: both`; `llm` on `last_message`: PASS if the first sentence says what the reply is about before any detail and every sentence is under about 25 words, FAIL otherwise | the style reaches the reply; the without-arm shows the delta |
 | `plain-talk/choice-as-table` | "Should this small CLI tool use SQLite or a JSON file for its settings? Give me the trade-off." | `regex` on `last_message`, pattern `^\|` with flags `m`; `llm`: PASS if the choice is laid out as a table with the same axes per row | a choice becomes a table |
-| `setup/fresh-repo` | "Set this repo up for brain." with `allowed_tools: [Read, Glob, Grep, Skill, Bash, Write, Edit]` and a scaffold script that writes a bare `CLAUDE.md` | `tool_used` Skill `setup-brain`; `file_exists` `docs/agents/domain.md`; `file_exists` `docs/agents/issue-tracker.md` | the skill runs the script and the files land |
-| `setup/second-run` | same prompt, scaffold already holds the block and the domain file | `tool_used` Skill `setup-brain`; `llm` on `last_message`: PASS if the reply says every file is unchanged | idempotent in conversation, not only in the script test |
+| `setup/fresh-repo` | "Set this repo up for brain." with `allowed_tools: [Read, Glob, Grep, Skill, Bash, Write, Edit]` and a scaffold script that writes a bare `CLAUDE.md` | `tool_used` Bash on `scripts/setup/write.ts`, the script only the skill names; `file_exists` `docs/agents/domain.md`; `file_exists` `docs/agents/issue-tracker.md` | the skill runs the script and the files land |
+| `setup/second-run` | same prompt, scaffold already holds the block and the domain file | `tool_used` Bash on `scripts/setup/write.ts`; `llm` on `last_message`: PASS if the reply says every file is unchanged | idempotent in conversation, not only in the script test |
 | `lifecycle/spec-underspecified` | "Build me a dashboard for our metrics." | `tool_used` Skill `interview-me`; `tool_used` Skill `ask-user-question`; `tool_used` AskUserQuestion, `min: 1`; `llm`: PASS if the first question carries one recommended option with a reason and the costs beside each option | an underspecified ask reaches the interview, and the interview asks through the tool, one question |
 | `lifecycle/plan-three-questions` | "Here is the spec: <a short spec in the prompt>. Plan it." with `allowed_tools: [Read, Glob, Grep, Skill, AskUserQuestion, Write]` | `tool_used` Skill `planning-and-task-breakdown`; `tool_used` AskUserQuestion, `min: 3`; `file_exists` `tasks/plan.md` | the plan gate asks its three questions through the tool |
 | `lifecycle/build-clean-context` | "Run the plan." with a scaffold holding a two-task `tasks/todo.md` and a passing test setup | `tool_used` Agent, `min: 2`; `tool_used` Bash with `input_match: git commit`, `min: 2` | build auto hands each task to a sub-agent and commits per task |
@@ -114,3 +114,12 @@ As the other modules: named exports, explicit types, kebab-case files, no em-das
    before the plugin when a delta is negative.
 3. Whether a case can measure the other three hosts at all. No runner is known; the answer
    stays no until one appears.
+
+## Amendment 2026-09-19, user-invoked skills
+
+`setup-brain` carries `disable-model-invocation: true`, so a plain prompt cannot reach it and
+a `tool_used` Skill grader never fires. The first run scored 0.67 and 0.17 on the two setup
+cases for that reason. The setup prompts now start with `/brain:setup-brain`, the way a user
+types a user-invoked skill; a probe in print mode confirmed the skill loads and runs its script.
+The fired signal is a `tool_used` Bash grader matching `scripts/setup/write.ts`, a path only
+the skill text names.
