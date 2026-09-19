@@ -12,7 +12,7 @@
   - Acceptance: `bun run validate` runs `claude plugin validate . --strict`, then `agy plugin validate .` when `agy` is on PATH, else prints one line saying it was skipped; exit code is the first failure
   - Verify: run locally with both binaries present
   - Files: scripts/validate.ts, package.json
-- [ ] Task 4: changesets
+- [x] Task 4: changesets
   - Acceptance: `.changeset/config.json` and README; `bun run version` runs `changeset version` then `version:sync`; a first changeset describes 0.1.0
   - Verify: `bunx changeset status`
   - Files: .changeset/config.json, .changeset/README.md, .changeset/first.md, package.json
