@@ -12,7 +12,7 @@
   - Acceptance: `references/claude-code.md`, `codex.md`, `gemini-cli.md` under 120 lines each, distinct contract only, the facts RES-005 §1 names restored, the waiting rule absent, the Antigravity note in SKILL.md §10; `agents/openai.yaml` with display name and short description, no policy block
   - Verify: `question:check` passes; `lifecycle:check` passes
   - Files: skills/ask-user-question/references/*.md, skills/ask-user-question/agents/openai.yaml
-- [ ] Task 4: wrap-up
+- [x] Task 4: wrap-up
   - Acceptance: `question:check` in `bun run check` and CI; `interview-me` names the skill once; `sync -- --report` shows the seeded files unchanged upstream; all gates pass
   - Verify: the commands
   - Files: package.json, .github/workflows/ci.yml, tasks/

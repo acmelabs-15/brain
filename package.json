@@ -9,7 +9,7 @@
     "lint": "oxlint scripts oxlint.config.ts oxfmt.config.ts",
     "format": "oxfmt scripts oxlint.config.ts oxfmt.config.ts",
     "format:check": "oxfmt --check scripts oxlint.config.ts oxfmt.config.ts",
-    "check": "bun run typecheck && bun run lint && bun run format:check && bun test && bun run version:sync -- --check && bun run plain-talk:render -- --check && bun run lifecycle:check",
+    "check": "bun run typecheck && bun run lint && bun run format:check && bun test && bun run version:sync -- --check && bun run plain-talk:render -- --check && bun run lifecycle:check && bun run question:check",
     "test": "bun test",
     "sync": "bun run scripts/sync/sync.ts",
     "version:sync": "bun run scripts/version/version-sync.ts",
