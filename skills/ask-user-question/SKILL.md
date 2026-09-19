@@ -1,388 +1,227 @@
 ---
 name: ask-user-question
-description: "Prepares a user decision, composes one clear question, interprets the reply, and repairs the exchange. Use before asking a question during coding, planning, investigation, or another workflow, and when a reply is incomplete, confusing, corrective, qualified, or off the current topic. Applies to AskUserQuestion, request_user_input, request_user_input_async, and ask_user. Use for a wait-what request or when the user cannot digest a question. Investigate discoverable facts first; ask about the user's remaining intent or trade-off. The larger workflow keeps its own scope and completion rules. Not for building a questionnaire UI or writing general documentation about communication."
-compatibility: "Interactive Claude Code, Codex, or Gemini CLI with a permitted user-question tool. Follow the active tool schema and session instructions. The surrounding task supplies its evidence and project records; the host references distinguish verified contracts from untested rendering."
-metadata:
-  type: core
-  library: ask-user-question
-  library_version: "0.1.6"
-  version: "0.1.6"
+description: Prepares, writes, sends and reads one question to the user. Use when a user-owned choice comes up during any work, when a reply leaves a gap in what the next step needs, or when the user did not understand a question.
 ---
 
 # Ask user question
 
-## Setup
+This skill runs one question cycle inside a larger workflow. The hierarchy is: the larger
+workflow, then the question cycle, then the repair of one message. The larger workflow picks the
+current question and owns its completion. This skill owns how the exchange is expressed and what
+the reply settles.
 
-Use this cycle to turn a missing decision into a supported next action:
+## The cycle
 
-```text
-Identify what is missing → investigate what you can establish → prepare the choice.
-Ask one question → read every part of the reply → update what is settled.
-Continue, investigate, or repair; keep unresolved dependent work pending.
-```
+1. **Prepare.** Separate what only the user can supply from what you can find out.
+2. **Write.** Put one bounded question, its context, its options and one recommendation inside the question surface.
+3. **Send and wait.** Call the host tool and wait for the reply. Add no deadline.
+4. **Read.** Read every part of the reply against the question and the evidence.
+5. **Return.** Hand what settled, what is open and what is deferred back to the larger workflow.
 
-Before the first question through a tool, read its reference. Tool names identify
-different contracts, not interchangeable spellings.
+Repair sits inside step 4. When the reply shows the user did not understand, fix the question and send it again.
 
-| Available tool | Read before composing the call |
-| --- | --- |
+## Prepare
+
+A user-owned choice has three marks: two paths are defensible, the choice changes what gets built,
+and evidence cannot settle it. Everything else is your work. Follow this order
+(brain-skill-alignment.md:39-43; research-initiative.md:41-46):
+
+1. Name the concrete gap or discrepancy and the next action it changes.
+2. Separate three kinds of missing input: the user's intent, a discoverable fact, and your own confusion.
+3. Investigate the facts: code, tests, docs, versions, official sources. When sources disagree, check their terms, version and scope. Resolve what evidence and settled decisions already decide.
+4. Divide a compound problem into parts. Keep the settled facts. Mark what is still open.
+5. Build the remaining alternatives. For each one, know its outcome, its cost and the user priority that favours it.
+6. Ask only when a user-owned choice remains. Apply the reply to what it settles, then recompute the dependent questions.
+
+Finding a discrepancy starts your investigation. It does not create a question about how the user
+wants that investigation run (skill_spec.md:37).
+
+Take a small, reversible implementation choice yourself when both paths keep the agreed behaviour
+and stay inside your authorization. State the choice and the reason. This rule stops at product
+behaviour: a one-line change to what the product does is still the user's choice (skill_spec.md:35).
+Reversibility supplies no missing fact, requirement or permission.
+
+Pre-send test, both halves (research-decision-preparation.md:33): can you say how each plausible
+reply changes the next action, and why more inspection would not settle the difference? Prepare
+until both halves pass.
+
+## Write the question
+
+- **One question per call.** A reply settles only the question it answers. Ask dependent decisions in sequence, each after the previous reply.
+- **Everything inside the question surface.** The subject, the facts, the consequence, the options and the recommendation all sit in the dialog. The user needs no transcript and no file.
+- **ASD-STE100 sentences.** Short, one idea each, active voice, present tense.
+- **Glossary words.** Use the project's words and the terms of its community. Explain a new term before you rely on it. Name actors and objects; avoid a pronoun with two possible referents.
+- **Context first, the bounded question last.** Open with what this is about, give the facts, then ask.
+- **Options on the same dimensions.** Each option states its outcome, with its cost beside it. State costs as plainly as benefits. An attractive label is not a comparison.
+- **One recommendation with its reason, in every question.** Mark a hypothesis as a hypothesis. When an unknown user priority decides the recommendation, investigate what evidence can settle first, then ask about that priority. Send no question that says no option is favoured (brain-alignment-wording.md:45).
+- **Advice is text, not a selection.** A Recommended label marks advice. On Codex the sync spec puts the recommended option first, and the async form preselects the first option. A preselected option stays unanswered until the user submits it (research-language-layout.md:52-54).
+- **Open questions.** An open question is valid when it seeks information only the user has. Codex's sync tool needs at least two options; an open question there goes through request_user_input_async or plain text.
+
+Seven checks before you send (research-language-layout.md:71-77):
+
+| Check | Ask yourself |
+|---|---|
+| Purpose | From the surface alone, can the user name the subject, the decision and why it matters? |
+| Scope | Does one reply resolve one question? |
+| Terms | Does each word keep one meaning across context, question and options? Is each new term explained? |
+| Organization | Does each paragraph carry one purpose? Is the decision visible without unrelated detail? |
+| Options | Can the user tell the outcomes apart? Is the cost beside each option? Does the input mode match whether answers can coexist? |
+| Recommendation | Is your advice recognisable as advice, with its reason, while every option stays understandable? |
+| Repair | If the user is confused, can you say which part failed: term, context, option or scope? |
+
+## Send and wait
+
+| Tool in the session | Read first |
+|---|---|
 | `AskUserQuestion` | [Claude Code](references/claude-code.md) |
 | `request_user_input` or `request_user_input_async` | [Codex](references/codex.md) |
 | `ask_user` | [Gemini CLI](references/gemini-cli.md) |
 
-Check the tool actually offered in this session. Follow its availability and
-schema. If no permitted question tool exists, state that limitation and use an
-allowed plain-text question when possible. Keep dependent work unresolved.
+Check the tool the session offers. Follow its schema and availability. Tool names are different
+contracts, not spellings of one tool. If the session offers no permitted question tool, say so and
+ask in plain text. Keep dependent work pending. Antigravity CLI's question tool is unverified; ask in
+plain text there.
 
-**Wait for the person.** Keep an unanswered question pending. Add no response
-deadline, idle inference, cancellation timer, or automatic answer. A delivery
-receipt or the end of a polling interval is not a reply. If the host expires a
-request, explain that limitation and preserve an answerable, unresolved question.
-An explicit user cancellation is different from expiry or silence.
+The waiting rule lives here only. Each reference carries its host's distinct contract
+(host-contracts.md:18-27):
 
-## Core Patterns
+1. Ask one question through a supported surface.
+2. Wait for the reply. Add no deadline, no idle inference, no timer and no default. A delivery receipt or the end of a polling interval is not a reply.
+3. Keep dependent work pending.
+4. If the host expires or cancels the question, treat it as unanswered. Explain the limitation. Keep a way to reply open. Do not cycle the prompt. An explicit user cancellation is a different event from expiry.
 
-### 1. Prepare the decision
+A skill cannot override a host timer through a field the tool does not expose. Codex's terminal
+auto-resolves a non-blocking sync request after 60 seconds of grace and a 60-second countdown.
+Claude Code's auto-continue is a user setting. Both return an empty or auto-submitted result. Read
+that result as unanswered.
 
-Name the current question and the next action it affects. Separate:
+## Read the reply
 
-- Information the user has not supplied.
-- Facts the code, documentation, or research can establish.
-- Something you do not yet understand.
-
-Investigate the latter two. When sources conflict, check their version, scope,
-definitions, and observed behavior. Expose a material discrepancy; distinguish
-current implementation from desired behavior.
-
-Keep each claim within its evidence. A guide showing one form does not establish
-that its API requires that form. A tool acknowledging emission does not establish
-that a dialog appeared or that the user saw it.
-
-Construct viable alternatives before asking the user to choose. For each, know
-what changes, what it costs, and which user priority would favor it. Resolve
-what existing evidence and decisions already settle. Do not hand the user an
-unexamined inconsistency and ask them to design your investigation.
-
-Ask when the remaining difference belongs to the user. For an open discovery
-question, know which missing user knowledge it seeks and how that knowledge
-changes the next step. Open wording is appropriate for discovery; transferring
-your preparation work to the user is not.
-
-Make small, reversible implementation choices yourself when the alternatives
-satisfy the agreed behavior and stay within authorization. State the choice and
-reason. A one-line product change can still require a user decision. Reversibility
-does not supply a missing fact, requirement, or permission.
-
-```text
-User: The editor already saves automatically.
-Evidence: The inspected save handler runs only after Save is clicked.
-Prepared question: The current handler saves on Save. Are you describing the
-automatic saving you want us to add?
-```
-
-### 2. Make one question answerable
-
-Put everything needed to decide inside the question surface. Start with what this
-is about. Supply the relevant facts and consequence, then ask the bounded question.
-The reader should not need the conversation, a hidden plan, or a file they cannot
-open while answering.
-
-Use the project's words and familiar domain terms. Follow its glossary where one
-exists. Explain a necessary unfamiliar term before relying on it. Name actors and
-objects; avoid compressed jargon or pronouns with competing meanings.
-
-Write one main point per sentence and one subject per paragraph. Use short
-paragraphs, lists, or headings when they reveal real groups. Keep a qualification
-that changes the decision. Shorter is not better when it removes the premise.
-
-When a question carries several context points, separate them visibly using the
-host's supported line breaks or lists. Put the final decision after that context.
-Keep shared facts in the question and individual trade-offs beside their options;
-do not repeat the same explanation in both places or pack the whole exchange into
-one dense paragraph.
-
-For a choice, give outcomes the reader can distinguish. Compare the same relevant
-dimensions in each option. State costs as plainly as benefits. Give your actual
-best-supported recommendation and its reason; label a hypothesis as a hypothesis.
-If evidence does not favor an option, say so rather than inventing a reason.
-
-Choose the layout before assigning content to fields. Required consequences must
-remain visible in that layout. Read the host reference instead of assuming that
-descriptions, Markdown, previews, or free text behave alike everywhere.
-
-Ask one question, wait, and use the answer to determine the next question. A list
-of findings is context; it is not automatically a set of choices.
-
-```text
-Draft storage needs one decision. Cross-device recovery is a confirmed requirement.
-Browser storage needs no sign-in, but drafts stay on one device.
-Server storage needs sign-in and supports recovery on another device.
-I recommend server storage because of the recovery requirement.
-Should we require sign-in for drafts, or reconsider cross-device recovery?
-```
-
-Before sending, check: can the reader identify the subject, the real choice, its
-consequences, and your reason without guessing? Can you explain how the possible
-answers change the next action? Repair the call until both checks pass.
-
-### 3. Read the whole reply
-
-Interpret meaning against the question and its evidence, not from the reply's
-format or a phrase alone. A single message can contain an answer, a condition,
-a correction, a new gap, and a useful later topic.
+Read meaning from the words against the question, not from the reply's form. A label, free text, a
+note or silence is a form. One reply can hold an answer, a condition, a correction, a new gap and a
+deferred topic at once.
 
 | What the reply establishes | Next action |
 | --- | --- |
-| Enough information for the next step | Preserve its conditions and continue within authorization. |
-| The user does not understand the question | Repair the missing context, term, option, or combined scope. |
-| The user understands but an input is missing | Preserve the answered part; investigate or ask about the specific remaining gap. |
-| Information conflicts with evidence | Show the discrepancy and source; resolve facts and clarify intended behavior. |
-| A correction, refusal, delegation, or changed direction | Follow its actual scope; revise or retire the previous question when appropriate. |
-| Useful material outside the current question | Check whether it affects a current dependency. Otherwise record and defer it visibly, then return to the unresolved point. |
-| Silence, expiry, or no submitted answer | Keep the decision unanswered; choose nothing from elapsed time or a default. |
+| Enough information for the next step | Keep its conditions and continue within authorization. |
+| The user does not understand the question | Repair the missing context, term, option or combined scope. |
+| The user understands but an input is missing | Keep the settled part; investigate or ask about the exact remaining gap. |
+| Information conflicts with evidence | Show the discrepancy and its source; settle the facts and clarify intended behaviour. |
+| A correction, refusal, delegation or changed direction | Follow its stated scope; revise or retire the previous question. |
+| Useful material outside the current question | Check whether it changes a current dependency. Otherwise record and defer it visibly, then return to the open point. |
+| Silence, expiry or no submitted reply | Keep the decision unanswered; choose nothing from elapsed time or a default. |
 
-Read conditions before acting. “Use the existing button, but keep Delete as the
-label” supplies both a choice and a constraint. “Sounds good, but do not implement
-yet” is not implementation approval. A clear written approval can be sufficient;
-it need not match a special phrase. Ask again only for a real ambiguity or new
-condition, not to repeat an already clear decision.
+Keep four evidence states apart: user statement, inspected evidence, your interpretation, unresolved
+claim (research-evidence-conflicts.md:36). Only the first two feed dependent work. An interpretation
+stays open until the user or evidence supports it. Confusion and factual disagreement need different
+replies from you.
+
+Acceptance is not permission (research-conversation.md:64-67). "I see" shows understanding. Silence
+is weaker than a spoken yes. Understanding, belief and permission are three separate conditions.
+
+Confirmation before implementation (alignment-proposed-wording.md:19, :27): restate the agreed
+outcome, the scope, the decisions taken and the open conditions. Read the reply against that
+restatement. Clear approval of that concrete work is enough, selected or written. "Sounds good"
+approves the work it answers; "sounds good, but do not implement yet" does not. Ask again only when
+meaning, scope or a new condition stays open.
+
+Mixed replies (research-mixed-replies.md:23-28): keep what the reply settles. Name each extra topic.
+Decide whether it is a prerequisite now or a deferred topic. A deferred topic gets a revisit
+condition, or "open" when the condition is unknown. Tell the user what you kept and what you
+deferred. Then ask one question about the exact gap. An explicit change of task wins over the current
+question.
+
+## Repair
+
+Repair fires on any sign of confusion: a wait-what command, "what do you mean", a reply to a
+different question, a question back (context-wait-what.md:27-35). A repair request is evidence that
+the question failed. It is not an answer and not approval.
+
+Diagnose the defect first:
+
+| Defect | Repair |
+|---|---|
+| Missing premise | Add the fact or consequence the user lacked. |
+| Unknown term | Explain the term in the project's words, or replace it. |
+| Unclear consequence | State what each option changes. |
+| Combined scope | Split it into separate decisions; ask the first. |
+| Vague option | Make the option concrete with its outcome. |
+
+Change that part. Keep the settled parts and the pending question. Shortening is not repair.
+
+## Return to the larger workflow
+
+Hand back six items (research-proposal.md:38): what settled and its source; conditions; open gaps;
+conflicts with evidence; deferred topics with their revisit condition; the next supported action.
+
+Record destinations (brain-alignment-wording.md:29-33): the project's Markdown working record takes
+the exchange, with each item's status. A resolved domain term goes to CONTEXT.md through
+domain-modeling. A decision goes to the decision files only when it meets their criteria. A proposal
+stays a proposal.
+
+Completion stays with the larger workflow (research-proposal.md:88). One settled question does not
+approve the plan. Readiness rests on settled decisions and supported facts, not on a confidence number.
+
+- interview-me supplies the ready question and owns the mode, the design tree, the order and the final confirmation; return what is still open.
+- idea-refine supplies the next ideation question and owns critique, convergence and the one-pager; return the reply for its next step.
+- domain-modeling supplies glossary and code-discrepancy questions and owns the glossary and ADR writes; return the discrepancy as evidence, not as a decision.
+
+## Failure modes
+
+| # | Mistake | Mechanism | Fix | Priority | Source |
+|---|---|---|---|---|---|
+| 1 | Asks before identifying the missing evidence | Asks for a fact it can inspect, or for analysis it should do, instead of exposing the user-owned choice | Inspect first; ask only for the remaining user-owned choice | HIGH | domain_map.yaml:72 |
+| 2 | Asks about a small reversible implementation choice | Treats every defensible alternative as a user decision, even when both keep the agreed behaviour | Choose, state the choice and reason, continue | HIGH | domain_map.yaml:97 |
+| 3 | Combines decisions before their prerequisites settle | One reply cannot resolve the combined scope; later options depend on unknown input | One question per call; ask the second after the first settles | HIGH | domain_map.yaml:123 |
+| 4 | Hides the premise in dense wording | The user cannot find the subject, terms or consequence in the visible question | Use project words; expose the consequence in the question | HIGH | domain_map.yaml:151 |
+| 5 | Recommends without comparable outcomes | Labels, hidden costs or an unsupported recommendation steer without a usable trade-off | Same dimensions per option, cost beside each; recommend from an established requirement | HIGH | domain_map.yaml:179 |
+| 6 | Infers intent from the reply's form | Treats free text, an exact label or a note as proof of rejection or agreement without reading it | Read the words against the question; keep every part | CRITICAL | domain_map.yaml:208 |
+| 7 | Fills an incomplete reply with assumptions | Completes a partial reply silently and feeds it to dependent work | Keep the settled part; pause dependent work; ask about the gap | CRITICAL | domain_map.yaml:235 |
+| 8 | Treats a skip or silence as consent | Mistakes no reply for selection of the recommendation | Keep the question open; choose no default | CRITICAL | domain_map.yaml:258 |
+| 9 | Replaces the user's claim silently | Conceals a perceived contradiction instead of checking evidence and showing it | Show the inspected evidence; ask whether the claim describes intended behaviour | CRITICAL | domain_map.yaml:284 |
+| 10 | Loses topics in a mixed reply | Reduces a mixed reply to one category; loses future material or closes an open question | Record the deferred topic; return to the gap | HIGH | domain_map.yaml:310 |
+| 11 | Rephrases without repairing | Shortens the text and leaves the defect intact | Diagnose the defect; change that part | HIGH | domain_map.yaml:336 |
+| 12 | Treats one exchange as workflow completion | Skips the larger workflow's remaining branches, confirmation or records | Return the settled decision; keep the workflow's gates | CRITICAL | domain_map.yaml:362 |
+| 13 | Assumes every host shows the same fields | Guidance from one host hides descriptions or misreads selections on another | Read the host reference; put consequences in visible fields | HIGH | domain_map.yaml:390 |
+| 14 | Closes a question on an invented deadline | Imposes a timer, reads elapsed time as idle, removes the question | Wait; treat host expiry as unanswered | CRITICAL | domain_map.yaml:416 |
+| 15 | Reports a discrepancy without preparing its resolution | Asks the user how to investigate, which transfers the agent's own analysis | Investigate, prepare the resolution, ask one focused question | HIGH | domain_map.yaml:441 |
+
+Three worked exchanges. Each tests the rule named beside it.
+
+Row 3, one question per call (domain_map.yaml:134-150):
 
 ```text
-Question: Which roles may edit reports?
-Reply: Every member may view reports. We should add email reports later.
-Settled: Viewing is available to every member.
-Open: Editing permission is still unspecified.
-Later: Email reports, recorded as a suggestion; no work on them is authorized.
-Next: Ask about editing permission; preserve the other information.
+Context: Migration timing and treatment of the old index are both open.
+Wrong:   Question: Should we migrate Friday and rebuild the old index? Reply: Friday works.
+         Agent: Both decisions are settled.
+Correct: Friday is settled; the index is not.
+         Question: For Friday's migration, should we rebuild the old index or retire it?
 ```
 
-### 4. Advance from evidence
-
-Before dependent work continues, trace its required inputs to the user's words,
-inspected project evidence, or verified sources. An unsupported interpretation
-stays open. If the answer exposes a larger gap, update the scope of that gap and
-choose the investigation needed to resolve it.
-
-For a repair, target the actual trouble. Supply missing context, explain the
-unclear term, make an option concrete, or divide independent decisions. Preserve
-what was already understood. A request such as wait-what does not answer the
-pending question or authorize a different task.
-
-Update the larger workflow's Markdown record as the exchange progresses. Record
-what settled and its source, conditions, unresolved facts, conflicts, useful later
-topics, and the next supported action. Mark proposals as proposals. State what
-you deferred and why. If the revisit condition is unknown, leave it open.
-
-Use the project's existing destinations. A glossary receives resolved definitions;
-general working notes do not become glossary entries or accepted decisions.
-
-The larger workflow keeps its completion and publication rules. Resolving one
-question does not approve its whole plan. Shared readiness rests on supported
-requirements and resolved dependencies, not an invented confidence percentage
-or an ability to predict the user's next answers.
+Row 10, mixed replies (domain_map.yaml:320-335):
 
 ```text
-Reply: We should offer email reminders in a later version.
-Response: I recorded email reminders as a future suggestion. The current in-app
-behavior is still open: should users be able to dismiss this reminder?
+Question: Should users be able to dismiss an in-app reminder?
+Reply:    We should offer email reminders in a later version.
+Wrong:    Agent: I will start email reminders and make the in-app reminder dismissible.
+Correct:  Agent: Email reminders are recorded as a deferred topic; its review timing is open.
+          Question: For the in-app reminder now, should users be able to dismiss it?
 ```
 
-Balance the four recurring tensions: preserve necessary context while being brief;
-make progress while leaving unsupported inputs open; preserve useful additions
-while maintaining the current focus; support the larger workflow without taking
-over its decisions or completion.
+Row 11, repair (domain_map.yaml:347-361):
 
-## Common Mistakes
-
-These short exchanges are illustrative. Use their distinctions, not their answers.
-
-### HIGH — Asking for a discoverable fact
-Wrong:
 ```text
-What upload timeout is configured? I will wait before inspecting the configuration.
+Question: Should drafts save automatically and be shared with the team?
+Reply:    Wait, what are you asking me to decide?
+Wrong:    Question: Autosave and share drafts?
+Correct:  Agent: Those are two decisions: saving a draft and sharing it.
+          Question: First, should drafts save automatically, or only when the user clicks Save?
 ```
-Correct:
-```text
-Inspect the applicable configuration. Ask only if a separate user choice remains.
-```
-The agent's missing knowledge is not automatically a missing user answer.
-Source: Maintainer requirement, 2026-09-11; [question purpose](https://design-system.service.gov.uk/patterns/question-pages/).
-
-### HIGH — Interrupting for a reversible implementation detail
-Wrong:
-```text
-Both forms produce the agreed label. Must I use a local formatter or inline text?
-```
-Correct:
-```text
-The formatting is used once. I will keep it inline; the agreed behavior is unchanged.
-```
-Choose within the authorized implementation instead of requesting an unnecessary decision.
-Source: Maintainer's standing reversibility rule and review, 2026-09-11.
-
-### HIGH — Combining dependent decisions
-Wrong:
-```text
-Migrate Friday and retire the old index? “Friday works.” Then both are settled.
-```
-Correct:
-```text
-Friday is settled. Explain the index consequences and ask about the index separately.
-```
-An answer to one part does not settle the other.
-Source: [Question design](https://www.gov.uk/service-manual/design/designing-good-questions); maintainer requirement.
-
-### HIGH — Hiding the premise in jargon
-Wrong:
-```text
-Which rehydration reconciliation policy should win?
-```
-Correct:
-```text
-Refresh can replace the unsaved draft. Keep that draft or load the saved version?
-```
-Use the reader's objects and expose what changes.
-Source: [Clear terminology](https://developers.google.com/tech-writing/one/words).
-
-### HIGH — Hiding costs behind a recommendation
-Wrong:
-```text
-Browser storage is fast and simple (Recommended). Server storage is reliable.
-```
-Correct:
-```text
-Browser drafts stay on one device. Server drafts require sign-in and work across devices.
-Recommend from the user's established requirements and state the recommended cost.
-```
-An attractive label is not a comparison the user can decide from.
-Source: [Choice consequences](https://www.w3.org/TR/coga-usable/#clearly-state-the-results-and-disadvantages-of-actions-options-and-selections-pattern).
-
-### CRITICAL — Treating reply format as intent
-Wrong:
-```text
-“Use the existing button; keep Delete as the label” is free text, so it rejects the choices.
-```
-Correct:
-```text
-The existing button is selected. Delete is a binding label requirement.
-```
-Read the words and conditions rather than infer rejection from the input form.
-Source: Maintainer requirement; [conversational grounding](https://arxiv.org/html/2311.09144v2).
-
-### CRITICAL — Completing an answer with assumptions
-Wrong:
-```text
-I asked who may edit. The user said everyone may view, so everyone may edit too.
-```
-Correct:
-```text
-Viewing is settled. Editing remains open; pause that change and ask about editing.
-```
-A plausible completion is not evidence of the user's decision.
-Source: Maintainer requirement; [partial answers](https://semprag.org/article/view/sp.5.6).
-
-### CRITICAL — Reading silence as consent
-Wrong:
-```text
-The publishing question received no answer. Publish the recommended choice.
-```
-Correct:
-```text
-Publishing remains unapproved. Preserve the unanswered question and wait.
-```
-Neither a default nor elapsed time supplies permission.
-Source: Maintainer waiting and authorization requirements, 2026-09-11.
-
-### CRITICAL — Silently replacing the user's claim
-Wrong:
-```text
-The user says autosave exists; code requires Save. Silently reinterpret their statement.
-```
-Correct:
-```text
-Show the inspected Save behavior. Clarify whether autosave describes the intended change.
-```
-Investigate and expose a discrepancy without assuming either its cause or the user's intent.
-Source: Maintainer requirement; [human-AI correction](https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/).
-
-### HIGH — Losing information in a mixed reply
-Wrong:
-```text
-A future email-reminder idea answers whether the current reminder can be dismissed.
-```
-Correct:
-```text
-Record the future idea. Say dismissal is still open and ask about that specific behavior.
-```
-Useful information and an answer to the current question are different contributions.
-Source: Maintainer requirement; [questions under discussion](https://semprag.org/article/view/sp.5.6).
-
-### HIGH — Shortening instead of repairing
-Wrong:
-```text
-“Should drafts autosave and be shared?” was confusing. Retry: “Autosave and share?”
-```
-Correct:
-```text
-Separate saving from sharing. Ask first when drafts should save, then address sharing.
-```
-Repair the combined scope rather than make the same defect shorter.
-Source: [Specific repair](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0136100).
-
-### CRITICAL — Closing the whole workflow too early
-Wrong:
-```text
-The user approved weekly reports, so the full plan is approved for implementation.
-```
-Correct:
-```text
-Return the weekly-report decision to the larger workflow and retain its remaining questions.
-```
-One resolved exchange does not satisfy another workflow's completion conditions.
-Source: Reviewed Brain workflow scenarios and maintainer hierarchy, 2026-09-11.
-
-### HIGH — Assuming every host shows the same fields
-Wrong:
-```text
-This layout hides descriptions. Put the ten-minute outage only in a description.
-```
-Correct:
-```text
-Put the outage in a supported visible field. Check the active tool and layout.
-```
-A valid field can still fail to deliver the information needed to decide.
-Source: The host references below.
-
-### CRITICAL — Closing a question on a timer
-Wrong:
-```text
-Start a thirty-second timer. If no reply arrives, declare the user idle and close the question.
-```
-Correct:
-```text
-Wait without an agent deadline. If the host expires the request, preserve the unanswered decision.
-```
-The user's response time is not a signal authorizing cancellation or progress.
-Source: Maintainer requirement and verified host waiting contracts, 2026-09-11.
-
-### HIGH — Handing over the investigation
-Wrong:
-```text
-These instructions disagree. How would you like the conflicts handled?
-```
-Correct:
-```text
-Inspect the relevant contracts. Prepare a supported resolution and ask only about a remaining user trade-off.
-```
-Detecting a discrepancy starts your preparation work; it does not transfer that work to the user.
-Source: Observed maintainer correction; [decision preparation](https://arxiv.org/abs/2502.04485).
 
 ## References
 
-Read the matching host reference before composing a call or interpreting an
-unfamiliar returned structure. Its facts are versioned evidence; the active
-schema and current session constraints decide what is permitted.
+- [Claude Code](references/claude-code.md): `AskUserQuestion`.
+- [Codex](references/codex.md): `request_user_input` and `request_user_input_async`.
+- [Gemini CLI](references/gemini-cli.md): `ask_user`.
 
-- [Claude Code](references/claude-code.md): native questions, SDK replies, and host auto-continue settings.
-- [Codex](references/codex.md): synchronous versus asynchronous questions, response shapes, and waiting limits.
-- [Gemini CLI](references/gemini-cli.md): explicit question types, positional replies, and cancellation.
+Each reference states its own verification date; the schema the session offers decides what is permitted.
