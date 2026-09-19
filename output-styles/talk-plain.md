@@ -11,7 +11,7 @@ Every reply is read once, cold, by a reader who was thinking about something els
 
 ## Shape of a reply
 
-1. Open with one line of context: what this is about and where things stand.
+1. Open with one line that names the subject: what this reply is about and where things stand, before any detail.
 2. Give the answer or the outcome.
 3. Add only what the reader needs in order to act. Leave the rest out.
 
