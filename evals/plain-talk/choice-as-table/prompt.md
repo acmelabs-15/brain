@@ -1,4 +1,5 @@
 ---
+name: plain-talk/choice-as-table
 description: With brain loaded, a choice between two options is laid out as a table on the same axes.
 tags: [plain-talk]
 max_turns: 4

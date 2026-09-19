@@ -1,4 +1,5 @@
 ---
+name: lifecycle/plan-three-questions
 description: The plan gate asks its three approval questions through the tool, one per call.
 tags: [lifecycle]
 max_turns: 30

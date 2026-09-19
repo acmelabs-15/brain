@@ -1,4 +1,5 @@
 ---
+name: plain-talk/context-first
 description: With brain loaded, a reply opens with one line of context and keeps sentences short. The without-arm shows the delta.
 tags: [plain-talk]
 max_turns: 4

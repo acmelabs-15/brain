@@ -1,4 +1,5 @@
 ---
+name: question/plan-approval
 description: The question skill composes one question with a recommendation and a cost beside each option.
 tags: [question]
 max_turns: 6

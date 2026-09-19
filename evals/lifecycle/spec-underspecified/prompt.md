@@ -1,4 +1,5 @@
 ---
+name: lifecycle/spec-underspecified
 description: An underspecified ask reaches the interview, and the interview asks through the tool, one question with a recommendation.
 tags: [lifecycle]
 max_turns: 8
