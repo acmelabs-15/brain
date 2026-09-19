@@ -20,7 +20,7 @@
   - Acceptance: `docs/install/claude-code.md`, `codex.md`, `gemini-cli.md`, `antigravity.md`; each has install, verify (the skill catalogue lists domain-modeling), update, remove, and a "Last run" line with CLI version and date, or "not yet run"
   - Verify: each page's commands match the spec's table
   - Files: the four pages
-- [ ] Task 6: CI
+- [x] Task 6: CI
   - Acceptance: CI runs `version:sync -- --check` and `bun run validate` after the tests; `claude` is installed in the job
   - Verify: CI green on the branch after push
   - Files: .github/workflows/ci.yml

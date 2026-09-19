@@ -19,3 +19,7 @@ jobs:
       - run: bun run format:check
       - run: bun test
       - run: bun run sync -- --check
+      - run: bun run version:sync -- --check
+      - name: Install Claude Code for the plugin validator
+        run: bun add -g @anthropic-ai/claude-code
+      - run: bun run validate
