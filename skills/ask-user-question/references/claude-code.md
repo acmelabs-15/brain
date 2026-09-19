@@ -1,22 +1,24 @@
 # Claude Code: AskUserQuestion
 
-Read this before the first `AskUserQuestion` call in a session, or when its reply
-contains notes, a general response, or timeout metadata. Checked against official
-documentation on 2026-09-11; installed CLI at that check: 2.1.268. The documentation
-is rolling. Terminal rendering has not been tested by this skill.
+Tool `AskUserQuestion`. Facts checked on 2026-09-11 against the official
+documentation, with the installed CLI at 2.1.268 (release v2.1.268, published
+2026-09-10). Evidence grade: documentation only. The documentation is rolling, not
+pinned to that release. No live question was sent and no terminal rendering was tested.
 
 ## Compose the call
 
-The documented input has `questions`; each question has `question`, `header`,
-`options`, and `multiSelect`. Options contain `label`, `description`, and optional
-`preview`. Other documented top-level fields are `answers`, `annotations`, and
-`metadata`. There is no documented per-call timeout parameter.
+The input has `questions`. Each question has `question`, `header`, `options` and
+`multiSelect`. Each option has `label`, `description` and an optional `preview`.
+Optional top-level fields are `answers`, `annotations` and `metadata.source`.
+There is no per-call timeout field; `afkTimeoutMs` exists in the output type only.
 
-Ask one question. The host documents up to four questions and two to four options;
-those maxima are not a reason to batch. Keep the header within its documented
-twelve-character guidance. Select `multiSelect` only when the choices can combine.
+Maxima: one to four questions per call, two to four options per question, header at
+most 12 characters. Send one question. Set `multiSelect` only when the choices can
+combine. The host supplies the Other path; add no Other option of your own.
 
-Complete illustrative input:
+Recommendation: the schema has no recommendation field. The convention comes from
+the tool prompt in the session: the recommended option carries `(Recommended)` in
+its label. Read the active session's tool prompt for its current wording.
 
 ```json
 {
@@ -40,67 +42,76 @@ Complete illustrative input:
 }
 ```
 
-The host supplies a custom-answer path. Do not add a duplicate Other option.
-Keep required context in the call, not in surrounding prose.
+Previews: the TypeScript SDK generates them only when the session sets
+`toolConfig.askUserQuestion.previewFormat` to `markdown` or `html`; unset means none.
+HTML fragments reject script, style and doctype. This is an SDK host feature, not a
+terminal layout fact.
 
-## Read the result
+## Read the reply
 
-The documented output includes `questions` and `answers`, with optional `response`,
-`annotations`, and `afkTimeoutMs`.
+The output has `questions` and `answers`, with optional `response`, `annotations`
+and `afkTimeoutMs`.
 
-- `answers` is keyed by the full question text. The TypeScript output type uses
-  string values. Read them against the question and its actual options.
-- `response` can carry a general typed reply instead of per-question answers.
-- `annotations` can contain notes and preview information. Preserve qualifications.
-- A multi-select answer may be represented as comma-separated labels. Match known
-  labels and preserve other text; do not split a person's prose blindly on commas.
-- `afkTimeoutMs` signals host timeout handling. It is not an input field or proof
-  that the user completed a decision.
+- `answers` is keyed by the full question text. The value is the selected label;
+  the published TypeScript type gives it as a string. Text typed through Other sits
+  in that question's answer value.
+- A multi-select reply is an array of labels or comma-separated labels, by the
+  guide; the published type uses a string. Match known labels and keep the rest as
+  the user's text. Do not split prose on commas.
+- `response` is a general typed reply. It replaces the per-question answers in
+  what the model receives.
+- `annotations` holds notes and preview information. Keep every qualification.
+- `afkTimeoutMs` marks a reply the host closed by auto-continue. It is not an input
+  field and not proof of a completed decision.
 
-Treat a request to explain, wait, change direction, or limit scope as that request.
-The input mechanism does not establish the user's motive.
+Typed replies are relayed neutrally. A request to wait, explain, change direction or
+limit scope reaches the agent as that request. Follow it.
 
-## Layout and availability
+## Availability
 
-The SDK supports optional preview configuration through
-`toolConfig.askUserQuestion.previewFormat`. That does not establish how a native
-terminal, IDE, or custom SDK UI displays every field.
+- Subagents started through the Agent tool do not have the tool.
+- `--permission-prompts none` removes user-input tools, this one included, in
+  unattended runs. It needs v2.1.259.
+- The `dontAsk` permission mode denies the tool even when an allow rule matches.
+- An SDK host collects input through `canUseTool`. The callback may stay pending
+  without limit; cancelling the query cancels it. A host may instead persist the
+  deferred call for later. An app that restricts its tools must list this one.
 
-Use a preview only after checking that the actual layout preserves the required
-context, costs, and reply paths. Do not carry assumptions about hidden descriptions,
-Markdown, focus, or truncation from an older host audit into a different client.
+## Host expiry facts
 
-Official documentation excludes this tool from Agent-tool subagents.
-`--permission-prompts none` removes user-input tools in unattended runs; `dontAsk`
-denies this interaction. An SDK host can collect input through `canUseTool`.
-Follow the tools actually offered in the active session.
-
-## Waiting
-
-Native questions wait indefinitely by default. The user/managed setting
-`askUserQuestionTimeout` can enable auto-continue with `60s`, `5m`, or `10m`;
-the default is `never`.
-
-`CLAUDE_AFK_TIMEOUT_MS` overrides that setting and enables expiry even when it is
-unset or `never`. **Zero expires immediately; it does not disable expiry.**
-`CLAUDE_AFK_COUNTDOWN_MS` changes the countdown display, not the answer deadline.
-
-These are host configuration controls, not call fields. Add no agent-created
-timer. Do not silently modify settings. If host expiry occurs, keep the decision
-unanswered, including where the host submits a highlighted selection. Explain
-the limitation and preserve a supported way to answer.
-
-The SDK documentation allows an input callback to remain pending indefinitely;
-cancelling its query cancels the callback. Do not cancel a query merely because
-the user has not answered quickly.
+- Questions stay open by default. The question input has no field that disables the timer.
+- The setting `askUserQuestionTimeout` (user or managed scope) takes `60s`, `5m`,
+  `10m` or `never`; the default is `never`. It exists from v2.1.200. `/config` shows
+  it as Question auto-continue timeout and writes user settings; the row is hidden
+  when managed settings or `--settings` set it.
+- With auto-continue on, idle expiry closes the dialog, submits the options already
+  selected, and tells the agent the user may be away and it may continue. The last
+  20 seconds show a countdown. Keyboard input restarts it; terminal focus restarts
+  it where supported. Permission prompts and plan approval do not use this.
+- `CLAUDE_AFK_TIMEOUT_MS` overrides the setting and enables auto-continue even when
+  the setting is unset or `never`. Zero closes the dialog at once; it does not
+  disable the timer.
+- `CLAUDE_AFK_COUNTDOWN_MS` changes only the countdown display (default 20 seconds).
+- `CLAUDE_CODE_USER_DIALOG_TIMEOUT_MS` does not govern this tool or permission prompts.
+- Versions 2.1.198 and 2.1.199 had a 60-second default. That historical bug is not
+  evidence of a current 30-second limit.
 
 ## Evidence
 
-- [Tool behavior and auto-continue](https://code.claude.com/docs/en/tools-reference#askuserquestion-tool-behavior).
-- [TypeScript input and output](https://code.claude.com/docs/en/agent-sdk/typescript#askuserquestion).
-- [SDK interaction lifecycle](https://code.claude.com/docs/en/agent-sdk/user-input).
-- [Timeout setting](https://code.claude.com/docs/en/settings-reference#askuserquestiontimeout).
-- [Environment overrides](https://code.claude.com/docs/en/env-vars).
+- [Tool behaviour and auto-continue](https://code.claude.com/docs/en/tools-reference#askuserquestion-tool-behavior)
+- [TypeScript input and output types](https://code.claude.com/docs/en/agent-sdk/typescript#askuserquestion)
+- [Question format, caps and SDK lifecycle](https://code.claude.com/docs/en/agent-sdk/user-input)
+- [askUserQuestionTimeout setting](https://code.claude.com/docs/en/settings-reference#askuserquestiontimeout)
+- [Environment overrides](https://code.claude.com/docs/en/env-vars)
+- [Headless permission prompts](https://code.claude.com/docs/en/headless#turn-off-permission-prompts-in-unattended-runs)
+- [Release v2.1.268](https://github.com/anthropics/claude-code/releases/tag/v2.1.268)
 
-Source inspection is not a live UI test. Verify the actual delayed-response and
-rendering behavior before claiming an interface satisfies the waiting requirement.
+Unverified for this host:
+
+- Terminal rendering: focus defaults, label truncation, keyboard behaviour, and
+  side-by-side preview restrictions.
+- The returned payload for a delayed reply, typed notes, a freeform reply,
+  cancellation and multi-select.
+- The tool prompt's exact recommendation wording; the documentation does not state it.
+- The effective timeout configuration of any given install, and wrapper timers in
+  custom SDK apps that resolve the callback without the user.

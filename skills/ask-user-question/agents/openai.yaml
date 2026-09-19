@@ -1,0 +1,3 @@
+interface:
+  display_name: "Ask user question"
+  short_description: "Compose one user-owned question and read its reply"

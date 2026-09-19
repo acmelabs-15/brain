@@ -1,20 +1,21 @@
-# Codex: two question tools
+# Codex: request_user_input and request_user_input_async
 
-Read this before the first Codex question call in a session. Match the tool's
-actual schema and permitted mode. Source checked for CLI 0.154.0 at commit
-`6b9826e3aa83b1a5947db50f4332cb9c65f1b340` on 2026-09-11. This is not proof that
-every desktop, web, or third-party client has the same behavior.
+Tools `request_user_input` (sync) and `request_user_input_async`. Facts checked on
+2026-09-11 against source at commit `6b9826e3aa83b1a5947db50f4332cb9c65f1b340`, the
+release tag of the installed codex-cli 0.154.0. Evidence grade: source at a commit,
+plus the app-server schema generated from that binary. The checked session declared
+both tools, the sync one as Plan-only. Desktop, web and other clients were not checked.
 
-## request_user_input
+## Compose the call: request_user_input
 
-This synchronous form asks for a reply. The agent-facing input contains
-`questions`; each has `id`, `header`, `question`, and `options`. Each option has
-`label` and `description`.
-
-The specification asks for one to three questions and two to three exclusive
-options. This skill asks one. The normalizer requires nonempty options and adds
-the host's free-text choice. The recommendation convention is first position
-with `(Recommended)` in its label.
+Input: `questions`; each has `id`, `header`, `question` and `options`. Each option
+has `label` and `description`. The specification asks for one to three questions and
+two to three mutually exclusive options. Send one question. The normaliser requires
+nonempty options, so this form cannot carry an open question; the client adds the
+free-text choice. No `multiSelect`, `preview`, timeout or `isBlocking` field exists;
+protocol-only fields (`isOther`, `isSecret`, `autoResolutionMs`) stay out of a model
+call. Recommendation: the specification puts the recommended option first, with
+`(Recommended)` in its label.
 
 ```json
 {
@@ -38,34 +39,14 @@ with `(Recommended)` in its label.
 }
 ```
 
-The model-facing schema has no `multiSelect`, `preview`, timeout, or `isBlocking`
-parameter. Broader app-server protocol fields are not permission to add them.
+## Compose the call: request_user_input_async
 
-The handler rejects non-root agents and checks its configured available modes.
-Do not assume that appearing in documentation means the tool is permitted now.
-
-Replies map the stable question ID to an `answers` array. In the inspected
-terminal, a selected label and a note can be separate entries:
-
-```json
-{
-  "answers": {
-    "draft_storage": {
-      "answers": ["Require sign-in (Recommended)", "user_note: Keep existing browser drafts readable."]
-    }
-  }
-}
-```
-
-That array does not imply a multi-select control. Preserve notes and interpret
-what they qualify. An empty or missing answer remains unresolved.
-
-## request_user_input_async
-
-This form emits a question message and returns immediately. Its input contains
-`questions`, with a `title` and optional `options` as strings. Omit options for a
-free-text-only question. The handler requires a nonempty title and, if supplied,
-nonempty option strings.
+Input: `questions`; each has a nonempty `title` that holds the whole question and
+optional `options` as nonempty strings. No header, id, option description, preview,
+multi-select or timeout field exists, so the context and the costs go in the title
+and the option strings. Omit `options` for an open question; the UI always accepts
+free text. The UI preselects the first option but does not submit it by itself, so
+the recommended option in first position is also the preselected one.
 
 ```json
 {
@@ -81,44 +62,57 @@ nonempty option strings.
 }
 ```
 
-There is no separate header, ID, option-description object, preview, multi-select,
-or timeout field. Put necessary context and trade-offs in the supported strings.
-The first suggestion is preselected but not submitted automatically.
+## Read the reply
 
-The immediate result `{"accepted":true}` acknowledges emission, not the user's
-answer, successful display, or receipt by the user. A later user message supplies
-the reply. Keep dependent work pending and
-track which question that message answers. Do not ask the same question again
-merely because the reply arrived in chat rather than a structured result.
+Sync: `answers` maps the question `id` to an object with an `answers` array of
+strings. In the terminal a selected label is one entry; a note is a further entry
+prefixed `user_note:`. The array does not prove a multi-select control. An empty or
+missing entry stays unresolved. Cancellation is reported distinctly from an answer.
 
-## Waiting and host expiry
+```json
+{"answers":{"draft_storage":{"answers":["Require sign-in (Recommended)","user_note: Keep existing browser drafts readable."]}}}
+```
 
-The inspected synchronous handler sets `isBlocking` from whether its allowed
-session is in Plan mode. It sets the deprecated `autoResolutionMs` to none.
-The native terminal uses `isBlocking`, not that deprecated field:
+Async: the immediate result `{"accepted":true}` acknowledges emission, not display,
+receipt or an answer. The reply arrives later as a new user message. Keep dependent
+work pending, match that message to the pending question, and do not ask again
+because the reply came through chat.
 
-- Blocking requests have no automatic-resolution timer in this path.
-- Non-blocking requests receive sixty seconds of grace followed by a sixty-second
-  countdown. Interaction can stop that timer for the request.
-- Expiry returns an empty answer map. It supplies no user choice.
+## Availability
 
-The agent cannot override this policy through a field absent from its schema.
-Prefer an available, permitted untimed path. Do not silently change the user's
-mode or settings. The async handler installs no response timer, but every client's
-display lifetime has not been verified.
+- The sync handler rejects non-root agents, so a subagent cannot call it.
+- The sync handler checks its configured available modes. In the checked session it
+  is Plan-only. Read the active tool list, not the documentation.
 
-Add no timer of your own. A polling interval ending does not end the user's turn
-to answer. If the host closes the prompt, explain the limitation, preserve the
-unanswered decision, and maintain a supported way to reply. Do not fabricate a
-timeout parameter or repeatedly cycle the question.
+## Host expiry facts
+
+- The sync handler sets `isBlocking` from whether the session is in Plan mode and
+  sets `autoResolutionMs` to none. The terminal reads `isBlocking`, not the deprecated
+  `autoResolutionMs`. The model-facing schemas have no field that changes this policy.
+- Blocking requests (Plan mode) have no automatic-resolution timer.
+- Non-blocking requests get 60 seconds of hidden grace, then a 60-second visible
+  countdown. Interaction stops the countdown for that request. On expiry the
+  terminal submits an empty answer map and closes or advances the request.
+- Source: constants at lines 69 to 70, `auto_resolution_timing_at` at lines 288 to
+  307, `submit_empty_auto_resolution` at lines 936 to 954 of the terminal file below.
+- The async handler installs no response timer; client display lifetime is unchecked.
+- A reported incident of about 30 seconds does not match this two-minute policy.
+  Its client, version, mode and trace were not supplied. Do not equate the two.
 
 ## Evidence
 
-- [Synchronous specification](https://github.com/openai/codex/blob/6b9826e3aa83b1a5947db50f4332cb9c65f1b340/codex-rs/core/src/tools/handlers/request_user_input_spec.rs).
-- [Synchronous handler](https://github.com/openai/codex/blob/6b9826e3aa83b1a5947db50f4332cb9c65f1b340/codex-rs/core/src/tools/handlers/request_user_input.rs).
-- [Async specification and handler](https://github.com/openai/codex/blob/6b9826e3aa83b1a5947db50f4332cb9c65f1b340/codex-rs/core/src/tools/handlers/request_user_input_async.rs).
-- [Terminal waiting and replies](https://github.com/openai/codex/blob/6b9826e3aa83b1a5947db50f4332cb9c65f1b340/codex-rs/tui/src/bottom_pane/request_user_input/mod.rs).
-- [App-server documentation](https://learn.chatgpt.com/docs/app-server).
+- [Sync specification](https://github.com/openai/codex/blob/6b9826e3aa83b1a5947db50f4332cb9c65f1b340/codex-rs/core/src/tools/handlers/request_user_input_spec.rs)
+- [Sync handler](https://github.com/openai/codex/blob/6b9826e3aa83b1a5947db50f4332cb9c65f1b340/codex-rs/core/src/tools/handlers/request_user_input.rs)
+- [Protocol response](https://github.com/openai/codex/blob/6b9826e3aa83b1a5947db50f4332cb9c65f1b340/codex-rs/protocol/src/request_user_input.rs)
+- [Async specification and handler](https://github.com/openai/codex/blob/6b9826e3aa83b1a5947db50f4332cb9c65f1b340/codex-rs/core/src/tools/handlers/request_user_input_async.rs)
+- [Terminal timer and replies](https://github.com/openai/codex/blob/6b9826e3aa83b1a5947db50f4332cb9c65f1b340/codex-rs/tui/src/bottom_pane/request_user_input/mod.rs#L288)
+- [App-server documentation](https://learn.chatgpt.com/docs/app-server#toolrequestuserinput)
 
-Verify rendering, delayed replies, and cancellation in the intended client.
-Source-level behavior is not an end-to-end UI result.
+Unverified for this host:
+
+- A delayed reply on a live blocking question; async delivery, a delayed reply in
+  chat, and cleanup after the answer.
+- The non-blocking countdown as rendered, and the empty-map result on expiry.
+- Multiline context, option costs, notes and cancellation as rendered in each client.
+- Whether the reported incident came from this native path, another version, an app
+  wrapper, or agent-written waiting logic.
