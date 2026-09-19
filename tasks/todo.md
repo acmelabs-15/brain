@@ -1,0 +1,66 @@
+# Tasks: lifecycle
+
+- [ ] Task 1: seeds
+  - Acceptance: `upstream.json` lists the eight skills in `except` on the agent-skills take and in its `seed`; after `sync` the vendored copies are gone and after `--seed agent-skills` the eight are back, brain-owned, with `seededAt`; `sync -- --check` clean; `sync -- --report` empty
+  - Verify: the three commands
+  - Files: upstream.json, upstream.lock.json, the eight skill folders
+- [ ] Task 2: reference check
+  - Acceptance: `bun run lifecycle:check` parses `.claude/commands/*.md`, `commands/*.toml` and `skills/*/SKILL.md` for `brain:<name>`, `agent-skills:<name>` and `Skill tool with "<name>"`; fails on an unresolved name and on `agent-skills:` anywhere; fails when `disable-model-invocation: true` and `policy.allow_implicit_invocation: false` disagree; CI runs it
+  - Verify: `bun test scripts/lifecycle`; the check fails on the seeded tree because of `agent-skills:` and passes after Task 3
+  - Files: scripts/lifecycle/check-refs.ts, scripts/lifecycle/__tests__/check-refs.test.ts, package.json, .github/workflows/ci.yml
+- [ ] Task 3: Claude commands
+  - Acceptance: nine files call `brain:` skills; each states the three standing rules once by pointer to the combined skill; `build.md` auto mode hands each task to a sub-agent in a clean context with the task text, the spec section and the skill name, and stops on a failed test, a spec gap or a one-way step
+  - Verify: `lifecycle:check` passes; `claude plugin validate . --strict`
+  - Files: .claude/commands/*.md
+- [ ] Task 4: TOML commands
+  - Acceptance: nine files carry the same composition with bare skill names; Gemini's `/planning` name kept
+  - Verify: `lifecycle:check`; `agy plugin validate .`
+  - Files: commands/*.toml
+- [ ] Task 5: combined interview-me
+  - Acceptance: one question per call through ask-user-question; matt's frontier orders the questions; a sub-agent fetches a fact while the round goes on; domain-modeling after each round; want-versus-should kept; the confidence number and predict-three test replaced by frontier-empty plus an explicit yes; any clear written approval counts; small reversible choices stay with the agent
+  - Verify: a read against RES-002 §1 and RES-004 rows 13, 17, 18, 20; `lifecycle:check`
+  - Files: skills/interview-me/SKILL.md
+- [ ] Task 6: combined spec-driven-development
+  - Acceptance: a seam step after the assumptions list through the question tool; User Stories, Out of scope, Prior-art tests in the template; glossary words; the prototype detour through prototype and handoff; paths and the snippet kept
+  - Verify: a read against RES-002 §1; `lifecycle:check`
+  - Files: skills/spec-driven-development/SKILL.md
+- [ ] Task 7: combined planning-and-task-breakdown
+  - Acceptance: prefactor task first; the wide-refactor rule; the three approval questions through the question tool; glossary words; files list kept
+  - Verify: a read against RES-002 §2
+  - Files: skills/planning-and-task-breakdown/SKILL.md
+- [ ] Task 8: combined test-driven-development and mockability reference
+  - Acceptance: seams asked before the first test; codebase-design vocabulary named; tautological-test anti-pattern; `references/brain/mockability.md` adapted from matt's mocking notes with attribution; glossary words in test names; refactor inside the loop
+  - Verify: a read against RES-002 §3; `sync -- --check` still clean, the reference is brain-owned
+  - Files: skills/test-driven-development/SKILL.md, references/brain/mockability.md
+- [ ] Task 9: combined incremental-implementation
+  - Acceptance: review at the end of the last slice; commit per slice; nothing else changes
+  - Verify: a read against RES-002 §3 rows 11 and 12
+  - Files: skills/incremental-implementation/SKILL.md
+- [ ] Task 10: combined debugging-and-error-recovery
+  - Acceptance: the feedback-loop gate as Phase 1 with ten loop constructions and tighten; secrets redacted first; ranked falsifiable hypotheses shown; tagged logs, one variable, the performance branch; seam-conditioned regression test; cleanup lines; no loop means stop and ask; the HITL script shipped under `scripts/` with attribution
+  - Verify: a read against RES-002 §5; the script runs with `bash -n`
+  - Files: skills/debugging-and-error-recovery/SKILL.md, skills/debugging-and-error-recovery/scripts/hitl-loop.template.sh
+- [ ] Task 11: combined code-review-and-quality
+  - Acceptance: Step 0 with fixed point, three-dot diff, ref check, spec lookup order, standards files; five parallel sub-agent briefs under 400 words; scope creep as a finding; the twelve smells in the architecture brief; repo standard over baseline; one merged ranked list and one verdict; severity plus hard-or-judgement tag
+  - Verify: a read against RES-002 §4
+  - Files: skills/code-review-and-quality/SKILL.md
+- [ ] Task 12: combined using-agent-skills and phase-boundaries reference
+  - Acceptance: the tree names the combined skills and the two on-ramps; `setup-brain` as precondition; stateful interview when a repo is present; `references/brain/phase-boundaries.md` adapted with attribution; the smart-zone rule
+  - Verify: a read against RES-002 §6; `lifecycle:check`
+  - Files: skills/using-agent-skills/SKILL.md, references/brain/phase-boundaries.md
+- [ ] Task 13: triage, fixed
+  - Acceptance: the five RES-003 defects fixed; grilling replaced by the interview rules and the question tool; labels created on first use; the brief keeps the files list; reads `docs/agents/issue-tracker.md` and `triage-labels.md` from setup-brain
+  - Verify: a read against RES-003 §1 and §3; `lifecycle:check`
+  - Files: skills/triage/SKILL.md, skills/triage/AGENT-BRIEF.md, skills/triage/OUT-OF-SCOPE.md
+- [ ] Task 14: wayfinder, fixed
+  - Acceptance: one question per call through the question tool; grilling replaced; hands off to `spec`; reads the same setup files; the map-edit gap for GitHub closed
+  - Verify: a read against RES-003 §2 and §3
+  - Files: skills/wayfinder/SKILL.md
+- [ ] Task 15: setup-brain tracker question
+  - Acceptance: one question, GitHub, GitLab or local, local by default when no remote points at GitHub or GitLab; `write.ts` writes `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md` from brain-owned templates; idempotent; `spec/SPEC-setup.md` amended by decision
+  - Verify: `bun test scripts/setup`
+  - Files: scripts/setup/write.ts, scripts/setup/__tests__/write.test.ts, skills/setup-brain/SKILL.md, skills/setup-brain/issue-tracker-*.md, skills/setup-brain/triage-labels.md
+- [ ] Task 16: wrap-up
+  - Acceptance: README lifecycle table current; `bun run check`, `sync -- --check` and `bun run validate` pass; `sync -- --report` lists nothing; plan archived
+  - Verify: the commands
+  - Files: README.md, tasks/
