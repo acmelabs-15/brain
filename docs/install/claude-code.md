@@ -22,6 +22,10 @@ For development, from a local clone:
 claude --plugin-dir /path/to/brain
 ```
 
+The plugin's output style, `talk-plain`, applies at the scope the plugin was installed in:
+`--scope user` for every project, `--scope project` for one repo. Nothing is written to a
+`CLAUDE.md`.
+
 ## Verify
 
 Type `/brain:` and the skill list appears. It includes `brain:domain-modeling` and

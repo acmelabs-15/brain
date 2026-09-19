@@ -10,9 +10,10 @@ unchanged and adds three things:
   glossary and one-paragraph ADRs, and every brain skill reads the glossary before it
   names a domain concept.
 - **Plain talk on every turn.** One text, rendered for each host: an output style for
-  Claude Code, a context file for Gemini CLI, and an `AGENTS.md` block that the
-  `setup-brain` skill writes for Codex and Antigravity. The `wait-what` skill is the
-  repair when a message still does not land.
+  Claude Code, a context file for Gemini CLI, an always-on rule for Antigravity, and an
+  `AGENTS.md` block that the `setup-brain` skill writes into the Codex global file. The
+  text follows the install's scope. The `wait-what` skill is the repair when a message
+  still does not land.
 - **One question at a time.** The `ask-user-question` skill composes every decision put
   to the user: the facts inside the question, each option with what it costs, one
   recommendation with its reason.
@@ -26,7 +27,8 @@ One install per host. Each page has install, verify, update and remove:
 - [Gemini CLI](docs/install/gemini-cli.md)
 - [Antigravity CLI](docs/install/antigravity.md)
 
-Then, once per repo, run `setup-brain`.
+Then, once per repo, run `setup-brain`. It sets the glossary layout and the issue tracker,
+and on a machine with Codex it writes the plain-talk block into `~/.codex/AGENTS.md` once.
 
 ## What is inside
 
@@ -35,7 +37,7 @@ Then, once per repo, run `setup-brain`.
 | `skills/` | 25 agent-skills, 3 of mattpocock/skills, ask-user-question, and brain's own | vendored ones are byte-identical to upstream; brain's own sit beside them |
 | `references/`, `agents/`, `hooks/` | agent-skills' checklists, personas and hook scripts | vendored |
 | `.claude/commands/`, `commands/` | the nine lifecycle commands for Claude Code, and for Gemini and Antigravity | seeded from agent-skills, brain-owned |
-| `output-styles/`, `GEMINI.md`, `plain-talk/` | the plain-talk text and its rendered forms | brain |
+| `output-styles/`, `GEMINI.md`, `rules/`, `plain-talk/` | the plain-talk text and its rendered forms; the block at the end of `AGENTS.md` is one of them | brain |
 | `upstream.json`, `upstream.lock.json` | which commit of each upstream is vendored, and a hash per file | brain |
 | `licenses/` | the upstream licence texts | vendored |
 

@@ -60,3 +60,10 @@ Confirmed by Peter on 2026-09-19 after an interview of eight questions.
 | ask-user-question ownership | seeded from acmelabs-15/ask-user-question at 6e9d8a7 and brain-owned from then; its final shape follows RES-004 | Peter, 2026-09-19 |
 | ask-user-question shape | standalone skill, pointed at from the combined interview skill and every stage; rewritten from the 24 artifact files of Peter's repo, which he judges better than the skill they produced; proposed as a seventh module, question | Peter, 2026-09-19, on RES-004 |
 | Router name | the routing skill is named using-brain, seeded from addy's using-agent-skills; every other agent-skills mention in brain-owned files names addy's pack and stays | Peter, 2026-09-19 |
+
+## Context-scope decisions, 2026-09-19
+
+| Decision | Answer | Evidence |
+|---|---|---|
+| Where the plain-talk text lives | it follows the install's scope. Claude Code's output style, Gemini's extension context file and an Antigravity plugin rule (`rules/talk-plain.md`, `trigger: always_on`) come with the plugin. Codex installs a plugin per machine only, so setup-brain writes the block to `$CODEX_HOME/AGENTS.md`. A repo's `AGENTS.md`, `CLAUDE.md` and `GEMINI.md` are never written by brain | Peter: "it depends on where it's being installed"; the Codex docs put communication style in the global file; Codex plugin config is user-level only (openai/codex#18115); Google's plugin layout lists `rules/` |
+| brain's own context file | `AGENTS.md` with the repo rules and the plain-talk block, kept in step by the render check; `.claude/CLAUDE.md` imports it; `.gemini/settings.json` adds it to Gemini's context names | Peter, on the recommended option |

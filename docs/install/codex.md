@@ -18,10 +18,19 @@ codex plugin add brain@brain
 
 Start a new Codex session after the install so the skills are discovered.
 
+## Set up, once per machine
+
+Codex reads no context from a plugin, so the plain-talk text goes into your global
+`~/.codex/AGENTS.md`. In any repo, run `$setup-brain` once; it writes the block between
+two markers and keeps the rest of the file, a symlink included. Later runs in other repos
+report the file unchanged.
+
 ## Verify
 
 `/skills` lists the brain skills, including `domain-modeling` and `ask-user-question`.
-Invoke one with `$domain-modeling`.
+Invoke one with `$domain-modeling`. From a repo root,
+`codex --ask-for-approval never "Summarize the current instructions."` echoes the plain-talk
+block from the global file.
 
 Codex has no slash commands for plugins, so the skills are the entry points. Codex reads
 `.codex-plugin/plugin.json` and the `skills/` folder; it ignores `.claude/commands/`.

@@ -14,7 +14,9 @@ From a local clone:
 agy plugin install /path/to/brain
 ```
 
-The plugin reads the root `plugin.json`, the `skills/` folder and the `agents/` folder.
+The plugin reads the root `plugin.json`, the `skills/` folder, the `agents/` folder and the
+`rules/` folder. `rules/talk-plain.md` carries the plain-talk text with `trigger: always_on`,
+so the agent talks plain in every workspace while brain is installed; no `AGENTS.md` step.
 The `commands/*.toml` files are reported as converted to skills; on some releases the
 converted wrappers do not appear in the slash-command list (agent-skills issue #445).
 Use the skills directly: `/brain:spec-driven-development` and so on.
@@ -27,7 +29,8 @@ agy plugin list
 ```
 
 In a session, type `/brain:` and the skill catalogue appears, including
-`/brain:domain-modeling`.
+`/brain:domain-modeling`. Ask `which rules are installed?` and the reply lists the brain
+plugin rule.
 
 ## Update
 
