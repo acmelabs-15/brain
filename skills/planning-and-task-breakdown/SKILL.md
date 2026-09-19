@@ -1,13 +1,13 @@
 ---
 name: planning-and-task-breakdown
-description: Breaks work into ordered tasks. Use when you have a spec or clear requirements and need to break work into implementable tasks. Use when a task feels too large to start, when you need to estimate scope, or when parallel work is possible.
+description: Breaks a spec into ordered, verifiable tasks: finds a prefactor, slices vertically, sequences a wide refactor as expand, migrate, contract, writes tasks/plan.md and tasks/todo.md, and puts granularity, blocking edges and merge-or-split to the user before build. Use when a spec needs implementable tasks, a task is too large to start, scope needs an estimate, or parallel work is possible.
 ---
 
 # Planning and Task Breakdown
 
 ## Overview
 
-Decompose work into small, verifiable tasks with explicit acceptance criteria. Good task breakdown is the difference between an agent that completes work reliably and one that produces a tangled mess. Every task should be small enough to implement, test, and verify in a single focused session.
+Decompose work into small, verifiable tasks with explicit acceptance criteria. Good task breakdown separates an agent that completes work reliably from one that produces a tangled mess. Every task is small enough to implement, test and verify in a single focused session.
 
 ## When to Use
 
@@ -15,9 +15,9 @@ Decompose work into small, verifiable tasks with explicit acceptance criteria. G
 - A task feels too large or vague to start
 - Work needs to be parallelized across multiple agents or sessions
 - You need to communicate scope to a human
-- The implementation order isn't obvious
+- The implementation order is not obvious
 
-**When NOT to use:** Single-file changes with obvious scope, or when the spec already contains well-defined tasks.
+**When NOT to use:** Single-file changes with obvious scope, or a spec that already contains well-defined tasks.
 
 ## The Planning Process
 
@@ -25,12 +25,13 @@ Decompose work into small, verifiable tasks with explicit acceptance criteria. G
 
 Before writing any code, operate in read-only mode:
 
-- Read the spec and relevant codebase sections
+- Read the spec and the relevant codebase sections
 - Identify existing patterns and conventions
 - Map dependencies between components
 - Note risks and unknowns
+- Note a change to the code that would make the feature easier to build. That change is a prefactor candidate.
 
-**Do NOT write code during planning.** The output is a plan document saved to `tasks/plan.md` and a task list recorded in the task list target (see Output Files; default `tasks/todo.md`), not implementation.
+**Planning writes no code.** The output is a plan document saved to `tasks/plan.md` and a task list recorded in the task list target (see Output Files; default `tasks/todo.md`), not implementation.
 
 ### Step 2: Identify the Dependency Graph
 
@@ -54,9 +55,11 @@ Database schema
 
 Implementation order follows the dependency graph bottom-up: build foundations first.
 
+A task's dependencies are its **blocking edges**: the tasks that must complete before it can start. A task with no blocking edges can start at once.
+
 ### Step 3: Slice Vertically
 
-Instead of building all the database, then all the API, then all the UI — build one complete feature path at a time:
+Build one complete feature path at a time, not all the database, then all the API, then all the UI:
 
 **Bad (horizontal slicing):**
 ```
@@ -74,9 +77,19 @@ Task 3: User can create a task (task schema + API + UI for creation)
 Task 4: User can view task list (query + API + UI for list view)
 ```
 
-Each vertical slice delivers working, testable functionality.
+Each vertical slice delivers working, testable functionality. A completed slice is demoable or verifiable on its own.
+
+**The wide refactor is the exception to vertical slicing.** A wide refactor is one mechanical change (rename a column, retype a shared symbol) whose blast radius spans the codebase. One edit breaks every call site at once, so no vertical slice can land green. Sequence it as expand, migrate, contract instead:
+
+1. **Expand:** add the new form beside the old, so nothing breaks.
+2. **Migrate:** move the call sites over in batches sized by blast radius (per package, per directory). Each batch is its own task, blocked by the expand task. CI stays green batch to batch because the old form still exists.
+3. **Contract:** delete the old form once no caller remains, in a task blocked by every migrate batch.
+
+When even the batches cannot stay green alone, keep the sequence but let them share an integration branch. Every batch then blocks a final integrate-and-verify task, and green is promised only there.
 
 ### Step 4: Write Tasks
+
+Task titles and descriptions use the project's domain words. Domain words come from `CONTEXT.md` through `docs/agents/domain.md`, which also points at the ADRs for the area a task touches. A concept the glossary lacks is a gap to note for the domain-modeling skill.
 
 Each task follows this structure, whether it lands in the markdown task list or as an item in an external tracker (see Output Files):
 
@@ -107,10 +120,11 @@ Each task follows this structure, whether it lands in the markdown task list or 
 
 Arrange tasks so that:
 
-1. Dependencies are satisfied (build foundation first)
-2. Each task leaves the system in a working state
-3. Verification checkpoints occur after every 2-3 tasks
-4. High-risk tasks are early (fail fast)
+1. A prefactor task from Step 1 comes first: make the change easy, then make the easy change
+2. Dependencies are satisfied (build foundation first)
+3. Each task leaves the system in a working state
+4. Verification checkpoints occur after every 2-3 tasks
+5. High-risk tasks are early (fail fast)
 
 Add explicit checkpoints to the task list target:
 
@@ -122,6 +136,22 @@ Add explicit checkpoints to the task list target:
 - [ ] Review with human before proceeding
 ```
 
+### Step 6: Get the Plan Approved
+
+Present the breakdown as a numbered list. For each task, show its title, the tasks that block it, and the end-to-end behaviour it delivers.
+
+Then put three questions to the user, one per call. Call the Skill tool with "ask-user-question" to compose each call. Every decision in this skill that is the user's goes through that same call.
+
+| Question | What it settles |
+|---|---|
+| Does the granularity feel right: too coarse, too fine, or right? | Task size |
+| Are the blocking edges correct: does each task depend only on the tasks that gate it? | Dependency order |
+| Should any task be merged, or split further? | Task boundaries |
+
+Apply each answer to the plan and the task list before the next question. Repeat the three questions until the user approves the breakdown. That approval is the gate before implementation starts.
+
+A small reversible choice (the wording of a title, the order of two independent tasks) stays with you: decide it and state the reason.
+
 ## Task Sizing Guidelines
 
 | Size | Files | Scope | Example |
@@ -130,9 +160,9 @@ Add explicit checkpoints to the task list target:
 | **S** | 1-2 | One component or endpoint | Add a new API endpoint |
 | **M** | 3-5 | One feature slice | User registration flow |
 | **L** | 5-8 | Multi-component feature | Search with filtering and pagination |
-| **XL** | 8+ | **Too large — break it down further** | — |
+| **XL** | 8+ | **Too large: break it down further** | (none) |
 
-If a task is L or larger, it should be broken into smaller tasks. An agent performs best on S and M tasks.
+If a task is L or larger, break it into smaller tasks. An agent performs best on S and M tasks.
 
 **When to break a task down further:**
 - It would take more than one focused session (roughly 2+ hours of agent work)
@@ -142,7 +172,7 @@ If a task is L or larger, it should be broken into smaller tasks. An agent perfo
 
 ## Output Files
 
-- **Plan document:** Save the implementation plan to `tasks/plan.md`. This is always a markdown file — design decisions, risks, and open questions don't map cleanly onto individual tracker issues.
+- **Plan document:** Save the implementation plan to `tasks/plan.md`. This is always a markdown file: design decisions, risks and open questions do not map cleanly onto individual tracker issues.
 - **Task list:** Record each task in the **task list target** (defined below).
 
 Create the `tasks/` directory if it does not exist.
@@ -150,7 +180,7 @@ Create the `tasks/` directory if it does not exist.
 **Never overwrite an incomplete plan.** Before writing `tasks/plan.md` or `tasks/todo.md`, check whether they already exist and still contain unchecked tasks:
 
 - Same work being replanned (the user asked to revise or extend this plan) → update the existing files in place.
-- Different work → **stop and ask.** The unchecked tasks may be mid-build in another session. Do not delete, overwrite, or rename the existing files on your own; present the conflict and let the user decide (finish the old plan first, explicitly discard it, or tell you where the new plan should go).
+- Different work → **stop and ask.** The unchecked tasks may be mid-build in another session. Do not delete, overwrite or rename the existing files on your own. Put the conflict to the user as one question, the Step 6 call, with the ways out: finish the old plan first, discard it explicitly, or name where the new plan goes.
 
 The same rule applies to an external task list target: never bulk-close or delete another plan's open tracker items to make room for new ones.
 
@@ -218,26 +248,33 @@ When multiple agents or sessions are available:
 - **Must be sequential:** Database migrations, shared state changes, dependency chains
 - **Needs coordination:** Features that share an API contract (define the contract first, then parallelize)
 
+Work the **frontier**: every task whose blocking edges are all done. A linear chain is worked top to bottom.
+
 ## Common Rationalizations
 
 | Rationalization | Reality |
 |---|---|
-| "I'll figure it out as I go" | That's how you end up with a tangled mess and rework. 10 minutes of planning saves hours. |
+| "I'll figure it out as I go" | That is how you end up with a tangled mess and rework. 10 minutes of planning saves hours. |
 | "The tasks are obvious" | Write them down anyway. Explicit tasks surface hidden dependencies and forgotten edge cases. |
 | "Planning is overhead" | Planning is the task. Implementation without a plan is just typing. |
 | "I can hold it all in my head" | Context windows are finite. Written plans survive session boundaries and compaction. |
 | "The old `tasks/plan.md` is stale, I'll just replace it" | Unchecked tasks may be mid-build in another session. Overwriting them destroys work state that exists nowhere else. Stop and ask. |
+| "The rename is mechanical, one task covers it" | A change with a codebase-wide blast radius cannot land green as one slice. Sequence it as expand, migrate, contract. |
+| "The breakdown is obvious, the approval questions are a formality" | The user sees granularity and edges you cannot. Three questions cost minutes; a wrong build costs the plan. |
 
 ## Red Flags
 
 - Starting implementation without a written task list
+- Starting implementation before the user approved the breakdown
 - Overwriting a `tasks/plan.md` or `tasks/todo.md` that still has unchecked tasks for different work, without asking
 - Writing `tasks/todo.md` when the project has designated an external tracker (or scattering tasks across both)
 - Tasks that say "implement the feature" without acceptance criteria
+- A mechanical change with a codebase-wide blast radius written as one task
+- Task titles that use words `CONTEXT.md` marks as avoid
 - No verification steps in the plan
 - All tasks are XL-sized
 - No checkpoints between tasks
-- Dependency order isn't considered
+- Dependency order is not considered
 
 ## Verification
 
@@ -246,11 +283,14 @@ Before starting implementation, confirm:
 - [ ] Every task has acceptance criteria
 - [ ] Every task has a verification step
 - [ ] Task dependencies are identified and ordered correctly
+- [ ] A prefactor task, when Step 1 found one, is Task 1
+- [ ] A wide refactor is sequenced as expand, migrate, contract
+- [ ] Task titles and descriptions use the glossary's words
 - [ ] Tasks are recorded in the task list target (default `tasks/todo.md`)
 - [ ] No pre-existing incomplete plan was overwritten without explicit user confirmation
 - [ ] No task touches more than ~5 files
 - [ ] Checkpoints exist between major phases
-- [ ] The human has reviewed and approved the plan
+- [ ] The user approved the breakdown through the three Step 6 questions
 
 ## See Also
 

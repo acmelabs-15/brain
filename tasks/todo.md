@@ -24,7 +24,7 @@
   - Acceptance: a seam step after the assumptions list through the question tool; User Stories, Out of scope, Prior-art tests in the template; glossary words; the prototype detour through prototype and handoff; paths and the snippet kept
   - Verify: a read against RES-002 §1; `lifecycle:check`
   - Files: skills/spec-driven-development/SKILL.md
-- [ ] Task 7: combined planning-and-task-breakdown
+- [x] Task 7: combined planning-and-task-breakdown
   - Acceptance: prefactor task first; the wide-refactor rule; the three approval questions through the question tool; glossary words; files list kept
   - Verify: a read against RES-002 §2
   - Files: skills/planning-and-task-breakdown/SKILL.md
