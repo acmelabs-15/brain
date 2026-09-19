@@ -120,6 +120,22 @@
       "upstream": "agent-skills",
       "sha256": "f0c5ed754057eb0c1e027e2587f59de816651feb5e837242296c43ea21cf621d"
     },
+    "skills/codebase-design/DEEPENING.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1"
+    },
+    "skills/codebase-design/DESIGN-IT-TWICE.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "8e740bf98446dbd4dfdc132ac4346d9a7eedaf93de6a495889171cf7f99f16bd"
+    },
+    "skills/codebase-design/SKILL.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2"
+    },
+    "skills/codebase-design/agents/openai.yaml": {
+      "upstream": "mattpocock-skills",
+      "sha256": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f"
+    },
     "skills/constraint-driven-development/SKILL.md": {
       "upstream": "agent-skills",
       "sha256": "06479d4305f286d23cfb99f5dc85695896785269664e1f6a8d800e3b71e70c10"
@@ -172,6 +188,14 @@
       "upstream": "agent-skills",
       "sha256": "b7465d187935c52546d39fdc7bd6ac36d94eda25a9500ef8c18b767d2eb116ea"
     },
+    "skills/handoff/SKILL.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "7c62de979fdc7ac32fb5ddb2146156c917f80ee070d30fadc9d40343c4b6ed25"
+    },
+    "skills/handoff/agents/openai.yaml": {
+      "upstream": "mattpocock-skills",
+      "sha256": "5c479fd562c691851690e8b18c8501045bef0943c10743d636b2fae26add1d28"
+    },
     "skills/idea-refine/SKILL.md": {
       "upstream": "agent-skills",
       "sha256": "79e773058963adc7646b0115b4f8a4afc974c5ff95843e4ef1cafff3cb51899e"
@@ -211,6 +235,22 @@
     "skills/planning-and-task-breakdown/SKILL.md": {
       "upstream": "agent-skills",
       "sha256": "ed0f90cc5951ddd4bcab7f871f64efec93a49af9279ef93bc470da77ad8da3f7"
+    },
+    "skills/prototype/LOGIC.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "f61c7d249e786a79ef289018901c348271e1798dd0b0bc5607b5c6f4d4a01ab9"
+    },
+    "skills/prototype/SKILL.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "714de632d116bb73f65cdb5a882db15b9369a6713b9a47c0fad827848f0bfbe3"
+    },
+    "skills/prototype/UI.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "723211e878acbc7b6ff09755263f3295cde724ba902ff0064da41eed51d45ad3"
+    },
+    "skills/prototype/agents/openai.yaml": {
+      "upstream": "mattpocock-skills",
+      "sha256": "5af65e43ab41a350436697b81e27b7f848d36782043b73c322bb2c9fa9cc55dc"
     },
     "skills/security-and-hardening/SKILL.md": {
       "upstream": "agent-skills",
