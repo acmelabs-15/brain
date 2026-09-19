@@ -1,6 +1,6 @@
 # Tasks: lifecycle
 
-- [ ] Task 1: seeds
+- [x] Task 1: seeds
   - Acceptance: `upstream.json` lists the eight skills in `except` on the agent-skills take and in its `seed`; after `sync` the vendored copies are gone and after `--seed agent-skills` the eight are back, brain-owned, with `seededAt`; `sync -- --check` clean; `sync -- --report` empty
   - Verify: the three commands
   - Files: upstream.json, upstream.lock.json, the eight skill folders

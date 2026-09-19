@@ -96,10 +96,6 @@
       "upstream": "agent-skills",
       "sha256": "a6ed8ed56456b01ff8314c44eefc69897d9905ae4e06bb2b7036286efb79b5f0"
     },
-    "skills/code-review-and-quality/SKILL.md": {
-      "upstream": "agent-skills",
-      "sha256": "8f3cabca581bbf7cb5f0add3f7454e7a4523f9d4353a6a4a217e6fa515309612"
-    },
     "skills/code-simplification/SKILL.md": {
       "upstream": "agent-skills",
       "sha256": "f0c5ed754057eb0c1e027e2587f59de816651feb5e837242296c43ea21cf621d"
@@ -131,10 +127,6 @@
     "skills/context-engineering/SKILL.md": {
       "upstream": "agent-skills",
       "sha256": "8b736cb9e55b82b265ab6ff78349c0e826e8a6df550deddf665b7fb3ff858b63"
-    },
-    "skills/debugging-and-error-recovery/SKILL.md": {
-      "upstream": "agent-skills",
-      "sha256": "21f3960f5d7ae2cc95c40896545004dbbcbbd752ea65fc2d53962554d4174220"
     },
     "skills/deprecation-and-migration/SKILL.md": {
       "upstream": "agent-skills",
@@ -200,14 +192,6 @@
       "upstream": "agent-skills",
       "sha256": "f02a52408a4218047c032d221483abfbb48d11f090bb4915965c7419bf2e0e47"
     },
-    "skills/incremental-implementation/SKILL.md": {
-      "upstream": "agent-skills",
-      "sha256": "df66536610071727feae1ca95f3c391c248ad828041750ccd3699cce763aa00b"
-    },
-    "skills/interview-me/SKILL.md": {
-      "upstream": "agent-skills",
-      "sha256": "1d94741d10d2c826cd0c191aea3981ee94c8abb27ef2a166f6a372117d06448f"
-    },
     "skills/observability-and-instrumentation/SKILL.md": {
       "upstream": "agent-skills",
       "sha256": "e7fcb0820306d46268de9594d676ad98e35040858926c412b7000faa52a61f87"
@@ -215,10 +199,6 @@
     "skills/performance-optimization/SKILL.md": {
       "upstream": "agent-skills",
       "sha256": "00694d0c69bbde674d0e39de24052d90afea32d9fef9553eaee21a50a7e9b8cf"
-    },
-    "skills/planning-and-task-breakdown/SKILL.md": {
-      "upstream": "agent-skills",
-      "sha256": "ed0f90cc5951ddd4bcab7f871f64efec93a49af9279ef93bc470da77ad8da3f7"
     },
     "skills/prototype/LOGIC.md": {
       "upstream": "mattpocock-skills",
@@ -247,18 +227,6 @@
     "skills/source-driven-development/SKILL.md": {
       "upstream": "agent-skills",
       "sha256": "c59faf851377f0eeda45306398d16eb96d77ab1c2fd3e1a7fb58e9a0af33c1e9"
-    },
-    "skills/spec-driven-development/SKILL.md": {
-      "upstream": "agent-skills",
-      "sha256": "f7129bca8742bad73f60209bd237e8b10dab6f1fae8576dc552fb1923bc1e721"
-    },
-    "skills/test-driven-development/SKILL.md": {
-      "upstream": "agent-skills",
-      "sha256": "7c0c6ac057c19d7f8be65d9f49c3a638703b868f4625c78b70da5439d5d74fca"
-    },
-    "skills/using-agent-skills/SKILL.md": {
-      "upstream": "agent-skills",
-      "sha256": "30787ef2c77bf1a4729fffed0f6523ba6fcbe81bdc436b36371b78c21394d3c3"
     },
     "skills/wait-what/SKILL.md": {
       "upstream": "mattpocock-skills",
@@ -370,6 +338,34 @@
       "upstream": "ask-user-question",
       "seededAt": "6e9d8a7994d5fb717bb0c294e908f442ff52484b"
     },
+    "skills/code-review-and-quality/SKILL.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/debugging-and-error-recovery/SKILL.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/incremental-implementation/SKILL.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/interview-me/SKILL.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/planning-and-task-breakdown/SKILL.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/spec-driven-development/SKILL.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/test-driven-development/SKILL.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
     "skills/triage/AGENT-BRIEF.md": {
       "upstream": "mattpocock-skills",
       "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
@@ -385,6 +381,10 @@
     "skills/triage/agents/openai.yaml": {
       "upstream": "mattpocock-skills",
       "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+    },
+    "skills/using-agent-skills/SKILL.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
     },
     "skills/wayfinder/SKILL.md": {
       "upstream": "mattpocock-skills",

@@ -6,7 +6,17 @@
       "take": [
         {
           "from": "skills",
-          "to": "skills"
+          "to": "skills",
+          "except": [
+            "interview-me",
+            "spec-driven-development",
+            "planning-and-task-breakdown",
+            "incremental-implementation",
+            "test-driven-development",
+            "debugging-and-error-recovery",
+            "code-review-and-quality",
+            "using-agent-skills"
+          ]
         },
         {
           "from": "references",
@@ -29,6 +39,38 @@
         {
           "from": "commands",
           "to": "commands"
+        },
+        {
+          "from": "skills/interview-me",
+          "to": "skills/interview-me"
+        },
+        {
+          "from": "skills/spec-driven-development",
+          "to": "skills/spec-driven-development"
+        },
+        {
+          "from": "skills/planning-and-task-breakdown",
+          "to": "skills/planning-and-task-breakdown"
+        },
+        {
+          "from": "skills/incremental-implementation",
+          "to": "skills/incremental-implementation"
+        },
+        {
+          "from": "skills/test-driven-development",
+          "to": "skills/test-driven-development"
+        },
+        {
+          "from": "skills/debugging-and-error-recovery",
+          "to": "skills/debugging-and-error-recovery"
+        },
+        {
+          "from": "skills/code-review-and-quality",
+          "to": "skills/code-review-and-quality"
+        },
+        {
+          "from": "skills/using-agent-skills",
+          "to": "skills/using-agent-skills"
         }
       ],
       "license": "LICENSE"

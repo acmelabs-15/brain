@@ -28,7 +28,8 @@ describe("parseConfig", () => {
       "mattpocock-skills",
       "ask-user-question",
     ]);
-    expect(config.upstreams["agent-skills"]?.seed).toHaveLength(2);
+    expect(config.upstreams["agent-skills"]?.seed).toHaveLength(10);
+    expect(config.upstreams["agent-skills"]?.take[0]?.except).toHaveLength(8);
     expect(config.upstreams["ask-user-question"]?.take).toEqual([]);
     expect(config.upstreams["ask-user-question"]?.seed).toHaveLength(1);
   });
