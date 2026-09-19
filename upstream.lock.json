@@ -1,0 +1,346 @@
+{
+  "files": {
+    "agents/code-reviewer.md": {
+      "upstream": "agent-skills",
+      "sha256": "2d02acb9db1c37521d676587d2e0afb713c8983de957a78efdfa82d27e5fc3da"
+    },
+    "agents/security-auditor.md": {
+      "upstream": "agent-skills",
+      "sha256": "66a3f68f1c691b600ddb44e88afb138e239d0572df37be84e1f9a427c887dd0a"
+    },
+    "agents/test-engineer.md": {
+      "upstream": "agent-skills",
+      "sha256": "c4acde91d6307d88515387344a129a2d0679134e587596c3517d73faffcd5aa6"
+    },
+    "agents/web-performance-auditor.md": {
+      "upstream": "agent-skills",
+      "sha256": "0928b1cf8103262a364bce0c1fc689a918852e2275441f1b2e687adfa1e607e9"
+    },
+    "hooks/SDD-CACHE.md": {
+      "upstream": "agent-skills",
+      "sha256": "8c1d337a11ed7fd4f3f0e965856cb86a97cdf8b3de0b29b63345ad0133b3db12"
+    },
+    "hooks/SIMPLIFY-IGNORE.md": {
+      "upstream": "agent-skills",
+      "sha256": "b6a6bfd4cae002d435091e1684477886232866a16e22da97c761cb904f1c72d8"
+    },
+    "hooks/sdd-cache-post.sh": {
+      "upstream": "agent-skills",
+      "sha256": "cf60a60fd475cceaf8cefdf0462393b1be0d7a4a5a4ea54508172f36ec0883e5"
+    },
+    "hooks/sdd-cache-pre.sh": {
+      "upstream": "agent-skills",
+      "sha256": "853ad36f5e17e977060b92313e34b848ec1d321f2ac4aa657e9f3b9281cc0473"
+    },
+    "hooks/session-start-test.sh": {
+      "upstream": "agent-skills",
+      "sha256": "102ed1642f3305aef4b5bbafb47e843ed817659374110715e996029c38eee02b"
+    },
+    "hooks/session-start.sh": {
+      "upstream": "agent-skills",
+      "sha256": "eae078f6903521b54bf0af382ff2a0c395eb9bc1e314bea7047fe03051cfc617"
+    },
+    "hooks/simplify-ignore-test.sh": {
+      "upstream": "agent-skills",
+      "sha256": "d869c235d1b585a31aeb4f479fa4aa5408d4ad54d57b01e8f889f7997300a225"
+    },
+    "hooks/simplify-ignore.sh": {
+      "upstream": "agent-skills",
+      "sha256": "32bcf5c69f7b5d05416a652c60e475497707a9da66dfc9da486fc5bc6d98ffe2"
+    },
+    "licenses/agent-skills.LICENSE": {
+      "upstream": "agent-skills",
+      "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+    },
+    "licenses/mattpocock-skills.LICENSE": {
+      "upstream": "mattpocock-skills",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    "references/accessibility-checklist.md": {
+      "upstream": "agent-skills",
+      "sha256": "61c759d94d52296231f5f310b92b401f56c44e4430dc3cc95ebac5d7b1d5ffac"
+    },
+    "references/definition-of-done.md": {
+      "upstream": "agent-skills",
+      "sha256": "d1c75d2ae65d2c7a9cd01f93fa8de63e00e75f2fe5d08be224d576157054dcee"
+    },
+    "references/observability-checklist.md": {
+      "upstream": "agent-skills",
+      "sha256": "25fcd0e854596a5ab6f11b002050d245bf78f5ae0fcbd1df699b89451ae0e1e8"
+    },
+    "references/orchestration-patterns.md": {
+      "upstream": "agent-skills",
+      "sha256": "61e543d86f19f86b83074f8c1c769455c7085a2c72dd47b1da21a8c63785be4a"
+    },
+    "references/performance-checklist.md": {
+      "upstream": "agent-skills",
+      "sha256": "40f564d1e62341e277c01ba42c42d95264b9ef3b8e5a23249dc6e121a7e70067"
+    },
+    "references/security-checklist.md": {
+      "upstream": "agent-skills",
+      "sha256": "963922cb36bc87b81e56c8f86ff8f6db813ed7efe88066914dceaf6adba2ac90"
+    },
+    "references/testing-patterns.md": {
+      "upstream": "agent-skills",
+      "sha256": "f0bf05acd0edcadc27297ad5b74f104c8103ccfedba1a05cd6d6ae4af8364c56"
+    },
+    "skills/api-and-interface-design/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "5dafd0c44a3aabf11cae5bcb34f6fcc24dfa5c01ba6e0d3176bce997f4d68bc8"
+    },
+    "skills/ask-user-question/SKILL.md": {
+      "upstream": "ask-user-question",
+      "sha256": "2b6e01b83798748d51bca16b525f8620ead703b1789834492f6f731760042aca"
+    },
+    "skills/ask-user-question/examples.md": {
+      "upstream": "ask-user-question",
+      "sha256": "03b4df4912de5f2b833725bee8f30ef1b8cfa7ab37f06f1b5c56ea3f4d78c204"
+    },
+    "skills/ask-user-question/references/asking-again.md": {
+      "upstream": "ask-user-question",
+      "sha256": "1b264754fe31932578ea1b3bf402e69a5714ba419ffee71a99a36ea31bf1e928"
+    },
+    "skills/ask-user-question/references/failed-question.md": {
+      "upstream": "ask-user-question",
+      "sha256": "9ef0a2a41b6fae4d9dbdde38463b3d45fc245ea466582d69f82628224fc1195c"
+    },
+    "skills/ask-user-question/references/layout.md": {
+      "upstream": "ask-user-question",
+      "sha256": "ef02b8fadc02fdb23ec20c14201ff207bfea5e75e3e6e7511f257c9bf98d533c"
+    },
+    "skills/ask-user-question/references/reading-answers.md": {
+      "upstream": "ask-user-question",
+      "sha256": "b3031e05e8fdad56a43798a2b4ea9eb6aac224caa841ae64d0118ace3a768c5d"
+    },
+    "skills/ask-user-question/references/wording.md": {
+      "upstream": "ask-user-question",
+      "sha256": "cc37357c40ae02ff40d7e382dbc24305612d8aed4305f57c879bec6e2cbf9ffe"
+    },
+    "skills/browser-testing-with-devtools/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "4e3aacd6a380cd25bc6c2d67fdd1c926a9b22535b8a62109ecd33cefd909e3d9"
+    },
+    "skills/ci-cd-and-automation/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "a6ed8ed56456b01ff8314c44eefc69897d9905ae4e06bb2b7036286efb79b5f0"
+    },
+    "skills/code-review-and-quality/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "8f3cabca581bbf7cb5f0add3f7454e7a4523f9d4353a6a4a217e6fa515309612"
+    },
+    "skills/code-simplification/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "f0c5ed754057eb0c1e027e2587f59de816651feb5e837242296c43ea21cf621d"
+    },
+    "skills/constraint-driven-development/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "06479d4305f286d23cfb99f5dc85695896785269664e1f6a8d800e3b71e70c10"
+    },
+    "skills/constraint-driven-development/references/floor-guard.md": {
+      "upstream": "agent-skills",
+      "sha256": "dba15dad8f5a5cbae464ec8457e6dd014a7bcb3ad13a360a6908d54991a5415e"
+    },
+    "skills/context-engineering/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "8b736cb9e55b82b265ab6ff78349c0e826e8a6df550deddf665b7fb3ff858b63"
+    },
+    "skills/debugging-and-error-recovery/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "21f3960f5d7ae2cc95c40896545004dbbcbbd752ea65fc2d53962554d4174220"
+    },
+    "skills/deprecation-and-migration/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "6a624f942e09c69863a4219b9bd5d56975026b67b0c70bc83385ffd2120b6142"
+    },
+    "skills/documentation-and-adrs/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "87ae44a0c7bb3eefc2131a9d11caabcc14e4d8dcb27d66a3a675551ee2ce1671"
+    },
+    "skills/domain-modeling/ADR-FORMAT.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
+    },
+    "skills/domain-modeling/CONTEXT-FORMAT.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "17ab16ce783e4d2801ee52fd9acdf550cbf44de65ae76797a93943bbedf22a13"
+    },
+    "skills/domain-modeling/SKILL.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "327a2b50620e2fd70abc6893cd6965e76b20f8d0adb0dc2c8d5eb3845efb643e"
+    },
+    "skills/domain-modeling/agents/openai.yaml": {
+      "upstream": "mattpocock-skills",
+      "sha256": "f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b"
+    },
+    "skills/doubt-driven-development/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "6fa1fcd8420c28daf7e53c5b08b0f20b907911efd2a6d9bce0b9740da20a4008"
+    },
+    "skills/frontend-ui-engineering/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "2b74ac4862be3902ec918dceac9366a6fe83b9e003601c0deaf6be09c1766aca"
+    },
+    "skills/git-workflow-and-versioning/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "b7465d187935c52546d39fdc7bd6ac36d94eda25a9500ef8c18b767d2eb116ea"
+    },
+    "skills/idea-refine/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "79e773058963adc7646b0115b4f8a4afc974c5ff95843e4ef1cafff3cb51899e"
+    },
+    "skills/idea-refine/examples.md": {
+      "upstream": "agent-skills",
+      "sha256": "563204bfbf2f80a444151695205af4cb759e722b3d1e5460e08f278a69c89ba1"
+    },
+    "skills/idea-refine/frameworks.md": {
+      "upstream": "agent-skills",
+      "sha256": "161ebc18fdf2d996bc62a87a2d747cf1bf53548354f8925de25c732c27f00309"
+    },
+    "skills/idea-refine/refinement-criteria.md": {
+      "upstream": "agent-skills",
+      "sha256": "1ca2973a4d01b5cb37ab7ddb2eff77fa4e792634a33d0ce44961c068fc88d51a"
+    },
+    "skills/idea-refine/scripts/idea-refine.sh": {
+      "upstream": "agent-skills",
+      "sha256": "f02a52408a4218047c032d221483abfbb48d11f090bb4915965c7419bf2e0e47"
+    },
+    "skills/incremental-implementation/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "df66536610071727feae1ca95f3c391c248ad828041750ccd3699cce763aa00b"
+    },
+    "skills/interview-me/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "1d94741d10d2c826cd0c191aea3981ee94c8abb27ef2a166f6a372117d06448f"
+    },
+    "skills/observability-and-instrumentation/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "e7fcb0820306d46268de9594d676ad98e35040858926c412b7000faa52a61f87"
+    },
+    "skills/performance-optimization/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "00694d0c69bbde674d0e39de24052d90afea32d9fef9553eaee21a50a7e9b8cf"
+    },
+    "skills/planning-and-task-breakdown/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "ed0f90cc5951ddd4bcab7f871f64efec93a49af9279ef93bc470da77ad8da3f7"
+    },
+    "skills/security-and-hardening/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "4aa7a433a0a8042f47197f05893343bd9d1cc02a9179537ef3437c05c49b385d"
+    },
+    "skills/shipping-and-launch/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "af610cf4892db7eab2e91c899e33feba90e1000bac4528b2f8dde930816ac125"
+    },
+    "skills/source-driven-development/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "c59faf851377f0eeda45306398d16eb96d77ab1c2fd3e1a7fb58e9a0af33c1e9"
+    },
+    "skills/spec-driven-development/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "f7129bca8742bad73f60209bd237e8b10dab6f1fae8576dc552fb1923bc1e721"
+    },
+    "skills/test-driven-development/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "7c0c6ac057c19d7f8be65d9f49c3a638703b868f4625c78b70da5439d5d74fca"
+    },
+    "skills/using-agent-skills/SKILL.md": {
+      "upstream": "agent-skills",
+      "sha256": "30787ef2c77bf1a4729fffed0f6523ba6fcbe81bdc436b36371b78c21394d3c3"
+    },
+    "skills/wait-what/SKILL.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "e3f44e3ccbc0e7b62f20ba70b295fc9c9f4aa3f96c77168faee1c71bacbf4215"
+    },
+    "skills/wait-what/agents/openai.yaml": {
+      "upstream": "mattpocock-skills",
+      "sha256": "b41faadf741d51e4ea184148b2d1854d93f947aaf754c7844f70a00f04194999"
+    },
+    "skills/writing-for-agents/SKILL-MECHANICS.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "c768e6307c7c10728c401c213f2c4ba71c542127eeb7ad2956aabd15a0fa0059"
+    },
+    "skills/writing-for-agents/SKILL.md": {
+      "upstream": "mattpocock-skills",
+      "sha256": "551adca942227b44192edba88acd4e8db911f0121ce58ad16944ccf6a896a74a"
+    },
+    "skills/writing-for-agents/agents/openai.yaml": {
+      "upstream": "mattpocock-skills",
+      "sha256": "eacb24b2a618cfb81dacb0416f4fdd75ddf3a8060f8ddb99aae1b1e301907e4b"
+    }
+  },
+  "seeds": {
+    ".claude/commands/build.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    ".claude/commands/code-simplify.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    ".claude/commands/constraints.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    ".claude/commands/plan.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    ".claude/commands/review.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    ".claude/commands/ship.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    ".claude/commands/spec.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    ".claude/commands/test.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    ".claude/commands/webperf.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "commands/build.toml": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "commands/code-simplify.toml": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "commands/constraints.toml": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "commands/planning.toml": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "commands/review.toml": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "commands/ship.toml": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "commands/spec.toml": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "commands/test.toml": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "commands/webperf.toml": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    }
+  }
+}
