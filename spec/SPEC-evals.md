@@ -1,8 +1,8 @@
 # Spec: evals
 
 Module `evals` of `CAPABILITY-MAP.md`. Depends on `plain-talk` and `lifecycle`.
-Status: draft for review, 2026-09-19. The lifecycle cases are placeholders until
-`SPEC-lifecycle.md` names the entry points.
+Status: draft for review, 2026-09-19. The lifecycle cases are named below; the
+lifecycle module is built.
 
 ## Objective
 
@@ -33,7 +33,12 @@ their install pages.
 | `plain-talk/choice-as-table` | "Should this small CLI tool use SQLite or a JSON file for its settings? Give me the trade-off." | `regex` on `last_message`, pattern `^\|` with flags `m`; `llm`: PASS if the choice is laid out as a table with the same axes per row | a choice becomes a table |
 | `setup/fresh-repo` | "Set this repo up for brain." with `allowed_tools: [Read, Glob, Grep, Skill, Bash, Write, Edit]` and a scaffold script that writes a bare `CLAUDE.md` | `tool_used` Skill `setup-brain`; `file_exists` `AGENTS.md`; `file_exists` `docs/agents/domain.md`; `regex` on `{ source: file, path: AGENTS.md }` for the start marker | the skill runs the script and the files land |
 | `setup/second-run` | same prompt, scaffold already holds the block and the domain file | `tool_used` Skill `setup-brain`; `llm` on `last_message`: PASS if the reply says every file is unchanged | idempotent in conversation, not only in the script test |
-| `lifecycle/<entry>` | one per brain entry point, placeholder | `tool_used` Skill `<entry>`; `tool_used` Skill for the vendored skill it composes, `arm: with-only` | routing and composition; written with `lifecycle` |
+| `lifecycle/spec-underspecified` | "Build me a dashboard for our metrics." | `tool_used` Skill `interview-me`; `tool_used` Skill `ask-user-question`; `tool_used` AskUserQuestion, `min: 1`; `llm`: PASS if the first question carries one recommended option with a reason and the costs beside each option | an underspecified ask reaches the interview, and the interview asks through the tool, one question |
+| `lifecycle/plan-three-questions` | "Here is the spec: <a short spec in the prompt>. Plan it." with `allowed_tools: [Read, Glob, Grep, Skill, AskUserQuestion, Write]` | `tool_used` Skill `planning-and-task-breakdown`; `tool_used` AskUserQuestion, `min: 3`; `file_exists` `tasks/plan.md` | the plan gate asks its three questions through the tool |
+| `lifecycle/build-clean-context` | "Run the plan." with a scaffold holding a two-task `tasks/todo.md` and a passing test setup | `tool_used` Agent, `min: 2`; `tool_used` Bash with `input_match: git commit`, `min: 2` | build auto hands each task to a sub-agent and commits per task |
+| `lifecycle/verify-no-loop` | "Users report the export sometimes comes back empty. Fix it." with no reproduction possible in the workspace | `tool_used` Skill `debugging-and-error-recovery`; `tool_used` AskUserQuestion, `min: 1`; `regex` on `trace`, `match: not_contains`, pattern `hypothes` before the question | a bug with no loop stops and asks before any hypothesis |
+| `lifecycle/review-one-verdict` | "Review the last commit." with a scaffold holding a small diff | `tool_used` Skill `code-review-and-quality`; `tool_used` Agent, `min: 5`; `regex` on `last_message`, pattern `(Approve\|Request changes\|Reject)` | five parallel axes and one verdict |
+| `question/plan-approval` | "The plan has four tasks. Ask me whether to approve it." | `tool_used` Skill `ask-user-question`; `llm`: PASS if exactly one question is asked, it carries one recommended option with its reason, and each option states a cost | the question skill composes as its spec says |
 
 `setup-brain` is user-invoked, so the model cannot reach it from a plain prompt in the
 without-arm. The setup cases therefore run with `--ablation none`, and their `tool_used`
@@ -64,7 +69,8 @@ evals/
   plain-talk/choice-as-table/prompt.md, graders/*.md
   setup/fresh-repo/prompt.md, case.yaml, scaffold.sh, graders/*.md
   setup/second-run/prompt.md, case.yaml, scaffold.sh, graders/*.md
-  lifecycle/<entry>/...                                  placeholders until lifecycle
+  lifecycle/<case>/prompt.md, case.yaml, scaffold.sh, graders/*.md
+  question/plan-approval/prompt.md, graders/*.md
   results/                                               gitignored
 scripts/evals/gate.ts
 scripts/evals/__tests__/gate.test.ts
