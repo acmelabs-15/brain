@@ -1,5 +1,15 @@
 # @acmelabs/brain
 
+## 0.5.0
+
+### Minor Changes
+
+- [`15245dc`](https://github.com/acmelabs-15/brain/commit/15245dc45636202620f0265876252975ff8e88c1) - Every sub-agent brain dispatches gets the plain-talk block at the top of its prompt: the build tasks under `build auto`, the three ship personas, the webperf auditor and the five review axes. Output styles never reach a sub-agent, so the text travels with the prompt. A build sub-agent returns a decision it cannot settle as one question.
+
+### Patch Changes
+
+- [`16b4c6c`](https://github.com/acmelabs-15/brain/commit/16b4c6cea153ac1b0f98c6a258b08a1ff50e0ace) - The evals gate defaults to 0.85 instead of 1.0, so one judge miss in three runs does not fail the weekly run.
+
 ## 0.4.0
 
 ### Minor Changes
