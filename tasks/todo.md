@@ -14,7 +14,7 @@ Phase 1: scaffold and pure logic
   - Acceptance: given a tarball path or URL and a SHA, returns a temp directory holding the repo tree with the `<repo>-<sha>` root stripped; a non-200 response is an error naming the URL
   - Verify: test with a fixture tarball built in the test; no network
   - Files: scripts/sync/lib/fetch.ts, scripts/sync/__tests__/fetch.test.ts
-- [ ] Task 4: lock and plan
+- [x] Task 4: lock and plan
   - Acceptance: a take of a directory of skills yields one unit per child directory; a take of a flat folder yields one unit per file; a unit whose target exists and is not in the lock is a collision error listing every collision before any write
   - Verify: `bun test scripts/sync`
   - Files: scripts/sync/lib/lock.ts, scripts/sync/lib/plan.ts, scripts/sync/__tests__/plan.test.ts
