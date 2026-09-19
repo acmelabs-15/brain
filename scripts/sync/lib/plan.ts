@@ -37,7 +37,7 @@ function byName(a: { name: string }, b: { name: string }): number {
  */
 export async function planUnits(upstream: string, takes: Mapping[], tree: string): Promise<Unit[]> {
   const units: Unit[] = [];
-  for (const { from, to } of takes) {
+  for (const { from, to, except = [] } of takes) {
     const source = `${tree}/${from}`;
     if (!(await exists(source))) {
       throw new Error(
@@ -53,7 +53,15 @@ export async function planUnits(upstream: string, takes: Mapping[], tree: string
       continue;
     }
     const children = await readdir(source);
+    for (const skipped of except) {
+      if (!children.includes(skipped)) {
+        throw new Error(`upstream "${upstream}": except "${skipped}" is not a child of "${from}"`);
+      }
+    }
     for (const child of children.toSorted()) {
+      if (except.includes(child)) {
+        continue;
+      }
       const childSource = `${source}/${child}`;
       const kind = (await isDir(childSource)) ? "dir" : "file";
       units.push({ upstream, kind, source: childSource, target: `${to}/${child}` });

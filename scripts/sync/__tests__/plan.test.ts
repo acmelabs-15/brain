@@ -114,3 +114,20 @@ describe("findCollisions", () => {
     expect(await findCollisions(units, lock, root)).toEqual(["skills/alpha"]);
   });
 });
+
+describe("planUnits with except", () => {
+  test("a take of a folder skips the children named in except", async () => {
+    const units = await planUnits(
+      "addy",
+      [{ from: "skills", to: "skills", except: ["alpha"] }],
+      tree,
+    );
+    expect(byTarget(units)).toEqual(["dir:skills/beta"]);
+  });
+
+  test("an except name that is not a child is an error naming it", async () => {
+    await expect(
+      planUnits("addy", [{ from: "skills", to: "skills", except: ["nope"] }], tree),
+    ).rejects.toThrow('upstream "addy": except "nope" is not a child of "skills"');
+  });
+});

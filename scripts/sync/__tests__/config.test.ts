@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 
 import { parseConfig } from "../lib/config";
+import type { Mapping } from "../lib/config";
 
 const sha = "c004a74784a08295d52749b04cda634125b9a581";
 
@@ -10,8 +11,8 @@ function valid() {
       "agent-skills": {
         repo: "addyosmani/agent-skills",
         sha,
-        take: [{ from: "skills", to: "skills" }],
-        seed: [{ from: "commands", to: "commands" }],
+        take: [{ from: "skills", to: "skills" }] as Mapping[],
+        seed: [{ from: "commands", to: "commands" }] as Mapping[],
         license: "LICENSE",
       },
     },
@@ -74,6 +75,26 @@ describe("parseConfig", () => {
     raw.upstreams["agent-skills"].take = [{ from: "../etc", to: "skills" }];
     expect(() => parseConfig(raw)).toThrow(
       'upstream "agent-skills": path "../etc" must be relative and inside the repo',
+    );
+  });
+});
+
+describe("parseConfig except", () => {
+  test("accepts an except list of names on a take", () => {
+    const raw = valid();
+    raw.upstreams["agent-skills"].take = [
+      { from: "skills", to: "skills", except: ["debugging-and-error-recovery"] },
+    ];
+    expect(parseConfig(raw).upstreams["agent-skills"]?.take[0]?.except).toEqual([
+      "debugging-and-error-recovery",
+    ]);
+  });
+
+  test("rejects an except entry with a slash, naming it", () => {
+    const raw = valid();
+    raw.upstreams["agent-skills"].take = [{ from: "skills", to: "skills", except: ["a/b"] }];
+    expect(() => parseConfig(raw)).toThrow(
+      'upstream "agent-skills": except "a/b" must be a bare child name',
     );
   });
 });

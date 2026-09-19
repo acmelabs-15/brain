@@ -1,6 +1,6 @@
 /** The pin file, upstream.json, parsed and checked. */
 
-export type Mapping = { from: string; to: string };
+export type Mapping = { from: string; to: string; except?: string[] };
 
 export type Upstream = {
   repo: string;
@@ -41,6 +41,22 @@ function underAllowedRoot(target: string): boolean {
   return allowedRoots.some((root) => target === root || target.startsWith(`${root}/`));
 }
 
+/** Bare child names a take of a folder leaves out, because brain seeds them instead. */
+function parseExcept(name: string, raw: unknown): string[] | undefined {
+  if (raw === undefined) {
+    return undefined;
+  }
+  if (!Array.isArray(raw)) {
+    fail(name, "except must be a list of names");
+  }
+  return raw.map((entry: unknown) => {
+    if (typeof entry !== "string" || entry === "" || entry.includes("/") || entry === "..") {
+      fail(name, `except "${String(entry)}" must be a bare child name`);
+    }
+    return entry;
+  });
+}
+
 function parseMappings(name: string, kind: "take" | "seed", raw: unknown): Mapping[] {
   if (raw === undefined) {
     return [];
@@ -58,7 +74,8 @@ function parseMappings(name: string, kind: "take" | "seed", raw: unknown): Mappi
     if (!underAllowedRoot(m.to)) {
       fail(name, `${kind} target "${m.to}" is outside the allowed roots`);
     }
-    return { from: m.from, to: m.to };
+    const except = parseExcept(name, (entry as { except?: unknown }).except);
+    return except === undefined ? { from: m.from, to: m.to } : { from: m.from, to: m.to, except };
   });
 }
 
