@@ -9,7 +9,7 @@
 
 type Step = { name: string; command: string[]; required: boolean };
 
-const steps: readonly Step[] = [
+export const steps: readonly Step[] = [
   { name: "claude", command: ["claude", "plugin", "validate", ".", "--strict"], required: true },
   {
     name: "claude manifest",

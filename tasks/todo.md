@@ -14,7 +14,7 @@
   - Files: scripts/validate.ts, package.json
 - [x] Task 4: changesets
   - Acceptance: `.changeset/config.json` and README; `bun run version` runs `changeset version` then `version:sync`; a first changeset describes 0.1.0
-  - Verify: `bunx changeset status`
+  - Verify: `bunx changeset status` once the branch shares history with main; on the orphan branch it cannot find the merge base, so the config was checked by `bunx changeset --help` and the version script by test
   - Files: .changeset/config.json, .changeset/README.md, .changeset/first.md, package.json
 - [ ] Task 5: install pages
   - Acceptance: `docs/install/claude-code.md`, `codex.md`, `gemini-cli.md`, `antigravity.md`; each has install, verify (the skill catalogue lists domain-modeling), update, remove, and a "Last run" line with CLI version and date, or "not yet run"
