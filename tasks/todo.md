@@ -8,7 +8,7 @@
   - Acceptance: three case folders under `evals/` with `prompt.md` and graders as the spec's table lists; rubrics as PASS and FAIL conditions; `evals/results/` gitignored
   - Verify: the case test from Task 3's suite check
   - Files: evals/plain-talk/context-first/*, evals/plain-talk/choice-as-table/*, evals/question/plan-approval/*, .gitignore
-- [ ] Task 3: setup and lifecycle cases
+- [x] Task 3: setup and lifecycle cases
   - Acceptance: seven case folders with `prompt.md`, `case.yaml` where a scaffold or added dirs are needed, `scaffold.sh` files that `bash -n` cleanly, graders as the spec's table lists; a Bun test that every case folder has a prompt and a computed grader beside any llm grader
   - Verify: `bun test scripts/evals`; `bash -n` on every scaffold
   - Files: evals/setup/*, evals/lifecycle/*, scripts/evals/__tests__/suite.test.ts

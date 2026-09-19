@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: lifecycle/build-clean-context
+context:
+  scaffold_script: scaffold.sh
