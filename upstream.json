@@ -70,7 +70,7 @@
         },
         {
           "from": "skills/using-agent-skills",
-          "to": "skills/using-agent-skills"
+          "to": "skills/using-brain"
         }
       ],
       "license": "LICENSE"

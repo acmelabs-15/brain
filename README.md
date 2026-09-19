@@ -61,13 +61,13 @@ call, and reads the glossary through `docs/agents/domain.md`.
 | Web performance | `webperf` | the `web-performance-auditor` persona |
 
 Two on-ramps feed the lifecycle: `triage` for issues the user did not write, and
-`wayfinder` for work too big for one session. `using-agent-skills` routes a request to the
+`wayfinder` for work too big for one session. `using-brain` routes a request to the
 right stage. `wait-what` is the repair when a reply does not land.
 
 The eight skills that carry brain's additions keep agent-skills' names. They are seeded
 from addy's text and owned by brain: `interview-me`, `spec-driven-development`,
 `planning-and-task-breakdown`, `incremental-implementation`, `test-driven-development`,
-`debugging-and-error-recovery`, `code-review-and-quality`, `using-agent-skills`. The
+`debugging-and-error-recovery`, `code-review-and-quality`, `using-brain`. The
 research behind each fold is under `docs/research/`.
 
 ## Evals

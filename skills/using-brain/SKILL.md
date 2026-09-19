@@ -1,9 +1,9 @@
 ---
-name: using-agent-skills
+name: using-brain
 description: Routes a piece of work to the brain skill that fits it: the main flow from interview to ship, the triage and wayfinder on-ramps, the prototype detour and the vocabulary layer. Use at session start, when unsure which skill or command applies, or at a phase boundary to choose continue, clear, handoff, sub-agent or compact. Names setup-brain as the once-per-repo precondition.
 ---
 
-# Using Agent Skills
+# Using brain
 
 ## Overview
 
