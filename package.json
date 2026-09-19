@@ -19,7 +19,8 @@
     "plain-talk:render": "bun run scripts/plain-talk/render.ts",
     "setup:write": "bun run scripts/setup/write.ts",
     "lifecycle:check": "bun run scripts/lifecycle/check-refs.ts",
-    "question:check": "bun run scripts/question/check.ts"
+    "question:check": "bun run scripts/question/check.ts",
+    "evals:gate": "bun run scripts/evals/gate.ts"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.1",

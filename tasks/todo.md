@@ -1,6 +1,6 @@
 # Tasks: evals
 
-- [ ] Task 1: gate script
+- [x] Task 1: gate script
   - Acceptance: `bun run evals:gate <result.json> [--threshold 1.0]` exits 0 when `partial` is false and every case's `aggregates.score` meets the threshold, prints one line per case with score and delta, exits 1 otherwise or when the file is malformed, naming it
   - Verify: `bun test scripts/evals`
   - Files: scripts/evals/gate.ts, scripts/evals/__tests__/gate.test.ts, package.json
