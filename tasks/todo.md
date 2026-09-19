@@ -2,7 +2,7 @@
 
 Phase 1: scaffold and pure logic
 
-- [ ] Task 1: repo scaffold
+- [x] Task 1: repo scaffold
   - Acceptance: `bun install`, `bun run typecheck`, `bun test` run and pass on an empty test
   - Verify: the three commands exit 0
   - Files: package.json, tsconfig.json, bunfig.toml, .gitignore, .github/workflows/ci.yml

@@ -1,0 +1,16 @@
+{
+  "name": "@acmelabs/brain",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A development lifecycle for coding agents: agent-skills wrapped with a glossary, plain talk, and one question at a time.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "sync": "bun run scripts/sync/sync.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.14",
+    "typescript": "^5.6.0"
+  }
+}
