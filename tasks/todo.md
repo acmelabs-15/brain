@@ -25,7 +25,7 @@ Phase 2: apply and check
   - Acceptance: writes every planned file, deletes a vendored file the new tree lacks, copies the licence, writes `upstream.lock.json` with a sha256 per file, and touches no brain-owned path
   - Verify: fixture sync then a second fixture with one file removed
   - Files: scripts/sync/lib/apply.ts, scripts/sync/__tests__/apply.test.ts
-- [ ] Task 6: check
+- [x] Task 6: check
   - Acceptance: reports `changed`, `missing` and `unlisted` drift; `unlisted` only inside vendored directories; exit 0 when clean
   - Verify: fixture with one edit, one deletion, one extra file
   - Files: scripts/sync/lib/check.ts, scripts/sync/__tests__/check.test.ts
