@@ -20,7 +20,7 @@
   - Acceptance: one question per call through ask-user-question; matt's frontier orders the questions; a sub-agent fetches a fact while the round goes on; domain-modeling after each round; want-versus-should kept; the confidence number and predict-three test replaced by frontier-empty plus an explicit yes; any clear written approval counts; small reversible choices stay with the agent
   - Verify: a read against RES-002 §1 and RES-004 rows 13, 17, 18, 20; `lifecycle:check`
   - Files: skills/interview-me/SKILL.md
-- [ ] Task 6: combined spec-driven-development
+- [x] Task 6: combined spec-driven-development
   - Acceptance: a seam step after the assumptions list through the question tool; User Stories, Out of scope, Prior-art tests in the template; glossary words; the prototype detour through prototype and handoff; paths and the snippet kept
   - Verify: a read against RES-002 §1; `lifecycle:check`
   - Files: skills/spec-driven-development/SKILL.md
