@@ -36,7 +36,7 @@
   - Acceptance: review at the end of the last slice; commit per slice; nothing else changes
   - Verify: a read against RES-002 §3 rows 11 and 12
   - Files: skills/incremental-implementation/SKILL.md
-- [ ] Task 10: combined debugging-and-error-recovery
+- [x] Task 10: combined debugging-and-error-recovery
   - Acceptance: the feedback-loop gate as Phase 1 with ten loop constructions and tighten; secrets redacted first; ranked falsifiable hypotheses shown; tagged logs, one variable, the performance branch; seam-conditioned regression test; cleanup lines; no loop means stop and ask; the HITL script shipped under `scripts/` with attribution
   - Verify: a read against RES-002 §5; the script runs with `bash -n`
   - Files: skills/debugging-and-error-recovery/SKILL.md, skills/debugging-and-error-recovery/scripts/hitl-loop.template.sh
