@@ -1,3 +1,38 @@
+# Working on brain
+
+brain is one plugin for Claude Code, Codex CLI, Gemini CLI and Antigravity CLI. `README.md` says what is inside; `spec/README.md` indexes the module specs. This file holds what an agent needs on every turn here.
+
+## Ownership
+
+- A file listed in `upstream.lock.json` is vendored. A change to it goes upstream, as a pull request to the pack it comes from. `bun run sync -- --check` fails on a local edit.
+- Every other file is brain's. The eight combined skills and the commands were seeded from addy's text and are owned here; `bun run sync -- --report` shows what addy changed since.
+- A generated file names its source. `output-styles/talk-plain.md`, `GEMINI.md`, `rules/talk-plain.md`, `plain-talk/AGENTS-block.md` and the block at the end of this file come from `plain-talk/PLAIN-TALK.md`. Edit the source, then run `bun run plain-talk:render`.
+
+## Commands
+
+```
+bun run check      # the gate: typecheck, lint, format, tests, version, render, lifecycle and question checks
+bun run validate   # the host validators
+bun run sync       # fetch every pinned upstream again
+bun run changeset  # a user-facing change gets one; the release workflow versions and tags from it
+```
+
+## Where things live
+
+| What | Where |
+|---|---|
+| The capability map and one spec per module | `spec/` |
+| The current plan and task list; done plans by module | `tasks/plan.md`, `tasks/todo.md`; `tasks/done/<module>/` |
+| Intent, research notes, decision records, install pages | `docs/intent/`, `docs/research/`, `docs/decisions/`, `docs/install/` |
+| Tests | `__tests__/` beside the file under test, `bun:test` |
+
+## Change discipline
+
+- Bun 1.4.0 only. No Node runtime, no Python.
+- A failing test first, then the code, then `bun run check` green before the commit.
+- One commit per task. Stage the task's files by name.
+- A decision that is the user's goes through the ask-user-question skill, one question per call.
+
 <!-- brain:plain-talk:start -->
 ## Talk plain
 
