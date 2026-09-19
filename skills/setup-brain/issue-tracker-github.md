@@ -22,7 +22,7 @@ PRs as a request surface: no. Set to `yes` if this repo treats external PRs as f
 When `yes`, PRs run through the same labels and states as issues with the `gh pr` equivalents:
 
 - Read a PR: `gh pr view <number> --comments`, and `gh pr diff <number>` for the diff.
-- List external PRs: `gh pr list --state open --json number,title,body,labels,author,comments`, then keep the PRs whose `author.login` is not a repo collaborator, checked with `gh api repos/{{repo}}/collaborators/<login> --silent`.
+- List external PRs: `gh api 'repos/{{repo}}/pulls?state=open' --jq '.[] | {number, title, author: .user.login, author_association}'`, then keep the PRs whose `author_association` is `CONTRIBUTOR`, `FIRST_TIME_CONTRIBUTOR` or `NONE`. The `gh pr list` JSON has no such field.
 - Comment, label, close: `gh pr comment`, `gh pr edit --add-label` or `--remove-label`, `gh pr close`.
 
 GitHub shares one number space across issues and PRs: resolve a bare `#42` with `gh pr view 42`, then `gh issue view 42`.

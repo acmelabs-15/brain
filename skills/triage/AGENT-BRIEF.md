@@ -1,6 +1,8 @@
 # Writing Agent Briefs
 
-An agent brief is a structured comment posted on a GitHub issue or PR when it moves to `ready-for-agent`. It is the authoritative specification that an AFK agent will work from. The original body and discussion are context: the agent brief is the contract.
+Adapted from mattpocock/skills, MIT, commit c55ee46.
+
+An agent brief is a structured comment posted on an issue or PR in the tracker when it moves to `ready-for-agent`. It is the authoritative specification that an AFK agent will work from. The original body and discussion are context: the agent brief is the contract.
 
 The brief states **what the agent should do**, which stretches to both surfaces: for an issue, that's building the change from nothing; for a PR, it's what's left to do *to the existing diff*: finish it, close gaps, address review points. Same principles either way; the PR example below shows the difference.
 
@@ -12,7 +14,7 @@ The issue may sit in `ready-for-agent` for days or weeks. The codebase will chan
 
 - **Do** describe interfaces, types, and behavioral contracts
 - **Do** name specific types, function signatures, or config shapes that the agent should look for or modify
-- **Don't** reference file paths: they go stale
+- **Do** list the files likely touched, as the starting point for the agent's search. The list is a hint, not the contract: a moved file does not invalidate the brief, because the interfaces and behaviour still identify the work
 - **Don't** reference line numbers
 - **Don't** assume the current implementation structure will remain the same
 
@@ -57,6 +59,9 @@ Be specific about edge cases and error conditions.
 - `functionName()` return type: what it currently returns vs what it should return
 - Config shape: any new configuration options needed
 
+**Files likely touched:**
+- `path/to/file`: why it is in the list
+
 **Acceptance criteria:**
 - [ ] Specific, testable criterion 1
 - [ ] Specific, testable criterion 2
@@ -91,6 +96,10 @@ and append "..." to indicate truncation.
   but the validation/processing logic that populates it needs to respect
   word boundaries
 - Any function that reads SKILL.md frontmatter and extracts the description
+
+**Files likely touched:**
+- `src/skills/metadata.ts`: where the description is read and truncated today
+- `src/skills/__tests__/metadata.test.ts`: the truncation cases
 
 **Acceptance criteria:**
 - [ ] Descriptions under 1024 chars are unchanged
@@ -130,6 +139,10 @@ checked for matches.
   and a `**Prior requests:**` list with issue links
 - The triage workflow should read all `.out-of-scope/*.md` files early
   and match incoming issues against them by concept similarity
+
+**Files likely touched:**
+- `skills/triage/SKILL.md`: the gather step and the wontfix outcome
+- `skills/triage/OUT-OF-SCOPE.md`: the file format and the flow
 
 **Acceptance criteria:**
 - [ ] Closing a feature as wontfix creates/updates a file in `.out-of-scope/`
@@ -171,6 +184,10 @@ is untouched when the flag is absent.
   instead of the plain-text error
 - Reuse the existing serializer the PR already added; don't introduce a second
 
+**Files likely touched:**
+- `src/commands/triage-list.ts`: the error path the PR left as plain text
+- `src/commands/__tests__/triage-list.test.ts`: the missing `--json` cases
+
 **Acceptance criteria:**
 - [ ] `triage list --json` emits valid JSON for both success and error cases
 - [ ] Exit codes match the non-JSON command
@@ -201,7 +218,7 @@ The function around line 150 has the issue.
 This is bad because:
 - No category
 - Vague description ("the triage thing is broken")
-- References file paths and line numbers that will go stale
+- Line numbers that go stale, and a files list standing in for a description of the behaviour
 - No acceptance criteria
 - No scope boundaries
 - No description of current vs desired behavior

@@ -48,7 +48,7 @@
   - Acceptance: the tree names the combined skills and the two on-ramps; `setup-brain` as precondition; stateful interview when a repo is present; `references/brain/phase-boundaries.md` adapted with attribution; the smart-zone rule
   - Verify: a read against RES-002 §6; `lifecycle:check`
   - Files: skills/using-agent-skills/SKILL.md, references/brain/phase-boundaries.md
-- [ ] Task 13: triage, fixed
+- [x] Task 13: triage, fixed
   - Acceptance: the five RES-003 defects fixed; grilling replaced by the interview rules and the question tool; labels created on first use; the brief keeps the files list; reads `docs/agents/issue-tracker.md` and `triage-labels.md` from setup-brain
   - Verify: a read against RES-003 §1 and §3; `lifecycle:check`
   - Files: skills/triage/SKILL.md, skills/triage/AGENT-BRIEF.md, skills/triage/OUT-OF-SCOPE.md
