@@ -16,7 +16,7 @@
   - Acceptance: nine files carry the same composition with bare skill names; Gemini's `/planning` name kept
   - Verify: `lifecycle:check`; `agy plugin validate .`
   - Files: commands/*.toml
-- [ ] Task 5: combined interview-me
+- [x] Task 5: combined interview-me
   - Acceptance: one question per call through ask-user-question; matt's frontier orders the questions; a sub-agent fetches a fact while the round goes on; domain-modeling after each round; want-versus-should kept; the confidence number and predict-three test replaced by frontier-empty plus an explicit yes; any clear written approval counts; small reversible choices stay with the agent
   - Verify: a read against RES-002 §1 and RES-004 rows 13, 17, 18, 20; `lifecycle:check`
   - Files: skills/interview-me/SKILL.md
