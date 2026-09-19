@@ -1,18 +1,18 @@
 ---
 name: incremental-implementation
-description: Delivers changes incrementally in thin, verifiable slices. Use when implementing any feature or change that touches more than one file, or when picking up the next task from a plan. Use when rolling a change out behind a feature flag, when you're about to write a large amount of code at once, or when a task feels too big to land in one step.
+description: Delivers a task in thin, verifiable slices: implement, run the touched test files, typecheck, commit, repeat. After the last slice it runs the full suite once and calls code-review-and-quality before the task is done. Use when a change touches more than one file, when picking up the next task from tasks/plan.md, when a change goes behind a feature flag, or when a task feels too big for one step.
 ---
 
 # Incremental Implementation
 
 ## Overview
 
-Build in thin vertical slices — implement one piece, test it, verify it, then expand. Avoid implementing an entire feature in one pass. Each increment should leave the system in a working, testable state. This is the execution discipline that makes large features manageable.
+Build in thin vertical slices: implement one piece, test it, verify it, then expand. Avoid implementing an entire feature in one pass. Each increment should leave the system in a working, testable state. This is the execution discipline that makes large features manageable.
 
 ## When to Use
 
 - Implementing any multi-file change
-- Building a new feature from a task breakdown
+- Building a new feature from the task breakdown in `tasks/plan.md`
 - Refactoring existing code
 - Any time you're tempted to write more than ~100 lines before testing
 
@@ -36,10 +36,14 @@ Build in thin vertical slices — implement one piece, test it, verify it, then 
 For each slice:
 
 1. **Implement** the smallest complete piece of functionality
-2. **Test** — run the test suite (or write a test if none exists)
-3. **Verify** — confirm the slice works as expected (tests pass, build succeeds, manual check)
-4. **Commit** -- save your progress with a descriptive message (see `git-workflow-and-versioning` for atomic commit guidance)
-5. **Move to the next slice** — carry forward, don't restart
+2. **Test**: run the test files the slice touches (write one first when none exists; the test-driven-development skill carries the red-green-refactor loop)
+3. **Verify**: typecheck, build, and confirm the slice works as expected (tests pass, manual check)
+4. **Commit**: save your progress with a descriptive message (see `git-workflow-and-versioning` for atomic commit guidance)
+5. **Move to the next slice**: carry forward, don't restart
+
+Names in code, tests and commit messages come from `CONTEXT.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for the domain-modeling skill.
+
+After the last slice, the Verification section below closes the task.
 
 ## Slicing Strategies
 
@@ -123,7 +127,7 @@ Do NOT:
 - Add features not in the spec because they "seem useful"
 - Modernize syntax in files you're only reading
 
-If you notice something worth improving outside your task scope, note it — don't fix it:
+If you notice something worth improving outside your task scope, note it, don't fix it:
 
 ```
 NOTICED BUT NOT TOUCHING:
@@ -132,13 +136,15 @@ NOTICED BUT NOT TOUCHING:
 → Want me to create tasks for these?
 ```
 
+Whether those become tasks is the user's decision. Call the Skill tool with "ask-user-question" and ask it as one question.
+
 ### Rule 1: One Thing at a Time
 
 Each increment changes one logical thing. Don't mix concerns:
 
 **Bad:** One commit that adds a new component, refactors an existing one, and updates the build config.
 
-**Good:** Three separate commits — one for each change.
+**Good:** Three separate commits, one for each change.
 
 ### Rule 2: Keep It Compilable
 
@@ -178,7 +184,7 @@ Each increment should be independently revertable:
 - Additive changes (new files, new functions) are easy to revert
 - Modifications to existing code should be minimal and focused
 - Database migrations should have corresponding rollback migrations
-- Avoid deleting something in one commit and replacing it in the same commit — separate them
+- Avoid deleting something in one commit and replacing it in the same commit; separate them
 
 ## Working with Agents
 
@@ -188,7 +194,7 @@ When directing an agent to implement incrementally:
 "Let's implement Task 3 from the plan.
 
 Start with just the database schema change and the API endpoint.
-Don't touch the UI yet — we'll do that in the next increment.
+Don't touch the UI yet. We'll do that in the next increment.
 
 After implementing, run the repository's test and build commands to
 verify nothing is broken."
@@ -201,14 +207,14 @@ Be explicit about what's in scope and what's NOT in scope for each increment.
 After each increment, verify with the repository's own commands (see the test-driven-development skill's Discover the Stack First section):
 
 - [ ] The change does one thing and does it completely
-- [ ] All existing tests still pass (the repository's test command: `npm test`, `./gradlew test`, `pytest`, ...)
+- [ ] The test files the slice touches pass (the repository's test command scoped to a file: `npm test -- <file>`, `pytest <file>`, ...)
 - [ ] The build succeeds (the repository's build command)
 - [ ] Type checking passes, where the stack has one (`npx tsc --noEmit`, `mypy`, ...)
 - [ ] Linting passes (the repository's lint command)
 - [ ] The new functionality works as expected
 - [ ] The change is committed with a descriptive message
 
-**Note:** Run each verification command after a change that could affect it. After a successful run, don't repeat the same command unless the code has changed since — re-running on unchanged code adds no information.
+**Note:** Run each verification command after a change that could affect it. After a successful run, don't repeat the same command unless the code has changed since: re-running on unchanged code adds no information. The typecheck and the touched test files run on every slice; the full test suite runs once, after the last slice.
 
 ## Common Rationalizations
 
@@ -220,6 +226,8 @@ After each increment, verify with the repository's own commands (see the test-dr
 | "I'll add the feature flag later" | If the feature isn't complete, it shouldn't be user-visible. Add the flag now. |
 | "This refactor is small enough to include" | Refactors mixed with features make both harder to review and debug. Separate them. |
 | "Let me run the build command again just to be sure" | After a successful run, repeating the same command adds nothing unless the code has changed since. Run it again after subsequent edits, not as reassurance. |
+| "I'll run the full suite on every slice to be safe" | The typecheck and the touched test files catch what a slice can break. The full suite runs once, after the last slice; on every slice it costs minutes and adds little. |
+| "Review can wait for the pull request" | The task is not done until code-review-and-quality has run on its diff. A finding fixed now is a slice; a finding found at the PR is rework. |
 
 ## Red Flags
 
@@ -233,15 +241,17 @@ After each increment, verify with the repository's own commands (see the test-dr
 - Touching files outside the task scope "while I'm here"
 - Creating new utility files for one-time operations
 - Running the same build/test command twice in a row without any intervening code change
+- A task declared done before the full suite and the review have run
 
 ## Verification
 
 After completing all increments for a task:
 
 - [ ] Each increment was individually tested and committed
-- [ ] The full test suite passes
+- [ ] The full test suite passes (the one full run for the task)
 - [ ] The build is clean
 - [ ] The feature works end-to-end as specified
+- [ ] The task's diff has been reviewed: Call the Skill tool with "code-review-and-quality". Each finding you fix is a slice: test, verify, commit. Declare the task done only after the review passes.
 - [ ] No uncommitted changes remain
 
 ## See Also

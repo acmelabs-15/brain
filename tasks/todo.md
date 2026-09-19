@@ -32,7 +32,7 @@
   - Acceptance: seams asked before the first test; codebase-design vocabulary named; tautological-test anti-pattern; `references/brain/mockability.md` adapted from matt's mocking notes with attribution; glossary words in test names; refactor inside the loop
   - Verify: a read against RES-002 §3; `sync -- --check` still clean, the reference is brain-owned
   - Files: skills/test-driven-development/SKILL.md, references/brain/mockability.md
-- [ ] Task 9: combined incremental-implementation
+- [x] Task 9: combined incremental-implementation
   - Acceptance: review at the end of the last slice; commit per slice; nothing else changes
   - Verify: a read against RES-002 §3 rows 11 and 12
   - Files: skills/incremental-implementation/SKILL.md
