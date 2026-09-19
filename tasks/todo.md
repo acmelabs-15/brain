@@ -4,7 +4,7 @@
   - Acceptance: `.claude-plugin/plugin.json` (name brain, version 0.1.0, description, author, repository, license MIT), `.claude-plugin/marketplace.json` (one plugin, source "./"), `.codex-plugin/plugin.json` (skills "./skills/", interface block), `.agents/plugins/marketplace.json`, `gemini-extension.json` (name brain, version, contextFileName GEMINI.md), root `plugin.json` (name, description only); `claude plugin validate . --strict` exits 0
   - Verify: `claude plugin validate . --strict`; `bun -e` parses all six as JSON
   - Files: the six manifests
-- [ ] Task 2: version sync
+- [x] Task 2: version sync
   - Acceptance: `bun run version:sync` writes the `package.json` version into the five versioned manifests with stable two-space formatting; `-- --check` exits 1 listing every drifted file; a manifest without the field is an error
   - Verify: `bun test scripts/version`
   - Files: scripts/version/version-sync.ts, scripts/version/__tests__/version-sync.test.ts, package.json
