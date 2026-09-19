@@ -70,6 +70,23 @@ from addy's text and owned by brain: `interview-me`, `spec-driven-development`,
 `debugging-and-error-recovery`, `code-review-and-quality`, `using-agent-skills`. The
 research behind each fold is under `docs/research/`.
 
+## Evals
+
+brain measures its own claims with Claude Code's plugin eval command: ten cases under
+`evals/`, each a prompt plus graders, run with the plugin and without it, so the delta
+shows what brain adds. Every run is model calls on the account that runs it. Claude Code
+2.1.269 or later is needed.
+
+```
+claude plugin eval . --ablation none --case 'setup/*'   # the setup cases, plugin arm only
+claude plugin eval . --case 'plain-talk/*'              # the plain-talk cases, both arms
+claude plugin eval . --json evals/results/ci.json       # everything, for the gate
+bun run evals:gate evals/results/ci.json                # exit 1 under the threshold
+```
+
+The `Evals` workflow runs the suite by hand or weekly, never on every push, and needs
+the `ANTHROPIC_API_KEY` repository secret. `evals/results/` is not committed.
+
 ## Development
 
 Bun only.

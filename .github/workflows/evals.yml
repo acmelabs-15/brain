@@ -1,0 +1,54 @@
+name: Evals
+
+# Runs the eval suite by hand or once a week, never on every push: every run is model
+# calls on the account behind ANTHROPIC_API_KEY. The result is stored as an artifact and
+# the gate fails the job under the threshold.
+
+on:
+  workflow_dispatch:
+    inputs:
+      cases:
+        description: "Case glob, e.g. plain-talk/* (empty runs every case)"
+        required: false
+        default: ""
+      threshold:
+        description: "Pass threshold, 0 to 1"
+        required: false
+        default: "1.0"
+  schedule:
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.0"
+      - run: bun install --frozen-lockfile
+      - name: Install Claude Code
+        run: bun add -g @anthropic-ai/claude-code
+      - name: Run the suite
+        run: |
+          set -euo pipefail
+          mkdir -p evals/results
+          args=(plugin eval . --json evals/results/ci.json --trust-plugin --scaffold --no-publish)
+          if [ -n "${{ github.event.inputs.cases }}" ]; then
+            args+=(--case "${{ github.event.inputs.cases }}")
+          fi
+          claude "${args[@]}"
+      - name: Store the result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-result
+          path: evals/results/
+          if-no-files-found: warn
+      - name: Gate
+        run: bun run evals:gate evals/results/ci.json --threshold "${{ github.event.inputs.threshold || '1.0' }}"

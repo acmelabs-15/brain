@@ -12,7 +12,7 @@
   - Acceptance: seven case folders with `prompt.md`, `case.yaml` where a scaffold or added dirs are needed, `scaffold.sh` files that `bash -n` cleanly, graders as the spec's table lists; a Bun test that every case folder has a prompt and a computed grader beside any llm grader
   - Verify: `bun test scripts/evals`; `bash -n` on every scaffold
   - Files: evals/setup/*, evals/lifecycle/*, scripts/evals/__tests__/suite.test.ts
-- [ ] Task 4: workflow and docs
+- [x] Task 4: workflow and docs
   - Acceptance: `.github/workflows/evals.yml` on `workflow_dispatch` and a weekly cron, installs Bun and Claude Code, runs `claude plugin eval . --json evals/results/ci.json --trust-plugin --scaffold`, uploads the result, runs the gate; README gains an Evals section with the cost note and the secret name
   - Verify: the workflow file; `bun run check`
   - Files: .github/workflows/evals.yml, README.md
