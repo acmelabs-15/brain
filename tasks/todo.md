@@ -36,7 +36,7 @@ Phase 2: apply and check
 
 Phase 3: seeds and the real tree
 
-- [ ] Task 8: seed and report
+- [x] Task 8: seed and report
   - Acceptance: `--seed <name>` copies seeded paths once and records `seededAt`; a second run refuses and changes nothing; `--report` lists each seeded file that differs between `seededAt` and the pin, with a unified diff
   - Verify: fixture with two tarballs
   - Files: scripts/sync/lib/seed.ts, scripts/sync/__tests__/seed.test.ts, scripts/sync/sync.ts
