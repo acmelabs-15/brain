@@ -21,7 +21,7 @@ Phase 1: scaffold and pure logic
 
 Phase 2: apply and check
 
-- [ ] Task 5: apply
+- [x] Task 5: apply
   - Acceptance: writes every planned file, deletes a vendored file the new tree lacks, copies the licence, writes `upstream.lock.json` with a sha256 per file, and touches no brain-owned path
   - Verify: fixture sync then a second fixture with one file removed
   - Files: scripts/sync/lib/apply.ts, scripts/sync/__tests__/apply.test.ts
