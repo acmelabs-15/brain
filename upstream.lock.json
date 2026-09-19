@@ -88,22 +88,6 @@
       "upstream": "agent-skills",
       "sha256": "5dafd0c44a3aabf11cae5bcb34f6fcc24dfa5c01ba6e0d3176bce997f4d68bc8"
     },
-    "skills/ask-user-question/SKILL.md": {
-      "upstream": "ask-user-question",
-      "sha256": "5b475a863ae235f7e9c89dee942c744cb227f028fa9d620da59fc52db1ae623c"
-    },
-    "skills/ask-user-question/references/claude-code.md": {
-      "upstream": "ask-user-question",
-      "sha256": "22de38a8a66b3e9af60f4f198b6114f3cc42a1cc1ac23bf312e8d43f93411a20"
-    },
-    "skills/ask-user-question/references/codex.md": {
-      "upstream": "ask-user-question",
-      "sha256": "3d05a959c144b10352aad8394f4bc8817ad24ec78976cff6a96f94fe5c4fdd28"
-    },
-    "skills/ask-user-question/references/gemini-cli.md": {
-      "upstream": "ask-user-question",
-      "sha256": "b0f63e8a01dbdf87fd4dac0c31bb3419dbbdbdb00a57177d10f559a3cec31b06"
-    },
     "skills/browser-testing-with-devtools/SKILL.md": {
       "upstream": "agent-skills",
       "sha256": "4e3aacd6a380cd25bc6c2d67fdd1c926a9b22535b8a62109ecd33cefd909e3d9"
@@ -369,6 +353,22 @@
     "commands/webperf.toml": {
       "upstream": "agent-skills",
       "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/ask-user-question/SKILL.md": {
+      "upstream": "ask-user-question",
+      "seededAt": "6e9d8a7994d5fb717bb0c294e908f442ff52484b"
+    },
+    "skills/ask-user-question/references/claude-code.md": {
+      "upstream": "ask-user-question",
+      "seededAt": "6e9d8a7994d5fb717bb0c294e908f442ff52484b"
+    },
+    "skills/ask-user-question/references/codex.md": {
+      "upstream": "ask-user-question",
+      "seededAt": "6e9d8a7994d5fb717bb0c294e908f442ff52484b"
+    },
+    "skills/ask-user-question/references/gemini-cli.md": {
+      "upstream": "ask-user-question",
+      "seededAt": "6e9d8a7994d5fb717bb0c294e908f442ff52484b"
     }
   }
 }

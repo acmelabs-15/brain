@@ -29,7 +29,8 @@ describe("parseConfig", () => {
       "ask-user-question",
     ]);
     expect(config.upstreams["agent-skills"]?.seed).toHaveLength(2);
-    expect(config.upstreams["ask-user-question"]?.seed).toEqual([]);
+    expect(config.upstreams["ask-user-question"]?.take).toEqual([]);
+    expect(config.upstreams["ask-user-question"]?.seed).toHaveLength(1);
   });
 
   test("rejects a missing sha, naming the upstream", () => {
