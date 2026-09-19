@@ -1,6 +1,6 @@
 # Tasks: plain-talk
 
-- [ ] Task 1: source text and templates
+- [x] Task 1: source text and templates
   - Acceptance: `plain-talk/PLAIN-TALK.md` carries the five parts of the user-level talk-plain style; the vocabulary rule names CONTEXT.md and CONTEXT-MAP.md in domain-modeling's words; the repair line names wait-what; no host-specific tool name in the body; three templates each hold `{{body}}` once
   - Verify: `grep -c '{{body}}'` is 1 per template; a read of the source against the five parts
   - Files: plain-talk/PLAIN-TALK.md, plain-talk/templates/output-style.md, plain-talk/templates/gemini.md, plain-talk/templates/agents-block.md
