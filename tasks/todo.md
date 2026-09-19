@@ -4,7 +4,7 @@
   - Acceptance: `upstream.json` lists the eight skills in `except` on the agent-skills take and in its `seed`; after `sync` the vendored copies are gone and after `--seed agent-skills` the eight are back, brain-owned, with `seededAt`; `sync -- --check` clean; `sync -- --report` empty
   - Verify: the three commands
   - Files: upstream.json, upstream.lock.json, the eight skill folders
-- [ ] Task 2: reference check
+- [x] Task 2: reference check
   - Acceptance: `bun run lifecycle:check` parses `.claude/commands/*.md`, `commands/*.toml` and `skills/*/SKILL.md` for `brain:<name>`, `agent-skills:<name>` and `Skill tool with "<name>"`; fails on an unresolved name and on `agent-skills:` anywhere; fails when `disable-model-invocation: true` and `policy.allow_implicit_invocation: false` disagree; CI runs it
   - Verify: `bun test scripts/lifecycle`; the check fails on the seeded tree because of `agent-skills:` and passes after Task 3
   - Files: scripts/lifecycle/check-refs.ts, scripts/lifecycle/__tests__/check-refs.test.ts, package.json, .github/workflows/ci.yml
