@@ -10,7 +10,7 @@ Phase 1: scaffold and pure logic
   - Acceptance: `upstream.json` parses into a typed object; a missing `sha`, a non-40-hex `sha`, or a `to` outside `skills/`, `references/`, `agents/`, `hooks/`, `.claude/commands/`, `commands/`, `licenses/` is an error naming the path
   - Verify: `bun test scripts/sync`
   - Files: upstream.json, scripts/sync/lib/config.ts, scripts/sync/__tests__/config.test.ts
-- [ ] Task 3: fetch
+- [x] Task 3: fetch
   - Acceptance: given a tarball path or URL and a SHA, returns a temp directory holding the repo tree with the `<repo>-<sha>` root stripped; a non-200 response is an error naming the URL
   - Verify: test with a fixture tarball built in the test; no network
   - Files: scripts/sync/lib/fetch.ts, scripts/sync/__tests__/fetch.test.ts
