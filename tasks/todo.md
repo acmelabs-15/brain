@@ -12,7 +12,7 @@
   - Acceptance: `output-styles/talk-plain.md` with the four frontmatter fields, `GEMINI.md` at the root, `plain-talk/AGENTS-block.md` with start and end markers; `bun run validate` passes
   - Verify: `bun run plain-talk:render -- --check` and `bun run validate`
   - Files: output-styles/talk-plain.md, GEMINI.md, plain-talk/AGENTS-block.md
-- [ ] Task 4: CI
+- [x] Task 4: CI
   - Acceptance: CI runs `plain-talk:render -- --check` after the sync check
   - Verify: the workflow file
   - Files: .github/workflows/ci.yml
