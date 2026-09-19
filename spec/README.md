@@ -11,4 +11,4 @@ spec, `SPEC-<module id>.md`, written and approved before its plan under `tasks/`
 | setup | `SPEC-setup.md` | approved, built |
 | lifecycle | `SPEC-lifecycle.md` | approved, built |
 | question | `SPEC-question.md` | approved, built |
-| evals | `SPEC-evals.md` | approved, in build |
+| evals | `SPEC-evals.md` | approved, built; the first run is Peter's task 5 |
