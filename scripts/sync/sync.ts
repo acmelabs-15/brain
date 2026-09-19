@@ -137,10 +137,13 @@ async function runSeed(root: string, name: string): Promise<number> {
   const work = await mkdtemp(`${tmpdir()}/brain-seed-`);
   try {
     const tree = await fetchTree(resolveUrl(upstream.repo, upstream.sha), `${work}/${name}`);
-    const written = await seedUpstream(name, upstream, tree, lock, root);
+    const result = await seedUpstream(name, upstream, tree, lock, root);
     await writeLock(lockPath, lock);
+    for (const target of result.skipped) {
+      console.log(`already seeded, skipped  ${target}`);
+    }
     console.log(
-      `${name}: ${written.length} seeded at ${upstream.sha.slice(0, 7)}; brain owns them now`,
+      `${name}: ${result.written.length} seeded at ${upstream.sha.slice(0, 7)}; brain owns them now`,
     );
     return 0;
   } finally {

@@ -133,3 +133,25 @@ describe("seed and report", () => {
     expect(report.stdout).toContain("no seeded file changed upstream");
   });
 });
+
+describe("seed, second batch", () => {
+  test("a later seed copies only the paths not yet seeded and lists the ones it skipped", async () => {
+    const root = await brainRoot("batch", shaV1);
+    await run(root, "--seed", "addy");
+    await Bun.write(`${root}/commands/spec.toml`, "brain edited\n");
+    const pinned = await Bun.file(`${root}/upstream.json`).text();
+    await Bun.write(
+      `${root}/upstream.json`,
+      pinned.replace(
+        '"seed":[{"from":"commands","to":"commands"}]',
+        '"seed":[{"from":"commands","to":"commands"},{"from":"skills/a","to":"skills/a"}]',
+      ),
+    );
+    const again = await run(root, "--seed", "addy");
+    expect(again.stderr).toBe("");
+    expect(again.code).toBe(0);
+    expect(again.stdout).toContain("already seeded, skipped  commands/spec.toml");
+    expect(await Bun.file(`${root}/commands/spec.toml`).text()).toBe("brain edited\n");
+    expect(await Bun.file(`${root}/skills/a/SKILL.md`).text()).toBe("a\n");
+  });
+});

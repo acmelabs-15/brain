@@ -39,33 +39,54 @@ async function seedFiles(name: string, seeds: Mapping[], tree: string): Promise<
   return files;
 }
 
-/** Copy the seed paths once. Refuses, before any write, if a target already exists. */
+export type SeedResult = { written: string[]; skipped: string[] };
+
+/**
+ * Copy the seed paths once. A path already in the lock's seeds is skipped: brain owns it.
+ * A path not in the lock whose target exists is a collision, and nothing is written.
+ * When every path is already seeded, that is an error: there was nothing to do.
+ */
 export async function seedUpstream(
   name: string,
   upstream: Upstream,
   tree: string,
   lock: Lock,
   root: string,
-): Promise<string[]> {
+): Promise<SeedResult> {
   const files = await seedFiles(name, upstream.seed, tree);
-  const taken: string[] = [];
+  const skipped: string[] = [];
+  const fresh: SeedFile[] = [];
+  const collisions: string[] = [];
   for (const file of files) {
-    if (file.target in lock.seeds || (await exists(`${root}/${file.target}`))) {
-      taken.push(`upstream "${name}": "${file.target}" is already seeded; brain owns it now`);
+    if (file.target in lock.seeds) {
+      skipped.push(file.target);
+    } else if (await exists(`${root}/${file.target}`)) {
+      collisions.push(
+        `upstream "${name}": "${file.target}" exists and is not seeded; brain owns it`,
+      );
+    } else {
+      fresh.push(file);
     }
   }
-  if (taken.length > 0) {
-    throw new Error(taken.join("\n"));
+  if (collisions.length > 0) {
+    throw new Error(collisions.join("\n"));
+  }
+  if (fresh.length === 0) {
+    throw new Error(
+      skipped
+        .map((target) => `upstream "${name}": "${target}" is already seeded; brain owns it now`)
+        .join("\n"),
+    );
   }
   const written: string[] = [];
-  for (const file of files) {
+  for (const file of fresh) {
     const bytes = new Uint8Array(await Bun.file(`${tree}/${file.from}`).arrayBuffer());
     await mkdir(`${root}/${file.target}`.replace(/\/[^/]+$/u, ""), { recursive: true });
     await Bun.write(`${root}/${file.target}`, bytes);
     lock.seeds[file.target] = { upstream: name, seededAt: upstream.sha };
     written.push(file.target);
   }
-  return written;
+  return { written, skipped };
 }
 
 /** Map a seeded brain path back to its upstream path through the seed mappings. */
