@@ -10,5 +10,5 @@ spec, `SPEC-<module id>.md`, written and approved before its plan under `tasks/`
 | plain-talk | `SPEC-plain-talk.md` | approved, built |
 | setup | `SPEC-setup.md` | approved, built |
 | lifecycle | `SPEC-lifecycle.md` | draft for review |
-| question | `SPEC-question.md` | approved as module seven; spec not yet written |
+| question | `SPEC-question.md` | draft for review |
 | evals | `SPEC-evals.md` | draft; lifecycle cases are placeholders |
