@@ -8,7 +8,7 @@
   - Acceptance: `skills/setup-brain/SKILL.md` with `disable-model-invocation: true`, the five-step process from the spec, and the one question phrased for ask-user-question; `agents/openai.yaml` with `policy.allow_implicit_invocation: false`; `skills/setup-brain/domain.md` holds the consumer rules with a `{{layout}}` slot
   - Verify: frontmatter parses; `claude plugin validate . --strict`
   - Files: skills/setup-brain/SKILL.md, skills/setup-brain/agents/openai.yaml, skills/setup-brain/domain.md
-- [ ] Task 3: wiring
+- [x] Task 3: wiring
   - Acceptance: `bun run setup:write` runs the script; `bun run validate` reports 30 skills for agy; `bun run check` passes
   - Verify: the two commands
   - Files: package.json
