@@ -369,6 +369,30 @@
     "skills/ask-user-question/references/gemini-cli.md": {
       "upstream": "ask-user-question",
       "seededAt": "6e9d8a7994d5fb717bb0c294e908f442ff52484b"
+    },
+    "skills/triage/AGENT-BRIEF.md": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+    },
+    "skills/triage/OUT-OF-SCOPE.md": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+    },
+    "skills/triage/SKILL.md": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+    },
+    "skills/triage/agents/openai.yaml": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+    },
+    "skills/wayfinder/SKILL.md": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+    },
+    "skills/wayfinder/agents/openai.yaml": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
     }
   }
 }

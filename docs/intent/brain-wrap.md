@@ -56,3 +56,5 @@ Confirmed by Peter on 2026-09-19 after an interview of eight questions.
 | Multi-task build | one plan approval, then a clean context per task | conflict 5, after a re-pitch |
 | More of matt | codebase-design, prototype and handoff vendored; triage and wayfinder wait for research RES-003 | Peter |
 | Settled by standing rules | one question per call through the user-question tool; matt's frontier orders the questions; the spec and plan live in the repo, addy's tasks files, no tracker; commit per slice | Peter's CLAUDE.md and the setup spec |
+| On-ramps | triage and wayfinder come in as brain-owned skills seeded from matt's text: the five documented defects fixed, grilling replaced by brain's interview and question rules, labels created on first use; setup-brain gains one tracker question with local markdown as the default; wayfinder asks one question at a time through the question tool | Peter, 2026-09-19, on RES-003 |
+| ask-user-question ownership | seeded from acmelabs-15/ask-user-question at 6e9d8a7 and brain-owned from then; its final shape follows RES-004 | Peter, 2026-09-19 |

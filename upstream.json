@@ -62,7 +62,17 @@
           "to": "skills/handoff"
         }
       ],
-      "license": "LICENSE"
+      "license": "LICENSE",
+      "seed": [
+        {
+          "from": "skills/engineering/triage",
+          "to": "skills/triage"
+        },
+        {
+          "from": "skills/engineering/wayfinder",
+          "to": "skills/wayfinder"
+        }
+      ]
     },
     "ask-user-question": {
       "repo": "acmelabs-15/ask-user-question",
