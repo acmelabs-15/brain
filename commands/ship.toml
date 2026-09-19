@@ -9,7 +9,7 @@ Invoke the shipping-and-launch skill.
 
 Spawn three subagents concurrently. The CLI exposes each custom subagent in `agents/` as a tool with the same name — so `code-reviewer.md` becomes a `code-reviewer` tool the main agent can call, and `@code-reviewer` works as an explicit invocation in the prompt. **Issue all three subagent tool calls in a single assistant turn so they execute in parallel** — sequential calls defeat the purpose of this command.
 
-Dispatch each persona by tool name:
+Each prompt opens with the plain-talk block from the brain plugin's `plain-talk/AGENTS-block.md`, because the host's every-turn text never reaches a sub-agent. Dispatch each persona by tool name:
 
 1. **`code-reviewer`** — Run a five-axis review (correctness, readability, architecture, security, performance) on the staged changes or recent commits. Output the standard review template.
 2. **`security-auditor`** — Run a vulnerability and threat-model pass. Check OWASP Top 10, secrets handling, auth/authz, dependency CVEs. Output the standard audit report.

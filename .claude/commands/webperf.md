@@ -20,6 +20,7 @@ description: Run a web performance audit via the web-performance-auditor persona
 
 Spawn the `web-performance-auditor` subagent. Pass it explicitly:
 
+- The plain-talk block from `${CLAUDE_PLUGIN_ROOT}/plain-talk/AGENTS-block.md` at the top of the prompt, because the output style never reaches a sub-agent
 - The files, components, or diff under review
 - Any artifact paths (Lighthouse JSON, PSI JSON, CrUX response, trace) or pasted JSON content
 - The target URL or page name when known

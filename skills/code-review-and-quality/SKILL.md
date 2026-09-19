@@ -201,6 +201,7 @@ Carry what you find into the merged list in Step 3.
 
 Spawn five sub-agents at once, one per axis, so no axis pollutes another's context. Where the host allows, use a model other than the one that wrote the code; different models have different blind spots. Each brief contains:
 
+0. The plain-talk block at the top, the text of `plain-talk/AGENTS-block.md` under the brain plugin root, because the host's every-turn text never reaches a sub-agent.
 1. The diff command from Step 0 with its output, and the commit list.
 2. The standards files from Step 0 (paths, and contents when short).
 3. The axis section from this skill, pasted in full. The sub-agent has no other access to it.

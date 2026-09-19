@@ -162,4 +162,4 @@ Behaviour, whether the agent talks plain, is not tested here. The `evals` module
 
 1. `force-for-plugin` overrides any output style a user chose, and the only opt-out is to disable brain. Peter chose the forced style on 2026-09-19. Say if an opt-out is wanted; it would be a documented setting, not a second mechanism.
 2. Resolved 2026-09-19: Antigravity loads a plugin rule with `trigger: always_on`. brain ships `rules/talk-plain.md`; the install run records the check.
-3. Output styles never reach Claude Code subagents. brain skills that dispatch subagents can paste the block into the subagent prompt. That is a `lifecycle` decision, noted here.
+3. Resolved 2026-09-19: output styles never reach Claude Code sub-agents, so every brain-owned text that dispatches one, the build, ship and webperf commands in both hosts and the review skill, puts `plain-talk/AGENTS-block.md` at the top of the sub-agent prompt. A test under `scripts/lifecycle/__tests__/` holds the list. The build sub-agent also returns a decision it cannot settle as one question, because a sub-agent cannot ask the user.
