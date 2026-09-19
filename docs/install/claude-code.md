@@ -48,5 +48,7 @@ claude plugin uninstall brain@acmelabs
 
 ## Last run
 
-Not yet run from the public repository. `claude plugin validate . --strict` passes on
-the tree on 2026-09-19.
+2026-09-19, Claude Code 2.1.278, from the acmelabs marketplace: `brain@acmelabs` 0.3.0
+installed at user scope, 44 skills in `claude plugin details`. In the session that ran the
+install, the active output style switched to `brain:talk-plain` without any setting, which is
+`force-for-plugin` at work. `claude plugin validate . --strict` passes on the tree.

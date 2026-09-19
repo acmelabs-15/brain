@@ -46,5 +46,7 @@ agy plugin uninstall brain
 
 ## Last run
 
-Not yet run from the public repository. `agy plugin validate .` passes on the tree on
-2026-09-19: 29 skills, 4 agents, 9 commands processed.
+2026-09-19, Antigravity CLI 1.2.0, from the public repository: 35 skills, 4 agents and 9
+commands processed. The plugin is staged under `~/.gemini/config/plugins/brain/`. A print-mode
+session asked "which rules are installed?" listed `rules/talk-plain.md` from that path with the
+first sentence of the text, so the always-on rule is active.

@@ -49,4 +49,5 @@ codex plugin remove brain@brain
 
 ## Last run
 
-Not yet run from the public repository.
+Not yet run. Peter holds the Codex install for now, so the once-per-machine `setup-brain` step
+and the Codex check are open.

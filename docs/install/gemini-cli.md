@@ -36,4 +36,6 @@ gemini extensions uninstall brain
 
 ## Last run
 
-Not yet run from the public repository.
+2026-09-19, Gemini CLI 0.58.0, from the public repository: extension `brain` 0.3.0, source type
+github-release, tag `v0.3.0`. A print-mode session in an empty trusted directory, asked for the
+first heading of the brain context file, answered `# brain: talk plain`.
