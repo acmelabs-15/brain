@@ -1,0 +1,5 @@
+interface:
+  display_name: "Setup brain"
+  short_description: "Prepare this repo for brain: the plain-talk block and the domain docs layout"
+policy:
+  allow_implicit_invocation: false
