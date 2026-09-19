@@ -1,0 +1,22 @@
+{
+  "name": "brain",
+  "interface": {
+    "displayName": "brain"
+  },
+  "plugins": [
+    {
+      "name": "brain",
+      "version": "0.1.0",
+      "description": "A development lifecycle for coding agents: agent-skills wrapped with a glossary, plain talk, and one question at a time.",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

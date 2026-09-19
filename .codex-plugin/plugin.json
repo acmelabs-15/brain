@@ -1,0 +1,22 @@
+{
+  "name": "brain",
+  "version": "0.1.0",
+  "description": "A development lifecycle for coding agents: agent-skills wrapped with a glossary, plain talk, and one question at a time.",
+  "author": {
+    "name": "Peter Kloss",
+    "url": "https://github.com/acmelabs-15"
+  },
+  "homepage": "https://github.com/acmelabs-15/brain",
+  "repository": "https://github.com/acmelabs-15/brain",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "brain",
+    "shortDescription": "agent-skills wrapped with a glossary, plain talk, and one question at a time.",
+    "longDescription": "brain carries Addy Osmani's agent-skills unchanged and adds a CONTEXT.md glossary discipline, plain-language replies on every turn, and a question skill that asks one decision at a time.",
+    "developerName": "Peter Kloss",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "defaultPrompt": ["Help me choose the right engineering workflow for this task"]
+  }
+}

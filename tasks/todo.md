@@ -1,6 +1,6 @@
 # Tasks: host-manifests
 
-- [ ] Task 1: manifests
+- [x] Task 1: manifests
   - Acceptance: `.claude-plugin/plugin.json` (name brain, version 0.1.0, description, author, repository, license MIT), `.claude-plugin/marketplace.json` (one plugin, source "./"), `.codex-plugin/plugin.json` (skills "./skills/", interface block), `.agents/plugins/marketplace.json`, `gemini-extension.json` (name brain, version, contextFileName GEMINI.md), root `plugin.json` (name, description only); `claude plugin validate . --strict` exits 0
   - Verify: `claude plugin validate . --strict`; `bun -e` parses all six as JSON
   - Files: the six manifests
