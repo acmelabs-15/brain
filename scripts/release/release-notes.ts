@@ -20,7 +20,8 @@ export function releaseNotes(changelog: string, version: string): string {
 }
 
 if (import.meta.main) {
-  const [, , version] = process.argv;
+  const args = process.argv.slice(2);
+  const [version] = args;
   if (version === undefined) {
     console.error("usage: release-notes.ts <version>");
     process.exit(2);
