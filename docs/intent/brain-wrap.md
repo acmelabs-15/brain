@@ -3,8 +3,8 @@
 Confirmed by Peter on 2026-09-19 after an interview of eight questions.
 
 - **Outcome:** brain is one public plugin for Claude Code, Codex CLI, Gemini CLI and
-  Antigravity CLI. It carries agent-skills unchanged, adds matt's gap skills, folds
-  matt's improvements into brain's own lifecycle skills, keeps a CONTEXT.md glossary
+  Antigravity CLI. It carries agent-skills unchanged where no improvement applies, and where
+  one does, enhances the addy skill under its own name (amended 2026-09-19, see below), adds matt's gap skills, keeps a CONTEXT.md glossary
   through domain-modeling, talks plain on every turn, and asks every user decision
   through ask-user-question.
 - **User:** anyone who installs it. Peter first, on all four hosts.
@@ -40,3 +40,19 @@ Confirmed by Peter on 2026-09-19 after an interview of eight questions.
 | Capability map | six modules: upstream-sync, host-manifests, plain-talk, setup, lifecycle, evals | `spec/CAPABILITY-MAP.md`, approved 2026-09-19 |
 | Scope of the wrap | addy's skills, references, agents and hooks are vendored; commands are seeded once and brain-owned | Peter: "not only the Addy skills, also commands, hooks, etc"; the `agent-skills:` namespace in addy's Claude commands |
 | Releases and marketplace | changesets and the release workflow copied from acmelabs-15/ask-user-question: tag v<version>, GitHub release, moving latest; the entry in acmelabs-15/marketplace points at ref latest | Peter, 2026-09-19 |
+
+## Lifecycle decisions, 2026-09-19
+
+| Decision | Answer | Evidence |
+|---|---|---|
+| Entry points | commands as the entry points, skills as the discipline, as agent-skills does; Codex and Antigravity call skills by name | Peter: "should follow agent-skills lead" |
+| Unit of integration | the improvement, not the skill: enhance an addy skill or combine skills into a new one; the best decision, not the easiest | Peter, verbatim in the session log |
+| How an improvement is folded | one combined skill, seeded from addy's text under addy's name, matt's parts and the decisions folded in; the vendored copy leaves the take-list; sync --report tracks addy's later changes | Peter, after a written comparison of the three shapes |
+| ask-user-question | evaluated like any other pack: kept, merged, split or improved; not pulled in as is | Peter; research RES-004 |
+| Paths and a snippet in specs and tasks | stay, addy's way | conflict 1 |
+| Refactor step | inside the red-green-refactor loop, addy's way | conflict 2 |
+| Review result | five axes as parallel sub-agents, merged into one ranked list and one verdict | conflict 3 |
+| Bug with no reproduction | stop, list the attempts, ask for what a feedback loop needs | conflict 4 |
+| Multi-task build | one plan approval, then a clean context per task | conflict 5, after a re-pitch |
+| More of matt | codebase-design, prototype and handoff vendored; triage and wayfinder wait for research RES-003 | Peter |
+| Settled by standing rules | one question per call through the user-question tool; matt's frontier orders the questions; the spec and plan live in the repo, addy's tasks files, no tracker; commit per slice | Peter's CLAUDE.md and the setup spec |

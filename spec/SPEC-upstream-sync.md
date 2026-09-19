@@ -36,6 +36,20 @@ Gemini extension and Antigravity both read root `commands/`, and addy's
 path, `sync -- --report` prints the upstream diff between the last-synced SHA and the
 current pin, so a change addy makes to a command is reviewed by hand.
 
+**A seeded skill under addy's name (added 2026-09-19).** When brain enhances an addy
+skill, the skill directory is seeded rather than vendored, and keeps addy's name so every
+host routes to the enhanced text. The take of `skills` names it in `except`, so sync
+stops copying it, and the `seed` list names it, so `--seed` copies it once:
+
+```json
+"take": [{ "from": "skills", "to": "skills", "except": ["debugging-and-error-recovery"] }],
+"seed": [{ "from": "skills/debugging-and-error-recovery", "to": "skills/debugging-and-error-recovery" }]
+```
+
+The order for an existing vendored copy is: add the `except`, run `sync`, which deletes
+the vendored files, then run `--seed`, which copies them fresh as brain-owned. An
+`except` name that is not a child of the take is an error.
+
 ## Tech Stack
 
 - Bun 1.4.0, TypeScript, `bun:test`. No Node-only API, no Python.
