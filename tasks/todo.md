@@ -1,0 +1,26 @@
+# Tasks: host-manifests
+
+- [ ] Task 1: manifests
+  - Acceptance: `.claude-plugin/plugin.json` (name brain, version 0.1.0, description, author, repository, license MIT), `.claude-plugin/marketplace.json` (one plugin, source "./"), `.codex-plugin/plugin.json` (skills "./skills/", interface block), `.agents/plugins/marketplace.json`, `gemini-extension.json` (name brain, version, contextFileName GEMINI.md), root `plugin.json` (name, description only); `claude plugin validate . --strict` exits 0
+  - Verify: `claude plugin validate . --strict`; `bun -e` parses all six as JSON
+  - Files: the six manifests
+- [ ] Task 2: version sync
+  - Acceptance: `bun run version:sync` writes the `package.json` version into the five versioned manifests with stable two-space formatting; `-- --check` exits 1 listing every drifted file; a manifest without the field is an error
+  - Verify: `bun test scripts/version`
+  - Files: scripts/version/version-sync.ts, scripts/version/__tests__/version-sync.test.ts, package.json
+- [ ] Task 3: validate script
+  - Acceptance: `bun run validate` runs `claude plugin validate . --strict`, then `agy plugin validate .` when `agy` is on PATH, else prints one line saying it was skipped; exit code is the first failure
+  - Verify: run locally with both binaries present
+  - Files: scripts/validate.ts, package.json
+- [ ] Task 4: changesets
+  - Acceptance: `.changeset/config.json` and README; `bun run version` runs `changeset version` then `version:sync`; a first changeset describes 0.1.0
+  - Verify: `bunx changeset status`
+  - Files: .changeset/config.json, .changeset/README.md, .changeset/first.md, package.json
+- [ ] Task 5: install pages
+  - Acceptance: `docs/install/claude-code.md`, `codex.md`, `gemini-cli.md`, `antigravity.md`; each has install, verify (the skill catalogue lists domain-modeling), update, remove, and a "Last run" line with CLI version and date, or "not yet run"
+  - Verify: each page's commands match the spec's table
+  - Files: the four pages
+- [ ] Task 6: CI
+  - Acceptance: CI runs `version:sync -- --check` and `bun run validate` after the tests; `claude` is installed in the job
+  - Verify: CI green on the branch after push
+  - Files: .github/workflows/ci.yml
