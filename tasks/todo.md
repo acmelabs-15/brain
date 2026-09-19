@@ -12,7 +12,7 @@
   - Acceptance: nine files call `brain:` skills; each states the three standing rules once by pointer to the combined skill; `build.md` auto mode hands each task to a sub-agent in a clean context with the task text, the spec section and the skill name, and stops on a failed test, a spec gap or a one-way step
   - Verify: `lifecycle:check` passes; `claude plugin validate . --strict`
   - Files: .claude/commands/*.md
-- [ ] Task 4: TOML commands
+- [x] Task 4: TOML commands
   - Acceptance: nine files carry the same composition with bare skill names; Gemini's `/planning` name kept
   - Verify: `lifecycle:check`; `agy plugin validate .`
   - Files: commands/*.toml

@@ -1,9 +1,9 @@
 description = "Conduct a five-axis code review — correctness, readability, architecture, security, performance"
 
 prompt = """
-Invoke the code-review-and-quality skill.
+Invoke the code-review-and-quality skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with the ask-user-question skill; domain words come from CONTEXT.md through docs/agents/domain.md; the spec and the plan live in this repo.
 
-Review the current changes (staged or recent commits) across all five axes:
+Pin the fixed point first, as the skill's Step 0 says: the diff since a commit, branch or merge-base the user names, or the current changes when they name none. Then run the five axes as parallel sub-agents where the host has them, one brief each:
 
 1. **Correctness** — Does it match the spec? Edge cases handled? Tests adequate?
 2. **Readability** — Clear names? Straightforward logic? Well-organized?
@@ -11,6 +11,6 @@ Review the current changes (staged or recent commits) across all five axes:
 4. **Security** — Input validated? Secrets safe? Auth checked? (Use security-and-hardening skill)
 5. **Performance** — No N+1 queries? No unbounded ops? (Use performance-optimization skill)
 
-Categorize findings as Critical, Important, or Suggestion.
+Merge the five reports into one list ranked by leverage, with one verdict: approve, request changes or reject. Label each finding Critical, Important or Suggestion, and tag it a hard violation of a documented standard or a judgement call.
 Output a structured review with specific file:line references and fix recommendations.
 """

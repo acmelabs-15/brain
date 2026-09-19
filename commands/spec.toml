@@ -1,9 +1,9 @@
 description = "Start spec-driven development — write a structured specification before writing code"
 
 prompt = """
-Invoke the spec-driven-development skill.
+Invoke the spec-driven-development skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with the ask-user-question skill; domain words come from CONTEXT.md through docs/agents/domain.md; the spec and the plan live in this repo.
 
-Begin by understanding what the user wants to build. Ask clarifying questions about:
+Begin by understanding what the user wants to build. When the ask is underspecified, the skill runs interview-me first, one question per call. Cover:
 1. The objective and target users
 2. Core features and acceptance criteria
 3. Tech stack preferences and constraints
@@ -13,5 +13,5 @@ Then generate a structured spec covering all six core areas: objective, commands
 
 If the request bundles several independently testable capabilities, first propose a capability map (module ids, dependency direction, build order) per the skill's Phase 0 and get it approved, then spec each module in dependency order.
 
-Save the spec as SPEC.md in the project root and confirm with the user before proceeding.
+Save the spec as SPEC.md in the project root, or under spec/ when the repo already has that folder, and confirm with the user before proceeding.
 """
