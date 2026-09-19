@@ -63,6 +63,8 @@ async function readOrEmpty(path: string): Promise<string> {
 export async function checkRefs(root: string): Promise<Finding[]> {
   const findings: Finding[] = [];
   const skills = await skillDirs(root);
+  const commandFiles = await listFiles(`${root}/.claude/commands`, ".md");
+  const commands = new Set(commandFiles.map((file) => file.slice(file.lastIndexOf("/") + 1, -3)));
   const files = [
     ...(await listFiles(`${root}/.claude/commands`, ".md")),
     ...(await listFiles(`${root}/commands`, ".toml")),
@@ -80,7 +82,8 @@ export async function checkRefs(root: string): Promise<Finding[]> {
           detail: `${shown} should be brain:${ref.name}`,
         });
       }
-      if (!skills.includes(ref.name)) {
+      const resolves = skills.includes(ref.name) || (ref.prefix !== null && commands.has(ref.name));
+      if (!resolves) {
         findings.push({
           kind: "unresolved",
           file: rel,

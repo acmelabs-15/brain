@@ -60,7 +60,7 @@
   - Acceptance: one question, GitHub, GitLab or local, local by default when no remote points at GitHub or GitLab; `write.ts` writes `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md` from brain-owned templates; idempotent; `spec/SPEC-setup.md` amended by decision
   - Verify: `bun test scripts/setup`
   - Files: scripts/setup/write.ts, scripts/setup/__tests__/write.test.ts, skills/setup-brain/SKILL.md, skills/setup-brain/issue-tracker-*.md, skills/setup-brain/triage-labels.md
-- [ ] Task 16: wrap-up
+- [x] Task 16: wrap-up
   - Acceptance: README lifecycle table current; `bun run check`, `sync -- --check` and `bun run validate` pass; `sync -- --report` lists nothing; plan archived
   - Verify: the commands
   - Files: README.md, tasks/

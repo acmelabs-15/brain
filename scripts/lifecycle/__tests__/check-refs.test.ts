@@ -73,3 +73,13 @@ describe("findRefs, markers", () => {
     expect(findRefs("<!-- brain:plain-talk:start -->")).toEqual([]);
   });
 });
+
+describe("checkRefs, command names", () => {
+  test("brain:<name> resolves to a command file as well as to a skill", async () => {
+    const root = await tree("commands", {
+      "skills/tdd/SKILL.md": "---\nname: tdd\n---\nRun brain:build when ready.",
+      ".claude/commands/build.md": "Invoke the brain:tdd skill.",
+    });
+    expect(await checkRefs(root)).toEqual([]);
+  });
+});

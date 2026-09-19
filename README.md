@@ -43,20 +43,32 @@ The upstream packs are MIT licensed; their texts are in `licenses/`. brain is MI
 
 ## Lifecycle
 
-The commands are the entry points in Claude Code and Gemini CLI. In Codex and Antigravity,
-call the skills by name.
+Run `setup-brain` once per repo first. The commands are the entry points in Claude Code
+(`/brain:<name>`) and Gemini CLI (`/<name>`). In Codex and Antigravity, call the skills by
+name. Every stage asks each decision through the ask-user-question skill, one question per
+call, and reads the glossary through `docs/agents/domain.md`.
 
 | Stage | Command | Skills it composes |
 |---|---|---|
-| Define | `/brain:spec` | `spec-driven-development`, with `domain-modeling` and `ask-user-question` |
-| Plan | `/brain:plan` | `planning-and-task-breakdown` |
-| Build | `/brain:build` | `incremental-implementation`, `test-driven-development` |
-| Verify | `/brain:test` | `test-driven-development`, `debugging-and-error-recovery` |
-| Review | `/brain:review` | `code-review-and-quality` |
-| Ship | `/brain:ship` | `shipping-and-launch` with the review personas |
+| Define | `spec` | `interview-me` when the ask is underspecified, then `spec-driven-development`; `domain-modeling` keeps the glossary; `prototype` and `handoff` for a question that needs a runnable answer |
+| Plan | `plan` (`planning` in Gemini) | `planning-and-task-breakdown` |
+| Build | `build` | `incremental-implementation` with `test-driven-development`; `build auto` runs each task in a clean context |
+| Verify | `test` | `test-driven-development`; `debugging-and-error-recovery` for a bug |
+| Review | `review` | `code-review-and-quality`, five axes as parallel sub-agents, one verdict |
+| Ship | `ship` | `shipping-and-launch` with the three review personas |
+| Quality bar | `constraints` | `constraint-driven-development` |
+| Simplify | `code-simplify` | `code-simplification` |
+| Web performance | `webperf` | the `web-performance-auditor` persona |
 
-The composition is the `lifecycle` module's work and is not finished; the commands still
-carry agent-skills' text.
+Two on-ramps feed the lifecycle: `triage` for issues the user did not write, and
+`wayfinder` for work too big for one session. `using-agent-skills` routes a request to the
+right stage. `wait-what` is the repair when a reply does not land.
+
+The eight skills that carry brain's additions keep agent-skills' names. They are seeded
+from addy's text and owned by brain: `interview-me`, `spec-driven-development`,
+`planning-and-task-breakdown`, `incremental-implementation`, `test-driven-development`,
+`debugging-and-error-recovery`, `code-review-and-quality`, `using-agent-skills`. The
+research behind each fold is under `docs/research/`.
 
 ## Development
 
