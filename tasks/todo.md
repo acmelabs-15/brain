@@ -44,7 +44,7 @@ Phase 3: seeds and the real tree
   - Acceptance: the three pins sync; `--check` exits 0; 25 addy skills, 3 matt skills, ask-user-question, 7 references, 4 agents, 8 hook files, 2 licences on disk; 18 seeded command files; every `../../references/*.md` link in a vendored skill resolves
   - Verify: `bun run sync && bun run sync -- --check`; a link check one-liner
   - Files: upstream.lock.json and the vendored tree
-- [ ] Task 10: CI and smoke test
+- [x] Task 10: CI and smoke test
   - Acceptance: CI runs typecheck, tests and `sync -- --check`; a network smoke test runs only with `SYNC_NETWORK=1`
   - Verify: CI green on the `wrap` branch
   - Files: .github/workflows/ci.yml, scripts/sync/__tests__/network.test.ts
