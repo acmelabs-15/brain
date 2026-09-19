@@ -8,7 +8,7 @@
   - Acceptance: `bun run version:sync` writes the `package.json` version into the five versioned manifests with stable two-space formatting; `-- --check` exits 1 listing every drifted file; a manifest without the field is an error
   - Verify: `bun test scripts/version`
   - Files: scripts/version/version-sync.ts, scripts/version/__tests__/version-sync.test.ts, package.json
-- [ ] Task 3: validate script
+- [x] Task 3: validate script
   - Acceptance: `bun run validate` runs `claude plugin validate . --strict`, then `agy plugin validate .` when `agy` is on PATH, else prints one line saying it was skipped; exit code is the first failure
   - Verify: run locally with both binaries present
   - Files: scripts/validate.ts, package.json

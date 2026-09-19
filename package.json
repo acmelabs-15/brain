@@ -12,7 +12,8 @@
     "check": "bun run typecheck && bun run lint && bun run format:check && bun test && bun run version:sync -- --check",
     "test": "bun test",
     "sync": "bun run scripts/sync/sync.ts",
-    "version:sync": "bun run scripts/version/version-sync.ts"
+    "version:sync": "bun run scripts/version/version-sync.ts",
+    "validate": "bun run scripts/validate.ts"
   },
   "devDependencies": {
     "@types/bun": "^1.3.14",
