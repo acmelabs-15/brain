@@ -56,7 +56,7 @@
   - Acceptance: one question per call through the question tool; grilling replaced; hands off to `spec`; reads the same setup files; the map-edit gap for GitHub closed
   - Verify: a read against RES-003 §2 and §3
   - Files: skills/wayfinder/SKILL.md
-- [ ] Task 15: setup-brain tracker question
+- [x] Task 15: setup-brain tracker question
   - Acceptance: one question, GitHub, GitLab or local, local by default when no remote points at GitHub or GitLab; `write.ts` writes `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md` from brain-owned templates; idempotent; `spec/SPEC-setup.md` amended by decision
   - Verify: `bun test scripts/setup`
   - Files: scripts/setup/write.ts, scripts/setup/__tests__/write.test.ts, skills/setup-brain/SKILL.md, skills/setup-brain/issue-tracker-*.md, skills/setup-brain/triage-labels.md

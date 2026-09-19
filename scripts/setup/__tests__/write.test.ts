@@ -34,19 +34,36 @@ beforeAll(async () => {
     `${brain}/skills/setup-brain/domain.md`,
     "# Domain docs\n\nLayout: {{layout}}.\n",
   );
+  await Bun.write(
+    `${brain}/skills/setup-brain/issue-tracker-local.md`,
+    "# Tracker: local\n\nIssues live under .scratch/.\n",
+  );
+  await Bun.write(
+    `${brain}/skills/setup-brain/issue-tracker-github.md`,
+    "# Tracker: GitHub\n\nRepo: {{repo}}\n",
+  );
+  await Bun.write(
+    `${brain}/skills/setup-brain/issue-tracker-gitlab.md`,
+    "# Tracker: GitLab\n\nRepo: {{repo}}\n",
+  );
+  await Bun.write(`${brain}/skills/setup-brain/triage-labels.md`, "# Labels\n\nneeds-triage\n");
 });
 
 afterAll(async () => {
   await rm(work, { recursive: true, force: true });
 });
 
+const base = { layout: "single" as const, dryRun: false };
+
 describe("writeSetup", () => {
-  test("in an empty repo it creates AGENTS.md with the block and docs/agents/domain.md", async () => {
+  test("in an empty repo it creates AGENTS.md with the block and the three docs/agents files", async () => {
     const root = await repo("empty");
-    const changes = await writeSetup({ brain, root, layout: "single", dryRun: false });
+    const changes = await writeSetup({ brain, root, ...base });
     expect(changes).toEqual([
       { path: "AGENTS.md", action: "created" },
       { path: "docs/agents/domain.md", action: "created" },
+      { path: "docs/agents/issue-tracker.md", action: "created" },
+      { path: "docs/agents/triage-labels.md", action: "created" },
     ]);
     expect(await Bun.file(`${root}/AGENTS.md`).text()).toBe(block);
     expect(await Bun.file(`${root}/docs/agents/domain.md`).text()).toBe(
@@ -59,7 +76,7 @@ describe("writeSetup", () => {
   test("it keeps every line outside the markers and replaces an old block in place", async () => {
     const before = `# My repo\n\nKeep this.\n\n${startMarker}\n## Talk plain\n\nBody v1.\n${endMarker}\n\nAnd this.\n`;
     const root = await repo("existing", { "AGENTS.md": before });
-    const changes = await writeSetup({ brain, root, layout: "single", dryRun: false });
+    const changes = await writeSetup({ brain, root, ...base });
     expect(changes[0]).toEqual({ path: "AGENTS.md", action: "updated" });
     expect(await Bun.file(`${root}/AGENTS.md`).text()).toBe(
       `# My repo\n\nKeep this.\n\n${block}\nAnd this.\n`,
@@ -68,7 +85,7 @@ describe("writeSetup", () => {
 
   test("an AGENTS.md without the block gets it appended after one blank line", async () => {
     const root = await repo("append", { "AGENTS.md": "# My repo\n\nKeep this.\n" });
-    await writeSetup({ brain, root, layout: "single", dryRun: false });
+    await writeSetup({ brain, root, ...base });
     expect(await Bun.file(`${root}/AGENTS.md`).text()).toBe(`# My repo\n\nKeep this.\n\n${block}`);
   });
 
@@ -77,7 +94,7 @@ describe("writeSetup", () => {
       "CLAUDE.md": "# Claude\n",
       "GEMINI.md": "@AGENTS.md\n# Gemini\n",
     });
-    const changes = await writeSetup({ brain, root, layout: "single", dryRun: false });
+    const changes = await writeSetup({ brain, root, ...base });
     expect(changes).toContainEqual({ path: "CLAUDE.md", action: "updated" });
     expect(changes).toContainEqual({ path: "GEMINI.md", action: "unchanged" });
     expect(await Bun.file(`${root}/CLAUDE.md`).text()).toBe("# Claude\n\n@AGENTS.md\n");
@@ -86,9 +103,9 @@ describe("writeSetup", () => {
 
   test("a second run reports every file unchanged and writes nothing", async () => {
     const root = await repo("twice", { "CLAUDE.md": "# Claude\n" });
-    await writeSetup({ brain, root, layout: "single", dryRun: false });
+    await writeSetup({ brain, root, ...base });
     const agents = await Bun.file(`${root}/AGENTS.md`).text();
-    const changes = await writeSetup({ brain, root, layout: "single", dryRun: false });
+    const changes = await writeSetup({ brain, root, ...base });
     expect(changes.every((c) => c.action === "unchanged")).toBe(true);
     expect(await Bun.file(`${root}/AGENTS.md`).text()).toBe(agents);
   });
@@ -100,6 +117,8 @@ describe("writeSetup", () => {
       "created AGENTS.md",
       "updated CLAUDE.md",
       "created docs/agents/domain.md",
+      "created docs/agents/issue-tracker.md",
+      "created docs/agents/triage-labels.md",
     ]);
     expect(await exists(`${root}/AGENTS.md`)).toBe(false);
     expect(await Bun.file(`${root}/CLAUDE.md`).text()).toBe("# Claude\n");
@@ -115,8 +134,46 @@ describe("writeSetup", () => {
 
   test("a start marker without an end marker is an error naming AGENTS.md", async () => {
     const root = await repo("broken", { "AGENTS.md": `${startMarker}\nno end\n` });
-    await expect(writeSetup({ brain, root, layout: "single", dryRun: false })).rejects.toThrow(
+    await expect(writeSetup({ brain, root, ...base })).rejects.toThrow(
       "AGENTS.md has a start marker without an end marker",
     );
+  });
+});
+
+describe("writeSetup, tracker", () => {
+  test("the default tracker is local markdown, and both tracker files are written from the templates", async () => {
+    const root = await repo("tracker-local");
+    await writeSetup({ brain, root, ...base });
+    expect(await Bun.file(`${root}/docs/agents/issue-tracker.md`).text()).toBe(
+      "# Tracker: local\n\nIssues live under .scratch/.\n",
+    );
+    expect(await Bun.file(`${root}/docs/agents/triage-labels.md`).text()).toBe(
+      "# Labels\n\nneeds-triage\n",
+    );
+  });
+
+  test("a GitHub tracker names the repo in the file", async () => {
+    const root = await repo("tracker-github");
+    await writeSetup({ brain, root, ...base, tracker: "github", repoSlug: "acme/app" });
+    expect(await Bun.file(`${root}/docs/agents/issue-tracker.md`).text()).toBe(
+      "# Tracker: GitHub\n\nRepo: acme/app\n",
+    );
+  });
+
+  test("a second run leaves both tracker files unchanged", async () => {
+    const root = await repo("tracker-twice");
+    await writeSetup({ brain, root, ...base, tracker: "gitlab", repoSlug: "acme/app" });
+    const changes = await writeSetup({
+      brain,
+      root,
+      ...base,
+      tracker: "gitlab",
+      repoSlug: "acme/app",
+    });
+    expect(
+      changes
+        .filter((c) => c.path.startsWith("docs/agents/"))
+        .every((c) => c.action === "unchanged"),
+    ).toBe(true);
   });
 });

@@ -1,18 +1,27 @@
 /**
  * Write what brain's skills assume is in a repo.
  *
- *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--dry-run] [--brain <plugin root>]
+ *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker local|github|gitlab] [--repo owner/name] [--dry-run] [--brain <plugin root>]
  *
  * AGENTS.md gets the plain-talk block between its markers, created if absent.
  * CLAUDE.md and GEMINI.md get an @AGENTS.md import line when they exist and lack it.
  * docs/agents/domain.md gets the consumer rules with the layout named.
+ * docs/agents/issue-tracker.md and docs/agents/triage-labels.md come from the templates, local tracker by default.
  * Every change is listed; --dry-run lists and writes nothing.
  */
 import { mkdir } from "node:fs/promises";
 
 export type Layout = "single" | "multi";
+export type Tracker = "local" | "github" | "gitlab";
 export type Change = { path: string; action: "created" | "updated" | "unchanged" };
-export type SetupInput = { brain: string; root: string; layout: Layout; dryRun: boolean };
+export type SetupInput = {
+  brain: string;
+  root: string;
+  layout: Layout;
+  dryRun: boolean;
+  tracker?: Tracker;
+  repoSlug?: string;
+};
 
 export const startMarker = "<!-- brain:plain-talk:start -->";
 export const endMarker = "<!-- brain:plain-talk:end -->";
@@ -88,6 +97,15 @@ export async function writeSetup(input: SetupInput): Promise<Change[]> {
 
   const domain = domainTemplate.replaceAll("{{layout}}", layoutName);
   changes.push(await put(input, "docs/agents/domain.md", domain, true));
+
+  const tracker = input.tracker ?? "local";
+  const trackerTemplate = await Bun.file(
+    `${input.brain}/skills/setup-brain/issue-tracker-${tracker}.md`,
+  ).text();
+  const trackerText = trackerTemplate.replaceAll("{{repo}}", input.repoSlug ?? "<owner>/<name>");
+  changes.push(await put(input, "docs/agents/issue-tracker.md", trackerText, true));
+  const labels = await Bun.file(`${input.brain}/skills/setup-brain/triage-labels.md`).text();
+  changes.push(await put(input, "docs/agents/triage-labels.md", labels, true));
   return changes;
 }
 
@@ -111,6 +129,15 @@ function parseArgs(argv: string[]): SetupInput {
       i += 1;
     } else if (flag === "--layout" && (value === "single" || value === "multi")) {
       input.layout = value;
+      i += 1;
+    } else if (
+      flag === "--tracker" &&
+      (value === "local" || value === "github" || value === "gitlab")
+    ) {
+      input.tracker = value;
+      i += 1;
+    } else if (flag === "--repo" && value !== undefined) {
+      input.repoSlug = value;
       i += 1;
     } else {
       throw new Error(`unknown or incomplete flag ${flag}`);

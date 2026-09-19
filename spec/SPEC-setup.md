@@ -16,9 +16,14 @@ brain skills assume is there:
    every brain skill to read the glossary before it names a domain concept.
 
 It is the brain counterpart of matt's `setup-matt-pocock-skills`, cut down to what
-brain's lifecycle needs. The issue tracker and triage labels are not part of it:
-brain's lifecycle uses addy's `tasks/` convention, and a tracker choice belongs to
-the `lifecycle` module.
+brain's lifecycle needs.
+
+**Amended 2026-09-19, by the on-ramps decision.** The skill also asks one tracker
+question, local markdown, GitHub or GitLab, local recommended unless a remote points
+at one of the hosts, and writes `docs/agents/issue-tracker.md` and
+`docs/agents/triage-labels.md` from brain-owned templates, which the triage and
+wayfinder skills read. The spec and the plan still live in the repo; only issues go to
+the tracker.
 
 Users: anyone who installs brain, once per repo. The skill is user-invoked only.
 
@@ -31,8 +36,8 @@ Users: anyone who installs brain, once per repo. The skill is user-invoked only.
 2. **Decide the small things itself, and say so.** Single-context is the default and is
    written without a question. The file to hold the block is `AGENTS.md`, created if
    absent, because every host reads it or can import it.
-3. **Ask the one real question, through ask-user-question.** Only when monorepo signals
-   exist: single-context or multi-context. Nothing else forks.
+3. **Ask the questions that are the user's, through ask-user-question, one per call.** The
+   tracker, always; the layout, only when monorepo signals exist. Nothing else forks.
 4. **Show, then write.** Show the block and the domain file as they will be written.
    Then run the writer script, which is the only thing that touches files.
 5. **Say what changed and what reads it.** One line per file written, and the list of
@@ -44,7 +49,7 @@ Users: anyone who installs brain, once per repo. The skill is user-invoked only.
 tested, and the skill prose only decides and explains.
 
 ```
-bun run scripts/setup/write.ts --root <repo> --layout single|multi [--dry-run]
+bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker local|github|gitlab] [--repo owner/name] [--dry-run]
 ```
 
 - Inserts or replaces the plain-talk block in `AGENTS.md` between the markers that
@@ -52,8 +57,10 @@ bun run scripts/setup/write.ts --root <repo> --layout single|multi [--dry-run]
   A second run with the same block changes nothing.
 - Adds `@AGENTS.md` on its own line to `CLAUDE.md` and `GEMINI.md` when they exist and
   do not import it yet. It never creates those two files.
-- Writes `docs/agents/domain.md` from `plain-talk/../setup/domain.md`, the consumer
-  rules, with the chosen layout named. Creates `docs/agents/` if missing.
+- Writes `docs/agents/domain.md` from the skill's `domain.md`, the consumer rules, with the
+  chosen layout named. Creates `docs/agents/` if missing.
+- Writes `docs/agents/issue-tracker.md` from the skill's `issue-tracker-<tracker>.md`, with
+  the repo slug filled in, and `docs/agents/triage-labels.md` from `triage-labels.md`.
 - Creates no `CONTEXT.md`, `CONTEXT-MAP.md` or `docs/adr/`. Those are created lazily by
   the vendored `domain-modeling` skill when the first term or decision is resolved,
   which is that skill's rule.
@@ -69,6 +76,8 @@ Bun 1.4.0, TypeScript, `bun:test`. No Node-only API.
 skills/setup-brain/SKILL.md            user-invoked; disable-model-invocation: true
 skills/setup-brain/agents/openai.yaml  Codex: policy.allow_implicit_invocation: false
 skills/setup-brain/domain.md           the consumer-rules template; brain-owned, adapted from matt's
+skills/setup-brain/issue-tracker-local.md, issue-tracker-github.md, issue-tracker-gitlab.md, triage-labels.md
+                                       the tracker and label templates; brain-owned, adapted from matt's
 scripts/setup/write.ts
 scripts/setup/__tests__/write.test.ts
 ```
@@ -108,7 +117,7 @@ The conversation in the skill, exploring and asking, is not tested here. `evals`
 
 - **Always:** write through the script; keep text outside the markers untouched; show before writing.
 - **Ask first:** the layout, only when monorepo signals exist; any change to what the block says, which is `plain-talk`'s.
-- **Never:** create `CONTEXT.md` or an ADR here; create `CLAUDE.md` or `GEMINI.md`; write a tracker choice.
+- **Never:** create `CONTEXT.md` or an ADR here; create `CLAUDE.md` or `GEMINI.md`; put the spec or the plan in the tracker.
 
 ## Success Criteria
 
