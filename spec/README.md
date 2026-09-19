@@ -9,6 +9,6 @@ spec, `SPEC-<module id>.md`, written and approved before its plan under `tasks/`
 | host-manifests | `SPEC-host-manifests.md` | approved, built |
 | plain-talk | `SPEC-plain-talk.md` | approved, built |
 | setup | `SPEC-setup.md` | approved, built |
-| lifecycle | `SPEC-lifecycle.md` | approved, in build |
-| question | `SPEC-question.md` | approved |
-| evals | `SPEC-evals.md` | draft; lifecycle cases are placeholders |
+| lifecycle | `SPEC-lifecycle.md` | approved, built |
+| question | `SPEC-question.md` | approved, in build |
+| evals | `SPEC-evals.md` | approved |
