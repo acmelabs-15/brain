@@ -67,3 +67,9 @@ describe("checkRefs", () => {
     expect(findings.find((f) => f.kind === "old-prefix")?.detail).toContain("agent-skills:tdd");
   });
 });
+
+describe("findRefs, markers", () => {
+  test("a block marker such as brain:plain-talk:start is not a skill reference", () => {
+    expect(findRefs("<!-- brain:plain-talk:start -->")).toEqual([]);
+  });
+});

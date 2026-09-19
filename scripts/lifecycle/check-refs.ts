@@ -13,7 +13,7 @@ export type Finding = {
   detail: string;
 };
 
-const prefixed = /\b(?<prefix>brain|agent-skills):(?<name>[a-z0-9][a-z0-9-]*)/gu;
+const prefixed = /\b(?<prefix>brain|agent-skills):(?<name>[a-z0-9][a-z0-9-]*)(?![a-z0-9:-])/gu;
 const skillTool =
   /Skill tool(?: twice| once)?,? (?:with|for) "(?<first>[a-z0-9][a-z0-9-]*)"(?:,? (?:and )?"(?<second>[a-z0-9][a-z0-9-]*)")?/gu;
 
