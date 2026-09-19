@@ -52,7 +52,7 @@
   - Acceptance: the five RES-003 defects fixed; grilling replaced by the interview rules and the question tool; labels created on first use; the brief keeps the files list; reads `docs/agents/issue-tracker.md` and `triage-labels.md` from setup-brain
   - Verify: a read against RES-003 §1 and §3; `lifecycle:check`
   - Files: skills/triage/SKILL.md, skills/triage/AGENT-BRIEF.md, skills/triage/OUT-OF-SCOPE.md
-- [ ] Task 14: wayfinder, fixed
+- [x] Task 14: wayfinder, fixed
   - Acceptance: one question per call through the question tool; grilling replaced; hands off to `spec`; reads the same setup files; the map-edit gap for GitHub closed
   - Verify: a read against RES-003 §2 and §3
   - Files: skills/wayfinder/SKILL.md
