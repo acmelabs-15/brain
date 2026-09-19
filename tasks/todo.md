@@ -29,7 +29,7 @@ Phase 2: apply and check
   - Acceptance: reports `changed`, `missing` and `unlisted` drift; `unlisted` only inside vendored directories; exit 0 when clean
   - Verify: fixture with one edit, one deletion, one extra file
   - Files: scripts/sync/lib/check.ts, scripts/sync/__tests__/check.test.ts
-- [ ] Task 7: CLI
+- [x] Task 7: CLI
   - Acceptance: `bun run sync`, `-- --check`, `-- --only <name>`; exit 1 on drift or error with one line per finding; unknown flag is an error
   - Verify: subprocess tests against the fixture
   - Files: scripts/sync/sync.ts, scripts/sync/__tests__/sync.test.ts, package.json
