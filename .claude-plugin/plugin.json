@@ -1,6 +1,6 @@
 {
   "name": "brain",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A development lifecycle for coding agents: agent-skills wrapped with a glossary, plain talk, and one question at a time.",
   "author": {
     "name": "Peter Kloss",
