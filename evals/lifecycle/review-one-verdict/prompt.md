@@ -6,4 +6,4 @@ timeout_seconds: 900
 allowed_tools: [Read, Glob, Grep, Skill, Agent, Bash]
 ---
 
-Review the last commit.
+/brain:review the last commit

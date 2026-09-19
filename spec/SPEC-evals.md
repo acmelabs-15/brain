@@ -138,3 +138,18 @@ judge failed replies whose longest sentence was 25 and 19 words: a count belongs
 The gate and the workflow default to 0.85, not 1.0. A three-grader case with one judge miss in
 three runs scores 0.89, and context-first sat there after the first run; a weekly run red on
 one judge vote is noise. 0.67, two misses or a whole grader, still fails.
+
+## Amendment 2026-09-19, questions in the sandbox
+
+The eval sandbox runs without the AskUserQuestion tool and never stops for input, and the
+docs offer no simulated user. So no grader can see the tool called. What the suite measures
+instead is the written form the ask-user-question skill prescribes when the tool is absent:
+the reply puts exactly one question to the user, one option marked "(Recommended)" with its
+reason, a cost beside each option. Every "asked through the tool" grader became a last-message
+grader on that form, with a regex on "(Recommended)" in both arms beside each judge. The tool
+call itself stays unmeasured. Peter chose this over dropping the graders or leaving them red.
+
+The same pass moved the build, plan, review, spec and verify prompts to the slash-command
+form, the way a user reaches those stages, and cut the build prompt down to the approval:
+a prompt that spelled out "each in a clean context, one commit per task" scored the same
+with and without the plugin.

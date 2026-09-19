@@ -1,10 +1,12 @@
 ---
 name: lifecycle/plan-three-questions
-description: The plan gate asks its three approval questions through the tool, one per call.
+description: The plan gate puts its first approval question to the user, one question, with a recommendation.
 tags: [lifecycle]
 max_turns: 30
-allowed_tools: [Read, Glob, Grep, Skill, AskUserQuestion, Write]
+allowed_tools: [Read, Glob, Grep, Skill, Write]
 ---
+
+/brain:plan
 
 Here is the spec. Plan it.
 

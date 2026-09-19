@@ -1,9 +1,9 @@
 ---
 name: lifecycle/spec-underspecified
-description: An underspecified ask reaches the interview, and the interview asks through the tool, one question with a recommendation.
+description: An underspecified ask reaches the interview, and the interview puts one question with a recommendation.
 tags: [lifecycle]
-max_turns: 8
-allowed_tools: [Read, Glob, Grep, Skill, AskUserQuestion]
+max_turns: 12
+allowed_tools: [Read, Glob, Grep, Skill]
 ---
 
-Build me a dashboard for our metrics.
+/brain:spec Build me a dashboard for our metrics.

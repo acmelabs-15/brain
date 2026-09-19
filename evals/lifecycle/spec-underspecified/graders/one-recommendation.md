@@ -1,7 +1,9 @@
 ---
 type: llm
-focus: trace
+focus: last_message
 ---
 
-PASS if the first AskUserQuestion call carries exactly one question, one option marked "(Recommended)" with a reason, and a cost stated beside each option.
-FAIL if the first call carries more than one question, no recommended option, or options that state only benefits.
+The session has no question tool, so a question to the user is written into the reply.
+
+PASS if the reply puts exactly one question to the user, with one option marked "(Recommended)" and the reason for it, and a cost or risk stated beside each option.
+FAIL if the reply asks two or more questions at once, marks no option as recommended, or describes options by their benefits only.
