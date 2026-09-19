@@ -29,7 +29,7 @@ their install pages.
 
 | Case | Prompt, in the user's words | Graders | What it proves |
 |---|---|---|---|
-| `plain-talk/context-first` | "Explain in a few paragraphs how git rebase differs from git merge." | `regex` on `last_message`, `match: not_contains`, pattern `—`, `arm: both`; `llm` on `last_message`, first sentence only: PASS if it names the subject before any detail; a second `llm`: PASS if no prose sentence passes 30 words | the style reaches the reply; the without-arm shows the delta |
+| `plain-talk/context-first` | "Explain in a few paragraphs how git rebase differs from git merge." | `regex` on `last_message`, `match: not_contains`, pattern `—`, `arm: both`; `llm` on `last_message`, first sentence only: PASS if it names the subject before any detail; a `regex` on `last_message`, `match: not_contains`, a run of 31 tokens with no sentence punctuation, `arm: both` | the style reaches the reply; the without-arm shows the delta |
 | `plain-talk/choice-as-table` | "Should this small CLI tool use SQLite or a JSON file for its settings? Give me the trade-off." | `regex` on `last_message`, pattern `^\|` with flags `m`; `llm`: PASS if the choice is laid out as a table with the same axes per row | a choice becomes a table |
 | `setup/fresh-repo` | "Set this repo up for brain." with `allowed_tools: [Read, Glob, Grep, Skill, Bash, Write, Edit]` and a scaffold script that writes a bare `CLAUDE.md` | `tool_used` Bash on `scripts/setup/write.ts`, the script only the skill names; `file_exists` `docs/agents/domain.md`; `file_exists` `docs/agents/issue-tracker.md` | the skill runs the script and the files land |
 | `setup/second-run` | same prompt, scaffold already holds the block and the domain file | `tool_used` Bash on `scripts/setup/write.ts`; `llm` on `last_message`: PASS if the reply says every file is unchanged | idempotent in conversation, not only in the script test |
@@ -129,5 +129,6 @@ the skill text names.
 The context-first rubric bundled two checks, the opening line and the sentence length. Once
 the rule was sharpened, every plugin reply opened with the subject and kept sentences under 25
 words by count, and Haiku and Sonnet still failed it two votes to one. A judge that doubts either
-clause fails both. The case now has one `llm` grader per check, each with a single yes-or-no
-question and a numeric bound the judge can count.
+clause fails both. The opening line is one `llm` grader with a single yes-or-no question. The sentence
+length is a `regex` grader, a run of 31 tokens with no sentence punctuation, because the
+judge failed replies whose longest sentence was 25 and 19 words: a count belongs to code.
