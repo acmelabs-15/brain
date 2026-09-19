@@ -39,3 +39,4 @@ Confirmed by Peter on 2026-09-19 after an interview of eight questions.
 |---|---|---|
 | Capability map | six modules: upstream-sync, host-manifests, plain-talk, setup, lifecycle, evals | `CAPABILITY-MAP.md`, approved 2026-09-19 |
 | Scope of the wrap | addy's skills, references, agents and hooks are vendored; commands are seeded once and brain-owned | Peter: "not only the Addy skills, also commands, hooks, etc"; the `agent-skills:` namespace in addy's Claude commands |
+| Releases and marketplace | changesets and the release workflow copied from acmelabs-15/ask-user-question: tag v<version>, GitHub release, moving latest; the entry in acmelabs-15/marketplace points at ref latest | Peter, 2026-09-19 |

@@ -29,9 +29,14 @@ Codex has no slash commands and Antigravity does not surface converted TOML comm
 
 - Bun 1.4.0, TypeScript, `bun:test`. No Node-only API.
 - Version source of truth: `package.json`. A script writes it into every manifest.
-- Releases: changesets, as `acmelabs-15/ask-user-question` does. A release commit gets
-  the tags `v<version>`, a moving `latest`, and `brain--v<version>` so a Claude Code
-  plugin that depends on brain can pin a range.
+- Releases: changesets and a release workflow, both as `acmelabs-15/ask-user-question`
+  does (Peter, 2026-09-19). A release commit gets the tag `v<version>`, a GitHub release
+  carrying that version's changelog section, and the moving tag `latest`. The ACMElabs
+  marketplace entry points at `ref: latest`:
+
+  ```json
+  { "name": "brain", "source": { "source": "url", "url": "https://github.com/acmelabs-15/brain.git", "ref": "latest" } }
+  ```
 
 ## Commands
 
@@ -56,8 +61,10 @@ package.json                       version source of truth; scripts
 scripts/version/version-sync.ts
 scripts/version/__tests__/version-sync.test.ts
 scripts/validate.ts
+scripts/release/release-notes.ts        the changelog section for the GitHub release body
 docs/install/claude-code.md  codex.md  gemini-cli.md  antigravity.md
 .github/workflows/ci.yml
+.github/workflows/release.yml           tags v<version> and latest, opens the version pull request
 .changeset/
 ```
 
@@ -102,7 +109,7 @@ export async function syncVersions(root: string, check: boolean): Promise<string
 - **Always:** change the version through changesets; run `version:sync -- --check` and
   `claude plugin validate --strict` in CI; keep the root `plugin.json` to `name` and `description`.
 - **Ask first:** add a host; add a field to a manifest; change the marketplace layout; change the tag scheme.
-- **Never:** hand-edit a version in a manifest; publish a release without the three tags; add a
+- **Never:** hand-edit a version in a manifest; publish a release outside the workflow; add a
   `dependencies` entry that would make brain a two-install plugin.
 
 ## Success Criteria

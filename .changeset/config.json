@@ -1,11 +1,21 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "acmelabs-15/brain" }],
+  "$schema": "https://unpkg.com/@changesets/config@3.1.2/schema.json",
+  "changelog": [
+    "@changesets/changelog-github",
+    {
+      "repo": "acmelabs-15/brain",
+      "disableThanks": true
+    }
+  ],
   "commit": false,
-  "fixed": [],
-  "linked": [],
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "fixed": [],
+  "linked": [],
+  "ignore": [],
+  "privatePackages": {
+    "version": true,
+    "tag": false
+  }
 }

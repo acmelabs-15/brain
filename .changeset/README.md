@@ -1,6 +1,15 @@
-# Changesets
+# Changesets and releases
 
-A visible change to brain gets a changeset: `bunx changeset`, then answer the two
-prompts. `bun run version` applies pending changesets to `package.json` and the
-changelog, then runs `version:sync` so every host manifest carries the same version.
-The release workflow tags `v<version>`, moves `latest`, and adds `brain--v<version>`.
+brain releases the way acmelabs-15/ask-user-question does.
+
+1. A visible change gets a changeset: `bunx changeset`, answer the two prompts, commit the file.
+2. On a push to main with pending changesets, the release workflow opens a pull request
+   named `ci: Version Packages`. That pull request bumps `package.json`, rewrites
+   `CHANGELOG.md`, and runs `version:sync` so every host manifest agrees.
+3. Merging it lands a commit with no changesets left. The workflow then cuts the tag
+   `v<version>`, a GitHub release carrying that version's changelog section, and moves
+   the tag `latest` to the same commit. A pre-release version, one with a hyphen, does
+   not move `latest`.
+
+The ACMElabs marketplace entry for brain points at `ref: latest`, so a release reaches
+installed users when `latest` moves.
