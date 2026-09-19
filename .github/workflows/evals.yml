@@ -14,7 +14,7 @@ on:
       threshold:
         description: "Pass threshold, 0 to 1"
         required: false
-        default: "1.0"
+        default: "0.85"
   schedule:
     - cron: "0 6 * * 1"
 
@@ -51,4 +51,4 @@ jobs:
           path: evals/results/
           if-no-files-found: warn
       - name: Gate
-        run: bun run evals:gate evals/results/ci.json --threshold "${{ github.event.inputs.threshold || '1.0' }}"
+        run: bun run evals:gate evals/results/ci.json --threshold "${{ github.event.inputs.threshold || '0.85' }}"

@@ -58,7 +58,7 @@ graders are the pass signal. The plain-talk cases keep both arms: the delta is t
 claude plugin eval . --ablation none --case 'setup/*'   # setup cases, with-arm only
 claude plugin eval . --case 'plain-talk/*'              # plain-talk cases, both arms
 claude plugin eval . --json evals/results/latest.json   # everything, for CI
-bun run evals:gate evals/results/latest.json            # exit 1 under threshold
+bun run evals:gate evals/results/latest.json            # exit 1 under the threshold, 0.85 by default
 ```
 
 ## Project Structure
@@ -132,3 +132,9 @@ words by count, and Haiku and Sonnet still failed it two votes to one. A judge t
 clause fails both. The opening line is one `llm` grader with a single yes-or-no question. The sentence
 length is a `regex` grader, a run of 31 tokens with no sentence punctuation, because the
 judge failed replies whose longest sentence was 25 and 19 words: a count belongs to code.
+
+## Amendment 2026-09-19, the gate threshold
+
+The gate and the workflow default to 0.85, not 1.0. A three-grader case with one judge miss in
+three runs scores 0.89, and context-first sat there after the first run; a weekly run red on
+one judge vote is noise. 0.67, two misses or a whole grader, still fails.

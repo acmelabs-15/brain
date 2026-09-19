@@ -84,7 +84,7 @@ shows what brain adds. Every run is model calls on the account that runs it. Cla
 claude plugin eval . --ablation none --case 'setup/*'   # the setup cases, plugin arm only
 claude plugin eval . --case 'plain-talk/*'              # the plain-talk cases, both arms
 claude plugin eval . --json evals/results/ci.json       # everything, for the gate
-bun run evals:gate evals/results/ci.json                # exit 1 under the threshold
+bun run evals:gate evals/results/ci.json                # exit 1 under the threshold, 0.85 by default
 ```
 
 The `Evals` workflow runs the suite by hand or weekly, never on every push, and needs

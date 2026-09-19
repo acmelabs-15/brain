@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { gate } from "../gate";
+import { defaultThreshold, gate } from "../gate";
 
 function result(cases: { name: string; score: number; delta?: number }[], partial = false) {
   return {
@@ -54,4 +54,10 @@ describe("gate", () => {
   test("a document without cases is an error naming the field", () => {
     expect(() => gate({ schemaVersion: 1 }, 1)).toThrow("result has no cases array");
   });
+});
+
+test("the default threshold lets one judge miss in three through on a three-grader case", () => {
+  expect(defaultThreshold).toBe(0.85);
+  expect(gate(result([{ name: "a", score: 0.89 }]), defaultThreshold).ok).toBe(true);
+  expect(gate(result([{ name: "a", score: 0.67 }]), defaultThreshold).ok).toBe(false);
 });

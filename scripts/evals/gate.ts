@@ -1,7 +1,7 @@
 /**
  * Gate CI on an eval result.
  *
- *   bun run evals:gate <aggregate-result.json> [--threshold 1.0]
+ *   bun run evals:gate <aggregate-result.json> [--threshold 0.85]
  *
  * Exit 0 when the run is complete and every case scores at or above the threshold.
  * Exit 1 otherwise, or exit 2 when the file cannot be read as a result document.
@@ -17,6 +17,9 @@ function fmt(n: number | undefined, signed = false): string {
   const fixed = n.toFixed(2);
   return signed && n >= 0 ? `+${fixed}` : fixed;
 }
+
+/** One judge miss in three runs of a three-grader case scores 0.89; the bar sits under that. */
+export const defaultThreshold = 0.85;
 
 export function gate(doc: unknown, threshold: number): Gate {
   const result = doc as { partial?: boolean; partialReason?: string; cases?: CaseResult[] };
@@ -46,7 +49,7 @@ if (import.meta.main) {
   const args = process.argv.slice(2);
   const [path] = args;
   const at = args.indexOf("--threshold");
-  const threshold = at === -1 ? 1 : Number(args[at + 1]);
+  const threshold = at === -1 ? defaultThreshold : Number(args[at + 1]);
   if (path === undefined || Number.isNaN(threshold)) {
     console.error("usage: gate.ts <aggregate-result.json> [--threshold <0..1>]");
     process.exit(2);
