@@ -1,5 +1,15 @@
 # @acmelabs/brain
 
+## 0.4.0
+
+### Minor Changes
+
+- [`493121a`](https://github.com/acmelabs-15/brain/commit/493121adefcfcb5dcf61c57bbbf01d44621d9a3e) - `setup-brain` gains a Codex scope: global, the default, writes the plain-talk block into `~/.codex/AGENTS.md`; project writes it into this repo's `AGENTS.md` instead. The skill asks once, only on a machine that has Codex.
+
+### Patch Changes
+
+- [`d7cdb97`](https://github.com/acmelabs-15/brain/commit/d7cdb976716518e79a4f4f889073dd63a2ab4664) - The plain-talk rule for the first line now reads: open with one line that names the subject, what this reply is about and where things stand, before any detail. The first eval run showed replies that opened on content instead.
+
 ## 0.3.0
 
 ### Minor Changes
