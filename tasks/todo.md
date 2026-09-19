@@ -44,7 +44,7 @@
   - Acceptance: Step 0 with fixed point, three-dot diff, ref check, spec lookup order, standards files; five parallel sub-agent briefs under 400 words; scope creep as a finding; the twelve smells in the architecture brief; repo standard over baseline; one merged ranked list and one verdict; severity plus hard-or-judgement tag
   - Verify: a read against RES-002 §4
   - Files: skills/code-review-and-quality/SKILL.md
-- [ ] Task 12: combined using-agent-skills and phase-boundaries reference
+- [x] Task 12: combined using-agent-skills and phase-boundaries reference
   - Acceptance: the tree names the combined skills and the two on-ramps; `setup-brain` as precondition; stateful interview when a repo is present; `references/brain/phase-boundaries.md` adapted with attribution; the smart-zone rule
   - Verify: a read against RES-002 §6; `lifecycle:check`
   - Files: skills/using-agent-skills/SKILL.md, references/brain/phase-boundaries.md
