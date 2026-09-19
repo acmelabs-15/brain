@@ -8,7 +8,7 @@
   - Acceptance: `bun run plain-talk:render` writes the three outputs; `-- --check` exits 1 on any drift and 0 when clean; a template without `{{body}}` is an error naming it; the body is byte-identical in the three outputs
   - Verify: `bun test scripts/plain-talk`
   - Files: scripts/plain-talk/render.ts, scripts/plain-talk/__tests__/render.test.ts, package.json
-- [ ] Task 3: rendered outputs
+- [x] Task 3: rendered outputs
   - Acceptance: `output-styles/talk-plain.md` with the four frontmatter fields, `GEMINI.md` at the root, `plain-talk/AGENTS-block.md` with start and end markers; `bun run validate` passes
   - Verify: `bun run plain-talk:render -- --check` and `bun run validate`
   - Files: output-styles/talk-plain.md, GEMINI.md, plain-talk/AGENTS-block.md
