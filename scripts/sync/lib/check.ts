@@ -1,5 +1,6 @@
 /** Compare brain's tree to the lock: what changed, went missing, or crept in. */
 import { readdir } from "node:fs/promises";
+
 import { sha256 } from "./apply";
 import type { Lock } from "./lock";
 
@@ -20,7 +21,9 @@ function vendoredDirs(lock: Lock): Set<string> {
     const parts = path.split("/");
     // skills/<name>/... : every directory from skills/<name> down is vendored.
     if (parts[0] === "skills" && parts.length >= 3) {
-      for (let depth = 2; depth < parts.length; depth += 1) dirs.add(parts.slice(0, depth).join("/"));
+      for (let depth = 2; depth < parts.length; depth += 1) {
+        dirs.add(parts.slice(0, depth).join("/"));
+      }
     }
   }
   return dirs;
@@ -29,9 +32,22 @@ function vendoredDirs(lock: Lock): Set<string> {
 async function listFiles(dir: string, rel: string, out: string[]): Promise<void> {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     const path = `${rel}/${entry.name}`;
-    if (entry.isDirectory()) await listFiles(`${dir}/${entry.name}`, path, out);
-    else out.push(path);
+    if (entry.isDirectory()) {
+      await listFiles(`${dir}/${entry.name}`, path, out);
+    } else {
+      out.push(path);
+    }
   }
+}
+
+function byPath(a: Drift, b: Drift): number {
+  if (a.path < b.path) {
+    return -1;
+  }
+  if (a.path > b.path) {
+    return 1;
+  }
+  return 0;
 }
 
 export async function checkTree(root: string, lock: Lock): Promise<Drift[]> {
@@ -42,16 +58,18 @@ export async function checkTree(root: string, lock: Lock): Promise<Drift[]> {
       drift.push({ kind: "missing", path });
       continue;
     }
-    if (sha256(new Uint8Array(await file.arrayBuffer())) !== entry.sha256) drift.push({ kind: "changed", path });
+    if (sha256(new Uint8Array(await file.arrayBuffer())) !== entry.sha256) {
+      drift.push({ kind: "changed", path });
+    }
   }
   for (const dir of vendoredDirs(lock)) {
     const present: string[] = [];
-    await listFiles(`${root}/${dir}`, dir, present).catch(() => undefined);
+    await listFiles(`${root}/${dir}`, dir, present).catch(() => null);
     for (const path of present) {
       if (!(path in lock.files) && path.split("/").length === dir.split("/").length + 1) {
         drift.push({ kind: "unlisted", path });
       }
     }
   }
-  return drift.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
+  return drift.toSorted(byPath);
 }

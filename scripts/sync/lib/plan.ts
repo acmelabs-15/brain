@@ -1,5 +1,6 @@
 /** Turn take-lists into units, and check them against what brain already owns. */
 import { readdir, stat } from "node:fs/promises";
+
 import type { Mapping } from "./config";
 import type { Lock } from "./lock";
 
@@ -11,12 +12,22 @@ export type Unit = { upstream: string; kind: "dir" | "file"; source: string; tar
 
 export type PlannedFile = { source: string; target: string };
 
-async function exists(path: string): Promise<boolean> {
-  return stat(path).then(() => true, () => false);
+function exists(path: string): Promise<boolean> {
+  return stat(path).then(
+    () => true,
+    () => false,
+  );
 }
 
-async function isDir(path: string): Promise<boolean> {
-  return stat(path).then((s) => s.isDirectory(), () => false);
+function isDir(path: string): Promise<boolean> {
+  return stat(path).then(
+    (s) => s.isDirectory(),
+    () => false,
+  );
+}
+
+function byName(a: { name: string }, b: { name: string }): number {
+  return a.name < b.name ? -1 : 1;
 }
 
 /**
@@ -29,7 +40,9 @@ export async function planUnits(upstream: string, takes: Mapping[], tree: string
   for (const { from, to } of takes) {
     const source = `${tree}/${from}`;
     if (!(await exists(source))) {
-      throw new Error(`upstream "${upstream}": take source "${from}" does not exist at the pinned commit`);
+      throw new Error(
+        `upstream "${upstream}": take source "${from}" does not exist at the pinned commit`,
+      );
     }
     if (!(await isDir(source))) {
       units.push({ upstream, kind: "file", source, target: to });
@@ -39,7 +52,8 @@ export async function planUnits(upstream: string, takes: Mapping[], tree: string
       units.push({ upstream, kind: "dir", source, target: to });
       continue;
     }
-    for (const child of (await readdir(source)).sort()) {
+    const children = await readdir(source);
+    for (const child of children.toSorted()) {
       const childSource = `${source}/${child}`;
       const kind = (await isDir(childSource)) ? "dir" : "file";
       units.push({ upstream, kind, source: childSource, target: `${to}/${child}` });
@@ -50,14 +64,20 @@ export async function planUnits(upstream: string, takes: Mapping[], tree: string
 
 /** Every file a unit carries, with its target path. */
 export async function expandUnit(unit: Unit): Promise<PlannedFile[]> {
-  if (unit.kind === "file") return [{ source: unit.source, target: unit.target }];
+  if (unit.kind === "file") {
+    return [{ source: unit.source, target: unit.target }];
+  }
   const files: PlannedFile[] = [];
   const walk = async (dir: string, rel: string): Promise<void> => {
-    for (const entry of (await readdir(dir, { withFileTypes: true })).sort((a, b) => (a.name < b.name ? -1 : 1))) {
+    const entries = await readdir(dir, { withFileTypes: true });
+    for (const entry of entries.toSorted(byName)) {
       const source = `${dir}/${entry.name}`;
       const target = rel === "" ? entry.name : `${rel}/${entry.name}`;
-      if (entry.isDirectory()) await walk(source, target);
-      else files.push({ source, target: `${unit.target}/${target}` });
+      if (entry.isDirectory()) {
+        await walk(source, target);
+      } else {
+        files.push({ source, target: `${unit.target}/${target}` });
+      }
     }
   };
   await walk(unit.source, "");
@@ -71,13 +91,17 @@ export async function expandUnit(unit: Unit): Promise<PlannedFile[]> {
 export async function findCollisions(units: Unit[], lock: Lock, root: string): Promise<string[]> {
   const collisions: string[] = [];
   for (const unit of units) {
-    if (!(await exists(`${root}/${unit.target}`))) continue;
+    if (!(await exists(`${root}/${unit.target}`))) {
+      continue;
+    }
     const owned = Object.entries(lock.files).some(
       ([path, entry]) =>
         entry.upstream === unit.upstream &&
         (unit.kind === "file" ? path === unit.target : path.startsWith(`${unit.target}/`)),
     );
-    if (!owned) collisions.push(unit.target);
+    if (!owned) {
+      collisions.push(unit.target);
+    }
   }
   return collisions;
 }

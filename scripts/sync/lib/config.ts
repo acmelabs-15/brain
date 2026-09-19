@@ -23,8 +23,8 @@ export const allowedRoots = [
   "licenses",
 ] as const;
 
-const shaPattern = /^[0-9a-f]{40}$/;
-const repoPattern = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
+const shaPattern = /^[0-9a-f]{40}$/u;
+const repoPattern = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/u;
 
 function fail(name: string, message: string): never {
   throw new Error(`upstream "${name}": ${message}`);
@@ -32,7 +32,7 @@ function fail(name: string, message: string): never {
 
 function checkPath(name: string, path: string): void {
   const parts = path.split("/");
-  if (path.startsWith("/") || parts.includes("..") || parts.includes("") ) {
+  if (path.startsWith("/") || parts.includes("..") || parts.includes("")) {
     fail(name, `path "${path}" must be relative and inside the repo`);
   }
 }
@@ -42,8 +42,12 @@ function underAllowedRoot(target: string): boolean {
 }
 
 function parseMappings(name: string, kind: "take" | "seed", raw: unknown): Mapping[] {
-  if (raw === undefined) return [];
-  if (!Array.isArray(raw)) fail(name, `${kind} must be a list`);
+  if (raw === undefined) {
+    return [];
+  }
+  if (!Array.isArray(raw)) {
+    fail(name, `${kind} must be a list`);
+  }
   return raw.map((entry: unknown) => {
     const m = entry as Partial<Mapping>;
     if (typeof m.from !== "string" || typeof m.to !== "string") {
@@ -66,10 +70,16 @@ export function parseConfig(raw: unknown): Config {
   const upstreams: Record<string, Upstream> = {};
   for (const [name, value] of Object.entries(root.upstreams)) {
     const u = value as Partial<Upstream>;
-    if (typeof u.repo !== "string" || !repoPattern.test(u.repo)) fail(name, "repo must be owner/name");
-    if (typeof u.sha !== "string" || !shaPattern.test(u.sha)) fail(name, "sha must be 40 hex characters");
+    if (typeof u.repo !== "string" || !repoPattern.test(u.repo)) {
+      fail(name, "repo must be owner/name");
+    }
+    if (typeof u.sha !== "string" || !shaPattern.test(u.sha)) {
+      fail(name, "sha must be 40 hex characters");
+    }
     if (u.license !== undefined) {
-      if (typeof u.license !== "string") fail(name, "license must be a path");
+      if (typeof u.license !== "string") {
+        fail(name, "license must be a path");
+      }
       checkPath(name, u.license);
     }
     upstreams[name] = {
@@ -77,7 +87,7 @@ export function parseConfig(raw: unknown): Config {
       sha: u.sha,
       take: parseMappings(name, "take", u.take),
       seed: parseMappings(name, "seed", u.seed),
-      ...(u.license !== undefined ? { license: u.license } : {}),
+      ...(u.license === undefined ? {} : { license: u.license }),
     };
   }
   return { upstreams };

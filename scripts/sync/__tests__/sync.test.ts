@@ -7,27 +7,53 @@ const shaA = "a".repeat(40);
 const shaM = "b".repeat(40);
 let work: string;
 
-const exists = (p: string) => stat(p).then(() => true, () => false);
+const exists = (p: string) =>
+  stat(p).then(
+    () => true,
+    () => false,
+  );
 
 async function pack(name: string, sha: string, files: Record<string, string>): Promise<void> {
   const top = `${work}/src/${name}-${sha}`;
   for (const [path, body] of Object.entries(files)) {
-    await mkdir(`${top}/${path}`.replace(/\/[^/]+$/, ""), { recursive: true });
+    await mkdir(`${top}/${path}`.replace(/\/[^/]+$/u, ""), { recursive: true });
     await Bun.write(`${top}/${path}`, body);
   }
   await mkdir(`${work}/tars`, { recursive: true });
-  await Bun.spawn(["tar", "-czf", `${work}/tars/${sha}.tar.gz`, "-C", `${work}/src`, `${name}-${sha}`]).exited;
+  await Bun.spawn([
+    "tar",
+    "-czf",
+    `${work}/tars/${sha}.tar.gz`,
+    "-C",
+    `${work}/src`,
+    `${name}-${sha}`,
+  ]).exited;
 }
 
 async function brainRoot(name: string): Promise<string> {
   const root = `${work}/${name}`;
   await mkdir(root, { recursive: true });
-  await Bun.write(`${root}/upstream.json`, JSON.stringify({
-    upstreams: {
-      addy: { repo: "o/addy", sha: shaA, take: [{ from: "skills", to: "skills" }, { from: "references", to: "references" }], license: "LICENSE" },
-      matt: { repo: "o/matt", sha: shaM, take: [{ from: "eng/dm", to: "skills/domain-modeling" }] },
-    },
-  }));
+  await Bun.write(
+    `${root}/upstream.json`,
+    JSON.stringify({
+      upstreams: {
+        addy: {
+          repo: "o/addy",
+          sha: shaA,
+          take: [
+            { from: "skills", to: "skills" },
+            { from: "references", to: "references" },
+          ],
+          license: "LICENSE",
+        },
+        matt: {
+          repo: "o/matt",
+          sha: shaM,
+          take: [{ from: "eng/dm", to: "skills/domain-modeling" }],
+        },
+      },
+    }),
+  );
   return root;
 }
 
@@ -37,13 +63,20 @@ async function run(root: string, ...args: string[]) {
     stdout: "pipe",
     stderr: "pipe",
   });
-  const [stdout, stderr] = await Promise.all([new Response(proc.stdout).text(), new Response(proc.stderr).text()]);
+  const [stdout, stderr] = await Promise.all([
+    new Response(proc.stdout).text(),
+    new Response(proc.stderr).text(),
+  ]);
   return { code: await proc.exited, stdout, stderr };
 }
 
 beforeAll(async () => {
   work = await mkdtemp(`${tmpdir()}/brain-cli-`);
-  await pack("addy", shaA, { "skills/a/SKILL.md": "a\n", "references/x.md": "x\n", LICENSE: "MIT\n" });
+  await pack("addy", shaA, {
+    "skills/a/SKILL.md": "a\n",
+    "references/x.md": "x\n",
+    LICENSE: "MIT\n",
+  });
   await pack("matt", shaM, { "eng/dm/SKILL.md": "dm\n" });
 });
 

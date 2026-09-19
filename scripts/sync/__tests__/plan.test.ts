@@ -1,8 +1,11 @@
 import { describe, expect, test, beforeAll, afterAll } from "bun:test";
 import { mkdtemp, rm, mkdir } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { emptyLock, type Lock } from "../lib/lock";
-import { planUnits, findCollisions, expandUnit, type Unit } from "../lib/plan";
+
+import { emptyLock } from "../lib/lock";
+import type { Lock } from "../lib/lock";
+import { planUnits, findCollisions, expandUnit } from "../lib/plan";
+import type { Unit } from "../lib/plan";
 
 let work: string;
 let tree: string;
@@ -25,7 +28,7 @@ afterAll(async () => {
   await rm(work, { recursive: true, force: true });
 });
 
-const byTarget = (units: Unit[]) => units.map((u) => `${u.kind}:${u.target}`).sort();
+const byTarget = (units: Unit[]) => units.map((u) => `${u.kind}:${u.target}`).toSorted();
 
 describe("planUnits", () => {
   test("a take of a folder of skills yields one directory unit per child", async () => {
@@ -39,7 +42,11 @@ describe("planUnits", () => {
   });
 
   test("a take of one skill directory yields one directory unit at the renamed target", async () => {
-    const units = await planUnits("matt", [{ from: "engineering/dm", to: "skills/domain-modeling" }], tree);
+    const units = await planUnits(
+      "matt",
+      [{ from: "engineering/dm", to: "skills/domain-modeling" }],
+      tree,
+    );
     expect(byTarget(units)).toEqual(["dir:skills/domain-modeling"]);
   });
 
@@ -52,11 +59,16 @@ describe("planUnits", () => {
 
 describe("expandUnit", () => {
   test("lists every file of a directory unit with its target path", async () => {
-    const [unit] = await planUnits("addy", [{ from: "skills", to: "skills" }], tree);
-    const beta = (await planUnits("addy", [{ from: "skills", to: "skills" }], tree)).find((u) => u.target === "skills/beta");
-    expect(unit).toBeDefined();
-    const files = await expandUnit(beta!);
-    expect(files.map((f) => f.target).sort()).toEqual(["skills/beta/SKILL.md", "skills/beta/references/deep.md"]);
+    const units = await planUnits("addy", [{ from: "skills", to: "skills" }], tree);
+    const beta = units.find((u) => u.target === "skills/beta");
+    if (beta === undefined) {
+      throw new Error("fixture has no skills/beta");
+    }
+    const files = await expandUnit(beta);
+    expect(files.map((f) => f.target).toSorted()).toEqual([
+      "skills/beta/SKILL.md",
+      "skills/beta/references/deep.md",
+    ]);
   });
 });
 
@@ -66,16 +78,26 @@ describe("findCollisions", () => {
     await mkdir(`${root}/skills/alpha`, { recursive: true });
     await Bun.write(`${root}/skills/alpha/SKILL.md`, "brain's own\n");
     await Bun.write(`${root}/references/x.md`, "brain's own\n");
-    const units = await planUnits("addy", [{ from: "skills", to: "skills" }, { from: "references", to: "references" }], tree);
+    const units = await planUnits(
+      "addy",
+      [
+        { from: "skills", to: "skills" },
+        { from: "references", to: "references" },
+      ],
+      tree,
+    );
     const collisions = await findCollisions(units, emptyLock(), root);
-    expect(collisions.sort()).toEqual(["references/x.md", "skills/alpha"]);
+    expect(collisions.toSorted()).toEqual(["references/x.md", "skills/alpha"]);
   });
 
   test("a target in the lock under the same upstream is not a collision", async () => {
     const root = `${work}/brain2`;
     await mkdir(`${root}/skills/alpha`, { recursive: true });
     await Bun.write(`${root}/skills/alpha/SKILL.md`, "vendored before\n");
-    const lock: Lock = { files: { "skills/alpha/SKILL.md": { upstream: "addy", sha256: "0" } }, seeds: {} };
+    const lock: Lock = {
+      files: { "skills/alpha/SKILL.md": { upstream: "addy", sha256: "0" } },
+      seeds: {},
+    };
     const units = await planUnits("addy", [{ from: "skills", to: "skills" }], tree);
     expect(await findCollisions(units, lock, root)).toEqual([]);
   });
@@ -84,7 +106,10 @@ describe("findCollisions", () => {
     const root = `${work}/brain3`;
     await mkdir(`${root}/skills/alpha`, { recursive: true });
     await Bun.write(`${root}/skills/alpha/SKILL.md`, "vendored from matt\n");
-    const lock: Lock = { files: { "skills/alpha/SKILL.md": { upstream: "matt", sha256: "0" } }, seeds: {} };
+    const lock: Lock = {
+      files: { "skills/alpha/SKILL.md": { upstream: "matt", sha256: "0" } },
+      seeds: {},
+    };
     const units = await planUnits("addy", [{ from: "skills", to: "skills" }], tree);
     expect(await findCollisions(units, lock, root)).toEqual(["skills/alpha"]);
   });

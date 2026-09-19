@@ -14,10 +14,12 @@ export async function fetchTree(url: string, dest: string): Promise<string> {
   const tarball = `${dest}/tarball.tar.gz`;
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
     await Bun.write(tarball, response);
   } catch (error) {
-    throw new Error(`fetch failed for ${url}: ${(error as Error).message}`);
+    throw new Error(`fetch failed for ${url}: ${(error as Error).message}`, { cause: error });
   }
 
   const tree = `${dest}/tree`;
@@ -27,7 +29,7 @@ export async function fetchTree(url: string, dest: string): Promise<string> {
     throw new Error(`tar failed for ${url}: ${await new Response(tar.stderr).text()}`);
   }
   const entries = await readdir(tree);
-  const top = entries[0];
+  const [top] = entries;
   if (entries.length !== 1 || top === undefined) {
     throw new Error(`expected one top folder in ${url}, found ${entries.length}`);
   }
