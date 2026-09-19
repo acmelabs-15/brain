@@ -9,13 +9,14 @@
     "lint": "oxlint scripts oxlint.config.ts oxfmt.config.ts",
     "format": "oxfmt scripts oxlint.config.ts oxfmt.config.ts",
     "format:check": "oxfmt --check scripts oxlint.config.ts oxfmt.config.ts",
-    "check": "bun run typecheck && bun run lint && bun run format:check && bun test && bun run version:sync -- --check",
+    "check": "bun run typecheck && bun run lint && bun run format:check && bun test && bun run version:sync -- --check && bun run plain-talk:render -- --check",
     "test": "bun test",
     "sync": "bun run scripts/sync/sync.ts",
     "version:sync": "bun run scripts/version/version-sync.ts",
     "validate": "bun run scripts/validate.ts",
     "changeset": "changeset",
-    "version": "changeset version && bun run version:sync"
+    "version": "changeset version && bun run version:sync",
+    "plain-talk:render": "bun run scripts/plain-talk/render.ts"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.1",
