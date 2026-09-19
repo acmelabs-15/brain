@@ -1,6 +1,6 @@
 # Plan: setup
 
-Spec: `SPEC-setup.md` (approved 2026-09-19). Depends on plain-talk, built: the block is `plain-talk/AGENTS-block.md`.
+Spec: `spec/SPEC-setup.md` (approved 2026-09-19). Depends on plain-talk, built: the block is `plain-talk/AGENTS-block.md`.
 
 ## Components and order
 

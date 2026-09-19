@@ -1,6 +1,6 @@
 # Plan: upstream-sync
 
-Spec: `SPEC-upstream-sync.md` (approved 2026-09-19). Toolchain: Bun 1.4.0, `bun:test`.
+Spec: `spec/SPEC-upstream-sync.md` (approved 2026-09-19). Toolchain: Bun 1.4.0, `bun:test`.
 
 ## Components and order
 

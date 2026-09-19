@@ -1,6 +1,6 @@
 # Plan: plain-talk
 
-Spec: `SPEC-plain-talk.md` (approved 2026-09-19). Depends on host-manifests, built.
+Spec: `spec/SPEC-plain-talk.md` (approved 2026-09-19). Depends on host-manifests, built.
 
 ## Components and order
 

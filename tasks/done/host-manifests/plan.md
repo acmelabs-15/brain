@@ -1,6 +1,6 @@
 # Plan: host-manifests
 
-Spec: `SPEC-host-manifests.md` (approved 2026-09-19). Depends on nothing; the vendored tree from upstream-sync is present.
+Spec: `spec/SPEC-host-manifests.md` (approved 2026-09-19). Depends on nothing; the vendored tree from upstream-sync is present.
 
 ## Components and order
 
