@@ -6,7 +6,7 @@
 
 /** The text under `## <version>` up to the next `## ` heading, or a one-line fallback. */
 export function releaseNotes(changelog: string, version: string): string {
-  const escaped = version.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+  const escaped = version.replaceAll(/[.*+?^${}()|[\]\\]/gu, "\\$&");
   const heading = new RegExp(`^##\\s+v?${escaped}\\s*$`, "u");
   const lines = changelog.split("\n");
   const start = lines.findIndex((line) => heading.test(line));
@@ -20,7 +20,7 @@ export function releaseNotes(changelog: string, version: string): string {
 }
 
 if (import.meta.main) {
-  const version = process.argv[2];
+  const [, , version] = process.argv;
   if (version === undefined) {
     console.error("usage: release-notes.ts <version>");
     process.exit(2);
