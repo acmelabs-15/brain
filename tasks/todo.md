@@ -6,7 +6,7 @@ Phase 1: scaffold and pure logic
   - Acceptance: `bun install`, `bun run typecheck`, `bun test` run and pass on an empty test
   - Verify: the three commands exit 0
   - Files: package.json, tsconfig.json, bunfig.toml, .gitignore, .github/workflows/ci.yml
-- [ ] Task 2: config loader
+- [x] Task 2: config loader
   - Acceptance: `upstream.json` parses into a typed object; a missing `sha`, a non-40-hex `sha`, or a `to` outside `skills/`, `references/`, `agents/`, `hooks/`, `.claude/commands/`, `commands/`, `licenses/` is an error naming the path
   - Verify: `bun test scripts/sync`
   - Files: upstream.json, scripts/sync/lib/config.ts, scripts/sync/__tests__/config.test.ts

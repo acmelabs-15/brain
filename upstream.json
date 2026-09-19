@@ -1,0 +1,36 @@
+{
+  "upstreams": {
+    "agent-skills": {
+      "repo": "addyosmani/agent-skills",
+      "sha": "c004a74784a08295d52749b04cda634125b9a581",
+      "take": [
+        { "from": "skills", "to": "skills" },
+        { "from": "references", "to": "references" },
+        { "from": "agents", "to": "agents" },
+        { "from": "hooks", "to": "hooks" }
+      ],
+      "seed": [
+        { "from": ".claude/commands", "to": ".claude/commands" },
+        { "from": "commands", "to": "commands" }
+      ],
+      "license": "LICENSE"
+    },
+    "mattpocock-skills": {
+      "repo": "mattpocock/skills",
+      "sha": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7",
+      "take": [
+        { "from": "skills/engineering/domain-modeling", "to": "skills/domain-modeling" },
+        { "from": "skills/productivity/wait-what", "to": "skills/wait-what" },
+        { "from": "skills/productivity/writing-for-agents", "to": "skills/writing-for-agents" }
+      ],
+      "license": "LICENSE"
+    },
+    "ask-user-question": {
+      "repo": "acmelabs-15/ask-user-question",
+      "sha": "d6594010d0ce100df831e5de91ba11c54f5796ce",
+      "take": [
+        { "from": "skills/ask-user-question", "to": "skills/ask-user-question" }
+      ]
+    }
+  }
+}
