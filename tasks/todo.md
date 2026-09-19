@@ -1,6 +1,6 @@
 # Tasks: question
 
-- [ ] Task 1: the check
+- [x] Task 1: the check
   - Acceptance: `bun run question:check` reads `skills/ask-user-question/`; fails when the description exceeds 300 characters, when `SKILL.md` contains "the person", "the reader", "surrounding task", "another workflow", "later topic" or uses "response" for a reply, when `SKILL.md` exceeds 250 lines or a reference exceeds 120; prints one line per finding; exit 1 on any
   - Verify: `bun test scripts/question`; the check fails on the current skill
   - Files: scripts/question/check.ts, scripts/question/__tests__/check.test.ts, package.json

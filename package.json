@@ -18,7 +18,8 @@
     "version": "changeset version && bun run version:sync",
     "plain-talk:render": "bun run scripts/plain-talk/render.ts",
     "setup:write": "bun run scripts/setup/write.ts",
-    "lifecycle:check": "bun run scripts/lifecycle/check-refs.ts"
+    "lifecycle:check": "bun run scripts/lifecycle/check-refs.ts",
+    "question:check": "bun run scripts/question/check.ts"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.1",
