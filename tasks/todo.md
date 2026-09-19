@@ -40,7 +40,7 @@
   - Acceptance: the feedback-loop gate as Phase 1 with ten loop constructions and tighten; secrets redacted first; ranked falsifiable hypotheses shown; tagged logs, one variable, the performance branch; seam-conditioned regression test; cleanup lines; no loop means stop and ask; the HITL script shipped under `scripts/` with attribution
   - Verify: a read against RES-002 §5; the script runs with `bash -n`
   - Files: skills/debugging-and-error-recovery/SKILL.md, skills/debugging-and-error-recovery/scripts/hitl-loop.template.sh
-- [ ] Task 11: combined code-review-and-quality
+- [x] Task 11: combined code-review-and-quality
   - Acceptance: Step 0 with fixed point, three-dot diff, ref check, spec lookup order, standards files; five parallel sub-agent briefs under 400 words; scope creep as a finding; the twelve smells in the architecture brief; repo standard over baseline; one merged ranked list and one verdict; severity plus hard-or-judgement tag
   - Verify: a read against RES-002 §4
   - Files: skills/code-review-and-quality/SKILL.md

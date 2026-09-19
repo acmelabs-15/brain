@@ -12,5 +12,5 @@ Pin the fixed point first, as the skill's Step 0 says: the diff since a commit, 
 4. **Security** — Input validated? Secrets safe? Auth checked? (Use security-and-hardening skill)
 5. **Performance** — No N+1 queries? No unbounded ops? (Use performance-optimization skill)
 
-Merge the five reports into one list ranked by leverage, with one verdict: approve, request changes or reject. Label each finding Critical, Important or Suggestion, and tag it a hard violation of a documented standard or a judgement call.
+Merge the five reports into one list ranked by leverage, with one verdict: approve, request changes or reject. Label each finding with the skill's severity, Critical, Required, Nit, Optional or FYI, and tag it a hard violation of a documented standard or a judgement call.
 Output a structured review with specific file:line references and fix recommendations.
