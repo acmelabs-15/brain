@@ -6,7 +6,7 @@ How brain's skills read this repo's domain documentation. Layout: {{layout}}.
 
 - `CONTEXT.md` at the repo root: the glossary, one term per entry, with the words to avoid.
 - `CONTEXT-MAP.md` at the repo root, when it exists: the repo has several contexts, and the map points to the `CONTEXT.md` for each. Read the one your topic belongs to.
-- `docs/adr/`: the decisions that touch the area you work in. In a multi-context repo, also `src/<context>/docs/adr/`.
+- `docs/decisions/`: the decision records (ADRs) that touch the area you work in. In a multi-context repo, also `src/<context>/docs/decisions/`. A repo that already keeps its ADRs in another folder keeps using that folder.
 
 If a file is absent, proceed without it and do not suggest creating it. The domain-modeling skill creates `CONTEXT.md` and the first ADR lazily, when a term or a decision is resolved.
 

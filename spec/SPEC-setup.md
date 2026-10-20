@@ -8,7 +8,7 @@ Status: approved 2026-09-19; amended the same day, see the amendment notes.
 One skill, `setup-brain`, that a user runs once per repo. It writes what the other
 brain skills assume is there:
 
-1. The domain-docs layout: single-context (`CONTEXT.md` at the root, `docs/adr/`) or
+1. The domain-docs layout: single-context (`CONTEXT.md` at the root, `docs/decisions/`) or
    multi-context (`CONTEXT-MAP.md` at the root), and the consumer rules that tell
    every brain skill to read the glossary before it names a domain concept.
 2. The issue tracker and the label vocabulary, `docs/agents/issue-tracker.md` and
@@ -38,11 +38,16 @@ user who wants plain talk in some Codex repos only. `--codex-scope project` writ
 into the repo's `AGENTS.md` and leaves the global file alone. Global stays the default and
 the recommendation, because a Codex plugin install is global.
 
+**Amended 2026-10-19, by Peter.** The ADR folder is `docs/decisions/`, the folder
+agent-skills uses, instead of `docs/adr/`. A repo that already keeps its ADRs in another
+folder keeps using that folder. `domain-modeling` was seeded from matt for this change,
+because it names the folder too.
+
 Users: anyone who installs brain, once per repo. The skill is user-invoked only.
 
 ## Process the skill follows
 
-1. **Explore.** Read what exists: `CONTEXT.md`, `CONTEXT-MAP.md`, `docs/adr/`,
+1. **Explore.** Read what exists: `CONTEXT.md`, `CONTEXT-MAP.md`, `docs/decisions/`,
    `docs/agents/domain.md`, `docs/agents/issue-tracker.md`, monorepo signals
    (`pnpm-workspace.yaml`, a `workspaces` field, `packages/*` with their own `src/`),
    the git remote, and the Codex home. Facts are the skill's job; it never asks the user
@@ -82,8 +87,8 @@ bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker lo
   created if absent, and the global file is not read or written.
 - Never writes the repo's `CLAUDE.md` or `GEMINI.md`, and writes the repo's `AGENTS.md`
   only at project scope.
-- Creates no `CONTEXT.md`, `CONTEXT-MAP.md` or `docs/adr/`. Those are created lazily by
-  the vendored `domain-modeling` skill when the first term or decision is resolved,
+- Creates no `CONTEXT.md`, `CONTEXT-MAP.md` or `docs/decisions/`. Those are created lazily by
+  the `domain-modeling` skill when the first term or decision is resolved,
   which is that skill's rule.
 - `--dry-run` prints every change and writes nothing.
 
@@ -137,7 +142,9 @@ Codex homes in a temp directory: a repo with no files; a repo whose `AGENTS.md`,
 with other content and an old block; one whose `AGENTS.md` is a symlink; a missing Codex
 home; `codexHome: null`; project scope, where the block lands in the repo `AGENTS.md`, other
 text kept, and the global file is untouched; a second run on each is byte-identical; `--dry-run` writes
-nothing and lists every change; multi layout names the map in `domain.md`.
+nothing and lists every change; multi layout names the map in `domain.md`. Against brain's
+shipped files: `domain.md` and `domain-modeling` name `docs/decisions/`, and no brain-owned
+skill file names `docs/adr/`.
 
 The conversation in the skill, exploring and asking, is not tested here. `evals` owns it.
 

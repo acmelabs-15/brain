@@ -49,7 +49,7 @@ is loaded before one is composed.
 Two edits on the way in:
 
 - The vocabulary rule names `CONTEXT.md` and `CONTEXT-MAP.md` in the words of the
-  vendored `domain-modeling` skill, so the two agree.
+  `domain-modeling` skill, so the two agree.
 - The repair line names `wait-what` by its skill name, so the agent can invoke it.
 
 The text is host-neutral: it never names a tool that exists in one host only.

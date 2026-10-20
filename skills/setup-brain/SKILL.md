@@ -18,7 +18,7 @@ Every file change goes through one script. The steps below decide and explain; t
 
 Read what exists. Facts are your job; never ask the user for one you can look up.
 
-- `CONTEXT.md`, `CONTEXT-MAP.md`, `docs/adr/`, `docs/agents/domain.md`, `docs/agents/issue-tracker.md`: which exist.
+- `CONTEXT.md`, `CONTEXT-MAP.md`, `docs/decisions/`, `docs/agents/domain.md`, `docs/agents/issue-tracker.md`: which exist.
 - Monorepo signals: `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or `packages/*` folders that each hold their own `src/`. Their absence means single-context, which is almost every repo.
 - `git remote -v`: whether a remote points at github.com, at a GitLab host, or nowhere. Read the `owner/name` slug from it.
 - The Codex home: `$CODEX_HOME`, else `~/.codex`. Whether the directory exists, and whether its `AGENTS.md` already holds the block between `<!-- brain:plain-talk:start -->` and `<!-- brain:plain-talk:end -->`.

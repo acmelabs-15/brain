@@ -80,10 +80,6 @@
       "sha": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7",
       "take": [
         {
-          "from": "skills/engineering/domain-modeling",
-          "to": "skills/domain-modeling"
-        },
-        {
           "from": "skills/productivity/wait-what",
           "to": "skills/wait-what"
         },
@@ -106,6 +102,10 @@
       ],
       "license": "LICENSE",
       "seed": [
+        {
+          "from": "skills/engineering/domain-modeling",
+          "to": "skills/domain-modeling"
+        },
         {
           "from": "skills/engineering/triage",
           "to": "skills/triage"
