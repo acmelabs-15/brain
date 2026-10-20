@@ -18,7 +18,8 @@ export default defineConfig({
     ".claude/commands",
   ],
   rules: {
-    // Function declarations hoist, so a file reads top-down with helpers below their callers.
+    // Function declarations, not arrow constants, with helpers above their callers:
+    // Ultracite's no-use-before-define requires that order.
     "func-style": "off",
     // Object keys are ordered by meaning: a pin file's fields, a fixture tree's paths.
     "sort-keys": "off",
