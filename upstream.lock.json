@@ -136,22 +136,6 @@
       "upstream": "agent-skills",
       "sha256": "87ae44a0c7bb3eefc2131a9d11caabcc14e4d8dcb27d66a3a675551ee2ce1671"
     },
-    "skills/domain-modeling/ADR-FORMAT.md": {
-      "upstream": "mattpocock-skills",
-      "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0"
-    },
-    "skills/domain-modeling/CONTEXT-FORMAT.md": {
-      "upstream": "mattpocock-skills",
-      "sha256": "17ab16ce783e4d2801ee52fd9acdf550cbf44de65ae76797a93943bbedf22a13"
-    },
-    "skills/domain-modeling/SKILL.md": {
-      "upstream": "mattpocock-skills",
-      "sha256": "327a2b50620e2fd70abc6893cd6965e76b20f8d0adb0dc2c8d5eb3845efb643e"
-    },
-    "skills/domain-modeling/agents/openai.yaml": {
-      "upstream": "mattpocock-skills",
-      "sha256": "f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b"
-    },
     "skills/doubt-driven-development/SKILL.md": {
       "upstream": "agent-skills",
       "sha256": "6fa1fcd8420c28daf7e53c5b08b0f20b907911efd2a6d9bce0b9740da20a4008"
@@ -345,6 +329,22 @@
     "skills/debugging-and-error-recovery/SKILL.md": {
       "upstream": "agent-skills",
       "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/domain-modeling/ADR-FORMAT.md": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+    },
+    "skills/domain-modeling/CONTEXT-FORMAT.md": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+    },
+    "skills/domain-modeling/SKILL.md": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+    },
+    "skills/domain-modeling/agents/openai.yaml": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
     },
     "skills/incremental-implementation/SKILL.md": {
       "upstream": "agent-skills",

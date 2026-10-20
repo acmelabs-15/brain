@@ -14,7 +14,8 @@ Users: brain maintainers and CI. Nobody who installs brain runs this.
 |---|---|---|---|
 | agent-skills | addyosmani/agent-skills | `skills/*` (25), `references/*` (7), `agents/*` (4), `hooks/*` (8 files), `LICENSE` | `skills/<name>/`, `references/`, `agents/`, `hooks/`, `licenses/agent-skills.LICENSE` |
 | agent-skills, seeded | addyosmani/agent-skills | `.claude/commands/*.md` (9), `commands/*.toml` (9) | `.claude/commands/`, `commands/`, copied once, then brain-owned |
-| mattpocock-skills | mattpocock/skills | `skills/engineering/domain-modeling`, `skills/productivity/wait-what`, `skills/productivity/writing-for-agents`, `LICENSE` | `skills/domain-modeling/`, `skills/wait-what/`, `skills/writing-for-agents/`, `licenses/mattpocock-skills.LICENSE` |
+| mattpocock-skills | mattpocock/skills | `skills/productivity/wait-what`, `skills/productivity/writing-for-agents`, `skills/engineering/codebase-design`, `skills/engineering/prototype`, `skills/productivity/handoff`, `LICENSE` | `skills/wait-what/`, `skills/writing-for-agents/`, `skills/codebase-design/`, `skills/prototype/`, `skills/handoff/`, `licenses/mattpocock-skills.LICENSE` |
+| mattpocock-skills, seeded | mattpocock/skills | `skills/engineering/domain-modeling` (Peter, 2026-10-19), `skills/engineering/triage`, `skills/engineering/wayfinder` | `skills/domain-modeling/`, `skills/triage/`, `skills/wayfinder/`, copied once, then brain-owned |
 | ask-user-question | acmelabs-15/ask-user-question | `skills/ask-user-question` | `skills/ask-user-question/` |
 
 `references/` must sit at the root: seven addy skills link to `../../references/<file>.md`
