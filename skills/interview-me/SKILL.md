@@ -133,7 +133,7 @@ The stop has a floor. If you have gone several rounds and the frontier is not sh
 
 The output of this skill is a **confirmed statement of intent**: the restate from Step 6 with the explicit yes from Step 7. That is the deliverable. Specs, plans and task lists are downstream; they consume the intent this skill produces.
 
-When a repo is present, the terms and decisions already sit in `CONTEXT.md` and `docs/adr/` from Step 4. If the user wants the intent itself to persist (a multi-session project, a handoff to another collaborator), offer to save it to `docs/intent/<topic>.md`. Save only if they confirm.
+When a repo is present, the terms and decisions already sit in `CONTEXT.md` and `docs/decisions/` from Step 4. If the user wants the intent itself to persist (a multi-session project, a handoff to another collaborator), offer to save it to `docs/intent/<topic>.md`. Save only if they confirm.
 
 ## Example
 

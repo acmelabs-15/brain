@@ -51,7 +51,7 @@ and unchanged.
 | `triage` | seeded from matt | the five documented defects fixed; grilling replaced by the interview rules; labels created in the tracker on first use; the agent brief keeps addy's files list |
 | `wayfinder` | seeded from matt | same fixes; one question per call through the question tool (Peter); the map hands off to `spec` |
 | `setup-brain` | brain | gains one tracker question, GitHub, GitLab or local markdown, local by default, and writes `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md` through its script |
-| `domain-modeling` | seeded from matt (Peter, 2026-10-19) | matt's text at the pin; brain owns it from the seed on |
+| `domain-modeling` | seeded from matt (Peter, 2026-10-19) | ADRs go to `docs/decisions/`, the folder agent-skills uses, or to the folder a repo already keeps them in |
 | `wait-what`, `writing-for-agents`, `codebase-design`, `prototype`, `handoff` | vendored from matt | unchanged |
 
 ## Commands

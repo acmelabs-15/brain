@@ -3,6 +3,7 @@ import { lstat, mkdir, mkdtemp, rm, stat, symlink } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
 import { endMarker, startMarker } from "../../plain-talk/block";
+import { readLock } from "../../sync/lib/lock";
 import { writeSetup } from "../write";
 
 let work: string;
@@ -280,5 +281,36 @@ describe("writeSetup, tracker", () => {
         .filter((c) => c.path.startsWith("docs/agents/"))
         .every((c) => c.action === "unchanged"),
     ).toBe(true);
+  });
+});
+
+describe("the shipped ADR folder", () => {
+  const shipped = `${import.meta.dir}/../../..`;
+
+  test("domain.md names docs/decisions/, the folder agent-skills uses", async () => {
+    const root = await repo("shipped-domain");
+    await writeSetup({ brain: shipped, root, ...base });
+    const domain = await Bun.file(`${root}/docs/agents/domain.md`).text();
+    expect(domain).toContain("`docs/decisions/`");
+  });
+
+  test("domain-modeling writes ADRs to docs/decisions/", async () => {
+    const format = await Bun.file(`${shipped}/skills/domain-modeling/ADR-FORMAT.md`).text();
+    expect(format).toContain("ADRs live in `docs/decisions/`");
+  });
+
+  test("no brain-owned skill file names docs/adr/", async () => {
+    const lock = await readLock(`${shipped}/upstream.lock.json`);
+    const naming: string[] = [];
+    for await (const path of new Bun.Glob("skills/**/*.md").scan({ cwd: shipped })) {
+      if (path in lock.files) {
+        continue;
+      }
+      const text = await Bun.file(`${shipped}/${path}`).text();
+      if (text.includes("docs/adr/")) {
+        naming.push(path);
+      }
+    }
+    expect(naming.toSorted()).toEqual([]);
   });
 });
