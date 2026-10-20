@@ -1,5 +1,11 @@
 # @acmelabs/brain
 
+## 0.6.0
+
+### Minor Changes
+
+- [#5](https://github.com/acmelabs-15/brain/pull/5) [`d199426`](https://github.com/acmelabs-15/brain/commit/d199426e731dea6d2df5b7b3c791c8fdcbab6edf) - The ADR folder is `docs/decisions/`, the folder agent-skills uses, instead of `docs/adr/`. `setup-brain` writes it into `docs/agents/domain.md`, and `domain-modeling` and `interview-me` name it. A repo that already keeps its ADRs in another folder keeps using that folder. `domain-modeling` is now seeded from matt's pack, so brain owns its text.
+
 ## 0.5.0
 
 ### Minor Changes
