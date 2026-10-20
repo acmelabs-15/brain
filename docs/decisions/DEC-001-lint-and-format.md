@@ -14,7 +14,7 @@ The presets are not accepted silently. Every deviation is a decision:
 |---|---|---|---|
 | Oxfmt | 80 columns | 100 columns | plain scripts with long path strings; 80 wraps every template literal |
 | Oxfmt | ES5 trailing commas | trailing commas everywhere | one convention across ACMElabs repos |
-| Oxlint | `func-style` expression | off | declarations hoist, so a file reads top-down |
+| Oxlint | `func-style` expression | off | function declarations, with helpers above their callers, as Ultracite's `no-use-before-define` requires |
 | Oxlint | `sort-keys` | off | object keys are ordered by meaning, not alphabet |
 | Oxlint | `no-await-in-loop` | off | the sync is sequential by design: ordered writes, and a collision check that finishes before the first write |
 | Oxlint | `consistent-type-definitions` interface | `type` | the spec's code style uses `type` |
