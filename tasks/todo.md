@@ -262,11 +262,16 @@ ends with a checkpoint and a review with Peter.
   - Verify: the guard's tests red first; `bun test scripts/workspace scripts/hooks scripts/lifecycle scripts/evals`; `bun run plain-talk:render --check`
   - Files: scripts/workspace/status.ts and its tests and fixture READMEs, scripts/hooks/, scripts/lifecycle/names.ts, GLOSSARY.md, references/brain/stage-boundaries.md, skills/using-brain/SKILL.md, skills/status/SKILL.md, protocol/PROTOCOL.md, evals/setup/fresh-repo-resume/, spec/
   - Depends: T43, T48. Scope: M
+- [ ] T51: spec-driven-development's phases become stages
+  - Acceptance: as the Decisions row "Skill sections named phases" says. spec-driven-development's Phase 0 to 4 become stages in its headings and in every mention, there and in each brain-owned file that names them; `GLOSSARY.md`'s Phase entry gains Peter's line word for word; idea-refine's, debugging-and-error-recovery's and `/ship`'s section labels stay
+  - Verify: `bun run lifecycle:check`; no "Phase 0" to "Phase 4" left in spec-driven-development or in a file that cites its sections
+  - Files: skills/spec-driven-development/SKILL.md, GLOSSARY.md, the files that cite its phases
+  - Depends: T49. Scope: S
 - [ ] T28: using-brain, the 1% rule, stage boundaries, with the two evals (moved here from phase 4)
   - Acceptance: evals `lifecycle/skill-not-skipped` and `lifecycle/no-overload` written first; every change in the intent doc's `using-brain` table; Skill Rule 1 carries the 1% rule and the rejected thoughts, ported from Peter's hand-written `AGENTS.md`; the lifecycle sequence folded to one line per stage; `references/brain/phase-boundaries.md` says the files carry the work; `lifecycle:check` fails when `using-brain` names a missing skill or misses one
   - Verify: `bun test scripts/lifecycle`; the two evals' dry checks
   - Files: skills/using-brain/SKILL.md, references/brain/phase-boundaries.md, scripts/lifecycle/, evals/lifecycle/{skill-not-skipped,no-overload}/*
-  - Depends: T16, T21, T23, T24, T31, T33, T34, T49 (moved to phase 6 at plan review; T49 added 2026-10-29). Scope: M
+  - Depends: T16, T21, T23, T24, T31, T33, T34, T49, T51 (moved to phase 6 at plan review; T49 and T51 added 2026-10-29). Scope: M
 - [ ] T35: the overlap report
   - Acceptance: maps each `AGENTS.md` heading to a protocol section or to `capabilities.md`; flags orphan lines and keeps them; says so and recommends report-only when git history shows other authors; one multi-select question; the `AGENTS.md` change is its own commit; `CLAUDE.md` overlap reported only; spec success criterion 13 on the `resume/AGENTS.md` fixture (copy at `ac74fb5`)
   - Verify: `bun test scripts/setup`
