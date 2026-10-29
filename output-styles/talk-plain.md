@@ -22,6 +22,7 @@ Write ASD-STE100 Simplified Technical English:
 - One idea per sentence, about 20 words at most.
 - Active voice. Simple present tense where the fact is current.
 - One word per concept, and the same word every time. Take each domain word from `GLOSSARY.md`, the project's glossary. When `GLOSSARY-MAP.md` exists at the root, the repo has several contexts and the map points to the `GLOSSARY.md` for each. A word the glossary marks _Avoid_ stays out. A concept the glossary lacks is a gap to note for the domain-modeling skill, not a synonym to coin.
+- A repo with no `GLOSSARY.md` but an old `CONTEXT.md` (or `CONTEXT-MAP.md`) still keeps its glossary there: read that file instead of `GLOSSARY.md`, and tell the user once to run setup-brain, which moves it to the new name.
 - Plain words. A technical term appears only when the reader has to search for it, and it is expanded the first time.
 
 ## Structure
