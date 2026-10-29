@@ -2,10 +2,10 @@
  * brain check: check the workspace against its rules, one line per finding. The rules are the
  * intent doc's Checks: each file's name and number, its frontmatter and H1 (through the shared
  * schema), each map and plan row, every link to another file (a map row's result, a spec's
- * sources, a superseded-by), and the edges of each plan's checkpoint rows. The folders come from
- * the workspace config. A file with `migrated: 0.8` keeps its old body, so its rows and H1 are
- * not checked; a migrated decision with no `kind` gets one informational line, which leaves the
- * exit code alone.
+ * sources, a superseded-by, a done idea's result), and the edges of each plan's checkpoint rows.
+ * The folders come from the workspace config. A file with `migrated: 0.8` keeps its old body, so
+ * its rows and H1 are not checked; a migrated decision with no `kind` gets one informational line,
+ * which leaves the exit code alone.
  * Exit codes: 0 clean, 1 a finding or a config it cannot use, 2 bad usage.
  */
 import { realpath, stat } from "node:fs/promises";
@@ -141,7 +141,10 @@ function duplicates(docs: Doc[]): Finding[] {
   return findings;
 }
 
-/** The problems with a file's links to other files: a superseded-by decision, a spec's sources. */
+/**
+ * The problems with a file's links to other files: a superseded-by decision, a spec's sources,
+ * the decision a done idea names as its result.
+ */
 function linkProblems(type: DocType, data: Record<string, unknown>, known: Set<string>): string[] {
   const problems: string[] = [];
   const superseded =
@@ -150,6 +153,11 @@ function linkProblems(type: DocType, data: Record<string, unknown>, known: Set<s
       : undefined;
   if (type === "DEC" && superseded !== undefined && !known.has(superseded)) {
     problems.push(`status: superseded by ${superseded}, which does not exist`);
+  }
+  // A commit SHA is not checked: a rebase or a squash can change it after the idea is done.
+  const result = type === "IDEA" && typeof data.result === "string" ? data.result : "";
+  if (/^DEC-\d{3}$/u.test(result) && !known.has(result)) {
+    problems.push(`result: ${result} does not exist`);
   }
   if (type === "spec" && Array.isArray(data.sources)) {
     for (const source of data.sources) {

@@ -9,7 +9,9 @@ how brain defines work and records what was decided and found.
 
 **Idea**:
 A body of work being defined: its intent, its destination and its map, kept in one file
-whether or not it ever becomes a spec.
+whether or not it ever becomes a spec. Its status is define while its map is worked through,
+specced once a spec carries it on, done once it ends in a decision or a change with no spec,
+and parked when the user sets it aside.
 _Avoid_: proposal, brief, initiative
 
 **Effort**:
@@ -27,8 +29,8 @@ record that resolved it; the map itself holds no detail.
 _Avoid_: design tree (for the written form), ticket list, board
 
 **Row**:
-One question in a map, or one task in a plan, with a status, the rows that block it, and a
-link to its result.
+One question in a map, or one task or checkpoint in a plan, with a status, the rows that
+block it, and a link to its result.
 _Avoid_: ticket, node, item
 
 **Decide row**:
@@ -54,6 +56,18 @@ _Avoid_: next up, ready list
 Questions known to be coming that cannot yet be stated precisely. Fog sharpens into rows as
 the frontier moves.
 _Avoid_: backlog, later
+
+### Planning work
+
+**Phase**:
+A stretch of work that ends where the work stops to be checked. The lifecycle runs in phases,
+from define to ship; in a plan, a phase is the tasks that one checkpoint waits on.
+_Avoid_: stage, milestone
+
+**Checkpoint**:
+A row in a plan that ends a phase: the work stops there until the phase's tasks are verified
+and reviewed. It blocks every later task that builds on its phase, and no other task.
+_Avoid_: gate, milestone, review task
 
 ### Records
 

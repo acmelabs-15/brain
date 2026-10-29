@@ -50,7 +50,7 @@ The workspace is this repo's folders for ideas, decisions, research and specs, w
 
 ## Find the active effort
 
-An effort is the idea or spec that a session works on. The active effort is the one that is not finished: an idea with `status: define`, or a spec whose `tasks/plan.md` has a row that is `open` or `in-progress`. Take the first that applies:
+An effort is the idea or spec that a session works on. The active effort is the one that is not finished: an idea with `status: define`, or a spec whose `tasks/plan.md` has a row that is `open` or `in-progress`. An idea with `status: specced` or `done` is finished, and a `parked` idea waits until the user names it. Take the first that applies:
 
 1. A slug passed to the command.
 2. The git branch name, if it matches an idea or spec.
@@ -61,7 +61,8 @@ An effort is the idea or spec that a session works on. The active effort is the 
 
 - An idea: compute the frontier of its map, and take the next row. The frontier is every `open` row whose `Blocked by` rows are all `resolved`.
 - A spec: take the next row on the frontier of `tasks/plan.md`. Its block in `tasks/todo.md` holds the detail.
-- An idea with `status: specced` is done. Resume the spec that lists it in `sources:`.
+- An idea with `status: specced` is finished. Resume the spec that lists it in `sources:`.
+- An idea with `status: done` is finished with no spec. Its `result:` names what it produced: a `DEC-NNN` for a decision, or a commit SHA for a change made in place.
 
 ## Sub-agents
 

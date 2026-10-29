@@ -223,7 +223,7 @@ describe("a required field", () => {
 
 describe("a wrong value", () => {
   test.each([
-    ["IDEA", "status", "status: define", "status: done", "IDEA-004", validIdea],
+    ["IDEA", "status", "status: define", "status: closed", "IDEA-004", validIdea],
     ["IDEA", "id", "id: IDEA-004", "id: IDEA-4", "IDEA-004", validIdea],
     ["DEC", "status", "status: accepted", "status: superseded", "DEC-031", validDec],
     ["DEC", "kind", "kind: decision", "kind: adr", "DEC-031", validDec],

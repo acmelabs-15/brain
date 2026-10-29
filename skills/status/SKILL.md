@@ -40,7 +40,7 @@ The step is done when the user has seen the lines and every red item has its nex
 | Red | A missing `docs/agents/workspace.md`, and the number of `brain check` findings. |
 | Waiting on the user | The decisions `docs/STATUS.md` names. Without them: the decide rows on the frontier. |
 
-The frontier is every `open` row whose `Blocked by` rows are all `resolved`. A parked idea, a specced idea and a spec with no unfinished row are finished. When several efforts are active, each line names each of them; ask the user which one to take up, with the ask-user-question skill.
+The frontier is every `open` row whose `Blocked by` rows are all `resolved`. A specced, done or parked idea, and a spec with no unfinished row, are finished. When several efforts are active, each line names each of them; ask the user which one to take up, with the ask-user-question skill.
 
 ## What `docs/STATUS.md` feeds
 

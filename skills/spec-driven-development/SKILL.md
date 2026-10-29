@@ -165,7 +165,7 @@ It claims the next spec number and writes `spec.md`, `tasks/plan.md` and `tasks/
 - The H1: the ID the template wrote, then the spec's title: `# SPEC-012: <title>`.
 - Every section, with the template's headings unchanged.
 - `sources:` in the frontmatter: every IDEA, DEC and RES file the spec comes from, such as `sources: [IDEA-004, DEC-031, RES-009]`. Links run one way: an idea holds no list of its specs.
-- When `sources:` names an idea, set that idea's `status` to `specced`. The idea is then done, and a session that resumes it goes to this spec.
+- When `sources:` names an idea, set that idea's `status` to `specced`. The idea is then finished, and a session that resumes it goes to this spec.
 
 Leave `tasks/plan.md` and `tasks/todo.md` as the templates wrote them; planning-and-task-breakdown fills them in Phase 2. The spec is a repo file, committed beside the code. `spec.md` is done when `brain check` reports no finding for it; the findings for the plan and todo files stay until Phase 2 fills them.
 

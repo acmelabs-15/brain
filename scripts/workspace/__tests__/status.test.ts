@@ -247,6 +247,65 @@ describe("brain status, the lines the rows give", () => {
   });
 });
 
+describe("brain status, an idea that ends with no spec", () => {
+  test("a done idea is finished: it is not the active effort, and its result passes brain check", async () => {
+    const root = await repo("done-idea", "no-active-work", {
+      "docs/ideas/IDEA-003-switch-placement.md": `---
+id: IDEA-003
+status: done
+result: DEC-002
+---
+# IDEA-003: Where the theme switch goes
+
+## Intent
+- Outcome: users find the theme switch where they look for it.
+- User: people who pick light or dark by hand.
+- Why now: support tickets ask where the switch is.
+- Success: no ticket asks for the switch for a month.
+- Constraint: no new screen.
+- Out of scope: new themes.
+
+Confirmed by Sam on 2026-09-12.
+
+## Destination
+A decision: the screen that holds the theme switch.
+
+## Notes
+Every session loads ask-user-question, domain-modeling and context-engineering.
+
+## Map
+| # | Question | Type | Status | Blocked by | Result |
+|---|---|---|---|---|---|
+| 01 | Which screen holds the theme switch? | interview | resolved | — | DEC-002 |
+
+## Not yet specified
+None.
+
+## Out of scope
+- New themes.
+`,
+    });
+    const res = await brain(root, "status");
+    expect(res.stdout).toBe(
+      lines(
+        "Phase: no active work",
+        "Last step: none",
+        "Next step: none in the workspace; docs/STATUS.md says: No active work. Start with interview-me.",
+        "Red: none",
+        "Waiting on the user: none",
+      ),
+    );
+    expect(res.code).toBe(0);
+    const data = await statusJson(root);
+    expect(data.efforts).toEqual([]);
+    expect(data.ideas.map(({ id, status, specs }) => ({ id, status, specs }))).toEqual([
+      { id: "IDEA-001", status: "specced", specs: ["SPEC-001", "SPEC-002"] },
+      { id: "IDEA-002", status: "parked", specs: [] },
+      { id: "IDEA-003", status: "done", specs: [] },
+    ]);
+  });
+});
+
 describe("brain status --json, on each fixture", () => {
   test("idea-mid-define: the frontier its README names, the rows in progress and waiting, and the full note", async () => {
     const root = await repo("json-idea", "idea-mid-define");

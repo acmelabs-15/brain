@@ -181,7 +181,7 @@ The skill fills the file from the one-pager. The Problem Statement, the Recommen
 ```markdown
 ---
 id: IDEA-001
-status: define # define | specced | parked
+status: define # define | specced | done | parked
 ---
 # IDEA-001: ReOrder: Keep Your Regulars Ordering Direct
 

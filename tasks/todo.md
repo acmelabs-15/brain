@@ -201,7 +201,7 @@ ends with a checkpoint and a review with Peter.
   - Files: skills/interview-me/{SKILL.md,RESEARCH.md}, evals/lifecycle/interview-parallel-research/*
   - Depends: T21, T44. Scope: M
 
-- [ ] T47: an idea can end without a spec
+- [x] T47: an idea can end without a spec
   - Acceptance: the IDEA schema and template accept `status: done`, which requires `result:` naming a `DEC-NNN` or a commit SHA; `brain check` reports a done idea with no `result`, or with a `DEC-NNN` that does not exist; `brain status` and the active-effort rule in `skills/setup-brain/workspace.md` treat `done` and `specced` as finished; interview-me's Finish sets `done` and `result` after the user's explicit yes when no spec follows; GLOSSARY.md's Idea entry lists the four statuses (define, specced, done, parked)
   - Verify: CLI seam (check: done without result, done with a missing DEC, done with a DEC, done with a SHA; status: a done idea is not the active effort); `bun run lifecycle:check`
   - Files: scripts/workspace/schema.ts, scripts/workspace/templates/IDEA.md, scripts/workspace/check.ts, scripts/workspace/status.ts, scripts/workspace/__tests__/*, skills/setup-brain/workspace.md, skills/interview-me/SKILL.md, GLOSSARY.md

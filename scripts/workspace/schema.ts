@@ -107,13 +107,28 @@ const from: Field = {
 const evidence: Field = { need: "optional", rule: listOf(/^RES-\d{3}$/u, "RES-NNN") };
 const spec: Field = { need: "always", rule: like(/^SPEC-\d{3}$/u, "SPEC-NNN") };
 
+const decisionOrCommit = like(/^(?:DEC-\d{3}|[0-9a-f]{7,64})$/u, "DEC-NNN or a commit SHA");
+
+/**
+ * What a done idea produced: the decision, or the commit of a change made in place. YAML reads a
+ * SHA such as 0123456 or 1234e56 as a number, which changes it, so a number gets the advice to
+ * quote it.
+ */
+function ideaResult(value: unknown): string | null {
+  return typeof value === "number"
+    ? `${value} is a number: put the commit SHA in quotes`
+    : decisionOrCommit(value);
+}
+
 /** One schema per type, keyed as the templates are named. */
 export const schemas: Record<DocType, Schema> = {
   IDEA: {
     identity: "id",
     fields: {
       id: { need: "always", rule: like(/^IDEA-\d{3}$/u, "IDEA-NNN") },
-      status: { need: "new", rule: oneOf("define", "specced", "parked") },
+      status: { need: "new", rule: oneOf("define", "specced", "done", "parked") },
+      // An idea that ends with no spec is done, and names what it produced.
+      result: { need: "new", rule: ideaResult, unless: (data) => data.status !== "done" },
     },
     heading: (id) => `# ${id}: `,
   },

@@ -73,6 +73,62 @@ function migratedDecision(id: string, extra = ""): string {
   return `---\nid: ${id}\nmigrated: 0.8\ndecided: 2026-09-19\n${extra}---\n# ${id}. Old title\n`;
 }
 
+/**
+ * An idea whose destination was a decision, so it ends with no spec: IDEA-003 and DEC-003, the
+ * decision its one row produced. `fields` are the idea's frontmatter lines below its `id`.
+ */
+function ideaWithNoSpec(fields: string): Record<string, string> {
+  return {
+    "docs/ideas/IDEA-003-switch-placement.md": `---
+id: IDEA-003
+${fields}---
+# IDEA-003: Where the theme switch goes
+
+## Intent
+- Outcome: users find the theme switch where they look for it.
+- User: people who pick light or dark by hand.
+- Why now: support tickets ask where the switch is.
+- Success: no ticket asks for the switch for a month.
+- Constraint: no new screen.
+- Out of scope: new themes.
+
+Confirmed by Sam on 2026-09-12.
+
+## Destination
+A decision: the screen that holds the theme switch.
+
+## Notes
+Every session loads ask-user-question, domain-modeling and context-engineering.
+
+## Map
+| # | Question | Type | Status | Blocked by | Result |
+|---|---|---|---|---|---|
+| 01 | Which screen holds the theme switch? | interview | resolved | — | DEC-003 |
+
+## Not yet specified
+None.
+
+## Out of scope
+- New themes.
+`,
+    "docs/decisions/DEC-003-switch-in-settings.md": `---
+id: DEC-003
+status: accepted
+kind: decision
+adr-test:
+  hard-to-reverse: false
+  surprising: false
+  real-trade-off: true
+from: IDEA-003#01
+decided: 2026-09-12 by Sam
+---
+# DEC-003: The theme switch goes on the settings screen
+
+Users look for it in settings, and the settings screen has room for it.
+`,
+  };
+}
+
 const idea = "docs/ideas/IDEA-001-sync-notes.md";
 const plan = "docs/specs/SPEC-001-invoice-csv-export/tasks/plan.md";
 const spec = "docs/specs/SPEC-001-invoice-csv-export/spec.md";
@@ -532,6 +588,68 @@ describe("brain check, checkpoint rows", () => {
       lines(
         `${phases}: row 04: blocked by checkpoint 03, but depends on no task in the phase of 03`,
         "1 finding in 12 workspace files",
+      ),
+    );
+    expect(res.code).toBe(1);
+  });
+});
+
+describe("brain check, an idea that ends with no spec", () => {
+  const ended = "docs/ideas/IDEA-003-switch-placement.md";
+
+  test("a done idea with no result: one finding, and exit 1", async () => {
+    const root = await repo("done-no-result", "no-active-work", ideaWithNoSpec("status: done\n"));
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(lines(`${ended}: result: missing`, "1 finding in 13 workspace files"));
+    expect(res.code).toBe(1);
+  });
+
+  test("a done idea whose result names a DEC file that does not exist: one finding, and exit 1", async () => {
+    const root = await repo(
+      "done-missing-dec",
+      "no-active-work",
+      ideaWithNoSpec("status: done\nresult: DEC-009\n"),
+    );
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(
+      lines(`${ended}: result: DEC-009 does not exist`, "1 finding in 13 workspace files"),
+    );
+    expect(res.code).toBe(1);
+  });
+
+  test("a done idea whose result names the decision it produced has no finding", async () => {
+    const root = await repo(
+      "done-with-dec",
+      "no-active-work",
+      ideaWithNoSpec("status: done\nresult: DEC-003\n"),
+    );
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(lines("no finding in 13 workspace files"));
+    expect(res.code).toBe(0);
+  });
+
+  test("a done idea whose result names the commit of a change made in place has no finding", async () => {
+    const root = await repo(
+      "done-with-sha",
+      "no-active-work",
+      ideaWithNoSpec("status: done\nresult: 8b41d07c2e9a\n"),
+    );
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(lines("no finding in 13 workspace files"));
+    expect(res.code).toBe(0);
+  });
+
+  test("a commit SHA of digits only, which YAML reads as a number, gets a finding that says to quote it", async () => {
+    const root = await repo(
+      "done-sha-number",
+      "no-active-work",
+      ideaWithNoSpec("status: done\nresult: 4417305\n"),
+    );
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(
+      lines(
+        `${ended}: result: 4417305 is a number: put the commit SHA in quotes`,
+        "1 finding in 13 workspace files",
       ),
     );
     expect(res.code).toBe(1);

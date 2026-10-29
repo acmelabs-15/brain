@@ -1,9 +1,10 @@
 /**
  * The efforts in a workspace and the active one, as `docs/agents/workspace.md` defines them. An
  * effort is an idea or a spec. It is not finished while it is an idea with `status: define`, or a
- * spec whose `tasks/plan.md` has a row that is open or in progress. The active effort is the one
- * the git branch names, else the only effort that is not finished; a command that takes a slug
- * checks that first, and with none of these the user names it.
+ * spec whose `tasks/plan.md` has a row that is open or in progress; a specced, done or parked idea
+ * is finished. The active effort is the one the git branch names, else the only effort that is not
+ * finished; a command that takes a slug checks that first, and with none of these the user names
+ * it.
  */
 import { readdir } from "node:fs/promises";
 import path from "node:path";

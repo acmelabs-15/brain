@@ -71,7 +71,7 @@ The idea file is `IDEA-NNN-<slug>.md` in the workspace's ideas folder (`paths.id
 
 | Part | Holds |
 |---|---|
-| `status` in the frontmatter | `define` while the interview runs; `specced` once a spec exists; `parked` when the user sets the idea aside |
+| `status` in the frontmatter | `define` while the interview runs; `specced` once a spec exists; `done` when the idea ends with no spec, and then `result:` names the `DEC-NNN` or the commit SHA it produced; `parked` when the user sets the idea aside |
 | H1 | `# IDEA-NNN: <title>`: the ID, then the idea's name |
 | Intent | six lines: Outcome, User, Why now, Success, Constraint, Out of scope. It is a draft until the user confirms it (see [Confirm the intent](#confirm-the-intent)) |
 | Destination | one or two lines: what reaching the end of this map looks like (a spec, a decision or a change) |
@@ -303,14 +303,21 @@ The stop has a floor. If several rows resolve and the map keeps growing, that is
 
 ## Finish
 
-The interview finishes when the frontier and the fog are both empty.
+The interview finishes when the frontier and the fog are both empty. The Destination says how the idea ends: with a spec, or with no spec, as a decision or as a change made in place.
 
 1. **Restate.** Write the restate into the Intent section: each line in the user's words, and no line left as `open, row NN`.
-2. **Confirm** it as [Confirm the intent](#confirm-the-intent) says: one question call, an explicit yes, then the `Confirmed by` line. A correction can reopen rows: go back to [The loop](#the-loop).
-3. **Hand off.** Call the Skill tool with "spec-driven-development". Give it the idea's ID, and the `DEC` and `RES` files the spec rests on, for the spec's `sources:`. One idea may produce several specs.
-4. **Mark the idea `specced`** when its spec exists, that is, when a `spec.md` lists the idea in `sources:`. Set `status: specced` in the idea's frontmatter, and run `brain check`.
+2. **Confirm** it as [Confirm the intent](#confirm-the-intent) says: one question call, an explicit yes, then the `Confirmed by` line. The same question names how the idea ends: the spec to write, or the decision or change that ends it with no spec. The yes covers both. A correction can reopen rows: go back to [The loop](#the-loop).
+3. **End the idea** the way the user confirmed:
 
-Finish is done when the Intent holds the `Confirmed by` line, the idea's `status` is `specced`, and `brain check` reports no finding for the idea file.
+   | The idea ends with | Do | Then set in the idea's frontmatter |
+   |---|---|---|
+   | A spec | Call the Skill tool with "spec-driven-development". Give it the idea's ID, and the `DEC` and `RES` files the spec rests on, for the spec's `sources:`. One idea may produce several specs. | `status: specced`, once a `spec.md` lists the idea in `sources:` |
+   | A decision, and no spec | Nothing more: a decide row already wrote the decision's `DEC` file. | `status: done`, and `result: DEC-NNN` with that decision's ID |
+   | A change made in place, and no spec | Make the change, and commit it. | `status: done`, and `result:` with the commit's full SHA in quotes, from `git rev-parse HEAD` |
+
+4. **Run `brain check`.** It fails a `done` idea with no `result`, or with a `result` that names a `DEC` file that does not exist.
+
+Finish is done when the Intent holds the `Confirmed by` line, the idea's `status` is `specced` or `done` as the table says, and `brain check` reports no finding for the idea file.
 
 ## Resume
 
@@ -328,7 +335,8 @@ A new session resumes from the idea file alone. The map holds every answer so fa
    | `status` | Next |
    |---|---|
    | `define` | Steps 3 and 4. When the frontier and the fog are both empty, continue [Finish](#finish) at its first step not yet done. |
-   | `specced` | The interview is done. Resume the spec that lists this idea in `sources:`: its next task is the next row on the frontier of its `tasks/plan.md`. |
+   | `specced` | The interview is finished. Resume the spec that lists this idea in `sources:`: its next task is the next row on the frontier of its `tasks/plan.md`. |
+   | `done` | The idea ended with no spec, and nothing is left to resume. Tell the user what its `result:` names: the decision, or the commit of the change. |
    | `parked` | The user set the idea aside. Resume it only when the user names it: set `status: define`, then steps 3 and 4. |
 
 3. **Settle each row left `in-progress`.** Find its `RES` file by the `from:` field, `from: IDEA-NNN#NN`.
