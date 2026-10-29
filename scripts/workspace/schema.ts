@@ -257,30 +257,48 @@ function parseYaml(text: string): { data: unknown } | { error: string } {
 }
 
 /**
+ * Split a file's text into its frontmatter fields and the body below them. Returns null when
+ * the text opens with no frontmatter, and the problem when the frontmatter is not a map of
+ * fields.
+ */
+export function readFrontmatter(
+  text: string,
+): { data: Record<string, unknown>; body: string } | { error: string } | null {
+  const parts = /^---\n(?:(?<head>[\s\S]*?)\n)?---(?:\n|$)/u.exec(text);
+  if (parts === null) {
+    return null;
+  }
+  const parsed = parseYaml(parts.groups?.head ?? "");
+  if ("error" in parsed) {
+    return { error: `not valid YAML (${parsed.error})` };
+  }
+  // An empty frontmatter is a map with no fields, so each missing field gets its own line.
+  const data = parsed.data ?? {};
+  if (!isRecord(data)) {
+    return { error: "not a map of fields" };
+  }
+  return { data, body: text.slice(parts[0].length) };
+}
+
+/**
  * Check one workspace file's text against its type: the frontmatter, the H1 and, in a research
  * record, each finding line. `id` is the ID the file's name or spec folder gives it. Returns
  * one line per problem, each opening with the field it names; an empty list means valid.
  */
 export function checkDoc(type: DocType, text: string, id: string): string[] {
-  const parts = /^---\n(?:(?<head>[\s\S]*?)\n)?---(?:\n|$)/u.exec(text);
-  if (parts === null) {
+  const frontmatter = readFrontmatter(text);
+  if (frontmatter === null) {
     return ["frontmatter: missing"];
   }
-  const parsed = parseYaml(parts.groups?.head ?? "");
-  if ("error" in parsed) {
-    return [`frontmatter: not valid YAML (${parsed.error})`];
+  if ("error" in frontmatter) {
+    return [`frontmatter: ${frontmatter.error}`];
   }
-  // An empty frontmatter is a map with no fields, so each missing field gets its own line.
-  const data = parsed.data ?? {};
-  if (!isRecord(data)) {
-    return ["frontmatter: not a map of fields"];
-  }
+  const { data, body } = frontmatter;
   const migrated = Object.hasOwn(data, "migrated");
   const problems = checkFields(type, data, id, migrated);
   if (migrated) {
     return problems;
   }
-  const body = text.slice(parts[0].length);
   problems.push(...checkHeading(schemas[type].heading(id), body));
   if (type === "RES") {
     problems.push(...checkFindings(body));

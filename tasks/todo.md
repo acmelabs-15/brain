@@ -65,7 +65,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/workspace` (each template, filled, passes its schema)
   - Files: scripts/workspace/templates/{IDEA,DEC,RES,spec,plan,todo}.md, scripts/workspace/schema.ts, test
   - Depends: T09. Scope: M
-- [ ] T11: `brain new-doc`
+- [x] T11: `brain new-doc`
   - Acceptance: the config reader (`scripts/workspace/config.ts`) takes `layout` and the four folder paths from `docs/agents/workspace.md` frontmatter, with the defaults when the file or a key is absent, and new-doc writes into those folders; `brain new-doc IDEA|DEC|RES|SPEC <slug>` claims the next number with `mkdir` under `$(git rev-parse --git-common-dir)/brain/ids/<TYPE>/`, falls back to the user's cache directory outside git, writes the file from its template, prints the path; SPEC writes the folder with `spec.md`, `tasks/plan.md`, `tasks/todo.md`; a bad type or slug exits 2; `package.json` gains `new-doc`
   - Verify: CLI seam, one case per type; the parallel test: 20 processes, several runs, unique numbers, no gap without a failed claim
   - Files: scripts/workspace/config.ts, scripts/workspace/new-doc.ts, scripts/workspace/claims.ts, scripts/workspace/__tests__/new-doc.test.ts, package.json
