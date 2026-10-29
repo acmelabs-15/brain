@@ -17,7 +17,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run plain-talk:render -- --check`; `bun test scripts/plain-talk`
   - Files: plain-talk/PLAIN-TALK.md; rendered: output-styles/talk-plain.md, GEMINI.md, rules/talk-plain.md, plain-talk/AGENTS-block.md, AGENTS.md
   - Depends: none. Scope: S
-- [ ] T03: domain-modeling renamed
+- [x] T03: domain-modeling renamed
   - Acceptance: `CONTEXT-FORMAT.md` moved with `git mv` to `GLOSSARY-FORMAT.md`; `SKILL.md` and the format files name `GLOSSARY.md` and `GLOSSARY-MAP.md`; the description says "glossary"
   - Verify: `bun run lifecycle:check`; `rg -n 'CONTEXT' skills/domain-modeling` is empty
   - Files: skills/domain-modeling/SKILL.md, skills/domain-modeling/GLOSSARY-FORMAT.md, skills/domain-modeling/ADR-FORMAT.md
