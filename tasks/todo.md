@@ -85,7 +85,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: one fixture per rule (CLI seam), and one for the informational line; `bun run check` green on brain
   - Files: scripts/workspace/map.ts, scripts/workspace/check.ts, scripts/workspace/__tests__/check.test.ts, fixtures, package.json
   - Depends: T11, T12, T13. Scope: M
-- [ ] T15: `sync --check` in the gate, and the survival test
+- [x] T15: `sync --check` in the gate, and the survival test
   - Acceptance: `bun run check` runs `bun run sync -- --check`; a test proves a brain-owned file in `agents/` and in `hooks/` survives `applyUpstream`, and that an upstream file at a brain-owned path stops the sync before any write
   - Verify: `bun test scripts/sync`; `bun run check`
   - Files: package.json, scripts/sync/__tests__/apply.test.ts

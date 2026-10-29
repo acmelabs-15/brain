@@ -96,7 +96,7 @@ Bun only.
 
 ```
 bun install
-bun run check                  # typecheck, lint, format check, tests, version and render checks
+bun run check                  # typecheck, lint, format check, tests, version, render, lifecycle and sync checks
 bun run sync                   # fetch every pinned upstream and rewrite the vendored tree
 bun run sync -- --check        # fail if a vendored file drifted
 bun run sync -- --report       # what addy changed in a seeded command since it was seeded
