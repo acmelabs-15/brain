@@ -267,6 +267,7 @@ ends with a checkpoint and a review with Peter.
 
 ### Checkpoint: phase 6
 - [ ] The full suite once; `bun run validate`; code-review-and-quality over the branch
+- [ ] T35's overlap report on brain's own `AGENTS.md`, report-only, for Peter to decide what the protocol now covers
 - [ ] Review with Peter; push and open PR 2 only after his yes
 
 ## Phase 7: brain's history (after a second ask) and the fallback's end (in 0.11.0); separate PRs
