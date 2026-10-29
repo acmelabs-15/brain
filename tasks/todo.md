@@ -42,7 +42,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: read against `GLOSSARY-FORMAT.md`; the T08 check passes
   - Files: GLOSSARY.md
   - Depends: T03. Scope: S
-- [ ] T08: the rename guard, the upstream compare, the changeset
+- [x] T08: the rename guard, the upstream compare, the changeset
   - Acceptance: `lifecycle:check` fails on `CONTEXT.md` or `CONTEXT-MAP.md` in a brain-owned file, except history (`tasks/done/`, `docs/research/`, `docs/intent/`, `CHANGELOG.md`), the fallback rule, and text that describes the rename; it fails when `GLOSSARY.md` lacks an entry for a listed term; `bun run sync -- --report` compared with brain's rename of domain-modeling and wait-what, and anything brain missed fixed; a changeset for the rename
   - Verify: `bun test scripts/lifecycle` (fixtures for each finding and each exemption); `bun run check`
   - Files: scripts/lifecycle/check-refs.ts (or a sibling check-names.ts), scripts/lifecycle/__tests__/, .changeset/<name>.md

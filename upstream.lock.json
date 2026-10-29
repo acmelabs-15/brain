@@ -326,13 +326,13 @@
       "upstream": "mattpocock-skills",
       "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
     },
-    "skills/domain-modeling/CONTEXT-FORMAT.md": {
+    "skills/domain-modeling/GLOSSARY-FORMAT.md": {
       "upstream": "mattpocock-skills",
-      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+      "seededAt": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
     },
     "skills/domain-modeling/SKILL.md": {
       "upstream": "mattpocock-skills",
-      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+      "seededAt": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
     },
     "skills/domain-modeling/agents/openai.yaml": {
       "upstream": "mattpocock-skills",
@@ -368,7 +368,7 @@
     },
     "skills/triage/SKILL.md": {
       "upstream": "mattpocock-skills",
-      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+      "seededAt": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
     },
     "skills/triage/agents/openai.yaml": {
       "upstream": "mattpocock-skills",
@@ -380,7 +380,7 @@
     },
     "skills/wait-what/SKILL.md": {
       "upstream": "mattpocock-skills",
-      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+      "seededAt": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
     },
     "skills/wait-what/agents/openai.yaml": {
       "upstream": "mattpocock-skills",

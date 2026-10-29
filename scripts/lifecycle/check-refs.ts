@@ -1,14 +1,17 @@
 /**
  * Every skill a command or skill names must exist, under the brain: prefix or bare, and
- * a user-invoked skill must say so in both hosts' files.
+ * a user-invoked skill must say so in both hosts' files. The run also applies the name
+ * checks in names.ts: no retired name, and a complete glossary.
  *
  *   bun run lifecycle:check
  */
 import { readdir } from "node:fs/promises";
 
+import { checkGlossaryTerms, checkRetiredNames } from "./names";
+
 export type Ref = { prefix: string | null; name: string };
 export type Finding = {
-  kind: "unresolved" | "old-prefix" | "flag-mismatch";
+  kind: "unresolved" | "old-prefix" | "flag-mismatch" | "retired-name" | "glossary-term";
   file: string;
   detail: string;
 };
@@ -109,7 +112,12 @@ export async function checkRefs(root: string): Promise<Finding[]> {
 }
 
 if (import.meta.main) {
-  const findings = await checkRefs(process.cwd());
+  const root = process.cwd();
+  const findings = [
+    ...(await checkRefs(root)),
+    ...(await checkRetiredNames(root)),
+    ...(await checkGlossaryTerms(root)),
+  ];
   for (const finding of findings) {
     console.log(`${finding.kind.padEnd(14)} ${finding.file}: ${finding.detail}`);
   }
@@ -117,5 +125,7 @@ if (import.meta.main) {
     console.log(`${findings.length} finding(s)`);
     process.exit(1);
   }
-  console.log("every skill reference resolves and every user-invoked flag agrees");
+  console.log(
+    "every skill reference resolves, every user-invoked flag agrees, no retired name is left",
+  );
 }

@@ -278,7 +278,7 @@ Seams, confirmed by Peter on 2026-10-29:
 43. As a user, I want the glossary named `GLOSSARY.md`, as Matt's skills now expect, so that both packs share one name.
 44. As a user with a `CONTEXT.md`, I want setup-brain to offer `git mv` to `GLOSSARY.md`, so that my glossary keeps its history.
 45. As a user, I want skills to read `CONTEXT.md` for one release when `GLOSSARY.md` is absent, so that the rename does not break my repo mid-work.
-46. As a maintainer, I want `lifecycle:check` to fail on a stray `CONTEXT.md`, wayfinder or triage mention, so that removed names do not creep back.
+46. As a maintainer, I want `lifecycle:check` to fail on a stray `CONTEXT.md` (the old name of `GLOSSARY.md`), wayfinder or triage mention, so that removed names do not creep back.
 47. As a maintainer, I want `lifecycle:check` to fail on `hooks/hooks.json` or a root `hooks.json`, so that an upstream bump cannot make Codex or Gemini load hooks.
 48. As a maintainer, I want `lifecycle:check` to fail when the Claude manifest's agent list misses an `agents/*.md` file, so that a new upstream agent fails loudly.
 49. As a maintainer, I want `lifecycle:check` to fail when `using-brain` names a missing skill or misses an existing one, so that the router never drifts.
@@ -337,7 +337,7 @@ Each item names how it is verified.
 7. `bun run plain-talk:render -- --check` is green, with the protocol rendered into
    `GEMINI.md`, `rules/` and the Codex block.
 8. Glossary rename: no brain-owned file outside history, the one-release fallback and
-   rename-describing text names `CONTEXT.md` or `CONTEXT-MAP.md`; `lifecycle:check` fails on
+   rename-describing text names `CONTEXT.md` or `CONTEXT-MAP.md`, the old `GLOSSARY.md` names; `lifecycle:check` fails on
    one. Matt's pin is `d81f3a1`, `sync --check` is clean, and `brain-wrap.md` has one
    amendment line. Test: lifecycle seam.
 9. brain's `GLOSSARY.md` exists, follows `GLOSSARY-FORMAT.md`, and defines idea, effort,
