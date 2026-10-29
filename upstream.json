@@ -8,6 +8,7 @@
           "from": "skills",
           "to": "skills",
           "except": [
+            "idea-refine",
             "interview-me",
             "spec-driven-development",
             "planning-and-task-breakdown",
@@ -39,6 +40,10 @@
         {
           "from": "commands",
           "to": "commands"
+        },
+        {
+          "from": "skills/idea-refine",
+          "to": "skills/idea-refine"
         },
         {
           "from": "skills/interview-me",

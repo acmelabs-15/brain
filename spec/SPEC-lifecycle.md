@@ -40,8 +40,7 @@ changed. `context-engineering`, `source-driven-development`, `doubt-driven-devel
 `code-simplification`, `security-and-hardening`, `performance-optimization`,
 `git-workflow-and-versioning`, `ci-cd-and-automation`, `deprecation-and-migration`,
 `documentation-and-adrs`, `observability-and-instrumentation`, `shipping-and-launch`,
-`constraint-driven-development`, `idea-refine` and `using-brain`' siblings stay vendored
-and unchanged.
+`constraint-driven-development` and `using-brain`' siblings stay vendored and unchanged.
 
 ## brain-owned skills beside the combined ones
 
@@ -51,6 +50,7 @@ and unchanged.
 | `triage` | seeded from matt | the five documented defects fixed; grilling replaced by the interview rules; labels created in the tracker on first use; the agent brief keeps addy's files list |
 | `setup-brain` | brain | gains one tracker question, GitHub, GitLab or local markdown, local by default, and writes `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md` through its script |
 | `domain-modeling` | seeded from matt (Peter, 2026-10-19) | ADRs go to `docs/decisions/`, the folder agent-skills uses, or to the folder a repo already keeps them in |
+| `idea-refine` | seeded from addy (Peter, 2026-10-29) | a standalone run saves its one-pager as an idea file through `brain new-doc IDEA`; an `ideate` row resolves to a decision record; one question per call through the question tool; no bash script |
 | `wait-what` | seeded from matt (Peter, 2026-10-28) | the agent invokes it on its own: no `disable-model-invocation` flag, no Codex `allow_implicit_invocation: false`, and a description that names the ways a user shows confusion about the agent's last message; the body is matt's text |
 | `writing-for-agents`, `codebase-design`, `prototype`, `handoff` | vendored from matt | unchanged |
 

@@ -127,7 +127,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run lifecycle:check`; `bun run validate`
   - Files: skills/interview-me/{SKILL.md,RESEARCH.md}, claude/agents/researcher.md, .claude-plugin/plugin.json
   - Depends: T18, T19. Scope: M
-- [ ] T22: idea-refine seeded and changed
+- [x] T22: idea-refine seeded and changed
   - Acceptance: idea-refine leaves the agent-skills take list for the seed list; `bun run sync -- --seed agent-skills` records it; the save step uses `brain new-doc IDEA <slug>` with the section mapping from the Decisions row; ideate rows resolve to a `DEC`; questions through ask-user-question, one per call; `scripts/idea-refine.sh` deleted; `examples.md` and `frameworks.md` fixed
   - Verify: `bun run sync -- --check`; `bun run lifecycle:check`
   - Files: upstream.json, upstream.lock.json, skills/idea-refine/{SKILL.md,examples.md,frameworks.md}, skills/idea-refine/scripts/idea-refine.sh
