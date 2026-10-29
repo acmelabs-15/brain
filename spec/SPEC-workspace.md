@@ -136,7 +136,13 @@ because the success criteria test them.
   only writer of plan rows and todo ticks, and tells an in-flight task to rebase when a merge
   changes what it depends on. interview-me starts every research row on the frontier at once,
   up to the cap; on Claude Code with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` research rows may
-  run as an agent team, while the build stays on worktree sub-agents.
+  run as an agent team, while the build stays on worktree sub-agents. When the host gives a
+  sub-agent no worktree (Gemini CLI never does; Claude Code refuses one in `claude plugin
+  eval`), `/build auto` makes it with `git worktree add` from the branch head, after the first
+  refusal and for every later task; it checks its own tree's `git status` after each such task
+  and stops before any merge when a sub-agent wrote there; it removes a merged worktree and
+  keeps a failed task's worktree, named in the report (Decisions row "Worktree sub-agents for
+  the build", amended 2026-10-29).
 
 ## Tech Stack
 

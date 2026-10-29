@@ -49,18 +49,18 @@ Use this once a spec exists and you want to collapse plan + build into one run. 
    - a task is high-risk or irreversible — auth/permission changes, destructive data migrations, payments, deletions, deploys, anything touching secrets, **or anything you can't undo with `git revert`** → follow brain:doubt-driven-development and get explicit sign-off before continuing
 
    After the user resolves a blocker, they re-invoke `/build auto` — it resumes from the frontier.
-7. **Summarize at the end:** tasks completed, tests added, commits made, how many tasks started at once in each wave and the reason wherever fewer started than could, and anything skipped, flagged, or left for the user.
+7. **Summarize at the end:** tasks completed, tests added, commits made, how many tasks started at once in each wave and the reason wherever fewer started than could, the path of each worktree kept for a failed task, and anything skipped, flagged, or left for the user.
 
 ## Run the frontier
 
 `brain plan --json` works out the frontier: its first wave is every `open` row whose `Blocked by` rows are all `resolved`. `criticalPath` is the longest chain of rows still to do. `maxParallel` is the cap: `max_parallel` in `docs/agents/workspace.md` (default 8), or the `BRAIN_MAX_PARALLEL` variable, which wins.
 
 1. **Note the feature branch:** `git branch --show-current`. Every task builds on the feature branch's current head, never on `main`.
-2. **Start every task on the frontier at once**, up to the cap counted with the tasks still running: one Agent call per task, all in one message, each with `isolation: "worktree"` on the call itself. When the cap bites, start the rows on `criticalPath` first, then the rest in table order. A running task keeps its row `open`, so the frontier still lists it: leave it running.
+2. **Start every task on the frontier at once**, up to the cap counted with the tasks still running: one Agent call per task, all in one message, each with `isolation: "worktree"` on the call itself. When an Agent call's result says it cannot create the worktree, start that task again through "The worktree fallback", and every later task of this build too. When the cap bites, start the rows on `criticalPath` first, then the rest in table order. A running task keeps its row `open`, so the frontier still lists it: leave it running.
 3. **Start fewer only for a reason, and tell the user that reason before you start them.** A reason is a fact about the tasks or the host: two tasks that edit the same function (`sharedFiles` lists the files a wave's tasks share), or a host that runs one sub-agent at a time. "To be safe" is not a reason.
 4. **Brief each sub-agent** with nothing from this conversation:
    - the plain-talk block from `${CLAUDE_PLUGIN_ROOT}/plain-talk/AGENTS-block.md` at the top of the prompt, because the output style never reaches a sub-agent;
-   - its base: Claude Code starts a worktree on the repo's default branch unless the `worktree.baseRef` setting is `"head"` (https://code.claude.com/docs/en/worktrees#choose-the-base-branch). So its first step is `git merge --ff-only <feature branch>`, then the install command from the spec's Commands or the repo's `AGENTS.md`, because a new worktree has no installed dependencies. If the merge fails, it stops and reports;
+   - its base: Claude Code starts a worktree on the repo's default branch unless the `worktree.baseRef` setting is `"head"` (https://code.claude.com/docs/en/worktrees#choose-the-base-branch). So its first step is `git merge --ff-only <feature branch>`, then the install command from the spec's Commands or the repo's `AGENTS.md`, because a new worktree has no installed dependencies. If the merge fails, it stops and reports. A task in a fallback worktree gets step 3 of "The worktree fallback" in place of this base;
    - the task's block from `tasks/todo.md`, copied whole, with the path of the spec folder and the spec section the block cites;
    - the `brain` path from "The spec folder", because a sub-agent's commands do not get the plugin variable;
    - the instruction to invoke brain:incremental-implementation and brain:test-driven-development;
@@ -68,15 +68,30 @@ Use this once a spec exists and you want to collapse plan + build into one run. 
    - its result file: `T<NN>-result.md`, task ID first, in a folder outside the repo that you create for this build, holding the commit SHA, the verification command with its outcome, and any question. A sub-agent's file name never starts with report, summary, findings or analysis, which Claude Code refuses;
    - its reply: the result file's path plus one line: pass or fail, the commit SHA, and any question;
    - the rule that a decision the spec does not cover comes back as one question in its result, because a sub-agent cannot ask the user.
-5. **Merge one task at a time.** When a sub-agent replies, read its line. Read its result file only when the line says fail or asks a question; then stop (step 6 above). When several tasks have passed, take the one on `criticalPath` first:
+5. **Merge one task at a time.** When a sub-agent of a fallback task replies, check the tree first (step 4 of "The worktree fallback"). Then read its line. Read its result file only when the line says fail or asks a question; then stop (step 6 above). When several tasks have passed, take the one on `criticalPath` first:
    1. Merge its branch into the feature branch: `git merge --no-ff <its branch>`. Resolve a small overlap in a shared file yourself.
    2. Run the gate, the repo's check command, on the merged head.
    3. Close the row (see "Close a row").
    4. When the merge changed a file or an interface that a running task uses, tell that task to rebase onto the feature branch's new head before it commits: SendMessage to the agent ID its Agent call returned (https://code.claude.com/docs/en/sub-agents#resume-subagents).
+   5. Remove a fallback task's worktree (step 6 of "The worktree fallback").
 6. **Move the frontier.** After each closed row, run `brain plan --json` again, and start each task that has newly reached the frontier, as in item 2.
 7. **A checkpoint row on the frontier stops the build for the user's review.** Start no new task, and tell the user that this is why. Let the running tasks finish, and merge them. Run the checks in the checkpoint's block, then present the checkpoint: what its phase built, and each check with its outcome. After the user's unambiguous yes, close the checkpoint row, its result the checks and the user's yes, and go on from item 6.
 
 On a host without a sub-agent tool, run the frontier's tasks one at a time in this session, and tell the user that reason once: do the task, commit, close the row, clear the context, and re-invoke `/build auto`; it resumes from the frontier.
+
+## The worktree fallback
+
+Use it when the host gives a sub-agent no worktree of its own. On Claude Code, that is an Agent call whose result says it cannot create the worktree; `claude plugin eval` answers `Cannot create agent worktree: worktree isolation is unavailable in this session`. Each cause the worktree docs list is a fact about the repo or the session, not about one task (https://code.claude.com/docs/en/worktrees#troubleshooting). So after the first refusal, run that task and every later task of this build through the fallback, with no `isolation` on their Agent calls.
+
+The folder is `.claude/worktrees/`, where Claude Code makes its own worktrees. A sub-agent with no worktree starts in this session's folder, and its `cd` does not carry over to its next command (https://code.claude.com/docs/en/sub-agents#write-subagent-files). Claude Code's isolation checks guard only a sub-agent in a worktree of its own (https://code.claude.com/docs/en/worktrees#how-claude-code-enforces-isolation), so this session checks its own tree. Claude Code's cleanup sweep keeps every worktree made with `git worktree add` (https://code.claude.com/docs/en/worktrees#clean-up-subagent-and-background-session-worktrees), so this session removes each one.
+
+1. **Make each task's worktree from the feature branch's head**, then run the install command there: `git worktree add -b build/T<NN> .claude/worktrees/T<NN> <feature branch>`, then `cd .claude/worktrees/T<NN> && <install command>`. When that folder is still there from a stopped build, ask the user whether to reuse it or remove it.
+2. **Record this session's tree** before the first fallback task starts: `git status --porcelain --untracked-files=all -- ':!.claude/worktrees'`. Keep the output for the whole build. This session commits each change it makes, so a correct run never changes it.
+3. **Give each task its worktree.** In place of the base, the brief names the worktree's absolute path and says: work only in that path; every file you read or write is under it; start every shell command with `cd <path> && `; the branch `build/T<NN>` already holds the feature branch's head, and the install has run; commit there. It also names the feature branch, for a rebase this session may ask for.
+4. **Check the tree when a task replies**, before anything else: run the record's command again. A line the record lacks means an agent wrote in this session's tree. Then stop the build, merge nothing, and tell the user the new lines and the task that replied.
+5. **Merge the branch `build/T<NN>`** as "Run the frontier" says.
+6. **Remove the worktree after its merge:** `git worktree remove .claude/worktrees/T<NN>`, then `git worktree prune`, then `git branch -d build/T<NN>`.
+7. **A failed task keeps its worktree** and its branch, for the user to inspect. The stop message and the closing summary name its path, and the path of every other fallback worktree still on disk.
 
 ## Close a row
 

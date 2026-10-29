@@ -3,6 +3,16 @@
  * case's scaffold, plays a correct parallel `/build auto` run and faulty runs with real git
  * worktrees, real merges and the real `brain plan` and `brain check`, and applies the case's own
  * grader files to each, as `claude plugin eval` reads them. The one llm grader is not modelled.
+ *
+ * Two hosts are played. On one, the Agent tool gives each sub-agent a worktree. On the other, as
+ * in `claude plugin eval` 2.1.312, an Agent call with `isolation: "worktree"` comes back refused
+ * ("Cannot create agent worktree: worktree isolation is unavailable in this session"), and the
+ * main session makes each worktree itself with `git worktree add` (the worktree fallback, T52).
+ *
+ * A real run of `claude plugin eval` 2.1.312 (2026-10-29) writes the `trace` target one content
+ * block per line, and each tool result on the line right after its own call, even when one
+ * assistant message made several calls. The calls of one message share its `msg_` id. The dry
+ * check builds each played trace in that shape.
  */
 import { afterAll, beforeAll, describe, expect, setDefaultTimeout, test } from "bun:test";
 import { mkdir, mkdtemp, readdir, realpath, rm } from "node:fs/promises";
@@ -24,15 +34,20 @@ const todoPath = `${folder}/tasks/todo.md`;
 // Claude Code puts the plugin's path in place of ${CLAUDE_PLUGIN_ROOT} when the command loads.
 const brainCmd = 'bun "/plugins/brain/scripts/brain.ts"';
 const wave = ["01", "02", "03", "04", "05"];
+// The tool result `claude plugin eval` 2.1.312 gives an Agent call with isolation.
+const refusal =
+  "Cannot create agent worktree: worktree isolation is unavailable in this session (plugin evaluation harness)";
+// The tree check of the worktree fallback, as `/build auto` writes it.
+const treeCheck = ["status", "--porcelain", "--untracked-files=all", "--", ":!.claude/worktrees"];
 let work: string;
 
 type Grader = Record<string, unknown> & { name: string; type: string };
 
-/** One tool call of the main session: the tool's name and its input. */
-type Call = { tool: string; input: Record<string, unknown> };
+/** One tool call of the main session: the tool's name, its input, and the result it got. */
+type Call = { tool: string; input: Record<string, unknown>; result?: string; error?: boolean };
 
-/** What a run leaves: its workspace and the main session's tool calls, in order. */
-type Run = { root: string; calls: Call[] };
+/** What a run leaves: its workspace, its tool calls message by message, and its last reply. */
+type Run = { root: string; turns: Call[][]; last: string };
 
 /** The frontmatter of a case file, or an empty map when it has none. */
 function front(text: string): Record<string, unknown> {
@@ -62,13 +77,60 @@ function isFileTarget(target: unknown): target is { source: "file"; path: string
   );
 }
 
-/** A `tool_order` side: a tool name, or a tool with an `input_match`. */
-function sideOf(side: unknown): { tool: string; inputMatch: string } {
-  if (typeof side === "string") {
-    return { tool: side, inputMatch: "" };
+/** One trace line that returns a tool result to the model, as a user message. */
+function reply(id: string, call: Call): object {
+  const result = {
+    tool_use_id: id,
+    type: "tool_result",
+    content: call.result ?? `Done: ${call.tool}`,
+    ...(call.error === true ? { is_error: true } : {}),
+  };
+  return { type: "user", message: { role: "user", content: [result] } };
+}
+
+/**
+ * The run as JSON lines: the init line with the session's tools, the prompt, then each message's
+ * tool calls, each on its own line with the message's id and followed by its result, then the
+ * last reply.
+ */
+function trace(run: Run): string {
+  const lines: object[] = [
+    { type: "system", subtype: "init", tools: [{ name: "Agent" }, { name: "Bash" }] },
+    {
+      type: "user",
+      message: { role: "user", content: "/brain:build auto\n\nThe plan is approved." },
+    },
+  ];
+  for (const [turn, calls] of run.turns.entries()) {
+    for (const [index, call] of calls.entries()) {
+      const id = `toolu_${turn}_${index}`;
+      const use = { type: "tool_use", id, name: call.tool, input: call.input };
+      lines.push(
+        { type: "assistant", message: { id: `msg_${turn}`, role: "assistant", content: [use] } },
+        reply(id, call),
+      );
+    }
   }
-  const { tool, input_match: inputMatch } = side as { tool?: unknown; input_match?: unknown };
-  return { tool: String(tool), inputMatch: String(inputMatch ?? "") };
+  lines.push({
+    type: "assistant",
+    message: { role: "assistant", content: [{ type: "text", text: run.last }] },
+  });
+  return lines.map((line) => JSON.stringify(line)).join("\n");
+}
+
+/** The text a regex grader reads, for the targets this case uses. */
+async function targetText(target: unknown, run: Run): Promise<string | null> {
+  if (target === "trace") {
+    return trace(run);
+  }
+  if (target === "last_message" || target === undefined) {
+    return run.last;
+  }
+  if (isFileTarget(target)) {
+    const file = Bun.file(`${run.root}/${target.path}`);
+    return (await file.exists()) ? file.text() : null;
+  }
+  throw new Error(`the dry check does not read the target ${JSON.stringify(target)}`);
 }
 
 /** Whether a call is to `tool` and its JSON input matches `inputMatch`. */
@@ -82,26 +144,16 @@ function hits(call: Call, tool: string, inputMatch: string): boolean {
 async function passes(each: Grader, run: Run): Promise<boolean> {
   if (each.type === "tool_used") {
     const tool = String(each.tool);
-    const count = run.calls.filter((call) => hits(call, tool, String(each.input_match ?? "")));
+    const calls = run.turns.flat();
+    const count = calls.filter((call) => hits(call, tool, String(each.input_match ?? "")));
     return count.length >= Number(each.min ?? 1) && count.length <= Number(each.max ?? Infinity);
   }
-  if (each.type === "tool_order") {
-    // Both tools were called, and the first matching `before` call comes before the first
-    // matching `after` call.
-    const before = sideOf(each.before);
-    const after = sideOf(each.after);
-    const first = run.calls.findIndex((call) => hits(call, before.tool, before.inputMatch));
-    const then = run.calls.findIndex((call) => hits(call, after.tool, after.inputMatch));
-    return first !== -1 && then !== -1 && first < then;
-  }
-  if (each.type === "regex" && isFileTarget(each.target)) {
-    const file = Bun.file(`${run.root}/${each.target.path}`);
-    if (!(await file.exists())) {
+  if (each.type === "regex") {
+    const text = await targetText(each.target, run);
+    if (text === null) {
       return false;
     }
-    const found = new RegExp(String(each.pattern), String(each.flags ?? "")).test(
-      await file.text(),
-    );
+    const found = new RegExp(String(each.pattern), String(each.flags ?? "")).test(text);
     const match = each.match ?? "contains";
     if (match === "contains" || match === "not_contains") {
       return found === (match === "contains");
@@ -233,16 +285,27 @@ function filesOf(id: string): Record<string, string> {
   };
 }
 
-type Brief = { isolation?: boolean; branch?: boolean };
+/** The folder of row `id`'s fallback worktree, relative to the workspace. */
+function fallbackTree(id: string): string {
+  return `.claude/worktrees/T${id}`;
+}
 
-/** A brief as `/build auto` writes it: the plain-talk block, the base, then the block, whole. */
+type Brief = { isolation?: boolean; branch?: boolean; worktree?: string };
+
+/**
+ * A brief as `/build auto` writes it: the plain-talk block, the base, then the block, whole. With
+ * `worktree`, the base is the fallback worktree the main session made, and the brief says to work
+ * only there.
+ */
 async function brief(root: string, id: string, options: Brief = {}): Promise<Call> {
   const todo = await Bun.file(`${root}/${todoPath}`).text();
   const plainTalk = await Bun.file(`${repo}/plain-talk/AGENTS-block.md`).text();
-  const base =
-    (options.branch ?? true)
-      ? `Your worktree may start on the default branch. First run \`git merge --ff-only ${branch}\`, then \`bun install\`.`
-      : "Your worktree is ready. Run `bun install` first.";
+  let base = "Your worktree is ready. Run `bun install` first.";
+  if (options.worktree !== undefined) {
+    base = `Work only in ${options.worktree}: every file you read or write is under it, and every shell command starts with \`cd ${options.worktree} && \`. Its branch build/T${id} holds the head of ${branch}, and the install has run.`;
+  } else if (options.branch ?? true) {
+    base = `Your worktree may start on the default branch. First run \`git merge --ff-only ${branch}\`, then \`bun install\`.`;
+  }
   return {
     tool: "Agent",
     input: {
@@ -261,25 +324,59 @@ async function brief(root: string, id: string, options: Brief = {}): Promise<Cal
       subagent_type: "general-purpose",
       ...((options.isolation ?? true) ? { isolation: "worktree" } : {}),
     },
+    result: `Async agent launched successfully. Build task ${id}`,
   };
 }
 
 /**
- * A sub-agent starts on row `id` in its own worktree. The worktree starts on the remote's default
- * branch, as Claude Code's default base does, and the brief's first step brings it to the
- * feature branch's head. Returns the worktree's branch.
+ * Claude Code gives a sub-agent on row `id` a worktree of its own. The worktree starts on the
+ * remote's default branch, as Claude Code's default base does, and the brief's first step brings
+ * it to the feature branch's head. Returns the worktree's folder and branch.
  */
-function startTask(root: string, name: string, id: string): string {
+function isolatedTask(
+  root: string,
+  name: string,
+  id: string,
+): { tree: string; taskBranch: string } {
   const tree = `${work}/${name}-worktree-${id}`;
   const taskBranch = `worktree-agent-${name}-${id}`;
   git(root, "worktree", "add", "-q", "-b", taskBranch, tree, "origin/main");
   git(tree, "merge", "-q", "--ff-only", branch);
-  return taskBranch;
+  return { tree, taskBranch };
+}
+
+/**
+ * The main session makes row `id`'s fallback worktree from `base` and runs the install there, as
+ * the worktree fallback says. Returns the two calls, the worktree's folder and its branch.
+ */
+function fallbackTask(
+  root: string,
+  id: string,
+  base: string,
+): { calls: Call[]; tree: string; taskBranch: string } {
+  const taskBranch = `build/T${id}`;
+  const tree = `${root}/${fallbackTree(id)}`;
+  git(root, "worktree", "add", "-q", "-b", taskBranch, fallbackTree(id), base);
+  const install = Bun.spawnSync(["bun", "install"], { cwd: tree, env: process.env });
+  expect(install.exitCode).toBe(0);
+  const calls: Call[] = [
+    {
+      tool: "Bash",
+      input: {
+        command: `git worktree add -b ${taskBranch} ${fallbackTree(id)} ${base}`,
+        description: `Make the worktree of task ${id}`,
+      },
+    },
+    {
+      tool: "Bash",
+      input: { command: `cd ${fallbackTree(id)} && bun install`, description: `Install in T${id}` },
+    },
+  ];
+  return { calls, tree, taskBranch };
 }
 
 /** A played sub-agent writes its task's files in its worktree and commits them; returns the SHA. */
-async function commitTask(name: string, id: string): Promise<string> {
-  const tree = `${work}/${name}-worktree-${id}`;
+async function commitTask(tree: string, id: string): Promise<string> {
   const files = filesOf(id);
   for (const [path, text] of Object.entries(files)) {
     await Bun.write(`${tree}/${path}`, text);
@@ -300,13 +397,44 @@ async function tick(root: string, id: string): Promise<void> {
 /** The main session merges a task's branch into the feature branch, then runs the gate. */
 function merge(run: Run, taskBranch: string, id: string): void {
   git(run.root, "merge", "-q", "--no-ff", "--no-edit", taskBranch);
-  run.calls.push(
+  run.turns.push(
+    [
+      {
+        tool: "Bash",
+        input: { command: `git merge --no-ff --no-edit ${taskBranch}`, description: `Merge ${id}` },
+      },
+    ],
+    [{ tool: "Bash", input: { command: "bun test", description: "Run the gate" } }],
+  );
+}
+
+/** The main session runs the tree check and returns its output. */
+function checkTree(run: Run): string {
+  run.turns.push([
     {
       tool: "Bash",
-      input: { command: `git merge --no-ff --no-edit ${taskBranch}`, description: `Merge ${id}` },
+      input: {
+        command: `git ${treeCheck.slice(0, -1).join(" ")} '${treeCheck.at(-1)}'`,
+        description: "Check this session's tree",
+      },
     },
-    { tool: "Bash", input: { command: "bun test", description: "Run the gate" } },
-  );
+  ]);
+  return git(run.root, ...treeCheck);
+}
+
+/** After its merge, the main session removes a fallback worktree, prunes, and drops its branch. */
+function removeTree(run: Run, id: string): void {
+  git(run.root, "worktree", "remove", fallbackTree(id));
+  git(run.root, "worktree", "prune");
+  git(run.root, "branch", "-q", "-d", `build/T${id}`);
+  run.turns.push([
+    {
+      tool: "Bash",
+      input: {
+        command: `git worktree remove ${fallbackTree(id)} && git worktree prune && git branch -d build/T${id}`,
+      },
+    },
+  ]);
 }
 
 /**
@@ -329,7 +457,7 @@ async function rewriteWaves(root: string): Promise<void> {
 /**
  * The main session closes row `id`: it ticks the block, resolves the row, writes the Parallel
  * waves section again, checks and commits. With `check`, the real `brain plan` and `brain check`
- * run too; each run takes a bun start, so only the correct run pays for it.
+ * run too; each run takes a bun start, so only the correct runs pay for it.
  */
 async function closeRow(run: Run, id: string, sha: string, check: boolean): Promise<void> {
   await tick(run.root, id);
@@ -342,23 +470,37 @@ async function closeRow(run: Run, id: string, sha: string, check: boolean): Prom
   expect(row.test(plan)).toBe(true);
   const result = `${sha}; \`bun test src/__tests__/${testFile[id]}.test.ts\`: 1 pass`;
   await Bun.write(file, plan.replace(row, `$1 resolved $2 ${result} |`));
-  run.calls.push(
+  run.turns.push([
     { tool: "Bash", input: { command: `${brainCmd} plan SPEC-001` } },
     { tool: "Bash", input: { command: `${brainCmd} check` } },
-  );
+  ]);
   if (check) {
     await rewriteWaves(run.root);
     expect(brain(run.root, "check").exitCode).toBe(0);
   }
   git(run.root, "add", "--", planPath, todoPath);
   git(run.root, "commit", "-qm", `chore: close row ${id} of SPEC-001`);
-  run.calls.push({
-    tool: "Bash",
-    input: {
-      command: `git add -- ${planPath} ${todoPath} && git commit -m "chore: close row ${id}"`,
+  run.turns.push([
+    {
+      tool: "Bash",
+      input: {
+        command: `git add -- ${planPath} ${todoPath} && git commit -m "chore: close row ${id}"`,
+      },
     },
-  });
+  ]);
 }
+
+/** The host refuses isolation, and the main session makes each worktree itself. */
+type Fallback = {
+  /** The start point of each `git worktree add`; the feature branch when left out. */
+  base?: string;
+  /** The brief names the worktree's path; true when left out. */
+  path?: boolean;
+  /** The row whose sub-agent also writes its module in the main session's tree. */
+  stray?: string;
+  /** The row whose sub-agent fails: it commits nothing and replies fail. */
+  fail?: string;
+};
 
 type Play = {
   /** The rows started at once in each batch; every batch is merged before the next starts. */
@@ -368,46 +510,160 @@ type Play = {
   /** Run the real `brain check` at each row close. */
   check?: boolean;
   pastCheckpoint?: boolean;
+  fallback?: Fallback;
 };
 
-/** Play `/build auto` on the scaffold: start each batch at once, then merge and close one at a time. */
+/** A started task: its row, its worktree's folder and branch. */
+type Started = { id: string; tree: string; taskBranch: string };
+
+/** Resolve checkpoint 06 with no review, for a run that goes past it. */
+async function passCheckpoint(root: string): Promise<void> {
+  const file = `${root}/${planPath}`;
+  const plan = await Bun.file(file).text();
+  await Bun.write(
+    file,
+    plan.replace(
+      /^(?<head>\| 06 \|[^\n]*\|) open (?<blockers>\|[^\n]*\|) — \|$/mu,
+      "$<head> resolved $<blockers> bun test: pass |",
+    ),
+  );
+}
+
+/** Start one batch of rows, each in a worktree, and return them. */
+async function startBatch(run: Run, name: string, batch: string[], play: Play): Promise<Started[]> {
+  const { fallback } = play;
+  if (fallback === undefined) {
+    const calls: Call[] = [];
+    const started: Started[] = [];
+    for (const id of batch) {
+      calls.push(await brief(run.root, id, play.brief));
+      started.push({ id, ...isolatedTask(run.root, name, id) });
+    }
+    run.turns.push(calls);
+    return started;
+  }
+  const made = batch.map((id) => ({ id, ...fallbackTask(run.root, id, fallback.base ?? branch) }));
+  run.turns.push(made.flatMap((each) => each.calls));
+  const calls: Call[] = [];
+  for (const { id, tree } of made) {
+    const worktree = (fallback.path ?? true) ? tree : undefined;
+    calls.push(await brief(run.root, id, { isolation: false, worktree }));
+  }
+  run.turns.push(calls);
+  return made.map(({ id, tree, taskBranch }) => ({ id, tree, taskBranch }));
+}
+
+/**
+ * The host refuses isolation: the whole first wave goes out at once with it, and every call comes
+ * back refused. The main session then records its tree; returns that record.
+ */
+async function refuseWave(run: Run): Promise<string> {
+  const refused: Call[] = [];
+  for (const id of wave) {
+    refused.push({ ...(await brief(run.root, id)), result: refusal, error: true });
+  }
+  run.turns.push(refused);
+  return checkTree(run);
+}
+
+/**
+ * The played sub-agents work in their worktrees and commit; returns each commit's SHA by row. A
+ * failed task leaves its work uncommitted in its own worktree, and a stray one also writes its
+ * module in the main session's tree.
+ */
+async function subAgentsWork(
+  root: string,
+  started: Started[],
+  fallback?: Fallback,
+): Promise<Map<string, string>> {
+  const shas = new Map<string, string>();
+  for (const { id, tree } of started) {
+    const module = `src/${testFile[id]}.ts`;
+    if (fallback?.fail === id) {
+      await Bun.write(`${tree}/${module}`, "export {};\n");
+    } else {
+      shas.set(id, await commitTask(tree, id));
+    }
+    if (fallback?.stray === id) {
+      await Bun.write(`${root}/${module}`, filesOf(id)[module] ?? "");
+    }
+  }
+  return shas;
+}
+
+/**
+ * When a fallback task replies, the main session checks its tree against the record, then reads
+ * the task's line. Returns the stop message, or null when the task may merge.
+ */
+function stopOnReply(
+  run: Run,
+  id: string,
+  started: Started[],
+  fallback: Fallback,
+  record: string,
+): string | null {
+  const now = checkTree(run);
+  if (now !== record) {
+    return `Stopped before any merge: an agent wrote in this session's tree.\n${now}`;
+  }
+  if (fallback.fail === id) {
+    const kept = started.filter((each) => each.id >= id).map((each) => fallbackTree(each.id));
+    return `Task ${id} failed. Kept worktrees: ${kept.join(", ")}.`;
+  }
+  return null;
+}
+
+/**
+ * Play `/build auto` on the scaffold: start each batch at once, then merge and close one task at a
+ * time. With `fallback`, the first wave's isolated calls come back refused, and every task then
+ * runs in a worktree the main session made: it records its tree before the first task starts,
+ * checks it again when each task replies, and stops before any merge when it changed. A merged
+ * worktree is removed; a failed task stops the build and keeps its worktree.
+ */
 async function buildAuto(name: string, play: Play = {}): Promise<Run> {
   const root = await scaffold(name);
   const run: Run = {
     root,
-    calls: [{ tool: "Bash", input: { command: `${brainCmd} plan --json` } }],
+    turns: [[{ tool: "Bash", input: { command: `${brainCmd} plan --json` } }]],
+    last: "All five tasks of the first wave started at once. Checkpoint 06 waits for your review.",
   };
   const batches = [...(play.batches ?? [wave])];
   if (play.pastCheckpoint === true) {
     batches.push(["07"]);
   }
+  const { fallback } = play;
+  const record = fallback === undefined ? "" : await refuseWave(run);
   for (const batch of batches) {
     if (batch.includes("07")) {
-      // A run that goes past the checkpoint resolves it by itself, with no review.
-      const file = `${root}/${planPath}`;
-      const plan = await Bun.file(file).text();
-      await Bun.write(
-        file,
-        plan.replace(
-          /^(?<head>\| 06 \|[^\n]*\|) open (?<blockers>\|[^\n]*\|) — \|$/mu,
-          "$<head> resolved $<blockers> bun test: pass |",
-        ),
-      );
+      await passCheckpoint(root);
     }
-    const started: { id: string; taskBranch: string }[] = [];
-    for (const id of batch) {
-      run.calls.push(await brief(root, id, play.brief));
-      started.push({ id, taskBranch: startTask(root, name, id) });
-    }
+    const started = await startBatch(run, name, batch, play);
+    const shas = await subAgentsWork(root, started, fallback);
     for (const { id, taskBranch } of started) {
-      const sha = await commitTask(name, id);
+      const stop = fallback === undefined ? null : stopOnReply(run, id, started, fallback, record);
+      if (stop !== null) {
+        run.last = stop;
+        return run;
+      }
       merge(run, taskBranch, id);
       if (play.close ?? true) {
-        await closeRow(run, id, sha, play.check ?? false);
+        await closeRow(run, id, shas.get(id) ?? "", play.check ?? false);
+      }
+      if (fallback !== undefined) {
+        removeTree(run, id);
       }
     }
   }
   return run;
+}
+
+/** The paths of the worktrees git lists for a workspace, sorted. */
+function worktrees(root: string): string[] {
+  return git(root, "worktree", "list", "--porcelain")
+    .split("\n")
+    .filter((line) => line.startsWith("worktree "))
+    .map((line) => line.slice("worktree ".length))
+    .toSorted();
 }
 
 beforeAll(async () => {
@@ -472,6 +728,17 @@ describe("lifecycle/build-parallel, the case files", () => {
     expect(graders.filter((each) => each.type === "llm").map((each) => each.name)).toEqual([
       "reason-for-fewer",
     ]);
+  });
+
+  test("each start grader reads the trace, and names its task's test file and fallback worktree", async () => {
+    const graders = await readGraders();
+    for (const id of wave) {
+      const own = graders.find((each) => each.name === `started-${id}`);
+      expect([own?.type, own?.target]).toEqual(["regex", "trace"]);
+      expect(String(own?.pattern)).toContain(`${testFile[id]}\\.test\\.ts`);
+      expect(String(own?.pattern)).toContain(`worktrees/T${id}\\b`);
+      expect(String(own?.pattern)).toContain("feat/text-tools");
+    }
   });
 });
 
@@ -547,7 +814,7 @@ describe("lifecycle/build-parallel, the scaffold", () => {
   });
 });
 
-describe("lifecycle/build-parallel, the graders on played runs", () => {
+describe("lifecycle/build-parallel, the graders on played runs where the Agent tool gives a worktree", () => {
   test("a run that starts the five tasks at once, then merges and closes one at a time, passes every computed grader", async () => {
     const run = await buildAuto("good", { check: true });
     expect(await failing(run)).toEqual([]);
@@ -559,9 +826,10 @@ describe("lifecycle/build-parallel, the graders on played runs", () => {
     expect(tests.exitCode).toBe(0);
   });
 
-  test("a run that only reads the plan fails every computed grader", async () => {
+  test("a run that only reads the plan fails every grader that needs a start or a closed row", async () => {
     const root = await scaffold("no-build");
-    expect(await failing({ root, calls: [] })).toEqual([
+    const run: Run = { root, turns: [], last: "" };
+    expect(await failing(run)).toEqual([
       "branch-head",
       "rows-resolved",
       "started-01",
@@ -570,7 +838,6 @@ describe("lifecycle/build-parallel, the graders on played runs", () => {
       "started-04",
       "started-05",
       "stops-at-checkpoint",
-      "worktrees",
     ]);
   });
 
@@ -589,9 +856,16 @@ describe("lifecycle/build-parallel, the graders on played runs", () => {
     expect(await failing(run)).toEqual(["started-04", "started-05"]);
   });
 
-  test("a run whose sub-agents get no worktree fails only the worktree count", async () => {
+  test("a run whose sub-agents get no worktree fails every start and the worktree grader", async () => {
     const run = await buildAuto("no-worktree", { brief: { isolation: false } });
-    expect(await failing(run)).toEqual(["worktrees"]);
+    expect(await failing(run)).toEqual([
+      "started-01",
+      "started-02",
+      "started-03",
+      "started-04",
+      "started-05",
+      "worktrees",
+    ]);
   });
 
   test("a run whose briefs never name the feature branch fails only the branch head", async () => {
@@ -607,5 +881,88 @@ describe("lifecycle/build-parallel, the graders on played runs", () => {
   test("a run that goes past the checkpoint without a review fails only the checkpoint stop", async () => {
     const run = await buildAuto("past-checkpoint", { pastCheckpoint: true });
     expect(await failing(run)).toEqual(["stops-at-checkpoint"]);
+  });
+});
+
+describe("lifecycle/build-parallel, the graders on played runs where the Agent tool refuses a worktree", () => {
+  test("a fallback run passes every computed grader, and leaves no worktree and no task branch behind", async () => {
+    const run = await buildAuto("fallback", { check: true, fallback: {} });
+    expect(await failing(run)).toEqual([]);
+    expect(brain(run.root, "check").exitCode).toBe(0);
+    expect(git(run.root, "status", "--porcelain")).toBe("");
+    expect(worktrees(run.root)).toEqual([run.root]);
+    expect(git(run.root, "branch", "--list", "build/*")).toBe("");
+    for (const id of wave) {
+      expect(await Bun.file(`${run.root}/${fallbackTree(id)}/package.json`).exists()).toBe(false);
+    }
+    const tests = Bun.spawnSync(["bun", "test"], { cwd: run.root, env: sandbox() });
+    expect(tests.stderr.toString()).toContain(" 6 pass");
+    expect(tests.exitCode).toBe(0);
+  });
+
+  test("a refused call is no start: a fallback run that then starts one task at a time fails every start but the first", async () => {
+    const run = await buildAuto("fallback-one-at-a-time", {
+      batches: wave.map((id) => [id]),
+      fallback: {},
+    });
+    expect(await failing(run)).toEqual(["started-02", "started-03", "started-04", "started-05"]);
+  });
+
+  test("a refused run that then starts the tasks with neither isolation nor a worktree path fails every start and the worktree grader", async () => {
+    const run = await buildAuto("fallback-no-path", { fallback: { path: false } });
+    expect(await failing(run)).toEqual([
+      "started-01",
+      "started-02",
+      "started-03",
+      "started-04",
+      "started-05",
+      "worktrees",
+    ]);
+  });
+
+  test("a fallback run whose worktrees start from main, not the branch head, fails every start", async () => {
+    const run = await buildAuto("fallback-from-main", { fallback: { base: "main" } });
+    expect(await failing(run)).toEqual([
+      "started-01",
+      "started-02",
+      "started-03",
+      "started-04",
+      "started-05",
+    ]);
+  });
+
+  test("a sub-agent that writes in the main tree stops the build before any merge", async () => {
+    const run = await buildAuto("fallback-stray", { fallback: { stray: "02" } });
+    expect(run.last).toContain("Stopped before any merge");
+    expect(run.last).toContain("?? src/longest.ts");
+    // No task reached the feature branch, and every worktree stays for the user to inspect.
+    expect(git(run.root, "log", "--format=%s", branch)).toBe("scaffold\ninitial");
+    expect(worktrees(run.root)).toEqual(
+      [run.root, ...wave.map((id) => `${run.root}/${fallbackTree(id)}`)].toSorted(),
+    );
+    const calls = run.turns.flat().map((call) => String(call.input.command ?? ""));
+    expect(calls.filter((command) => command.startsWith("git merge"))).toEqual([]);
+    expect(await failing(run)).toEqual(["rows-resolved", "stops-at-checkpoint"]);
+  });
+
+  test("a merged fallback worktree is gone, and a failed one stays and is named", async () => {
+    const run = await buildAuto("fallback-kept", { fallback: { fail: "03" } });
+    // Task 03's uncommitted file sits in its own worktree, which the tree check leaves out.
+    expect(run.last).not.toContain("Stopped before any merge");
+    expect(git(`${run.root}/${fallbackTree("03")}`, "status", "--porcelain")).toBe(
+      "?? src/capitalize.ts",
+    );
+    for (const id of ["01", "02"]) {
+      expect(await Bun.file(`${run.root}/${fallbackTree(id)}/package.json`).exists()).toBe(false);
+      expect(git(run.root, "branch", "--list", `build/T${id}`)).toBe("");
+    }
+    expect(worktrees(run.root)).toEqual(
+      [run.root, ...["03", "04", "05"].map((id) => `${run.root}/${fallbackTree(id)}`)].toSorted(),
+    );
+    expect(git(run.root, "branch", "--list", "--format=%(refname:short)", "build/T03")).toBe(
+      "build/T03",
+    );
+    expect(run.last).toContain(`Task 03 failed. Kept worktrees: ${fallbackTree("03")}`);
+    expect(await failing(run)).toEqual(["rows-resolved", "stops-at-checkpoint"]);
   });
 });

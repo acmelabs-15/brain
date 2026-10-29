@@ -47,20 +47,20 @@ Use this once a spec exists and you want to collapse plan + build into one run. 
    - the spec is ambiguous, or a task needs a decision the spec doesn't cover
    - a task is high-risk or irreversible — auth/permission changes, destructive data migrations, payments, deletions, deploys, anything touching secrets, or anything you can't undo with `git revert` → follow the doubt-driven-development skill and get explicit sign-off before continuing
    After the user resolves a blocker, they re-invoke /build auto — it resumes from the frontier.
-7. Summarize at the end: tasks completed, tests added, commits made, how many tasks started at once in each wave and the reason wherever fewer started than could, and anything skipped, flagged, or left for the user.
+7. Summarize at the end: tasks completed, tests added, commits made, how many tasks started at once in each wave and the reason wherever fewer started than could, the path of each worktree kept for a failed task, and anything skipped, flagged, or left for the user.
 
 ## Run the frontier
 
 `brain plan --json` works out the frontier: its first wave is every `open` row whose `Blocked by` rows are all `resolved`. `criticalPath` is the longest chain of rows still to do. `maxParallel` is the cap: `max_parallel` in `docs/agents/workspace.md` (default 8), or the `BRAIN_MAX_PARALLEL` variable, which wins.
 
-Gemini CLI gives a subagent no worktree of its own. Its subagents page names no such option (https://geminicli.com/docs/core/subagents/), and its own worktrees are whole sessions, started with `gemini --worktree` behind an experimental setting (https://geminicli.com/docs/cli/git-worktrees/). So this session makes each task's worktree with git before it starts the task's subagent, from the feature branch's head. The subagent then works in that folder only.
+Gemini CLI gives a subagent no worktree of its own. Its subagents page names no such option (https://geminicli.com/docs/core/subagents/), and its own worktrees are whole sessions, started with `gemini --worktree` behind an experimental setting (https://geminicli.com/docs/cli/git-worktrees/). So every task runs through "The worktree fallback": this session makes the task's worktree with git from the feature branch's head, and the subagent works in that folder only.
 
 1. Note the feature branch: `git branch --show-current`. Every task builds on the feature branch's current head, never on `main`.
-2. Start every task on the frontier at once, up to the cap counted with the tasks still running. For each task, first make its worktree: `git worktree add -b build/T<NN> .gemini/worktrees/T<NN> <feature branch>`. Then call the `generalist` subagent once per task, all in one turn; Gemini CLI runs subagents in parallel (https://developers.googleblog.com/subagents-have-arrived-in-gemini-cli/). When the cap bites, start the rows on `criticalPath` first, then the rest in table order. A running task keeps its row `open`, so the frontier still lists it: leave it running.
+2. Start every task on the frontier at once, up to the cap counted with the tasks still running. For each task, first make its worktree and run the install there (step 1 of "The worktree fallback"); before the first task starts, record this session's tree (step 2). Then call the `generalist` subagent once per task, all in one turn; Gemini CLI runs subagents in parallel (https://developers.googleblog.com/subagents-have-arrived-in-gemini-cli/). When the cap bites, start the rows on `criticalPath` first, then the rest in table order. A running task keeps its row `open`, so the frontier still lists it: leave it running.
 3. Start fewer only for a reason, and tell the user that reason before you start them. A reason is a fact about the tasks or the host: two tasks that edit the same function (`sharedFiles` lists the files a wave's tasks share), or a host that runs one subagent at a time. "To be safe" is not a reason.
 4. Brief each subagent with nothing from this conversation:
    - the plain-talk block from the brain plugin's `plain-talk/AGENTS-block.md` at the top of the prompt, because the host's every-turn text never reaches a subagent;
-   - its folder, `.gemini/worktrees/T<NN>`, which already holds the feature branch's head: every shell command runs there (the shell tool's `dir_path`, https://geminicli.com/docs/tools/shell/), and every file it reads or writes is under it. Its first step is the install command from the spec's Commands or the repo's `AGENTS.md`, because a new worktree has no installed dependencies;
+   - its base: its worktree, as step 3 of "The worktree fallback" says. Every shell command runs there; the shell tool also takes the folder as `dir_path` (https://geminicli.com/docs/tools/shell/);
    - the task's block from `tasks/todo.md`, copied whole, with the path of the spec folder and the spec section the block cites;
    - the resolved path of the brain plugin's `scripts/brain.ts`, so the subagent can run `brain`;
    - the instruction to invoke incremental-implementation and test-driven-development;
@@ -68,16 +68,30 @@ Gemini CLI gives a subagent no worktree of its own. Its subagents page names no 
    - its result file: `T<NN>-result.md`, task ID first, in a folder outside the repo that you create for this build, holding the commit SHA, the verification command with its outcome, and any question. A subagent's file name never starts with report, summary, findings or analysis, as `docs/agents/workspace.md` says;
    - its reply: the result file's path plus one line: pass or fail, the commit SHA, and any question;
    - the rule that a decision the spec does not cover comes back as one question in its result, because a subagent cannot ask the user.
-5. Merge one task at a time. When a subagent replies, read its line. Read its result file only when the line says fail or asks a question; then stop (step 6 above). When several tasks have passed, take the one on `criticalPath` first:
+5. Merge one task at a time. When a subagent replies, check the tree first (step 4 of "The worktree fallback"). Then read its line. Read its result file only when the line says fail or asks a question; then stop (step 6 above). When several tasks have passed, take the one on `criticalPath` first:
    1. Gemini CLI has no way to message a running subagent. So when an earlier merge changed a file or an interface that this task uses, rebase it yourself now: `git -C .gemini/worktrees/T<NN> rebase <feature branch>`, then run its verification again in that folder.
    2. Merge its branch into the feature branch: `git merge --no-ff build/T<NN>`. Resolve a small overlap in a shared file yourself.
    3. Run the gate, the repo's check command, on the merged head.
    4. Close the row (see "Close a row").
-   5. Remove its worktree, which Gemini CLI leaves for you: `git worktree remove .gemini/worktrees/T<NN>`, then `git branch -d build/T<NN>`.
+   5. Remove its worktree, which Gemini CLI leaves for you (step 6 of "The worktree fallback").
 6. Move the frontier. After each closed row, run `brain plan --json` again, and start each task that has newly reached the frontier, as in item 2.
 7. A checkpoint row on the frontier stops the build for the user's review. Start no new task, and tell the user that this is why. Let the running tasks finish, and merge them. Run the checks in the checkpoint's block, then present the checkpoint: what its phase built, and each check with its outcome. After the user's unambiguous yes, close the checkpoint row, its result the checks and the user's yes, and go on from item 6.
 
 On a host without subagents, run the frontier's tasks one at a time in this session, and tell the user that reason once: do the task, commit, close the row, clear the context, and re-invoke /build auto; it resumes from the frontier.
+
+## The worktree fallback
+
+Use it when the host gives a subagent no worktree of its own. On Gemini CLI that is every task, as "Run the frontier" says.
+
+The folder is `.gemini/worktrees/`, where `gemini --worktree` makes its own worktrees; Gemini CLI leaves each worktree for you to remove (https://geminicli.com/docs/cli/git-worktrees/). A subagent starts in this session's folder, so this session checks its own tree.
+
+1. **Make each task's worktree from the feature branch's head**, then run the install command there: `git worktree add -b build/T<NN> .gemini/worktrees/T<NN> <feature branch>`, then `cd .gemini/worktrees/T<NN> && <install command>`. When that folder is still there from a stopped build, ask the user whether to reuse it or remove it.
+2. **Record this session's tree** before the first fallback task starts: `git status --porcelain --untracked-files=all -- ':!.gemini/worktrees'`. Keep the output for the whole build. This session commits each change it makes, so a correct run never changes it.
+3. **Give each task its worktree.** In place of the base, the brief names the worktree's absolute path and says: work only in that path; every file you read or write is under it; start every shell command with `cd <path> && `; the branch `build/T<NN>` already holds the feature branch's head, and the install has run; commit there. It also names the feature branch, for a rebase this session may ask for.
+4. **Check the tree when a task replies**, before anything else: run the record's command again. A line the record lacks means an agent wrote in this session's tree. Then stop the build, merge nothing, and tell the user the new lines and the task that replied.
+5. **Merge the branch `build/T<NN>`** as "Run the frontier" says.
+6. **Remove the worktree after its merge:** `git worktree remove .gemini/worktrees/T<NN>`, then `git worktree prune`, then `git branch -d build/T<NN>`.
+7. **A failed task keeps its worktree** and its branch, for the user to inspect. The stop message and the closing summary name its path, and the path of every other fallback worktree still on disk.
 
 ## Close a row
 
