@@ -1,6 +1,10 @@
-import { afterAll, beforeAll, describe, expect, test } from "bun:test";
+import { afterAll, beforeAll, describe, expect, setDefaultTimeout, test } from "bun:test";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
+
+// Each test starts bun processes, which take seconds on a loaded machine (parallel builds run
+// several gates at once); the default 5 s is too tight.
+setDefaultTimeout(60_000);
 
 const cli = `${import.meta.dir}/../../brain.ts`;
 let repo: string;

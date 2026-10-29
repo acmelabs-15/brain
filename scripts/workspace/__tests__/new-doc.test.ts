@@ -1,8 +1,12 @@
-import { afterAll, beforeAll, describe, expect, test } from "bun:test";
+import { afterAll, beforeAll, describe, expect, setDefaultTimeout, test } from "bun:test";
 import { mkdir, mkdtemp, readdir, realpath, rm, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
 import { checkDoc } from "../schema";
+
+// Each test starts bun processes, which take seconds on a loaded machine (parallel builds run
+// several gates at once); the default 5 s is too tight.
+setDefaultTimeout(60_000);
 
 const cli = `${import.meta.dir}/../../brain.ts`;
 /** The `workspace.md` that setup-brain writes into a repo. */
@@ -313,7 +317,7 @@ describe("brain new-doc, in parallel", () => {
       }
       expect(await readdir(`${repo}/docs/research`)).toHaveLength(3 * processes);
     },
-    { timeout: 60_000 },
+    { timeout: 300_000 },
   );
 });
 
