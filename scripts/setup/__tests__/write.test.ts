@@ -1,10 +1,13 @@
-import { afterAll, beforeAll, describe, expect, test } from "bun:test";
+import { afterAll, beforeAll, describe, expect, setDefaultTimeout, test } from "bun:test";
 import { lstat, mkdir, mkdtemp, rm, stat, symlink } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
 import { endMarker, startMarker } from "../../plain-talk/block";
 import { readLock } from "../../sync/lib/lock";
 import { writeSetup } from "../write";
+
+// The flag tests start a bun process, which takes seconds on a loaded machine.
+setDefaultTimeout(60_000);
 
 let work: string;
 let brain: string;
@@ -46,19 +49,6 @@ beforeAll(async () => {
     `${brain}/skills/setup-brain/domain.md`,
     "# Domain docs\n\nLayout: {{layout}}.\n",
   );
-  await Bun.write(
-    `${brain}/skills/setup-brain/issue-tracker-local.md`,
-    "# Tracker: local\n\nIssues live under .scratch/.\n",
-  );
-  await Bun.write(
-    `${brain}/skills/setup-brain/issue-tracker-github.md`,
-    "# Tracker: GitHub\n\nRepo: {{repo}}\n",
-  );
-  await Bun.write(
-    `${brain}/skills/setup-brain/issue-tracker-gitlab.md`,
-    "# Tracker: GitLab\n\nRepo: {{repo}}\n",
-  );
-  await Bun.write(`${brain}/skills/setup-brain/triage-labels.md`, "# Labels\n\nneeds-triage\n");
 });
 
 afterAll(async () => {
@@ -68,17 +58,15 @@ afterAll(async () => {
 const base = { layout: "single" as const, dryRun: false, codexHome: null };
 
 describe("writeSetup, the repo", () => {
-  test("in an empty repo it creates the three docs/agents files and no context file", async () => {
+  test("in an empty repo it creates docs/agents/domain.md, no tracker file and no context file", async () => {
     const root = await repo("empty");
     const changes = await writeSetup({ brain, root, ...base });
-    expect(changes).toEqual([
-      { path: "docs/agents/domain.md", action: "created" },
-      { path: "docs/agents/issue-tracker.md", action: "created" },
-      { path: "docs/agents/triage-labels.md", action: "created" },
-    ]);
+    expect(changes).toEqual([{ path: "docs/agents/domain.md", action: "created" }]);
     expect(await Bun.file(`${root}/docs/agents/domain.md`).text()).toBe(
       "# Domain docs\n\nLayout: single-context.\n",
     );
+    expect(await exists(`${root}/docs/agents/issue-tracker.md`)).toBe(false);
+    expect(await exists(`${root}/docs/agents/triage-labels.md`)).toBe(false);
     expect(await exists(`${root}/AGENTS.md`)).toBe(false);
     expect(await exists(`${root}/CLAUDE.md`)).toBe(false);
     expect(await exists(`${root}/GEMINI.md`)).toBe(false);
@@ -88,11 +76,7 @@ describe("writeSetup, the repo", () => {
     const files = { "AGENTS.md": "# Mine\n", "CLAUDE.md": "# Claude\n", "GEMINI.md": "# Gemini\n" };
     const root = await repo("untouched", files);
     const changes = await writeSetup({ brain, root, ...base });
-    expect(changes.map((c) => c.path)).toEqual([
-      "docs/agents/domain.md",
-      "docs/agents/issue-tracker.md",
-      "docs/agents/triage-labels.md",
-    ]);
+    expect(changes.map((c) => c.path)).toEqual(["docs/agents/domain.md"]);
     for (const [path, body] of Object.entries(files)) {
       expect(await Bun.file(`${root}/${path}`).text()).toBe(body);
     }
@@ -108,11 +92,7 @@ describe("writeSetup, the repo", () => {
   test("dry run lists every change and writes nothing", async () => {
     const root = await repo("dry");
     const changes = await writeSetup({ brain, root, ...base, dryRun: true });
-    expect(changes.map((c) => `${c.action} ${c.path}`)).toEqual([
-      "created docs/agents/domain.md",
-      "created docs/agents/issue-tracker.md",
-      "created docs/agents/triage-labels.md",
-    ]);
+    expect(changes.map((c) => `${c.action} ${c.path}`)).toEqual(["created docs/agents/domain.md"]);
     expect(await exists(`${root}/docs`)).toBe(false);
   });
 
@@ -250,41 +230,28 @@ describe("writeSetup, Codex project scope", () => {
   });
 });
 
-describe("writeSetup, tracker", () => {
-  test("the default tracker is local markdown, and both tracker files are written from the templates", async () => {
-    const root = await repo("tracker-local");
-    await writeSetup({ brain, root, ...base });
-    expect(await Bun.file(`${root}/docs/agents/issue-tracker.md`).text()).toBe(
-      "# Tracker: local\n\nIssues live under .scratch/.\n",
-    );
-    expect(await Bun.file(`${root}/docs/agents/triage-labels.md`).text()).toBe(
-      "# Labels\n\nneeds-triage\n",
-    );
-  });
+describe("write.ts, the retired tracker flags", () => {
+  const writeScript = `${import.meta.dir}/../write.ts`;
 
-  test("a GitHub tracker names the repo in the file", async () => {
-    const root = await repo("tracker-github");
-    await writeSetup({ brain, root, ...base, tracker: "github", repoSlug: "acme/app" });
-    expect(await Bun.file(`${root}/docs/agents/issue-tracker.md`).text()).toBe(
-      "# Tracker: GitHub\n\nRepo: acme/app\n",
-    );
-  });
-
-  test("a second run leaves both tracker files unchanged", async () => {
-    const root = await repo("tracker-twice");
-    await writeSetup({ brain, root, ...base, tracker: "gitlab", repoSlug: "acme/app" });
-    const changes = await writeSetup({
-      brain,
+  test.each([
+    ["--tracker", "local"],
+    ["--repo", "acme/app"],
+  ])("%s is bad usage: exit 2, the flag named, nothing written", async (flag, value) => {
+    const root = await repo(`flag${flag}`);
+    const run = Bun.spawnSync([
+      "bun",
+      writeScript,
+      "--root",
       root,
-      ...base,
-      tracker: "gitlab",
-      repoSlug: "acme/app",
-    });
-    expect(
-      changes
-        .filter((c) => c.path.startsWith("docs/agents/"))
-        .every((c) => c.action === "unchanged"),
-    ).toBe(true);
+      "--brain",
+      brain,
+      "--no-codex",
+      flag,
+      value,
+    ]);
+    expect(run.exitCode).toBe(2);
+    expect(run.stderr.toString()).toContain(`unknown or incomplete flag ${flag}`);
+    expect(await exists(`${root}/docs`)).toBe(false);
   });
 });
 

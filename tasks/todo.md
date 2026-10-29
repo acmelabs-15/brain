@@ -142,7 +142,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run check`; `bun run validate`
   - Files: skills/triage/, skills/using-brain/SKILL.md, upstream.json, upstream.lock.json, README.md, spec/*, scripts/lifecycle/, .changeset/<name>.md
   - Depends: T18, T23. Scope: M
-- [ ] T25: setup-brain without a tracker
+- [x] T25: setup-brain without a tracker
   - Acceptance: `write.ts` stops writing `issue-tracker.md` and `triage-labels.md`; the four templates are deleted; the tracker question leaves `SKILL.md`; the eval grader `issue-tracker-md.md` and the scaffold lines go
   - Verify: `bun test scripts/setup`; `bun run check`
   - Files: scripts/setup/write.ts, scripts/setup/__tests__/write.test.ts, skills/setup-brain/{SKILL.md,issue-tracker-*.md,triage-labels.md}, evals/setup/fresh-repo/graders/issue-tracker-md.md, evals/setup/second-run/scaffold.sh

@@ -1,14 +1,13 @@
 /**
  * Write what brain's skills assume is in a repo, and the one file Codex needs on this machine.
  *
- *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker local|github|gitlab] [--repo owner/name] [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--dry-run] [--brain <plugin root>]
+ *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--dry-run] [--brain <plugin root>]
  *   bun run scripts/setup/write.ts --root <repo> --migrate [--dry-run]
  *
  * --migrate runs the migrate mode for a repo on brain 0.8 (see migrate.ts) instead of the
  * writes below, and prints the commit it wrote.
  *
  * docs/agents/domain.md gets the consumer rules with the layout named.
- * docs/agents/issue-tracker.md and docs/agents/triage-labels.md come from the templates, local tracker by default.
  * <codex home>/AGENTS.md gets the plain-talk block between its markers when the Codex home directory
  * exists ($CODEX_HOME, else ~/.codex); a symlink there is written through and kept. At project scope
  * the block goes into the repo's AGENTS.md instead and the global file is left alone. CLAUDE.md and
@@ -22,7 +21,6 @@ import { replaceBlock } from "../plain-talk/block";
 import { migrate } from "./migrate";
 
 export type Layout = "single" | "multi";
-export type Tracker = "local" | "github" | "gitlab";
 export type CodexScope = "global" | "project";
 export type Change = {
   path: string;
@@ -35,8 +33,6 @@ export type SetupInput = {
   root: string;
   layout: Layout;
   dryRun: boolean;
-  tracker?: Tracker;
-  repoSlug?: string;
   /** The Codex home directory; `undefined` means the default, `null` leaves the Codex step out. */
   codexHome?: string | null;
   /** Where the Codex block goes: the global file (default) or this repo's AGENTS.md. */
@@ -157,15 +153,6 @@ export async function writeSetup(input: SetupInput): Promise<Change[]> {
   const inRepo = (path: string, next: string) => put(input, path, `${input.root}/${path}`, next);
   const domain = domainTemplate.replaceAll("{{layout}}", layoutName);
   changes.push(await inRepo("docs/agents/domain.md", domain));
-
-  const tracker = input.tracker ?? "local";
-  const trackerTemplate = await Bun.file(
-    `${input.brain}/skills/setup-brain/issue-tracker-${tracker}.md`,
-  ).text();
-  const trackerText = trackerTemplate.replaceAll("{{repo}}", input.repoSlug ?? "<owner>/<name>");
-  changes.push(await inRepo("docs/agents/issue-tracker.md", trackerText));
-  const labels = await Bun.file(`${input.brain}/skills/setup-brain/triage-labels.md`).text();
-  changes.push(await inRepo("docs/agents/triage-labels.md", labels));
   return changes;
 }
 
@@ -185,10 +172,6 @@ const valued: Record<string, Setter> = {
     input.brain = value;
     return true;
   },
-  "--repo": (input, value) => {
-    input.repoSlug = value;
-    return true;
-  },
   "--codex-home": (input, value) => {
     input.codexHome = value;
     return true;
@@ -198,13 +181,6 @@ const valued: Record<string, Setter> = {
       return false;
     }
     input.layout = value;
-    return true;
-  },
-  "--tracker": (input, value) => {
-    if (!oneOf(["local", "github", "gitlab"] as const, value)) {
-      return false;
-    }
-    input.tracker = value;
     return true;
   },
   "--codex-scope": (input, value) => {

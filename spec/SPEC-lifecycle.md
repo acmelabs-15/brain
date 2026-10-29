@@ -47,7 +47,7 @@ changed. `context-engineering`, `source-driven-development`, `doubt-driven-devel
 | Skill | Origin | State after this module |
 |---|---|---|
 | `ask-user-question` | seeded from Peter's repo | the decision mechanism every stage names; its rewrite is the proposed `question` module |
-| `setup-brain` | brain | gains one tracker question, GitHub, GitLab or local markdown, local by default, and writes `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md` through its script |
+| `setup-brain` | brain | writes `docs/agents/domain.md` and the Codex block through its script; the tracker question and the two tracker files this module added were removed by `SPEC-workspace.md` (open question 10) |
 | `domain-modeling` | seeded from matt (Peter, 2026-10-19) | ADRs go to `docs/decisions/`, the folder agent-skills uses, or to the folder a repo already keeps them in |
 | `idea-refine` | seeded from addy (Peter, 2026-10-29) | a standalone run saves its one-pager as an idea file through `brain new-doc IDEA`; an `ideate` row resolves to a decision record; one question per call through the question tool; no bash script |
 | `wait-what` | seeded from matt (Peter, 2026-10-28) | the agent invokes it on its own: no `disable-model-invocation` flag, no Codex `allow_implicit_invocation: false`, and a description that names the ways a user shows confusion about the agent's last message; the body is matt's text |
@@ -70,7 +70,7 @@ one-way step. On a host without sub-agents the command says to clear between tas
 - Domain words come from `GLOSSARY.md` through `docs/agents/domain.md`; a missing term is a
   gap for `domain-modeling`.
 - The spec and the plan live in the repo: `spec/` or `SPEC.md`, `tasks/plan.md`,
-  `tasks/todo.md`. A tracker, when setup chose one, holds issues, not the plan.
+  `tasks/todo.md`.
 
 ## Tech Stack
 

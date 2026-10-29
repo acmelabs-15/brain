@@ -1,6 +1,6 @@
 ---
 name: setup-brain
-description: "Prepare a repo for brain: the domain docs layout and the issue tracker, and once per machine the plain-talk block in the Codex global AGENTS.md. Run once per repo before the other brain skills."
+description: "Prepare a repo for brain: the domain docs layout, and once per machine the plain-talk block in the Codex global AGENTS.md. Run once per repo before the other brain skills."
 ---
 
 # Setup brain
@@ -8,7 +8,6 @@ description: "Prepare a repo for brain: the domain docs layout and the issue tra
 Write what the other brain skills assume is there:
 
 - **The domain docs layout** and the consumer rules in `docs/agents/domain.md`, so every brain skill reads `GLOSSARY.md` before it names a domain concept.
-- **The issue tracker** in `docs/agents/issue-tracker.md` and the label vocabulary in `docs/agents/triage-labels.md`. The spec and the plan never go there; they live in the repo.
 - **The plain-talk block for Codex**, in the Codex global `AGENTS.md` once per machine, or in this repo's `AGENTS.md` at project scope. Codex is the one host where the plugin cannot carry the text. Claude Code, Gemini CLI and Antigravity get it from the plugin itself, at the scope the plugin was installed in. `CLAUDE.md` and `GEMINI.md` are never touched, and the repo's `AGENTS.md` only at project scope.
 
 Every file change goes through one script. The steps below decide and explain; the script writes.
@@ -17,9 +16,8 @@ Every file change goes through one script. The steps below decide and explain; t
 
 Read what exists. Facts are your job; never ask the user for one you can look up.
 
-- `GLOSSARY.md`, `GLOSSARY-MAP.md`, `docs/decisions/`, `docs/agents/domain.md`, `docs/agents/issue-tracker.md`: which exist. Also the old glossary names at the root, `CONTEXT.md` and `CONTEXT-MAP.md`.
+- `GLOSSARY.md`, `GLOSSARY-MAP.md`, `docs/decisions/`, `docs/agents/domain.md`: which exist. Also the old glossary names at the root, `CONTEXT.md` and `CONTEXT-MAP.md`.
 - Monorepo signals: `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or `packages/*` folders that each hold their own `src/`. Their absence means single-context, which is almost every repo.
-- `git remote -v`: whether a remote points at github.com, at a GitLab host, or nowhere. Read the `owner/name` slug from it.
 - The Codex home: `$CODEX_HOME`, else `~/.codex`. Whether the directory exists, and whether its `AGENTS.md` already holds the block between `<!-- brain:plain-talk:start -->` and `<!-- brain:plain-talk:end -->`.
 
 ## 2. Decide the small things, and say so
@@ -33,23 +31,22 @@ State each decision in one sentence before you go on.
 
 Every question goes through the host's user-question tool, composed with the ask-user-question skill: the facts you found in the question, the recommended option first with its reason, the cost of each option in its description.
 
-- **The issue tracker, always one question.** Local markdown under `.scratch/`, GitHub issues through `gh`, or GitLab issues through `glab`. Recommend local markdown, unless a remote points at GitHub or GitLab, then recommend that host. Local costs nothing to set up and holds issues as files; a hosted tracker gives native blocking links and a shared queue, and needs the CLI signed in.
 - **The layout, only when the exploration found monorepo signals.** Single-context, one `GLOSSARY.md` at the root, or multi-context, a `GLOSSARY-MAP.md` at the root that points to one `GLOSSARY.md` per context. Recommend single-context when the signals are weak.
 - **The glossary rename, only when a root `CONTEXT.md` or `CONTEXT-MAP.md` exists without its new name beside it.** Move it with `git mv` to `GLOSSARY.md` or `GLOSSARY-MAP.md`, or leave it. Recommend the move: it keeps the file's history, and Matt's skills now read only the new names. Leaving it costs a reminder in every session, and brain reads the old name for one release only. Only the root files move: a per-context file that `CONTEXT-MAP.md` lists stays where it is, and the user moves it by hand.
 
 - **The Codex scope, only when a Codex home exists on this machine.** Global, the block in `~/.codex/AGENTS.md` for every repo, or project, the block in this repo's `AGENTS.md` only. Recommend global: a Codex plugin install is global, so brain's skills are in every repo, and the Codex docs put communication style in the global file. Project costs a block in this repo that reaches teammates who lack brain, and gives plain talk here only.
 
-Nothing else forks. Do not ask about the label names; the label file is written with the defaults and the user edits it later. When no Codex home exists, say so and pass `--no-codex`.
+Nothing else forks. When no Codex home exists, say so and pass `--no-codex`.
 
 ## 4. Show, then write
 
 Run the script in dry-run mode and show its output, one line per file:
 
 ```
-bun run "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --layout single --tracker local --dry-run
+bun run "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --layout single --dry-run
 ```
 
-Use `--layout multi`, `--tracker github` or `--tracker gitlab` with `--repo <owner>/<name>` when those were chosen, `--codex-scope project` when the user chose it, `--rename-glossary` when the user chose the move, and `--no-codex` when no Codex home exists. When the plugin root variable is not set, the script's own location resolves it: `--brain <path to the brain plugin>`.
+Add `--layout multi`, `--codex-scope project` or `--rename-glossary` when the user chose that option, and `--no-codex` when no Codex home exists. When the plugin root variable is not set, the script's own location resolves it: `--brain <path to the brain plugin>`.
 
 When a file with the block is in the list, show the block as it will appear there. When the user agrees, run the same command without `--dry-run`.
 

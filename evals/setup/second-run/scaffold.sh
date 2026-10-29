@@ -11,5 +11,3 @@ if [ ! -f "$plugin/skills/setup-brain/domain.md" ]; then
 fi
 mkdir -p docs/agents
 sed 's/{{layout}}/single-context/' "$plugin/skills/setup-brain/domain.md" > docs/agents/domain.md
-sed 's|{{repo}}|<owner>/<name>|' "$plugin/skills/setup-brain/issue-tracker-local.md" > docs/agents/issue-tracker.md
-cp "$plugin/skills/setup-brain/triage-labels.md" docs/agents/triage-labels.md
