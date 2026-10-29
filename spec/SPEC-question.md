@@ -1,7 +1,7 @@
 # Spec: question
 
 Module `question` of `CAPABILITY-MAP.md`, added 2026-09-19. Depends on nothing.
-Status: draft for review.
+Status: superseded on 2026-10-28 by `docs/decisions/DEC-002-ask-user-question-upstream.md`. The skill is upstream's text, with brain's metadata and one paragraph fixed. This spec records the retired rewrite.
 
 ## Objective
 
