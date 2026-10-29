@@ -7,7 +7,7 @@ Status: approved 2026-09-19; amended the same day, see the amendment note.
 
 The agent talks plain on every turn, in all four hosts, from one source text.
 Plain means: one line of context first, ASD-STE100 Simplified Technical English,
-the project's own words from `CONTEXT.md`, a table for a choice and a list for a
+the project's own words from `GLOSSARY.md`, a table for a choice and a list for a
 sequence. The repair when a message still fails is the `wait-what` skill, which the agent loads on its own when the user shows confusion.
 
 Whether the text works is not assumed. The `evals` module measures it, and the
@@ -48,7 +48,7 @@ is loaded before one is composed.
 
 Two edits on the way in:
 
-- The vocabulary rule names `CONTEXT.md` and `CONTEXT-MAP.md` in the words of the
+- The vocabulary rule names `GLOSSARY.md` and `GLOSSARY-MAP.md` in the words of the
   `domain-modeling` skill, so the two agree.
 - The repair line names `wait-what` by its skill name, so the agent can invoke it.
 

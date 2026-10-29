@@ -13,7 +13,7 @@
   "interface": {
     "displayName": "brain",
     "shortDescription": "agent-skills wrapped with a glossary, plain talk, and one question at a time.",
-    "longDescription": "brain carries Addy Osmani's agent-skills unchanged and adds a CONTEXT.md glossary discipline, plain-language replies on every turn, and a question skill that asks one decision at a time.",
+    "longDescription": "brain carries Addy Osmani's agent-skills unchanged and adds a GLOSSARY.md glossary discipline, plain-language replies on every turn, and a question skill that asks one decision at a time.",
     "developerName": "Peter Kloss",
     "category": "Productivity",
     "capabilities": [

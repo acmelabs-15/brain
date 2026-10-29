@@ -8,8 +8,8 @@ Status: approved 2026-09-19; amended the same day, see the amendment notes.
 One skill, `setup-brain`, that a user runs once per repo. It writes what the other
 brain skills assume is there:
 
-1. The domain-docs layout: single-context (`CONTEXT.md` at the root, `docs/decisions/`) or
-   multi-context (`CONTEXT-MAP.md` at the root), and the consumer rules that tell
+1. The domain-docs layout: single-context (`GLOSSARY.md` at the root, `docs/decisions/`) or
+   multi-context (`GLOSSARY-MAP.md` at the root), and the consumer rules that tell
    every brain skill to read the glossary before it names a domain concept.
 2. The issue tracker and the label vocabulary, `docs/agents/issue-tracker.md` and
    `docs/agents/triage-labels.md`, which the triage and wayfinder skills read. The spec
@@ -47,7 +47,7 @@ Users: anyone who installs brain, once per repo. The user can run it as `/setup-
 
 ## Process the skill follows
 
-1. **Explore.** Read what exists: `CONTEXT.md`, `CONTEXT-MAP.md`, `docs/decisions/`,
+1. **Explore.** Read what exists: `GLOSSARY.md`, `GLOSSARY-MAP.md`, `docs/decisions/`,
    `docs/agents/domain.md`, `docs/agents/issue-tracker.md`, monorepo signals
    (`pnpm-workspace.yaml`, a `workspaces` field, `packages/*` with their own `src/`),
    the git remote, and the Codex home. Facts are the skill's job; it never asks the user
@@ -62,7 +62,7 @@ Users: anyone who installs brain, once per repo. The user can run it as `/setup-
    it will appear there. Then run the writer script, which is the only thing that touches
    files.
 5. **Say what changed and what reads it.** One line per file, and the list of
-   brain skills that now read `docs/agents/domain.md` and `CONTEXT.md`.
+   brain skills that now read `docs/agents/domain.md` and `GLOSSARY.md`.
 
 ## The writer script
 
@@ -87,7 +87,7 @@ bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker lo
   created if absent, and the global file is not read or written.
 - Never writes the repo's `CLAUDE.md` or `GEMINI.md`, and writes the repo's `AGENTS.md`
   only at project scope.
-- Creates no `CONTEXT.md`, `CONTEXT-MAP.md` or `docs/decisions/`. Those are created lazily by
+- Creates no `GLOSSARY.md`, `GLOSSARY-MAP.md` or `docs/decisions/`. Those are created lazily by
   the `domain-modeling` skill when the first term or decision is resolved,
   which is that skill's rule.
 - `--dry-run` prints every change and writes nothing.
@@ -152,7 +152,7 @@ The conversation in the skill, exploring and asking, is not tested here. `evals`
 
 - **Always:** write through the script; keep text outside the markers untouched; show before writing.
 - **Ask first:** the layout, only when monorepo signals exist; any change to what the block says, which is `plain-talk`'s.
-- **Never:** write a repo's `CLAUDE.md` or `GEMINI.md`; write a repo's `AGENTS.md` outside project scope; create `CONTEXT.md` or an ADR here; put the spec or the plan in the tracker.
+- **Never:** write a repo's `CLAUDE.md` or `GEMINI.md`; write a repo's `AGENTS.md` outside project scope; create `GLOSSARY.md` or an ADR here; put the spec or the plan in the tracker.
 
 ## Success Criteria
 

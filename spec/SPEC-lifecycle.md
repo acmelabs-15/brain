@@ -69,7 +69,7 @@ one-way step. On a host without sub-agents the command says to clear between tas
 - A decision that is the user's goes through the host's user-question tool, one question per
   call, composed with the `ask-user-question` skill. Small reversible choices stay with the
   agent and are stated with their reason.
-- Domain words come from `CONTEXT.md` through `docs/agents/domain.md`; a missing term is a
+- Domain words come from `GLOSSARY.md` through `docs/agents/domain.md`; a missing term is a
   gap for `domain-modeling`.
 - The spec and the plan live in the repo: `spec/` or `SPEC.md`, `tasks/plan.md`,
   `tasks/todo.md`. A tracker, when setup chose one, holds issues, not the plan.

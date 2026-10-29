@@ -32,7 +32,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/setup` (a temp git repo with `CONTEXT.md`: dry run lists it, the real run moves it and keeps its history)
   - Files: skills/setup-brain/SKILL.md, skills/setup-brain/domain.md, scripts/setup/write.ts, scripts/setup/__tests__/write.test.ts
   - Depends: none. Scope: M
-- [ ] T06: repo docs, brain's specs, and the brain-wrap amendment
+- [x] T06: repo docs, brain's specs, and the brain-wrap amendment
   - Acceptance: `README.md`, `.codex-plugin/plugin.json`, `spec/CAPABILITY-MAP.md` and the five `spec/SPEC-*.md` that name `CONTEXT.md` describe the current contract with `GLOSSARY.md`; `docs/intent/brain-wrap.md` gains one line: "Glossary renamed to `GLOSSARY.md` on 2026-10-29; see `docs/intent/workspace-and-stateful-interview.md`"; `tasks/done/` and `docs/research/` untouched
   - Verify: `bun run validate`; `git diff --stat` shows no file under `tasks/done/` or `docs/research/`
   - Files: README.md, .codex-plugin/plugin.json, spec/CAPABILITY-MAP.md, spec/SPEC-{lifecycle,plain-talk,question,setup}.md, docs/intent/brain-wrap.md

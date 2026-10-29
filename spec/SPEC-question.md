@@ -88,6 +88,6 @@ commit `6e9d8a7`, so a reader can follow it.
 1. Antigravity CLI: no artifact covers its question tool. A fourth reference needs its
    contract read from the Antigravity docs and source, or the skill states that host as
    unverified. Peter's call.
-2. brain has no `CONTEXT.md` of its own yet. Until one exists, the glossary words are the
-   domain map's terms above. The domain-modeling skill can create brain's `CONTEXT.md` from
+2. brain has no `GLOSSARY.md` of its own yet. Until one exists, the glossary words are the
+   domain map's terms above. The domain-modeling skill can create brain's `GLOSSARY.md` from
    them as the first entries.
