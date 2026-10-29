@@ -1,5 +1,11 @@
 # @acmelabs/brain
 
+## 0.8.0
+
+### Minor Changes
+
+- [#11](https://github.com/acmelabs-15/brain/pull/11) [`e283c83`](https://github.com/acmelabs-15/brain/commit/e283c8322d01f25b5efc195d1b261826f3bf5ee9) - The agent can now load `setup-brain` on its own, in Claude Code and in Codex; `/setup-brain` still works. `wayfinder` gets a reworded opening paragraph and tighter list spacing; it stays a command the user types, and it still plans and never builds.
+
 ## 0.7.0
 
 ### Minor Changes
