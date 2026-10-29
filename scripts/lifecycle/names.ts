@@ -106,12 +106,11 @@ export async function checkGlossaryTerms(root: string): Promise<Finding[]> {
 }
 
 /**
- * The fallback that reads an old CONTEXT.md when GLOSSARY.md is missing lives for one
- * release after the rename. From this version on,
- * the check fails while the fallback sentence is still in a file, as a reminder to
- * remove it.
+ * The fallback that reads an old CONTEXT.md when GLOSSARY.md is missing ships in 0.9.0 (the
+ * rename) and 0.10.0 (the workspace work). From 0.11.0 on, the check fails while the
+ * fallback sentence is still in a file, so that release removes it, with this check.
  */
-export const fallbackRemovedIn = "0.10.0";
+export const fallbackRemovedIn = "0.11.0";
 const fallbackFiles = ["plain-talk/PLAIN-TALK.md", "skills/setup-brain/domain.md"];
 const fallbackSentence = /old `CONTEXT\.md`/u;
 

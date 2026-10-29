@@ -121,13 +121,13 @@ describe("checkFallbackExpiry", () => {
     "skills/setup-brain/domain.md": `# Domain\n${fallback}`,
   });
 
-  test("before the removal release the fallback may stay", async () => {
-    const root = await tree("fallback-early", withFallback("0.9.0"));
+  test("before the removal release, 0.10.0 included, the fallback may stay", async () => {
+    const root = await tree("fallback-early", withFallback("0.10.0"));
     expect(await checkFallbackExpiry(root)).toEqual([]);
   });
 
   test("from the removal release on, each file that keeps it is a finding", async () => {
-    for (const version of [fallbackRemovedIn, "0.10.1", "1.0.0", `${fallbackRemovedIn}-next.0`]) {
+    for (const version of [fallbackRemovedIn, "0.11.1", "1.0.0", `${fallbackRemovedIn}-next.0`]) {
       const root = await tree(`fallback-due-${version}`, withFallback(version));
       const found = await checkFallbackExpiry(root);
       expect(found.map((f) => [f.kind, f.file])).toEqual([

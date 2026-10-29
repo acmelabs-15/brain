@@ -13,7 +13,8 @@ split.
 |---|---|---|
 | 1, glossary rename | `feat/glossary-rename`, from `main` | PR 1, small, lands first. After Peter approves the phase 1 checkpoint review, the build pushes the branch and opens PR 1; Peter merges it himself |
 | 2 to 6 | `feat/workspace-layout`, from `main` after PR 1 merges | PR 2, after Peter's yes |
-| 7, brain's history | its own branch, after a second ask | PR 3, after Peter's yes |
+| 7, brain's history (T39) | its own branch, after a second ask | PR 3, after Peter's yes |
+| 7, the fallback's end (T40) | its own branch, in the release that ships 0.11.0 | PR 4, after Peter's yes |
 
 Each task ends with `bun run check` green and one commit, files staged by name.
 
@@ -21,13 +22,13 @@ Each task ends with `bun run check` green and one commit, files staged by name.
 
 | Phase | Tasks | What it delivers | Depends on |
 |---|---|---|---|
-| 1. Glossary rename | T01 to T08 | `GLOSSARY.md` everywhere brain owns, Matt's pin at `d81f3a1`, the one-release fallback, brain's own glossary, the guard | — |
+| 1. Glossary rename | T01 to T08 | `GLOSSARY.md` everywhere brain owns, Matt's pin at `d81f3a1`, the fallback until 0.11.0, brain's own glossary, the guard | — |
 | 2. Workspace foundation | T09 to T16 | the `brain` CLI, `workspace.md`, the templates, `brain new-doc`, the fixtures and map parser, the migrate mode's frontmatter step, `brain check` and `sync --check` in the gate, `brain status` and the status skill | 1 |
 | 3. Define phase | T17 to T25 | DEC format with its eval, the agent brief and agent list, interview-me in three tasks (map, loop with the resume eval, research), idea-refine seeded, wayfinder and triage retired, setup-brain without a tracker | 2 |
 | 4. Build-phase paths | T26, T27, T29 | commands with the build eval, lifecycle skills on `docs/specs/`, path updates to the other evals | 3 |
 | 5. The protocol | T30 to T32 | the render prefactor, the protocol rendered per host, the Claude `SessionStart` hook | 2, 4 |
 | 6. Install and the router | T33, T34, T28, T35 to T38 | the install writer with the fresh-repo eval, capabilities detection, `using-brain` and the 1% rule with its two evals (T28, after T34, because it describes the protocol and setup-brain's new outputs), the overlap report, the migrate mode in three tasks with its eval | 3, 5 |
-| 7. Brain's history | T39 | `spec/` and `tasks/done/` moved through the migrate mode | 6, and a second ask |
+| 7. Brain's history and the fallback's end | T39, T40 | `spec/` and `tasks/done/` moved through the migrate mode; the old-glossary fallback and its check removed in the release that ships 0.11.0 | 6 and a second ask (T39); the 0.10.0 release (T40) |
 
 Prefactors, each before the task that needs it: T09 (the CLI skeleton and the workspace
 config reader, which every later script calls), T13 (the migrate mode's frontmatter step,

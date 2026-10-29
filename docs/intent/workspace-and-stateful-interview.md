@@ -728,6 +728,7 @@ cannot.
 | Test seams for the workspace module | New: the CLI seam. Each test spawns `bun scripts/brain.ts` against a temp git repo and asserts the exit code, the output and the files. Tests build those repos from shared fixture folders (an idea mid-define with a known frontier, a spec mid-build, no active work, a 0.8-layout repo), reused by the check, status and migrate tests. The parallel-claim test starts about 20 `brain new-doc` processes at once, repeats the run several times, and asserts every number is unique and no number is skipped without a failed claim. Existing seams for the rest: render (`scripts/plain-talk/__tests__/render.test.ts`), lifecycle (`check-refs.test.ts`), setup writer (`write.test.ts`), evals (`evals/`). A function seam for the map-row parser comes later, only if its edge cases grow large | Peter, 2026-10-29 |
 | brain's own glossary | brain gets its own `GLOSSARY.md`, written with domain-modeling in the glossary-rename slice. It defines the terms this design introduces: idea, effort, destination, map, row, decide / research / do rows, frontier, fog, claim, decision record (`DEC`), research record (`RES`), workspace, protocol. `SPEC-workspace.md` names it in its scope and success criteria | Peter, spec review 2026-10-29 |
 | `from` in migrated files | `from` is required for new `DEC` and `RES` files. A file the migrate mode gave frontmatter carries `migrated: 0.8` instead, and the workspace check accepts a missing `from` only with that marker. `evidence` is optional for all files. T13 writes the marker on brain's seven files | Peter, plan review 2026-10-29 |
+| The old-glossary fallback's end | The fallback ships in 0.9.0 (the rename) and 0.10.0 (the workspace work). From 0.11.0, `lifecycle:check` fails while the fallback sentence is still in `PLAIN-TALK.md` or the `domain.md` template. Plan task T40 removes the sentence and that check in the release that ships 0.11.0 | Peter, PR 13 review 2026-10-29: a 0.10.0 cutoff would fail the workspace release's Version Packages PR, and no task removed the fallback |
 
 ## Rejected options
 
@@ -902,7 +903,7 @@ both packs.
 
 - `setup-brain` finds `CONTEXT.md` or `CONTEXT-MAP.md`, offers `git mv` to the new name
   (Matt's approach), and updates `docs/agents/domain.md`. It never renames without a yes.
-- For one release, a skill that finds no `GLOSSARY.md` but finds `CONTEXT.md` reads it,
+- For one release (amended: until 0.11.0, see Decisions), a skill that finds no `GLOSSARY.md` but finds `CONTEXT.md` reads it,
   and tells the user once: "This repo still uses `CONTEXT.md`; run setup-brain to rename it
   to `GLOSSARY.md`." The fallback is removed in the release after.
 

@@ -238,13 +238,19 @@ ends with a checkpoint and a review with Peter.
 - [ ] The full suite once; `bun run validate`; code-review-and-quality over the branch
 - [ ] Review with Peter; push and open PR 2 only after his yes
 
-## Phase 7: brain's history (separate PR, after a second ask)
+## Phase 7: brain's history (after a second ask) and the fallback's end (in 0.11.0); separate PRs
 
 - [ ] T39: brain's `spec/` and `tasks/done/` through the migrate mode
   - Acceptance: run only after Peter's yes; moves with `git mv`; bodies unchanged; `brain check` green
   - Verify: `bun run check`
   - Files: spec/, tasks/done/, docs/specs/
   - Depends: T38. Scope: L (a move; no body changes)
+
+- [ ] T40: remove the old-glossary fallback, in the release that ships 0.11.0
+  - Acceptance: runs after the workspace release (0.10.0), in the release that ships 0.11.0; the fallback sentence leaves `plain-talk/PLAIN-TALK.md` (re-rendered) and `skills/setup-brain/domain.md`; `checkFallbackExpiry`, `fallbackRemovedIn` and their tests leave `scripts/lifecycle/names.ts`, and `write.test.ts` stops expecting the sentence; the rename guard and `--rename-glossary` stay; a changeset says brain no longer reads `CONTEXT.md` in place of `GLOSSARY.md`
+  - Verify: `bun run check`; `bun run plain-talk:render -- --check`
+  - Files: plain-talk/PLAIN-TALK.md, rendered outputs, skills/setup-brain/domain.md, scripts/lifecycle/{names.ts,check-refs.ts}, scripts/lifecycle/__tests__/names.test.ts, scripts/setup/__tests__/write.test.ts, .changeset/<name>.md
+  - Depends: the 0.10.0 release. Scope: S
 
 ### Checkpoint: phase 7
 - [ ] `bun run check` green; review with Peter; PR 3 only after his yes

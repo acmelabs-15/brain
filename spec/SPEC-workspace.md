@@ -44,7 +44,7 @@ Each area's detail lives in the intent doc; this spec does not repeat it.
 | Retirements | `wayfinder` and `triage` removed, with guards and a breaking changeset | Rows for questions 5, 10 |
 | Vendored files | idea-refine seeded and changed; documentation-and-adrs left, with the new-doc rule and an eval; Matt's pin to `d81f3a1` | Vendored files; rows for question 8 |
 | domain-modeling | `GLOSSARY.md`, `GLOSSARY-FORMAT.md`, `DEC-FORMAT.md`; every decision recorded | Glossary rename; row for question 9 |
-| Glossary rename | `CONTEXT.md` to `GLOSSARY.md` across brain-owned files; the plain-talk sources re-rendered; the one-release fallback; the guard; one amendment line in `brain-wrap.md` | Glossary rename |
+| Glossary rename | `CONTEXT.md` to `GLOSSARY.md` across brain-owned files; the plain-talk sources re-rendered; the fallback until 0.11.0; the guard; one amendment line in `brain-wrap.md` | Glossary rename |
 | Lifecycle skills and commands | Paths read from `workspace.md`; `/build` from a spec folder; `using-brain` per its table, with the 1% rule; `phase-boundaries.md` | `using-brain`; Brain-owned files to change; rows for questions 3, 14 |
 | Protocol | `protocol/PROTOCOL.md`, rendered to Gemini, Antigravity and Codex; the Claude-only `SessionStart` hook | Installing brain in a repo; row for question 12 |
 | setup-brain | Bun check; `workspace.md`, `capabilities.md`, `STATUS.md` seed; overlap report; `--check`; migrate mode; no tracker | Installing brain in a repo; rows for questions 6, 9, 10, 15 |
@@ -277,7 +277,7 @@ Seams, confirmed by Peter on 2026-10-29:
 42. As a user, I want every folder path read from `workspace.md` with defaults, so that a team's own folder can be honoured later by one setting.
 43. As a user, I want the glossary named `GLOSSARY.md`, as Matt's skills now expect, so that both packs share one name.
 44. As a user with a `CONTEXT.md`, I want setup-brain to offer `git mv` to `GLOSSARY.md`, so that my glossary keeps its history.
-45. As a user, I want skills to read `CONTEXT.md` for one release when `GLOSSARY.md` is absent, so that the rename does not break my repo mid-work.
+45. As a user, I want skills to read `CONTEXT.md` until 0.11.0 when `GLOSSARY.md` is absent, so that the rename does not break my repo mid-work.
 46. As a maintainer, I want `lifecycle:check` to fail on a stray `CONTEXT.md` (the old name of `GLOSSARY.md`), wayfinder or triage mention, so that removed names do not creep back.
 47. As a maintainer, I want `lifecycle:check` to fail on `hooks/hooks.json` or a root `hooks.json`, so that an upstream bump cannot make Codex or Gemini load hooks.
 48. As a maintainer, I want `lifecycle:check` to fail when the Claude manifest's agent list misses an `agents/*.md` file, so that a new upstream agent fails loudly.
@@ -336,7 +336,7 @@ Each item names how it is verified.
    hook script on the fixtures.
 7. `bun run plain-talk:render -- --check` is green, with the protocol rendered into
    `GEMINI.md`, `rules/` and the Codex block.
-8. Glossary rename: no brain-owned file outside history, the one-release fallback and
+8. Glossary rename: no brain-owned file outside history, the fallback (until 0.11.0) and
    rename-describing text names `CONTEXT.md` or `CONTEXT-MAP.md` (the names before `GLOSSARY.md`); `lifecycle:check` fails on
    one. Matt's pin is `d81f3a1`, `sync --check` is clean, and `brain-wrap.md` has one
    amendment line. Test: lifecycle seam.
