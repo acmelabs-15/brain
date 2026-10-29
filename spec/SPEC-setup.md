@@ -54,6 +54,14 @@ agent's handoff note. The Codex file gets the protocol block beside the plain-ta
 each between its own markers. `--check` lists what a run would change, writes nothing, and
 exits 1 when a file differs. The skill says how to find the plugin folder on every host.
 
+**Amended 2026-10-29, by the workspace migrate mode (`SPEC-workspace.md`, task T36).**
+`--migrate` moves a 0.8 repo's specs (`SPEC.md`, `spec/SPEC-<module>.md`) to
+`docs/specs/SPEC-NNN-<slug>/spec.md`, and `tasks/plan.md` and `tasks/todo.md` into that
+folder's `tasks/`, each with `git mv` and frontmatter added, no byte below it changed. The
+capability map becomes a DEC file. When a plan sits beside several specs, the skill asks
+the user which spec it belongs to, one question, and passes the answer as `--plan-spec`;
+without that answer the script exits 2.
+
 Users: anyone who installs brain, once per repo. The user can run it as `/setup-brain`, and the agent can load it on its own (Peter, 2026-10-28).
 
 ## Process the skill follows

@@ -272,7 +272,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/setup`
   - Files: scripts/setup/overlap.ts, scripts/setup/__tests__/overlap.test.ts, fixture, skills/setup-brain/SKILL.md
   - Depends: T34. Scope: M
-- [ ] T36: migrate mode (a), specs, plans and todos
+- [x] T36: migrate mode (a), specs, plans and todos
   - Acceptance: `SPEC.md`, `spec/*.md`, `tasks/plan.md` and `tasks/todo.md` move with `git mv` into `docs/specs/SPEC-NNN-<slug>/`, gaining frontmatter only; the skill asks which plan belongs to which spec, one question per call
   - Verify: `bun test scripts/setup` on the 0.8 fixture; bodies byte-compared
   - Files: scripts/setup/migrate.ts, scripts/setup/__tests__/migrate.test.ts, skills/setup-brain/SKILL.md

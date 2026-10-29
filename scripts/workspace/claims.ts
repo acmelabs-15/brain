@@ -46,19 +46,35 @@ export function claimsFolder(repo: Repo): string {
   return `${cache}/brain/${path.basename(repo.root)}-${hash}`;
 }
 
+/** The highest number of `type` that a file or folder in `files`, or a claim, already holds. */
+async function highestTaken(claims: string, type: string, files: string): Promise<number> {
+  const pattern = new RegExp(`^${type}-(?<number>\\d{3})(?!\\d)`, "u");
+  const fileNames = await namesIn(files);
+  const existing = fileNames.map((name) => Number(pattern.exec(name)?.groups?.number ?? 0));
+  const claimNames = await namesIn(`${claims}/ids/${type}`);
+  const claimed = claimNames.filter((name) => /^\d{3}$/u.test(name)).map(Number);
+  return Math.max(0, ...existing, ...claimed);
+}
+
+/** The next `count` numbers of `type` that claims would give now, without claiming them. */
+export async function peek(
+  claims: string,
+  type: string,
+  files: string,
+  count: number,
+): Promise<number[]> {
+  const highest = await highestTaken(claims, type, files);
+  return Array.from({ length: count }, (_, index) => highest + 1 + index);
+}
+
 /**
  * Claim the next free number of `type`: one above the highest file or folder of the type in
  * `files`, and above every number already claimed in `claims`. Return the number claimed.
  */
 export async function claim(claims: string, type: string, files: string): Promise<number> {
-  const pattern = new RegExp(`^${type}-(?<number>\\d{3})(?!\\d)`, "u");
-  const fileNames = await namesIn(files);
-  const existing = fileNames.map((name) => Number(pattern.exec(name)?.groups?.number ?? 0));
   const folder = `${claims}/ids/${type}`;
   await mkdir(folder, { recursive: true });
-  const claimNames = await namesIn(folder);
-  const claimed = claimNames.filter((name) => /^\d{3}$/u.test(name)).map(Number);
-  for (let next = Math.max(0, ...existing, ...claimed) + 1; next <= last; next += 1) {
+  for (let next = (await highestTaken(claims, type, files)) + 1; next <= last; next += 1) {
     try {
       await mkdir(`${folder}/${String(next).padStart(3, "0")}`);
       return next;

@@ -36,6 +36,7 @@ Read what exists. Facts are your job; never ask the user for one you can look up
 - `GLOSSARY.md`, `GLOSSARY-MAP.md` and `docs/decisions/`: which exist. Also the old glossary names at the root, `CONTEXT.md` and `CONTEXT-MAP.md`.
 - Monorepo signals: `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or `packages/*` folders that each hold their own `src/`. Their absence means single-context, which is almost every repo.
 - The Codex home: `$CODEX_HOME`, else `~/.codex`. Whether the directory exists, and whether its `AGENTS.md` already holds the blocks between `<!-- brain:plain-talk:start -->` and `<!-- brain:plain-talk:end -->`, and between `<!-- brain:protocol:start -->` and `<!-- brain:protocol:end -->`.
+- The brain 0.8 layout: a root `SPEC.md`, Markdown files in `spec/`, `tasks/plan.md` and `tasks/todo.md`. When any of them exists, do "Migrate a repo on brain 0.8" below before step 3.
 
 ## 3. Decide the small things, and say so
 
@@ -89,3 +90,26 @@ bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --layout single --ch
 It writes nothing. It lists each file, then ends with "every file is in place" (exit 0) or with how many files differ (exit 1). Show the lines. A normal run, after the user's yes, brings each file that differs in line.
 
 Running this skill again is safe: the script changes nothing when everything is in place, keeps the repo's workspace settings, and never rewrites `docs/STATUS.md`.
+
+## Migrate a repo on brain 0.8
+
+A repo on brain 0.8 keeps its specs in a root `SPEC.md` or in `spec/`, and one plan in `tasks/plan.md` and `tasks/todo.md`. The script's migrate mode moves each file into the workspace with `git mv`, so its history follows it, and adds frontmatter to it. No byte below the frontmatter changes. The run writes one commit of its own.
+
+| 0.8 file | Where the migrate mode puts it |
+|---|---|
+| `SPEC.md`, `spec/SPEC.md`, `spec/SPEC-<module>.md` | `docs/specs/SPEC-NNN-<slug>/spec.md`. The slug is the module id, else the title in the spec's H1. |
+| `tasks/plan.md`, `tasks/todo.md` | The `tasks/` folder of the spec they belong to. |
+| The capability map in `spec/`, whose H1 opens with "Capability Map" | `docs/decisions/DEC-NNN-<slug>.md`. An approved map is the user's decision. |
+| A DEC or RES file with no frontmatter | Its own place, with frontmatter added. |
+
+Every other file in `spec/` stays where it is. So does a file that git does not track or that has uncommitted changes. The script prints the reason beside each file it skips.
+
+1. **Ask which spec the plan belongs to, only when `tasks/plan.md` or `tasks/todo.md` exists beside two or more specs.** With one spec, the files settle it: ask nothing. Put one question through the host's user-question tool, composed with the ask-user-question skill. Give one option per spec, by its 0.8 path, and a last option, none, which leaves the plan and the todo in `tasks/`. Recommend the spec that the plan names: a 0.8 plan names its spec near the top (`Spec: spec/SPEC-billing.md`). The step is done when you hold the answer: a spec's path, or none.
+2. **Show the dry run.** Leave out `--plan-spec` when step 1 asked nothing.
+
+   ```
+   bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --migrate --plan-spec <answer> --dry-run
+   ```
+
+   Show every line: `moved <old> -> <new>`, `updated <file>`, or `skipped <file>` with its reason. Exit 2 means the script needs an answer that step 1 did not give, or the answer names no spec; its message lists the specs it found. The step is done when the user has seen every line.
+3. **Write, after the user's yes:** the same command without `--dry-run`. It prints `committed <sha>`; give the user that SHA. When a move or the commit fails, the script puts every file back as it was and exits 1; show its message.

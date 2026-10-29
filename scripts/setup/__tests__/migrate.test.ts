@@ -1,9 +1,13 @@
-import { afterAll, beforeAll, describe, expect, test } from "bun:test";
-import { chmod, mkdir, mkdtemp, rm } from "node:fs/promises";
+import { afterAll, beforeAll, describe, expect, setDefaultTimeout, test } from "bun:test";
+import { chmod, cp, mkdir, mkdtemp, rm, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
 import { checkDoc } from "../../workspace/schema";
-import { migrate } from "../migrate";
+import { migrate, UsageError } from "../migrate";
+import type { Change } from "../write";
+
+// The fixture tests run git many times and start bun processes; the default 5 s is too tight.
+setDefaultTimeout(60_000);
 
 let work: string;
 
@@ -54,8 +58,8 @@ function commitAll(root: string, message: string, date = "2026-09-19T10:00:00Z")
   git(root, ["commit", "-q", "-m", message], date);
 }
 
-/** A git repo holding `files`, committed on 2026-09-19 by a test identity that signs nothing. */
-async function gitRepo(name: string, files: Record<string, string | Uint8Array>): Promise<string> {
+/** An empty git repo with a test identity that signs nothing. */
+async function emptyRepo(name: string): Promise<string> {
   const root = `${work}/${name}`;
   await mkdir(root, { recursive: true });
   git(root, ["init", "-q"]);
@@ -67,12 +71,33 @@ async function gitRepo(name: string, files: Record<string, string | Uint8Array>)
   ]) {
     git(root, ["config", key as string, value as string]);
   }
+  return root;
+}
+
+/** A git repo holding `files`, committed on 2026-09-19. */
+async function gitRepo(name: string, files: Record<string, string | Uint8Array>): Promise<string> {
+  const root = await emptyRepo(name);
   await put(root, files);
   commitAll(root, "init");
   return root;
 }
 
+const fixture = `${import.meta.dir}/../../workspace/__tests__/fixtures/layout-0.8`;
+
+/** A git repo holding a copy of the 0.8-layout fixture, committed on 2026-09-19. */
+async function fixtureRepo(name: string): Promise<string> {
+  const root = await emptyRepo(name);
+  await cp(fixture, root, { recursive: true });
+  commitAll(root, "init");
+  return root;
+}
+
 const bytes = (root: string, path: string) => Bun.file(`${root}/${path}`).bytes();
+const exists = (full: string) =>
+  stat(full).then(
+    () => true,
+    () => false,
+  );
 
 describe("migrate, the frontmatter step", () => {
   test("gives a DEC and a RES their ID, migrated: 0.8 and their first commit's date, and keeps every byte below", async () => {
@@ -201,6 +226,227 @@ describe("migrate, the frontmatter step", () => {
   });
 });
 
+const specHead = (id: string) => `---\nspec: ${id}\nmigrated: 0.8\n---\n`;
+
+/** Each 0.8 file of the fixture the spec step moves, its new path, and the frontmatter it gains. */
+const fixtureMoves = [
+  [
+    "spec/CAPABILITY-MAP.md",
+    "docs/decisions/DEC-002-capability-map-billing.md",
+    "---\nid: DEC-002\nmigrated: 0.8\ndecided: 2026-09-19\n---\n",
+  ],
+  ["spec/SPEC-accounts.md", "docs/specs/SPEC-001-accounts/spec.md", specHead("SPEC-001")],
+  ["spec/SPEC-billing.md", "docs/specs/SPEC-002-billing/spec.md", specHead("SPEC-002")],
+  ["tasks/plan.md", "docs/specs/SPEC-002-billing/tasks/plan.md", specHead("SPEC-002")],
+  ["tasks/todo.md", "docs/specs/SPEC-002-billing/tasks/todo.md", specHead("SPEC-002")],
+] as const;
+
+/** The change list of a run on the fixture whose answer puts the plan beside the billing spec. */
+const fixtureChanges: Change[] = [
+  ...fixtureMoves.map(([from, to]): Change => ({ path: `${from} -> ${to}`, action: "moved" })),
+  { path: "docs/decisions/DEC-001-bill-by-calendar-month.md", action: "updated" },
+  { path: "docs/research/RES-001-payment-provider-retries.md", action: "updated" },
+];
+
+describe("migrate, the spec step", () => {
+  test("moves each spec, the capability map, the plan and the todo, and adds frontmatter only", async () => {
+    const root = await fixtureRepo("specs");
+    const result = await migrate({ root, dryRun: false, planSpec: "spec/SPEC-billing.md" });
+    expect(result.changes).toEqual(fixtureChanges);
+    for (const [from, to, head] of fixtureMoves) {
+      const before = await Bun.file(`${fixture}/${from}`).bytes();
+      expect(await bytes(root, to)).toEqual(new Uint8Array([...encode(head), ...before]));
+      expect(await exists(`${root}/${from}`)).toBe(false);
+    }
+  });
+
+  test("writes one commit in which git sees each move as a rename, so history follows the file", async () => {
+    const root = await fixtureRepo("renames");
+    const result = await migrate({ root, dryRun: false, planSpec: "spec/SPEC-billing.md" });
+    expect(result.commit).toBe(gitOut(root, "rev-parse", "HEAD"));
+    expect(gitOut(root, "rev-list", "--count", "HEAD")).toBe("2");
+    expect(gitOut(root, "status", "--porcelain")).toBe("");
+    const renames = gitOut(root, "show", "-M", "--name-status", "--format=", "HEAD")
+      .split("\n")
+      .filter((line) => line.startsWith("R"))
+      .map((line) => line.split("\t").slice(1).join(" -> "));
+    expect(renames.toSorted()).toEqual(
+      fixtureMoves.map(([from, to]) => `${from} -> ${to}`).toSorted(),
+    );
+    expect(
+      gitOut(
+        root,
+        "log",
+        "--follow",
+        "--format=%s",
+        "--",
+        "docs/specs/SPEC-002-billing/tasks/plan.md",
+      ),
+    ).toBe("chore: migrate to the brain workspace layout\ninit");
+  });
+
+  test("the moved files pass brain check; the one finding left is the 0001 ADR, which this step leaves", async () => {
+    const root = await fixtureRepo("check");
+    await migrate({ root, dryRun: false, planSpec: "spec/SPEC-billing.md" });
+    const run = Bun.spawnSync(["bun", `${import.meta.dir}/../../brain.ts`, "check"], { cwd: root });
+    expect(run.stdout.toString()).toBe(
+      [
+        "docs/decisions/0001-keep-the-ledger-in-postgres.md: name: not DEC-NNN-<slug>.md",
+        "2 migrated decisions have no kind: DEC-001, DEC-002",
+        "1 finding in 8 workspace files",
+        "",
+      ].join("\n"),
+    );
+    expect(run.exitCode).toBe(1);
+  });
+
+  test("a dry run lists every move and writes nothing: no file, no folder, no claim, no commit", async () => {
+    const root = await fixtureRepo("specs-dry");
+    const head = gitOut(root, "rev-parse", "HEAD");
+    const result = await migrate({ root, dryRun: true, planSpec: "spec/SPEC-billing.md" });
+    expect(result).toEqual({ changes: fixtureChanges, commit: null });
+    expect(gitOut(root, "status", "--porcelain")).toBe("");
+    expect(await exists(`${root}/docs/specs`)).toBe(false);
+    expect(await exists(`${root}/.git/brain`)).toBe(false);
+    expect(gitOut(root, "rev-parse", "HEAD")).toBe(head);
+  });
+
+  test("one SPEC.md and one plan need no answer: the plan goes with the spec, whose H1 gives the slug", async () => {
+    // CRLF line ends, a byte that is not UTF-8 and no final newline: the body must keep each byte.
+    const spec = new Uint8Array([
+      ...encode("# Spec: Invoice CSV export\r\n\r\nCaf"),
+      0xe9,
+      ...encode(" stays as it is"),
+    ]);
+    const root = await gitRepo("single", {
+      "SPEC.md": spec,
+      "tasks/plan.md": "# Implementation Plan: Invoice CSV export\n",
+      "tasks/todo.md": "# Tasks: Invoice CSV export\n",
+    });
+    const result = await migrate({ root, dryRun: false });
+    const folder = "docs/specs/SPEC-001-invoice-csv-export";
+    expect(result.changes).toEqual([
+      { path: `SPEC.md -> ${folder}/spec.md`, action: "moved" },
+      { path: `tasks/plan.md -> ${folder}/tasks/plan.md`, action: "moved" },
+      { path: `tasks/todo.md -> ${folder}/tasks/todo.md`, action: "moved" },
+    ]);
+    expect(await bytes(root, `${folder}/spec.md`)).toEqual(
+      new Uint8Array([...encode(specHead("SPEC-001")), ...spec]),
+    );
+    expect(await Bun.file(`${root}/${folder}/tasks/todo.md`).text()).toBe(
+      `${specHead("SPEC-001")}# Tasks: Invoice CSV export\n`,
+    );
+  });
+
+  test("numbers each spec above the specs and the claims already there, in a dry run as in a real run", async () => {
+    const root = await gitRepo("numbers", {
+      "SPEC.md": "# Spec: Export\n",
+      "docs/specs/SPEC-001-old/spec.md": "---\nspec: SPEC-001\nmigrated: 0.8\n---\n# Spec: Old\n",
+    });
+    await mkdir(`${root}/.git/brain/ids/SPEC/002`, { recursive: true });
+    const moved: Change[] = [
+      { path: "SPEC.md -> docs/specs/SPEC-003-export/spec.md", action: "moved" },
+    ];
+    const dry = await migrate({ root, dryRun: true });
+    expect(dry.changes).toEqual(moved);
+    const real = await migrate({ root, dryRun: false });
+    expect(real.changes).toEqual(moved);
+    expect(await exists(`${root}/.git/brain/ids/SPEC/003`)).toBe(true);
+  });
+
+  test("several specs and a plan with no answer: refuses before any change, and names the specs", async () => {
+    const root = await fixtureRepo("ask");
+    const run = migrate({ root, dryRun: false });
+    await expect(run).rejects.toBeInstanceOf(UsageError);
+    await expect(run).rejects.toThrow(
+      "tasks/plan.md and tasks/todo.md belong to one of 2 specs, and only the user can say which: pass --plan-spec with spec/SPEC-accounts.md, spec/SPEC-billing.md or none",
+    );
+    await run.catch(() => null);
+    expect(gitOut(root, "status", "--porcelain")).toBe("");
+    expect(await exists(`${root}/.git/brain`)).toBe(false);
+  });
+
+  test("an answer that names no spec the run found is refused", async () => {
+    const root = await fixtureRepo("wrong-answer");
+    const run = migrate({ root, dryRun: true, planSpec: "spec/SPEC-invoices.md" });
+    await expect(run).rejects.toBeInstanceOf(UsageError);
+    await expect(run).rejects.toThrow(
+      "--plan-spec spec/SPEC-invoices.md names no spec: pass spec/SPEC-accounts.md, spec/SPEC-billing.md or none",
+    );
+    await run.catch(() => null);
+  });
+
+  test("the answer none leaves the plan and the todo in tasks/, and says why", async () => {
+    const root = await fixtureRepo("none");
+    const result = await migrate({ root, dryRun: true, planSpec: "none" });
+    const note = "the user named no spec for it; it stays where it is";
+    expect(result.changes.filter((change) => change.path.startsWith("tasks/"))).toEqual([
+      { path: "tasks/plan.md", action: "skipped", note },
+      { path: "tasks/todo.md", action: "skipped", note },
+    ]);
+  });
+
+  test("a plan with no spec stays where it is, and says why", async () => {
+    const root = await gitRepo("no-spec", { "tasks/plan.md": "# Implementation Plan: X\n" });
+    const result = await migrate({ root, dryRun: false });
+    expect(result.changes).toEqual([
+      {
+        path: "tasks/plan.md",
+        action: "skipped",
+        note: "no spec to move it beside; it stays where it is",
+      },
+    ]);
+  });
+
+  test("skips a spec git does not track or that has uncommitted changes, and the plan that belongs to it", async () => {
+    const root = await gitRepo("skip", {
+      "SPEC.md": "# Spec: Export\n",
+      "tasks/plan.md": "# Implementation Plan: Export\n",
+    });
+    await put(root, {
+      "SPEC.md": "# Spec: Export\n\nEdited.\n",
+      "spec/SPEC-cli.md": "# Spec: cli\n",
+    });
+    const head = gitOut(root, "rev-parse", "HEAD");
+    const result = await migrate({ root, dryRun: false, planSpec: "SPEC.md" });
+    expect(result).toEqual({
+      changes: [
+        { path: "SPEC.md", action: "skipped", note: "has uncommitted changes; commit them first" },
+        {
+          path: "spec/SPEC-cli.md",
+          action: "skipped",
+          note: "not tracked by git; commit it first",
+        },
+        { path: "tasks/plan.md", action: "skipped", note: "its spec SPEC.md is skipped" },
+      ],
+      commit: null,
+    });
+    expect(gitOut(root, "rev-parse", "HEAD")).toBe(head);
+  });
+
+  test("leaves a file in spec/ where it is when it is no spec or capability map, or has frontmatter", async () => {
+    const root = await gitRepo("others", {
+      "spec/README.md": "# Specs\n\nOne spec per module.\n",
+      "spec/SPEC-api.md": "---\ntitle: API\n---\n# Spec: api\n",
+      "spec/SPEC-cli.md": "# Spec: cli\n",
+    });
+    const result = await migrate({ root, dryRun: true });
+    expect(result.changes).toEqual([
+      {
+        path: "spec/README.md",
+        action: "skipped",
+        note: "not a spec or a capability map; it stays where it is",
+      },
+      {
+        path: "spec/SPEC-api.md",
+        action: "skipped",
+        note: "has frontmatter already; move it by hand",
+      },
+      { path: "spec/SPEC-cli.md -> docs/specs/SPEC-001-cli/spec.md", action: "moved" },
+    ]);
+  });
+});
+
 describe("write.ts --migrate", () => {
   const writeScript = `${import.meta.dir}/../write.ts`;
   const run = (...args: string[]) => Bun.spawnSync(["bun", writeScript, ...args]);
@@ -244,4 +490,52 @@ describe("write.ts --migrate", () => {
     },
     slow,
   );
+
+  test("--plan-spec gives the user's answer; the dry run prints each move", async () => {
+    const root = await fixtureRepo("cli-plan");
+    const dry = run(
+      "--migrate",
+      "--root",
+      root,
+      "--plan-spec",
+      "spec/SPEC-billing.md",
+      "--dry-run",
+    );
+    expect(dry.exitCode).toBe(0);
+    expect(dry.stdout.toString()).toBe(
+      fixtureChanges.map((c) => `${c.action.padEnd(9)} ${c.path}  (dry run)\n`).join(""),
+    );
+  });
+
+  test("several specs and a plan without --plan-spec exit 2, naming the flag", async () => {
+    const root = await fixtureRepo("cli-ask");
+    const asked = run("--migrate", "--root", root, "--dry-run");
+    expect(asked.exitCode).toBe(2);
+    expect(asked.stderr.toString()).toContain("pass --plan-spec with spec/SPEC-accounts.md");
+    expect(asked.stdout.toString()).toBe("");
+  });
+
+  test("--plan-spec without --migrate is bad usage", () => {
+    const wrong = run("--root", work, "--plan-spec", "SPEC.md", "--dry-run");
+    expect(wrong.exitCode).toBe(2);
+    expect(wrong.stderr.toString()).toBe("--plan-spec answers the migrate mode; add --migrate\n");
+  });
+
+  test("a failed commit moves every file back, and leaves no folder it made", async () => {
+    const root = await fixtureRepo("cli-fail-moves");
+    await put(root, { ".hooks/pre-commit": "#!/usr/bin/env bun\nprocess.exit(1);\n" });
+    await chmod(`${root}/.hooks/pre-commit`, 0o755);
+    git(root, ["config", "core.hooksPath", ".hooks"]);
+    const head = gitOut(root, "rev-parse", "HEAD");
+    const failed = run("--migrate", "--root", root, "--plan-spec", "spec/SPEC-billing.md");
+    expect(failed.exitCode).toBe(1);
+    expect(failed.stderr.toString()).toContain("Every file is back as it was.");
+    for (const [from, to] of fixtureMoves) {
+      expect(await bytes(root, from)).toEqual(await Bun.file(`${fixture}/${from}`).bytes());
+      expect(await exists(`${root}/${to}`)).toBe(false);
+    }
+    expect(await exists(`${root}/docs/specs`)).toBe(false);
+    expect(gitOut(root, "status", "--porcelain", "--untracked-files=no")).toBe("");
+    expect(gitOut(root, "rev-parse", "HEAD")).toBe(head);
+  });
 });

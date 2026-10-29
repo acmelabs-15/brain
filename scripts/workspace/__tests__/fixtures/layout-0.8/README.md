@@ -7,7 +7,7 @@ A repo that setup-brain 0.8 set up and that worked on through 0.8's skills. It i
 | Path | What it is | Migrate step |
 |---|---|---|
 | `CONTEXT.md` | The glossary under its old name | T38 reuses T05's move to `GLOSSARY.md` |
-| `spec/CAPABILITY-MAP.md` | The module index of the two specs; not a spec | T36 |
+| `spec/CAPABILITY-MAP.md` | The module index of the two specs; not a spec | T36: a `DEC` file with the next free number (`DEC-002-capability-map-billing.md`), since an approved map is the user's decision |
 | `spec/SPEC-accounts.md`, `spec/SPEC-billing.md` | Two module specs, no frontmatter | T36: each becomes a `SPEC-NNN-<slug>/` folder |
 | `tasks/plan.md`, `tasks/todo.md` | The old plan (checkbox task list, phases) and the old task blocks (with a Dependencies field) | T36: the user says which spec they belong to |
 | `docs/decisions/0001-keep-the-ledger-in-postgres.md` | An ADR from domain-modeling, numbered `0001` | T38: a `DEC` file with the next free number |
