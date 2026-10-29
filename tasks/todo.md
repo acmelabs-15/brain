@@ -107,7 +107,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run lifecycle:check`; the eval's dry check; a filled DEC passes `brain check`
   - Files: skills/domain-modeling/{SKILL.md,DEC-FORMAT.md,agents/openai.yaml}, evals/lifecycle/adr-is-dec/*
   - Depends: T11. Scope: M
-- [ ] T18: the agent brief moved, and the Claude manifest's agent list
+- [x] T18: the agent brief moved, and the Claude manifest's agent list
   - Acceptance: `skills/triage/AGENT-BRIEF.md` moved to `references/brain/agent-brief.md` (triage's link updated until T24); `.claude-plugin/plugin.json` lists every `agents/*.md`; `lifecycle:check` fails when that list misses one
   - Verify: `bun test scripts/lifecycle`; `bun run validate`
   - Files: references/brain/agent-brief.md, .claude-plugin/plugin.json, skills/triage/SKILL.md, scripts/lifecycle/

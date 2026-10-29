@@ -1,12 +1,14 @@
 /**
  * Every skill a command or skill names must exist, under the brain: prefix or bare, and
  * a user-invoked skill must say so in both hosts' files. The run also applies the name
- * checks in names.ts: no retired name, and a complete glossary.
+ * checks in names.ts (no retired name, and a complete glossary) and the agent-list check in
+ * agents.ts (the Claude manifest names every agent).
  *
  *   bun run lifecycle:check
  */
 import { readdir } from "node:fs/promises";
 
+import { checkAgentList } from "./agents";
 import type { Finding } from "./finding";
 import { checkFallbackExpiry, checkGlossaryTerms, checkRetiredNames } from "./names";
 
@@ -114,6 +116,7 @@ if (import.meta.main) {
     ...(await checkRetiredNames(root)),
     ...(await checkGlossaryTerms(root)),
     ...(await checkFallbackExpiry(root)),
+    ...(await checkAgentList(root)),
   ];
   for (const finding of findings) {
     console.log(`${finding.kind.padEnd(14)} ${finding.file}: ${finding.detail}`);
@@ -123,6 +126,6 @@ if (import.meta.main) {
     process.exit(1);
   }
   console.log(
-    "every skill reference resolves, every user-invoked flag agrees, no retired name is left",
+    "every skill reference resolves, every user-invoked flag agrees, no retired name is left, every agent is listed",
   );
 }

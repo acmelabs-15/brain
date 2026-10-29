@@ -20,7 +20,7 @@ Every comment or issue posted to the issue tracker during triage **must** start 
 
 ## Reference docs
 
-- [AGENT-BRIEF.md](AGENT-BRIEF.md): how to write durable agent briefs
+- [agent-brief.md](../../references/brain/agent-brief.md): how to write durable agent briefs
 - [OUT-OF-SCOPE.md](OUT-OF-SCOPE.md): how the `.out-of-scope/` knowledge base works
 
 ## Roles
@@ -88,7 +88,7 @@ Show counts and a one-line summary per item. Let the maintainer pick. The listin
 4. **Interview (if needed).** If the request needs shaping, Call the Skill tool with "interview-me", then with "domain-modeling". Ask one question at a time; each answer opens the next question. Sharpen domain terms and update `GLOSSARY.md` and the ADRs inline as decisions land.
 
 5. **Apply the outcome.** Apply a role with `gh issue edit <n> --add-label "<label>"` (`glab issue update <n> --label "<label>"`), using the label string from `docs/agents/triage-labels.md`. When the tracker reports the label as not found, create it once with `gh label create "<label>" --description "<meaning>"` (`glab label create --name "<label>" --description "<meaning>"`) and apply it again. On a local markdown tracker the role is the `Status:` line of the issue file, per `docs/agents/issue-tracker.md`. Then:
-   - `ready-for-agent`: post an agent brief comment ([AGENT-BRIEF.md](AGENT-BRIEF.md)). The acceptance criteria live in the brief and nowhere else: an issue file on a local markdown tracker holds the brief under its comments and no acceptance list of its own.
+   - `ready-for-agent`: post an agent brief comment ([agent-brief.md](../../references/brain/agent-brief.md)). The acceptance criteria live in the brief and nowhere else: an issue file on a local markdown tracker holds the brief under its comments and no acceptance list of its own.
    - `ready-for-human`: same structure as an agent brief, but note why it can't be delegated (judgment calls, external access, design decisions, manual testing).
    - `needs-info`: post triage notes (template below).
    - For `wontfix`, close the issue, with the comment depending on *why*:
