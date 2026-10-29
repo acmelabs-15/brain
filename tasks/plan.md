@@ -47,17 +47,16 @@ task in T04 and T06; each of those diffs is a word swap the reviewer checks for 
 
 Worked out by hand from the blocking edges; `brain plan` (T41) cannot read this plan, which
 is in the old layout, until T39 migrates it. Updated 2026-10-29: T01 to T27, T29 to T34,
-T36, T37, T41 to T50 done; T35 running. Each wave is a frontier: every task in
+T35 to T37, T41 to T51 done; T28, T38 and T52 running. Each wave is a frontier: every task in
 it can start once the waves above it are done. Waves cross phase lines; a phase checkpoint
 still reviews its own tasks. From the phase 5 review on, a task waits for every checkpoint whose phase it depends on (Peter, 2026-10-29, at the phase 2 review).
 
 | Wave | Tasks |
 |---|---|
-| A (running) | T35, T51, T52 |
-| B | T28 (after T51), T38 (after T35) |
+| A (running) | T28, T38, T52 |
 | Then | T39 after the second ask; T40 after the 0.10.0 release |
 
-The critical path from here is 2 tasks: T35, T38 (T51, T28 is as long).
+The critical path from here is 1 task: T38 (T28 and T52 are as long).
 
 Tasks in one wave share some files: `skills/setup-brain/` (T33, T34, T36, T37),
 `scripts/setup/write.ts` (T33, T34, T36), `scripts/workspace/check.ts` (T43) and
