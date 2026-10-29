@@ -22,7 +22,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run lifecycle:check`; `rg -n 'CONTEXT' skills/domain-modeling` is empty
   - Files: skills/domain-modeling/SKILL.md, skills/domain-modeling/GLOSSARY-FORMAT.md, skills/domain-modeling/ADR-FORMAT.md
   - Depends: none. Scope: S
-- [ ] T04: brain-owned skills and commands renamed
+- [x] T04: brain-owned skills and commands renamed
   - Acceptance: every read and write of the glossary in brain-owned skills and commands names `GLOSSARY.md` / `GLOSSARY-MAP.md`; mechanical swap only
   - Verify: `bun run check`; `rg -n 'CONTEXT(-MAP)?\.md' skills .claude/commands commands` lists only vendored files
   - Files: skills/{code-review-and-quality,debugging-and-error-recovery,incremental-implementation,interview-me,planning-and-task-breakdown,spec-driven-development,test-driven-development,using-brain,wait-what,triage,wayfinder}/SKILL.md; .claude/commands/{build,plan,review,spec,test}.md; commands/{build,planning,review,spec,test}.toml

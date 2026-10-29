@@ -1,7 +1,7 @@
 description = "Break work into small verifiable tasks with acceptance criteria and dependency ordering"
 
 prompt = """
-Invoke the planning-and-task-breakdown skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with the ask-user-question skill; domain words come from CONTEXT.md through docs/agents/domain.md; the spec and the plan live in this repo.
+Invoke the planning-and-task-breakdown skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with the ask-user-question skill; domain words come from GLOSSARY.md through docs/agents/domain.md; the spec and the plan live in this repo.
 
 Read the existing spec (SPEC.md, or the module's file under spec/) and the relevant codebase sections. Then:
 

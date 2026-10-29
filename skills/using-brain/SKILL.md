@@ -70,7 +70,7 @@ A decision that is the user's goes through the host's user-question tool, one qu
 
 ### The interview
 
-In a repo, interview-me is stateful. It writes what it learns to `CONTEXT.md`, ADRs and `docs/intent/`, so later sessions inherit it. With no repo (a plan, a design, a piece of writing) the same interview runs stateless and saves nothing. Facts are your job: look them up, and put only decisions to the user.
+In a repo, interview-me is stateful. It writes what it learns to `GLOSSARY.md`, ADRs and `docs/intent/`, so later sessions inherit it. With no repo (a plan, a design, a piece of writing) the same interview runs stateless and saves nothing. Facts are your job: look them up, and put only decisions to the user.
 
 ### The prototype detour
 
@@ -84,7 +84,7 @@ wayfinder is for an effort too big for one session, where the way to the destina
 
 ### The vocabulary layer
 
-Domain words come from `CONTEXT.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for domain-modeling, the skill that sharpens a fuzzy term, resolves an overloaded word and records a hard-to-reverse decision as an ADR. codebase-design is the deep-module vocabulary (module, interface, depth, seam) for designing a module's shape; test-driven-development and code-review-and-quality speak it. wait-what is the repair for a message that did not land: the agent re-pitches it in plain words from the glossary, mid-conversation, inside any skill.
+Domain words come from `GLOSSARY.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for domain-modeling, the skill that sharpens a fuzzy term, resolves an overloaded word and records a hard-to-reverse decision as an ADR. codebase-design is the deep-module vocabulary (module, interface, depth, seam) for designing a module's shape; test-driven-development and code-review-and-quality speak it. wait-what is the repair for a message that did not land: the agent re-pitches it in plain words from the glossary, mid-conversation, inside any skill.
 
 ## Phase Boundaries
 

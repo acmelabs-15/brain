@@ -89,7 +89,7 @@ When even the batches cannot stay green alone, keep the sequence but let them sh
 
 ### Step 4: Write Tasks
 
-Task titles and descriptions use the project's domain words. Domain words come from `CONTEXT.md` through `docs/agents/domain.md`, which also points at the ADRs for the area a task touches. A concept the glossary lacks is a gap to note for the domain-modeling skill.
+Task titles and descriptions use the project's domain words. Domain words come from `GLOSSARY.md` through `docs/agents/domain.md`, which also points at the ADRs for the area a task touches. A concept the glossary lacks is a gap to note for the domain-modeling skill.
 
 Each task follows this structure, whether it lands in the markdown task list or as an item in an external tracker (see Output Files):
 
@@ -270,7 +270,7 @@ Work the **frontier**: every task whose blocking edges are all done. A linear ch
 - Writing `tasks/todo.md` when the project has designated an external tracker (or scattering tasks across both)
 - Tasks that say "implement the feature" without acceptance criteria
 - A mechanical change with a codebase-wide blast radius written as one task
-- Task titles that use words `CONTEXT.md` marks as avoid
+- Task titles that use words `GLOSSARY.md` marks as avoid
 - No verification steps in the plan
 - All tasks are XL-sized
 - No checkpoints between tasks

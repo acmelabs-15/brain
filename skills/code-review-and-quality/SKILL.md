@@ -42,7 +42,7 @@ Does the code do what it claims to do?
 Can another engineer (or agent) understand this code without the author explaining it?
 
 - Are names descriptive and consistent with project conventions? (No `temp`, `data`, `result` without context)
-- Do names use the project's domain words? Domain words come from `CONTEXT.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for the domain-modeling skill, not a synonym to coin.
+- Do names use the project's domain words? Domain words come from `GLOSSARY.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for the domain-modeling skill, not a synonym to coin.
 - Is the control flow straightforward (avoid nested ternaries, deep callbacks)?
 - Is the code organized logically (related code grouped, clear module boundaries)?
 - Are there any "clever" tricks that should be simplified?
