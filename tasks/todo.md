@@ -208,7 +208,7 @@ ends with a checkpoint and a review with Peter.
   - Depends: T14, T16, T20. Scope: M
 
 ### Checkpoint: phase 4
-- [ ] `bun run check` green; every eval dry check passes
+- [x] `bun run check` green; every eval dry check passes (710 pass after T43 and T48, 2026-10-29)
 - [ ] Review with Peter
 
 ## Phase 5: the protocol
@@ -251,11 +251,16 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/setup`
   - Files: scripts/setup/capabilities.ts, scripts/setup/__tests__/capabilities.test.ts, skills/setup-brain/capabilities.md, skills/setup-brain/SKILL.md
   - Depends: T33. Scope: M
-- [ ] T28: using-brain, the 1% rule, phase boundaries, with the two evals (moved here from phase 4)
+- [ ] T49: "stage" for the lifecycle, "phase" for a plan
+  - Acceptance: as the Decisions row "Stage and phase are two words" says. `brain status` prints `Stage:` where it printed `Phase:`, and `--json` renames the field the same way; the values stay (define, build, finished). `references/brain/phase-boundaries.md` moves with `git mv` to `stage-boundaries.md`, and its title and using-brain's mentions follow. `GLOSSARY.md` has two entries, Stage and Phase, each naming the other under _Avoid_ for its sense. `lifecycle:check` fails, one finding line each, on `Phase:` in status output and on "phase boundary" in brain-owned text, with the retired-name guard's exceptions for history and tests. The hook text, the status skill, the protocol source (re-rendered), the fixture READMEs, the specs and the `setup/fresh-repo-resume` grader follow
+  - Verify: the guard's tests red first; `bun test scripts/workspace scripts/hooks scripts/lifecycle scripts/evals`; `bun run plain-talk:render --check`
+  - Files: scripts/workspace/status.ts and its tests and fixture READMEs, scripts/hooks/, scripts/lifecycle/names.ts, GLOSSARY.md, references/brain/stage-boundaries.md, skills/using-brain/SKILL.md, skills/status/SKILL.md, protocol/PROTOCOL.md, evals/setup/fresh-repo-resume/, spec/
+  - Depends: T43, T48. Scope: M
+- [ ] T28: using-brain, the 1% rule, stage boundaries, with the two evals (moved here from phase 4)
   - Acceptance: evals `lifecycle/skill-not-skipped` and `lifecycle/no-overload` written first; every change in the intent doc's `using-brain` table; Skill Rule 1 carries the 1% rule and the rejected thoughts, ported from Peter's hand-written `AGENTS.md`; the lifecycle sequence folded to one line per stage; `references/brain/phase-boundaries.md` says the files carry the work; `lifecycle:check` fails when `using-brain` names a missing skill or misses one
   - Verify: `bun test scripts/lifecycle`; the two evals' dry checks
   - Files: skills/using-brain/SKILL.md, references/brain/phase-boundaries.md, scripts/lifecycle/, evals/lifecycle/{skill-not-skipped,no-overload}/*
-  - Depends: T16, T21, T23, T24, T31, T33, T34 (moved to phase 6 at plan review). Scope: M
+  - Depends: T16, T21, T23, T24, T31, T33, T34, T49 (moved to phase 6 at plan review; T49 added 2026-10-29). Scope: M
 - [ ] T35: the overlap report
   - Acceptance: maps each `AGENTS.md` heading to a protocol section or to `capabilities.md`; flags orphan lines and keeps them; says so and recommends report-only when git history shows other authors; one multi-select question; the `AGENTS.md` change is its own commit; `CLAUDE.md` overlap reported only; spec success criterion 13 on the `resume/AGENTS.md` fixture (copy at `ac74fb5`)
   - Verify: `bun test scripts/setup`
