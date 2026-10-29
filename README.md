@@ -77,7 +77,7 @@ research behind each fold is under `docs/research/`.
 
 ## Evals
 
-brain measures its own claims with Claude Code's plugin eval command: ten cases under
+brain measures its own claims with Claude Code's plugin eval command: the cases under
 `evals/`, each a prompt plus graders, run with the plugin and without it, so the delta
 shows what brain adds. Every run is model calls on the account that runs it. Claude Code
 2.1.269 or later is needed.
