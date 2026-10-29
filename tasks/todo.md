@@ -207,7 +207,7 @@ ends with a checkpoint and a review with Peter.
 
 ## Phase 5: the protocol
 
-- [ ] T30: `render.ts` takes several sources (prefactor)
+- [x] T30: `render.ts` takes several sources (prefactor)
   - Acceptance: the render pipeline renders more than one source text to its targets; plain talk's outputs stay byte-identical
   - Verify: `bun test scripts/plain-talk`; `bun run plain-talk:render -- --check`
   - Files: scripts/plain-talk/render.ts, scripts/plain-talk/__tests__/render.test.ts
