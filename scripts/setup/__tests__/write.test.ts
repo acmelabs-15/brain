@@ -314,3 +314,71 @@ describe("the shipped ADR folder", () => {
     expect(naming.toSorted()).toEqual([]);
   });
 });
+
+/** A git repo holding `files`, all committed, so `git mv` can move them. */
+async function gitRepo(name: string, files: Record<string, string>): Promise<string> {
+  const root = await repo(name, files);
+  const git = (...args: string[]) => Bun.spawnSync(["git", ...args], { cwd: root });
+  git("init", "-q");
+  git("add", ".");
+  git("-c", "user.name=test", "-c", "user.email=test@example.com", "commit", "-q", "-m", "init");
+  return root;
+}
+
+const gitStatus = (root: string) =>
+  Bun.spawnSync(["git", "status", "--porcelain"], { cwd: root }).stdout.toString();
+
+describe("writeSetup, the glossary rename", () => {
+  test("renameGlossary moves CONTEXT.md and CONTEXT-MAP.md with git mv", async () => {
+    const root = await gitRepo("rename", {
+      "CONTEXT.md": "# Terms\n",
+      "CONTEXT-MAP.md": "# Map\n",
+    });
+    const changes = await writeSetup({ brain, root, ...base, renameGlossary: true });
+    expect(changes.slice(0, 2)).toEqual([
+      { path: "CONTEXT.md -> GLOSSARY.md", action: "moved" },
+      { path: "CONTEXT-MAP.md -> GLOSSARY-MAP.md", action: "moved" },
+    ]);
+    expect(await Bun.file(`${root}/GLOSSARY.md`).text()).toBe("# Terms\n");
+    expect(await exists(`${root}/CONTEXT.md`)).toBe(false);
+    expect(gitStatus(root)).toContain("R  CONTEXT.md -> GLOSSARY.md");
+    expect(gitStatus(root)).toContain("R  CONTEXT-MAP.md -> GLOSSARY-MAP.md");
+  });
+
+  test("a dry run lists the move and moves nothing", async () => {
+    const root = await gitRepo("rename-dry", { "CONTEXT.md": "# Terms\n" });
+    const changes = await writeSetup({ brain, root, ...base, dryRun: true, renameGlossary: true });
+    expect(changes[0]).toEqual({ path: "CONTEXT.md -> GLOSSARY.md", action: "moved" });
+    expect(await exists(`${root}/CONTEXT.md`)).toBe(true);
+    expect(await exists(`${root}/GLOSSARY.md`)).toBe(false);
+  });
+
+  test("without renameGlossary an existing CONTEXT.md stays where it is", async () => {
+    const root = await gitRepo("rename-off", { "CONTEXT.md": "# Terms\n" });
+    const changes = await writeSetup({ brain, root, ...base });
+    expect(changes.some((c) => c.action === "moved")).toBe(false);
+    expect(await exists(`${root}/CONTEXT.md`)).toBe(true);
+  });
+
+  test("an existing GLOSSARY.md is never overwritten; the move is skipped", async () => {
+    const root = await gitRepo("rename-both", {
+      "CONTEXT.md": "# Old\n",
+      "GLOSSARY.md": "# New\n",
+    });
+    const changes = await writeSetup({ brain, root, ...base, renameGlossary: true });
+    expect(changes[0]).toEqual({ path: "CONTEXT.md -> GLOSSARY.md", action: "skipped" });
+    expect(await Bun.file(`${root}/GLOSSARY.md`).text()).toBe("# New\n");
+    expect(await exists(`${root}/CONTEXT.md`)).toBe(true);
+  });
+});
+
+describe("the shipped glossary rules", () => {
+  const shipped = `${import.meta.dir}/../../..`;
+
+  test("domain.md names GLOSSARY.md and holds the one-release CONTEXT.md fallback", async () => {
+    const domain = await Bun.file(`${shipped}/skills/setup-brain/domain.md`).text();
+    expect(domain).toContain("`GLOSSARY.md`");
+    expect(domain).toContain("`GLOSSARY-MAP.md`");
+    expect(domain).toMatch(/no `GLOSSARY\.md`[^\n]*`CONTEXT\.md`[^\n]*setup-brain/u);
+  });
+});

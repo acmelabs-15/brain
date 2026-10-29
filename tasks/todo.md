@@ -27,7 +27,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run check`; `rg -n 'CONTEXT(-MAP)?\.md' skills .claude/commands commands` lists only vendored files
   - Files: skills/{code-review-and-quality,debugging-and-error-recovery,incremental-implementation,interview-me,planning-and-task-breakdown,spec-driven-development,test-driven-development,using-brain,wait-what,triage,wayfinder}/SKILL.md; .claude/commands/{build,plan,review,spec,test}.md; commands/{build,planning,review,spec,test}.toml
   - Depends: none. Scope: M (21 files, word swap)
-- [ ] T05: setup-brain renames the glossary, and the one-release fallback
+- [x] T05: setup-brain renames the glossary, and the one-release fallback
   - Acceptance: the `domain.md` template names `GLOSSARY.md` and holds the fallback rule (no `GLOSSARY.md` but a `CONTEXT.md`: read it, and tell the user once to run setup-brain); setup-brain explores for `CONTEXT.md` / `CONTEXT-MAP.md` and offers `git mv` through `write.ts --rename-glossary`, which shows the move in `--dry-run` and never runs without the flag
   - Verify: `bun test scripts/setup` (a temp git repo with `CONTEXT.md`: dry run lists it, the real run moves it and keeps its history)
   - Files: skills/setup-brain/SKILL.md, skills/setup-brain/domain.md, scripts/setup/write.ts, scripts/setup/__tests__/write.test.ts

@@ -1,7 +1,7 @@
 /**
  * Write what brain's skills assume is in a repo, and the one file Codex needs on this machine.
  *
- *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker local|github|gitlab] [--repo owner/name] [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--dry-run] [--brain <plugin root>]
+ *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker local|github|gitlab] [--repo owner/name] [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--dry-run] [--brain <plugin root>]
  *
  * docs/agents/domain.md gets the consumer rules with the layout named.
  * docs/agents/issue-tracker.md and docs/agents/triage-labels.md come from the templates, local tracker by default.
@@ -19,7 +19,10 @@ import { replaceBlock } from "../plain-talk/block";
 export type Layout = "single" | "multi";
 export type Tracker = "local" | "github" | "gitlab";
 export type CodexScope = "global" | "project";
-export type Change = { path: string; action: "created" | "updated" | "unchanged" | "skipped" };
+export type Change = {
+  path: string;
+  action: "created" | "updated" | "unchanged" | "skipped" | "moved";
+};
 export type SetupInput = {
   brain: string;
   root: string;
@@ -31,7 +34,37 @@ export type SetupInput = {
   codexHome?: string | null;
   /** Where the Codex block goes: the global file (default) or this repo's AGENTS.md. */
   codexScope?: CodexScope;
+  /** Move a root CONTEXT.md and CONTEXT-MAP.md to the GLOSSARY names with `git mv`. */
+  renameGlossary?: boolean;
 };
+
+const glossaryMoves = [
+  ["CONTEXT.md", "GLOSSARY.md"],
+  ["CONTEXT-MAP.md", "GLOSSARY-MAP.md"],
+] as const;
+
+/** Move each old glossary file with `git mv`, so it keeps its history; never overwrite. */
+async function renameGlossary(input: SetupInput): Promise<Change[]> {
+  const changes: Change[] = [];
+  for (const [from, to] of glossaryMoves) {
+    if (!(await Bun.file(`${input.root}/${from}`).exists())) {
+      continue;
+    }
+    const path = `${from} -> ${to}`;
+    if (await Bun.file(`${input.root}/${to}`).exists()) {
+      changes.push({ path, action: "skipped" });
+      continue;
+    }
+    if (!input.dryRun) {
+      const moved = Bun.spawnSync(["git", "mv", from, to], { cwd: input.root });
+      if (moved.exitCode !== 0) {
+        throw new Error(`git mv ${from} ${to} failed: ${moved.stderr.toString().trim()}`);
+      }
+    }
+    changes.push({ path, action: "moved" });
+  }
+  return changes;
+}
 
 export function defaultCodexHome(): string {
   return process.env.CODEX_HOME ?? `${homedir()}/.codex`;
@@ -84,7 +117,7 @@ export async function writeSetup(input: SetupInput): Promise<Change[]> {
   const block = await Bun.file(`${input.brain}/plain-talk/AGENTS-block.md`).text();
   const domainTemplate = await Bun.file(`${input.brain}/skills/setup-brain/domain.md`).text();
   const layoutName = input.layout === "single" ? "single-context" : "multi-context";
-  const changes: Change[] = [];
+  const changes: Change[] = input.renameGlossary === true ? await renameGlossary(input) : [];
 
   const codex = await writeCodex(input, block);
   if (codex !== null) {
@@ -164,6 +197,10 @@ function parseArgs(argv: string[]): SetupInput {
     const flag = argv[i] as string;
     if (flag === "--dry-run") {
       input.dryRun = true;
+      continue;
+    }
+    if (flag === "--rename-glossary") {
+      input.renameGlossary = true;
       continue;
     }
     if (flag === "--no-codex") {
