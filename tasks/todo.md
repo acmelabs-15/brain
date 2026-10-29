@@ -55,7 +55,7 @@ ends with a checkpoint and a review with Peter.
 
 ## Phase 2: workspace foundation (`feat/workspace-layout`)
 
-- [ ] T09: the `brain` CLI skeleton and the `workspace.md` template (prefactor)
+- [x] T09: the `brain` CLI skeleton and the `workspace.md` template (prefactor)
   - Acceptance: `bun scripts/brain.ts` with no or an unknown subcommand prints usage and exits 2; `skills/setup-brain/workspace.md` is the template: `layout: 2`, the paths, the `brain <cmd>` definition, the new-doc-only rule (the config reader moved to T11, its first user, where the CLI seam can test it)
   - Verify: `bun test scripts/workspace` (CLI seam)
   - Files: scripts/brain.ts, scripts/workspace/__tests__/cli.test.ts, skills/setup-brain/workspace.md
