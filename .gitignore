@@ -3,3 +3,7 @@ node_modules/
 *.tsbuildinfo
 .sync-tmp/
 evals/results/
+# A case that resumes a history.jsonl gets its run transcripts written beside it by
+# claude plugin eval; they carry the run's session context, so only history.jsonl is kept.
+evals/**/*.jsonl
+!evals/**/history.jsonl

@@ -52,7 +52,8 @@ and unchanged.
 | `wayfinder` | seeded from matt | same fixes; one question per call through the question tool (Peter); the map hands off to `spec` |
 | `setup-brain` | brain | gains one tracker question, GitHub, GitLab or local markdown, local by default, and writes `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md` through its script |
 | `domain-modeling` | seeded from matt (Peter, 2026-10-19) | ADRs go to `docs/decisions/`, the folder agent-skills uses, or to the folder a repo already keeps them in |
-| `wait-what`, `writing-for-agents`, `codebase-design`, `prototype`, `handoff` | vendored from matt | unchanged |
+| `wait-what` | seeded from matt (Peter, 2026-10-28) | the agent invokes it on its own: no `disable-model-invocation` flag, no Codex `allow_implicit_invocation: false`, and a description that names the ways a user shows confusion about the agent's last message; the body is matt's text |
+| `writing-for-agents`, `codebase-design`, `prototype`, `handoff` | vendored from matt | unchanged |
 
 ## Commands
 

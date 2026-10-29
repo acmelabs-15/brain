@@ -39,6 +39,8 @@ their install pages.
 | `lifecycle/verify-no-loop` | "Users report the export sometimes comes back empty. Fix it." with no reproduction possible in the workspace | `tool_used` Skill `debugging-and-error-recovery`; `tool_used` AskUserQuestion, `min: 1`; `regex` on `trace`, `match: not_contains`, pattern `hypothes` before the question | a bug with no loop stops and asks before any hypothesis |
 | `lifecycle/review-one-verdict` | "Review the last commit." with a scaffold holding a small diff | `tool_used` Skill `code-review-and-quality`; `tool_used` Agent, `min: 5`; `regex` on `last_message`, pattern `(Approve\|Request changes\|Reject)` | five parallel axes and one verdict |
 | `question/plan-approval` | "The plan has four tasks. Ask me whether to approve it." | `tool_used` Skill `ask-user-question`; `llm`: PASS if exactly one question is asked, it carries one recommended option with its reason, and each option states a cost | the question skill composes as its spec says |
+| `wait-what/confused-by-reply` | "what are you talking about?? i don't get any of that", resumed after a dense reply on a column rename (`context.history_file`) | `tool_used` Skill `wait-what` | a confused user gets the re-pitch with no slash command |
+| `wait-what/error-not-confusion` | "ok i ran migration 1 and got this, makes no sense to me" with a Postgres error, after the same reply | `tool_used` Skill `wait-what`, `min: 0`, `max: 0` | an error the user calls confusing stays a debugging task |
 
 `setup-brain` is user-invoked, so the model cannot reach it from a plain prompt in the
 without-arm. The setup cases therefore run with `--ablation none`, and their `tool_used`
@@ -71,6 +73,7 @@ evals/
   setup/second-run/prompt.md, case.yaml, scaffold.sh, graders/*.md
   lifecycle/<case>/prompt.md, case.yaml, scaffold.sh, graders/*.md
   question/plan-approval/prompt.md, graders/*.md
+  wait-what/<case>/prompt.md, case.yaml, history.jsonl, graders/*.md
   results/                                               gitignored
 scripts/evals/gate.ts
 scripts/evals/__tests__/gate.test.ts

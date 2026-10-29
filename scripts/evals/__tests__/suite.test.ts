@@ -25,7 +25,7 @@ function graderType(text: string): string {
 }
 
 describe("eval suite", () => {
-  test("holds the nine cases the spec names", async () => {
+  test("holds the twelve cases the spec names", async () => {
     expect(await cases()).toEqual(
       [
         "lifecycle/build-clean-context",
@@ -38,6 +38,8 @@ describe("eval suite", () => {
         "question/plan-approval",
         "setup/fresh-repo",
         "setup/second-run",
+        "wait-what/confused-by-reply",
+        "wait-what/error-not-confusion",
       ].toSorted(),
     );
   });
@@ -62,6 +64,16 @@ describe("eval suite", () => {
       const hasScaffold = await Bun.file(`${dir}/scaffold.sh`).exists();
       if (hasScaffold) {
         expect(await Bun.file(`${dir}/case.yaml`).text()).toContain("scaffold_script: scaffold.sh");
+      }
+    }
+  });
+
+  test("a case with a transcript to resume declares it in case.yaml", async () => {
+    for (const c of await cases()) {
+      const dir = `${root}/${c}`;
+      const hasHistory = await Bun.file(`${dir}/history.jsonl`).exists();
+      if (hasHistory) {
+        expect(await Bun.file(`${dir}/case.yaml`).text()).toContain("history_file: history.jsonl");
       }
     }
   });
