@@ -1,13 +1,12 @@
 ---
 type: regex
 target: trace
-pattern: '^(?=.*"name": ?"Agent")(?=.*from: `?IDEA-001#0[234]\b).*$[\s\S]*?"type": ?"tool_result"[\s\S]*?^(?=.*"name": ?"Agent")(?=.*from: `?IDEA-001#0[234]\b)'
+pattern: '^[^\n]*"id": ?"(?<m>msg_\w+)"[^\n]*"name": ?"Agent"[^\n]*from: `?IDEA-001#0[234]\b[^\n]*$[\s\S]*?^[^\n]*"id": ?"\k<m>"[^\n]*"name": ?"Agent"[^\n]*from: `?IDEA-001#0[234]\b[^\n]*$[\s\S]*?^[^\n]*"id": ?"\k<m>"[^\n]*"name": ?"Agent"[^\n]*from: `?IDEA-001#0[234]\b'
 flags: m
-match: not_contains
 ---
 
-All three research rows start at once: in one turn, before any tool result comes back. The pattern finds an Agent call for a research row, then a tool result, then a later Agent call for a research row. That order means the rows started one turn after another, so the grader fails when it finds it.
+All three research rows start at once: in one assistant message. The pattern finds three Agent calls for research rows that carry the same message id.
 
-Each line of the trace is one JSON message. A tool call's name and its input sit on one line, whether a line holds one content block or a whole message, and every result of a turn follows all of that turn's calls. The quotes the pattern names are JSON's own, so a quote inside a prompt, which the trace escapes, never matches them.
+The trace writes one content block per line, and each tool result on the line right after its own call, even when one message made several calls (a real run of `claude plugin eval` 2.1.312, 2026-10-29). So a result between two calls does not show two turns; only the message id does. Each assistant line names its message's `msg_` id before its content, and a tool call's own id starts with `toolu_`, so the pattern reads the message id. The quotes the pattern names are JSON's own, so a quote inside a prompt, which the trace escapes, never matches them.
 
 No research record exists in the scaffold, so no row is started a second time to continue one.

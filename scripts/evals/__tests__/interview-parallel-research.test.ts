@@ -5,10 +5,10 @@
  * scaffold passes the real `brain check`. Then it plays a correct resume and faulty ones and
  * applies the case's computed graders to each, as `claude plugin eval` 2.1.312 reads them.
  *
- * The docs say only that the `trace` target is "the session as JSON, one message per line". So
- * the dry check builds each played trace in two shapes and requires the same verdict from both:
- * one content block per line, as Claude Code's own transcripts store it, and one whole API
- * message per line.
+ * A real run of `claude plugin eval` 2.1.312 (2026-10-29) writes the `trace` target one
+ * content block per line, and each tool result on the line right after its own call, even when
+ * one assistant message made several calls. The calls of one message share its `msg_` id. The
+ * dry check builds each played trace in that shape.
  */
 import { afterAll, beforeAll, describe, expect, setDefaultTimeout, test } from "bun:test";
 import { mkdir, mkdtemp, readdir, realpath, rm } from "node:fs/promises";
@@ -34,9 +34,6 @@ type Call = { tool: string; input: Record<string, unknown> };
 
 /** What a run leaves: its workspace, its tool calls turn by turn, and its last reply. */
 type Run = { root: string; turns: Call[][]; last: string };
-
-/** The two shapes a JSON-lines trace can take: a line per content block, or per message. */
-type Shape = "block" | "message";
 
 /** One row of a map, keyed by its column names. */
 type Row = { id: string; type: string; status: string; blockedBy: string[] };
@@ -84,10 +81,10 @@ function reply(content: object[]): object {
 
 /**
  * The run as JSON lines: the init line with the session's tools, the prompt, then each turn's
- * tool calls and their results, then the last reply. Each tool result follows every call of its
- * turn, as the API returns them.
+ * tool calls, each on its own line with the turn's message id and followed by its result, then
+ * the last reply.
  */
-function trace(run: Run, shape: Shape): string {
+function trace(run: Run): string {
   const lines: object[] = [
     { type: "system", subtype: "init", tools: [{ name: "Agent" }, { name: "Read" }] },
     { type: "user", message: { role: "user", content: "Pick up the idea." } },
@@ -108,10 +105,8 @@ function trace(run: Run, shape: Shape): string {
       type: "assistant",
       message: { id: `msg_${turn}`, role: "assistant", content },
     });
-    if (shape === "block") {
-      lines.push(...uses.map((use) => message([use])), ...results.map((each) => reply([each])));
-    } else {
-      lines.push(message(uses), reply(results));
+    for (const [index, use] of uses.entries()) {
+      lines.push(message([use]), reply(results.slice(index, index + 1)));
     }
   }
   lines.push({
@@ -122,9 +117,9 @@ function trace(run: Run, shape: Shape): string {
 }
 
 /** The text a regex grader reads, for the targets this case uses. */
-async function targetText(target: unknown, run: Run, shape: Shape): Promise<string | null> {
+async function targetText(target: unknown, run: Run): Promise<string | null> {
   if (target === "trace") {
-    return trace(run, shape);
+    return trace(run);
   }
   if (target === "last_message" || target === undefined) {
     return run.last;
@@ -137,7 +132,7 @@ async function targetText(target: unknown, run: Run, shape: Shape): Promise<stri
 }
 
 /** Apply one computed grader to a run, with the pass rules of `claude plugin eval` 2.1.312. */
-async function passes(each: Grader, run: Run, shape: Shape): Promise<boolean> {
+async function passes(each: Grader, run: Run): Promise<boolean> {
   if (each.type === "tool_used") {
     // The runner tests input_match against the call's JSON input, with no flags. A pattern
     // that compiles with `u` matches ASCII text the same way, so `u` only adds strictness.
@@ -148,7 +143,7 @@ async function passes(each: Grader, run: Run, shape: Shape): Promise<boolean> {
     return count >= Number(each.min ?? 1) && count <= Number(each.max ?? Infinity);
   }
   if (each.type === "regex") {
-    const text = await targetText(each.target, run, shape);
+    const text = await targetText(each.target, run);
     if (text === null) {
       return false;
     }
@@ -161,20 +156,15 @@ async function passes(each: Grader, run: Run, shape: Shape): Promise<boolean> {
   throw new Error(`${each.name}: the dry check does not model this ${each.type} grader`);
 }
 
-/** The name of each computed grader that fails the run, the same for both trace shapes. */
+/** The name of each computed grader that fails the run. */
 async function failing(run: Run): Promise<string[]> {
-  const verdicts: string[][] = [];
-  for (const shape of ["block", "message"] as const) {
-    const failed: string[] = [];
-    for (const each of await readGraders()) {
-      if (each.type !== "llm" && !(await passes(each, run, shape))) {
-        failed.push(each.name);
-      }
+  const failed: string[] = [];
+  for (const each of await readGraders()) {
+    if (each.type !== "llm" && !(await passes(each, run))) {
+      failed.push(each.name);
     }
-    verdicts.push(failed);
   }
-  expect(verdicts[1]).toEqual(verdicts[0]);
-  return verdicts[0] ?? [];
+  return failed;
 }
 
 /** Every file in a folder outside `.git`, relative to it. */
@@ -380,11 +370,7 @@ describe("lifecycle/interview-parallel-research, the case files", () => {
       expect([id, own?.type, own?.tool]).toEqual([id, "tool_used", "Agent"]);
     }
     const atOnce = graders.find((each) => each.name === "started-at-once");
-    expect([atOnce?.type, atOnce?.target, atOnce?.match]).toEqual([
-      "regex",
-      "trace",
-      "not_contains",
-    ]);
+    expect([atOnce?.type, atOnce?.target, atOnce?.match]).toEqual(["regex", "trace", undefined]);
   });
 });
 
@@ -523,6 +509,7 @@ describe("lifecycle/interview-parallel-research, the computed graders on played 
       "research-03",
       "research-04",
       "rows-in-progress",
+      "started-at-once",
     ]);
   });
 
@@ -536,15 +523,16 @@ describe("lifecycle/interview-parallel-research, the computed graders on played 
       "research-03",
       "research-04",
       "rows-in-progress",
+      "started-at-once",
     ]);
   });
 
-  test("a resume that gives all three rows to one sub-agent fails only the one-per-row grader", async () => {
+  test("a resume that gives all three rows to one sub-agent fails the one-per-row and at-once graders", async () => {
     const run = await play("one-agent", async (root) => ({
       turns: [...resumeTurns, [sharedCall(research)], [await markStarted(root, research)]],
       last: goodReply,
     }));
-    expect(await failing(run)).toEqual(["one-agent-per-row"]);
+    expect(await failing(run)).toEqual(["one-agent-per-row", "started-at-once"]);
   });
 
   test("a resume that starts the rows but leaves them open in the idea file fails only the map grader", async () => {
