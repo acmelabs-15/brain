@@ -54,7 +54,7 @@ still reviews its own tasks. From the phase 5 review on, a task waits for every 
 | Wave | Tasks |
 |---|---|
 | A (running) | T35, T52 |
-| B, after the phase 4 and 5 reviews | T38, T51 |
+| B | T38 (after T35), T51 |
 | C | T28 |
 | Then | T39 after the second ask; T40 after the 0.10.0 release |
 

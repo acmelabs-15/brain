@@ -243,7 +243,7 @@ ends with a checkpoint and a review with Peter.
 
 ### Checkpoint: phase 5
 - [x] The hook's output is under 10,000 characters on every fixture; `bun run check` green (4,505 to 5,093 characters, held by T32's test)
-- [ ] Review with Peter
+- [x] Review with Peter: approved 2026-10-29, with the rule that the protocol keeps its 4,000-character budget (Decisions row "The protocol's budget"). Open for phase 6: the hook in a live Claude Code session, and the protocol in live Gemini, Antigravity and Codex sessions
 
 ## Phase 6: install
 

@@ -309,6 +309,8 @@ describe("the real texts", () => {
   });
 
   test("the protocol leaves 6,000 of the session-start hook's 10,000 characters for the status", async () => {
+    // The budget holds (Decisions row "The protocol's budget"): a new rule goes to using-brain
+    // (routing and working rules) or to workspace.md (layout and naming), not to the protocol.
     const protocol = await Bun.file(`${repo}/protocol/PROTOCOL.md`).text();
     expect(protocol.length).toBeLessThanOrEqual(4000);
   });
