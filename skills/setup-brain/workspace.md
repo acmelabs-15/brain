@@ -5,6 +5,7 @@ paths:
   research: docs/research
   ideas: docs/ideas
   specs: docs/specs
+max_parallel: 8
 ---
 # Workspace
 
@@ -12,6 +13,7 @@ The workspace is this repo's folders for ideas, decisions, research and specs, w
 
 - `layout` is the version of the layout. setup-brain's re-run and `--check` read it.
 - `paths` names each folder. Skills and `brain` read every folder from here, so a folder moves with a change to this file only.
+- `max_parallel` is the most sub-agents that run at once: tasks in a build, or research rows in an interview. It is 8 when absent, and the `BRAIN_MAX_PARALLEL` environment variable overrides it.
 
 ## `brain <cmd>`
 

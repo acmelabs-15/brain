@@ -185,7 +185,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: CLI seam (missing, stale, current); `bun run lifecycle:check`
   - Files: skills/planning-and-task-breakdown/SKILL.md, scripts/workspace/check.ts, scripts/workspace/plan.ts, scripts/workspace/__tests__/check.test.ts
   - Depends: T27, T41, T42. Scope: M
-- [ ] T44: `max_parallel`
+- [x] T44: `max_parallel`
   - Acceptance: `docs/agents/workspace.md` frontmatter takes `max_parallel`, default 8; `BRAIN_MAX_PARALLEL` overrides it; the config reader returns it and rejects a value below 1; the template names it; `brain plan` prints the cap and, for each wave, how many tasks start at once
   - Verify: CLI seam
   - Files: scripts/workspace/config.ts, skills/setup-brain/workspace.md, scripts/workspace/plan.ts, scripts/workspace/__tests__/plan.test.ts

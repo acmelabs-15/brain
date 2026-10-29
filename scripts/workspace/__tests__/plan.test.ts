@@ -47,11 +47,16 @@ async function edited(
   return { [path]: text.replace(from, to) };
 }
 
-/** Run `brain` in `cwd`; git stops looking for a repo at the work folder. */
-async function brain(cwd: string, ...args: string[]) {
+/**
+ * Run `brain` in `cwd` with `variables` in its environment; git stops looking for a repo at the
+ * work folder. `BRAIN_MAX_PARALLEL` comes only from `variables`, so a value in the shell that runs
+ * the tests changes no output.
+ */
+async function brainWith(variables: Record<string, string>, cwd: string, ...args: string[]) {
+  const inherited = Object.entries(process.env).filter(([name]) => name !== "BRAIN_MAX_PARALLEL");
   const proc = Bun.spawn(["bun", cli, ...args], {
     cwd,
-    env: { ...process.env, GIT_CEILING_DIRECTORIES: work },
+    env: { ...Object.fromEntries(inherited), GIT_CEILING_DIRECTORIES: work, ...variables },
     stdout: "pipe",
     stderr: "pipe",
   });
@@ -60,6 +65,11 @@ async function brain(cwd: string, ...args: string[]) {
     new Response(proc.stderr).text(),
   ]);
   return { code: await proc.exited, stdout, stderr };
+}
+
+/** Run `brain` in `cwd` with `BRAIN_MAX_PARALLEL` unset. */
+async function brain(cwd: string, ...args: string[]) {
+  return await brainWith({}, cwd, ...args);
 }
 
 /** The lines a run prints, each ended by a line break. */
@@ -84,6 +94,9 @@ function task(id: string, title: string, files: string[]) {
   return { id, title, type: "task", status: "open", files };
 }
 
+/** The plan-shapes fixture's `workspace.md`: a copy of setup-brain's template. */
+const workspaceFile = "docs/agents/workspace.md";
+
 const linear = lines(
   "| Wave | Rows |",
   "|---|---|",
@@ -96,9 +109,17 @@ const linear = lines(
   "Files that more than one task in a wave touches: none.",
   "",
   "Phases that share a wave: none.",
+  "",
+  "Cap: 8 tasks at once (max_parallel in docs/agents/workspace.md).",
+  "",
+  "Tasks that start at once, by wave:",
+  "- Wave 1: 1 of 1",
+  "- Wave 2: 1 of 1",
+  "- Wave 3: no task",
 );
 
-const wide = lines(
+/** The wide plan's waves, without the cap: the text a plan's "Parallel waves" section holds. */
+const wideWaves = lines(
   "| Wave | Rows |",
   "|---|---|",
   "| 1 | 02, 03, 04, 05 |",
@@ -112,6 +133,17 @@ const wide = lines(
   "",
   "Phases that share a wave: none.",
 );
+
+const wide =
+  wideWaves +
+  lines(
+    "",
+    "Cap: 8 tasks at once (max_parallel in docs/agents/workspace.md).",
+    "",
+    "Tasks that start at once, by wave:",
+    "- Wave 1: 4 of 4",
+    "- Wave 2: 1 of 1",
+  );
 
 const checkpoints = lines(
   "| Wave | Rows |",
@@ -128,6 +160,15 @@ const checkpoints = lines(
   "",
   "Phases that share a wave, each named by its checkpoint row:",
   "- 03 and 06: wave 1",
+  "",
+  "Cap: 8 tasks at once (max_parallel in docs/agents/workspace.md).",
+  "",
+  "Tasks that start at once, by wave:",
+  "- Wave 1: 2 of 2",
+  "- Wave 2: 1 of 1",
+  "- Wave 3: no task",
+  "- Wave 4: 1 of 1",
+  "- Wave 5: no task",
 );
 
 beforeAll(async () => {
@@ -153,6 +194,7 @@ describe("brain plan, the waves of each plan shape", () => {
   });
 
   test("a spec mid-build, with no spec named: it reads the active effort's plan", async () => {
+    // This fixture's workspace.md has no max_parallel, so the cap is the default.
     const root = await repo("mid-build", "spec-mid-build");
     const res = await brain(root, "plan");
     expect(res.stderr).toBe("");
@@ -169,16 +211,29 @@ describe("brain plan, the waves of each plan shape", () => {
         "Files that more than one task in a wave touches: none.",
         "",
         "Phases that share a wave: none.",
+        "",
+        "Cap: 8 tasks at once (the default).",
+        "",
+        "Tasks that start at once, by wave:",
+        "- Wave 1: 2 of 2",
+        "- Wave 2: 1 of 1",
+        "- Wave 3: no task",
       ),
     );
     expect(res.code).toBe(0);
   });
 
-  test("a plan whose rows are all resolved has no wave", async () => {
+  test("a plan whose rows are all resolved has no wave, and still names the cap", async () => {
     const root = await repo("all-resolved", "no-active-work");
     const res = await brain(root, "plan", "SPEC-001");
     expect(res.stderr).toBe("");
-    expect(res.stdout).toBe(lines("No open rows: every row is resolved or superseded."));
+    expect(res.stdout).toBe(
+      lines(
+        "No open rows: every row is resolved or superseded.",
+        "",
+        "Cap: 8 tasks at once (the default).",
+      ),
+    );
     expect(res.code).toBe(0);
   });
 
@@ -202,9 +257,12 @@ describe("brain plan --json", () => {
     expect(res.code).toBe(0);
     expect(JSON.parse(res.stdout)).toEqual({
       plan: "docs/specs/SPEC-002-wide/tasks/plan.md",
+      maxParallel: 8,
+      maxParallelFrom: "max_parallel",
       waves: [
         {
           wave: 1,
+          startAtOnce: 4,
           rows: [
             task("02", "Import contacts from CSV", ["src/import/csv.ts", "src/import/index.ts"]),
             task("03", "Import contacts from vCard", [
@@ -221,6 +279,7 @@ describe("brain plan --json", () => {
         },
         {
           wave: 2,
+          startAtOnce: 1,
           rows: [
             task("06", "Pick the importer from the file type", [
               "src/import/pick.ts",
@@ -269,6 +328,163 @@ describe("brain plan --json", () => {
     expect(res.stderr).toBe("");
     expect(res.code).toBe(0);
     expect(JSON.parse(res.stdout).overlaps).toEqual([{ phases: ["03", "06"], waves: [1] }]);
+  });
+});
+
+describe("brain plan, the cap on tasks at once", () => {
+  /** The wide plan's text with the cap `line`, and the tasks that start at once in its two waves. */
+  function wideWith(line: string, wave1: string): string {
+    return (
+      wideWaves +
+      lines(
+        "",
+        line,
+        "",
+        "Tasks that start at once, by wave:",
+        `- Wave 1: ${wave1}`,
+        "- Wave 2: 1 of 1",
+      )
+    );
+  }
+
+  test("no max_parallel in workspace.md: the cap is the default, 8", async () => {
+    const root = await repo(
+      "cap-no-key",
+      "plan-shapes",
+      await edited("plan-shapes", workspaceFile, "max_parallel: 8\n", ""),
+    );
+    const res = await brain(root, "plan", "SPEC-002");
+    expect(res.stderr).toBe("");
+    expect(res.stdout).toBe(wideWith("Cap: 8 tasks at once (the default).", "4 of 4"));
+    expect(res.code).toBe(0);
+  });
+
+  test("no workspace.md: the cap is the default, 8", async () => {
+    const root = await repo("cap-no-file", "plan-shapes");
+    await rm(`${root}/${workspaceFile}`);
+    const res = await brain(root, "plan", "SPEC-002");
+    expect(res.stderr).toBe("");
+    expect(res.stdout).toBe(wideWith("Cap: 8 tasks at once (the default).", "4 of 4"));
+    expect(res.code).toBe(0);
+  });
+
+  test("max_parallel: 3 in workspace.md: 3 of the 4 tasks in wave 1 start at once", async () => {
+    const root = await repo(
+      "cap-file",
+      "plan-shapes",
+      await edited("plan-shapes", workspaceFile, "max_parallel: 8", "max_parallel: 3"),
+    );
+    const res = await brain(root, "plan", "SPEC-002");
+    expect(res.stderr).toBe("");
+    expect(res.stdout).toBe(
+      wideWith("Cap: 3 tasks at once (max_parallel in docs/agents/workspace.md).", "3 of 4"),
+    );
+    expect(res.code).toBe(0);
+  });
+
+  test("BRAIN_MAX_PARALLEL wins over max_parallel in workspace.md", async () => {
+    const root = await repo(
+      "cap-variable",
+      "plan-shapes",
+      await edited("plan-shapes", workspaceFile, "max_parallel: 8", "max_parallel: 3"),
+    );
+    const res = await brainWith({ BRAIN_MAX_PARALLEL: "2" }, root, "plan", "SPEC-002");
+    expect(res.stderr).toBe("");
+    expect(res.stdout).toBe(wideWith("Cap: 2 tasks at once (BRAIN_MAX_PARALLEL).", "2 of 4"));
+    expect(res.code).toBe(0);
+  });
+
+  test("an empty BRAIN_MAX_PARALLEL is unset: max_parallel in workspace.md stands", async () => {
+    const root = await repo(
+      "cap-empty-variable",
+      "plan-shapes",
+      await edited("plan-shapes", workspaceFile, "max_parallel: 8", "max_parallel: 3"),
+    );
+    const res = await brainWith({ BRAIN_MAX_PARALLEL: "" }, root, "plan", "SPEC-002");
+    expect(res.stderr).toBe("");
+    expect(res.stdout).toBe(
+      wideWith("Cap: 3 tasks at once (max_parallel in docs/agents/workspace.md).", "3 of 4"),
+    );
+    expect(res.code).toBe(0);
+  });
+
+  test("setup-brain's template names max_parallel with its default, 8", async () => {
+    const template = await Bun.file(
+      `${import.meta.dir}/../../../skills/setup-brain/workspace.md`,
+    ).text();
+    const root = await repo("cap-template", "plan-shapes", { [workspaceFile]: template });
+    const res = await brain(root, "plan", "SPEC-002");
+    expect(res.stderr).toBe("");
+    expect(res.stdout).toBe(wide);
+    expect(res.code).toBe(0);
+  });
+
+  test("--json gives the cap, where it comes from, and each wave's tasks that start at once", async () => {
+    const root = await repo("cap-json", "plan-shapes");
+    const res = await brainWith({ BRAIN_MAX_PARALLEL: "1" }, root, "plan", "SPEC-003", "--json");
+    expect(res.stderr).toBe("");
+    expect(res.code).toBe(0);
+    const data = JSON.parse(res.stdout);
+    expect(data.maxParallel).toBe(1);
+    expect(data.maxParallelFrom).toBe("BRAIN_MAX_PARALLEL");
+    // Wave 1 holds tasks 01 and 04; waves 3 and 5 hold only a checkpoint, which is not a task.
+    expect(data.waves.map((wave: { startAtOnce: number }) => wave.startAtOnce)).toEqual([
+      1, 1, 0, 1, 0,
+    ]);
+  });
+
+  test("a cap of 1 is one task at once", async () => {
+    const root = await repo("cap-one", "plan-shapes");
+    const res = await brainWith({ BRAIN_MAX_PARALLEL: "1" }, root, "plan", "SPEC-002");
+    expect(res.stderr).toBe("");
+    expect(res.stdout).toBe(wideWith("Cap: 1 task at once (BRAIN_MAX_PARALLEL).", "1 of 4"));
+    expect(res.code).toBe(0);
+  });
+
+  test.each([
+    ["max_parallel: 0", "max_parallel: 0", {}, "docs/agents/workspace.md: max_parallel: 0"],
+    ["max_parallel: -2", "max_parallel: -2", {}, "docs/agents/workspace.md: max_parallel: -2"],
+    ["max_parallel: 2.5", "max_parallel: 2.5", {}, "docs/agents/workspace.md: max_parallel: 2.5"],
+    [
+      "max_parallel: eight",
+      "max_parallel: eight",
+      {},
+      'docs/agents/workspace.md: max_parallel: "eight"',
+    ],
+    [
+      "max_parallel: 0 under a good BRAIN_MAX_PARALLEL",
+      "max_parallel: 0",
+      { BRAIN_MAX_PARALLEL: "4" },
+      "docs/agents/workspace.md: max_parallel: 0",
+    ],
+    [
+      "BRAIN_MAX_PARALLEL=0",
+      "max_parallel: 8",
+      { BRAIN_MAX_PARALLEL: "0" },
+      'BRAIN_MAX_PARALLEL: "0"',
+    ],
+    [
+      "BRAIN_MAX_PARALLEL=2.5",
+      "max_parallel: 8",
+      { BRAIN_MAX_PARALLEL: "2.5" },
+      'BRAIN_MAX_PARALLEL: "2.5"',
+    ],
+    [
+      "BRAIN_MAX_PARALLEL=four",
+      "max_parallel: 8",
+      { BRAIN_MAX_PARALLEL: "four" },
+      'BRAIN_MAX_PARALLEL: "four"',
+    ],
+  ])("a bad value, %s: it exits 1 and names the value", async (what, setting, variables, named) => {
+    const root = await repo(
+      `cap-bad-${Bun.hash(what)}`,
+      "plan-shapes",
+      await edited("plan-shapes", workspaceFile, "max_parallel: 8", setting),
+    );
+    const res = await brainWith(variables, root, "plan", "SPEC-002", "--json");
+    expect(res.stdout).toBe("");
+    expect(res.stderr).toBe(lines(`${named} is not a whole number of 1 or more`));
+    expect(res.code).toBe(1);
   });
 });
 

@@ -2,15 +2,18 @@
  * brain plan [<spec>] [--json]: print what can run at once in a spec's plan. It reads the row
  * table of `tasks/plan.md` and the "Files likely touched" of each block in `tasks/todo.md`, and
  * prints the waves, the critical path, the files that more than one task in a wave touches, and
- * the phases that share a wave. A phase is the tasks its checkpoint row is blocked by. It writes
- * nothing. The spec is a SPEC ID or a path; without one, it is the active effort.
- * Exit codes: 0 clean, 1 a plan it cannot put in order (a cycle, an unknown blocker), 2 bad usage.
+ * the phases that share a wave. A phase is the tasks its checkpoint row is blocked by. Then it
+ * prints the cap (`max_parallel`, or `BRAIN_MAX_PARALLEL` over it) and how many of each wave's
+ * tasks start at once. It writes nothing. The spec is a SPEC ID or a path; without one, it is the
+ * active effort.
+ * Exit codes: 0 clean, 1 a plan it cannot put in order (a cycle, an unknown blocker) or a bad
+ * cap, 2 bad usage.
  */
 import { realpath } from "node:fs/promises";
 import path from "node:path";
 
-import { findRepo, readConfig } from "./config";
-import type { Paths } from "./config";
+import { configFile, findRepo, readConfig } from "./config";
+import type { Paths, WorkspaceConfig } from "./config";
 import { activeEffort, listEfforts } from "./effort";
 import { criticalPath, findCycle, layWaves } from "./graph";
 import { readRows } from "./map";
@@ -19,8 +22,10 @@ import type { Row } from "./map";
 const usage = `usage: brain plan [SPEC-NNN | <spec folder>] [--json]
 
   Print the waves of a spec's plan: each wave is the rows that can start at once when the waves
-  above it are done. Then the critical path, the files that tasks in one wave share, and the
-  phases that share a wave. Without a spec, it reads the plan of the active effort.
+  above it are done. Then the critical path, the files that tasks in one wave share, the
+  phases that share a wave, and the cap: max_parallel in docs/agents/workspace.md (default 8),
+  or BRAIN_MAX_PARALLEL over it, with how many of each wave's tasks start at once. Without a
+  spec, it reads the plan of the active effort.
 
   --json   print the same data as JSON`;
 
@@ -201,6 +206,37 @@ export function renderParallelWaves(parallel: ParallelWaves): string {
   return lines.map((line) => `${line}\n`).join("");
 }
 
+/** The tasks in a wave. A checkpoint is not a task: the main session runs it, not a sub-agent. */
+function taskCount(rows: readonly PlannedRow[]): number {
+  return rows.filter((row) => row.type === "task").length;
+}
+
+/** How many of a wave's tasks start at once: every task, up to the cap. */
+function startAtOnce(rows: readonly PlannedRow[], cap: number): number {
+  return Math.min(taskCount(rows), cap);
+}
+
+const capSources = {
+  default: "the default",
+  max_parallel: `max_parallel in ${configFile}`,
+  BRAIN_MAX_PARALLEL: "BRAIN_MAX_PARALLEL",
+} as const;
+
+/** The cap and where it comes from, then how many of each wave's tasks start at once, as text. */
+function renderCap(parallel: ParallelWaves, config: WorkspaceConfig): string {
+  const cap = counted(config.maxParallel, "task", "tasks");
+  const lines = ["", `Cap: ${cap} at once (${capSources[config.maxParallelFrom]}).`];
+  if (parallel.waves.length > 0) {
+    lines.push("", "Tasks that start at once, by wave:");
+  }
+  for (const { wave, rows } of parallel.waves) {
+    const tasks = taskCount(rows);
+    const start = startAtOnce(rows, config.maxParallel);
+    lines.push(`- Wave ${wave}: ${tasks === 0 ? "no task" : `${start} of ${tasks}`}`);
+  }
+  return lines.map((line) => `${line}\n`).join("");
+}
+
 /** The spec folder to read: the one `arg` names, else the active effort; or why there is none. */
 async function specFolder(
   cwd: string,
@@ -277,12 +313,17 @@ export async function plan(args: string[]): Promise<number> {
       }
       return 1;
     }
-    await Bun.write(
-      Bun.stdout,
-      json
-        ? `${JSON.stringify({ plan: shown, ...result }, null, 2)}\n`
-        : renderParallelWaves(result),
-    );
+    if (!json) {
+      await Bun.write(Bun.stdout, renderParallelWaves(result) + renderCap(result, config));
+      return 0;
+    }
+    const { maxParallel, maxParallelFrom } = config;
+    const waves = result.waves.map((wave) => ({
+      ...wave,
+      startAtOnce: startAtOnce(wave.rows, maxParallel),
+    }));
+    const data = { plan: shown, maxParallel, maxParallelFrom, ...result, waves };
+    await Bun.write(Bun.stdout, `${JSON.stringify(data, null, 2)}\n`);
     return 0;
   } catch (error) {
     console.error(error instanceof Error ? error.message : String(error));

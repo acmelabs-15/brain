@@ -4,7 +4,7 @@ A layout-2 repo with four specs, each a plan of a different shape, and no ideas.
 
 ## What it holds
 
-- `docs/agents/workspace.md`: a copy of setup-brain's template, so `layout: 2` and the default paths.
+- `docs/agents/workspace.md`: a copy of setup-brain's template, so `layout: 2`, the default paths and `max_parallel: 8`.
 - `docs/specs/SPEC-001-linear/`: a chain. Row 01 is resolved, row 02 is in progress, and each later row needs the one before it.
 - `docs/specs/SPEC-002-wide/`: row 01 is resolved, and four tasks need only row 01. Their task blocks share two files.
 - `docs/specs/SPEC-003-checkpoints/`: two phases, each closed by a checkpoint row. Row 04 needs nothing from phase one, so the two phases share a wave. Row 05 needs row 01 from phase one, so checkpoint 03 blocks it.
