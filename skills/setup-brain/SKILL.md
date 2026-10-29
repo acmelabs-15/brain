@@ -1,7 +1,6 @@
 ---
 name: setup-brain
 description: "Prepare a repo for brain: the domain docs layout and the issue tracker, and once per machine the plain-talk block in the Codex global AGENTS.md. Run once per repo before the other brain skills."
-disable-model-invocation: true
 ---
 
 # Setup brain

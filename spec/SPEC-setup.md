@@ -43,7 +43,7 @@ agent-skills uses, instead of `docs/adr/`. A repo that already keeps its ADRs in
 folder keeps using that folder. `domain-modeling` was seeded from matt for this change,
 because it names the folder too.
 
-Users: anyone who installs brain, once per repo. The skill is user-invoked only.
+Users: anyone who installs brain, once per repo. The user can run it as `/setup-brain`, and the agent can load it on its own (Peter, 2026-10-28).
 
 ## Process the skill follows
 
@@ -99,8 +99,8 @@ Bun 1.4.0, TypeScript, `bun:test`. No Node-only API.
 ## Project Structure
 
 ```
-skills/setup-brain/SKILL.md            user-invoked; disable-model-invocation: true
-skills/setup-brain/agents/openai.yaml  Codex: policy.allow_implicit_invocation: false
+skills/setup-brain/SKILL.md            model-invoked and user-invoked
+skills/setup-brain/agents/openai.yaml  Codex metadata, no policy block
 skills/setup-brain/domain.md           the consumer-rules template; brain-owned, adapted from matt's
 skills/setup-brain/issue-tracker-local.md, issue-tracker-github.md, issue-tracker-gitlab.md, triage-labels.md
                                        the tracker and label templates; brain-owned, adapted from matt's
