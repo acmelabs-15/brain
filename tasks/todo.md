@@ -7,7 +7,7 @@ ends with a checkpoint and a review with Peter.
 
 ## Phase 1: glossary rename (`feat/glossary-rename`, PR 1)
 
-- [ ] T01: Matt's pin to `d81f3a1`
+- [x] T01: Matt's pin to `d81f3a1`
   - Acceptance: `upstream.json` pins mattpocock-skills at `d81f3a183412e71a5b1e84ca21bc1a35eea03a60`; `bun run sync -- --only mattpocock-skills` changes only `skills/codebase-design/DESIGN-IT-TWICE.md` ("GLOSSARY.md vocabulary") and the lock; `sync --check` clean; its own commit
   - Verify: `bun run sync -- --check`; `git diff --stat HEAD~1`
   - Files: upstream.json, upstream.lock.json, skills/codebase-design/DESIGN-IT-TWICE.md
