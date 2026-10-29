@@ -734,6 +734,7 @@ cannot.
 | Sub-agent result files | A sub-agent writes its result to a file named after its task, task ID first (`T10-result.md`). No sub-agent file name starts with report, summary, findings or analysis: Claude Code refuses a sub-agent's write to such a `.md` file (a known open bug, no opt-out). The rule lives in the build brief and in `docs/agents/workspace.md` | Peter, 2026-10-29; two sub-agent writes refused on 2026-10-29 |
 | Task sub-agent reply | For a sub-agent that builds a task (a research sub-agent still replies with its RES path only), the reply is the result file's path plus one line: pass or fail, the commit SHA, and any question. The parent reads the full file only when the line says fail, flags a question, or a checkpoint review needs it | Peter, 2026-10-29 |
 | Research record names under that bug | `RES-NNN-<slug>.md` does not start with a refused word, so the research protocol stands. One throwaway sub-agent test confirms it before T21 | Peter, 2026-10-29 |
+| Parallel build | The rest of the build runs in parallel waves (the table in `tasks/plan.md`), at most 4 tasks at a time, the critical path first. Each parallel task runs in its own git worktree and commits there; the main session cherry-picks each commit onto `feat/workspace-layout`, resolves overlaps, and is the only writer of the ticks in `tasks/todo.md`. Measured 2026-10-29: 10 cores, 16 GB; one gate takes 41 s and keeps about 3 cores busy; the widest wave holds 5 tasks | Peter, 2026-10-29 |
 
 ## Rejected options
 

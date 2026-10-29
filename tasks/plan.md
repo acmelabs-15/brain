@@ -43,6 +43,37 @@ existing cases.
 The glossary rename is a wide but mechanical text change. It touches more than five files per
 task in T04 and T06; each of those diffs is a word swap the reviewer checks for intent only.
 
+## Parallel waves
+
+Worked out from the blocking edges on 2026-10-29, with T01 to T10 done and T11 running. Each
+wave is a frontier: every task in it can start once the waves above it are done, and the
+tasks in one wave can run at the same time. Waves cross phase lines; a phase checkpoint still
+reviews its own tasks.
+
+| Wave | Tasks |
+|---|---|
+| A | T11, T12, T13, T15, T18, T30 |
+| B | T14, T17 |
+| C | T16, T19, T26, T27 |
+| D | T20, T21, T29, T31 |
+| E | T22, T23, T32 |
+| F | T24 |
+| G | T25 |
+| H | T33 |
+| I | T34, T36 |
+| J | T28, T35, T37 |
+| K | T38 |
+| Then | T39 after the second ask; T40 after the 0.10.0 release |
+
+The critical path is 11 tasks long: T11, T17, T19, T21, T23, T24, T25, T33, T34, T35, T38.
+
+Tasks in one wave still share some files: `package.json` (T11, T14, T15, T16), `scripts/brain.ts`
+(T11, T14, T16), `scripts/lifecycle/` (T18, T23, T24, T28, T32), `.claude-plugin/plugin.json`
+(T18, T21, T32) and `tasks/todo.md` (every task). Parallel tasks therefore run in separate git
+worktrees, and the main session merges each one back in turn, resolves those small overlaps,
+and is the only writer of the ticks in `tasks/todo.md`. At most 4 tasks run at a time (Peter,
+2026-10-29), chosen from the frontier with the critical path first.
+
 ## Checkpoints
 
 Every phase ends with a checkpoint row in `tasks/todo.md` and a review with Peter.
