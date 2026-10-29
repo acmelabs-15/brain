@@ -209,7 +209,7 @@ ends with a checkpoint and a review with Peter.
 
 ### Checkpoint: phase 4
 - [x] `bun run check` green; every eval dry check passes (710 pass after T43 and T48, 2026-10-29)
-- [ ] Review with Peter
+- [x] Review with Peter: approved 2026-10-29 on probe evidence. A real `build-parallel` run ($0.45, Claude Code 2.1.312) stopped before any task: git does not run in the macOS eval sandbox (Apple's shim), and the session said why (`reason-for-fewer` passed). A probe ($0.005, haiku) showed the graders read a real trace: `tool: Agent` counts the starts, and the isolation input and the branch are readable. The harness refuses worktree isolation, so T52 adds a `git worktree add` fallback. The trace writes each result right after its own call, which broke T46's `started-at-once` grader; fixed in 9e720a59 (by message id). The real run moves to Linux CI at phase 6
 
 ## Phase 5: the protocol
 
@@ -262,6 +262,11 @@ ends with a checkpoint and a review with Peter.
   - Verify: the guard's tests red first; `bun test scripts/workspace scripts/hooks scripts/lifecycle scripts/evals`; `bun run plain-talk:render --check`
   - Files: scripts/workspace/status.ts and its tests and fixture READMEs, scripts/hooks/, scripts/lifecycle/names.ts, GLOSSARY.md, references/brain/stage-boundaries.md, skills/using-brain/SKILL.md, skills/status/SKILL.md, protocol/PROTOCOL.md, evals/setup/fresh-repo-resume/, spec/
   - Depends: T43, T48. Scope: M
+- [ ] T52: `/build auto` makes a worktree itself when the Agent tool cannot
+  - Acceptance: when the Agent tool gives no worktree (its result says isolation is unavailable, as the eval harness does, or the host has none), `/build auto` makes one with `git worktree add` from the branch head, runs the install there, and gives the sub-agent that path; Claude and Gemini share this one rule. After each fallback task, the main session compares its own tree's `git status` with the one taken before; if a sub-agent wrote there, it stops and tells the user before it merges anything. A fallback worktree is removed after its commit merges (`git worktree remove`, then `git worktree prune`); a failed task keeps its worktree, and the report names its path. The `build-parallel` graders accept a fallback start as well as an isolated one. The Decisions row on worktree sub-agents gains a dated amendment (Peter, 2026-10-29)
+  - Verify: `build-parallel` dry-check cases: a fallback run passes every grader; a sub-agent that writes in the main tree stops the build before any merge; a merged fallback worktree is gone, and a failed one stays and is named; T45's guard test covers the new rules; `bun run lifecycle:check`
+  - Files: .claude/commands/build.md, commands/build.toml, skills/incremental-implementation/SKILL.md, evals/lifecycle/build-parallel/, scripts/evals/__tests__/build-parallel.test.ts, scripts/lifecycle/__tests__/parallel-build.test.ts, docs/intent/workspace-and-stateful-interview.md
+  - Depends: T45. Scope: M
 - [ ] T51: spec-driven-development's phases become stages
   - Acceptance: as the Decisions row "Skill sections named phases" says. spec-driven-development's Phase 0 to 4 become stages in its headings and in every mention, there and in each brain-owned file that names them; `GLOSSARY.md`'s Phase entry gains Peter's line word for word; idea-refine's, debugging-and-error-recovery's and `/ship`'s section labels stay
   - Verify: `bun run lifecycle:check`; no "Phase 0" to "Phase 4" left in spec-driven-development or in a file that cites its sections
