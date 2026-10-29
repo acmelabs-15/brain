@@ -191,6 +191,50 @@ describe("writeCapabilities, toolchain checks", () => {
       "| `node --version` | `^18 \\|\\| ^20` | `engines` in `package.json` |",
     ]);
   });
+
+  test("a version check that AGENTS.md names is proposed from AGENTS.md; 'or later' makes it a lower bound", async () => {
+    const root = await repo("toolchain-agents", {
+      "package.json": pkg({ packageManager: "bun@1.4.4" }),
+      "AGENTS.md": [
+        "# Repo",
+        "",
+        "## Session start",
+        "",
+        "3. Check `git status` and the branch. Check `bun --version` (1.4.4 or later). Keep work you did not start.",
+        "- Run `node --version`; it must print 22.1.0.",
+        "",
+      ].join("\n"),
+    });
+    const result = await writeCapabilities({ brain, root, ...base });
+    expect(rows(result.text, "Toolchain")).toEqual([
+      "| `bun --version` | `1.4.4` | `packageManager` in `package.json` |",
+      "| `bun --version` | `>=1.4.4` | `AGENTS.md` |",
+      "| `node --version` | `22.1.0` | `AGENTS.md` |",
+    ]);
+  });
+
+  test("AGENTS.md: a check with no version, a version in the next sentence, an unknown tool and brain's own blocks are left out", async () => {
+    const root = await repo("toolchain-agents-none", {
+      "AGENTS.md": [
+        "Check `bun --version`. Then use release 2.0 of the docs.",
+        "Check `cargo --version` (1.80.0).",
+        "<!-- brain:protocol:start -->",
+        "Check `deno --version` (2.1.0).",
+        "<!-- brain:protocol:end -->",
+        "",
+      ].join("\n"),
+    });
+    const result = await writeCapabilities({ brain, root, ...base });
+    expect(rows(result.text, "Toolchain")).toEqual([]);
+  });
+
+  test("--omit leaves out a tool that AGENTS.md names", async () => {
+    const root = await repo("toolchain-agents-omit", {
+      "AGENTS.md": "Check `bun --version` (1.4.4 or later).\n",
+    });
+    const result = await writeCapabilities({ brain, root, ...base, omit: ["bun"] });
+    expect(rows(result.text, "Toolchain")).toEqual([]);
+  });
 });
 
 describe("writeCapabilities, servers", () => {

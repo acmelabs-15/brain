@@ -277,7 +277,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/lifecycle`; the two evals' dry checks
   - Files: skills/using-brain/SKILL.md, references/brain/phase-boundaries.md, scripts/lifecycle/, evals/lifecycle/{skill-not-skipped,no-overload}/*
   - Depends: T16, T21, T23, T24, T31, T33, T34, T49, T51 (moved to phase 6 at plan review; T49 and T51 added 2026-10-29). Scope: M
-- [ ] T35: the overlap report
+- [x] T35: the overlap report
   - Acceptance: maps each `AGENTS.md` heading to a protocol section or to `capabilities.md`; flags orphan lines and keeps them; says so and recommends report-only when git history shows other authors; one multi-select question; the `AGENTS.md` change is its own commit; `CLAUDE.md` overlap reported only; spec success criterion 13 on the `resume/AGENTS.md` fixture (copy at `ac74fb5`)
   - Verify: `bun test scripts/setup`
   - Files: scripts/setup/overlap.ts, scripts/setup/__tests__/overlap.test.ts, fixture, skills/setup-brain/SKILL.md

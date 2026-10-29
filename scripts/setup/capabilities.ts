@@ -5,9 +5,11 @@
  *
  * --skills names every skill the host lists to the agent; a dependency in package.json proposes the
  * installed skills named after it. packageManager and engines in package.json propose toolchain
- * checks. The MCP config file that each host reads from a repo proposes servers. --omit leaves out a
- * library, a server or a tool the user declined. An existing capabilities.md is the repo's file: a run
- * keeps it as it is and lists each proposed row it does not name. --dry-run lists and writes nothing.
+ * checks, and so does a `<tool> --version` check with its version that the repo's AGENTS.md names,
+ * so the overlap report can count that line as moved. The MCP config file that each host reads from
+ * a repo proposes servers. --omit leaves out a library, a server or a tool the user declined. An
+ * existing capabilities.md is the repo's file: a run keeps it as it is and lists each proposed row
+ * it does not name. --dry-run lists and writes nothing.
  */
 import { mkdir } from "node:fs/promises";
 
@@ -149,14 +151,13 @@ function libraryEntries(manifest: Record<string, unknown>, skills: string[]): En
   return entries;
 }
 
-function check(tool: string, range: string, field: string): Entry {
+/** A toolchain row; `from` is its From cell, as the file spells it. */
+function check(tool: string, range: string, from: string): Entry {
   const cell = code(`${tool} --version`);
-  return {
-    name: tool,
-    cell,
-    row: `| ${cell} | ${code(range)} | ${code(field)} in ${code("package.json")} |`,
-  };
+  return { name: tool, cell, row: `| ${cell} | ${code(range)} | ${from} |` };
 }
+
+const inPackageJson = (field: string) => `${code(field)} in ${code("package.json")}`;
 
 /**
  * Toolchain checks: the version `packageManager` pins, without its hash
@@ -169,16 +170,39 @@ function toolchainEntries(manifest: Record<string, unknown>): Entry[] {
   const pinned = /^(?<tool>[a-z]+)@(?<version>[^+]+)/u.exec(String(manifest.packageManager ?? ""));
   const { tool, version } = pinned?.groups ?? {};
   if (tool !== undefined && version !== undefined && tools.has(tool) && !version.includes(":")) {
-    entries.push(check(tool, version, "packageManager"));
+    entries.push(check(tool, version, inPackageJson("packageManager")));
   }
   const engines = isRecord(manifest.engines) ? manifest.engines : {};
   for (const [engine, range] of Object.entries(engines)) {
     const wanted = typeof range === "string" ? range.trim() : "";
     if (tools.has(engine) && wanted !== "" && wanted !== "*") {
-      entries.push(check(engine, wanted, "engines"));
+      entries.push(check(engine, wanted, inPackageJson("engines")));
     }
   }
   return entries;
+}
+
+/** brain's own blocks, each between its markers: setup-brain wrote them, so they hold no repo fact. */
+const brainBlock = /<!-- brain:(?<name>[a-z0-9-]+):start -->[\s\S]*?<!-- brain:\k<name>:end -->/gu;
+
+/**
+ * `<tool> --version` in a code span, then its version before the sentence ends (a period ends it
+ * unless a digit follows). "or later", "or newer" or a "+" after the version makes it a lower bound.
+ */
+const namedCheck =
+  /`(?<tool>[a-z]+) --version`(?:[^.\n]|\.(?=\d)){0,40}?(?<version>\d+\.\d+(?:\.\d+)?)(?<later>\+|\s+or\s+(?:later|newer|higher|above))?/gu;
+
+/** Toolchain checks that a hand-written AGENTS.md names with a version, once each. */
+function agentsEntries(text: string): Entry[] {
+  const entries = new Map<string, Entry>();
+  for (const match of text.replace(brainBlock, "").matchAll(namedCheck)) {
+    const { tool, version, later } = match.groups ?? {};
+    if (tool !== undefined && version !== undefined && tools.has(tool)) {
+      const entry = check(tool, later === undefined ? version : `>=${version}`, code("AGENTS.md"));
+      entries.set(entry.row, entry);
+    }
+  }
+  return [...entries.values()];
 }
 
 /** One row per server, naming every repo file that configures it, in host order. */
@@ -218,8 +242,14 @@ async function propose(
       found.set(name, [...(found.get(name) ?? []), path]);
     }
   }
+  const agents = Bun.file(`${root}/AGENTS.md`);
+  const named = (await agents.exists()) ? agentsEntries(await agents.text()) : [];
   const sections = [
-    { heading: "Toolchain", placeholder: "toolchain", entries: toolchainEntries(pkg) },
+    {
+      heading: "Toolchain",
+      placeholder: "toolchain",
+      entries: [...toolchainEntries(pkg), ...named],
+    },
     { heading: "Library skills", placeholder: "libraries", entries: libraryEntries(pkg, skills) },
     { heading: "Servers", placeholder: "servers", entries: serverEntries(found) },
   ];

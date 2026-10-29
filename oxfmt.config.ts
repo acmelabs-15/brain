@@ -25,5 +25,7 @@ export default defineConfig({
     // The fixtures are repos as an agent or brain 0.8 wrote them. The formatter would join a
     // glossary entry's lines into one and change the files the migrate mode takes as input.
     "scripts/workspace/__tests__/fixtures",
+    // A byte-for-byte copy of a user's hand-written AGENTS.md, the overlap report's input.
+    "scripts/setup/__tests__/fixtures",
   ],
 });

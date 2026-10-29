@@ -33,7 +33,9 @@ writes the workspace layout, the glossary rules and a `docs/STATUS.md` handoff n
 checks, library skills and MCP servers the repo needs, and writes it after your yes. On a
 machine with Codex it writes the plain-talk and protocol blocks into
 `~/.codex/AGENTS.md` once, or into this repo's `AGENTS.md` when you choose the project
-scope. `setup-brain --check` reports drift and writes nothing.
+scope. When the repo's `AGENTS.md` or `CLAUDE.md` already holds rules that brain now
+carries, it shows that overlap, and removes only the `AGENTS.md` sections you pick, in a
+commit of its own. `setup-brain --check` reports drift and writes nothing.
 
 ## What is inside
 

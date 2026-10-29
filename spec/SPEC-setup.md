@@ -79,6 +79,17 @@ file each host reads from a repo. The skill shows the dry run and writes the fil
 the user's yes, one question per call. An existing `capabilities.md` is the repo's file: a
 run keeps it and lists each proposed row it does not name.
 
+**Amended 2026-10-29, by the overlap report (`SPEC-workspace.md`, task T35).** A third
+script, `scripts/setup/overlap.ts`, reports where the repo's `AGENTS.md`, `CLAUDE.md`,
+`.claude/CLAUDE.md` and `GEMINI.md` repeat brain's protocol, which it reads from the plugin
+at run time, or the facts in `capabilities.md`. It lists each line as covered, moved or
+orphan, and names the other authors in the git history. The skill shows the report and asks
+one multi-select question, and recommends report-only when other people commit to the repo.
+On the user's pick, `--remove` trims each picked `AGENTS.md` section to its orphan lines, in
+one commit that holds `AGENTS.md` alone. `CLAUDE.md` and `GEMINI.md` are reported only.
+`capabilities.ts` also proposes a toolchain check that `AGENTS.md` names with its version, so
+that line counts as moved.
+
 
 Users: anyone who installs brain, once per repo. The user can run it as `/setup-brain`, and the agent can load it on its own (Peter, 2026-10-28).
 
@@ -141,6 +152,9 @@ scripts/setup/write.ts
 scripts/setup/__tests__/write.test.ts
 scripts/setup/capabilities.ts          proposes and writes capabilities.md
 scripts/setup/__tests__/capabilities.test.ts
+scripts/setup/overlap.ts               reports what brain now carries; removes the picked AGENTS.md sections
+scripts/setup/__tests__/overlap.test.ts
+scripts/setup/__tests__/fixtures/      a hand-written AGENTS.md, copied byte for byte
 scripts/plain-talk/block.ts            the marker replace, shared with the renderer
 ```
 
