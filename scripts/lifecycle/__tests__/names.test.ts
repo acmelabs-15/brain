@@ -2,7 +2,13 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { mkdir, mkdtemp, rm, symlink } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
-import { checkGlossaryTerms, checkRetiredNames, glossaryTerms } from "../names";
+import {
+  checkFallbackExpiry,
+  checkGlossaryTerms,
+  checkRetiredNames,
+  fallbackRemovedIn,
+  glossaryTerms,
+} from "../names";
 
 let work: string;
 
@@ -107,11 +113,46 @@ describe("checkGlossaryTerms", () => {
   });
 });
 
+describe("checkFallbackExpiry", () => {
+  const fallback = "- A repo with no `GLOSSARY.md` but an old `CONTEXT.md` keeps it there.\n";
+  const withFallback = (version: string) => ({
+    "package.json": JSON.stringify({ version }),
+    "plain-talk/PLAIN-TALK.md": `# Talk\n${fallback}`,
+    "skills/setup-brain/domain.md": `# Domain\n${fallback}`,
+  });
+
+  test("before the removal release the fallback may stay", async () => {
+    const root = await tree("fallback-early", withFallback("0.9.0"));
+    expect(await checkFallbackExpiry(root)).toEqual([]);
+  });
+
+  test("from the removal release on, each file that keeps it is a finding", async () => {
+    for (const version of [fallbackRemovedIn, "0.10.1", "1.0.0", `${fallbackRemovedIn}-next.0`]) {
+      const root = await tree(`fallback-due-${version}`, withFallback(version));
+      const found = await checkFallbackExpiry(root);
+      expect(found.map((f) => [f.kind, f.file])).toEqual([
+        ["expired-fallback", "plain-talk/PLAIN-TALK.md"],
+        ["expired-fallback", "skills/setup-brain/domain.md"],
+      ]);
+    }
+  });
+
+  test("once the sentence is gone the check passes at any version", async () => {
+    const root = await tree("fallback-gone", {
+      "package.json": JSON.stringify({ version: "0.11.0" }),
+      "plain-talk/PLAIN-TALK.md": "# Talk\n",
+      "skills/setup-brain/domain.md": "# Domain\n",
+    });
+    expect(await checkFallbackExpiry(root)).toEqual([]);
+  });
+});
+
 describe("brain itself", () => {
   const shipped = `${import.meta.dir}/../../..`;
 
   test("names no retired name outside history, and its glossary is complete", async () => {
     expect(await checkRetiredNames(shipped)).toEqual([]);
     expect(await checkGlossaryTerms(shipped)).toEqual([]);
+    expect(await checkFallbackExpiry(shipped)).toEqual([]);
   });
 });

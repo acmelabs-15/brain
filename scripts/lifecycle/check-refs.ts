@@ -8,7 +8,7 @@
 import { readdir } from "node:fs/promises";
 
 import type { Finding } from "./finding";
-import { checkGlossaryTerms, checkRetiredNames } from "./names";
+import { checkFallbackExpiry, checkGlossaryTerms, checkRetiredNames } from "./names";
 
 export type Ref = { prefix: string | null; name: string };
 
@@ -113,6 +113,7 @@ if (import.meta.main) {
     ...(await checkRefs(root)),
     ...(await checkRetiredNames(root)),
     ...(await checkGlossaryTerms(root)),
+    ...(await checkFallbackExpiry(root)),
   ];
   for (const finding of findings) {
     console.log(`${finding.kind.padEnd(14)} ${finding.file}: ${finding.detail}`);
