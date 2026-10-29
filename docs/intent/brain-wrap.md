@@ -2,8 +2,7 @@
 
 Confirmed by Peter on 2026-09-19 after an interview of eight questions.
 
-Amended 2026-10-29: the glossary is renamed from `CONTEXT.md` to `GLOSSARY.md`; see
-`docs/intent/workspace-and-stateful-interview.md`.
+Amended 2026-10-29: the glossary is renamed from `CONTEXT.md` to `GLOSSARY.md`; see `docs/intent/workspace-and-stateful-interview.md`.
 
 - **Outcome:** brain is one public plugin for Claude Code, Codex CLI, Gemini CLI and
   Antigravity CLI. It carries agent-skills unchanged where no improvement applies, and where
