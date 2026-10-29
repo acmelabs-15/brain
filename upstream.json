@@ -118,7 +118,7 @@
     },
     "ask-user-question": {
       "repo": "acmelabs-15/ask-user-question",
-      "sha": "6e9d8a7994d5fb717bb0c294e908f442ff52484b",
+      "sha": "62d3b797efc672758b803d3b7bc08bab210562bc",
       "seed": [
         {
           "from": "skills/ask-user-question",
