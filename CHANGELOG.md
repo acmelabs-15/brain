@@ -1,5 +1,11 @@
 # @acmelabs/brain
 
+## 0.9.0
+
+### Minor Changes
+
+- [#13](https://github.com/acmelabs-15/brain/pull/13) [`392fc5f`](https://github.com/acmelabs-15/brain/commit/392fc5f429ecbc41010b2a95280eadcf737483d7) - The glossary is now `GLOSSARY.md`, and `GLOSSARY-MAP.md` for a repo with several contexts. Matt Pocock's skills read these names since mattpocock/skills [#1120](https://github.com/acmelabs-15/brain/issues/1120). Until version 0.11.0, brain still reads an old `CONTEXT.md` when no `GLOSSARY.md` exists, and reminds you once to run `setup-brain`. setup-brain offers to move the file with `git mv`, so it keeps its history. brain also gets a `GLOSSARY.md` of its own.
+
 ## 0.8.0
 
 ### Minor Changes
