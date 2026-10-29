@@ -81,8 +81,8 @@ ends with a checkpoint and a review with Peter.
   - Files: scripts/setup/migrate.ts, scripts/setup/write.ts, scripts/setup/__tests__/migrate.test.ts, docs/decisions/DEC-00{1,2}-*.md, docs/research/RES-00{1..5}-*.md
   - Depends: T10. Scope: M
 - [ ] T14: `brain check`, in the gate
-  - Acceptance: one finding line and exit 1 for each rule in spec success criterion 3; exit 0 on clean fixtures; paths from the config; `package.json` gains `workspace:check`, and `check` runs it
-  - Verify: one fixture per rule (CLI seam); `bun run check` green on brain
+  - Acceptance: one finding line and exit 1 for each rule in spec success criterion 3; exit 0 on clean fixtures; row checks skip a migrated file; one informational line, exit unchanged, when migrated decisions have no `kind` ("3 migrated decisions have no kind: DEC-001, DEC-002, DEC-005"); paths from the config; `package.json` gains `workspace:check`, and `check` runs it
+  - Verify: one fixture per rule (CLI seam), and one for the informational line; `bun run check` green on brain
   - Files: scripts/workspace/check.ts, scripts/workspace/__tests__/check.test.ts, fixtures, package.json
   - Depends: T11, T12, T13. Scope: M
 - [ ] T15: `sync --check` in the gate, and the survival test
@@ -123,7 +123,7 @@ ends with a checkpoint and a review with Peter.
   - Files: skills/interview-me/SKILL.md, evals/lifecycle/interview-resume/*
   - Depends: T19. Scope: M
 - [ ] T21: interview-me (c), delegating research
-  - Acceptance: `skills/interview-me/RESEARCH.md` holds the brief (writing-for-agents; `references/brain/agent-brief.md` read as a reference; `brain new-doc RES`; findings written as confirmed; the optional validator from `brain sdd-cache lookup` when it answers; path-only reply; no other agents); `claude/agents/researcher.md` with `disallowedTools: Agent` and "Follow the research brief you are given.", listed in `.claude-plugin/plugin.json`; other hosts use their general-purpose agent with the same brief
+  - Acceptance: before any edit, one throwaway sub-agent writes a `RES-999-probe.md` file in a temp folder, to confirm Claude Code lets a sub-agent write a RES name (then delete it); `skills/interview-me/RESEARCH.md` holds the brief (writing-for-agents; `references/brain/agent-brief.md` read as a reference; `brain new-doc RES`; findings written as confirmed; the optional validator from `brain sdd-cache lookup` when it answers; path-only reply; no other agents); `claude/agents/researcher.md` with `disallowedTools: Agent` and "Follow the research brief you are given.", listed in `.claude-plugin/plugin.json`; other hosts use their general-purpose agent with the same brief
   - Verify: `bun run lifecycle:check`; `bun run validate`
   - Files: skills/interview-me/{SKILL.md,RESEARCH.md}, claude/agents/researcher.md, .claude-plugin/plugin.json
   - Depends: T18, T19. Scope: M

@@ -77,7 +77,21 @@ because the success criteria test them.
   outside a git repo, under a folder in the user's cache directory.
 - **Migrated files.** `from` is required for new `DEC` and `RES` files. A file the migrate
   mode gave frontmatter carries `migrated: 0.8` instead; `brain check` accepts a missing `from`
-  only with that marker. `evidence` is optional for all files.
+  only with that marker. `evidence` is optional for all files. A migrated file needs only its
+  identity field (`id`, or `spec` in a spec folder); every other field is optional and is
+  checked when present, and its body is not checked. The migration fills a DEC's `decided`
+  and a RES's `date` (the date only) from the file's first git commit; every other unknown
+  field stays absent. When a decisions listing exists (this build adds none), a migrated
+  decision without a `kind` appears
+  in its own "migrated, not classified" group.
+- **Unclassified decisions.** `brain check` prints one informational line, not a failure, when
+  migrated decisions have no `kind`: "3 migrated decisions have no kind: DEC-001, DEC-002,
+  DEC-005".
+- **Sub-agent result files.** A sub-agent writes its result to a file named after its task,
+  task ID first (`T10-result.md`), never a name that starts with report, summary, findings or
+  analysis, which Claude Code refuses for a sub-agent. A task sub-agent replies with that path
+  plus one line: pass or fail, the commit SHA, any question. `workspace.md` states the naming
+  rule.
 - **Specs produced.** An idea file holds no list of its specs. `brain status` shows each idea's
   specs, computed from every `spec.md`'s `sources:` list.
 - **`brain status` output.** Five lines by default: phase, last completed step, next step,

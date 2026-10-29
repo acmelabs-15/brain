@@ -47,3 +47,7 @@ An effort is the idea or spec that a session works on. The active effort is the 
 - An idea: compute the frontier of its map, and take the next row. The frontier is every `open` row whose `Blocked by` rows are all `resolved`.
 - A spec: take the next row on the frontier of `tasks/plan.md`. Its block in `tasks/todo.md` holds the detail.
 - An idea with `status: specced` is done. Resume the spec that lists it in `sources:`.
+
+## Sub-agents
+
+A sub-agent writes its result to a file named after its task or record, the ID first: `T10-result.md`, `RES-032-<slug>.md`. A sub-agent's file name never starts with report, summary, findings or analysis: Claude Code refuses a sub-agent's write to such a `.md` file.
