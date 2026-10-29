@@ -8,7 +8,7 @@ Status: approved 2026-09-19; amended the same day, see the amendment note.
 The agent talks plain on every turn, in all four hosts, from one source text.
 Plain means: one line of context first, ASD-STE100 Simplified Technical English,
 the project's own words from `CONTEXT.md`, a table for a choice and a list for a
-sequence. The repair when a message still fails is the vendored `wait-what` skill.
+sequence. The repair when a message still fails is the `wait-what` skill, which the agent loads on its own when the user shows confusion.
 
 Whether the text works is not assumed. The `evals` module measures it, and the
 text is versioned so it can be tuned.

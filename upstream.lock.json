@@ -212,14 +212,6 @@
       "upstream": "agent-skills",
       "sha256": "c59faf851377f0eeda45306398d16eb96d77ab1c2fd3e1a7fb58e9a0af33c1e9"
     },
-    "skills/wait-what/SKILL.md": {
-      "upstream": "mattpocock-skills",
-      "sha256": "e3f44e3ccbc0e7b62f20ba70b295fc9c9f4aa3f96c77168faee1c71bacbf4215"
-    },
-    "skills/wait-what/agents/openai.yaml": {
-      "upstream": "mattpocock-skills",
-      "sha256": "b41faadf741d51e4ea184148b2d1854d93f947aaf754c7844f70a00f04194999"
-    },
     "skills/writing-for-agents/SKILL-MECHANICS.md": {
       "upstream": "mattpocock-skills",
       "sha256": "c768e6307c7c10728c401c213f2c4ba71c542127eeb7ad2956aabd15a0fa0059"
@@ -385,6 +377,14 @@
     "skills/using-brain/SKILL.md": {
       "upstream": "agent-skills",
       "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/wait-what/SKILL.md": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
+    },
+    "skills/wait-what/agents/openai.yaml": {
+      "upstream": "mattpocock-skills",
+      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
     },
     "skills/wayfinder/SKILL.md": {
       "upstream": "mattpocock-skills",

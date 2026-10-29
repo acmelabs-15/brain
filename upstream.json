@@ -80,10 +80,6 @@
       "sha": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7",
       "take": [
         {
-          "from": "skills/productivity/wait-what",
-          "to": "skills/wait-what"
-        },
-        {
           "from": "skills/productivity/writing-for-agents",
           "to": "skills/writing-for-agents"
         },
@@ -113,6 +109,10 @@
         {
           "from": "skills/engineering/wayfinder",
           "to": "skills/wayfinder"
+        },
+        {
+          "from": "skills/productivity/wait-what",
+          "to": "skills/wait-what"
         }
       ]
     },
