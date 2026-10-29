@@ -64,7 +64,7 @@ Take the next frontier question. When several are open, pick the one with the mo
 
 Your hypothesis for the answer is the recommended option, with the reasoning that produced it. The user reacts faster to a wrong guess than they generate an answer from scratch. The recommendation commits you to a hypothesis you can be visibly wrong about, which keeps you honest. It surfaces your assumptions, which is what the interview exists to expose. The risk is a polite user picking your recommendation to be agreeable. Be visibly willing to be wrong, and now and then recommend the direction you expect them to push back on.
 
-Domain words come from `CONTEXT.md`, read through `docs/agents/domain.md`. A question names a concept with the glossary's term. A concept the glossary lacks is a gap to note for the domain-modeling skill.
+Domain words come from `GLOSSARY.md`, read through `docs/agents/domain.md`. A question names a concept with the glossary's term. A concept the glossary lacks is a gap to note for the domain-modeling skill.
 
 Why one per call, not a batch: the user cannot react to your hypotheses if you bury them in a list. Batches invite skim-reading and surface answers. The third question often depends on the answer to the first, and asking them together locks in the wrong framing. The user's energy for careful thought is finite; spend it one question at a time.
 
@@ -74,7 +74,7 @@ Read the whole reply. Free text is not rejection. A reply can carry a condition,
 
 Each answer reshapes the tree. A settled decision pushes the frontier outward and unblocks the questions that depended on it. A correction can prune a branch or add one. Recompute the frontier, then return to Step 3 for the next question.
 
-When a repo is present, keep a paper trail as you go. Call the Skill tool with "domain-modeling" after an answer that sharpens a term or resolves a decision: it writes the term to `CONTEXT.md` and the decision to an ADR at the moment they crystallise. Without a repo the interview is stateless, and the restate in Step 6 is the only record.
+When a repo is present, keep a paper trail as you go. Call the Skill tool with "domain-modeling" after an answer that sharpens a term or resolves a decision: it writes the term to `GLOSSARY.md` and the decision to an ADR at the moment they crystallise. Without a repo the interview is stateless, and the restate in Step 6 is the only record.
 
 ### Step 5: Listen for "want" versus "should want"
 
@@ -133,7 +133,7 @@ The stop has a floor. If you have gone several rounds and the frontier is not sh
 
 The output of this skill is a **confirmed statement of intent**: the restate from Step 6 with the explicit yes from Step 7. That is the deliverable. Specs, plans and task lists are downstream; they consume the intent this skill produces.
 
-When a repo is present, the terms and decisions already sit in `CONTEXT.md` and `docs/decisions/` from Step 4. If the user wants the intent itself to persist (a multi-session project, a handoff to another collaborator), offer to save it to `docs/intent/<topic>.md`. Save only if they confirm.
+When a repo is present, the terms and decisions already sit in `GLOSSARY.md` and `docs/decisions/` from Step 4. If the user wants the intent itself to persist (a multi-session project, a handoff to another collaborator), offer to save it to `docs/intent/<topic>.md`. Save only if they confirm.
 
 ## Example
 

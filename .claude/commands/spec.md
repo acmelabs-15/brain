@@ -2,7 +2,7 @@
 description: Start spec-driven development — write a structured specification before writing code
 ---
 
-Invoke the brain:spec-driven-development skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `CONTEXT.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
+Invoke the brain:spec-driven-development skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `GLOSSARY.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
 
 Begin by understanding what the user wants to build. When the ask is underspecified, the skill runs brain:interview-me first, one question per call. Cover:
 1. The objective and target users

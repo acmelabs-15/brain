@@ -9,7 +9,7 @@ description: Guides root-cause debugging behind one gate, a feedback loop that g
 
 Systematic debugging with one gate in front of it: a feedback loop that goes red on this bug. When something breaks, stop adding features, preserve evidence, build the loop, and only then work the triage checklist to the root cause. Guessing wastes time. The process works for test failures, build errors, runtime bugs, performance regressions, and production incidents.
 
-Before you explore the codebase, read `docs/agents/domain.md` and, through it, `CONTEXT.md`. Name modules and concepts with the glossary's words. Check the ADRs for the area you touch. A concept the glossary lacks is a gap: note it for the domain-modeling skill.
+Before you explore the codebase, read `docs/agents/domain.md` and, through it, `GLOSSARY.md`. Name modules and concepts with the glossary's words. Check the ADRs for the area you touch. A concept the glossary lacks is a gap: note it for the domain-modeling skill.
 
 ## When to Use
 

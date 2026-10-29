@@ -41,7 +41,7 @@ For each slice:
 4. **Commit**: save your progress with a descriptive message (see `git-workflow-and-versioning` for atomic commit guidance)
 5. **Move to the next slice**: carry forward, don't restart
 
-Names in code, tests and commit messages come from `CONTEXT.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for the domain-modeling skill.
+Names in code, tests and commit messages come from `GLOSSARY.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for the domain-modeling skill.
 
 After the last slice, the Verification section below closes the task.
 

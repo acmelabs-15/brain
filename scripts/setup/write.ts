@@ -1,7 +1,7 @@
 /**
  * Write what brain's skills assume is in a repo, and the one file Codex needs on this machine.
  *
- *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker local|github|gitlab] [--repo owner/name] [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--dry-run] [--brain <plugin root>]
+ *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker local|github|gitlab] [--repo owner/name] [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--dry-run] [--brain <plugin root>]
  *
  * docs/agents/domain.md gets the consumer rules with the layout named.
  * docs/agents/issue-tracker.md and docs/agents/triage-labels.md come from the templates, local tracker by default.
@@ -19,7 +19,12 @@ import { replaceBlock } from "../plain-talk/block";
 export type Layout = "single" | "multi";
 export type Tracker = "local" | "github" | "gitlab";
 export type CodexScope = "global" | "project";
-export type Change = { path: string; action: "created" | "updated" | "unchanged" | "skipped" };
+export type Change = {
+  path: string;
+  action: "created" | "updated" | "unchanged" | "skipped" | "moved";
+  /** Why a change was skipped, printed beside it. */
+  note?: string;
+};
 export type SetupInput = {
   brain: string;
   root: string;
@@ -31,7 +36,57 @@ export type SetupInput = {
   codexHome?: string | null;
   /** Where the Codex block goes: the global file (default) or this repo's AGENTS.md. */
   codexScope?: CodexScope;
+  /** Move a root CONTEXT.md and CONTEXT-MAP.md to the GLOSSARY names with `git mv`. */
+  renameGlossary?: boolean;
 };
+
+const glossaryMoves = [
+  ["CONTEXT.md", "GLOSSARY.md"],
+  ["CONTEXT-MAP.md", "GLOSSARY-MAP.md"],
+] as const;
+
+function tracked(root: string, path: string): boolean {
+  return Bun.spawnSync(["git", "ls-files", "--error-unmatch", path], { cwd: root }).exitCode === 0;
+}
+
+/**
+ * Move each root glossary file to its new name with `git mv`, so it keeps its history.
+ * Every outcome is decided before the first move, so a dry run reports what a real run
+ * does, and a file that cannot move never leaves the others half moved. Per-context
+ * files that a map lists stay where they are.
+ */
+async function moveGlossaryFiles(input: SetupInput): Promise<Change[]> {
+  const planned: Change[] = [];
+  for (const [from, to] of glossaryMoves) {
+    if (!(await Bun.file(`${input.root}/${from}`).exists())) {
+      continue;
+    }
+    const path = `${from} -> ${to}`;
+    if (await Bun.file(`${input.root}/${to}`).exists()) {
+      planned.push({ path, action: "skipped", note: `${to} already exists` });
+    } else if (tracked(input.root, from)) {
+      planned.push({ path, action: "moved" });
+    } else {
+      planned.push({ path, action: "skipped", note: "not tracked by git; move it by hand" });
+    }
+  }
+  if (input.dryRun) {
+    return planned;
+  }
+  const done: string[] = [];
+  for (const [from, to] of glossaryMoves) {
+    if (!planned.some((c) => c.path === `${from} -> ${to}` && c.action === "moved")) {
+      continue;
+    }
+    const moved = Bun.spawnSync(["git", "mv", from, to], { cwd: input.root });
+    if (moved.exitCode !== 0) {
+      const before = done.length > 0 ? `; already moved: ${done.join(", ")}` : "";
+      throw new Error(`git mv ${from} ${to} failed: ${moved.stderr.toString().trim()}${before}`);
+    }
+    done.push(from);
+  }
+  return planned;
+}
 
 export function defaultCodexHome(): string {
   return process.env.CODEX_HOME ?? `${homedir()}/.codex`;
@@ -74,7 +129,7 @@ async function writeCodex(input: SetupInput, block: string): Promise<Change | nu
   const home = input.codexHome ?? defaultCodexHome();
   const path = `${home}/AGENTS.md`;
   if (!(await isDirectory(home))) {
-    return { path, action: "skipped" };
+    return { path, action: "skipped", note: "no Codex home directory" };
   }
   const current = (await readIfPresent(path)) ?? "";
   return put(input, path, path, replaceBlock(current, block, path));
@@ -84,7 +139,8 @@ export async function writeSetup(input: SetupInput): Promise<Change[]> {
   const block = await Bun.file(`${input.brain}/plain-talk/AGENTS-block.md`).text();
   const domainTemplate = await Bun.file(`${input.brain}/skills/setup-brain/domain.md`).text();
   const layoutName = input.layout === "single" ? "single-context" : "multi-context";
-  const changes: Change[] = [];
+  // The glossary move runs first, so the change list shows it at the top.
+  const changes: Change[] = input.renameGlossary === true ? await moveGlossaryFiles(input) : [];
 
   const codex = await writeCodex(input, block);
   if (codex !== null) {
@@ -166,6 +222,10 @@ function parseArgs(argv: string[]): SetupInput {
       input.dryRun = true;
       continue;
     }
+    if (flag === "--rename-glossary") {
+      input.renameGlossary = true;
+      continue;
+    }
     if (flag === "--no-codex") {
       input.codexHome = null;
       continue;
@@ -181,8 +241,8 @@ function parseArgs(argv: string[]): SetupInput {
 }
 
 function note(change: Change, dryRun: boolean): string {
-  if (change.action === "skipped") {
-    return "  (no Codex home directory)";
+  if (change.note !== undefined) {
+    return `  (${change.note})`;
   }
   return dryRun ? "  (dry run)" : "";
 }

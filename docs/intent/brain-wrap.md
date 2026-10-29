@@ -2,6 +2,8 @@
 
 Confirmed by Peter on 2026-09-19 after an interview of eight questions.
 
+Amended 2026-10-29: the glossary is renamed from `CONTEXT.md` to `GLOSSARY.md`; see `docs/intent/workspace-and-stateful-interview.md`.
+
 - **Outcome:** brain is one public plugin for Claude Code, Codex CLI, Gemini CLI and
   Antigravity CLI. It carries agent-skills unchanged where no improvement applies, and where
   one does, enhances the addy skill under its own name (amended 2026-09-19, see below), adds matt's gap skills, keeps a CONTEXT.md glossary
@@ -39,7 +41,7 @@ Confirmed by Peter on 2026-09-19 after an interview of eight questions.
 |---|---|---|
 | Capability map | six modules: upstream-sync, host-manifests, plain-talk, setup, lifecycle, evals | `spec/CAPABILITY-MAP.md`, approved 2026-09-19 |
 | Scope of the wrap | addy's skills, references, agents and hooks are vendored; commands are seeded once and brain-owned | Peter: "not only the Addy skills, also commands, hooks, etc"; the `agent-skills:` namespace in addy's Claude commands |
-| Releases and marketplace | changesets and the release workflow copied from acmelabs-15/ask-user-question: tag v<version>, GitHub release, moving latest; the entry in acmelabs-15/marketplace points at ref latest | Peter, 2026-09-19 |
+| Releases and marketplace | changesets and the release workflow copied from acmelabs-15/ask-user-question: tag `v<version>`, GitHub release, moving latest; the entry in acmelabs-15/marketplace points at ref latest | Peter, 2026-09-19 |
 
 ## Lifecycle decisions, 2026-09-19
 

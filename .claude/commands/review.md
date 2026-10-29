@@ -2,7 +2,7 @@
 description: Conduct a five-axis code review — correctness, readability, architecture, security, performance
 ---
 
-Invoke the brain:code-review-and-quality skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `CONTEXT.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
+Invoke the brain:code-review-and-quality skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `GLOSSARY.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
 
 Pin the fixed point first, as the skill's Step 0 says: the diff since a commit, branch or merge-base the user names, or the current changes when they name none. Then run the five axes as parallel sub-agents, one brief each:
 

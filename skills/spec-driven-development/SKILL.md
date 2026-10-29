@@ -101,7 +101,7 @@ The spec exists to surface misunderstandings before code is written. Assumptions
 
 The main tree keeps only the validated decision. The prototype directory stays out of the spec's Project Structure.
 
-**5. Write the spec.** Name every domain concept with the glossary's words. They come from `CONTEXT.md` through `docs/agents/domain.md`, which also lists the ADRs to respect. A concept the glossary lacks is a gap to note for the domain-modeling skill, not a synonym to coin.
+**5. Write the spec.** Name every domain concept with the glossary's words. They come from `GLOSSARY.md` through `docs/agents/domain.md`, which also lists the ADRs to respect. A concept the glossary lacks is a gap to note for the domain-modeling skill, not a synonym to coin.
 
 Cover these six core areas first:
 

@@ -2,7 +2,7 @@
 description: Implement tasks incrementally — build, test, verify, commit. Add "auto" to run the whole plan in one approved pass.
 ---
 
-Invoke the brain:incremental-implementation skill alongside brain:test-driven-development. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `CONTEXT.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
+Invoke the brain:incremental-implementation skill alongside brain:test-driven-development. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `GLOSSARY.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
 
 ## Modes
 

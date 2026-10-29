@@ -45,7 +45,7 @@ The spec may already carry the seams (`SPEC.md` or `spec/`, section Prior-art te
 
 When the shape of the interface is itself in question (how deep the module is, where the seam belongs, what the interface exposes), read the codebase-design skill. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms. It is a reference to consult, not a session to run.
 
-Name each seam and each test in the project's domain words. Read `docs/agents/domain.md`, which points at `CONTEXT.md` and the ADRs for the area. A concept the glossary lacks is a gap. Note it for the domain-modeling skill; do not coin a synonym.
+Name each seam and each test in the project's domain words. Read `docs/agents/domain.md`, which points at `GLOSSARY.md` and the ADRs for the area. A concept the glossary lacks is a gap. Note it for the domain-modeling skill; do not coin a synonym.
 
 ## The TDD Cycle
 

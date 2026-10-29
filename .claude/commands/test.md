@@ -2,7 +2,7 @@
 description: Run TDD workflow — write failing tests, implement, verify. For bugs, use the Prove-It pattern.
 ---
 
-Invoke the brain:test-driven-development skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `CONTEXT.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
+Invoke the brain:test-driven-development skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `GLOSSARY.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
 
 For new features:
 1. Write tests that describe the expected behavior (they should FAIL)

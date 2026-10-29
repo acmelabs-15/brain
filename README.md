@@ -6,7 +6,7 @@ Gemini CLI and Antigravity CLI.
 brain carries [Addy Osmani's agent-skills](https://github.com/addyosmani/agent-skills)
 unchanged and adds three things:
 
-- **A glossary discipline.** Matt Pocock's `domain-modeling` skill keeps a `CONTEXT.md`
+- **A glossary discipline.** Matt Pocock's `domain-modeling` skill keeps a `GLOSSARY.md`
   glossary and one-paragraph ADRs, and every brain skill reads the glossary before it
   names a domain concept.
 - **Plain talk on every turn.** One text, rendered for each host: an output style for
