@@ -62,6 +62,15 @@ capability map becomes a DEC file. When a plan sits beside several specs, the sk
 the user which spec it belongs to, one question, and passes the answer as `--plan-spec`;
 without that answer the script exits 2.
 
+**Amended 2026-10-29, by the workspace install flow (`SPEC-workspace.md`, task T34).** A
+second script, `scripts/setup/capabilities.ts`, proposes `docs/agents/capabilities.md` from
+the repo's files: toolchain checks from `packageManager` and `engines`, library skills from
+the dependencies matched against the skills the host lists, and servers from the MCP config
+file each host reads from a repo. The skill shows the dry run and writes the file only after
+the user's yes, one question per call. An existing `capabilities.md` is the repo's file: a
+run keeps it and lists each proposed row it does not name.
+
+
 Users: anyone who installs brain, once per repo. The user can run it as `/setup-brain`, and the agent can load it on its own (Peter, 2026-10-28).
 
 ## Process the skill follows
@@ -118,8 +127,11 @@ Bun 1.4.0, TypeScript, `bun:test`. No Node-only API.
 skills/setup-brain/SKILL.md            model-invoked and user-invoked
 skills/setup-brain/agents/openai.yaml  Codex metadata, no policy block
 skills/setup-brain/domain.md           the consumer-rules template; brain-owned, adapted from matt's
+skills/setup-brain/capabilities.md     the capabilities template: toolchain, library skills, servers
 scripts/setup/write.ts
 scripts/setup/__tests__/write.test.ts
+scripts/setup/capabilities.ts          proposes and writes capabilities.md
+scripts/setup/__tests__/capabilities.test.ts
 scripts/plain-talk/block.ts            the marker replace, shared with the renderer
 ```
 

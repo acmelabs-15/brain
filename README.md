@@ -29,7 +29,9 @@ One install per host. Each page has install, verify, update and remove:
 
 Then, once per repo, run `setup-brain`. It checks for bun, which brain's scripts need, and
 writes the workspace layout, the glossary rules and a `docs/STATUS.md` handoff note into
-`docs/`. On a machine with Codex it writes the plain-talk and protocol blocks into
+`docs/`. It proposes `docs/agents/capabilities.md` from the repo's files, the toolchain
+checks, library skills and MCP servers the repo needs, and writes it after your yes. On a
+machine with Codex it writes the plain-talk and protocol blocks into
 `~/.codex/AGENTS.md` once, or into this repo's `AGENTS.md` when you choose the project
 scope. `setup-brain --check` reports drift and writes nothing.
 

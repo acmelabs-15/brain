@@ -207,6 +207,7 @@ setup-brain now writes `docs/agents/workspace.md` and a `docs/STATUS.md` seed be
   does not exist. No grader reads a tool call: whether the plugin's `SessionStart` hook
   runs inside `claude plugin eval` is not verified, and with the hook a session needs no
   call to know its state. Its dry check shows that `brain status` and the hook give the
-  same lines.
+  same lines. Its scaffold also holds `docs/agents/capabilities.md`, written by setup-brain's
+  capabilities script, which the dry check finds in place (T34).
 
 Each setup case has a dry check, `scripts/evals/__tests__/<case>.test.ts`.

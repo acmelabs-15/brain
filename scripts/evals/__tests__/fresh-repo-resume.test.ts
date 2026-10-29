@@ -1,7 +1,8 @@
 /**
  * The dry check of the eval case `setup/fresh-repo-resume`, with no model run. It builds the
  * case's scaffold and proves it is the repo `/setup-brain` leaves on Claude Code: the setup
- * writer finds every file in place, and the repo's own `AGENTS.md` holds no brain text. It
+ * writer and the capabilities script find every file in place, and the repo's own `AGENTS.md`
+ * holds no brain text. It
  * shows that `brain status` and the session-start hook both give the words the graders look
  * for, so the case holds whether or not the hook runs in an eval session. Then it plays a
  * correct report and faulty ones, and applies the case's computed graders to each, as
@@ -13,6 +14,7 @@ import { mkdir, mkdtemp, readdir, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
 import { replaceBlock } from "../../plain-talk/block";
+import { writeCapabilities } from "../../setup/capabilities";
 import { writeSetup } from "../../setup/write";
 import { readFrontmatter } from "../../workspace/schema";
 
@@ -224,6 +226,7 @@ describe("setup/fresh-repo-resume, the scaffold", () => {
     expect(await filesIn(root)).toEqual([
       "AGENTS.md",
       "docs/STATUS.md",
+      "docs/agents/capabilities.md",
       "docs/agents/domain.md",
       "docs/agents/workspace.md",
       "package.json",
@@ -247,6 +250,17 @@ describe("setup/fresh-repo-resume, the scaffold", () => {
       "unchanged docs/agents/workspace.md",
       "unchanged docs/STATUS.md",
     ]);
+  });
+
+  test("the capabilities script, run again on the scaffold, keeps capabilities.md and proposes no row", async () => {
+    const root = await scaffold("capabilities");
+    const before = await Bun.file(`${root}/docs/agents/capabilities.md`).text();
+    const result = await writeCapabilities({ brain: repo, root, skills: [], dryRun: true });
+    expect(result.changes.map((change) => `${change.action} ${change.path}`)).toEqual([
+      "unchanged docs/agents/capabilities.md",
+    ]);
+    expect(result.unnamed).toEqual([]);
+    expect(result.text).toBe(before);
   });
 
   test("brain status reports no active work and interview-me as the next step, with nothing red", async () => {

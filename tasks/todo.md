@@ -252,7 +252,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/setup`; the evals' dry checks
   - Files: scripts/setup/write.ts, scripts/setup/__tests__/write.test.ts, skills/setup-brain/{SKILL.md,STATUS.md}, evals/setup/*
   - Depends: T25, T31, T32. Scope: M
-- [ ] T34: `capabilities.md` detection
+- [x] T34: `capabilities.md` detection
   - Acceptance: proposes library skills from dependencies matched against installed skills, servers from `.mcp.json`, toolchain checks from `engines` or `packageManager`; writes `capabilities.md` from its template after the user's yes
   - Verify: `bun test scripts/setup`
   - Files: scripts/setup/capabilities.ts, scripts/setup/__tests__/capabilities.test.ts, skills/setup-brain/capabilities.md, skills/setup-brain/SKILL.md

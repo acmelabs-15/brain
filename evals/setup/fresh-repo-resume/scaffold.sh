@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 # A fresh repo just after /setup-brain on Claude Code, committed: the repo's own AGENTS.md
 # (stack, commands, boundaries; no brain text), and the files setup-brain writes, made from the
-# plugin's templates at run time: domain.md, workspace.md and the STATUS.md seed. The plugin
-# root is found from this script's own location; the case fails loudly when it is not.
+# plugin's templates at run time: domain.md, workspace.md, the STATUS.md seed, and
+# capabilities.md, which setup-brain's own script writes after the user's yes (this repo proposes
+# no rows). The plugin root is found from this script's own location; the case fails loudly when
+# it is not.
 set -euo pipefail
 git init -q .
 plugin="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 templates="$plugin/skills/setup-brain"
-for template in domain.md workspace.md STATUS.md; do
+for template in domain.md workspace.md STATUS.md capabilities.md; do
   if [ ! -f "$templates/$template" ]; then
     echo "scaffold: $templates/$template not found" >&2
     exit 1
@@ -33,5 +35,6 @@ mkdir -p docs/agents
 sed 's/{{layout}}/single-context/' "$templates/domain.md" > docs/agents/domain.md
 cp "$templates/workspace.md" docs/agents/workspace.md
 cp "$templates/STATUS.md" docs/STATUS.md
+bun "$plugin/scripts/setup/capabilities.ts" --root . --skills "" > /dev/null
 git add -A
 git -c user.name=eval -c user.email=eval@example.com commit -q -m "chore: set up brain"

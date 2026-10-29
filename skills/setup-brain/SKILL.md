@@ -1,6 +1,6 @@
 ---
 name: setup-brain
-description: "Prepare a repo for brain: the workspace layout, the STATUS.md handoff note and the domain docs rules, and for Codex the plain-talk and protocol blocks. Run once per repo before the other brain skills, again after a brain update, or with --check to report drift."
+description: "Prepare a repo for brain: the workspace layout, the STATUS.md handoff note, the domain docs rules and capabilities.md (toolchain checks, library skills and servers), and for Codex the plain-talk and protocol blocks. Run once per repo before the other brain skills, again after a brain update, or with --check to report drift."
 ---
 
 # Setup brain
@@ -10,11 +10,12 @@ Write what the other brain skills assume is in a repo:
 - **`docs/agents/workspace.md`**, the workspace layout: the folders for ideas, decisions, research and specs, and their naming rules. Every brain skill and `brain` read it.
 - **`docs/agents/domain.md`**, the rules for reading the glossary, `GLOSSARY.md`, and the decision records.
 - **`docs/STATUS.md`**, the handoff note, seeded with "No active work. Start with interview-me." The agent rewrites it at the end of each task, so setup-brain writes it only when it is absent.
+- **`docs/agents/capabilities.md`**, what work in this repo needs beyond brain: toolchain checks, library skills and MCP servers. The capability check in brain's protocol reads it. setup-brain proposes it from the repo's files and writes it only after the user's yes; from then on it is the repo's file.
 - **For Codex, the plain-talk block and the protocol block**, in the Codex global `AGENTS.md` once per machine, or in this repo's `AGENTS.md` at project scope. Codex is the one host where the plugin cannot carry the text. Claude Code, Gemini CLI and Antigravity get both from the plugin itself.
 
 The repo's `CLAUDE.md` and `GEMINI.md` are never written. The repo's `AGENTS.md` is written only at project scope, and only after the user picks that scope in step 4: the pick is the user's explicit yes.
 
-Every file change goes through one script. The steps below decide and explain; the script writes.
+Every file change goes through a script: `write.ts` for the install files, `capabilities.ts` for `capabilities.md`. The steps below decide and explain; the scripts write.
 
 ## Find the plugin folder
 
@@ -54,7 +55,7 @@ Every question goes through the host's user-question tool, composed with the ask
 - **The glossary rename, only when a root `CONTEXT.md` or `CONTEXT-MAP.md` exists without its new name beside it.** Move it with `git mv` to `GLOSSARY.md` or `GLOSSARY-MAP.md`, or leave it. Recommend the move: it keeps the file's history, and Matt's skills now read only the new names. Leaving it costs a reminder in every session, and brain reads the old name for one release only. Only the root files move: a per-context file that `CONTEXT-MAP.md` lists stays where it is, and the user moves it by hand.
 - **The Codex scope, only when a Codex home exists on this machine.** Global, both blocks in `~/.codex/AGENTS.md` for every repo, or project, both blocks in this repo's `AGENTS.md` only. Recommend global: a Codex plugin install is global, so brain's skills are in every repo, and the Codex docs put communication style in the global file. Project writes this repo's `AGENTS.md`, so say so in the option: the blocks reach teammates who lack brain, and plain talk and the protocol reach Codex in this repo only.
 
-Nothing else forks. When no Codex home exists, say so and pass `--no-codex`.
+Nothing else forks before the write. `capabilities.md` gets its own question in step 6. When no Codex home exists, say so and pass `--no-codex`.
 
 ## 5. Show, then write
 
@@ -68,11 +69,45 @@ Add `--layout multi`, `--codex-scope project` or `--rename-glossary` when the us
 
 When the Codex file is in the list, show the blocks as they will appear there. When the user agrees, run the same command without `--dry-run`.
 
-## 6. Say what changed
+## 6. Propose `capabilities.md`
+
+1. **Collect the skill names.** Write down every skill your host lists to you, spelled as the host spells it (`plugin:skill`, or a bare name):
+
+   | Host | Where the names are |
+   |---|---|
+   | Claude Code | The skill list in your context. A skill with `disable-model-invocation: true` is not in it. |
+   | Codex | The skill list in your context. With many skills installed, Codex shortens that list and can leave skills out; the user sees every skill with `/skills`. |
+   | Gemini CLI | The skill list in your system prompt; `gemini skills list --all` prints it too. |
+   | Antigravity | The skill list you see when the conversation starts. |
+
+   Sources, checked 2026-10-29: https://code.claude.com/docs/en/skills#control-who-invokes-a-skill, https://developers.openai.com/codex/skills, https://geminicli.com/docs/cli/skills/, https://antigravity.google/docs/skills.
+
+2. **Run the dry run**, with the names comma-separated:
+
+   ```
+   bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/capabilities.ts" --root . --skills "<name>,<name>" --dry-run
+   ```
+
+   It proposes a toolchain check from `packageManager` and from each runtime in `engines` in `package.json`. It proposes a library's skills when an installed plugin is named after a dependency (`tanstack-react-router:*` for `@tanstack/react-router`). It proposes each MCP server in the files the hosts read from a repo: `.mcp.json`, `.codex/config.toml`, `.gemini/settings.json` and `.agents/mcp_config.json`. A server in the user's own host config is not a repo fact, so it does not show.
+
+3. **Ask one question** through the host's user-question tool, composed with the ask-user-question skill, with the proposed rows in the question:
+   - Write it as proposed. Recommend this: every row comes from the repo's own files.
+   - Write it without the entries the user names: pass `--omit <name>` once for each library, server or tool (`node`, `bun`).
+   - Write it with no rows, to fill in by hand: pass `--omit` for every entry.
+
+   When the dry run proposes no row, ask whether to write the file with empty tables. Recommend yes: the protocol reads this file at session start, and without it every session reminds the user to run setup-brain.
+4. **Write on a yes:** the same command without `--dry-run`, with each `--omit`. With no question tool on this host, write nothing, and name the command in step 7.
+
+The step is done when `capabilities.md` holds the rows the user said yes to, or the user said no.
+
+On a re-run, the script keeps an existing `capabilities.md` as it is: it is the repo's file now. It prints each proposed row the file does not name yet, as `not named <section>: <row>`. Offer those rows in one question. On a yes, add each row to the table under its section's heading.
+
+## 7. Say what changed
 
 One line per file: created, updated, unchanged, skipped or moved, with the reason the script prints beside a skipped file. Then what reads these files now:
 
 - every brain skill and `brain` read `docs/agents/workspace.md` for the folders and the naming rules;
+- the capability check in brain's protocol reads `docs/agents/capabilities.md`: it runs the toolchain checks, loads the library skills and proves each server;
 - every brain lifecycle skill reads `docs/agents/domain.md` and, through it, `GLOSSARY.md`; the domain-modeling skill writes `GLOSSARY.md` and the decision records;
 - `brain status` reads `docs/STATUS.md`, and on Claude Code the session-start text carries both;
 - Codex reads the blocks in its `AGENTS.md` at the start of every session.
@@ -89,7 +124,9 @@ bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --layout single --ch
 
 It writes nothing. It lists each file, then ends with "every file is in place" (exit 0) or with how many files differ (exit 1). Show the lines. A normal run, after the user's yes, brings each file that differs in line.
 
-Running this skill again is safe: the script changes nothing when everything is in place, keeps the repo's workspace settings, and never rewrites `docs/STATUS.md`.
+`--check` covers the files of step 5. For `capabilities.md`, run step 6's dry run: it says whether the file exists and lists each row it does not name yet.
+
+Running this skill again is safe: the scripts change nothing when everything is in place, keep the repo's workspace settings, and never rewrite `docs/STATUS.md` or an existing `capabilities.md`.
 
 ## Migrate a repo on brain 0.8
 

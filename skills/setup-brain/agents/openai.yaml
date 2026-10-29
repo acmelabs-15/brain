@@ -1,3 +1,3 @@
 interface:
   display_name: "Setup brain"
-  short_description: "Prepare this repo for brain: workspace, status note, domain docs, Codex blocks"
+  short_description: "Prepare this repo for brain: workspace, status note, domain docs, capabilities, Codex blocks"
