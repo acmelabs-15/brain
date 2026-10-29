@@ -164,7 +164,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run lifecycle:check`
   - Files: skills/{spec-driven-development,planning-and-task-breakdown,incremental-implementation,code-review-and-quality,test-driven-development}/SKILL.md
   - Depends: T14. Scope: M
-- [ ] T29: path updates to the other existing evals
+- [x] T29: path updates to the other existing evals
   - Acceptance: `lifecycle/plan-three-questions` and any other existing case that names `SPEC.md`, `spec/`, `tasks/` or `CONTEXT.md` use the new paths; no new case
   - Verify: `bun test scripts/evals`; each dry check
   - Files: evals/lifecycle/*

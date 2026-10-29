@@ -33,9 +33,9 @@ their install pages.
 | `plain-talk/choice-as-table` | "Should this small CLI tool use SQLite or a JSON file for its settings? Give me the trade-off." | `regex` on `last_message`, pattern `^\|` with flags `m`; `llm`: PASS if the choice is laid out as a table with the same axes per row | a choice becomes a table |
 | `setup/fresh-repo` | "Set this repo up for brain." with `allowed_tools: [Read, Glob, Grep, Skill, Bash, Write, Edit]` and a scaffold script that writes a bare `CLAUDE.md` | `tool_used` Bash on `scripts/setup/write.ts`, the script only the skill names; `file_exists` `docs/agents/domain.md`; `file_exists` `docs/agents/issue-tracker.md` | the skill runs the script and the files land |
 | `setup/second-run` | same prompt, scaffold already holds the block and the domain file | `tool_used` Bash on `scripts/setup/write.ts`; `llm` on `last_message`: PASS if the reply says every file is unchanged | idempotent in conversation, not only in the script test |
-| `lifecycle/spec-underspecified` | "Build me a dashboard for our metrics." | `tool_used` Skill `interview-me`; `tool_used` Skill `ask-user-question`; `tool_used` AskUserQuestion, `min: 1`; `llm`: PASS if the first question carries one recommended option with a reason and the costs beside each option | an underspecified ask reaches the interview, and the interview asks through the tool, one question |
-| `lifecycle/plan-three-questions` | "Here is the spec: <a short spec in the prompt>. Plan it." with `allowed_tools: [Read, Glob, Grep, Skill, AskUserQuestion, Write]` | `tool_used` Skill `planning-and-task-breakdown`; `tool_used` AskUserQuestion, `min: 3`; `file_exists` `tasks/plan.md` | the plan gate asks its three questions through the tool |
-| `lifecycle/build-clean-context` | "Run the plan." with a scaffold holding a two-task `tasks/todo.md` and a passing test setup | `tool_used` Agent, `min: 2`; `tool_used` Bash with `input_match: git commit`, `min: 2` | build auto hands each task to a sub-agent and commits per task |
+| `lifecycle/spec-underspecified` | "/brain:spec Build me a dashboard for our metrics." with `allowed_tools: [Read, Glob, Grep, Skill, Bash, Write, Edit]` and a scaffold that is a fresh brain repo: git and setup-brain's `workspace.md` | `tool_used` Skill `interview-me`; `tool_used` Skill `ask-user-question`; `regex` on `files` for `docs/ideas/IDEA-001-<slug>.md`; `tool_used` Bash running `brain new-doc IDEA`; `regex` on `last_message`, pattern `[Rr]ecommend`, `arm: both`; `llm`: PASS if the reply puts one question, with one option marked "(Recommended)" and its reason, and a cost beside each option | an underspecified ask reaches the interview, which charts its map in an idea file through `brain new-doc` before it puts one question |
+| `lifecycle/plan-three-questions` | "/brain:plan Here is the spec. Plan it. Use the slug `word-counter`." with a short spec in the prompt, `allowed_tools: [Read, Glob, Grep, Skill, Bash, Write, Edit]` and the fresh brain repo as scaffold | `tool_used` Skill `planning-and-task-breakdown`; `regex` on the file `docs/specs/SPEC-001-word-counter/tasks/plan.md`: row 01 names a task, not the template's placeholder; `regex` on `last_message`, pattern `[Rr]ecommend`, `arm: both`; `llm`: PASS if the reply ends with one question about the plan, with one option marked "(Recommended)" and its reason | a spec from the chat gets its own spec folder, the plan lands in it, and the plan gate puts its first question |
+| `lifecycle/build-clean-context` | "/brain:build auto. The plan is approved. Go." with a scaffold holding setup-brain's `workspace.md` and one committed spec folder, `docs/specs/SPEC-001-greeter/`: two open plan rows, row 02 blocked by row 01, and one `todo.md` block each | `tool_used` Agent, `min: 2`, `arm: both`; `tool_used` Agent with `input_match` on each block's own test file (`greet.test.ts`, `shout.test.ts`); `regex` on `todo.md`: a ticked box and no open one; `regex` on `plan.md`: both rows `resolved`, each Result opening with a commit SHA; `llm` on `last_message`: PASS if the summary reports two commits, one per task | build auto finds the spec through `workspace.md`, hands each task's block to its own sub-agent, and the main session closes each row after the commit |
 | `lifecycle/verify-no-loop` | "Users report the export sometimes comes back empty. Fix it." with no reproduction possible in the workspace | `tool_used` Skill `debugging-and-error-recovery`; `tool_used` AskUserQuestion, `min: 1`; `regex` on `trace`, `match: not_contains`, pattern `hypothes` before the question | a bug with no loop stops and asks before any hypothesis |
 | `lifecycle/review-one-verdict` | "Review the last commit." with a scaffold holding a small diff | `tool_used` Skill `code-review-and-quality`; `tool_used` Agent, `min: 5`; `regex` on `last_message`, pattern `(Approve\|Request changes\|Reject)` | five parallel axes and one verdict |
 | `question/plan-approval` | "The plan has four tasks. Ask me whether to approve it." | `tool_used` Skill `ask-user-question`; `llm`: PASS if exactly one question is asked, it carries one recommended option with its reason, and each option states a cost | the question skill composes as its spec says |
@@ -77,6 +77,7 @@ evals/
   results/                                               gitignored
 scripts/evals/gate.ts
 scripts/evals/__tests__/gate.test.ts
+scripts/evals/__tests__/<case>.test.ts                 the dry check of a lifecycle case
 ```
 
 `evals/` is free: addy's evals are not vendored.
@@ -91,6 +92,10 @@ As the other modules: named exports, explicit types, kebab-case files, no em-das
   malformed file is an error naming it.
 - The eval suite itself is run by hand and in a scheduled CI job, not on every push: each
   run is roughly cases times six model runs. CI stores the JSON result as an artifact.
+- A lifecycle case that writes into the workspace has a dry check,
+  `scripts/evals/__tests__/<case>.test.ts`, with no model run. It builds the case's scaffold,
+  plays a correct run and faulty runs with the real `brain` commands, and applies the case's
+  own computed graders to each. The gate's `bun test` runs every dry check.
 
 ## Boundaries
 
@@ -156,3 +161,21 @@ The same pass moved the build, plan, review, spec and verify prompts to the slas
 form, the way a user reaches those stages, and cut the build prompt down to the approval:
 a prompt that spelled out "each in a clean context, one commit per task" scored the same
 with and without the plugin.
+
+## Amendment 2026-10-29, the workspace layout
+
+The workspace module (`SPEC-workspace.md`) moves every spec into `docs/specs/SPEC-NNN-<slug>/`,
+and `brain new-doc` creates every numbered file. Three cases follow it:
+
+- `build-clean-context` runs `/build auto` from a spec folder, and its graders read that
+  folder's `plan.md` and `todo.md`.
+- `plan-three-questions` gets the spec in the chat, so the plan skill makes its spec folder
+  with `brain new-doc SPEC`. The prompt names the slug, so the plan grader reads a fixed path.
+- `spec-underspecified` meets interview-me's chart first: the map goes into an idea file
+  through `brain new-doc IDEA` before the first question. Its two new graders check that file
+  and that command.
+
+`plan-three-questions` and `spec-underspecified` now run in a fresh brain repo, git and
+setup-brain's `workspace.md`, with Bash for `brain`. Agent stays out of
+`spec-underspecified`'s tools: the case measures the chart and the first question, and a
+research sub-agent would only add cost.

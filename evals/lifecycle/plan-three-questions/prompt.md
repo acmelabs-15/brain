@@ -1,14 +1,13 @@
 ---
-name: lifecycle/plan-three-questions
-description: The plan gate puts its first approval question to the user, one question, with a recommendation.
+description: A spec given in the chat gets its own spec folder through brain new-doc, the plan lands in that folder's tasks/plan.md, and the plan gate puts its first approval question to the user, one question, with a recommendation.
 tags: [lifecycle]
 max_turns: 30
-allowed_tools: [Read, Glob, Grep, Skill, Write]
+allowed_tools: [Read, Glob, Grep, Skill, Bash, Write, Edit]
 ---
 
 /brain:plan
 
-Here is the spec. Plan it.
+Here is the spec. Plan it. Use the slug `word-counter`.
 
 # Spec: word counter
 
