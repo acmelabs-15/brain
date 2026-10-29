@@ -195,7 +195,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run lifecycle:check`; `bun run validate`; the eval's dry check
   - Files: .claude/commands/build.md, commands/build.toml, skills/incremental-implementation/SKILL.md, evals/lifecycle/build-parallel/*
   - Depends: T26, T27, T41, T44. Scope: M
-- [ ] T46: interview-me starts research rows in parallel, with the research eval
+- [x] T46: interview-me starts research rows in parallel, with the research eval
   - Acceptance: eval `lifecycle/interview-parallel-research` written first (an idea with three research rows on its frontier: interview-me starts all three at once); interview-me starts every research row on the frontier at once, up to the cap; on Claude Code with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` the research rows may run as an agent team, each teammate writing its own RES file through `brain new-doc`; the build stays on worktree sub-agents
   - Verify: `bun run lifecycle:check`; the eval's dry check
   - Files: skills/interview-me/{SKILL.md,RESEARCH.md}, evals/lifecycle/interview-parallel-research/*

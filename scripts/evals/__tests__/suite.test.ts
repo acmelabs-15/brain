@@ -30,6 +30,7 @@ describe("eval suite", () => {
       [
         "lifecycle/adr-is-dec",
         "lifecycle/build-clean-context",
+        "lifecycle/interview-parallel-research",
         "lifecycle/interview-resume",
         "lifecycle/plan-three-questions",
         "lifecycle/review-one-verdict",

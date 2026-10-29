@@ -1,6 +1,6 @@
 # Research brief
 
-Read this file in full before you start a research sub-agent. It holds the brief you send for one research row, the rule for each field in it, and two variants: a record to continue, and a session with no repo. "Delegating research" in `SKILL.md` says which agent to start and how to read its result.
+Read this file in full before you start a research sub-agent. It holds the brief you send for one research row, the rule for each field in it, and three variants: a record to continue, a session with no repo, and research rows run as an agent team. "Delegating research" in `SKILL.md` says which agent to start, how many start at once, and how to read each result.
 
 ## Before you fill it
 
@@ -65,11 +65,18 @@ Your research record and the progress file are the only files you write. Create 
 
 ## Continue a record that stopped
 
-A record whose status is still `in-progress` after its sub-agent ended keeps its findings. Send the same brief, with step 1 replaced by:
+A research record whose `status` is still `in-progress` after its sub-agent ended keeps its findings, and a new sub-agent continues that same file. You meet such a record at two moments:
+
+- In this session, when a sub-agent's reply leads to it ("Read the result" in `SKILL.md`).
+- When a session resumes, at step 3 of "Resume" in `SKILL.md`: the sub-agent ended with the session before.
+
+Fill the brief for the row as usual, with two changes. `<path>` is the record's path: in a new session, find it in the research folder by its `from:` field, which names the row. And step 1 becomes:
 
 ```
-Step 1. Open <path>. It holds the findings so far. Keep them, and go on from step 2.
+Step 1. Open <path>, your research record. An earlier agent started it and stopped. Keep its ID, its frontmatter and every finding in it: each finding is confirmed. Read it to its last line, then go on from step 2 with what it still lacks.
 ```
+
+The record already holds its number, so the new sub-agent claims none. It counts against the cap like any research agent. On resume, it starts in the same turn as the frontier's research rows.
 
 ## With no repo
 
@@ -80,3 +87,18 @@ A session with no repo has no research record (see "No repo" in `SKILL.md`). Sen
 - Replace step 7 with: "Reply with your findings and your follow-ups, in the formats of steps 3 to 5."
 
 The row's Result then holds the answer in a few words.
+
+## Run the rows as an agent team
+
+This variant is for Claude Code only, in an interactive session where the user has turned agent teams on with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`. Each research row's agent then runs as a teammate: a full session that the user can watch and talk to while it works. A team costs more tokens than sub-agents, so sub-agents stay the default. Run the rows as a team when the user asks for one, or wants to watch or steer the research.
+
+The rule in "Delegating research" holds: every research row on the frontier starts at once, up to the cap, one agent and one brief per row. Only the start and the reply change:
+
+- Give each Agent call a `name`: `res-<NN>` for row NN, such as `res-03`. With teams on, a named Agent call starts a teammate; without a name, it starts a sub-agent. Keep the agent type you give a sub-agent.
+- The brief is the teammate's spawn prompt, unchanged. The teammate sees nothing of your conversation, and it claims its own record through `brain new-doc`, so each teammate writes only its own file. The brief's "start no other agent" line holds for a teammate too.
+- A teammate's reply, the path of its record, reaches you in the notice that it is idle. Read the record as "Read the result" in `SKILL.md` says. You stay the only writer of the idea file.
+- Teammates do not come back when a session resumes. A record that a teammate left `in-progress` gets a new agent, as "Continue a record that stopped" says.
+
+A session started with `-p` never starts a teammate: there, a named Agent call starts a sub-agent.
+
+Teams are for research rows only. The build stays on worktree sub-agents: teammates share the main session's working folder, and two teammates that edit one file overwrite each other.

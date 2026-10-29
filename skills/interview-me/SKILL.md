@@ -144,7 +144,7 @@ The chart writes the map before the first question, and asks the user nothing. R
 
 4. **Wire the blocking edges in a second pass.** With every row numbered, give each row the rows whose answers it needs. A row that needs no answer keeps `—`. No row waits on itself, directly or through other rows.
 
-5. **Start the research.** For each research row on the frontier, start a sub-agent as [Delegating research](#delegating-research) says, and set the row to `in-progress`.
+5. **Start the research.** Start every research row on the frontier at once, up to the cap, as [Start every research row at once](#start-every-research-row-at-once) says.
 
 The chart is done when `brain check` reports no finding for the idea file, no `<...>` placeholder is left outside the "Confirmed by" comment, and the user has the path, the destination and the first frontier in a few lines. Then the loop takes the first frontier row.
 
@@ -154,7 +154,7 @@ The loop takes rows from the frontier, resolves each one, and re-maps after each
 
 1. **Compute the frontier** from the map on disk: every `open` row whose Blocked by rows are all `resolved`.
 2. **Take its rows by type.**
-   - Research rows: start a sub-agent for each one, as [Delegating research](#delegating-research) says, and set each row to `in-progress`. They run while you work on the other rows.
+   - Research rows: start them all at once, up to the cap, as [Start every research row at once](#start-every-research-row-at-once) says. They run while you work on the other rows.
    - Do rows: do the work when you can. When only the user can do it, give the user a precise checklist and set the row to `in-progress`; it resolves when the user reports the work done.
    - Decide rows: take one, as [Decide rows](#decide-rows) says. One question per call; wait for the reply. The next decide row waits for the re-map.
 3. **Record the result the moment it exists.** The [Rows](#rows) table names the record for each type.
@@ -250,16 +250,27 @@ A research row goes to a sub-agent: one sub-agent and one brief per row. The sub
 | Claude Code | The brain plugin's `researcher` agent. It has every tool except Agent, so it cannot start agents of its own. |
 | Every other host | The host's general-purpose agent. The brief's "start no other agent" line keeps it alone. |
 
+On Claude Code, when the user has turned agent teams on (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`) in an interactive session, the research rows may run as an agent team instead. "Run the rows as an agent team" in [`RESEARCH.md`](RESEARCH.md) says when and how.
+
 A read-only agent such as Explore takes a quick lookup inside a decide row only. It cannot write a file, so it never takes a research row.
 
-To start the research for a row:
+### Start every research row at once
+
+Every research row on the frontier starts at once, so the interview waits for the slowest lookup only, never for a queue of them. A research row on the frontier needs no open row's answer, so no research row gains from waiting on another.
+
+The **cap** is the most research agents that run at once: `max_parallel` in `docs/agents/workspace.md`, or 8 when the file or the key is absent. The `BRAIN_MAX_PARALLEL` environment variable overrides it. Every research agent still running counts against the cap.
 
 1. Call the Skill tool with "writing-for-agents". A brief is a document an agent consumes, and its levers apply.
-2. Read [`RESEARCH.md`](RESEARCH.md) in full. It holds the brief, the rule for each of its fields, and the variants for a record to continue and for a session with no repo.
-3. Fill the brief. Give it this path for the brain CLI: `${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts`. Claude Code fills in the plugin folder when it loads this skill; a sub-agent's Bash has no `CLAUDE_PLUGIN_ROOT`, so the brief carries the full path. On another host, give `scripts/brain.ts` in the plugin folder you resolved.
-4. Start the agent with the brief, and set the row to `in-progress` in the idea file.
+2. Read [`RESEARCH.md`](RESEARCH.md) in full. It holds the brief, the rule for each of its fields, and the variants for a record to continue, for a session with no repo, and for an agent team.
+3. Fill one brief per row. Give each this path for the brain CLI: `${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts`. Claude Code fills in the plugin folder when it loads this skill; a sub-agent's Bash has no `CLAUDE_PLUGIN_ROOT`, so the brief carries the full path. On another host, give `scripts/brain.ts` in the plugin folder you resolved.
+4. Start every agent in one turn, up to the cap, before you wait for any result. On Claude Code, that is one message with one Agent call per row.
+5. Set each started row to `in-progress`, in one write of the idea file.
 
-The sub-agent claims its own record through `brain new-doc`: the brief gives the name format, never a number. You write the idea file; the sub-agent writes only its record.
+When the frontier holds more research rows than the cap leaves room for, start first the rows with the most rows waiting on them. Each time a research record comes back and its re-map is on disk, the loop starts the next research row while the cap has room.
+
+Starting fewer rows than the frontier holds, while the cap has room, needs a reason. Tell the user the reason before you start them, such as "this host runs one sub-agent at a time". "To be safe" is not a reason.
+
+Each sub-agent claims its own record through `brain new-doc`: the brief gives the name format, never a number. You write the idea file; each sub-agent writes only its record.
 
 ### Read the result
 
@@ -341,7 +352,7 @@ A new session resumes from the idea file alone. The map holds every answer so fa
 
 3. **Settle each row left `in-progress`.** Find its `RES` file by the `from:` field, `from: IDEA-NNN#NN`.
    - The `RES` file has `status: resolved`: its sub-agent finished after the last re-map. Set the row to `resolved` with the record's ID in Result, and re-map.
-   - A research row whose `RES` file is still `in-progress`, or missing: its sub-agent ended with its session. Start a new sub-agent for the row, as [Delegating research](#delegating-research) says, and name the existing `RES` file in the brief, so that the new sub-agent continues that file.
+   - A research row whose `RES` file is still `in-progress`, or missing: its sub-agent ended with its session, and the row gets a new one. For an `in-progress` file, send the brief for a record to continue from [`RESEARCH.md`](RESEARCH.md), which names that file; for a missing one, send the usual brief. Start it in the same turn as the frontier's research rows in step 4, within the cap.
    - A do row on the user's checklist stays `in-progress` until the user reports the work done. A do row that you ran: run it again.
 4. **Take the next frontier row** in [The loop](#the-loop). A `resolved` row is settled: its record holds the answer, and you read that record when a later question needs its facts. The user answers each question once. When the user wants to reopen a settled row, add a row that supersedes it.
 
@@ -417,6 +428,7 @@ Row 01 resolves to a decision record, and the destination moves: not a team dash
 | "They said 'whatever you think', so I should decide" | "Whatever you think" is delegation, not decision. Ask again with two concrete options as a choice. |
 | "I'll ask the whole frontier at once to save rounds" | The frontier orders the questions; it does not license a batch. One question per call, the next one chosen after the answer. |
 | "I'll ask the user which framework the repo uses" | That is a fact. A sub-agent fetches it while you ask the next decide row. |
+| "I'll start one research row and see what it finds first" | A research row on the frontier needs no open row's answer. Start them all at once; a finding that changes another row is a re-map, not a reason to wait. |
 | "Every choice is the user's" | A cheap, reversible choice that does not change what gets built stays with you. State it with the reason; it gets no row. |
 | "If I attach my recommendation, I'm leading them" | Leading is the point. Reacting is faster than generating from scratch. The risk is sycophancy, not leading; mitigate by being visibly willing to be wrong. |
 | "We've talked enough, I get it" | Test it: are the frontier and the fog empty? An open row is an answer you are assuming. |
@@ -434,6 +446,7 @@ Row 01 resolves to a decision record, and the destination moves: not a team dash
 - A question without a recommended option and its reason: that is surveying, not committing
 - A question for a row that is not on the frontier: a row it waits on is still open
 - A question the code or the docs could answer: a fact sent to the user instead of a sub-agent
+- Research rows on the frontier started one turn after another, or fewer started than the frontier holds while the cap had room, with no reason told to the user
 - Accepting "whatever you think is best" as a final answer
 - Questions framed as "what would be best practice?" instead of "what do you actually want?"
 - A sophistication-signalling answer ("scalable", "clean", "modern") accepted without the want-versus-should probe
@@ -454,6 +467,10 @@ After applying interview-me:
 - [ ] Every row is one line with a type, a status, its blocking rows and a Result; every resolved row links to one `DEC` or `RES` file
 - [ ] The fog is under "Not yet specified", and work beyond the destination is under "Out of scope"
 - [ ] `brain check` reports no finding for the idea file
+- [ ] Every research row on the frontier started at once, in one turn and up to the cap, with one agent and one brief per row; a start of fewer came only after a reason told to the user
+- [ ] Each result was recorded the moment it existed: a `DEC` the moment the user decided, before the next question
+- [ ] Every resolved row, of every type, got its own re-map on disk before the next row started, and only the main session wrote the idea file
+- [ ] The session ended only between rows, after a re-map, with the reply of every running research sub-agent settled first
 - [ ] Every question went through the host's user-question tool, one per call, composed with ask-user-question
 - [ ] Every question carried a recommended option with the reason behind it
 - [ ] Every question was for a row on the frontier when asked
@@ -462,3 +479,7 @@ After applying interview-me:
 - [ ] Small reversible choices you took were stated with their reason, with no row
 - [ ] The restate, with its "Out of scope" line, went to the user inside one question call
 - [ ] The user gave an explicit yes to the restate; a hedged reply got one follow-up, silence got none
+- [ ] Finish began only when the frontier and the fog were both empty, and stopped only when its done line held
+- [ ] A resumed session found the active effort in the workspace's order, and took its next row from the frontier of the map on disk
+- [ ] On resume, each row left `in-progress` was settled from its record before the first question, and a stopped research record was continued, not started again
+- [ ] No settled row was asked again; a row the user reopened got a new row that supersedes it
