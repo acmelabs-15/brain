@@ -1,10 +1,11 @@
 ---
+
 name: wayfinder
 description: "Charts an effort too big for one agent session as a shared map of decision tickets on the repo's issue tracker, then resolves one ticket per session until the way to the destination is clear. Use when the user types /wayfinder with a loose idea, or names an existing map to work its next frontier ticket. Plans, never builds; a cleared map hands off to spec-driven-development."
 disable-model-invocation: true
 ---
 
-A loose idea has arrived. It is too big for one agent session, and the way from here to the **destination** sits in fog. Wayfinding finds that way; it does not charge at the destination. This skill charts the way as a **shared map** on the repo's issue tracker. It then works the map's **decision tickets** one at a time until the way is clear. A decision ticket holds a question whose resolution is a decision, not a slice of a build to execute.
+A loose idea has arrived. It is too big for one agent session, and the way from here to the **destination** isn’t visible yet. Wayfinding is about finding that way, not charging at the destination. This skill charts the way as a **shared map** on the repo's issue tracker, then works its **decision tickets** (questions whose resolution is a decision, not slices of a build to execute) one at a time until the route is clear.
 
 Naming the destination is the first act of charting, and it shapes every ticket. The destination is the end of the whole map, not the end of this session. It might be a spec to hand off, a decision to lock before planning starts, or a change made in place, like a data-structure migration. The map is domain-agnostic: engineering work, course content, whatever fits the shape. Keep the destination bounded. A map scoped to one defined outcome stays true; a map scoped to a whole product decays before it is half walked.
 
@@ -79,7 +80,6 @@ The answer is not part of the body; it is recorded on resolution (see [Work thro
 ## Ticket types
 
 Every ticket is either **HITL** (human in the loop, worked _with_ a human who speaks for themselves) or **AFK**, driven by the agent alone. A HITL ticket only resolves through that live exchange. The agent never stands in for the human's side of it: an agent that answers its own questions, or picks between its own prototype variants, has broken the ticket.
-
 - **Research** (AFK): Reading documentation, third-party APIs, or local resources like knowledge bases, to surface a fact a decision waits on. Use when knowledge outside the current working directory is required. Resolved by a sub-agent: dispatch one with the ticket's question, the map's Destination and Notes, and this brief: read only, write the findings on a throwaway `research/<name>` branch, and post them on the ticket as a resolution comment with a pointer to that branch. Its reading never lands in your session.
 - **Prototype** (HITL): Raise the fidelity of the discussion with a cheap, rough, concrete artifact to react to (an outline, a rough take, a stub, or UI/logic code). Call the Skill tool with "prototype". Link the prototype from the ticket as an asset. Use when "how should it look" or "how should it behave" is the key question. The choice between variants is the user's, made through one question; the ticket closes on that choice, not on the build.
 - **Interview** (HITL): Conversation. The default case. Call the Skill tool with "interview-me", and put each of its questions through the user-question tool as [One question per call](#one-question-per-call) says. When a term needs sharpening, call the Skill tool with "domain-modeling" as well.
@@ -94,7 +94,6 @@ The map is _deliberately_ incomplete: do not chart what you cannot yet see. Beyo
 The map's **Not yet specified** section is where that dim view is written down: the suspected question, the area to revisit later. It is the undiscovered frontier _toward_ the destination: everything here is in scope, just not sharp enough to ticket. Write as loosely or as fully as the view allows; it doubles as a signpost for collaborators reading where the effort is headed.
 
 **Fog or ticket?** The test is whether you can state the question precisely now, _not_ whether you can answer it now.
-
 - **Ticket when** the question is already sharp, even if it is blocked and you cannot act on it yet.
 - **Not yet specified when** you cannot yet phrase it that sharply. Do not pre-slice the fog into ticket-sized pieces: it is coarser than a ticket, and one patch may graduate into several tickets, or none, once the frontier reaches it.
 
@@ -115,7 +114,6 @@ Two modes, plus the hand-off when the map clears. Either way, **never resolve mo
 ### Chart the map
 
 User invokes with a loose idea.
-
 1. **Name the destination.** Call the Skill tool with "interview-me" to pin down what this map is finding its way to: the spec, decision, or change. Each question goes through the user-question tool, one per call. Domain words come from `CONTEXT.md` through `docs/agents/domain.md`; a concept the glossary lacks is a gap to note for the domain-modeling skill. The destination fixes the scope, so it is settled first.
 2. **Map the frontier.** Interview again, **breadth-first** this time: fan out across the whole space rather than deep on any one thread. The frontier orders the questions: the decisions takeable now come first, then what each of them unblocks. This surfaces the open decisions and the first steps takeable now. **If this surfaces no fog** (the way to the destination is already clear, the whole journey small enough for one session), you do not need a map. Stop and ask the user, in one question, how they would like to proceed.
 3. **Create the map** (label `wayfinder:map`): Destination and Notes filled in, Decisions so far empty, the fog sketched into **Not yet specified**.
@@ -128,7 +126,6 @@ A conversation that has already outgrown itself bridges in the same way: call th
 ### Work through the map
 
 User invokes with a map (URL or number). A ticket is **optional**: without one, you pick the next decision, not the user.
-
 1. Load the **map**: the low-res view, not every ticket body.
 2. Choose the ticket. If the user named one, use it. Otherwise take the first frontier ticket in order. **Claim it**: assign it to yourself before any work.
 3. Resolve it by its type. **Zoom as needed**: fetch the full body of any related or closed ticket on demand; call the Skill tool for whichever skills the `## Notes` block names. If in doubt, treat it as an interview ticket.
