@@ -83,6 +83,28 @@ describe("eval suite", () => {
     expect(broken).toEqual([]);
   });
 
+  test("the Evals workflow runs scaffolds and grants every gated tool a case asks for", async () => {
+    // `claude plugin eval` 2.1.312 gives a case Bash, Write, Edit or WebFetch only when the
+    // command line grants it with --allow-tools; the case's allowed_tools alone is not enough.
+    const gated = new Set(["Bash", "Write", "Edit", "WebFetch"]);
+    const workflow = await Bun.file(`${root}/../.github/workflows/evals.yml`).text();
+    const args = workflow.match(/args=\((?<args>[^)]*)\)/u)?.groups?.args ?? "";
+    const grant = args.match(/--allow-tools(?<tools>(?: +[A-Z]\w*)+)/u)?.groups?.tools ?? "";
+    const granted = new Set(grant.trim().split(/ +/u));
+    expect(args).toContain("--scaffold");
+    const missing = new Set<string>();
+    for (const c of await cases()) {
+      const prompt = await Bun.file(`${root}/${c}/prompt.md`).text();
+      const asked = prompt.match(/^allowed_tools: \[(?<tools>[^\]]*)\]/mu)?.groups?.tools ?? "";
+      for (const tool of asked.split(",").map((t) => t.trim())) {
+        if (gated.has(tool) && !granted.has(tool)) {
+          missing.add(tool);
+        }
+      }
+    }
+    expect([...missing].toSorted()).toEqual([]);
+  });
+
   test("a case with a scaffold declares it in case.yaml", async () => {
     for (const c of await cases()) {
       const dir = `${root}/${c}`;

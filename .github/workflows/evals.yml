@@ -38,7 +38,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p evals/results
-          args=(plugin eval . --json evals/results/ci.json --trust-plugin --scaffold --no-publish)
+          args=(plugin eval . --json evals/results/ci.json --trust-plugin --scaffold --allow-tools Bash Write Edit --no-publish)
           if [ -n "${{ github.event.inputs.cases }}" ]; then
             args+=(--case "${{ github.event.inputs.cases }}")
           fi
