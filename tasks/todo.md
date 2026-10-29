@@ -190,7 +190,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: CLI seam
   - Files: scripts/workspace/config.ts, skills/setup-brain/workspace.md, scripts/workspace/plan.ts, scripts/workspace/__tests__/plan.test.ts
   - Depends: T41. Scope: S
-- [ ] T45: `/build auto` and incremental-implementation run the frontier in parallel, with the build eval
+- [x] T45: `/build auto` and incremental-implementation run the frontier in parallel, with the build eval
   - Acceptance: eval `lifecycle/build-parallel` written first (a plan whose frontier is five tasks wide: `/build auto` starts five sub-agents, each worktree based on the branch head, and never fewer without a stated reason); the commands and the skill carry the Decisions row "Parallel build by default" in full: every task on the frontier at once, up to the cap; a stated reason for fewer; the critical path first; a worktree from the feature branch's head, the install step first; the main session merges one at a time, critical path first, runs the gate after each merge, is the only writer of plan rows and todo ticks, and tells an in-flight task to rebase when a merge changes what it depends on; result files named after the task, and the reply the path plus one line
   - Verify: `bun run lifecycle:check`; `bun run validate`; the eval's dry check
   - Files: .claude/commands/build.md, commands/build.toml, skills/incremental-implementation/SKILL.md, evals/lifecycle/build-parallel/*

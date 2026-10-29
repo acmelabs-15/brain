@@ -1,6 +1,6 @@
 ---
 name: incremental-implementation
-description: Delivers a task in thin, verifiable slices: implement, run the touched test files, typecheck, commit, repeat. After the last slice it runs the full suite once and calls code-review-and-quality before the task is done. Use when a change touches more than one file, when picking up the next task from a spec folder's tasks/plan.md, when a change goes behind a feature flag, or when a task feels too big for one step.
+description: Delivers a task in thin, verifiable slices: implement, run the touched test files, typecheck, commit, repeat. After the last slice it runs the full suite once and calls code-review-and-quality before the task is done. Use when a change touches more than one file, when picking up the next task from a spec folder's tasks/plan.md or running its frontier in parallel, when a change goes behind a feature flag, or when a task feels too big for one step.
 ---
 
 # Incremental Implementation
@@ -203,6 +203,22 @@ verify nothing is broken."
 ```
 
 Be explicit about what's in scope and what's NOT in scope for each increment.
+
+## Running a Plan's Frontier in Parallel
+
+This section is for the session that works through a plan. A sub-agent whose brief holds one task's block builds that task only.
+
+The frontier of a plan often holds several tasks that need nothing from each other. Run them in parallel, each task in its own sub-agent and worktree, as the `/build auto` command says step by step for each host. `brain plan --json` gives the frontier (its first wave), the critical path and the cap. On Claude Code, `brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`; on other hosts, `docs/agents/workspace.md` says how to run it.
+
+- **Every task on the frontier at once**, up to the cap: `max_parallel` in `docs/agents/workspace.md`, default 8, or the `BRAIN_MAX_PARALLEL` variable, which wins.
+- **A stated reason before fewer.** Before you start fewer tasks than the frontier and the cap allow, tell the user why: a fact about the tasks or the host, such as two tasks that edit the same function. "To be safe" is not a reason.
+- **Critical path first**, when the cap bites and when several finished tasks wait to merge.
+- **A worktree from the feature branch's head**, never `main`, with the install step first. A worktree that starts elsewhere (Claude Code starts one on the remote's default branch unless `worktree.baseRef` is `"head"`) runs `git merge --ff-only <feature branch>` before the install.
+- **One merge at a time.** The main session merges each finished task into the feature branch, resolves small overlaps in shared files, and runs the gate after each merge.
+- **One writer.** Only the main session writes plan rows and todo ticks. It closes each row in a commit of its own, after the task's merge, because the row's result names the task's commit SHA.
+- **Rebase on change.** When a merge changes a file or an interface that a running task uses, the main session tells that task to rebase onto the new head.
+- **A checkpoint row on the frontier stops the build** for the user's review. No new task starts until the user says yes.
+- **A result file named after the task**, task ID first (`T01-result.md`). The sub-agent's reply is that file's path plus one line: pass or fail, the commit SHA, and any question.
 
 ## Increment Checklist
 
