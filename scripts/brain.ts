@@ -11,6 +11,7 @@
 import { check } from "./workspace/check";
 import { newDoc } from "./workspace/new-doc";
 import { plan } from "./workspace/plan";
+import { status } from "./workspace/status";
 
 type Command = (args: string[]) => Promise<number>;
 
@@ -30,6 +31,7 @@ const commands = new Map<string, Command>([
   ["new-doc", newDoc],
   ["check", check],
   ["plan", plan],
+  ["status", status],
 ]);
 
 async function main(argv: string[]): Promise<number> {

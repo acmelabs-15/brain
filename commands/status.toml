@@ -1,0 +1,7 @@
+description = "Report the active work in five lines: phase, last step, next step, red items, decisions waiting on the user"
+
+prompt = """
+Invoke the status skill. It runs `brain status`, which reads the workspace and docs/STATUS.md and writes no file.
+
+Show the five lines to the user exactly as printed. Then give the next action for each red item, and for a report that says to run setup-brain.
+"""

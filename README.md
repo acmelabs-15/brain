@@ -38,7 +38,7 @@ into this repo's `AGENTS.md` when you choose the project scope.
 | `skills/` | 25 agent-skills, 3 of mattpocock/skills, ask-user-question, and brain's own | vendored ones are byte-identical to upstream; brain's own sit beside them |
 | `references/`, `agents/`, `hooks/` | agent-skills' checklists, personas and hook scripts | vendored |
 | `claude/agents/` | the Claude-only `researcher` agent, which runs a research row from interview-me's brief | brain |
-| `.claude/commands/`, `commands/` | the nine lifecycle commands for Claude Code, and for Gemini and Antigravity | seeded from agent-skills, brain-owned |
+| `.claude/commands/`, `commands/` | the lifecycle commands: nine for Claude Code, where `status` is a skill, and ten for Gemini and Antigravity | seeded from agent-skills, brain-owned |
 | `output-styles/`, `GEMINI.md`, `rules/`, `plain-talk/` | the plain-talk text and its rendered forms; the block at the end of `AGENTS.md` is one of them | brain |
 | `upstream.json`, `upstream.lock.json` | which commit of each upstream is vendored, and a hash per file | brain |
 | `licenses/` | the upstream licence texts | vendored |

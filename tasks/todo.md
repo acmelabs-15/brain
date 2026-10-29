@@ -90,7 +90,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/sync`; `bun run check`
   - Files: package.json, scripts/sync/__tests__/apply.test.ts
   - Depends: none. Scope: S
-- [ ] T16: `brain status` and the status skill
+- [x] T16: `brain status` and the status skill
   - Acceptance: five lines by default, fed by `docs/STATUS.md`; `--json` with the full `STATUS.md` text; the specs each idea produced; "run setup-brain to migrate" on a 0.8 repo; read-only; `skills/status` (`/brain:status`), `commands/status.toml`, `package.json` `status`
   - Verify: CLI seam on every fixture, tree hashed before and after; `bun run validate`
   - Files: scripts/workspace/status.ts, scripts/workspace/__tests__/status.test.ts, skills/status/SKILL.md, skills/status/agents/openai.yaml, commands/status.toml, package.json

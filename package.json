@@ -22,6 +22,7 @@
     "new-doc": "bun scripts/brain.ts new-doc",
     "workspace:check": "bun scripts/brain.ts check",
     "plan": "bun scripts/brain.ts plan",
+    "status": "bun scripts/brain.ts status",
     "evals:gate": "bun run scripts/evals/gate.ts"
   },
   "devDependencies": {

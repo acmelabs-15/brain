@@ -200,7 +200,7 @@ function byPath(a: Finding, b: Finding): number {
 }
 
 /** Check every workspace file under `root`, with the folders from `paths`. */
-async function checkWorkspace(root: string, paths: Paths): Promise<Result> {
+export async function checkWorkspace(root: string, paths: Paths): Promise<Result> {
   const { docs, findings, files } = await scan(root, paths);
   findings.push(...duplicates(docs));
   const known = new Set(docs.map((doc) => doc.id));
