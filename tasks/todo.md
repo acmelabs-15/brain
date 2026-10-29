@@ -70,7 +70,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: CLI seam, one case per type; the parallel test: 20 processes, several runs, unique numbers, no gap without a failed claim
   - Files: scripts/workspace/config.ts, scripts/workspace/new-doc.ts, scripts/workspace/claims.ts, scripts/workspace/__tests__/new-doc.test.ts, package.json
   - Depends: T10. Scope: M
-- [ ] T12: shared fixtures
+- [x] T12: shared fixtures
   - Acceptance: fixture folders for an idea mid-define with a known frontier, a spec mid-build, no active work, and a 0.8-layout repo; every workspace file in them passes T10's `checkDoc` (the map parser moved to T14, its first CLI user, per the seam decision: no function seam for the parser now)
   - Verify: `bun test scripts/workspace` (each fixture file passes `checkDoc`); the known frontier is written into the fixture's README for T14 and T16 to assert
   - Files: scripts/workspace/__tests__/fixtures/*, scripts/workspace/__tests__/fixtures.test.ts

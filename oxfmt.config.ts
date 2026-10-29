@@ -21,5 +21,8 @@ export default defineConfig({
     // new-doc copies these templates byte for byte; the formatter would read `{{id}}` in
     // their frontmatter as YAML and rewrite it to `{ { id } }`.
     "scripts/workspace/templates",
+    // The fixtures are repos as an agent or brain 0.8 wrote them. The formatter would join a
+    // glossary entry's lines into one and change the files the migrate mode takes as input.
+    "scripts/workspace/__tests__/fixtures",
   ],
 });
