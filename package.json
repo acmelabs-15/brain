@@ -21,6 +21,7 @@
     "lifecycle:check": "bun run scripts/lifecycle/check-refs.ts",
     "new-doc": "bun scripts/brain.ts new-doc",
     "workspace:check": "bun scripts/brain.ts check",
+    "plan": "bun scripts/brain.ts plan",
     "evals:gate": "bun run scripts/evals/gate.ts"
   },
   "devDependencies": {

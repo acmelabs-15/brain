@@ -170,7 +170,7 @@ ends with a checkpoint and a review with Peter.
   - Files: evals/lifecycle/*
   - Depends: T26, T27. Scope: S
 
-- [ ] T41: `brain plan`
+- [x] T41: `brain plan`
   - Acceptance: read-only; from a spec's `tasks/plan.md` rows (T14's map parser) and its `tasks/todo.md` blocks it prints the waves (each wave is the frontier once the waves above it are done), the critical path, for each wave the files more than one of its tasks touches (from "Files likely touched"), and which phases overlap (a phase's tasks are its checkpoint row's blockers); `--json` gives the same data; exit 1 on a cycle or an unknown blocker; `package.json` gains `plan`
   - Verify: CLI seam on fixtures (a linear plan, a wide plan, a cycle); the tree hashed before and after
   - Files: scripts/workspace/plan.ts, scripts/workspace/__tests__/plan.test.ts, scripts/brain.ts, fixtures, package.json
