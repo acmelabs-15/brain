@@ -154,7 +154,7 @@ ends with a checkpoint and a review with Peter.
 
 ## Phase 4: build-phase paths and the router
 
-- [ ] T26: commands on spec folders, with the build eval
+- [x] T26: commands on spec folders, with the build eval
   - Acceptance: eval `lifecycle/build-clean-context` moved first (`/build` runs a task from `docs/specs/SPEC-001-<slug>/` with its block from `todo.md`); `/spec`, `/plan`, `/build` (Claude and Gemini) find the active spec through `workspace.md`; `/build` hands a sub-agent its block, the sub-agent ticks only its own boxes, and the main session updates the row in `plan.md`; the clean-baseline list names `docs/specs/SPEC-NNN-<slug>/`
   - Verify: `bun run lifecycle:check`; `bun run validate`; the eval's dry check
   - Files: .claude/commands/{build,plan,spec}.md, commands/{build,planning,spec}.toml, evals/lifecycle/build-clean-context/*

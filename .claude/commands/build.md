@@ -4,6 +4,16 @@ description: Implement tasks incrementally — build, test, verify, commit. Add 
 
 Invoke the brain:incremental-implementation skill alongside brain:test-driven-development. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `GLOSSARY.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
 
+## The spec folder
+
+Find the active spec through `docs/agents/workspace.md`. Read that file to its last line: `paths.specs` names the folder of specs, and "Find the active effort" says which spec is active. When the file is missing, use `docs/specs`, the default, and tell the user once to run setup-brain, which writes it. The active spec's folder holds three files:
+
+- `spec.md`: the spec.
+- `tasks/plan.md`: the row table, which holds the only status of each task. The next task is the next row on its frontier: an `open` row whose `Blocked by` rows are all `resolved`.
+- `tasks/todo.md`: one block per row, under the row's number, with the task's description, acceptance criteria, verification, files likely touched and scope.
+
+`brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`. Claude Code fills in that path in this text only, so copy it from here into each command and each brief.
+
 ## Modes
 
 - **`/build`** — implement the *next* pending task, then stop (careful, one slice at a time).
@@ -13,32 +23,49 @@ Invoke the brain:incremental-implementation skill alongside brain:test-driven-de
 
 ## Default: one task
 
-Pick the next pending task from the plan. Then:
+Take the next row on the frontier of the spec's `tasks/plan.md`. Then:
 
-1. Read the task's acceptance criteria
+1. Read the row's block in `tasks/todo.md`: its acceptance criteria and its verification
 2. Load relevant context (existing code, patterns, types)
 3. Write a failing test for the expected behavior (RED)
 4. Implement the minimum code to pass the test (GREEN)
 5. Run the full test suite to check for regressions
 6. Run the build to verify compilation
-7. Commit with a descriptive message
-8. Mark the task complete and stop
+7. Tick the boxes in the task's block, then commit the code and `tasks/todo.md` with a descriptive message
+8. Close the row (see "Close a row") and stop
 
 ## Autonomous: the whole plan (`/build auto`)
 
 Use this once a spec exists and you want to collapse plan + build into one run. It removes the manual stepping between tasks — **not** the verification. Every task still earns a passing test and its own commit.
 
-1. **Require a spec.** Look only for a spec at a known path: `SPEC.md` at the repo root, `docs/SPEC.md`, or a file under `spec/`. A README or arbitrary doc does **not** count. If none exists, stop and tell the user to run `/spec` first — do not invent requirements.
-2. **Establish a clean baseline.** Run `git status --porcelain`. If there are uncommitted changes outside the expected planning artifacts (`SPEC.md`, `docs/SPEC.md`, `spec/*`, `tasks/plan.md`, `tasks/todo.md`), stop and ask the user to commit, stash, or confirm how to handle them. Autonomous per-task commits must not absorb unrelated local work, or the clean-rollback guarantee breaks.
-3. **Plan if needed.** If there is no `tasks/plan.md`, invoke brain:planning-and-task-breakdown to generate one.
-4. **Single checkpoint.** Present the full plan and wait for an unambiguous affirmative (e.g. "approve", "go", "yes"). Treat hedged responses ("looks reasonable", "I guess") as **not** approved. This is the only human gate — after approval, run autonomously. If you generated `tasks/plan.md`, commit it as a single preparatory commit now so it doesn't bleed into the first task's commit.
-5. **Execute every task in dependency order, each in a clean context.** Use each task's declared dependencies; if they aren't explicit, execute in the order the plan lists them. For each task, hand it to one sub-agent with the Agent tool and nothing from this conversation: the plain-talk block from `${CLAUDE_PLUGIN_ROOT}/plain-talk/AGENTS-block.md` at the top of the prompt, because the output style never reaches a sub-agent; the task's text from `tasks/todo.md`, the spec section it cites, the instruction to invoke brain:incremental-implementation and brain:test-driven-development, and the rule to stage only the files that task touched plus its task-status update — never `git add -A` — and to make one commit; and the rule that a decision the spec does not cover comes back in its report as one question, because a sub-agent cannot ask the user. Wait for its report before the next task. A long plan then stays as sharp on the last task as on the first, and any point is a clean rollback. On a host without a sub-agent tool, do the task in this session, commit, clear the context, and re-invoke `/build auto`; it resumes from the next pending task.
+1. **Require a spec.** Use the active spec from "The spec folder". A README or arbitrary doc does **not** count. If no spec is active, stop and tell the user to run `/spec` first — do not invent requirements.
+2. **Establish a clean baseline.** Run `git status --porcelain`. If there are uncommitted changes outside the active spec's folder (`docs/specs/SPEC-NNN-<slug>/` with the default paths: its `spec.md`, `tasks/plan.md` and `tasks/todo.md`), stop and ask the user to commit, stash, or confirm how to handle them. Autonomous per-task commits must not absorb unrelated local work, or the clean-rollback guarantee breaks.
+3. **Plan if needed.** If the spec's `tasks/plan.md` holds no task row yet, only the template's placeholder row, invoke brain:planning-and-task-breakdown to write the plan.
+4. **Single checkpoint.** Present the full plan and wait for an unambiguous affirmative (e.g. "approve", "go", "yes"). Treat hedged responses ("looks reasonable", "I guess") as **not** approved. This is the only human gate — after approval, run autonomously. If you wrote the plan, commit `tasks/plan.md` and `tasks/todo.md` as a single preparatory commit now so they don't bleed into the first task's commit.
+5. **Execute every task in dependency order, each in a clean context.** Take the rows in frontier order: the next `open` row whose `Blocked by` rows are all `resolved`. For each task, hand it to one sub-agent with the Agent tool and nothing from this conversation:
+   - the plain-talk block from `${CLAUDE_PLUGIN_ROOT}/plain-talk/AGENTS-block.md` at the top of the prompt, because the output style never reaches a sub-agent;
+   - the task's block from `tasks/todo.md`, copied whole, with the path of the spec folder and the spec section the block cites;
+   - the `brain` path from "The spec folder", because a sub-agent's commands do not get the plugin variable;
+   - the instruction to invoke brain:incremental-implementation and brain:test-driven-development;
+   - the rule to tick only the boxes in its own block of `tasks/todo.md`, to leave `tasks/plan.md` alone, to stage only the files the task touched plus `tasks/todo.md` — never `git add -A` — and to make one commit;
+   - the rule to report the commit SHA, and the verification command with its outcome;
+   - the rule that a decision the spec does not cover comes back in its report as one question, because a sub-agent cannot ask the user.
+
+   Wait for its report, and close the row (see "Close a row") before the next task. A long plan then stays as sharp on the last task as on the first, and any point is a clean rollback. On a host without a sub-agent tool, do the task in this session, commit, close the row, clear the context, and re-invoke `/build auto`; it resumes from the next row on the frontier.
 6. **Stop and ask the user** (do not push through) when:
    - a test can't be made to pass or the build breaks without an obvious fix → follow brain:debugging-and-error-recovery
    - the spec is ambiguous, or a task needs a decision the spec doesn't cover
    - a task is high-risk or irreversible — auth/permission changes, destructive data migrations, payments, deletions, deploys, anything touching secrets, **or anything you can't undo with `git revert`** → follow brain:doubt-driven-development and get explicit sign-off before continuing
 
-   After the user resolves a blocker, they re-invoke `/build auto` — it resumes from the next pending task.
+   After the user resolves a blocker, they re-invoke `/build auto` — it resumes from the next row on the frontier.
 7. **Summarize at the end:** tasks completed, tests added, commits made, and anything skipped, flagged, or left for the user.
+
+## Close a row
+
+This session is the only writer of `tasks/plan.md`. After a task's commit:
+
+1. Set the task's row in `tasks/plan.md` to `resolved`, and write its result as the table asks: the commit SHA, then the verification command and its outcome.
+2. Run `brain check`. No finding may name a file in the spec folder.
+3. Commit `tasks/plan.md` alone, staged by name.
 
 If any step fails, follow the brain:debugging-and-error-recovery skill.
