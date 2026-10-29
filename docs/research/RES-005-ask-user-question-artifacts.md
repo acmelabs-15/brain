@@ -1,3 +1,8 @@
+---
+id: RES-005
+migrated: 0.8
+date: 2026-09-19
+---
 # RES-005: What the ask-user-question artifacts hold for the rewrite
 
 Date: 2026-09-19. Status: read-only analysis. All 24 artifacts, the shipped skill, its three references and RES-004 were read in full.

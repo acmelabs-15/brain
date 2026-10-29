@@ -1,3 +1,8 @@
+---
+id: DEC-001
+migrated: 0.8
+decided: 2026-09-19
+---
 # DEC-001: Lint with Oxlint and format with Oxfmt, through Ultracite's presets
 
 Decided 2026-09-19 by Peter, for every ACMElabs repo; applied to brain here.
