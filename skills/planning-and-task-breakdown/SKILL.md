@@ -136,7 +136,7 @@ Add explicit checkpoints. A checkpoint is a row of type `checkpoint` in the plan
 - [ ] Review with human before proceeding
 ```
 
-A checkpoint's phase is the tasks it checks: list them in its Blocked by. Then list the checkpoint in the Blocked by of every later task that depends, directly or through other tasks, on a task in its phase, and of no other task. A checkpoint that blocks more holds back work it never reviewed.
+A checkpoint's phase is the tasks it checks: list them in its Blocked by. Then list the checkpoint in the Blocked by of every later task that depends, directly or through other tasks, on a task in its phase, and of no other task. A checkpoint that blocks more holds back work it never reviewed. A later task lists the tasks it needs beside the checkpoint: `brain check` reads what a task depends on from its task blockers alone.
 
 ### Step 6: Get the Plan Approved
 
@@ -216,7 +216,7 @@ The row table holds every task and checkpoint, in order:
 | 02 | Exit 1 on a missing file | task | open | 01 | — |
 | 03 | Read the text from stdin | task | open | 01 | — |
 | 04 | Checkpoint: after tasks 01-03 | checkpoint | open | 01, 02, 03 | — |
-| 05 | Print a count per line | task | open | 04 | — |
+| 05 | Print a count per line | task | open | 01, 04 | — |
 ```
 
 - **#**: two digits, local to the file. The row's block carries the same number.

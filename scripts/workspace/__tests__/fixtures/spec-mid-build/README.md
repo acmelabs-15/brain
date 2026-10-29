@@ -18,14 +18,14 @@ A layout-2 repo whose idea is specced and whose one spec is part way through its
 | 01 | task | resolved | — | no: resolved |
 | 02 | task | resolved | 01 | no: resolved |
 | 03 | checkpoint | resolved | 01, 02 | no: resolved |
-| 04 | task | in-progress | 03 | no: in progress, not open |
-| 05 | task | open | 01 | yes |
+| 04 | task | in-progress | 02, 03 | no: in progress, not open |
+| 05 | task | open | 01, 03 | yes |
 | 06 | task | open | 04 | no: 04 is in progress |
 | 07 | checkpoint | open | 04, 05, 06 | no: 04, 05 and 06 are not resolved |
 
 ## What brain must report
 
-- `brain check`: clean. It exits 0 with no finding. A resolved plan row's result is a commit SHA and a verification command, not a DEC or RES link: the link rule holds for map rows only.
+- `brain check`: clean. It exits 0 with no finding. A resolved plan row's result is a commit SHA and a verification command, not a DEC or RES link: the link rule holds for map rows only. Checkpoint 03's phase is rows 01 and 02. Rows 04 and 05 depend on a task in it, so 03 blocks them, and it blocks no other task.
 - Active effort: SPEC-001, the only spec with a row that is `open` or `in-progress`. IDEA-001 is specced, so it is not active. Phase: build.
 - Frontier of SPEC-001's plan: row 05, and no other row.
 - In progress: row 04.

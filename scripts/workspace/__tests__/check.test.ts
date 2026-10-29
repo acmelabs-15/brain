@@ -233,7 +233,12 @@ decided: 2026-10-24 by Sam
     const root = await repo(
       "blocked-by-plan",
       "spec-mid-build",
-      await edited("spec-mid-build", plan, "| task | open | 01 |", "| task | open | 01, 12 |"),
+      await edited(
+        "spec-mid-build",
+        plan,
+        "| task | open | 01, 03 |",
+        "| task | open | 01, 03, 12 |",
+      ),
     );
     const res = await brain(root, "check");
     expect(res.stdout).toBe(
@@ -458,6 +463,77 @@ describe("brain check, a row that breaks the row format", () => {
     );
     const res = await brain(root, "check");
     expect(res.stdout).toBe(lines(`${plan}: ${problem}`, "1 finding in 8 workspace files"));
+    expect(res.code).toBe(1);
+  });
+});
+
+describe("brain check, checkpoint rows", () => {
+  // SPEC-003 has two phases: checkpoint 03 checks tasks 01 and 02, checkpoint 06 checks 04 and 05.
+  const phases = "docs/specs/SPEC-003-checkpoints/tasks/plan.md";
+
+  test("each checkpoint blocks the later tasks that depend on its phase, and no other: no finding", async () => {
+    const root = await repo("checkpoints-clean", "plan-shapes");
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(lines("no finding in 12 workspace files"));
+    expect(res.code).toBe(0);
+  });
+
+  test("a task that depends and is blocked only through other tasks has no finding", async () => {
+    // 07 depends on 01 (phase of 03) through 05, and 03 blocks it through 05.
+    const root = await repo(
+      "checkpoints-through-tasks",
+      "plan-shapes",
+      await edited(
+        "plan-shapes",
+        phases,
+        "| checkpoint | open | 04, 05 | — |\n",
+        "| checkpoint | open | 04, 05 | — |\n| 07 | Show a note after a save | task | open | 05, 06 | — |\n",
+      ),
+    );
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(lines("no finding in 12 workspace files"));
+    expect(res.code).toBe(0);
+  });
+
+  test("a task that depends on a task in a checkpoint's phase, but the checkpoint does not block it", async () => {
+    const root = await repo(
+      "checkpoint-misses-a-task",
+      "plan-shapes",
+      await edited(
+        "plan-shapes",
+        phases,
+        "| Save from the settings page | task | open | 01, 03, 04 |",
+        "| Save from the settings page | task | open | 01, 04 |",
+      ),
+    );
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(
+      lines(
+        `${phases}: row 05: depends on 01, in the phase of checkpoint 03, but 03 does not block it`,
+        "1 finding in 12 workspace files",
+      ),
+    );
+    expect(res.code).toBe(1);
+  });
+
+  test("a task the checkpoint blocks that depends on no task in its phase", async () => {
+    const root = await repo(
+      "checkpoint-blocks-too-much",
+      "plan-shapes",
+      await edited(
+        "plan-shapes",
+        phases,
+        "| Draw the settings page | task | open | — |",
+        "| Draw the settings page | task | open | 03 |",
+      ),
+    );
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(
+      lines(
+        `${phases}: row 04: blocked by checkpoint 03, but depends on no task in the phase of 03`,
+        "1 finding in 12 workspace files",
+      ),
+    );
     expect(res.code).toBe(1);
   });
 });

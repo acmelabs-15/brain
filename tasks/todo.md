@@ -175,7 +175,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: CLI seam on fixtures (a linear plan, a wide plan, a cycle); the tree hashed before and after
   - Files: scripts/workspace/plan.ts, scripts/workspace/__tests__/plan.test.ts, scripts/brain.ts, fixtures, package.json
   - Depends: T14. Scope: M
-- [ ] T42: checkpoint rows checked by `brain check`
+- [x] T42: checkpoint rows checked by `brain check`
   - Acceptance: a checkpoint row's phase is its blockers; `brain check` reports a task that depends, directly or through other tasks, on a task in the phase but is not blocked, directly or through other tasks, by the checkpoint; and a task the checkpoint blocks that depends on no task in the phase; one finding line each
   - Verify: CLI seam, one fixture per finding and a clean one
   - Files: scripts/workspace/check.ts, scripts/workspace/__tests__/check.test.ts, fixtures

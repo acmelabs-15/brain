@@ -7,7 +7,7 @@ A layout-2 repo with four specs, each a plan of a different shape, and no ideas.
 - `docs/agents/workspace.md`: a copy of setup-brain's template, so `layout: 2` and the default paths.
 - `docs/specs/SPEC-001-linear/`: a chain. Row 01 is resolved, row 02 is in progress, and each later row needs the one before it.
 - `docs/specs/SPEC-002-wide/`: row 01 is resolved, and four tasks need only row 01. Their task blocks share two files.
-- `docs/specs/SPEC-003-checkpoints/`: two phases, each closed by a checkpoint row. Row 04 needs nothing from phase one, so the two phases share a wave.
+- `docs/specs/SPEC-003-checkpoints/`: two phases, each closed by a checkpoint row. Row 04 needs nothing from phase one, so the two phases share a wave. Row 05 needs row 01 from phase one, so checkpoint 03 blocks it.
 - `docs/specs/SPEC-004-cycle/`: rows 02, 03 and 04 block each other in a cycle.
 
 Every spec has an open row, so four efforts are not finished: without a spec to read, `brain plan` names all four.
@@ -24,3 +24,7 @@ A wave is the frontier once the waves above it are done; a resolved or supersede
 | SPEC-004 | none: exit 1 | none | none | none |
 
 SPEC-004: `brain plan` exits 1 and names the cycle: 02 is blocked by 04, 04 by 03, 03 by 02.
+
+## What `brain check` must report
+
+No finding. Each checkpoint blocks every later task that depends on a task in its phase, and no other task. In SPEC-003, checkpoint 03 blocks row 05, which depends on row 01; checkpoint 06 blocks no row.

@@ -18,7 +18,7 @@ This table holds the only status of each task; its block in `todo.md` holds the 
 | 02 | Read the settings | task | open | 01 | — |
 | 03 | The settings store works | checkpoint | open | 01, 02 | — |
 | 04 | Draw the settings page | task | open | — | — |
-| 05 | Save from the settings page | task | open | 03, 04 | — |
+| 05 | Save from the settings page | task | open | 01, 03, 04 | — |
 | 06 | The settings page works | checkpoint | open | 04, 05 | — |
 
 ## Risks

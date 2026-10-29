@@ -1,8 +1,8 @@
 /**
  * The graph of a plan's rows: each row points to the rows that block it. This module holds the
  * graph logic that `brain plan` and the plan checks share: a cycle of blocked-by edges, the
- * waves, and the critical path. A row still to do is open or in progress; a resolved row is done,
- * and a superseded row drops out.
+ * waves, the critical path, and the rows a row waits on. A row still to do is open or in
+ * progress; a resolved row is done, and a superseded row drops out.
  */
 import type { Row } from "./map";
 
@@ -54,6 +54,30 @@ export function findCycle(rows: readonly Row[]): string[] | null {
     }
   }
   return null;
+}
+
+/**
+ * The numbers of the rows that block `row`, directly or through other rows. A path steps only
+ * onto rows that `through` accepts, so `(other) => other.type === "task"` gives the tasks `row`
+ * depends on through tasks alone. A blocker that names no row is left out; a cycle ends.
+ */
+export function blockersOf(
+  rows: readonly Row[],
+  row: Row,
+  through: (other: Row) => boolean = () => true,
+): Set<string> {
+  const byId = new Map(rows.map((other) => [other.id, other]));
+  const found = new Set<string>();
+  const next = [row];
+  for (let current = next.pop(); current !== undefined; current = next.pop()) {
+    for (const blocker of current.blockedBy.flatMap((id) => byId.get(id) ?? [])) {
+      if (!found.has(blocker.id) && through(blocker)) {
+        found.add(blocker.id);
+        next.push(blocker);
+      }
+    }
+  }
+  return found;
 }
 
 /**

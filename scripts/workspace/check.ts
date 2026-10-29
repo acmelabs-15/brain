@@ -1,10 +1,11 @@
 /**
  * brain check: check the workspace against its rules, one line per finding. The rules are the
  * intent doc's Checks: each file's name and number, its frontmatter and H1 (through the shared
- * schema), each map and plan row, and every link to another file (a map row's result, a spec's
- * sources, a superseded-by). The folders come from the workspace config. A file with
- * `migrated: 0.8` keeps its old body, so its rows and H1 are not checked; a migrated decision
- * with no `kind` gets one informational line, which leaves the exit code alone.
+ * schema), each map and plan row, every link to another file (a map row's result, a spec's
+ * sources, a superseded-by), and the edges of each plan's checkpoint rows. The folders come from
+ * the workspace config. A file with `migrated: 0.8` keeps its old body, so its rows and H1 are
+ * not checked; a migrated decision with no `kind` gets one informational line, which leaves the
+ * exit code alone.
  * Exit codes: 0 clean, 1 a finding or a config it cannot use, 2 bad usage.
  */
 import { realpath, stat } from "node:fs/promises";
@@ -12,8 +13,9 @@ import path from "node:path";
 
 import { findRepo, readConfig } from "./config";
 import type { Paths } from "./config";
+import { blockersOf } from "./graph";
 import { readRows } from "./map";
-import type { Table } from "./map";
+import type { Row, Table } from "./map";
 import { checkDoc, readFrontmatter } from "./schema";
 import type { DocType } from "./schema";
 
@@ -173,11 +175,56 @@ function placeholderTitle(body: string): string[] {
     : [];
 }
 
-/** The problems with the rows of a map or plan; a map row's result must name an existing DEC or RES. */
+function isTask(row: Row): boolean {
+  return row.type === "task";
+}
+
+/**
+ * The problems with a plan's checkpoint rows, each naming the task whose blocked-by to fix. A
+ * checkpoint's phase is the tasks that block it. It must block every later task that depends on a
+ * task in its phase, and no other task. A task depends on another through task rows alone, since
+ * a checkpoint does no work; a checkpoint blocks a task through any rows. A superseded row drops out.
+ */
+function checkpointProblems(plan: readonly Row[]): string[] {
+  const rows = plan.filter((row) => row.status !== "superseded");
+  const tasks = rows.filter(isTask);
+  const checkpoints = rows
+    .filter((row) => row.type === "checkpoint")
+    .map((checkpoint) => ({
+      id: checkpoint.id,
+      phase: tasks.filter((task) => checkpoint.blockedBy.includes(task.id)).map((task) => task.id),
+      // The rows a checkpoint waits on come before it, so it cannot block them.
+      before: blockersOf(rows, checkpoint),
+    }));
+  const problems: string[] = [];
+  for (const task of tasks) {
+    const dependsOn = blockersOf(rows, task, isTask);
+    const waitsOn = blockersOf(rows, task);
+    for (const { id, phase, before } of checkpoints) {
+      const needed = phase.find((phaseTask) => dependsOn.has(phaseTask));
+      if (task.blockedBy.includes(id) && needed === undefined) {
+        problems.push(
+          `row ${task.id}: blocked by checkpoint ${id}, but depends on no task in the phase of ${id}`,
+        );
+      } else if (needed !== undefined && !waitsOn.has(id) && !before.has(task.id)) {
+        problems.push(
+          `row ${task.id}: depends on ${needed}, in the phase of checkpoint ${id}, but ${id} does not block it`,
+        );
+      }
+    }
+  }
+  return problems;
+}
+
+/**
+ * The problems with the rows of a map or plan. A map row's result must name an existing DEC or
+ * RES; a plan's checkpoints must block the right tasks.
+ */
 function rowProblems(table: Table, body: string, known: Set<string>): string[] {
   const { rows, problems } = readRows(table, body);
-  if (table !== "map") {
-    return problems;
+  if (table === "plan") {
+    // A row that breaks the format is left out of `rows`, so its edges would be missing.
+    return problems.length > 0 ? problems : checkpointProblems(rows);
   }
   for (const row of rows) {
     const links = row.result.match(/\b(?:DEC|RES)-\d{3}\b/gu) ?? [];
