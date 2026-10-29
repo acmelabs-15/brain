@@ -7,7 +7,8 @@ export type Finding = {
     | "retired-name"
     | "glossary-term"
     | "expired-fallback"
-    | "agent-list";
+    | "agent-list"
+    | "hook-file";
   file: string;
   detail: string;
 };

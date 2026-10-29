@@ -14,7 +14,8 @@ export default defineConfig({
     "skills",
     "references",
     "agents",
-    "hooks",
+    // Anchored at the root: a bare "hooks" also matches brain's own scripts/hooks/.
+    "/hooks",
     "licenses",
     "commands",
     ".claude/commands",

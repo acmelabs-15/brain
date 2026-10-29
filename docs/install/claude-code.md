@@ -26,6 +26,11 @@ The plugin's output style, `talk-plain`, applies at the scope the plugin was ins
 `--scope user` for every project, `--scope project` for one repo. Nothing is written to a
 `CLAUDE.md`.
 
+The plugin's `SessionStart` hook, in `scripts/hooks/claude-code.json`, runs at startup, after
+`/clear` and after a compaction. It gives the session the brain protocol, the full path of the
+`brain` CLI, and the `brain status` report with the text of `docs/STATUS.md`. It runs `bun`
+from `PATH`.
+
 ## Verify
 
 Type `/brain:` and the skill list appears. It includes `brain:domain-modeling` and

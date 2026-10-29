@@ -223,7 +223,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run plain-talk:render -- --check`; `bun test scripts/plain-talk`
   - Files: protocol/PROTOCOL.md, plain-talk/templates/*, scripts/plain-talk/render.ts, rendered outputs
   - Depends: T16, T30. Scope: M
-- [ ] T32: the Claude `SessionStart` hook
+- [x] T32: the Claude `SessionStart` hook
   - Acceptance: `scripts/hooks/claude-code.json` (startup, clear, compact) runs `scripts/hooks/session-start.ts`, which prints JSON with `additionalContext` = protocol + five lines + `STATUS.md` text, under 10,000 characters; `.claude-plugin/plugin.json` names the file in `hooks`; `lifecycle:check` fails on `hooks/hooks.json` or a root `hooks.json`
   - Verify: spawn the hook on each fixture; `bun run validate`
   - Files: scripts/hooks/claude-code.json, scripts/hooks/session-start.ts, scripts/hooks/__tests__/session-start.test.ts, .claude-plugin/plugin.json, scripts/lifecycle/

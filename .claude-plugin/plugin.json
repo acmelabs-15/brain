@@ -29,5 +29,6 @@
     "./agents/test-engineer.md",
     "./agents/web-performance-auditor.md",
     "./claude/agents/researcher.md"
-  ]
+  ],
+  "hooks": "./scripts/hooks/claude-code.json"
 }
