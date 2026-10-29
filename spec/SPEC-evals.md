@@ -57,11 +57,14 @@ graders are the pass signal. The plain-talk cases keep both arms: the delta is t
 ## Commands
 
 ```
-claude plugin eval . --ablation none --case 'setup/*'   # setup cases, with-arm only
-claude plugin eval . --case 'plain-talk/*'              # plain-talk cases, both arms
-claude plugin eval . --json evals/results/latest.json   # everything, for CI
-bun run evals:gate evals/results/latest.json            # exit 1 under the threshold, 0.85 by default
+claude plugin eval . --scaffold --ablation none --case 'setup/*'      # setup cases, with-arm only
+claude plugin eval . --scaffold --case 'plain-talk/*'                 # plain-talk cases, both arms
+claude plugin eval . --scaffold --json evals/results/latest.json      # everything, for CI
+bun run evals:gate evals/results/latest.json                          # exit 1 under the threshold, 0.85 by default
 ```
+
+`--scaffold` runs each case's `scaffold.sh`. Without it, Claude Code skips the script and the
+case runs in an empty folder (`claude plugin eval --help`, 2.1.312).
 
 ## Project Structure
 
@@ -108,7 +111,7 @@ As the other modules: named exports, explicit types, kebab-case files, no em-das
 
 ## Success Criteria
 
-1. `claude plugin eval . --ablation none --case 'setup/*'` scores 1.0 on both setup cases.
+1. `claude plugin eval . --scaffold --ablation none --case 'setup/*'` scores 1.0 on both setup cases.
 2. The two plain-talk cases show a positive delta between the with-arm and the without-arm.
 3. `bun run evals:gate` exits 0 on a passing result file and 1 on a failing one, by test.
 4. A scheduled CI job runs the suite and stores the JSON result.

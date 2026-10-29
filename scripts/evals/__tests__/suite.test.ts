@@ -60,6 +60,29 @@ describe("eval suite", () => {
     }
   });
 
+  test("no frontmatter value holds ---, where the eval loader would end the block", async () => {
+    // `claude plugin eval` 2.1.312 ends a case file's frontmatter at the first "---" after
+    // the opening line, even inside a value, and then the whole suite fails to load. A
+    // regex writes the run as -{3}.
+    const broken: string[] = [];
+    for (const c of await cases()) {
+      const dir = `${root}/${c}`;
+      const entries = await readdir(`${dir}/graders`);
+      const graders = entries.filter((f) => f.endsWith(".md"));
+      for (const file of ["prompt.md", ...graders.map((g) => `graders/${g}`)]) {
+        const text = await Bun.file(`${dir}/${file}`).text();
+        if (!text.startsWith("---\n")) {
+          continue;
+        }
+        const end = text.indexOf("---", 4);
+        if (end === -1 || text[end - 1] !== "\n" || !/^---(?:\n|$)/u.test(text.slice(end))) {
+          broken.push(`${c}/${file}`);
+        }
+      }
+    }
+    expect(broken).toEqual([]);
+  });
+
   test("a case with a scaffold declares it in case.yaml", async () => {
     for (const c of await cases()) {
       const dir = `${root}/${c}`;

@@ -82,11 +82,14 @@ shows what brain adds. Every run is model calls on the account that runs it. Cla
 2.1.269 or later is needed.
 
 ```
-claude plugin eval . --ablation none --case 'setup/*'   # the setup cases, plugin arm only
-claude plugin eval . --case 'plain-talk/*'              # the plain-talk cases, both arms
-claude plugin eval . --json evals/results/ci.json       # everything, for the gate
-bun run evals:gate evals/results/ci.json                # exit 1 under the threshold, 0.85 by default
+claude plugin eval . --scaffold --ablation none --case 'setup/*'      # the setup cases, plugin arm only
+claude plugin eval . --scaffold --case 'plain-talk/*'                 # the plain-talk cases, both arms
+claude plugin eval . --scaffold --json evals/results/ci.json          # everything, for the gate
+bun run evals:gate evals/results/ci.json                              # exit 1 under the threshold, 0.85 by default
 ```
+
+`--scaffold` runs each case's `scaffold.sh`. Without it, Claude Code skips the script and the
+case runs in an empty folder (`claude plugin eval --help`, 2.1.312).
 
 The `Evals` workflow runs the suite by hand or weekly, never on every push, and needs
 the `ANTHROPIC_API_KEY` repository secret. `evals/results/` is not committed.
