@@ -37,7 +37,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run validate`; `git diff --stat` shows no file under `tasks/done/` or `docs/research/`
   - Files: README.md, .codex-plugin/plugin.json, spec/CAPABILITY-MAP.md, spec/SPEC-{lifecycle,plain-talk,question,setup}.md, docs/intent/brain-wrap.md
   - Depends: none. Ask first: the uncommitted change already in `brain-wrap.md`. Scope: M
-- [ ] T07: brain's own `GLOSSARY.md`
+- [x] T07: brain's own `GLOSSARY.md`
   - Acceptance: written with domain-modeling, in `GLOSSARY-FORMAT.md`'s format; one entry each for idea, effort, destination, map, row, decide / research / do rows, frontier, fog, claim, decision record (DEC), research record (RES), workspace, protocol; `_Avoid_` lines where a synonym exists; no implementation detail
   - Verify: read against `GLOSSARY-FORMAT.md`; the T08 check passes
   - Files: GLOSSARY.md
