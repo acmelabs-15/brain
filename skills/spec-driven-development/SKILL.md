@@ -16,13 +16,13 @@ Write a structured specification before you write any code. The spec is the shar
 - The change touches multiple files or modules
 - You are about to make an architectural decision
 - The task would take more than 30 minutes to implement
-- A design question needs a runnable answer before the spec can settle (the prototype detour in Phase 1)
+- A design question needs a runnable answer before the spec can settle (the prototype detour in Stage 1)
 
 **When NOT to use:** Single-line fixes, typo corrections, or changes where requirements are unambiguous and self-contained.
 
 ## The Gated Workflow
 
-Spec-driven development has four phases. A scope check (Phase 0) precedes them and activates only when one request bundles several independently testable capabilities. Do not advance to the next phase until the current one is validated.
+Spec-driven development has four stages. A scope check (Stage 0) precedes them and activates only when one request bundles several independently testable capabilities. Do not advance to the next stage until the current one is validated.
 
 ```
 SPECIFY ──→ PLAN ──→ TASKS ──→ IMPLEMENT
@@ -44,9 +44,9 @@ bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" <cmd>
 
 Claude Code fills in the plugin path when it loads this skill. On another host, resolve the plugin folder as setup-brain does, then run `scripts/brain.ts` from it with bun. Below, `brain <cmd>` stands for this command. In a repo with no `docs/agents/workspace.md`, `brain new-doc` uses the default folders: tell the user once to run setup-brain.
 
-### Phase 0: Scope Check
+### Stage 0: Scope Check
 
-Most requests describe one capability. If this one does, skip this phase and go straight to Specify. Phase 0 exists for the exception, not the rule, and it puts no hierarchy on single-capability features.
+Most requests describe one capability. If this one does, skip this stage and go straight to Specify. Stage 0 exists for the exception, not the rule, and it puts no hierarchy on single-capability features.
 
 **Detection.** Decompose before specifying when a single requirement bundles several independently testable capabilities:
 
@@ -73,15 +73,15 @@ Build order: identity → billing, notifications → reporting
 - **Dependency direction, no cycles.** Arrows point one way. If two modules each need the other, they are one module.
 - **Interfaces live at the boundary.** The capability map records that `billing` depends on `identity`. The contract between them belongs in the provider module's spec (see api-and-interface-design for designing it).
 
-**The capability map is gated like every phase.** The human reviews module boundaries, dependency direction, and build order before any module spec is written. Put the capability map through the question tool as one question: approve, or name the boundary to change. Getting the capability map wrong is expensive; reviewing ten lines is not.
+**The capability map is gated like every stage.** The human reviews module boundaries, dependency direction, and build order before any module spec is written. Put the capability map through the question tool as one question: approve, or name the boundary to change. Getting the capability map wrong is expensive; reviewing ten lines is not.
 
 **Record the approved capability map.** The approval is the user's decision, so it gets a decision record: run `brain new-doc DEC <slug>` and fill it as [domain-modeling's DEC format](../domain-modeling/DEC-FORMAT.md) says, with the module table and the build order in its body.
 
-**Then recurse per module.** Run Specify → Plan → Tasks → Implement for each module in dependency order. Each module gets its own spec, scoped to that module's objective, boundaries, and success criteria, in its own spec folder: create it with `brain new-doc SPEC <module-id>` (Phase 1, step 5), so the module id is the folder's slug, and list the capability map's decision record in its `sources:`. The capability map, not filename guessing, is the index of what exists.
+**Then recurse per module.** Run Specify → Plan → Tasks → Implement for each module in dependency order. Each module gets its own spec, scoped to that module's objective, boundaries, and success criteria, in its own spec folder: create it with `brain new-doc SPEC <module-id>` (Stage 1, step 5), so the module id is the folder's slug, and list the capability map's decision record in its `sources:`. The capability map, not filename guessing, is the index of what exists.
 
-### Phase 1: Specify
+### Stage 1: Specify
 
-Phase 1 runs in order: understand the ask, confirm the assumptions, choose the test seams, take the prototype detour when a question needs one, then write the spec.
+Stage 1 runs in order: understand the ask, confirm the assumptions, choose the test seams, take the prototype detour when a question needs one, then write the spec.
 
 **1. Understand the ask.** Read the conversation and the codebase before you ask anything. Two cases:
 
@@ -167,7 +167,7 @@ It claims the next spec number and writes `spec.md`, `tasks/plan.md` and `tasks/
 - `sources:` in the frontmatter: every IDEA, DEC and RES file the spec comes from, such as `sources: [IDEA-004, DEC-031, RES-009]`. Links run one way: an idea holds no list of its specs.
 - When `sources:` names an idea, set that idea's `status` to `specced`. The idea is then finished, and a session that resumes it goes to this spec.
 
-Leave `tasks/plan.md` and `tasks/todo.md` as the templates wrote them; planning-and-task-breakdown fills them in Phase 2. The spec is a repo file, committed beside the code. `spec.md` is done when `brain check` reports no finding for it; the findings for the plan and todo files stay until Phase 2 fills them.
+Leave `tasks/plan.md` and `tasks/todo.md` as the templates wrote them; planning-and-task-breakdown fills them in Stage 2. The spec is a repo file, committed beside the code. `spec.md` is done when `brain check` reports no finding for it; the findings for the plan and todo files stay until Stage 2 fills them.
 
 **External spec tools:** This workflow is format-agnostic. If the project already uses OpenSpec or another specification system, keep that system's artifact format and storage conventions instead of creating a duplicate spec folder. This skill owns the clarification, content, and approval gates; the external tool owns how the approved spec is represented.
 
@@ -184,7 +184,7 @@ REFRAMED SUCCESS CRITERIA:
 
 Put the targets through the question tool as one question. This lets you loop, retry, and problem-solve toward a clear goal rather than guessing what "faster" means.
 
-### Phase 2: Plan
+### Stage 2: Plan
 
 With the validated spec, generate a technical implementation plan:
 
@@ -200,7 +200,7 @@ With the validated spec, generate a technical implementation plan:
 
 The plan should be reviewable: the human should be able to read it and say "yes, that's the right approach" or "no, change X."
 
-### Phase 3: Tasks
+### Stage 3: Tasks
 
 Break the plan into discrete, implementable tasks:
 
@@ -212,7 +212,7 @@ Break the plan into discrete, implementable tasks:
 
 > Follow planning-and-task-breakdown for the full task-sizing and dependency-ordering mechanics, and for the format: each task is a row in `tasks/plan.md` and a block in `tasks/todo.md`. It is the canonical source; if the bullets above ever diverge from it, planning-and-task-breakdown takes precedence.
 
-### Phase 4: Implement
+### Stage 4: Implement
 
 Execute tasks one at a time. `Call the Skill tool with "incremental-implementation"` for the slicing and `Call the Skill tool with "test-driven-development"` for each slice's loop, at the seams the spec confirmed. Use context-engineering to load the right spec sections and source files at each step rather than flooding the agent with the entire spec.
 

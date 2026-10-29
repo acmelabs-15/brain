@@ -68,6 +68,7 @@ _Avoid_: backlog, later
 
 **Phase**:
 The tasks in a plan that one checkpoint waits on.
+A skill may number its own sections as phases (idea-refine, debugging); those are sections of that skill, not plan phases.
 _Avoid_: stage (for a plan's tasks), milestone
 
 **Checkpoint**:

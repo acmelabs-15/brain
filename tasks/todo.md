@@ -267,7 +267,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `build-parallel` dry-check cases: a fallback run passes every grader; a sub-agent that writes in the main tree stops the build before any merge; a merged fallback worktree is gone, and a failed one stays and is named; T45's guard test covers the new rules; `bun run lifecycle:check`
   - Files: .claude/commands/build.md, commands/build.toml, skills/incremental-implementation/SKILL.md, evals/lifecycle/build-parallel/, scripts/evals/__tests__/build-parallel.test.ts, scripts/lifecycle/__tests__/parallel-build.test.ts, docs/intent/workspace-and-stateful-interview.md
   - Depends: T45. Scope: M
-- [ ] T51: spec-driven-development's phases become stages
+- [x] T51: spec-driven-development's phases become stages
   - Acceptance: as the Decisions row "Skill sections named phases" says. spec-driven-development's Phase 0 to 4 become stages in its headings and in every mention, there and in each brain-owned file that names them; `GLOSSARY.md`'s Phase entry gains Peter's line word for word; idea-refine's, debugging-and-error-recovery's and `/ship`'s section labels stay
   - Verify: `bun run lifecycle:check`; no "Phase 0" to "Phase 4" left in spec-driven-development or in a file that cites its sections
   - Files: skills/spec-driven-development/SKILL.md, GLOSSARY.md, the files that cite its phases
