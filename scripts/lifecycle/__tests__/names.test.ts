@@ -81,6 +81,17 @@ describe("checkRetiredNames, the old glossary name", () => {
     expect(await checkRetiredNames(root)).toEqual([]);
   });
 
+  test("in a git repo, a file git ignores is never read, and an untracked one is", async () => {
+    const root = await tree("git-mode", {
+      ".gitignore": "ignored/\n",
+      "ignored/copy/SKILL.md": "CONTEXT.md\n",
+      "fresh.md": "CONTEXT.md\n",
+    });
+    Bun.spawnSync(["git", "init", "-q"], { cwd: root });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.file)).toEqual(["fresh.md"]);
+  });
+
   test("node_modules and .git are never read", async () => {
     const root = await tree("skipped", {
       "node_modules/pkg/README.md": "CONTEXT.md\n",

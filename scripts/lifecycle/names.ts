@@ -2,7 +2,7 @@
  * Names brain has retired must not come back, and brain's own glossary must define the
  * workspace terms. Both run inside `bun run lifecycle:check`.
  */
-import { readdir } from "node:fs/promises";
+import { lstat, readdir, realpath } from "node:fs/promises";
 
 import { readLock } from "../sync/lib/lock";
 import type { Finding } from "./finding";
@@ -48,16 +48,43 @@ const skippedNames = new Set(["node_modules", ".git"]);
 const skippedPaths = new Set(["evals/results"]);
 const textFile = /\.(?:md|toml|json|ts|ya?ml|sh)$/u;
 
-async function textFiles(root: string, rel = ""): Promise<string[]> {
+async function walkedFiles(root: string, rel = ""): Promise<string[]> {
   const entries = await readdir(rel === "" ? root : `${root}/${rel}`, { withFileTypes: true });
   const files: string[] = [];
   for (const entry of entries) {
     const path = rel === "" ? entry.name : `${rel}/${entry.name}`;
     if (entry.isDirectory()) {
       if (!skippedNames.has(entry.name) && !skippedPaths.has(path)) {
-        files.push(...(await textFiles(root, path)));
+        files.push(...(await walkedFiles(root, path)));
       }
     } else if (entry.isFile() && textFile.test(entry.name)) {
+      files.push(path);
+    }
+  }
+  return files;
+}
+
+/**
+ * The repo's text files. In a git repo these are the files git tracks or would track, so
+ * whatever .gitignore names (worktrees, node_modules, build output) is never read; a
+ * symlink is never followed. Outside git, a walk of the folder tree.
+ */
+async function textFiles(root: string): Promise<string[]> {
+  const listed = Bun.spawnSync(
+    ["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+    { cwd: root },
+  );
+  const inRepo = Bun.spawnSync(["git", "rev-parse", "--show-toplevel"], { cwd: root });
+  if (listed.exitCode !== 0 || inRepo.stdout.toString().trim() !== (await realpath(root))) {
+    return walkedFiles(root);
+  }
+  const files: string[] = [];
+  for (const path of listed.stdout.toString().split("\0")) {
+    if (!textFile.test(path)) {
+      continue;
+    }
+    const entry = await lstat(`${root}/${path}`).catch(() => null);
+    if (entry?.isFile() === true) {
       files.push(path);
     }
   }

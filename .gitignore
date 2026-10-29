@@ -7,3 +7,4 @@ evals/results/
 # claude plugin eval; they carry the run's session context, so only history.jsonl is kept.
 evals/**/*.jsonl
 !evals/**/history.jsonl
+.claude/worktrees/
