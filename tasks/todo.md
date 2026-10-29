@@ -60,7 +60,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/workspace` (CLI seam)
   - Files: scripts/brain.ts, scripts/workspace/__tests__/cli.test.ts, skills/setup-brain/workspace.md
   - Depends: T08. Scope: M
-- [ ] T10: the templates and their frontmatter schemas
+- [x] T10: the templates and their frontmatter schemas
   - Acceptance: IDEA, DEC, RES, spec, plan and todo templates as in the intent doc's File formats, with the H1 ID rule and the `spec:` field; one schema per type that check and new-doc share; plan rows carry ID, task, type (`task` or `checkpoint`), status, blocked by, result; todo blocks carry no status line and no Dependencies field; the RES finding line allows the optional validator; `from` is required for new DEC and RES files, and a migrated 0.8 file carries `migrated: 0.8` instead, the only case where the check accepts a missing `from`; `evidence` is optional for all files; the schemas are final for this build: T13 and T17 use them unchanged
   - Verify: `bun test scripts/workspace` (each template, filled, passes its schema)
   - Files: scripts/workspace/templates/{IDEA,DEC,RES,spec,plan,todo}.md, scripts/workspace/schema.ts, test

@@ -18,5 +18,8 @@ export default defineConfig({
     "licenses",
     "commands",
     ".claude/commands",
+    // new-doc copies these templates byte for byte; the formatter would read `{{id}}` in
+    // their frontmatter as YAML and rewrite it to `{ { id } }`.
+    "scripts/workspace/templates",
   ],
 });
