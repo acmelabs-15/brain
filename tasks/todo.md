@@ -97,7 +97,7 @@ ends with a checkpoint and a review with Peter.
   - Depends: T12, T14. Scope: M
 
 ### Checkpoint: phase 2
-- [ ] `bun run check` green with both new steps; the parallel test passes ten runs in a row
+- [x] `bun run check` green with both new steps; the parallel test passes ten runs in a row (10 of 10, 2026-10-29)
 - [ ] Review with Peter
 
 ## Phase 3: define phase
@@ -149,8 +149,8 @@ ends with a checkpoint and a review with Peter.
   - Depends: T24. Scope: M
 
 ### Checkpoint: phase 3
-- [ ] No wayfinder or triage mention outside history; `bun run check` green
-- [ ] Review with Peter
+- [x] No wayfinder or triage mention outside history; `bun run check` green
+- [x] Review with Peter: approved 2026-10-29 after one real run of `lifecycle/interview-resume` (one run, Claude Code 2.1.312, default model, $0.50, score 0.86). In the eval sandbox the skill's plugin path resolved, and `scripts/brain.ts check` ran ("no finding in 7 workspace files"). A probe in the same sandbox ran `brain new-doc IDEA probe` (the idea file was made) and `brain status`, both exit 0. `no-settled-question` failed 2 of 3 judges: the options for row 09 also chose the plan, which is row 08; a follow-up for interview-me and the grader. The first attempts found three eval defects, fixed in bd3dccab and ed329224
 
 ## Phase 4: build-phase paths and the router
 
