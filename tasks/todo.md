@@ -112,7 +112,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/lifecycle`; `bun run validate`
   - Files: references/brain/agent-brief.md, .claude-plugin/plugin.json, skills/triage/SKILL.md, scripts/lifecycle/
   - Depends: T08. Scope: S
-- [ ] T19: interview-me (a), the stateful map
+- [x] T19: interview-me (a), the stateful map
   - Acceptance: always stateful; loads ask-user-question, domain-modeling and context-engineering; the chart (destination, breadth-first frontier, the IDEA file through `brain new-doc`, fog in "Not yet specified", blocking edges in a second pass); the row types (decide, research, do) and statuses; every resolved row links to a `DEC` or `RES` file; no repo: the map lives in the conversation, said so
   - Verify: `bun run lifecycle:check`; a charted fixture idea passes `brain check`
   - Files: skills/interview-me/SKILL.md
