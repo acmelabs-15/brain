@@ -1,5 +1,13 @@
 # @acmelabs/brain
 
+## 0.7.0
+
+### Minor Changes
+
+- [#8](https://github.com/acmelabs-15/brain/pull/8) [`023d94f`](https://github.com/acmelabs-15/brain/commit/023d94f3a456f117ac0bfc6627391063862e8f46) - `ask-user-question` is now the skill from acmelabs-15/ask-user-question at `62d3b79`: `SKILL.md` and the three host references. Two parts differ from upstream. The frontmatter `metadata` names brain and carries brain's version, which `version:sync` keeps current. The text above the host table says to check which tool the session offers, then read that tool's reference. brain's rewrite, its Codex `agents/openai.yaml` and the `question:check` gate are gone.
+
+- [#9](https://github.com/acmelabs-15/brain/pull/9) [`1f74106`](https://github.com/acmelabs-15/brain/commit/1f74106106e93fed2235c849e4e520f80b3c6e5f) - The agent now loads `wait-what` on its own when the user shows confusion about its last message, for example "what are you talking about", "I don't get it" or "that makes no sense". `/wait-what` still works. An error message the user finds confusing stays a debugging task. `wait-what` is now seeded from matt's pack, so brain owns its text; the body is unchanged.
+
 ## 0.6.0
 
 ### Minor Changes
