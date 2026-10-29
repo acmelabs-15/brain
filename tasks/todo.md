@@ -12,7 +12,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run sync -- --check`; `git diff --stat HEAD~1`
   - Files: upstream.json, upstream.lock.json, skills/codebase-design/DESIGN-IT-TWICE.md
   - Depends: none. Scope: S
-- [ ] T02: plain-talk sources renamed and re-rendered
+- [x] T02: plain-talk sources renamed and re-rendered
   - Acceptance: `plain-talk/PLAIN-TALK.md` names `GLOSSARY.md` and `GLOSSARY-MAP.md`; `bun run plain-talk:render` rewrites the five outputs; no rendered file edited by hand
   - Verify: `bun run plain-talk:render -- --check`; `bun test scripts/plain-talk`
   - Files: plain-talk/PLAIN-TALK.md; rendered: output-styles/talk-plain.md, GEMINI.md, rules/talk-plain.md, plain-talk/AGENTS-block.md, AGENTS.md
