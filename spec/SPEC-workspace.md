@@ -103,8 +103,8 @@ because the success criteria test them.
   On Claude Code, `/brain:status` is the `status` skill, since a plugin skill is a slash
   command there.
 - **Plan and todo.** `/build` hands a sub-agent its task's block from `todo.md`. The sub-agent
-  ticks only its own block's acceptance boxes and commits its code; the main session then
-  updates the row in `plan.md`.
+  commits its code and ticks nothing; the main session, the only writer, then ticks the
+  block's boxes and updates the row in `plan.md` (Decisions row "Parallel build by default").
 - **Researcher.** `claude/agents/researcher.md` holds only its tool policy
   (`disallowedTools: Agent`) and one line: "Follow the research brief you are given." The
   research protocol lives only in the brief.
