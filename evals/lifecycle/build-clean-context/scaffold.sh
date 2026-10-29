@@ -100,6 +100,18 @@ This table holds the only status of each task; its block in `todo.md` holds the 
 |---|---|---|---|---|---|
 | 01 | Greet by name | task | open | — | — |
 | 02 | Shout a greeting | task | open | 01 | — |
+
+## Parallel waves
+| Wave | Rows |
+|---|---|
+| 1 | 01 |
+| 2 | 02 |
+
+Critical path, 2 rows: 01, 02.
+
+Files that more than one task in a wave touches: none.
+
+Phases that share a wave: none.
 PLAN
 cat > docs/specs/SPEC-001-greeter/tasks/todo.md <<'TODO'
 ---

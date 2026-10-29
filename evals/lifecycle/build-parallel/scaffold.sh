@@ -83,6 +83,19 @@ This table holds the only status of each task; its block in `todo.md` holds the 
 | 06 | The text tools work | checkpoint | open | 01, 02, 03, 04, 05 | — |
 | 07 | Summarize a text | task | open | 01, 02, 06 | — |
 
+## Parallel waves
+| Wave | Rows |
+|---|---|
+| 1 | 01, 02, 03, 04, 05 |
+| 2 | 06 (checkpoint) |
+| 3 | 07 |
+
+Critical path, 3 rows: 01, 06, 07.
+
+Files that more than one task in a wave touches: none.
+
+Phases that share a wave: none.
+
 ## Risks
 | Risk | Impact | Mitigation |
 |---|---|---|

@@ -2,7 +2,8 @@
  * brain check: check the workspace against its rules, one line per finding. The rules are the
  * intent doc's Checks: each file's name and number, its frontmatter and H1 (through the shared
  * schema), each map and plan row, every link to another file (a map row's result, a spec's
- * sources, a superseded-by, a done idea's result), and the edges of each plan's checkpoint rows.
+ * sources, a superseded-by, a done idea's result), the edges of each plan's checkpoint rows, and
+ * each plan's "Parallel waves" section, which must be what `brain plan` prints for its rows now.
  * The folders come from the workspace config. A file with `migrated: 0.8` keeps its old body, so
  * its rows and H1 are not checked; a migrated decision with no `kind` gets one informational line,
  * which leaves the exit code alone.
@@ -16,6 +17,7 @@ import type { Paths } from "./config";
 import { blockersOf } from "./graph";
 import { readRows } from "./map";
 import type { Row, Table } from "./map";
+import { parallelWaves, renderParallelWaves } from "./plan";
 import { checkDoc, readFrontmatter } from "./schema";
 import type { DocType } from "./schema";
 
@@ -246,6 +248,68 @@ function rowProblems(table: Table, body: string, known: Set<string>): string[] {
   return problems;
 }
 
+const wavesHeading = "## Parallel waves";
+
+/** The lines of a plan's "Parallel waves" section, below its heading; null when it has none. */
+function wavesSection(body: string): string[] | null {
+  const lines = body.split("\n");
+  const start = lines.findIndex((line) => line.trimEnd() === wavesHeading);
+  if (start === -1) {
+    return null;
+  }
+  const below = lines.slice(start + 1);
+  // The section ends at the next heading of its level or higher.
+  const end = below.findIndex((line) => /^#{1,2} /u.test(line));
+  return end === -1 ? below : below.slice(0, end);
+}
+
+/**
+ * Lines of Markdown, read past what a formatter changes: the spaces around each line and inside
+ * each table cell, the dashes of a table's delimiter row, and runs of blank lines.
+ */
+function plainText(lines: readonly string[]): string {
+  const plain = lines.map((line) => {
+    const text = line.trim();
+    if (!text.startsWith("|")) {
+      return text;
+    }
+    const cells = text
+      .replaceAll(/^\||(?<!\\)\|$/gu, "")
+      .split(/(?<!\\)\|/u)
+      .map((cell) => cell.trim());
+    const delimiter = cells.every((cell) => /^:?-+:?$/u.test(cell));
+    return `| ${cells.map((cell) => (delimiter ? "---" : cell)).join(" | ")} |`;
+  });
+  return plain
+    .join("\n")
+    .replaceAll(/\n{3,}/gu, "\n\n")
+    .trim();
+}
+
+/**
+ * The problem with a plan's "Parallel waves" section: missing, or stale, which is different from
+ * what `brain plan` prints above its cap for the rows and task blocks now. A plan whose rows
+ * `brain plan` cannot put in order gets the problems `brain plan` names instead.
+ */
+function wavesProblems(spec: string, body: string, todo: string): string[] {
+  const { rows, problems } = readRows("plan", body);
+  // A row that breaks the format is the row check's finding; a plan with no rows has no waves.
+  if (problems.length > 0 || rows.length === 0) {
+    return [];
+  }
+  const parallel = parallelWaves(body, todo);
+  if ("problems" in parallel) {
+    return parallel.problems;
+  }
+  const source = `the lines that brain plan ${spec} prints above its Cap line`;
+  const section = wavesSection(body);
+  if (section === null) {
+    return [`Parallel waves: missing; add the section: ${source}`];
+  }
+  const current = plainText(section) === plainText(renderParallelWaves(parallel).split("\n"));
+  return current ? [] : [`Parallel waves: stale; replace the section with ${source}`];
+}
+
 /** Findings in the byte order of their paths, as `git ls-files` lists files. */
 function byPath(a: Finding, b: Finding): number {
   if (a.path === b.path) {
@@ -277,6 +341,11 @@ export async function checkWorkspace(root: string, paths: Paths): Promise<Result
         problems.push(...placeholderTitle(body));
         if (table !== undefined) {
           problems.push(...rowProblems(table, body, known));
+        }
+        if (doc.type === "plan") {
+          const todo = Bun.file(path.join(root, doc.unit, "tasks", "todo.md"));
+          const blocks = (await todo.exists()) ? await todo.text() : "";
+          problems.push(...wavesProblems(doc.id, body, blocks));
         }
       }
     }

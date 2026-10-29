@@ -15,7 +15,7 @@ A layout-2 repo where every effort is finished or parked. The check, status and 
 
 ## What brain must report
 
-- `brain check`: clean. It exits 0 with no finding.
+- `brain check`: clean. It exits 0 with no finding. Each plan's "Parallel waves" section holds the one line that `brain plan` prints for a plan with no open row: "No open rows: every row is resolved or superseded."
 - Active effort: none. IDEA-001 is specced and IDEA-002 is parked; no plan row in SPEC-001 or SPEC-002 is `open` or `in-progress`. A superseded row does not keep a spec active.
 - Phase: none.
 - Frontier: empty for both specs. IDEA-002's map has row 01 on its frontier, but a parked idea is not active work, so row 01 is not reported.

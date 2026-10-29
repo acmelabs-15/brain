@@ -85,7 +85,7 @@ This session is the only writer of `tasks/plan.md` and of the ticks in `tasks/to
 
 1. Tick the boxes in the task's block of `tasks/todo.md`.
 2. Set the task's row in `tasks/plan.md` to `resolved`, and write its result as the table asks: the task's commit SHA, then the verification command and its outcome.
-3. When the plan has a "Parallel waves" section, replace its text with the waves text of a fresh `brain plan`, everything above its `Cap:` line: a resolved row leaves the waves.
+3. Replace the text of the plan's "Parallel waves" section with the waves text of a fresh `brain plan`, everything above its `Cap:` line: a resolved row leaves the waves. A plan without the section gets one, below the Tasks table.
 4. Run `brain check`. No finding may name a file in the spec folder.
 5. Commit `tasks/plan.md` and `tasks/todo.md` alone, staged by name, in a commit of their own: the row's result names the task's commit, which exists only once that commit does.
 

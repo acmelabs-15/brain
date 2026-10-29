@@ -180,7 +180,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: CLI seam, one fixture per finding and a clean one
   - Files: scripts/workspace/check.ts, scripts/workspace/__tests__/check.test.ts, fixtures
   - Depends: T41. Scope: S
-- [ ] T43: the "Parallel waves" section in every plan
+- [x] T43: the "Parallel waves" section in every plan
   - Acceptance: planning-and-task-breakdown drops its external-tracker option (tasks live only in plan rows and todo blocks); it writes a "Parallel waves" section into `tasks/plan.md` from `brain plan` output, never by hand, and runs `brain plan` again whenever an edge changes; `brain check` fails, with one finding line, when a plan with rows lacks the section or the section differs from a fresh `brain plan` output
   - Verify: CLI seam (missing, stale, current); `bun run lifecycle:check`
   - Files: skills/planning-and-task-breakdown/SKILL.md, scripts/workspace/check.ts, scripts/workspace/plan.ts, scripts/workspace/__tests__/check.test.ts

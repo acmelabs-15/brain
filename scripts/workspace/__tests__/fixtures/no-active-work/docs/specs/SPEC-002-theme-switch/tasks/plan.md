@@ -19,6 +19,9 @@ This table holds the only status of each task; its block in `todo.md` holds the 
 | 03 | Keep the choice in local storage | task | resolved | 01 | 27ab9e5; `bun test src/settings`: 8 pass |
 | 04 | Ready for review | checkpoint | resolved | 01, 03 | 27ab9e5; `bun run check`: green |
 
+## Parallel waves
+No open rows: every row is resolved or superseded.
+
 ## Risks
 | Risk | Impact | Mitigation |
 |---|---|---|

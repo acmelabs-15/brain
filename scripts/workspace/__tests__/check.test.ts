@@ -526,15 +526,20 @@ describe("brain check, a row that breaks the row format", () => {
 describe("brain check, checkpoint rows", () => {
   // SPEC-003 has two phases: checkpoint 03 checks tasks 01 and 02, checkpoint 06 checks 04 and 05.
   const phases = "docs/specs/SPEC-003-checkpoints/tasks/plan.md";
+  // SPEC-004 holds a cycle, which brain check reports in every copy of plan-shapes.
+  const cycle =
+    "docs/specs/SPEC-004-cycle/tasks/plan.md: cycle: 02 is blocked by 04, 04 by 03, 03 by 02";
+  // A test that changes an edge leaves SPEC-003's Parallel waves section stale.
+  const stale = `${phases}: Parallel waves: stale; replace the section with the lines that brain plan SPEC-003 prints above its Cap line`;
 
-  test("each checkpoint blocks the later tasks that depend on its phase, and no other: no finding", async () => {
+  test("each checkpoint blocks the later tasks that depend on its phase, and no other: no checkpoint finding", async () => {
     const root = await repo("checkpoints-clean", "plan-shapes");
     const res = await brain(root, "check");
-    expect(res.stdout).toBe(lines("no finding in 12 workspace files"));
-    expect(res.code).toBe(0);
+    expect(res.stdout).toBe(lines(cycle, "1 finding in 12 workspace files"));
+    expect(res.code).toBe(1);
   });
 
-  test("a task that depends and is blocked only through other tasks has no finding", async () => {
+  test("a task that depends and is blocked only through other tasks has no checkpoint finding", async () => {
     // 07 depends on 01 (phase of 03) through 05, and 03 blocks it through 05.
     const root = await repo(
       "checkpoints-through-tasks",
@@ -547,8 +552,8 @@ describe("brain check, checkpoint rows", () => {
       ),
     );
     const res = await brain(root, "check");
-    expect(res.stdout).toBe(lines("no finding in 12 workspace files"));
-    expect(res.code).toBe(0);
+    expect(res.stdout).toBe(lines(stale, cycle, "2 findings in 12 workspace files"));
+    expect(res.code).toBe(1);
   });
 
   test("a task that depends on a task in a checkpoint's phase, but the checkpoint does not block it", async () => {
@@ -566,7 +571,9 @@ describe("brain check, checkpoint rows", () => {
     expect(res.stdout).toBe(
       lines(
         `${phases}: row 05: depends on 01, in the phase of checkpoint 03, but 03 does not block it`,
-        "1 finding in 12 workspace files",
+        stale,
+        cycle,
+        "3 findings in 12 workspace files",
       ),
     );
     expect(res.code).toBe(1);
@@ -587,7 +594,156 @@ describe("brain check, checkpoint rows", () => {
     expect(res.stdout).toBe(
       lines(
         `${phases}: row 04: blocked by checkpoint 03, but depends on no task in the phase of 03`,
+        stale,
+        cycle,
+        "3 findings in 12 workspace files",
+      ),
+    );
+    expect(res.code).toBe(1);
+  });
+});
+
+describe("brain check, a plan's Parallel waves section", () => {
+  // spec-mid-build's plan holds the section as brain plan prints it for its rows: the lines above
+  // the Cap line.
+  const section = `## Parallel waves
+| Wave | Rows |
+|---|---|
+| 1 | 04, 05 |
+| 2 | 06 |
+| 3 | 07 (checkpoint) |
+
+Critical path, 3 rows: 04, 06, 07.
+
+Files that more than one task in a wave touches: none.
+
+Phases that share a wave: none.
+
+`;
+  const todo = "docs/specs/SPEC-001-invoice-csv-export/tasks/todo.md";
+
+  test("a current section, as brain plan prints it: no finding", async () => {
+    const text = await Bun.file(`${fixtures}/spec-mid-build/${plan}`).text();
+    expect(text).toContain(`\n${section}## Risks\n`);
+    const root = await repo("waves-current", "spec-mid-build");
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(lines("no finding in 8 workspace files"));
+    expect(res.code).toBe(0);
+  });
+
+  test("a plan with rows and no section: one finding, and exit 1", async () => {
+    const root = await repo(
+      "waves-missing",
+      "spec-mid-build",
+      await edited("spec-mid-build", plan, section, ""),
+    );
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(
+      lines(
+        `${plan}: Parallel waves: missing; add the section: the lines that brain plan SPEC-001 prints above its Cap line`,
+        "1 finding in 8 workspace files",
+      ),
+    );
+    expect(res.code).toBe(1);
+  });
+
+  test.each([
+    [
+      "an edge changed: row 06 no longer waits for row 04",
+      plan,
+      "| 06 | Show progress for an export of more than 1,000 invoices | task | open | 04 | — |",
+      "| 06 | Show progress for an export of more than 1,000 invoices | task | open | — | — |",
+    ],
+    [
+      "a row resolved: row 04 is done",
+      plan,
+      "| 04 | Add the Export button to the invoices page | task | in-progress | 02, 03 | — |",
+      "| 04 | Add the Export button to the invoices page | task | resolved | 02, 03 | 5d1e0a2; `bun test src/pages`: 3 pass |",
+    ],
+    [
+      "a block's files changed: task 05 now touches the Export button, as task 04 does",
+      todo,
+      "- `src/export/csv.ts`\n\n**Scope:** XS",
+      "- `src/export/csv.ts`\n- `src/pages/invoices/ExportButton.tsx`\n\n**Scope:** XS",
+    ],
+  ])("a stale section, after %s: one finding, and exit 1", async (change, file, from, to) => {
+    const root = await repo(
+      `waves-stale-${Bun.hash(change)}`,
+      "spec-mid-build",
+      await edited("spec-mid-build", file, from, to),
+    );
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(
+      lines(
+        `${plan}: Parallel waves: stale; replace the section with the lines that brain plan SPEC-001 prints above its Cap line`,
+        "1 finding in 8 workspace files",
+      ),
+    );
+    expect(res.code).toBe(1);
+  });
+
+  test("a section whose table a Markdown formatter padded is still current: no finding", async () => {
+    const root = await repo(
+      "waves-padded",
+      "spec-mid-build",
+      await edited(
+        "spec-mid-build",
+        plan,
+        "| Wave | Rows |\n|---|---|\n| 1 | 04, 05 |\n| 2 | 06 |\n| 3 | 07 (checkpoint) |\n",
+        "| Wave | Rows            |\n| ---- | --------------- |\n| 1    | 04, 05          |\n| 2    | 06              |\n| 3    | 07 (checkpoint) |\n",
+      ),
+    );
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(lines("no finding in 8 workspace files"));
+    expect(res.code).toBe(0);
+  });
+
+  test("a plan with no rows yet needs no section: no finding", async () => {
+    const root = await repo("waves-no-rows", "spec-mid-build", {
+      [plan]: `---
+spec: SPEC-001
+---
+# SPEC-001 plan: Export invoices as CSV
+
+## Tasks
+| # | Task | Type | Status | Blocked by | Result |
+|---|---|---|---|---|---|
+`,
+    });
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(lines("no finding in 8 workspace files"));
+    expect(res.code).toBe(0);
+  });
+
+  test("a plan whose rows brain plan cannot put in order: the cycle brain plan names, and exit 1", async () => {
+    const root = await repo("waves-cycle", "plan-shapes");
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(
+      lines(
+        "docs/specs/SPEC-004-cycle/tasks/plan.md: cycle: 02 is blocked by 04, 04 by 03, 03 by 02",
         "1 finding in 12 workspace files",
+      ),
+    );
+    expect(res.code).toBe(1);
+  });
+
+  test("a row that a superseded row blocks never starts: brain plan's finding, and exit 1", async () => {
+    // Row 08 replaces row 05, but checkpoint 07 still waits on 05.
+    const root = await repo(
+      "waves-superseded-blocker",
+      "spec-mid-build",
+      await edited(
+        "spec-mid-build",
+        plan,
+        "| 05 | Quote customer names that hold commas or quotes | task | open | 01, 03 | — |",
+        "| 05 | Quote customer names that hold commas or quotes | task | superseded by 08 | 01, 03 | — |\n| 08 | Quote every text field | task | open | 01, 03 | — |",
+      ),
+    );
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(
+      lines(
+        `${plan}: row 07: blocked by 05, which is superseded by 08`,
+        "1 finding in 8 workspace files",
       ),
     );
     expect(res.code).toBe(1);

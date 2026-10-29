@@ -17,6 +17,7 @@ Read the spec folder's `spec.md` and the relevant codebase sections. Then:
 Write the plan into the spec folder's `tasks/plan.md` and the task list into its `tasks/todo.md`. `brain new-doc SPEC` wrote both from their templates; keep the templates' format:
 
 - `tasks/plan.md` holds the row table (number, task, type `task` or `checkpoint`, status, blocked by, result), the only status of each task.
+- `tasks/plan.md` also holds the Parallel waves section: the lines that `brain plan SPEC-NNN` prints above its `Cap:` line, written again whenever a row, an edge or a block's files change.
 - `tasks/todo.md` holds one block per row, under the row's number, with no status line and no dependencies field: the rows that block a task live only in the table.
 
 Then run `brain check`; `docs/agents/workspace.md` says how to run `brain` on this host. No finding may name a file in the spec folder.

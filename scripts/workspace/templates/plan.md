@@ -16,6 +16,9 @@ This table holds the only status of each task; its block in `todo.md` holds the 
 |---|---|---|---|---|---|
 | 01 | <task> | <task or checkpoint> | open | — | — |
 
+## Parallel waves
+<the lines that `brain plan` prints above its Cap line, as it prints them>
+
 ## Risks
 | Risk | Impact | Mitigation |
 |---|---|---|

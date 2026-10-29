@@ -18,6 +18,9 @@ This table holds the only status of each task; its block in `todo.md` holds the 
 | 02 | Give each token its dark value | task | resolved | 01 | 9d7f3b4; `bun test src/theme`: 14 pass |
 | 03 | Both themes pass the contrast check | checkpoint | resolved | 02 | 9d7f3b4; `bun run check`: green |
 
+## Parallel waves
+No open rows: every row is resolved or superseded.
+
 ## Risks
 | Risk | Impact | Mitigation |
 |---|---|---|

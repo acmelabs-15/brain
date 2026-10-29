@@ -216,7 +216,32 @@ async function subAgent(root: string, id: string, ticks = true): Promise<string>
   return git(root, "rev-parse", "--short", "HEAD");
 }
 
-/** The main session closes row `id`: the row goes resolved with `result`, then brain check, then a commit. */
+/**
+ * The main session writes the plan's Parallel waves section again from the real `brain plan`:
+ * the lines it prints above its Cap line take the place of the section's old lines.
+ */
+async function rewriteWaves(run: Run): Promise<void> {
+  const res = Bun.spawnSync(["bun", cli, "plan", "SPEC-001"], {
+    cwd: run.root,
+    env: { ...process.env, GIT_CEILING_DIRECTORIES: work },
+  });
+  expect(res.exitCode).toBe(0);
+  const printed = res.stdout.toString();
+  const waves = printed.slice(0, printed.indexOf("\nCap: ")).trimEnd();
+  const file = `${run.root}/${planPath}`;
+  const plan = await Bun.file(file).text();
+  const start = plan.indexOf("## Parallel waves\n");
+  expect(start).toBeGreaterThan(-1);
+  const next = plan.indexOf("\n## ", start + 1);
+  const rest = next === -1 ? "" : plan.slice(next);
+  await Bun.write(file, `${plan.slice(0, start)}## Parallel waves\n${waves}\n${rest}`);
+  run.commands.push('bun "/plugins/brain/scripts/brain.ts" plan SPEC-001');
+}
+
+/**
+ * The main session closes row `id`: the row goes resolved with `result`, the Parallel waves
+ * section is written again, then brain check, then a commit.
+ */
 async function closeRow(run: Run, id: string, result: string): Promise<void> {
   const file = `${run.root}/${planPath}`;
   const plan = await Bun.file(file).text();
@@ -226,6 +251,7 @@ async function closeRow(run: Run, id: string, result: string): Promise<void> {
   );
   expect(row.test(plan)).toBe(true);
   await Bun.write(file, plan.replace(row, `$1 resolved $2 ${result} |`));
+  await rewriteWaves(run);
   run.commands.push(brainCheck);
   expect(runCheck(run.root).exitCode).toBe(0);
   git(run.root, "add", "--", planPath);

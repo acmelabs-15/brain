@@ -24,6 +24,19 @@ This table holds the only status of each task; its block in `todo.md` holds the 
 | 06 | Show progress for an export of more than 1,000 invoices | task | open | 04 | — |
 | 07 | Ready for review | checkpoint | open | 04, 05, 06 | — |
 
+## Parallel waves
+| Wave | Rows |
+|---|---|
+| 1 | 04, 05 |
+| 2 | 06 |
+| 3 | 07 (checkpoint) |
+
+Critical path, 3 rows: 04, 06, 07.
+
+Files that more than one task in a wave touches: none.
+
+Phases that share a wave: none.
+
 ## Risks
 | Risk | Impact | Mitigation |
 |---|---|---|

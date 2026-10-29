@@ -310,9 +310,26 @@ function merge(run: Run, taskBranch: string, id: string): void {
 }
 
 /**
- * The main session closes row `id`: it ticks the block, resolves the row, checks and commits.
- * With `check`, the real `brain check` runs too; each run takes a bun start, so only the
- * correct run pays for it.
+ * Write the plan's Parallel waves section again from the real `brain plan`: the lines it prints
+ * above its Cap line take the place of the section's old lines.
+ */
+async function rewriteWaves(root: string): Promise<void> {
+  const planned = brain(root, "plan", "SPEC-001");
+  expect(planned.exitCode).toBe(0);
+  const waves = planned.out.slice(0, planned.out.indexOf("\nCap: ")).trimEnd();
+  const file = `${root}/${planPath}`;
+  const plan = await Bun.file(file).text();
+  const start = plan.indexOf("## Parallel waves\n");
+  expect(start).toBeGreaterThan(-1);
+  const next = plan.indexOf("\n## ", start + 1);
+  const rest = next === -1 ? "" : plan.slice(next);
+  await Bun.write(file, `${plan.slice(0, start)}## Parallel waves\n${waves}\n${rest}`);
+}
+
+/**
+ * The main session closes row `id`: it ticks the block, resolves the row, writes the Parallel
+ * waves section again, checks and commits. With `check`, the real `brain plan` and `brain check`
+ * run too; each run takes a bun start, so only the correct run pays for it.
  */
 async function closeRow(run: Run, id: string, sha: string, check: boolean): Promise<void> {
   await tick(run.root, id);
@@ -325,8 +342,12 @@ async function closeRow(run: Run, id: string, sha: string, check: boolean): Prom
   expect(row.test(plan)).toBe(true);
   const result = `${sha}; \`bun test src/__tests__/${testFile[id]}.test.ts\`: 1 pass`;
   await Bun.write(file, plan.replace(row, `$1 resolved $2 ${result} |`));
-  run.calls.push({ tool: "Bash", input: { command: `${brainCmd} check` } });
+  run.calls.push(
+    { tool: "Bash", input: { command: `${brainCmd} plan SPEC-001` } },
+    { tool: "Bash", input: { command: `${brainCmd} check` } },
+  );
   if (check) {
+    await rewriteWaves(run.root);
     expect(brain(run.root, "check").exitCode).toBe(0);
   }
   git(run.root, "add", "--", planPath, todoPath);

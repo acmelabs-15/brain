@@ -10,6 +10,8 @@ A layout-2 repo with four specs, each a plan of a different shape, and no ideas.
 - `docs/specs/SPEC-003-checkpoints/`: two phases, each closed by a checkpoint row. Row 04 needs nothing from phase one, so the two phases share a wave. Row 05 needs row 01 from phase one, so checkpoint 03 blocks it.
 - `docs/specs/SPEC-004-cycle/`: rows 02, 03 and 04 block each other in a cycle.
 
+The plans of SPEC-001 to SPEC-003 each hold a "Parallel waves" section: the lines that `brain plan` prints for that spec above its Cap line. SPEC-004's plan has none, because `brain plan` prints no waves for a cycle.
+
 Every spec has an open row, so four efforts are not finished: without a spec to read, `brain plan` names all four.
 
 ## What `brain plan` must report
@@ -27,4 +29,8 @@ SPEC-004: `brain plan` exits 1 and names the cycle: 02 is blocked by 04, 04 by 0
 
 ## What `brain check` must report
 
-No finding. Each checkpoint blocks every later task that depends on a task in its phase, and no other task. In SPEC-003, checkpoint 03 blocks row 05, which depends on row 01; checkpoint 06 blocks no row.
+One finding, and exit 1: SPEC-004's cycle, in the same words as `brain plan`: `docs/specs/SPEC-004-cycle/tasks/plan.md: cycle: 02 is blocked by 04, 04 by 03, 03 by 02`.
+
+No checkpoint finding. Each checkpoint blocks every later task that depends on a task in its phase, and no other task. In SPEC-003, checkpoint 03 blocks row 05, which depends on row 01; checkpoint 06 blocks no row.
+
+No Parallel waves finding: each section of SPEC-001 to SPEC-003 is what `brain plan` prints now. A test that changes an edge, a row's status or a block's files leaves that spec's section stale, and `brain check` reports it.

@@ -203,6 +203,25 @@ function fillTodo(text: string): string {
   return text.replace("<title>", "Word counter").replace(/## Task 01: [\s\S]*$/u, blocks);
 }
 
+/**
+ * Write the plan's Parallel waves section from the real `brain plan`: the lines it prints above its
+ * Cap line take the place of the template's line. Return the Bash call as the skill spells it.
+ */
+async function writeWaves(root: string): Promise<Call> {
+  const res = brain(root, "plan", "SPEC-001");
+  expect(res.exitCode).toBe(0);
+  const waves = res.out.slice(0, res.out.indexOf("\nCap: ")).trimEnd();
+  const file = `${root}/${planPath}`;
+  const plan = await Bun.file(file).text();
+  const placeholder = /^## Parallel waves\n<[^>\n]*>$/mu;
+  expect(plan).toMatch(placeholder);
+  await Bun.write(file, plan.replace(placeholder, `## Parallel waves\n${waves}`));
+  return {
+    tool: "Bash",
+    input: { command: 'bun "/plugins/brain/scripts/brain.ts" plan SPEC-001' },
+  };
+}
+
 /** The skill calls of a correct run: the plan skill, then the question skill it loads. */
 const skillCalls: Call[] = [
   { tool: "Skill", input: { skill: "brain:planning-and-task-breakdown" } },
@@ -232,13 +251,16 @@ async function play(
   return { root, calls, last };
 }
 
-/** A correct run: new-doc makes the spec folder, the run fills spec, plan and todo, then checks. */
+/**
+ * A correct run: new-doc makes the spec folder, the run fills spec, plan and todo, writes the
+ * plan's Parallel waves section from brain plan, then checks.
+ */
 function planned(
   name: string,
   options: { calls?: Call[]; last?: string; fill?: boolean } = {},
 ): Promise<Run> {
   return play(name, async (root) => {
-    const made = newSpec(root, slug);
+    const made = [newSpec(root, slug)];
     if (options.fill ?? true) {
       for (const [path, fill] of [
         [`${folder}/spec.md`, fillSpec],
@@ -247,8 +269,9 @@ function planned(
       ] as const) {
         await Bun.write(`${root}/${path}`, fill(await Bun.file(`${root}/${path}`).text()));
       }
+      made.push(await writeWaves(root));
     }
-    return { calls: [...(options.calls ?? skillCalls), made], last: options.last ?? goodReply };
+    return { calls: [...(options.calls ?? skillCalls), ...made], last: options.last ?? goodReply };
   });
 }
 

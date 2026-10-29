@@ -21,6 +21,22 @@ This table holds the only status of each task; its block in `todo.md` holds the 
 | 05 | Save from the settings page | task | open | 01, 03, 04 | — |
 | 06 | The settings page works | checkpoint | open | 04, 05 | — |
 
+## Parallel waves
+| Wave | Rows |
+|---|---|
+| 1 | 01, 04 |
+| 2 | 02 |
+| 3 | 03 (checkpoint) |
+| 4 | 05 |
+| 5 | 06 (checkpoint) |
+
+Critical path, 5 rows: 01, 02, 03, 05, 06.
+
+Files that more than one task in a wave touches: none.
+
+Phases that share a wave, each named by its checkpoint row:
+- 03 and 06: wave 1
+
 ## Risks
 | Risk | Impact | Mitigation |
 |---|---|---|

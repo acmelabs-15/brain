@@ -19,6 +19,19 @@ This table holds the only status of each task; its block in `todo.md` holds the 
 | 03 | Write the site folder | task | open | 02 | — |
 | 04 | Ready for review | checkpoint | open | 01, 02, 03 | — |
 
+## Parallel waves
+| Wave | Rows |
+|---|---|
+| 1 | 02 |
+| 2 | 03 |
+| 3 | 04 (checkpoint) |
+
+Critical path, 3 rows: 02, 03, 04.
+
+Files that more than one task in a wave touches: none.
+
+Phases that share a wave: none.
+
 ## Risks
 | Risk | Impact | Mitigation |
 |---|---|---|
