@@ -1,6 +1,6 @@
 ---
 name: spec-driven-development
-description: Writes a spec before code. Interviews when the ask is underspecified, confirms assumptions one question at a time, chooses the test seams, detours to a throwaway prototype when a question needs a runnable answer, and saves SPEC.md or spec/. Use for a new project, feature or significant change with no spec, a vague idea or PRD, or a request that needs a capability map of modules first.
+description: Writes a spec before code. Interviews when the ask is underspecified, confirms assumptions one question at a time, chooses the test seams, detours to a throwaway prototype when a question needs a runnable answer, and saves spec.md in its own spec folder. Use for a new project, feature or significant change with no spec, a vague idea or PRD, or a request that needs a capability map of modules first.
 ---
 
 # Spec-Driven Development
@@ -34,6 +34,16 @@ SPECIFY ──→ PLAN ──→ TASKS ──→ IMPLEMENT
 
 Every gate is the human's decision. `Call the Skill tool with "ask-user-question"` and put the decision through the host's user-question tool, one question per call, with your recommendation and the fact behind it inside the question text. The same tool serves every decision named below as "the question tool". A small, reversible choice stays yours: decide it, state what decided it, and keep going.
 
+### Run `brain`
+
+`brain` is brain's command-line tool. It creates every numbered file, a spec folder included, and checks the workspace. On Claude Code, run it as:
+
+```
+bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" <cmd>
+```
+
+Claude Code fills in the plugin path when it loads this skill. On another host, resolve the plugin folder as setup-brain does, then run `scripts/brain.ts` from it with bun. Below, `brain <cmd>` stands for this command. In a repo with no `docs/agents/workspace.md`, `brain new-doc` uses the default folders: tell the user once to run setup-brain.
+
 ### Phase 0: Scope Check
 
 Most requests describe one capability. If this one does, skip this phase and go straight to Specify. Phase 0 exists for the exception, not the rule, and it puts no hierarchy on single-capability features.
@@ -61,11 +71,13 @@ Build order: identity → billing, notifications → reporting
 
 - **Stable module ids.** Kebab-case, chosen once, never renamed mid-initiative. Specs, plans, and downstream commands select work by these ids instead of guessing which spec is active.
 - **Dependency direction, no cycles.** Arrows point one way. If two modules each need the other, they are one module.
-- **Interfaces live at the boundary.** The map records that `billing` depends on `identity`. The contract between them belongs in the provider module's spec (see api-and-interface-design for designing it).
+- **Interfaces live at the boundary.** The capability map records that `billing` depends on `identity`. The contract between them belongs in the provider module's spec (see api-and-interface-design for designing it).
 
-**The map is gated like every phase.** The human reviews module boundaries, dependency direction, and build order before any module spec is written. Put the map through the question tool as one question: approve, or name the boundary to change. Getting the map wrong is expensive; reviewing ten lines is not.
+**The capability map is gated like every phase.** The human reviews module boundaries, dependency direction, and build order before any module spec is written. Put the capability map through the question tool as one question: approve, or name the boundary to change. Getting the capability map wrong is expensive; reviewing ten lines is not.
 
-**Then recurse per module.** Run Specify → Plan → Tasks → Implement for each module in dependency order. Each module gets its own spec, scoped to that module's objective, boundaries, and success criteria. Save the approved map under `spec/` and each module's spec beside it, named by module id (`spec/SPEC-identity.md`, `spec/SPEC-billing.md`). The map, not filename guessing, is the index of what exists.
+**Record the approved capability map.** The approval is the user's decision, so it gets a decision record: run `brain new-doc DEC <slug>` and fill it as [domain-modeling's DEC format](../domain-modeling/DEC-FORMAT.md) says, with the module table and the build order in its body.
+
+**Then recurse per module.** Run Specify → Plan → Tasks → Implement for each module in dependency order. Each module gets its own spec, scoped to that module's objective, boundaries, and success criteria, in its own spec folder: create it with `brain new-doc SPEC <module-id>` (Phase 1, step 5), so the module id is the folder's slug, and list the capability map's decision record in its `sources:`. The capability map, not filename guessing, is the index of what exists.
 
 ### Phase 1: Specify
 
@@ -73,7 +85,7 @@ Phase 1 runs in order: understand the ask, confirm the assumptions, choose the t
 
 **1. Understand the ask.** Read the conversation and the codebase before you ask anything. Two cases:
 
-- The conversation already holds the answers (a finished interview, a design thread, a bug discussion). Synthesise from it and ask nothing you can read.
+- The answers are already written: in the conversation (a design thread, a bug discussion), or in the idea file of a finished interview (`IDEA-NNN-<slug>.md` in the workspace's ideas folder, `paths.ideas` in `docs/agents/workspace.md`) and the DEC and RES files its map links. Synthesise from them and ask nothing you can read. Each IDEA, DEC and RES file you use goes into the spec's `sources:` (step 5).
 - The ask is underspecified: "build me X" with no "for whom" or "why now". `Call the Skill tool with "interview-me"` and run it to its confidence stop before you write a line of spec.
 
 **2. Surface assumptions.** Before writing any spec content, list what you assume:
@@ -142,54 +154,22 @@ Then add the three sections that follow them in the template:
 
 9. **Prior-art tests**: existing tests the new ones should resemble, by path, at the seams from step 3.
 
-**Spec template:**
+**Where the spec lives.** Every spec lives in its own spec folder, `SPEC-NNN-<slug>/`, in the workspace's specs folder (`paths.specs` in `docs/agents/workspace.md`, `docs/specs/` by default). Create the folder with `brain new-doc`, never by hand. Pick a slug (lowercase words joined by hyphens; for a module spec, its module id) and run:
 
-```markdown
-# Spec: [Project/Feature Name]
-
-## Objective
-[What we're building and why. Acceptance criteria.]
-
-## Tech Stack
-[Framework, language, key dependencies with versions]
-
-## Commands
-[Build, test, lint, dev: full commands]
-
-## Project Structure
-[Directory layout with descriptions]
-
-## Code Style
-[Example snippet + key conventions]
-
-## Testing Strategy
-[Framework, test locations, coverage requirements, confirmed seams]
-
-## Boundaries
-- Always: [...]
-- Ask first: [...]
-- Never: [...]
-
-## User Stories
-1. As a [actor], I want [feature], so that [benefit]
-2. ...
-
-## Out of scope
-[What this spec does not build]
-
-## Prior-art tests
-[Existing tests, by path, that the new tests should resemble]
-
-## Success Criteria
-[How we'll know this is done: specific, testable conditions]
-
-## Open Questions
-[Anything unresolved that needs human input, or a runnable answer from a prototype]
+```
+bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc SPEC <slug>
 ```
 
-**Where the spec lives.** Save it as `SPEC.md` at the repo root, or under `spec/` when the repo already has that folder. Module specs from a capability map always live under `spec/` as `SPEC-<module-id>.md` (Phase 0). The spec is a repo file, committed beside the code.
+It claims the next spec number and writes `spec.md`, `tasks/plan.md` and `tasks/todo.md` from brain's templates. `spec.md` comes from `scripts/workspace/templates/spec.md` in the plugin, which holds the sections above plus Tech Stack, Success Criteria and Open Questions. Fill `spec.md`:
 
-**External spec tools:** This workflow is format-agnostic. If the project already uses OpenSpec or another specification system, keep that system's artifact format and storage conventions instead of creating a duplicate `SPEC.md`. This skill owns the clarification, content, and approval gates; the external tool owns how the approved spec is represented.
+- The H1: the ID the template wrote, then the spec's title: `# SPEC-012: <title>`.
+- Every section, with the template's headings unchanged.
+- `sources:` in the frontmatter: every IDEA, DEC and RES file the spec comes from, such as `sources: [IDEA-004, DEC-031, RES-009]`. Links run one way: an idea holds no list of its specs.
+- When `sources:` names an idea, set that idea's `status` to `specced`. The idea is then done, and a session that resumes it goes to this spec.
+
+Leave `tasks/plan.md` and `tasks/todo.md` as the templates wrote them; planning-and-task-breakdown fills them in Phase 2. The spec is a repo file, committed beside the code. `spec.md` is done when `brain check` reports no finding for it; the findings for the plan and todo files stay until Phase 2 fills them.
+
+**External spec tools:** This workflow is format-agnostic. If the project already uses OpenSpec or another specification system, keep that system's artifact format and storage conventions instead of creating a duplicate spec folder. This skill owns the clarification, content, and approval gates; the external tool owns how the approved spec is represented.
 
 **Reframe instructions as success criteria.** When receiving vague requirements, translate them into concrete conditions:
 
@@ -216,7 +196,7 @@ With the validated spec, generate a technical implementation plan:
 
 > Follow planning-and-task-breakdown for the dependency-graph mapping and vertical-slicing mechanics behind these steps; it is the canonical source. The bullets above are a lightweight summary; if they ever diverge, planning-and-task-breakdown takes precedence.
 >
-> **Output convention:** Save the plan to `tasks/plan.md` and the task list to `tasks/todo.md`. Create `tasks/` if it does not exist. Downstream commands (`/build`, etc.) expect these paths.
+> **Output convention:** The plan goes into the spec folder's `tasks/plan.md` as rows, and the task detail into its `tasks/todo.md` as blocks. `brain new-doc SPEC` already wrote both files. Downstream commands (`/build`, etc.) read them there.
 
 The plan should be reviewable: the human should be able to read it and say "yes, that's the right approach" or "no, change X."
 
@@ -230,15 +210,7 @@ Break the plan into discrete, implementable tasks:
 - Tasks are ordered by dependency, not by perceived importance
 - No task should require changing more than ~5 files
 
-> Follow planning-and-task-breakdown for the full task-sizing and dependency-ordering mechanics; it is the canonical source. The template below is a lightweight inline form; if they ever diverge, planning-and-task-breakdown takes precedence.
-
-**Task template:**
-```markdown
-- [ ] Task: [Description]
-  - Acceptance: [What must be true when done]
-  - Verify: [How to confirm: test command, build, manual check]
-  - Files: [Which files will be touched]
-```
+> Follow planning-and-task-breakdown for the full task-sizing and dependency-ordering mechanics, and for the format: each task is a row in `tasks/plan.md` and a block in `tasks/todo.md`. It is the canonical source; if the bullets above ever diverge from it, planning-and-task-breakdown takes precedence.
 
 ### Phase 4: Implement
 
@@ -282,7 +254,8 @@ The spec is a living document, not a one-time artifact:
 - A Testing Strategy with no seam decision the human confirmed
 - A runnable question (state, logic, a screen) answered with prose and a guess
 - Prototype code inside the production tree, or a Project Structure that points at it
-- A spec kept anywhere other than `SPEC.md`, `spec/`, or the project's own spec tool
+- A spec kept anywhere other than a spec folder from `brain new-doc SPEC`, or the project's own spec tool
+- A `sources:` list that misses an idea, decision or research file the spec draws on
 - One spec whose requirements span several independently testable capabilities
 - Module boundaries or build order decided implicitly during implementation because no capability map was approved up front
 
@@ -299,6 +272,6 @@ Before proceeding to implementation, confirm:
 - [ ] The human has reviewed and approved the spec
 - [ ] Success criteria are specific and testable
 - [ ] Boundaries (Always/Ask First/Never) are defined
-- [ ] The spec is saved as `SPEC.md` or under `spec/` in the repository
-- [ ] If the request bundles several independently testable capabilities, a capability map (module ids, dependency direction, build order) was approved before any module spec was written
-- [ ] Every module spec traces to a module id in the approved map
+- [ ] The spec is `spec.md` in a spec folder that `brain new-doc SPEC` created, its `sources:` lists every IDEA, DEC and RES file it comes from, and `brain check` reports no finding for it
+- [ ] If the request bundles several independently testable capabilities, a capability map (module ids, dependency direction, build order) was approved and recorded as a decision record before any module spec was written
+- [ ] Every module spec traces to a module id in the approved capability map: the id is its folder's slug, and the capability map's decision record is in its `sources:`

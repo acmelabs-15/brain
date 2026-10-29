@@ -41,7 +41,7 @@ A **seam** is the public interface you test at. You observe behavior there witho
 
 Test only at agreed seams. Before you write the first test, write down the seams under test and confirm them with the user. Pick the fewest and highest seams that cover the behavior. Prefer a seam that already exists over a new one. You cannot test everything. Agreeing the seams up front puts the testing effort on the critical paths and the complex logic, not on every edge case.
 
-The spec may already carry the seams (`SPEC.md` or `spec/`, section Prior-art tests or Test seams). If it does, list them and confirm them in one question. If it does not, propose them in one question. Either way, call the Skill tool with "ask-user-question" to compose the call: one question, the proposed seams as options, one recommendation with its reason. No test is written at an unconfirmed seam.
+The spec may already carry the seams: `spec.md` in the active spec folder (`docs/agents/workspace.md` says how to find it), sections Testing Strategy and Prior-art tests. If it does, list them and confirm them in one question. If it does not, propose them in one question. Either way, call the Skill tool with "ask-user-question" to compose the call: one question, the proposed seams as options, one recommendation with its reason. No test is written at an unconfirmed seam.
 
 When the shape of the interface is itself in question (how deep the module is, where the seam belongs, what the interface exposes), read the codebase-design skill. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms. It is a reference to consult, not a session to run.
 

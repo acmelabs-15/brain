@@ -1,6 +1,6 @@
 ---
 name: incremental-implementation
-description: Delivers a task in thin, verifiable slices: implement, run the touched test files, typecheck, commit, repeat. After the last slice it runs the full suite once and calls code-review-and-quality before the task is done. Use when a change touches more than one file, when picking up the next task from tasks/plan.md, when a change goes behind a feature flag, or when a task feels too big for one step.
+description: Delivers a task in thin, verifiable slices: implement, run the touched test files, typecheck, commit, repeat. After the last slice it runs the full suite once and calls code-review-and-quality before the task is done. Use when a change touches more than one file, when picking up the next task from a spec folder's tasks/plan.md, when a change goes behind a feature flag, or when a task feels too big for one step.
 ---
 
 # Incremental Implementation
@@ -12,11 +12,13 @@ Build in thin vertical slices: implement one piece, test it, verify it, then exp
 ## When to Use
 
 - Implementing any multi-file change
-- Building a new feature from the task breakdown in `tasks/plan.md`
+- Building a new feature from the task breakdown in a spec folder's `tasks/plan.md`
 - Refactoring existing code
 - Any time you're tempted to write more than ~100 lines before testing
 
 **When NOT to use:** Single-file, single-function changes where the scope is already minimal.
+
+**Where the tasks live.** A task comes from the active spec folder (`docs/agents/workspace.md` says how to find it): a row on the frontier of its `tasks/plan.md` (an `open` row whose Blocked by rows are all `resolved`), with the task's detail in the block of the same number in its `tasks/todo.md`. The block's acceptance criteria and verification steps bound the task. In a repo with no `docs/agents/workspace.md`, look in the default specs folder, `docs/specs/`, and tell the user once to run setup-brain.
 
 ## The Increment Cycle
 

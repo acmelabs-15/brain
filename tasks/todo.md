@@ -159,7 +159,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run lifecycle:check`; `bun run validate`; the eval's dry check
   - Files: .claude/commands/{build,plan,spec}.md, commands/{build,planning,spec}.toml, evals/lifecycle/build-clean-context/*
   - Depends: T14. Scope: M
-- [ ] T27: lifecycle skills on spec folders
+- [x] T27: lifecycle skills on spec folders
   - Acceptance: spec-driven-development writes `spec.md` through `brain new-doc SPEC` with `sources:`; planning-and-task-breakdown writes the plan table and the todo blocks in the decided format; incremental-implementation, code-review-and-quality and test-driven-development read the workspace paths
   - Verify: `bun run lifecycle:check`
   - Files: skills/{spec-driven-development,planning-and-task-breakdown,incremental-implementation,code-review-and-quality,test-driven-development}/SKILL.md

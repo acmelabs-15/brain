@@ -173,9 +173,8 @@ Capture the diff command once and reuse it. Confirm the ref resolves and the dif
 
 1. Issue references in the commit messages (`#123`, `Closes #45`, `!67`). Fetch the issue with `gh issue view <n>` when the remote is GitHub.
 2. A path the user gave.
-3. A file under `spec/`.
-4. `SPEC.md` or `tasks/plan.md` whose title or section matches the branch name or the feature.
-5. Nothing found: the spec's location is the user's decision. Call the Skill tool with "ask-user-question" to compose the one question. If the user says there is no spec, the correctness sub-agent reviews without one and the final report says "no spec available".
+3. The active spec folder in the workspace, found as `docs/agents/workspace.md` says: a spec whose slug or `spec.md` title matches the branch name or the feature. The spec is its `spec.md`; the block in its `tasks/todo.md` for the task the change delivers holds that task's acceptance criteria. In a repo with no `docs/agents/workspace.md`, look in the default specs folder, `docs/specs/`, and tell the user once to run setup-brain.
+4. Nothing found: the spec's location is the user's decision. Call the Skill tool with "ask-user-question" to compose the one question. If the user says there is no spec, the correctness sub-agent reviews without one and the final report says "no spec available".
 
 Small reversible choices stay with you: decide them and state the reason.
 
@@ -205,7 +204,7 @@ Spawn five sub-agents at once, one per axis, so no axis pollutes another's conte
 1. The diff command from Step 0 with its output, and the commit list.
 2. The standards files from Step 0 (paths, and contents when short).
 3. The axis section from this skill, pasted in full. The sub-agent has no other access to it.
-4. For the correctness sub-agent only: the spec, as a path or as fetched contents.
+4. For the correctness sub-agent only: the spec, as a path or as fetched contents, and the task's block from `tasks/todo.md` when Step 0 found one.
 5. Two standing rules, in every brief: "A documented repo standard overrides this skill's baseline; where the repo endorses what the baseline would flag, drop the finding. Skip anything tooling already enforces (formatter, linter, type checker)."
 6. The report format: "Report per file and hunk where relevant. For each finding give the severity label, the tag, the quoted hunk and the fix. Tag a finding **hard** when it breaks a documented standard, and cite the file and the rule. Tag everything else **judgement**. Under 400 words."
 
