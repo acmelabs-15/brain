@@ -54,7 +54,7 @@ still reviews its own tasks.
 | Wave | Tasks |
 |---|---|
 | A (running) | T34, T36, T49 |
-| B | T28, T35, T37 |
+| B | T28, T35, T37, T50 |
 | C | T38 |
 | Then | T39 after the second ask; T40 after the 0.10.0 release |
 
