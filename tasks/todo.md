@@ -117,7 +117,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run lifecycle:check`; a charted fixture idea passes `brain check`
   - Files: skills/interview-me/SKILL.md
   - Depends: T11, T12, T17. Scope: M
-- [ ] T20: interview-me (b), the loop, with the resume eval
+- [x] T20: interview-me (b), the loop, with the resume eval
   - Acceptance: eval `lifecycle/interview-resume` written first (a new session, given only the idea file, takes the next frontier row and asks no settled question); decide rows one question per call; a `DEC` the moment the user decides; re-map after every resolved row of every type, written to disk; single writer; the session ends only between rows; resume from the idea's `status`; finding the active effort; the finish (restate, explicit yes, hand-off to spec-driven-development)
   - Verify: `bun run lifecycle:check`; the eval's dry check
   - Files: skills/interview-me/SKILL.md, evals/lifecycle/interview-resume/*

@@ -150,7 +150,59 @@ The chart is done when `brain check` reports no finding for the idea file, no `<
 
 ## The loop
 
-_T20 writes this section: take the next frontier row, resolve it by its type, and re-map after every resolved row, written to disk; one writer for the idea file; a session ends only between rows._
+The loop takes rows from the frontier, resolves each one, and re-maps after each. The map on disk is current after every row, so the interview can stop between any two rows and lose nothing.
+
+1. **Compute the frontier** from the map on disk: every `open` row whose Blocked by rows are all `resolved`.
+2. **Take its rows by type.**
+   - Research rows: start a sub-agent for each one, as [Delegating research](#delegating-research) says, and set each row to `in-progress`. They run while you work on the other rows.
+   - Do rows: do the work when you can. When only the user can do it, give the user a precise checklist and set the row to `in-progress`; it resolves when the user reports the work done.
+   - Decide rows: take one, as [Decide rows](#decide-rows) says. One question per call; wait for the reply. The next decide row waits for the re-map.
+3. **Record the result the moment it exists.** The [Rows](#rows) table names the record for each type.
+   - A decide row: write the `DEC` the moment the user decides, before the next question. Follow domain-modeling's three steps: run the command below, fill the record with `from: IDEA-NNN#NN` (this row), and run `brain check`.
+
+     ```
+     bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc DEC <slug>
+     ```
+
+     A reply that settles part of the row, or hands the choice back to you, gets no record. The row stays `open`, and its gap is the next question.
+   - A research row: the sub-agent replies with the path of its `RES` file. Read the file to its last line. It is the result when its `status` is `resolved`.
+   - A do row: run `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc RES <slug>`, and fill the record with `kind: task`, what was done, and the facts later rows need.
+
+   Then set the row to `resolved`, with the record's ID in Result.
+4. **Re-map**, as below, and write the idea file.
+5. **Go back to step 1.** When the frontier is empty:
+   - Rows are still `in-progress`: wait for their results.
+   - Only fog is left: sharpen it into rows, or rule it out of scope with one line on why.
+   - The fog is empty too: go to [Finish](#finish).
+
+### Re-map after every resolved row
+
+Every resolved row of every type gets its own re-map, on disk, before the next row starts. A finding can surface more research, and a decision can surface research that it now depends on. Read the new record against the whole map, then change the map:
+
+- **Add** the rows the result surfaced: the Follow-ups of a `RES` file, and the questions a decision opens. A new row takes the next number above every row number in the Map and in "Out of scope". Give it its type and its blocking rows.
+- **Graduate** fog that the result made sharp: it becomes rows. Fog that is still vague stays.
+- **Rule out** an `open` row that the result put beyond the destination. Remove it from the Map, and write it under "Out of scope" as `- Row 10, <question>: <why>`. Remove its number from every Blocked by cell (`—` when none is left). Its number stays out of use.
+- **Revise** an `open` row whose question still holds but reads wrong now: give it the sharper wording.
+- **Supersede** a row whose question the result changed: set it to `superseded by NN`, and add row NN with the new question. When a new decision replaces an earlier one, the old `DEC` gets `status: superseded by DEC-NNN`, as domain-modeling's DEC format says.
+- **Update the Intent** lines that the result settles, such as `- Success: open, row 03.`
+- **Rewrite `docs/STATUS.md`** when the repo has one: the next frontier row, anything red, and the decide rows that wait on the user.
+
+The re-map is done when the idea file on disk holds every change and `brain check` reports no finding for it.
+
+### Single writer
+
+Only the main session writes the idea file. A sub-agent writes its own `RES` file and nothing else, and lists the questions it found under `## Follow-ups`; the re-map turns them into rows. When several results arrive together, take them one at a time, in the order they arrived, each with its own re-map. One writer keeps parallel sub-agents from overwriting each other's rows.
+
+### Where a session ends
+
+A session ends only between rows: after a re-map is on disk, and only when the context budget runs low. This is context-engineering's rule: a fresh session is safe at a completed task boundary, not at an arbitrary token count. Leaving costs nothing, because the map is current after every row.
+
+Before you end the session:
+
+1. Wait for each running research sub-agent to reply, and re-map its row. A sub-agent ends with its session, so its row would stay `in-progress` with its work half done.
+2. Tell the user the path of the idea file and the next frontier row. A new session resumes from the idea file alone ([Resume](#resume)).
+
+A do row that the user runs from a checklist can stay `in-progress` across sessions.
 
 ## Decide rows
 
@@ -251,11 +303,43 @@ The stop has a floor. If several rows resolve and the map keeps growing, that is
 
 ## Finish
 
-_T20 writes this section: when the frontier and the fog are empty, confirm the intent, set `status: specced` once the spec exists, and hand off to spec-driven-development._
+The interview finishes when the frontier and the fog are both empty.
+
+1. **Restate.** Write the restate into the Intent section: each line in the user's words, and no line left as `open, row NN`.
+2. **Confirm** it as [Confirm the intent](#confirm-the-intent) says: one question call, an explicit yes, then the `Confirmed by` line. A correction can reopen rows: go back to [The loop](#the-loop).
+3. **Hand off.** Call the Skill tool with "spec-driven-development". Give it the idea's ID, and the `DEC` and `RES` files the spec rests on, for the spec's `sources:`. One idea may produce several specs.
+4. **Mark the idea `specced`** when its spec exists, that is, when a `spec.md` lists the idea in `sources:`. Set `status: specced` in the idea's frontmatter, and run `brain check`.
+
+Finish is done when the Intent holds the `Confirmed by` line, the idea's `status` is `specced`, and `brain check` reports no finding for the idea file.
 
 ## Resume
 
-_T20 writes this section: resume from the idea file's `status`, and find the active effort._
+A new session resumes from the idea file alone. The map holds every answer so far, so the conversation that produced it is not needed.
+
+1. **Find the active effort.** Take the first that applies, in the order `docs/agents/workspace.md` gives:
+   1. The idea the user names (its slug, ID or title), or the slug passed to the command.
+   2. The git branch name, when it matches an idea's slug or ID.
+   3. The only idea or spec that is not finished: an idea with `status: define`, or a spec whose `tasks/plan.md` has an `open` or `in-progress` row.
+   4. Otherwise, ask the user which one, as one question.
+
+   When the active effort is a spec, the interview is over: the spec's next task is the next row on the frontier of its `tasks/plan.md`. When no idea file exists for this work, run the [Chart](#chart-always-runs-first) instead.
+2. **Read the idea file to its last line, and act on its `status`:**
+
+   | `status` | Next |
+   |---|---|
+   | `define` | Steps 3 and 4. When the frontier and the fog are both empty, continue [Finish](#finish) at its first step not yet done. |
+   | `specced` | The interview is done. Resume the spec that lists this idea in `sources:`: its next task is the next row on the frontier of its `tasks/plan.md`. |
+   | `parked` | The user set the idea aside. Resume it only when the user names it: set `status: define`, then steps 3 and 4. |
+
+3. **Settle each row left `in-progress`.** Find its `RES` file by the `from:` field, `from: IDEA-NNN#NN`.
+   - The `RES` file has `status: resolved`: its sub-agent finished after the last re-map. Set the row to `resolved` with the record's ID in Result, and re-map.
+   - A research row whose `RES` file is still `in-progress`, or missing: its sub-agent ended with its session. Start a new sub-agent for the row, as [Delegating research](#delegating-research) says, and name the existing `RES` file in the brief, so that the new sub-agent continues that file.
+   - A do row on the user's checklist stays `in-progress` until the user reports the work done. A do row that you ran: run it again.
+4. **Take the next frontier row** in [The loop](#the-loop). A `resolved` row is settled: its record holds the answer, and you read that record when a later question needs its facts. The user answers each question once. When the user wants to reopen a settled row, add a row that supersedes it.
+
+Before the first question, tell the user in a few lines where the map stands: the rows resolved so far, the frontier, and the row you take now.
+
+Resume is done when the frontier comes from the map on disk and the first question is for a row on it.
 
 ## Example
 
