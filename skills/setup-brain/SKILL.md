@@ -1,6 +1,6 @@
 ---
 name: setup-brain
-description: "Prepare a repo for brain: the workspace layout, the STATUS.md handoff note, the domain docs rules and capabilities.md (toolchain checks, library skills and servers), and for Codex the plain-talk and protocol blocks. Run once per repo before the other brain skills, again after a brain update, with --check to report drift, or when a hand-written AGENTS.md or CLAUDE.md repeats rules that brain now carries."
+description: "Prepare a repo for brain: the workspace layout, the STATUS.md handoff note, the domain docs rules and capabilities.md (toolchain checks, library skills and servers), and for Codex the plain-talk and protocol blocks. Run once per repo before the other brain skills, again after a brain update, with --check to report drift, to migrate a repo on brain 0.8 (SPEC.md or spec/, tasks/plan.md, docs/intent/, numbered ADRs) into the workspace, also when brain status says to migrate, or when a hand-written AGENTS.md or CLAUDE.md repeats rules that brain now carries."
 ---
 
 # Setup brain
@@ -15,7 +15,7 @@ Write what the other brain skills assume is in a repo:
 
 The repo's `CLAUDE.md` and `GEMINI.md` are never written: where they repeat brain's rules, step 7 reports it only. The repo's `AGENTS.md` is written in two cases, each after the user's explicit yes: the Codex blocks at project scope, when the user picks that scope in step 4, and the removal of the sections the user picks in step 7, as a commit of its own.
 
-Every file change goes through a script: `write.ts` for the install files, `capabilities.ts` for `capabilities.md`, `overlap.ts` for the sections removed from `AGENTS.md`. The steps below decide and explain; the scripts write.
+Every file change goes through a script: `write.ts` for the install files and, with `--migrate`, for the move from brain 0.8, `capabilities.ts` for `capabilities.md`, `overlap.ts` for the sections removed from `AGENTS.md`. The steps below decide and explain; the scripts write.
 
 ## Find the plugin folder
 
@@ -37,7 +37,7 @@ Read what exists. Facts are your job; never ask the user for one you can look up
 - `GLOSSARY.md`, `GLOSSARY-MAP.md` and `docs/decisions/`: which exist. Also the old glossary names at the root, `CONTEXT.md` and `CONTEXT-MAP.md`.
 - Monorepo signals: `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or `packages/*` folders that each hold their own `src/`. Their absence means single-context, which is almost every repo.
 - The Codex home: `$CODEX_HOME`, else `~/.codex`. Whether the directory exists, and whether its `AGENTS.md` already holds the blocks between `<!-- brain:plain-talk:start -->` and `<!-- brain:plain-talk:end -->`, and between `<!-- brain:protocol:start -->` and `<!-- brain:protocol:end -->`.
-- The brain 0.8 layout: a root `SPEC.md`, Markdown files in `spec/` or `docs/intent/`, `tasks/plan.md`, `tasks/todo.md`, `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md`. When any of them exists, do "Migrate a repo on brain 0.8" below before step 3.
+- The brain 0.8 layout: a root `SPEC.md`, Markdown files in `spec/` or `docs/intent/`, `tasks/plan.md`, `tasks/todo.md`, `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md`, an ADR named `0001-<slug>.md` in `docs/decisions/`, a DEC or RES file with no frontmatter, and an ADR folder of another tool, such as adr-tools' `doc/adr/` or the folder a root `.adr-dir` names. When any of them exists and `workspace.md` does not record `layout: 2`, do "Migrate a repo on brain 0.8" below before step 3. `layout: 2` means the repo is migrated: a 0.8 file still there is one the user kept.
 
 ## 3. Decide the small things, and say so
 
@@ -52,7 +52,7 @@ State each decision in one sentence before you go on.
 Every question goes through the host's user-question tool, composed with the ask-user-question skill: the facts you found in the question, the recommended option first with its reason, the cost of each option in its description.
 
 - **The layout, only when the exploration found monorepo signals.** Single-context, one `GLOSSARY.md` at the root, or multi-context, a `GLOSSARY-MAP.md` at the root that points to one `GLOSSARY.md` per context. Recommend single-context when the signals are weak.
-- **The glossary rename, only when a root `CONTEXT.md` or `CONTEXT-MAP.md` exists without its new name beside it.** Move it with `git mv` to `GLOSSARY.md` or `GLOSSARY-MAP.md`, or leave it. Recommend the move: it keeps the file's history, and Matt's skills now read only the new names. Leaving it costs a reminder in every session, and brain reads the old name for one release only. Only the root files move: a per-context file that `CONTEXT-MAP.md` lists stays where it is, and the user moves it by hand.
+- **The glossary rename, only when a root `CONTEXT.md` or `CONTEXT-MAP.md` exists without its new name beside it, and the migration did not ask it in this run.** Move it with `git mv` to `GLOSSARY.md` or `GLOSSARY-MAP.md`, or leave it. Recommend the move: it keeps the file's history, and Matt's skills now read only the new names. Leaving it costs a reminder in every session, and brain reads the old name for one release only. Only the root files move: a per-context file that `CONTEXT-MAP.md` lists stays where it is, and the user moves it by hand.
 - **The Codex scope, only when a Codex home exists on this machine.** Global, both blocks in `~/.codex/AGENTS.md` for every repo, or project, both blocks in this repo's `AGENTS.md` only. Recommend global: a Codex plugin install is global, so brain's skills are in every repo, and the Codex docs put communication style in the global file. Project writes this repo's `AGENTS.md`, so say so in the option: the blocks reach teammates who lack brain, and plain talk and the protocol reach Codex in this repo only.
 
 Nothing else forks before the write. `capabilities.md` gets its own question in step 6. When no Codex home exists, say so and pass `--no-codex`.
@@ -162,7 +162,7 @@ When the user asks for `--check`, or asks whether the setup is current, run the 
 bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --layout single --check
 ```
 
-It writes nothing. It lists each file, then ends with "every file is in place" (exit 0) or with how many files differ (exit 1). Show the lines. A normal run, after the user's yes, brings each file that differs in line.
+It writes nothing. It lists each file, then ends with "every file is in place" (exit 0), with how many files differ (exit 1), or on a repo on the brain 0.8 layout with what the migrate mode still has to move (exit 1). Show the lines. A normal run, after the user's yes, brings each file that differs in line.
 
 `--check` covers the files of step 5. For `capabilities.md`, run step 6's dry run: it says whether the file exists and lists each row it does not name yet.
 
@@ -170,27 +170,41 @@ Running this skill again is safe: the scripts change nothing when everything is 
 
 ## Migrate a repo on brain 0.8
 
-A repo on brain 0.8 keeps its specs in a root `SPEC.md` or in `spec/`, one plan in `tasks/plan.md` and `tasks/todo.md`, its intent docs in `docs/intent/`, and setup-brain 0.8's tracker files in `docs/agents/`. The script's migrate mode moves each file into the workspace with `git mv`, so its history follows it, and adds frontmatter to it. No byte below the frontmatter changes. The tracker files are the one exception: they go with `git rm`, and only on the user's yes. The run writes one commit of its own.
+A repo on brain 0.8 keeps its specs in a root `SPEC.md` or in `spec/`, one plan in `tasks/plan.md` and `tasks/todo.md`, its intent docs in `docs/intent/`, its glossary in `CONTEXT.md`, the old name of `GLOSSARY.md`, its ADRs as `docs/decisions/0001-<slug>.md`, and setup-brain 0.8's tracker files in `docs/agents/`. The script's migrate mode moves each file into the workspace with `git mv`, so its history follows it, and adds frontmatter to it. No byte below the frontmatter changes. The tracker files are the one exception: they go with `git rm`, and only on the user's yes. The run writes one commit of its own.
+
+That commit also creates `docs/agents/workspace.md`, which records `layout: 2`. The marker says that the repo is migrated: a later run of setup-brain skips this section, and the migrate mode then changes nothing. Until the marker is there, the install step leaves `workspace.md` out, and `--check` exits 1.
 
 | 0.8 file | Where the migrate mode puts it |
 |---|---|
+| `CONTEXT.md`, `CONTEXT-MAP.md` at the root, after the user's yes | `GLOSSARY.md`, `GLOSSARY-MAP.md`, the same move as the glossary rename of step 4. |
 | `SPEC.md`, `spec/SPEC.md`, `spec/SPEC-<module>.md` | `docs/specs/SPEC-NNN-<slug>/spec.md`. The slug is the module id, else the title in the spec's H1. |
 | `tasks/plan.md`, `tasks/todo.md` | The `tasks/` folder of the spec they belong to. |
 | The capability map in `spec/`, whose H1 opens with "Capability Map" | `docs/decisions/DEC-NNN-<slug>.md`. An approved map is the user's decision. |
+| `docs/decisions/0001-<slug>.md`, an ADR that brain 0.8 wrote | `docs/decisions/DEC-NNN-<slug>.md`, with `kind: architecture`: an ADR is an architecture decision. |
+| Each `0001-<slug>.md` in an ADR folder of another tool, after the user's yes | `docs/decisions/DEC-NNN-<slug>.md`, with `kind: architecture`. A kept folder stays as read-only history, and `domain.md` points to it. |
 | A DEC or RES file with no frontmatter | Its own place, with frontmatter added. |
 | `docs/intent/<name>.md`, each one the user picks | `docs/ideas/IDEA-NNN-<name>.md`, with its ID and `migrated: 0.8`. It gets no status: only the user knows whether the idea is still in define. |
 | `docs/agents/issue-tracker.md`, `docs/agents/triage-labels.md` | Removed with `git rm` after the user's yes. brain's tracker skills are removed, so no brain skill reads these files now. |
 
-Every other file in `spec/` stays where it is. So do an intent doc the user does not pick, a tracker file the user keeps, and a file that git does not track or that has uncommitted changes. The script prints the reason beside each file it skips.
+Every other file in `spec/` and in an ADR folder stays where it is. So do an intent doc the user does not pick, a tracker file the user keeps, and a file that git does not track or that has uncommitted changes. The script prints the reason beside each file it skips. A file that waits for a commit also holds back `workspace.md`, so that the next run can still move that file.
 
 1. **Ask which spec the plan belongs to, only when `tasks/plan.md` or `tasks/todo.md` exists beside two or more specs.** With one spec, the files settle it: ask nothing. Put one question through the host's user-question tool, composed with the ask-user-question skill. Give one option per spec, by its 0.8 path, and a last option, none, which leaves the plan and the todo in `tasks/`. Recommend the spec that the plan names: a 0.8 plan names its spec near the top (`Spec: spec/SPEC-billing.md`). The step is done when you hold the answer: a spec's path, or none.
 2. **Ask, for each Markdown file in `docs/intent/`, whether it becomes an idea.** One question per call, one doc per question, so the question fits every host's option limit. Compose each with the ask-user-question skill, and put the doc's path, its H1 and its first lines in the question. Options: yes, it becomes an idea in `docs/ideas/`; no, it stays in `docs/intent/` as it is. Recommend yes for an intent doc: as an idea it sits in the workspace, where interview-me and `brain status` find it. Recommend no for a file that is no intent doc, such as an index. The step is done when every doc has an answer. The answer for the script is the paths that got a yes, comma-separated, or `none`.
 3. **Ask whether to remove the tracker files, only when `docs/agents/issue-tracker.md` or `docs/agents/triage-labels.md` exists.** One question for both, composed with the ask-user-question skill. Say what they are: setup-brain 0.8 wrote them for an issue tracker, and no brain skill reads them now. Options: remove them with `git rm`, inside the run's one commit; keep them as they are. Recommend remove, unless another tool in the repo still reads them, such as Matt Pocock's skills installed on their own; git history keeps the old text either way. Only an explicit yes removes them. The answer for the script is `remove` or `keep`.
-4. **Show the dry run.** Leave out each flag whose question steps 1 to 3 did not ask. Quote a value that holds a space.
+4. **Ask the glossary rename of step 4 here, to `GLOSSARY.md`, only when a root `CONTEXT.md` or `CONTEXT-MAP.md` exists without its new name beside it.** The same question, with the same recommendation, so that the move goes into the run's one commit. The answer for the script is `--rename-glossary` on a yes, and no flag on a no.
+5. **Ask whether to move the ADR folder, only when the repo has an ADR folder of another tool.** One question for the repo, covering every such folder, composed with the ask-user-question skill. Put each folder's path, its number of ADRs and two of their titles in the question. Options: move each ADR into `docs/decisions/` as a DEC file with `kind: architecture`, inside the run's one commit; keep the folder as read-only history, which `domain.md` points to, while each new decision still gets a DEC file. Recommend move: then every decision lives in one folder, which `brain check` and the brain skills read. Recommend keep when another tool still writes ADRs into the folder. The answer for the script is `move` or `keep`.
+6. **Show the dry run.** Leave out each flag whose question steps 1 to 5 did not ask. Quote a value that holds a space.
 
    ```
-   bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --migrate --plan-spec <answer> --ideas <answer> --tracker-files <answer> --dry-run
+   bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --migrate --plan-spec <answer> --ideas <answer> --tracker-files <answer> --adr-folder <answer> --rename-glossary --dry-run
    ```
 
-   Show every line: `moved <old> -> <new>`, `updated <file>`, `removed <file>`, or `skipped <file>` with its reason. Exit 2 means the script needs an answer that steps 1 to 3 did not give, or an answer names no file it found; its message names each flag and the files it found. The step is done when the user has seen every line.
-5. **Write, after the user's yes:** the same command without `--dry-run`. It prints `committed <sha>`; give the user that SHA. When a move, a removal or the commit fails, the script puts every file back as it was and exits 1; show its message.
+   Show every line: `moved <old> -> <new>`, `updated <file>`, `created <file>`, `removed <file>`, or `skipped <file>` with its reason. When a reason ends with "commit it first" or "commit them first", tell the user which file waits: the user commits it, and you show the dry run again. Exit 2 means the script needs an answer that steps 1 to 5 did not give, or an answer names no file it found; its message names each flag and the files it found. The step is done when the user has seen every line.
+7. **Write, after the user's yes:** the same command without `--dry-run`. It prints `committed <sha>`; give the user that SHA. When a move, a removal, a write or the commit fails, the script puts every file back as it was and exits 1; show its message. When the user says no, go on with step 3 of the setup: the install leaves `workspace.md` out, so the next run of setup-brain offers the migration again.
+8. **Check the migrated repo** with `brain check`:
+
+   ```
+   bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" check
+   ```
+
+   Show its output. A line "N migrated decisions have no kind" is information, not a finding: the 0.8 decisions carry no `kind`, and the migration does not guess one. Name each finding in step 8 of the setup. The step is done when the command exits 0, or the user has seen each finding. Then go on with step 3 of the setup.

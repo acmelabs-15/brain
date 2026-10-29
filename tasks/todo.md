@@ -292,7 +292,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/setup`
   - Files: scripts/setup/migrate.ts, scripts/setup/__tests__/migrate.test.ts, skills/setup-brain/SKILL.md
   - Depends: T25, T36. Scope: M
-- [ ] T38: migrate mode (c), the rest, with the migrate eval
+- [x] T38: migrate mode (c), the rest, with the migrate eval
   - Acceptance: eval `setup/migrate-08` written first (a 0.8-layout fixture, migrated, passes `brain check`); `0001-<slug>.md` ADRs become `DEC` files; the ADR-folder move is offered, one question per repo; `workspace.md` records `layout: 2`; one commit for the whole run; nothing deleted without a yes; T05's glossary move and T13's frontmatter step are reused, not repeated
   - Verify: `bun test scripts/setup`; the eval's dry check
   - Files: scripts/setup/migrate.ts, scripts/setup/__tests__/migrate.test.ts, skills/setup-brain/SKILL.md, evals/setup/migrate-08/*

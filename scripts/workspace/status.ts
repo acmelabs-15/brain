@@ -15,6 +15,7 @@ import { activeEffort, listEfforts } from "./effort";
 import type { Active, Effort } from "./effort";
 import { frontier, readRows } from "./map";
 import type { Row, Table } from "./map";
+import { findOldLayout } from "./old-layout";
 import { readFrontmatter, schemas } from "./schema";
 import type { DocType } from "./schema";
 
@@ -29,26 +30,6 @@ const noteFile = "docs/STATUS.md";
 
 /** The row types the user resolves: a map's decide rows. */
 const decideTypes = new Set(["interview", "prototype", "ideate"]);
-
-/** Each glossary file's name on the 0.8 layout, beside the name setup-brain moves it to. */
-const glossaryMoves = [
-  ["CONTEXT.md", "GLOSSARY.md"],
-  ["CONTEXT-MAP.md", "GLOSSARY-MAP.md"],
-] as const;
-
-/**
- * The files of the brain 0.8 layout, as the report names them, and the pattern that finds each.
- * A folder counts only with a Markdown file in it: a Ruby repo's `spec/` holds tests.
- */
-const oldLayout: [shown: string, pattern: string][] = [
-  ...glossaryMoves.map(([old]): [string, string] => [old, old]),
-  ["SPEC.md", "SPEC.md"],
-  ["spec/", "spec/*.md"],
-  ["tasks/plan.md", "tasks/plan.md"],
-  ["tasks/todo.md", "tasks/todo.md"],
-  ["docs/intent/", "docs/intent/*.md"],
-  ["docs/agents/issue-tracker.md", "docs/agents/issue-tracker.md"],
-];
 
 /** One map or plan row, cited with its file's ID: `IDEA-001#06`. */
 type Step = { ref: string; title: string; type: string; status: Row["status"]; result: string };
@@ -194,18 +175,6 @@ async function readIdeas(root: string, efforts: Effort[]): Promise<Idea[]> {
   return ideas;
 }
 
-/** The 0.8-layout files under `root`, as the report names them. */
-async function oldLayoutFiles(root: string): Promise<string[]> {
-  const found: string[] = [];
-  for (const [name, pattern] of oldLayout) {
-    const first = await new Bun.Glob(pattern).scan({ cwd: root }).next();
-    if (first.done !== true) {
-      found.push(name);
-    }
-  }
-  return found;
-}
-
 /** The note's text, and the next step and waiting decisions it names on a labelled line. */
 async function readNote(root: string): Promise<Note | null> {
   const file = Bun.file(path.join(root, noteFile));
@@ -308,7 +277,7 @@ function fiveLines(
 async function readStatus(root: string): Promise<Status> {
   const setup = !(await Bun.file(path.join(root, configFile)).exists());
   const note = await readNote(root);
-  const old = setup ? await oldLayoutFiles(root) : [];
+  const old = setup ? await findOldLayout(root) : [];
   if (old.length > 0) {
     const line = `This repo is on the brain 0.8 layout: run setup-brain to migrate. Found: ${old.join(", ")}.`;
     return { migrate: old, report: [line], efforts: [], ideas: [], red: [], note };

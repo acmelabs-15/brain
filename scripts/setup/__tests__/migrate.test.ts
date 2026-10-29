@@ -36,6 +36,16 @@ const resText =
 const decHead = "---\nid: DEC-001\nmigrated: 0.8\ndecided: 2026-09-19\n---\n";
 const resHead = "---\nid: RES-001\nmigrated: 0.8\ndate: 2026-09-19\n---\n";
 
+const workspacePath = "docs/agents/workspace.md";
+/** The workspace step of a run on a repo with no workspace.md: it writes one with layout: 2. */
+const workspaceCreated: Change = { path: workspacePath, action: "created" };
+/** The workspace step of a run that skips a file until the user commits it. */
+const workspaceWaits: Change = {
+  path: workspacePath,
+  action: "skipped",
+  note: "it marks the repo as migrated, so it waits for the files above to be committed; then run the migrate mode again",
+};
+
 /** Run git in `root`, with author and committer dates set to `date`. */
 function git(root: string, args: string[], date = "2026-09-19T10:00:00Z") {
   return Bun.spawnSync(["git", ...args], {
@@ -106,6 +116,7 @@ describe("migrate, the frontmatter step", () => {
     expect(result.changes).toEqual([
       { path: decPath, action: "updated" },
       { path: resPath, action: "updated" },
+      workspaceCreated,
     ]);
     const dec = await bytes(root, decPath);
     expect(new TextDecoder().decode(dec.subarray(0, decHead.length))).toBe(decHead);
@@ -132,7 +143,7 @@ describe("migrate, the frontmatter step", () => {
     );
   });
 
-  test("writes one commit of its own, which adds the frontmatter lines and nothing else", async () => {
+  test("writes one commit of its own: the frontmatter lines, and the workspace config that records layout: 2", async () => {
     const root = await gitRepo("commit", { [decPath]: decBytes, [resPath]: resText });
     const result = await migrate({ root, dryRun: false });
     expect(result.commit).toBe(gitOut(root, "rev-parse", "HEAD"));
@@ -140,8 +151,13 @@ describe("migrate, the frontmatter step", () => {
     expect(gitOut(root, "log", "-1", "--format=%s")).toBe(
       "chore: migrate to the brain workspace layout",
     );
-    expect(gitOut(root, "show", "--format=", "--numstat", "HEAD")).toBe(
-      `5\t0\t${decPath}\n5\t0\t${resPath}`,
+    const numstat = gitOut(root, "show", "--format=", "--numstat", "HEAD").split("\n");
+    expect(numstat.filter((line) => !line.endsWith(workspacePath))).toEqual([
+      `5\t0\t${decPath}`,
+      `5\t0\t${resPath}`,
+    ]);
+    expect(await Bun.file(`${root}/${workspacePath}`).text()).toBe(
+      await Bun.file(`${import.meta.dir}/../../../skills/setup-brain/workspace.md`).text(),
     );
     expect(gitOut(root, "status", "--porcelain")).toBe("");
   });
@@ -151,7 +167,9 @@ describe("migrate, the frontmatter step", () => {
     await put(root, { "README.md": "# y\n" });
     git(root, ["add", "README.md"]);
     await migrate({ root, dryRun: false });
-    expect(gitOut(root, "show", "--format=", "--name-only", "HEAD")).toBe(resPath);
+    expect(gitOut(root, "show", "--format=", "--name-only", "HEAD")).toBe(
+      `${workspacePath}\n${resPath}`,
+    );
     expect(gitOut(root, "status", "--porcelain")).toBe("M  README.md");
   });
 
@@ -163,23 +181,44 @@ describe("migrate, the frontmatter step", () => {
       changes: [
         { path: decPath, action: "updated" },
         { path: resPath, action: "updated" },
+        workspaceCreated,
       ],
       commit: null,
     });
+    expect(await exists(`${root}/${workspacePath}`)).toBe(false);
     expect(await bytes(root, decPath)).toEqual(decBytes);
     expect(await Bun.file(`${root}/${resPath}`).text()).toBe(resText);
     expect(gitOut(root, "rev-parse", "HEAD")).toBe(head);
   });
 
-  test("lists a file that has frontmatter as unchanged, and a second run writes no commit", async () => {
+  test("lists a file that has frontmatter as unchanged", async () => {
+    const root = await gitRepo("has-frontmatter", {
+      [decPath]: `${decHead}# DEC-001: Lint\n`,
+      [resPath]: resText,
+    });
+    const result = await migrate({ root, dryRun: true });
+    expect(result.changes).toEqual([
+      { path: decPath, action: "unchanged" },
+      { path: resPath, action: "updated" },
+      workspaceCreated,
+    ]);
+  });
+
+  test("a second run finds layout: 2 in workspace.md, asks nothing, changes nothing and writes no commit", async () => {
     const root = await gitRepo("twice", { [decPath]: decBytes, [resPath]: resText });
     await migrate({ root, dryRun: false });
+    // A 0.8 file the user kept needs no answer again: the repo is migrated.
+    await put(root, { "docs/intent/kept.md": "# Intent: kept\n" });
+    commitAll(root, "kept");
     const head = gitOut(root, "rev-parse", "HEAD");
     const again = await migrate({ root, dryRun: false });
     expect(again).toEqual({
       changes: [
-        { path: decPath, action: "unchanged" },
-        { path: resPath, action: "unchanged" },
+        {
+          path: workspacePath,
+          action: "unchanged",
+          note: "records layout: 2; the repo is migrated, so nothing moves",
+        },
       ],
       commit: null,
     });
@@ -199,18 +238,21 @@ describe("migrate, the frontmatter step", () => {
           note: "has uncommitted changes; commit them first",
         },
         { path: resPath, action: "skipped", note: "not tracked by git; commit it first" },
+        workspaceWaits,
       ],
       commit: null,
     });
+    expect(await exists(`${root}/${workspacePath}`)).toBe(false);
     expect(await Bun.file(`${root}/${decPath}`).text()).toBe("# DEC-001: Changed\n");
     expect(await Bun.file(`${root}/${resPath}`).text()).toBe(resText);
     expect(gitOut(root, "rev-parse", "HEAD")).toBe(head);
   });
 
-  test("reads the decisions and research folders from workspace.md, and lists only DEC and RES files", async () => {
+  test("reads the decisions and research folders from workspace.md, lists only DEC and RES files, and keeps the folders when it adds layout: 2", async () => {
     const root = await gitRepo("config", {
+      // A workspace.md that records no layout: the repo is not migrated yet.
       "docs/agents/workspace.md":
-        "---\nlayout: 2\npaths:\n  decisions: records/decisions\n  research: records/research\n---\n# Workspace\n",
+        "---\npaths:\n  decisions: records/decisions\n  research: records/research\n---\n# Workspace\n",
       "records/decisions/DEC-004-pick.md": "# DEC-004: Pick\n",
       "records/decisions/README.md": "# Decisions\n",
       "records/research/RES-007-find.md": "# RES-007: Find\n",
@@ -220,7 +262,12 @@ describe("migrate, the frontmatter step", () => {
     expect(result.changes).toEqual([
       { path: "records/decisions/DEC-004-pick.md", action: "updated" },
       { path: "records/research/RES-007-find.md", action: "updated" },
+      { path: workspacePath, action: "updated" },
     ]);
+    const workspace = await Bun.file(`${root}/${workspacePath}`).text();
+    expect(workspace).toStartWith(
+      "---\nlayout: 2\npaths:\n  decisions: records/decisions\n  research: records/research\n  ideas: docs/ideas\n",
+    );
     expect(await bytes(root, decPath)).toEqual(decBytes);
     expect(await Bun.file(`${root}/records/decisions/README.md`).text()).toBe("# Decisions\n");
   });
@@ -240,7 +287,21 @@ const fixtureMoves = [
   ["spec/SPEC-billing.md", "docs/specs/SPEC-002-billing/spec.md", specHead("SPEC-002")],
   ["tasks/plan.md", "docs/specs/SPEC-002-billing/tasks/plan.md", specHead("SPEC-002")],
   ["tasks/todo.md", "docs/specs/SPEC-002-billing/tasks/todo.md", specHead("SPEC-002")],
+  // The ADR step: brain 0.8's ADR takes the next DEC number after the capability map.
+  [
+    "docs/decisions/0001-keep-the-ledger-in-postgres.md",
+    "docs/decisions/DEC-003-keep-the-ledger-in-postgres.md",
+    "---\nid: DEC-003\nmigrated: 0.8\nkind: architecture\ndecided: 2026-09-19\n---\n",
+  ],
 ] as const;
+
+/** The glossary step on the fixture: its CONTEXT.md, moved on a yes, else kept. */
+const glossaryMoved: Change = { path: "CONTEXT.md -> GLOSSARY.md", action: "moved" };
+const glossaryKept: Change = {
+  path: "CONTEXT.md -> GLOSSARY.md",
+  action: "skipped",
+  note: "the user kept the old name; --rename-glossary moves it after a yes",
+};
 
 /** Each intent doc of the fixture, the IDEA file it becomes, and the frontmatter it gains. */
 const intentMoves = [
@@ -263,6 +324,7 @@ const allAnswers = {
   planSpec: "spec/SPEC-billing.md",
   ideas: intentMoves.map(([from]) => from).join(","),
   trackerFiles: "remove",
+  renameGlossary: true,
 } as const;
 
 const notPicked = "the user did not pick it as an idea; it stays where it is";
@@ -276,20 +338,24 @@ const specChanges = [
 
 /** The change list of a run on the fixture with `specAnswers`. */
 const fixtureChanges: Change[] = [
+  glossaryKept,
   ...specChanges,
   ...intentMoves.map(([from]): Change => ({ path: from, action: "skipped", note: notPicked })),
   ...trackerPaths.map((file): Change => ({ path: file, action: "skipped", note: kept })),
+  workspaceCreated,
 ];
 
 /** The change list of a run on the fixture with `allAnswers`. */
 const allChanges: Change[] = [
+  glossaryMoved,
   ...specChanges,
   ...intentMoves.map(([from, to]): Change => ({ path: `${from} -> ${to}`, action: "moved" })),
   ...trackerPaths.map((file): Change => ({ path: file, action: "removed" })),
+  workspaceCreated,
 ];
 
 describe("migrate, the spec step", () => {
-  test("moves each spec, the capability map, the plan and the todo, and adds frontmatter only", async () => {
+  test("moves each spec, the capability map, the plan, the todo and the ADR, and adds frontmatter only", async () => {
     const root = await fixtureRepo("specs");
     const result = await migrate({ root, dryRun: false, ...specAnswers });
     expect(result.changes).toEqual(fixtureChanges);
@@ -298,6 +364,14 @@ describe("migrate, the spec step", () => {
       expect(await bytes(root, to)).toEqual(new Uint8Array([...encode(head), ...before]));
       expect(await exists(`${root}/${from}`)).toBe(false);
     }
+  });
+
+  test("after the commit, each folder a move emptied is gone, and a folder with a kept file stays", async () => {
+    const root = await fixtureRepo("emptied");
+    await migrate({ root, dryRun: false, ...specAnswers });
+    expect(await exists(`${root}/spec`)).toBe(false);
+    expect(await exists(`${root}/tasks`)).toBe(false);
+    expect(await exists(`${root}/docs/intent/billing.md`)).toBe(true);
   });
 
   test("writes one commit in which git sees each move as a rename and each removal as a delete", async () => {
@@ -311,8 +385,11 @@ describe("migrate, the spec step", () => {
       .filter((line) => line.startsWith("R"))
       .map((line) => line.split("\t").slice(1).join(" -> "));
     expect(renames.toSorted()).toEqual(
-      [...fixtureMoves, ...intentMoves].map(([from, to]) => `${from} -> ${to}`).toSorted(),
+      [...fixtureMoves, ...intentMoves, ["CONTEXT.md", "GLOSSARY.md"]]
+        .map(([from, to]) => `${from} -> ${to}`)
+        .toSorted(),
     );
+    expect(lines.filter((line) => line.startsWith("A"))).toEqual([`A\t${workspacePath}`]);
     expect(lines.filter((line) => line.startsWith("D")).toSorted()).toEqual(
       trackerPaths.map((file) => `D\t${file}`),
     );
@@ -328,19 +405,18 @@ describe("migrate, the spec step", () => {
     ).toBe("chore: migrate to the brain workspace layout\ninit");
   });
 
-  test("the moved files pass brain check; the one finding left is the 0001 ADR, which this step leaves", async () => {
+  test("the migrated fixture passes brain check; the former ADR has its kind, the other old decisions not", async () => {
     const root = await fixtureRepo("check");
     await migrate({ root, dryRun: false, ...allAnswers });
     const run = Bun.spawnSync(["bun", `${import.meta.dir}/../../brain.ts`, "check"], { cwd: root });
     expect(run.stdout.toString()).toBe(
       [
-        "docs/decisions/0001-keep-the-ledger-in-postgres.md: name: not DEC-NNN-<slug>.md",
         "2 migrated decisions have no kind: DEC-001, DEC-002",
-        "1 finding in 10 workspace files",
+        "no finding in 10 workspace files",
         "",
       ].join("\n"),
     );
-    expect(run.exitCode).toBe(1);
+    expect(run.exitCode).toBe(0);
   });
 
   test("a dry run lists every move and removal and writes nothing: no file, no folder, no claim, no commit", async () => {
@@ -351,6 +427,8 @@ describe("migrate, the spec step", () => {
     expect(gitOut(root, "status", "--porcelain")).toBe("");
     expect(await exists(`${root}/docs/specs`)).toBe(false);
     expect(await exists(`${root}/docs/ideas`)).toBe(false);
+    expect(await exists(`${root}/${workspacePath}`)).toBe(false);
+    expect(await exists(`${root}/GLOSSARY.md`)).toBe(false);
     expect(await exists(`${root}/.git/brain`)).toBe(false);
     expect(gitOut(root, "rev-parse", "HEAD")).toBe(head);
   });
@@ -373,6 +451,7 @@ describe("migrate, the spec step", () => {
       { path: `SPEC.md -> ${folder}/spec.md`, action: "moved" },
       { path: `tasks/plan.md -> ${folder}/tasks/plan.md`, action: "moved" },
       { path: `tasks/todo.md -> ${folder}/tasks/todo.md`, action: "moved" },
+      workspaceCreated,
     ]);
     expect(await bytes(root, `${folder}/spec.md`)).toEqual(
       new Uint8Array([...encode(specHead("SPEC-001")), ...spec]),
@@ -390,6 +469,7 @@ describe("migrate, the spec step", () => {
     await mkdir(`${root}/.git/brain/ids/SPEC/002`, { recursive: true });
     const moved: Change[] = [
       { path: "SPEC.md -> docs/specs/SPEC-003-export/spec.md", action: "moved" },
+      workspaceCreated,
     ];
     const dry = await migrate({ root, dryRun: true });
     expect(dry.changes).toEqual(moved);
@@ -443,6 +523,7 @@ describe("migrate, the spec step", () => {
         action: "skipped",
         note: "no spec to move it beside; it stays where it is",
       },
+      workspaceCreated,
     ]);
   });
 
@@ -466,6 +547,7 @@ describe("migrate, the spec step", () => {
           note: "not tracked by git; commit it first",
         },
         { path: "tasks/plan.md", action: "skipped", note: "its spec SPEC.md is skipped" },
+        workspaceWaits,
       ],
       commit: null,
     });
@@ -491,6 +573,7 @@ describe("migrate, the spec step", () => {
         note: "has frontmatter already; move it by hand",
       },
       { path: "spec/SPEC-cli.md -> docs/specs/SPEC-001-cli/spec.md", action: "moved" },
+      workspaceCreated,
     ]);
   });
 });
@@ -536,6 +619,7 @@ describe("migrate, the intent docs", () => {
         path: "docs/intent/Usage Alerts.md -> docs/ideas/IDEA-003-usage-alerts.md",
         action: "moved",
       },
+      workspaceCreated,
     ];
     const answer = { ideas: "docs/intent/Usage Alerts.md" };
     const dry = await migrate({ root, dryRun: true, ...answer });
@@ -573,6 +657,7 @@ describe("migrate, the intent docs", () => {
           action: "skipped",
           note: "not tracked by git; commit it first",
         },
+        workspaceWaits,
       ],
       commit: null,
     });
@@ -630,10 +715,110 @@ describe("migrate, the tracker files", () => {
           action: "skipped",
           note: "not tracked by git; commit it first",
         },
+        workspaceWaits,
       ],
       commit: null,
     });
     expect(await exists(`${root}/docs/agents/triage-labels.md`)).toBe(true);
+  });
+});
+
+/** The frontmatter of a decision record that an ADR becomes, first committed on 2026-09-19. */
+const adrHead = (id: string) =>
+  `---\nid: ${id}\nmigrated: 0.8\nkind: architecture\ndecided: 2026-09-19\n---\n`;
+
+const adrFolderKept = "the user chose to keep the ADR folder; it stays as read-only history";
+
+/** A repo with one 0.8 ADR in docs/decisions/ and an ADR folder as adr-tools writes it. */
+const adrFiles = {
+  "docs/decisions/0002-use-bun.md": "# Use Bun\n\nOne runtime for the scripts and the tests.\n",
+  "doc/adr/0001-record-architecture-decisions.md": "# 1. Record architecture decisions\n",
+  "doc/adr/0002-use-postgres.md": "# 2. Use Postgres\r\n\r\nCafé.\r\n",
+  "doc/adr/README.md": "# ADRs\n",
+};
+
+describe("migrate, the ADRs", () => {
+  test("on a yes, each ADR of the ADR folder becomes a DEC file after the decisions folder's own ADR, with kind: architecture; other files stay", async () => {
+    const root = await gitRepo("adr-move", adrFiles);
+    const result = await migrate({ root, dryRun: false, adrFolder: "move" });
+    const moves = [
+      ["docs/decisions/0002-use-bun.md", "docs/decisions/DEC-001-use-bun.md", "DEC-001"],
+      [
+        "doc/adr/0001-record-architecture-decisions.md",
+        "docs/decisions/DEC-002-record-architecture-decisions.md",
+        "DEC-002",
+      ],
+      ["doc/adr/0002-use-postgres.md", "docs/decisions/DEC-003-use-postgres.md", "DEC-003"],
+    ] as const;
+    expect(result.changes).toEqual([
+      ...moves.map(([from, to]): Change => ({ path: `${from} -> ${to}`, action: "moved" })),
+      {
+        path: "doc/adr/README.md",
+        action: "skipped",
+        note: "not an ADR (0001-<slug>.md); it stays where it is",
+      },
+      workspaceCreated,
+    ]);
+    for (const [from, to, id] of moves) {
+      expect(await Bun.file(`${root}/${to}`).text()).toBe(adrHead(id) + adrFiles[from]);
+      expect(checkDoc("DEC", await Bun.file(`${root}/${to}`).text(), id)).toEqual([]);
+    }
+    expect(await Bun.file(`${root}/doc/adr/README.md`).text()).toBe("# ADRs\n");
+  });
+
+  test("on a keep, the ADR folder stays as read-only history; the decisions folder's own ADR still moves", async () => {
+    const root = await gitRepo("adr-keep", adrFiles);
+    const result = await migrate({ root, dryRun: true, adrFolder: "keep" });
+    expect(result.changes).toEqual([
+      {
+        path: "docs/decisions/0002-use-bun.md -> docs/decisions/DEC-001-use-bun.md",
+        action: "moved",
+      },
+      { path: "doc/adr/", action: "skipped", note: adrFolderKept },
+      workspaceCreated,
+    ]);
+  });
+
+  test("an ADR folder needs the user's answer: without one the run is refused before any change", async () => {
+    const root = await gitRepo("adr-ask", adrFiles);
+    const run = migrate({ root, dryRun: false });
+    await expect(run).rejects.toBeInstanceOf(UsageError);
+    await expect(run).rejects.toThrow(
+      "the ADR folder (doc/adr/) moves into the decisions folder only on the user's yes: pass --adr-folder move after a yes, else keep",
+    );
+    await run.catch(() => null);
+    expect(gitOut(root, "status", "--porcelain")).toBe("");
+    expect(await exists(`${root}/.git/brain`)).toBe(false);
+  });
+
+  test("finds the ADR folder that adr-tools names in .adr-dir", async () => {
+    const root = await gitRepo("adr-dir", {
+      ".adr-dir": "architecture/records\n",
+      "architecture/records/0001-use-bun.md": "# 1. Use Bun\n",
+    });
+    const result = await migrate({ root, dryRun: true, adrFolder: "move" });
+    expect(result.changes).toEqual([
+      {
+        path: "architecture/records/0001-use-bun.md -> docs/decisions/DEC-001-use-bun.md",
+        action: "moved",
+      },
+      workspaceCreated,
+    ]);
+  });
+
+  test("an ADR that has frontmatter stays, and says why", async () => {
+    const root = await gitRepo("adr-frontmatter", {
+      "docs/decisions/0001-use-bun.md": "---\nstatus: accepted\n---\n# Use Bun\n",
+    });
+    const result = await migrate({ root, dryRun: true });
+    expect(result.changes).toEqual([
+      {
+        path: "docs/decisions/0001-use-bun.md",
+        action: "skipped",
+        note: "has frontmatter already; move it by hand",
+      },
+      workspaceCreated,
+    ]);
   });
 });
 
@@ -650,13 +835,13 @@ describe("write.ts --migrate", () => {
       const dry = run("--migrate", "--root", root, "--dry-run");
       expect(dry.exitCode).toBe(0);
       expect(dry.stdout.toString()).toBe(
-        `updated   ${decPath}  (dry run)\nupdated   ${resPath}  (dry run)\n`,
+        `updated   ${decPath}  (dry run)\nupdated   ${resPath}  (dry run)\ncreated   ${workspacePath}  (dry run)\n`,
       );
       expect(gitOut(root, "rev-list", "--count", "HEAD")).toBe("1");
       const real = run("--migrate", "--root", root);
       expect(real.exitCode).toBe(0);
       expect(real.stdout.toString()).toBe(
-        `updated   ${decPath}\nupdated   ${resPath}\ncommitted ${gitOut(root, "rev-parse", "HEAD")}\n`,
+        `updated   ${decPath}\nupdated   ${resPath}\ncreated   ${workspacePath}\ncommitted ${gitOut(root, "rev-parse", "HEAD")}\n`,
       );
       expect(await bytes(root, decPath)).toEqual(new Uint8Array([...encode(decHead), ...decBytes]));
     },
@@ -676,6 +861,8 @@ describe("write.ts --migrate", () => {
       expect(failed.stderr.toString()).toContain("git commit failed");
       expect(await bytes(root, decPath)).toEqual(decBytes);
       expect(await Bun.file(`${root}/${resPath}`).text()).toBe(resText);
+      expect(await exists(`${root}/${workspacePath}`)).toBe(false);
+      expect(gitOut(root, "status", "--porcelain", "--untracked-files=no")).toBe("");
       expect(gitOut(root, "rev-parse", "HEAD")).toBe(head);
     },
     slow,
@@ -689,6 +876,7 @@ describe("write.ts --migrate", () => {
     allAnswers.ideas,
     "--tracker-files",
     allAnswers.trackerFiles,
+    "--rename-glossary",
   ];
 
   test("--plan-spec, --ideas and --tracker-files give the user's answers; the dry run prints each line", async () => {
@@ -730,10 +918,17 @@ describe("write.ts --migrate", () => {
     ["--plan-spec", "SPEC.md"],
     ["--ideas", "none"],
     ["--tracker-files", "keep"],
+    ["--adr-folder", "keep"],
   ])("%s without --migrate is bad usage", (flag, value) => {
     const wrong = run("--root", work, flag, value, "--dry-run");
     expect(wrong.exitCode).toBe(2);
     expect(wrong.stderr.toString()).toBe(`${flag} answers the migrate mode; add --migrate\n`);
+  });
+
+  test("--adr-folder takes only move or keep", () => {
+    const wrong = run("--migrate", "--root", work, "--adr-folder", "yes", "--dry-run");
+    expect(wrong.exitCode).toBe(2);
+    expect(wrong.stderr.toString()).toBe("unknown or incomplete flag --adr-folder\n");
   });
 
   test("--tracker-files takes only remove or keep", () => {
@@ -755,9 +950,11 @@ describe("write.ts --migrate", () => {
       expect(await bytes(root, from)).toEqual(await Bun.file(`${fixture}/${from}`).bytes());
       expect(await exists(`${root}/${to}`)).toBe(false);
     }
-    for (const file of trackerPaths) {
+    for (const file of [...trackerPaths, "CONTEXT.md"]) {
       expect(await bytes(root, file)).toEqual(await Bun.file(`${fixture}/${file}`).bytes());
     }
+    expect(await exists(`${root}/GLOSSARY.md`)).toBe(false);
+    expect(await exists(`${root}/${workspacePath}`)).toBe(false);
     expect(await exists(`${root}/docs/specs`)).toBe(false);
     expect(await exists(`${root}/docs/ideas`)).toBe(false);
     expect(gitOut(root, "status", "--porcelain", "--untracked-files=no")).toBe("");

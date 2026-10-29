@@ -2,7 +2,7 @@
  * Write what brain's skills assume is in a repo, and the one file Codex needs on this machine.
  *
  *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--dry-run | --check] [--brain <plugin root>]
- *   bun run scripts/setup/write.ts --root <repo> --migrate [--plan-spec <spec>|none] [--ideas <path>,<path>|none] [--tracker-files remove|keep] [--dry-run]
+ *   bun run scripts/setup/write.ts --root <repo> --migrate [--plan-spec <spec>|none] [--ideas <path>,<path>|none] [--tracker-files remove|keep] [--adr-folder move|keep] [--rename-glossary] [--dry-run] [--brain <plugin root>]
  *
  * --migrate runs the migrate mode for a repo on brain 0.8 (see migrate.ts) instead of the
  * writes below, and prints the commit it wrote. Each other flag is the user's answer to one
@@ -13,12 +13,18 @@
  * or none.
  * --tracker-files, when docs/agents/issue-tracker.md or triage-labels.md exists: remove, after
  * the user's yes, or keep.
+ * --adr-folder, when the repo has an ADR folder of another tool, such as doc/adr/: move its ADRs
+ * into the decisions folder, after the user's yes, or keep it as read-only history.
+ * --rename-glossary, after the user's yes: the glossary move goes into the migrate mode's commit.
  * A run that lacks an answer it needs exits 2 and names each one, as does an answer that names
  * no file the run found.
  *
- * docs/agents/domain.md gets the consumer rules with the layout named.
+ * docs/agents/domain.md gets the consumer rules with the layout named, and a line for each ADR
+ * folder the repo keeps as history.
  * docs/agents/workspace.md gets the workspace template; a re-run keeps the folder paths and the
- * max_parallel that the repo's own file sets, and brings the rest of the template's text.
+ * max_parallel that the repo's own file sets, and brings the rest of the template's text. On a
+ * repo on the brain 0.8 layout that is not migrated yet, it is skipped: its `layout: 2` marks a
+ * migrated repo, so the migrate mode writes it, and --check exits 1 until then.
  * docs/STATUS.md gets the seed once; after that it is the agent's handoff note and is never written.
  * <codex home>/AGENTS.md gets the plain-talk block and the protocol block, each between its own
  * markers, when the Codex home directory exists ($CODEX_HOME, else ~/.codex); a symlink there is
@@ -32,12 +38,22 @@ import { mkdir, stat } from "node:fs/promises";
 import { homedir } from "node:os";
 
 import { replaceBlock } from "../plain-talk/block";
-import { readFrontmatter } from "../workspace/schema";
+import { readConfig } from "../workspace/config";
+import type { Paths } from "../workspace/config";
+import {
+  currentLayout,
+  findAdrFolders,
+  findToMigrate,
+  recordedLayout,
+} from "../workspace/old-layout";
+import { planGlossaryMoves } from "./glossary";
 import { migrate, UsageError } from "./migrate";
+import { workspaceText } from "./workspace-config";
 
 export type Layout = "single" | "multi";
 export type CodexScope = "global" | "project";
 export type TrackerAnswer = "remove" | "keep";
+export type AdrFolderAnswer = "move" | "keep";
 export type Change = {
   path: string;
   action: "created" | "updated" | "unchanged" | "skipped" | "moved" | "removed";
@@ -63,46 +79,29 @@ export type SetupInput = {
   ideas?: string;
   /** The user's answer for the migrate mode: `remove` the 0.8 tracker files, after a yes, or `keep` them. */
   trackerFiles?: TrackerAnswer;
+  /** The user's answer for the migrate mode: `move` the ADR folder's ADRs into the decisions folder, after a yes, or `keep` it. */
+  adrFolder?: AdrFolderAnswer;
   /** Report drift: list what a run would change, write nothing, exit 1 when anything would. */
   check?: boolean;
 };
 
-const glossaryMoves = [
-  ["CONTEXT.md", "GLOSSARY.md"],
-  ["CONTEXT-MAP.md", "GLOSSARY-MAP.md"],
-] as const;
-
-function tracked(root: string, path: string): boolean {
-  return Bun.spawnSync(["git", "ls-files", "--error-unmatch", path], { cwd: root }).exitCode === 0;
-}
-
 /**
  * Move each root glossary file to its new name with `git mv`, so it keeps its history.
  * Every outcome is decided before the first move, so a dry run reports what a real run
- * does, and a file that cannot move never leaves the others half moved. Per-context
- * files that a map lists stay where they are.
+ * does, and a file that cannot move never leaves the others half moved.
  */
 async function moveGlossaryFiles(input: SetupInput): Promise<Change[]> {
-  const planned: Change[] = [];
-  for (const [from, to] of glossaryMoves) {
-    if (!(await Bun.file(`${input.root}/${from}`).exists())) {
-      continue;
-    }
+  const plan = await planGlossaryMoves(input.root);
+  const planned = plan.map(({ from, to, stays }): Change => {
     const path = `${from} -> ${to}`;
-    if (await Bun.file(`${input.root}/${to}`).exists()) {
-      planned.push({ path, action: "skipped", note: `${to} already exists` });
-    } else if (tracked(input.root, from)) {
-      planned.push({ path, action: "moved" });
-    } else {
-      planned.push({ path, action: "skipped", note: "not tracked by git; move it by hand" });
-    }
-  }
+    return stays === null ? { path, action: "moved" } : { path, action: "skipped", note: stays };
+  });
   if (input.dryRun) {
     return planned;
   }
   const done: string[] = [];
-  for (const [from, to] of glossaryMoves) {
-    if (!planned.some((c) => c.path === `${from} -> ${to}` && c.action === "moved")) {
+  for (const { from, to, stays } of plan) {
+    if (stays !== null) {
       continue;
     }
     const moved = Bun.spawnSync(["git", "mv", from, to], { cwd: input.root });
@@ -171,53 +170,62 @@ async function writeCodex(input: SetupInput, blocks: string[]): Promise<Change |
   return put(input, path, path, withBlocks(current, blocks, path));
 }
 
-/** The settings in `docs/agents/workspace.md` that belong to the repo: a re-run keeps each one set. */
-const repoSettings = [
-  ...["decisions", "research", "ideas", "specs"].map((key) => ({ key, line: `  ${key}` })),
-  { key: "max_parallel", line: "max_parallel" },
-];
-
-/** A setting's value as YAML: as it is when it is a number or a plain path, else quoted. */
-function yamlScalar(value: string | number): string {
-  const text = String(value);
-  return typeof value === "number" || /^[\w./-]+$/u.test(text) ? text : JSON.stringify(text);
+/** The repo's workspace folders; null when its `workspace.md` cannot be read, which the workspace step reports. */
+function repoPaths(root: string): Promise<Paths | null> {
+  return readConfig(root).then(
+    (config) => config.paths,
+    () => null,
+  );
 }
 
 /**
- * The workspace config to write: the template, with each repo setting that `current` already
- * sets put in place of the template's value. Null when `current`'s frontmatter cannot be read,
- * since a run would then lose the repo's settings.
+ * What the migrate mode still has to move in `root`, as a report names it: none when the repo's
+ * `workspace.md` records the current layout, since the migrate mode wrote it.
  */
-function workspaceText(template: string, current: string | null): string | null {
-  const frontmatter = current === null ? null : readFrontmatter(current);
-  if (frontmatter !== null && "error" in frontmatter) {
-    return null;
+async function toMigrate(root: string, paths: Paths | null): Promise<string[]> {
+  const layout = await recordedLayout(root);
+  if (paths === null || (layout !== null && layout >= currentLayout)) {
+    return [];
   }
-  const data = frontmatter?.data ?? {};
-  const paths = typeof data.paths === "object" && data.paths !== null ? data.paths : {};
-  const set: Record<string, unknown> = { ...paths, max_parallel: data.max_parallel };
-  // Only the frontmatter holds settings; the body is the template's, as it is.
-  const end = template.indexOf("\n---\n", 3);
-  let head = template.slice(0, end);
-  for (const { key, line } of repoSettings) {
-    const value = set[key];
-    if (typeof value === "string" || typeof value === "number") {
-      head = head.replace(new RegExp(`^${line}: .*$`, "mu"), () => `${line}: ${yamlScalar(value)}`);
-    }
-  }
-  return `${head}${template.slice(end)}`;
+  return findToMigrate(root, paths);
 }
 
-/** Write the workspace config, keeping the repo's own settings; skip a file it cannot read. */
-async function writeWorkspace(input: SetupInput, template: string): Promise<Change> {
+/** Write the workspace config, keeping the repo's own settings; skip a file it cannot read, and a repo to migrate. */
+async function writeWorkspace(
+  input: SetupInput,
+  template: string,
+  waiting: string[],
+): Promise<Change> {
   const path = "docs/agents/workspace.md";
   const full = `${input.root}/${path}`;
+  if (waiting.length > 0) {
+    const why = "the repo is on the brain 0.8 layout: the migrate mode writes this file";
+    return { path, action: "skipped", note: why };
+  }
   const next = workspaceText(template, await readIfPresent(full));
   if (next === null) {
     const why = "its frontmatter is not valid YAML; fix it, then run setup-brain again";
     return { path, action: "skipped", note: why };
   }
   return put(input, path, full, next);
+}
+
+/**
+ * The domain doc: the template with the layout named, and after the decisions line one line for
+ * each ADR folder the repo keeps, which the migrate mode offered to move and the user kept.
+ */
+function domainText(template: string, layout: Layout, adrFolders: string[]): string {
+  const text = template.replaceAll(
+    "{{layout}}",
+    layout === "single" ? "single-context" : "multi-context",
+  );
+  const kept = adrFolders.map(
+    (folder) =>
+      `- \`${folder}/\`: older architecture decisions (ADRs), kept as read-only history. Read the ones that touch your area. Record each new decision in a decision record.`,
+  );
+  return kept.length === 0
+    ? text
+    : text.replace(/^- `docs\/decisions\/`.*$/mu, (line) => [line, ...kept].join("\n"));
 }
 
 /** Write the STATUS.md seed once. After that the file is the agent's handoff note, kept as it is. */
@@ -237,8 +245,9 @@ export async function writeSetup(input: SetupInput): Promise<Change[]> {
     await template("plain-talk/AGENTS-block.md"),
     await template("protocol/AGENTS-block.md"),
   ];
-  const domainTemplate = await template("skills/setup-brain/domain.md");
-  const layoutName = input.layout === "single" ? "single-context" : "multi-context";
+  const paths = await repoPaths(input.root);
+  const adrFolders = paths === null ? [] : await findAdrFolders(input.root, paths);
+  const waiting = await toMigrate(input.root, paths);
   // The glossary move runs first, so the change list shows it at the top.
   const changes: Change[] = input.renameGlossary === true ? await moveGlossaryFiles(input) : [];
 
@@ -247,11 +256,15 @@ export async function writeSetup(input: SetupInput): Promise<Change[]> {
     changes.push(codex);
   }
 
-  const domain = domainTemplate.replaceAll("{{layout}}", layoutName);
+  const domain = domainText(
+    await template("skills/setup-brain/domain.md"),
+    input.layout,
+    adrFolders,
+  );
   const domainPath = "docs/agents/domain.md";
   changes.push(
     await put(input, domainPath, `${input.root}/${domainPath}`, domain),
-    await writeWorkspace(input, await template("skills/setup-brain/workspace.md")),
+    await writeWorkspace(input, await template("skills/setup-brain/workspace.md"), waiting),
     await writeSeed(input, await template("skills/setup-brain/STATUS.md")),
   );
   return changes;
@@ -290,6 +303,13 @@ const valued: Record<string, Setter> = {
       return false;
     }
     input.trackerFiles = value;
+    return true;
+  },
+  "--adr-folder": (input, value) => {
+    if (!oneOf(["move", "keep"] as const, value)) {
+      return false;
+    }
+    input.adrFolder = value;
     return true;
   },
   "--layout": (input, value) => {
@@ -352,6 +372,7 @@ function parseArgs(argv: string[]): SetupInput {
     ["--plan-spec", input.planSpec],
     ["--ideas", input.ideas],
     ["--tracker-files", input.trackerFiles],
+    ["--adr-folder", input.adrFolder],
   ];
   const stray = answers.find(([, value]) => value !== undefined && input.migrate !== true);
   if (stray !== undefined) {
@@ -367,8 +388,18 @@ function note(change: Change, dryRun: boolean): string {
   return dryRun ? "  (dry run)" : "";
 }
 
-/** The closing line of `--check`, and its exit code: 1 when a run would change a file. */
-function checkSummary(changes: Change[]): { line: string; code: number } {
+/**
+ * The closing line of `--check`, and its exit code: 1 when a run would change a file, or when
+ * the repo is on the brain 0.8 layout and the migrate mode has files to move.
+ */
+function checkSummary(changes: Change[], waiting: string[]): { line: string; code: number } {
+  if (waiting.length > 0) {
+    const found = waiting.join(", ");
+    return {
+      line: `the repo is on the brain 0.8 layout (${found}): run setup-brain to migrate`,
+      code: 1,
+    };
+  }
   const drift = changes.filter((c) => c.action !== "unchanged" && c.action !== "skipped").length;
   if (drift === 0) {
     return { line: "every file is in place", code: 0 };
@@ -401,7 +432,10 @@ async function main(argv: string[]): Promise<number> {
       console.log(`committed ${result.commit}`);
     }
     if (check) {
-      const summary = checkSummary(result.changes);
+      const summary = checkSummary(
+        result.changes,
+        await toMigrate(input.root, await repoPaths(input.root)),
+      );
       console.log(summary.line);
       return summary.code;
     }

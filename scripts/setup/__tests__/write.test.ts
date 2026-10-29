@@ -6,6 +6,7 @@ import { endMarker, markersFor, startMarker } from "../../plain-talk/block";
 import { readLock } from "../../sync/lib/lock";
 import { readConfig } from "../../workspace/config";
 import { writeSetup } from "../write";
+import type { Change } from "../write";
 
 // The flag tests start a bun process, which takes seconds on a loaded machine.
 setDefaultTimeout(60_000);
@@ -172,6 +173,64 @@ describe("writeSetup, the workspace config", () => {
       note: "its frontmatter is not valid YAML; fix it, then run setup-brain again",
     });
     expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(before);
+  });
+});
+
+describe("writeSetup, a repo on the brain 0.8 layout", () => {
+  const waitsForMigration: Change = {
+    path: "docs/agents/workspace.md",
+    action: "skipped",
+    note: "the repo is on the brain 0.8 layout: the migrate mode writes this file",
+  };
+
+  test("writes domain.md and the seed, and leaves workspace.md to the migrate mode: its layout: 2 marks a migrated repo", async () => {
+    const root = await repo("old-layout", { "tasks/plan.md": "# Implementation Plan: X\n" });
+    const changes = await writeSetup({ brain, root, ...base });
+    expect(changes).toEqual([
+      { path: "docs/agents/domain.md", action: "created" },
+      waitsForMigration,
+      { path: "docs/STATUS.md", action: "created" },
+    ]);
+    expect(await exists(`${root}/docs/agents/workspace.md`)).toBe(false);
+  });
+
+  test.each([
+    ["a 0.8 ADR", { "docs/decisions/0001-use-bun.md": "# Use Bun\n" }],
+    ["an ADR folder", { "doc/adr/0001-use-bun.md": "# 1. Use Bun\n" }],
+    ["a decision record with no frontmatter", { "docs/decisions/DEC-001-x.md": "# DEC-001: X\n" }],
+  ])("%s holds workspace.md back too", async (_, files) => {
+    const root = await repo(`old-${Object.keys(files)[0]?.replaceAll("/", "-")}`, files);
+    expect(await writeSetup({ brain, root, ...base })).toContainEqual(waitsForMigration);
+  });
+
+  test("a CONTEXT.md alone does not: the glossary rename has its own question", async () => {
+    const root = await repo("old-glossary-only", { "CONTEXT.md": "# Terms\n" });
+    const changes = await writeSetup({ brain, root, ...base });
+    expect(changes).toContainEqual({ path: "docs/agents/workspace.md", action: "created" });
+  });
+
+  test("a workspace.md that records layout: 2 is written as usual, beside 0.8 files the user kept", async () => {
+    const root = await repo("migrated-kept", {
+      "docs/agents/workspace.md": workspace,
+      "docs/intent/kept.md": "# Intent: kept\n",
+    });
+    const changes = await writeSetup({ brain, root, ...base });
+    expect(changes).toContainEqual({ path: "docs/agents/workspace.md", action: "unchanged" });
+  });
+
+  test("domain.md names each ADR folder the repo kept, as read-only history, after the decisions line", async () => {
+    const shipped = `${import.meta.dir}/../../..`;
+    const root = await repo("adr-kept", {
+      "docs/agents/workspace.md": workspace,
+      "doc/adr/0001-use-bun.md": "# 1. Use Bun\n",
+    });
+    await writeSetup({ brain: shipped, root, ...base });
+    const domain = await Bun.file(`${root}/docs/agents/domain.md`).text();
+    const lines = domain.split("\n");
+    const decisions = lines.findIndex((line) => line.startsWith("- `docs/decisions/`"));
+    expect(lines[decisions + 1]).toBe(
+      "- `doc/adr/`: older architecture decisions (ADRs), kept as read-only history. Read the ones that touch your area. Record each new decision in a decision record.",
+    );
   });
 });
 
@@ -361,6 +420,19 @@ describe("write.ts --check", () => {
     expect(run.stdout.toString()).toContain("updated   docs/agents/domain.md");
     expect(run.stdout.toString()).toContain("1 file differs from what setup-brain writes");
     expect(await Bun.file(`${root}/docs/agents/domain.md`).text()).toBe("# Mine now\n");
+  });
+
+  test("on a repo on the brain 0.8 layout: exit 1, naming what the migrate mode moves, even when the other files are in place", async () => {
+    const root = await repo("check-old", {
+      "tasks/plan.md": "# Implementation Plan: X\n",
+      "docs/decisions/0001-use-bun.md": "# Use Bun\n",
+    });
+    await writeSetup({ brain, root, ...base });
+    const run = check(root);
+    expect(run.exitCode).toBe(1);
+    expect(run.stdout.toString()).toEndWith(
+      "the repo is on the brain 0.8 layout (tasks/plan.md, docs/decisions/0001-use-bun.md): run setup-brain to migrate\n",
+    );
   });
 
   test("--check with --migrate is bad usage: exit 2", () => {

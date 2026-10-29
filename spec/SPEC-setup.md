@@ -71,6 +71,20 @@ user's yes. The skill asks one question per intent doc and one for the tracker f
 passes the answers as `--ideas` and `--tracker-files`. A run that lacks an answer it needs
 exits 2 and names every such answer at once.
 
+**Amended 2026-10-29, by the workspace migrate mode (`SPEC-workspace.md`, task T38).**
+`--migrate` moves each ADR that brain 0.8 wrote, `docs/decisions/0001-<slug>.md`, to
+`docs/decisions/DEC-NNN-<slug>.md` with `kind: architecture`, numbered after the capability
+map. When the repo has an ADR folder of another tool (`doc/adr/`, the folder a root
+`.adr-dir` names, and the like), the skill asks one question for the repo and passes
+`--adr-folder move` or `keep`; a kept folder stays as read-only history, and `domain.md`
+names it. `--rename-glossary` puts T05's glossary move into the same commit. The commit also
+creates `docs/agents/workspace.md` with `layout: 2`, which marks the repo as migrated: a
+later `--migrate` changes nothing. A run that skips a file until it is committed leaves
+`workspace.md` out, so the next run can still move that file. Until the marker is there, the
+install writes skip `workspace.md` on a repo on the 0.8 layout, and `--check` exits 1 and
+names what the migrate mode still has to move. After the commit, the skill runs
+`brain check`.
+
 **Amended 2026-10-29, by the workspace install flow (`SPEC-workspace.md`, task T34).** A
 second script, `scripts/setup/capabilities.ts`, proposes `docs/agents/capabilities.md` from
 the repo's files: toolchain checks from `packageManager` and `engines`, library skills from

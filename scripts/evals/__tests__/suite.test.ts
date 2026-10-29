@@ -44,6 +44,7 @@ describe("eval suite", () => {
         "question/plan-approval",
         "setup/fresh-repo",
         "setup/fresh-repo-resume",
+        "setup/migrate-08",
         "setup/second-run",
         "wait-what/confused-by-reply",
         "wait-what/error-not-confusion",
