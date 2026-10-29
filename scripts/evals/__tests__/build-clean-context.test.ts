@@ -170,8 +170,8 @@ async function brief(root: string, id: string): Promise<AgentCall> {
       `Build this task of the spec in ${folder}/, whose spec.md it cites.`,
       blockOf(todo, id),
       "Invoke brain:incremental-implementation and brain:test-driven-development.",
-      "Tick only the boxes in your own block of tasks/todo.md, and leave tasks/plan.md alone.",
-      "Stage the files the task touched and tasks/todo.md by name, and make one commit.",
+      "Leave tasks/todo.md and tasks/plan.md alone: the main session ticks the block and closes the row.",
+      "Stage the files the task touched by name, and make one commit.",
       'brain is bun "/plugins/brain/scripts/brain.ts".',
     ].join("\n\n"),
     subagent_type: "general-purpose",
@@ -202,16 +202,13 @@ async function tick(root: string, id: string): Promise<void> {
   await Bun.write(file, todo.replace(block, block.replaceAll("- [ ]", "- [x]")));
 }
 
-/** A sub-agent builds row `id`: it writes the code, maybe ticks its block, and commits. */
-async function subAgent(root: string, id: string, ticks = true): Promise<string> {
+/** A sub-agent builds row `id`: it writes the code and commits it, and ticks nothing. */
+async function subAgent(root: string, id: string): Promise<string> {
   const files = code[id] ?? {};
   for (const [path, text] of Object.entries(files)) {
     await Bun.write(`${root}/${path}`, text);
   }
-  if (ticks) {
-    await tick(root, id);
-  }
-  git(root, "add", "--", ...Object.keys(files), todoPath);
+  git(root, "add", "--", ...Object.keys(files));
   git(root, "commit", "-qm", `feat: build task ${id}`);
   return git(root, "rev-parse", "--short", "HEAD");
 }
@@ -239,10 +236,14 @@ async function rewriteWaves(run: Run): Promise<void> {
 }
 
 /**
- * The main session closes row `id`: the row goes resolved with `result`, the Parallel waves
- * section is written again, then brain check, then a commit.
+ * The main session closes row `id`: it ticks the row's block (unless `ticks` is false), the
+ * row goes resolved with `result`, the Parallel waves section is written again, then brain
+ * check, then a commit.
  */
-async function closeRow(run: Run, id: string, result: string): Promise<void> {
+async function closeRow(run: Run, id: string, result: string, ticks = true): Promise<void> {
+  if (ticks) {
+    await tick(run.root, id);
+  }
   const file = `${run.root}/${planPath}`;
   const plan = await Bun.file(file).text();
   const row = new RegExp(
@@ -254,9 +255,11 @@ async function closeRow(run: Run, id: string, result: string): Promise<void> {
   await rewriteWaves(run);
   run.commands.push(brainCheck);
   expect(runCheck(run.root).exitCode).toBe(0);
-  git(run.root, "add", "--", planPath);
+  git(run.root, "add", "--", planPath, todoPath);
   git(run.root, "commit", "-qm", `chore: close row ${id} of SPEC-001`);
-  run.commands.push(`git add -- ${planPath} && git commit -m "chore: close row ${id} of SPEC-001"`);
+  run.commands.push(
+    `git add -- ${planPath} ${todoPath} && git commit -m "chore: close row ${id} of SPEC-001"`,
+  );
 }
 
 /** The verification a closed row names, by row. */
@@ -277,9 +280,9 @@ async function buildAuto(name: string, play: Play = {}): Promise<Run> {
   const run: Run = { root, commands: [], agents: [] };
   for (const id of ["01", "02"]) {
     run.agents.push(await (play.brief ?? brief)(root, id));
-    const sha = await subAgent(root, id, play.ticks ?? true);
+    const sha = await subAgent(root, id);
     if (play.close ?? true) {
-      await closeRow(run, id, (play.result ?? closed)(sha, id));
+      await closeRow(run, id, (play.result ?? closed)(sha, id), play.ticks ?? true);
     }
   }
   return run;
@@ -424,14 +427,14 @@ describe("lifecycle/build-clean-context, the graders on played runs", () => {
     expect(await failing(run)).toEqual(["todo-block-01", "todo-block-02"]);
   });
 
-  test("a run whose sub-agents leave todo.md alone fails only the ticks", async () => {
+  test("a run whose main session closes the rows but ticks nothing fails only the ticks", async () => {
     const run = await buildAuto("unticked", { ticks: false });
     expect(await failing(run)).toEqual(["todo-ticked"]);
   });
 
-  test("a run whose main session never closes the plan rows fails only the plan rows", async () => {
+  test("a run whose main session never closes the rows fails the plan rows and the ticks", async () => {
     const run = await buildAuto("open-rows", { close: false });
-    expect(await failing(run)).toEqual(["plan-rows-resolved"]);
+    expect(await failing(run)).toEqual(["plan-rows-resolved", "todo-ticked"]);
   });
 
   test("a run that writes each SHA as code passes the plan rows", async () => {

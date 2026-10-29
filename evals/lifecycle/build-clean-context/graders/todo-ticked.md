@@ -6,4 +6,4 @@ target:
 pattern: '^(?![\s\S]*- \[ \])[\s\S]*- \[[xX]\]'
 ---
 
-Each sub-agent ticks the boxes in its own block. After both tasks, `todo.md` holds a ticked box and no open one.
+The main session ticks the boxes in each task's block when it closes the row; a sub-agent ticks nothing. After both tasks, `todo.md` holds a ticked box and no open one.
