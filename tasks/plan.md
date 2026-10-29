@@ -25,7 +25,7 @@ Each task ends with `bun run check` green and one commit, files staged by name.
 | 1. Glossary rename | T01 to T08 | `GLOSSARY.md` everywhere brain owns, Matt's pin at `d81f3a1`, the fallback until 0.11.0, brain's own glossary, the guard | — |
 | 2. Workspace foundation | T09 to T16 | the `brain` CLI, `workspace.md`, the templates, `brain new-doc`, the fixtures and map parser, the migrate mode's frontmatter step, `brain check` and `sync --check` in the gate, `brain status` and the status skill | 1 |
 | 3. Define phase | T17 to T25 | DEC format with its eval, the agent brief and agent list, interview-me in three tasks (map, loop with the resume eval, research), idea-refine seeded, wayfinder and triage retired, setup-brain without a tracker | 2 |
-| 4. Build-phase paths | T26, T27, T29 | commands with the build eval, lifecycle skills on `docs/specs/`, path updates to the other evals | 3 |
+| 4. Build-phase paths and parallel work | T26, T27, T29, T41 to T46 | commands with the build eval, lifecycle skills on `docs/specs/`, path updates to the other evals; `brain plan`, checkpoint edges in `brain check`, the "Parallel waves" section in every plan, `max_parallel`, the parallel `/build auto` and research rows with their evals | 3 |
 | 5. The protocol | T30 to T32 | the render prefactor, the protocol rendered per host, the Claude `SessionStart` hook | 2, 4 |
 | 6. Install and the router | T33, T34, T28, T35 to T38 | the install writer with the fresh-repo eval, capabilities detection, `using-brain` and the 1% rule with its two evals (T28, after T34, because it describes the protocol and setup-brain's new outputs), the overlap report, the migrate mode in three tasks with its eval | 3, 5 |
 | 7. Brain's history and the fallback's end | T39, T40 | `spec/` and `tasks/done/` moved through the migrate mode; the old-glossary fallback and its check removed in the release that ships 0.11.0 | 6 and a second ask (T39); the 0.10.0 release (T40) |
@@ -45,34 +45,36 @@ task in T04 and T06; each of those diffs is a word swap the reviewer checks for 
 
 ## Parallel waves
 
-Worked out from the blocking edges on 2026-10-29, with T01 to T10 done and T11 running. Each
-wave is a frontier: every task in it can start once the waves above it are done, and the
-tasks in one wave can run at the same time. Waves cross phase lines; a phase checkpoint still
-reviews its own tasks.
+Worked out by hand from the blocking edges; `brain plan` (T41) cannot read this plan, which
+is in the old layout, until T39 migrates it. Updated 2026-10-29 with T41 to T46 added, T01
+to T11 and T18 done, and T12, T13, T15, T17 and T30 running. Each wave is a frontier: every
+task in it can start once the waves above it are done. Waves cross phase lines; a phase
+checkpoint still reviews its own tasks.
 
 | Wave | Tasks |
 |---|---|
-| A | T11, T12, T13, T15, T18, T30 |
-| B | T14, T17 |
-| C | T16, T19, T26, T27 |
-| D | T20, T21, T29, T31 |
-| E | T22, T23, T32 |
-| F | T24 |
-| G | T25 |
-| H | T33 |
-| I | T34, T36 |
-| J | T28, T35, T37 |
-| K | T38 |
+| A (running) | T12, T13, T15, T17, T30 |
+| B | T14, T19 |
+| C | T16, T20, T21, T26, T27, T41 |
+| D | T22, T23, T29, T31, T42, T44 |
+| E | T24, T32, T43, T45, T46 |
+| F | T25 |
+| G | T33 |
+| H | T34, T36 |
+| I | T28, T35, T37 |
+| J | T38 |
 | Then | T39 after the second ask; T40 after the 0.10.0 release |
 
-The critical path is 11 tasks long: T11, T17, T19, T21, T23, T24, T25, T33, T34, T35, T38.
+The critical path from here is 10 tasks: T17, T19, T21, T23, T24, T25, T33, T34, T35, T38.
 
-Tasks in one wave still share some files: `package.json` (T11, T14, T15, T16), `scripts/brain.ts`
-(T11, T14, T16), `scripts/lifecycle/` (T18, T23, T24, T28, T32), `.claude-plugin/plugin.json`
-(T18, T21, T32) and `tasks/todo.md` (every task). Parallel tasks therefore run in separate git
-worktrees, and the main session merges each one back in turn, resolves those small overlaps,
-and is the only writer of the ticks in `tasks/todo.md`. At most 4 tasks run at a time (Peter,
-2026-10-29), chosen from the frontier with the critical path first.
+Tasks in one wave share some files: `package.json` (T14, T15, T16, T41), `scripts/brain.ts`
+(T14, T16, T41), `scripts/workspace/check.ts` (T14, T42, T43), `scripts/workspace/plan.ts`
+(T41, T43, T44), `scripts/lifecycle/` (T23, T24, T28, T32), `.claude-plugin/plugin.json` (T21,
+T32), `skills/interview-me/` (T19, T20, T21, T46) and `tasks/todo.md` (every task). Parallel
+tasks therefore run in separate git worktrees, and the main session merges each one back in
+turn, resolves those small overlaps, and is the only writer of the ticks in `tasks/todo.md`.
+For the rest of this build each wave runs whole (cap 8, Peter, 2026-10-29), unless two of
+its tasks edit the same function; then the later one waits.
 
 ## Checkpoints
 

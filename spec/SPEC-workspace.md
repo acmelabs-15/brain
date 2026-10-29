@@ -50,6 +50,7 @@ Each area's detail lives in the intent doc; this spec does not repeat it.
 | setup-brain | Bun check; `workspace.md`, `capabilities.md`, `STATUS.md` seed; overlap report; `--check`; migrate mode; no tracker | Installing brain in a repo; rows for questions 6, 9, 10, 15 |
 | Gate | `bun run check` runs `workspace:check` and `sync --check`; new `lifecycle:check` guards | Checks; rows for questions 5, 8, 11, 12 |
 | brain's glossary | A new `GLOSSARY.md` for brain itself, written with domain-modeling in the glossary-rename slice | Peter, spec review 2026-10-29 |
+| Parallel work | `brain plan` (waves, critical path, shared files, overlapping phases); checkpoint rows checked by `brain check`; a "Parallel waves" section in every plan from `brain plan`; `max_parallel`; `/build auto`, incremental-implementation and interview-me's research rows run the frontier in parallel, with two evals | Decisions rows from "Parallel work is part of brain" to "Parallel-build evals" (Peter, 2026-10-29) |
 
 ## Delivery
 
@@ -120,6 +121,22 @@ because the success criteria test them.
   "wayfinder is removed. Its job moved into interview-me, which now keeps a multi-session map
   in docs/ideas/. Maps on an issue tracker are not migrated." and "triage is removed; re-seed
   it from mattpocock/skills if you need it."
+
+- **Parallel work.** `brain plan` is read-only and prints, from a plan's rows and todo blocks,
+  the waves (each the frontier once the waves above it are done), the critical path, the
+  files more than one task in a wave touches, and which phases overlap. A checkpoint row's
+  phase is its blockers; it blocks every later task that depends on a task in its phase, and
+  nothing else, and `brain check` validates that. planning-and-task-breakdown writes the
+  "Parallel waves" section from `brain plan` and rewrites it whenever an edge changes;
+  `brain check` fails when it is missing or stale. `/build auto` and incremental-implementation
+  start every task on the frontier at once, up to `max_parallel` (default 8,
+  `BRAIN_MAX_PARALLEL` overrides), and state a reason before starting fewer; the critical path
+  goes first when the cap bites. Each task runs in a worktree from the feature branch's head,
+  install first; the main session merges one at a time, runs the gate after each merge, is the
+  only writer of plan rows and todo ticks, and tells an in-flight task to rebase when a merge
+  changes what it depends on. interview-me starts every research row on the frontier at once,
+  up to the cap; on Claude Code with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` research rows may
+  run as an agent team, while the build stays on worktree sub-agents.
 
 ## Tech Stack
 
@@ -302,6 +319,13 @@ Seams, confirmed by Peter on 2026-10-29:
 53. As a maintainer, I want Matt's pin bumped to `d81f3a1` in its own commit, so that the rename from upstream is reviewable alone.
 54. As an agent working on brain, I want brain's own `GLOSSARY.md` to define idea, map, row, frontier and the other new terms, so that every skill and reply uses one word per concept.
 55. As a user, I want `brain status` to show which specs each idea produced, so that the idea file never holds a hand-kept list that drifts.
+56. As a user, I want `brain plan` to print the waves, the critical path and the files tasks in a wave share, so that I see what can run at once without working it out by hand.
+57. As a user, I want `brain check` to catch a checkpoint row that blocks too much or too little, so that a phase review never holds back unrelated work.
+58. As a user, I want every plan's "Parallel waves" section written from `brain plan` and checked for staleness, so that it never drifts from the edges.
+59. As a user, I want `/build auto` to start every task on the frontier at once, up to my `max_parallel`, so that a build finishes as early as its critical path allows.
+60. As a user, I want a stated reason whenever fewer tasks start than could, so that "to be safe" never silently slows a build.
+61. As a user, I want each parallel task in a worktree from my feature branch's head, so that no task builds on `main` by mistake.
+62. As a user, I want interview-me to start all research rows on the frontier at once, so that an interview waits for the slowest lookup only.
 
 ## Out of scope
 
@@ -385,6 +409,11 @@ Each item names how it is verified.
       `lifecycle/no-overload`; and `lifecycle/plan-three-questions`, `setup/fresh-repo` and
       `setup/second-run`, updated.
 16. `bun run validate` is green on all four host manifests.
+17. `brain plan` prints the waves, the critical path, each wave's shared files and the overlapping phases for the fixtures (linear, wide, with checkpoints), with `--json`, exits 1 on a cycle, and changes no file. Test: CLI seam.
+18. `brain check` flags a checkpoint row that misses a dependent task or blocks an unrelated one, and a plan whose "Parallel waves" section is missing or stale. Test: CLI seam, one fixture per finding.
+19. `max_parallel` comes from `workspace.md` (default 8), `BRAIN_MAX_PARALLEL` overrides it, and a value below 1 is rejected. Test: CLI seam.
+20. Eval `lifecycle/build-parallel` passes in CI: with a frontier five tasks wide, `/build auto` starts five sub-agents, each worktree based on the branch head, and never fewer without a stated reason.
+21. Eval `lifecycle/interview-parallel-research` passes in CI: with three research rows on the frontier, interview-me starts all three at once.
 
 ### Intent success, line by line
 

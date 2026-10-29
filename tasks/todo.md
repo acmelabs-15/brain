@@ -170,6 +170,37 @@ ends with a checkpoint and a review with Peter.
   - Files: evals/lifecycle/*
   - Depends: T26, T27. Scope: S
 
+- [ ] T41: `brain plan`
+  - Acceptance: read-only; from a spec's `tasks/plan.md` rows (T14's map parser) and its `tasks/todo.md` blocks it prints the waves (each wave is the frontier once the waves above it are done), the critical path, for each wave the files more than one of its tasks touches (from "Files likely touched"), and which phases overlap (a phase's tasks are its checkpoint row's blockers); `--json` gives the same data; exit 1 on a cycle or an unknown blocker; `package.json` gains `plan`
+  - Verify: CLI seam on fixtures (a linear plan, a wide plan, a cycle); the tree hashed before and after
+  - Files: scripts/workspace/plan.ts, scripts/workspace/__tests__/plan.test.ts, scripts/brain.ts, fixtures, package.json
+  - Depends: T14. Scope: M
+- [ ] T42: checkpoint rows checked by `brain check`
+  - Acceptance: a checkpoint row's phase is its blockers; `brain check` reports a task that depends, directly or through other tasks, on a task in the phase but is not blocked, directly or through other tasks, by the checkpoint; and a task the checkpoint blocks that depends on no task in the phase; one finding line each
+  - Verify: CLI seam, one fixture per finding and a clean one
+  - Files: scripts/workspace/check.ts, scripts/workspace/__tests__/check.test.ts, fixtures
+  - Depends: T41. Scope: S
+- [ ] T43: the "Parallel waves" section in every plan
+  - Acceptance: planning-and-task-breakdown writes a "Parallel waves" section into `tasks/plan.md` from `brain plan` output, never by hand, and runs `brain plan` again whenever an edge changes; `brain check` fails, with one finding line, when a plan with rows lacks the section or the section differs from a fresh `brain plan` output
+  - Verify: CLI seam (missing, stale, current); `bun run lifecycle:check`
+  - Files: skills/planning-and-task-breakdown/SKILL.md, scripts/workspace/check.ts, scripts/workspace/plan.ts, scripts/workspace/__tests__/check.test.ts
+  - Depends: T27, T41, T42. Scope: M
+- [ ] T44: `max_parallel`
+  - Acceptance: `docs/agents/workspace.md` frontmatter takes `max_parallel`, default 8; `BRAIN_MAX_PARALLEL` overrides it; the config reader returns it and rejects a value below 1; the template names it; `brain plan` prints the cap and, for each wave, how many tasks start at once
+  - Verify: CLI seam
+  - Files: scripts/workspace/config.ts, skills/setup-brain/workspace.md, scripts/workspace/plan.ts, scripts/workspace/__tests__/plan.test.ts
+  - Depends: T41. Scope: S
+- [ ] T45: `/build auto` and incremental-implementation run the frontier in parallel, with the build eval
+  - Acceptance: eval `lifecycle/build-parallel` written first (a plan whose frontier is five tasks wide: `/build auto` starts five sub-agents, each worktree based on the branch head, and never fewer without a stated reason); the commands and the skill carry the Decisions row "Parallel build by default" in full: every task on the frontier at once, up to the cap; a stated reason for fewer; the critical path first; a worktree from the feature branch's head, the install step first; the main session merges one at a time, critical path first, runs the gate after each merge, is the only writer of plan rows and todo ticks, and tells an in-flight task to rebase when a merge changes what it depends on; result files named after the task, and the reply the path plus one line
+  - Verify: `bun run lifecycle:check`; `bun run validate`; the eval's dry check
+  - Files: .claude/commands/build.md, commands/build.toml, skills/incremental-implementation/SKILL.md, evals/lifecycle/build-parallel/*
+  - Depends: T26, T27, T41, T44. Scope: M
+- [ ] T46: interview-me starts research rows in parallel, with the research eval
+  - Acceptance: eval `lifecycle/interview-parallel-research` written first (an idea with three research rows on its frontier: interview-me starts all three at once); interview-me starts every research row on the frontier at once, up to the cap; on Claude Code with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` the research rows may run as an agent team, each teammate writing its own RES file through `brain new-doc`; the build stays on worktree sub-agents
+  - Verify: `bun run lifecycle:check`; the eval's dry check
+  - Files: skills/interview-me/{SKILL.md,RESEARCH.md}, evals/lifecycle/interview-parallel-research/*
+  - Depends: T21, T44. Scope: M
+
 ### Checkpoint: phase 4
 - [ ] `bun run check` green; every eval dry check passes
 - [ ] Review with Peter
