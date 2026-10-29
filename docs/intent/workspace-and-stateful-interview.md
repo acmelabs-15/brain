@@ -746,6 +746,7 @@ cannot.
 | Parallel-build evals | (a) A plan whose frontier is five tasks wide: `/build auto` starts five sub-agents, each worktree based on the branch head, and never fewer without a stated reason. (b) An idea with three research rows on its frontier: interview-me starts all three at once | Peter, 2026-10-29 |
 | Brain's own `AGENTS.md` during this build | A standing yes for facts only: commands, gate steps and paths, each changed in the task that changes the fact and listed in that task's result and at the phase checkpoint. Any change to a rule (how sessions run, what to ask first, conventions) still needs Peter's yes per edit. The rule for setup-brain and users' repos is unchanged. At the phase 6 checkpoint, T35's overlap report runs on brain's own `AGENTS.md`, report-only, so Peter can decide what the protocol now covers | Peter, 2026-10-29 |
 | An idea that ends without a spec | Ideas gain a fourth status, `done`, for an idea whose destination was a decision or a change made in place. interview-me sets it after the user's explicit yes when no spec follows. A done idea carries `result:` naming what it produced: a `DEC-NNN` for a decision, or a commit SHA for a change made in place. `brain check` requires `result` when the status is `done` and verifies that a named DEC exists. `brain status` and the active-effort rule treat `done` and `specced` as finished. GLOSSARY.md's Idea entry lists the four statuses (define, specced, done, parked), so each word has one meaning. Task T47 builds it | Peter, 2026-10-29, on T20's finding |
+| No tasks in an external tracker | planning-and-task-breakdown drops its external-tracker option: tasks live only in the spec folder's plan rows and todo blocks, so status has one home and `brain plan` sees every task's files. T43 makes the edit, since it already changes that skill | Peter, 2026-10-29, on T27's finding |
 
 ## Rejected options
 
@@ -826,7 +827,10 @@ table. Question 18 is open and not part of this build.
     or later?
 18. **Brain in a shared team repo.** Added by Peter on 2026-10-29; not decided now. When
     teammates do not use brain and the repo already has its own ADR folder, spec format or
-    docs layout, should brain write into the team's conventions instead of its own?
+    docs layout, should brain write into the team's conventions instead of its own? Note
+    (Peter, 2026-10-29): if a team needs brain's work visible in its tracker, the option to
+    revisit is a one-way export (plan to tracker; status stays only in the plan; the tracker
+    never writes back), not tasks living in the tracker.
 
 ---
 
