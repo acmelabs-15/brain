@@ -1,6 +1,6 @@
 ---
 name: using-brain
-description: Routes a piece of work to the brain skill that fits it: the main flow from interview to ship, the triage and wayfinder on-ramps, the prototype detour and the vocabulary layer. Use at session start, when unsure which skill or command applies, or at a phase boundary to choose continue, clear, handoff, sub-agent or compact. Names setup-brain as the once-per-repo precondition.
+description: Routes a piece of work to the brain skill that fits it: the main flow from interview to ship, the triage on-ramp, the prototype detour and the vocabulary layer. Use at session start, when unsure which skill or command applies, or at a phase boundary to choose continue, clear, handoff, sub-agent or compact. Names setup-brain as the once-per-repo precondition.
 ---
 
 # Using brain
@@ -9,7 +9,7 @@ description: Routes a piece of work to the brain skill that fits it: the main fl
 
 brain's skills are engineering workflows organized by development phase. Each skill encodes a process that senior engineers follow. This meta-skill routes the work at hand to the right one.
 
-Most work travels one **main flow**: idea to ship. Two **on-ramps** merge onto it. A **vocabulary layer** runs underneath every skill. The rest is standalone.
+Most work travels one **main flow**: idea to ship. One **on-ramp** merges onto it. A **vocabulary layer** runs underneath every skill. The rest is standalone.
 
 ## Precondition
 
@@ -54,7 +54,6 @@ Task arrives
     │
     │   ON-RAMPS: work that arrives, then merges onto the main flow
     ├── Issues or PRs you did not write? ─────→ triage → briefs for incremental-implementation
-    ├── Too big for one session, way unclear? → wayfinder → map → spec-driven-development
     │
     │   VOCABULARY LAYER: underneath every skill
     ├── A fuzzy or overloaded domain term? ───→ domain-modeling
@@ -79,8 +78,6 @@ Some questions need a runnable answer: a state model, business logic, a UI you h
 ### The on-ramps
 
 triage is for issues and PRs the user did not write: bug reports, incoming feature requests, anything that arrives raw. It moves them through triage states and writes agent-ready briefs that incremental-implementation picks up later. Tasks that planning-and-task-breakdown wrote are already agent-ready, so do not triage them.
-
-wayfinder is for an effort too big for one session, where the way to the destination is not visible yet. It charts a shared map of decision tickets and resolves them one per session. It produces decisions, not code. When the map clears it hands off to spec-driven-development, which collapses the decisions into a spec. An idea one session can hold goes to interview-me instead.
 
 ### The vocabulary layer
 
@@ -246,7 +243,6 @@ In Claude Code every command sits under the plugin prefix: type `/brain`, a colo
 | Define | spec-driven-development | Requirements and acceptance criteria before code |
 | Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |
 | On-ramp | triage | Issues and PRs the user did not write, moved to agent-ready briefs |
-| On-ramp | wayfinder | A shared map of decision tickets for work too big for one session |
 | Build | incremental-implementation | Thin vertical slices, test each before expanding |
 | Build | source-driven-development | Verify against official docs before implementing |
 | Build | doubt-driven-development | Adversarial fresh-context review of every non-trivial decision |

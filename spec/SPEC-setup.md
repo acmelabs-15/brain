@@ -12,7 +12,7 @@ brain skills assume is there:
    multi-context (`GLOSSARY-MAP.md` at the root), and the consumer rules that tell
    every brain skill to read the glossary before it names a domain concept.
 2. The issue tracker and the label vocabulary, `docs/agents/issue-tracker.md` and
-   `docs/agents/triage-labels.md`, which the triage and wayfinder skills read. The spec
+   `docs/agents/triage-labels.md`, which the triage skill reads. The spec
    and the plan still live in the repo; only issues go to the tracker.
 3. The plain-talk block for Codex: once per machine in the Codex global `AGENTS.md`, or,
    at project scope, in this repo's `AGENTS.md`.

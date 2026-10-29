@@ -64,9 +64,10 @@ call, and reads the glossary through `docs/agents/domain.md`.
 | Simplify | `code-simplify` | `code-simplification` |
 | Web performance | `webperf` | the `web-performance-auditor` persona |
 
-Two on-ramps feed the lifecycle: `triage` for issues the user did not write, and
-`wayfinder` for work too big for one session. `using-brain` routes a request to the
-right stage. `wait-what` is the repair when a reply does not land.
+One on-ramp feeds the lifecycle: `triage`, for issues the user did not write. Work too
+big for one session goes to `interview-me`, which keeps its map in `docs/ideas/`.
+`using-brain` routes a request to the right stage. `wait-what` is the repair when a
+reply does not land.
 
 The eight skills that carry brain's additions keep agent-skills' names. They are seeded
 from addy's text and owned by brain: `interview-me`, `spec-driven-development`,

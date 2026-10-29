@@ -21,15 +21,15 @@ brain's define phase keeps its state on disk, in one workspace layout that a rep
   (`brain check`) and reports the state (`brain status`).
 - The session rules ship with the plugin as an always-on protocol, so a repo needs only
   `/setup-brain`, not a hand-written brain section in its `AGENTS.md`.
-- brain's glossary moves from `CONTEXT.md` to `GLOSSARY.md`, and `wayfinder` and `triage`
-  are removed.
+- brain's glossary moves from `CONTEXT.md` to `GLOSSARY.md`.
+- `wayfinder` and `triage` are removed.
 
 User: Peter first, on Claude Code, Codex CLI, Gemini CLI and Antigravity CLI. Then anyone who
 installs brain.
 
 Why now: agent-skills' define phase writes files only when a skill ends, so a long interview
-loses its progress between sessions. `wayfinder` keeps state, but it sizes one decision to a
-session and keeps the map on an issue tracker.
+loses its progress between sessions. `wayfinder`, which interview-me absorbs, keeps state,
+but it sizes one decision to a session and keeps the map on an issue tracker.
 
 ## Scope by area
 
@@ -318,7 +318,7 @@ Seams, confirmed by Peter on 2026-10-29:
 49. As a maintainer, I want `lifecycle:check` to fail when `using-brain` names a missing skill or misses an existing one, so that the router never drifts.
 50. As a user, I want an ADR request to produce a `DEC` file with `kind: architecture`, so that documentation-and-adrs and the workspace agree.
 51. As a user, I want the 1% rule in `using-brain`, measured by two evals, so that skills load when they should and only then.
-52. As a user, I want a breaking changeset that says wayfinder and triage are gone and why, so that an upgrade does not surprise me.
+52. As a user, I want a breaking changeset that says wayfinder and triage are removed and why, so that an upgrade does not surprise me.
 53. As a maintainer, I want Matt's pin bumped to `d81f3a1` in its own commit, so that the rename from upstream is reviewable alone.
 54. As an agent working on brain, I want brain's own `GLOSSARY.md` to define idea, map, row, frontier and the other new terms, so that every skill and reply uses one word per concept.
 55. As a user, I want `brain status` to show which specs each idea produced, so that the idea file never holds a hand-kept list that drifts.

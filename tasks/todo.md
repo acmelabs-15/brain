@@ -132,7 +132,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run sync -- --check`; `bun run lifecycle:check`
   - Files: upstream.json, upstream.lock.json, skills/idea-refine/{SKILL.md,examples.md,frameworks.md}, skills/idea-refine/scripts/idea-refine.sh
   - Depends: T11, T20. Scope: M
-- [ ] T23: wayfinder retired
+- [x] T23: wayfinder retired
   - Acceptance: `skills/wayfinder` deleted, with its seed entry and lock entries; mentions removed from `README.md`, brain's specs and `using-brain` (its wayfinder lines only; the full rewrite is T28); `lifecycle:check` fails on a mention outside `CHANGELOG.md` and history; a changeset marked breaking with Peter's wayfinder text
   - Verify: `bun run check`; `bun run validate`
   - Files: skills/wayfinder/, skills/using-brain/SKILL.md, upstream.json, upstream.lock.json, README.md, spec/SPEC-{lifecycle,setup,upstream-sync}.md, scripts/lifecycle/, .changeset/<name>.md

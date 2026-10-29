@@ -101,6 +101,68 @@ describe("checkRetiredNames, the old glossary name", () => {
   });
 });
 
+describe("checkRetiredNames, wayfinder", () => {
+  test("a brain-owned file that names wayfinder is a finding with its line", async () => {
+    const root = await tree("wayfinder-stray", {
+      "README.md": "# X\n\nUse `wayfinder` for work too big for one session.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([
+      {
+        kind: "retired-name",
+        file: "README.md",
+        detail: "line 3 names wayfinder, which is removed; interview-me keeps the map now",
+      },
+    ]);
+  });
+
+  test("Wayfinder in any case, and wayfinding, are caught too", async () => {
+    const root = await tree("wayfinder-case", {
+      "skills/setup-brain/issue-tracker-local.md":
+        "## Wayfinding operations\n\nWayfinder charts a map.\n",
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.detail.split(" names")[0])).toEqual(["line 1", "line 3"]);
+  });
+
+  test("a line that says wayfinder is removed, retired or absorbed passes", async () => {
+    const root = await tree("wayfinder-removal", {
+      ".changeset/retire-wayfinder-and-triage.md":
+        "**Breaking:** wayfinder is removed. Its job moved into interview-me.\n",
+      "spec/CAPABILITY-MAP.md":
+        "| workspace | the stateful interview-me that absorbs wayfinder |\n",
+      "spec/SPEC-x.md":
+        "Removed: `skills/wayfinder/`.\n10. Retirements: `skills/wayfinder` is retired.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("naming interview-me on the line is not enough, and an order to remove is not a removal", async () => {
+    const root = await tree("wayfinder-stale", {
+      "skills/using-brain/SKILL.md":
+        "An idea one session can hold goes to interview-me instead of wayfinder.\n",
+      "skills/setup-brain/issue-tracker-github.md":
+        "Remove the `wayfinder:map` label at the end.\n",
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.file)).toEqual([
+      "skills/setup-brain/issue-tracker-github.md",
+      "skills/using-brain/SKILL.md",
+    ]);
+  });
+
+  test("history and test folders may keep wayfinder", async () => {
+    const root = await tree("wayfinder-exempt", {
+      "CHANGELOG.md": "`wayfinder` gets a reworded opening paragraph.\n",
+      "tasks/todo.md": "- [ ] T23: wayfinder retired\n- wayfinder\n",
+      "docs/research/RES-003-triage-wayfinder.md": "wayfinder\n",
+      "docs/intent/x.md": "wayfinder\n",
+      "scripts/workspace/__tests__/fixtures/layout-0.8/docs/agents/issue-tracker.md":
+        "Used by the wayfinder skill.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+});
+
 describe("checkGlossaryTerms", () => {
   test("a GLOSSARY.md with every workspace term passes", async () => {
     const root = await tree("glossary-full", { "GLOSSARY.md": fullGlossary });

@@ -107,10 +107,6 @@
           "to": "skills/triage"
         },
         {
-          "from": "skills/engineering/wayfinder",
-          "to": "skills/wayfinder"
-        },
-        {
           "from": "skills/productivity/wait-what",
           "to": "skills/wait-what"
         }

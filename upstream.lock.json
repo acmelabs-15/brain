@@ -381,14 +381,6 @@
     "skills/wait-what/agents/openai.yaml": {
       "upstream": "mattpocock-skills",
       "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
-    },
-    "skills/wayfinder/SKILL.md": {
-      "upstream": "mattpocock-skills",
-      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
-    },
-    "skills/wayfinder/agents/openai.yaml": {
-      "upstream": "mattpocock-skills",
-      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
     }
   }
 }

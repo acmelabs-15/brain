@@ -34,14 +34,3 @@ Create a GitHub issue.
 ## When a skill says "fetch the relevant issue"
 
 Run `gh issue view <number> --comments`.
-
-## Wayfinding operations
-
-Used by the wayfinder skill. The map is one issue; its child issues are the tickets.
-
-- Map: one issue labelled `wayfinder:map`, holding the Notes, Decisions so far and Fog body: `gh issue create --label wayfinder:map`.
-- Child ticket: an issue linked to the map as a GitHub sub-issue through `gh api` on the sub-issues endpoint. Where sub-issues are not enabled, add the child to a task list in the map body and put `Part of #<map>` at the top of the child body. Labels: `wayfinder:<type>`, one of `research`, `prototype`, `interview`, `task`. A claimed ticket is assigned to the driving developer.
-- Blocking: GitHub's native issue dependencies. Add an edge with `gh api --method POST repos/{{repo}}/issues/<child>/dependencies/blocked_by -F issue_id=<blocker-db-id>`, where the id comes from `gh api repos/{{repo}}/issues/<n> --jq .id`. Where dependencies are not available, a `Blocked by: #<n>, #<n>` line at the top of the child body. A ticket is unblocked when every blocker is closed.
-- Frontier: `gh issue list --state open` scoped to the map's children; drop any with an open blocker or an assignee; the first in map order wins.
-- Claim: `gh issue edit <n> --add-assignee @me`, the session's first write.
-- Resolve: `gh issue comment <n> --body "<answer>"`, then `gh issue close <n>`, then edit the map body: `gh issue view <map> --json body --jq .body > map.md`, append the one-line pointer to Decisions so far, `gh issue edit <map> --body-file map.md`.

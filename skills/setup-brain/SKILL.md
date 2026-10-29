@@ -8,7 +8,7 @@ description: "Prepare a repo for brain: the domain docs layout and the issue tra
 Write what the other brain skills assume is there:
 
 - **The domain docs layout** and the consumer rules in `docs/agents/domain.md`, so every brain skill reads `GLOSSARY.md` before it names a domain concept.
-- **The issue tracker** in `docs/agents/issue-tracker.md` and the label vocabulary in `docs/agents/triage-labels.md`, which the triage and wayfinder skills read. The spec and the plan never go there; they live in the repo.
+- **The issue tracker** in `docs/agents/issue-tracker.md` and the label vocabulary in `docs/agents/triage-labels.md`, which the triage skill reads. The spec and the plan never go there; they live in the repo.
 - **The plain-talk block for Codex**, in the Codex global `AGENTS.md` once per machine, or in this repo's `AGENTS.md` at project scope. Codex is the one host where the plugin cannot carry the text. Claude Code, Gemini CLI and Antigravity get it from the plugin itself, at the scope the plugin was installed in. `CLAUDE.md` and `GEMINI.md` are never touched, and the repo's `AGENTS.md` only at project scope.
 
 Every file change goes through one script. The steps below decide and explain; the script writes.
@@ -55,6 +55,6 @@ When a file with the block is in the list, show the block as it will appear ther
 
 ## 5. Say what changed
 
-One line per file: created, updated, unchanged, skipped or moved. Then the list of what reads these files now: every brain lifecycle skill reads `docs/agents/domain.md` and, through it, `GLOSSARY.md`; the domain-modeling skill writes `GLOSSARY.md` and ADRs; the wait-what skill re-pitches a message in the glossary's words; the triage and wayfinder skills read `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md`; Codex reads its global `AGENTS.md` at the start of every session.
+One line per file: created, updated, unchanged, skipped or moved. Then the list of what reads these files now: every brain lifecycle skill reads `docs/agents/domain.md` and, through it, `GLOSSARY.md`; the domain-modeling skill writes `GLOSSARY.md` and ADRs; the wait-what skill re-pitches a message in the glossary's words; the triage skill reads `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md`; Codex reads its global `AGENTS.md` at the start of every session.
 
 Running this skill again is safe: the script changes nothing when everything is already in place.

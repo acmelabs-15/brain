@@ -10,15 +10,23 @@ import type { Finding } from "./finding";
 type Retired = { pattern: RegExp; allowLine: RegExp; detail: string };
 
 /**
- * Each retired name, and the line text that may still name it. The rule is loose on
- * purpose: any line that also names GLOSSARY passes, which covers every line about the
- * rename and could hide a stale mention on such a line.
+ * Each retired name, and the line text that may still name it. The rule for the old
+ * glossary name is loose on purpose: any line that also names GLOSSARY passes, which covers
+ * every line about the rename and could hide a stale mention on such a line. The rule for
+ * the removed wayfinder is narrow: a line passes only when it says the skill is removed,
+ * retired or absorbed. A line that only names interview-me, or tells the reader to remove
+ * something, still fails.
  */
 export const retiredNames: readonly Retired[] = [
   {
     pattern: /CONTEXT(?:-MAP)?\.md/u,
     allowLine: /GLOSSARY/u,
     detail: "names CONTEXT.md or CONTEXT-MAP.md; the glossary is GLOSSARY.md now",
+  },
+  {
+    pattern: /\bwayfind(?:er|ing)/iu,
+    allowLine: /\b(?:removed|retired|retirements?|absorbs|absorbed)\b/iu,
+    detail: "names wayfinder, which is removed; interview-me keeps the map now",
   },
 ];
 

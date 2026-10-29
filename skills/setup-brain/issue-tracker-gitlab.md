@@ -31,14 +31,3 @@ Create a GitLab issue.
 ## When a skill says "fetch the relevant issue"
 
 Run `glab issue view <number> --comments`.
-
-## Wayfinding operations
-
-Used by the wayfinder skill. The map is one issue; its child issues are the tickets.
-
-- Map: one issue labelled `wayfinder:map`, holding the Notes, Decisions so far and Fog body: `glab issue create --label wayfinder:map`. An epic may hold the map on tiers that have epics; a labelled issue works everywhere.
-- Child ticket: an issue with `Part of #<map>` at the top of its description and a `wayfinder:<type>` label, one of `research`, `prototype`, `interview`, `task`. A claimed ticket is assigned to the driving developer.
-- Blocking: GitLab's native blocking link, added as a note with the quick action: `glab issue note <child> --message "/blocked_by #<blocker>"`. Native links are a Premium or Ultimate feature; on the free tier, a `Blocked by: #<n>, #<n>` line at the top of the description. A ticket is unblocked when every blocker is closed.
-- Frontier: `glab issue list -F json` scoped to the map's children; drop any with an open blocker (`glab api projects/:id/issues/:iid/links`) or an assignee; the first in map order wins.
-- Claim: `glab issue update <n> --assignee @me`, the session's first write.
-- Resolve: `glab issue note <n> --message "<answer>"`, then `glab issue close <n>`, then edit the map description with `glab issue update <map> --description "$(cat map.md)"` after appending the one-line pointer to Decisions so far.
