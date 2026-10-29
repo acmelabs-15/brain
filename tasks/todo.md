@@ -70,10 +70,10 @@ ends with a checkpoint and a review with Peter.
   - Verify: CLI seam, one case per type; the parallel test: 20 processes, several runs, unique numbers, no gap without a failed claim
   - Files: scripts/workspace/config.ts, scripts/workspace/new-doc.ts, scripts/workspace/claims.ts, scripts/workspace/__tests__/new-doc.test.ts, package.json
   - Depends: T10. Scope: M
-- [ ] T12: shared fixtures and the map parser
-  - Acceptance: fixture folders for an idea mid-define with a known frontier, a spec mid-build, no active work, and a 0.8-layout repo; a parser that reads map and plan rows and computes the frontier (open rows whose blockers are all resolved)
-  - Verify: the known frontier comes back exactly (through the CLI in T14 and T16; a function seam only if the parser's edge cases grow large)
-  - Files: scripts/workspace/map.ts, scripts/workspace/__tests__/fixtures/*, scripts/workspace/__tests__/map.test.ts
+- [ ] T12: shared fixtures
+  - Acceptance: fixture folders for an idea mid-define with a known frontier, a spec mid-build, no active work, and a 0.8-layout repo; every workspace file in them passes T10's `checkDoc` (the map parser moved to T14, its first CLI user, per the seam decision: no function seam for the parser now)
+  - Verify: `bun test scripts/workspace` (each fixture file passes `checkDoc`); the known frontier is written into the fixture's README for T14 and T16 to assert
+  - Files: scripts/workspace/__tests__/fixtures/*, scripts/workspace/__tests__/fixtures.test.ts
   - Depends: T10. Scope: M
 - [ ] T13: the migrate mode's frontmatter step, run on brain (prefactor)
   - Acceptance: `write.ts --migrate` adds frontmatter to a `DEC` or `RES` file that has none, from its schema, with `migrated: 0.8` in place of `from`, and changes no byte below it; `--dry-run` lists every file; one commit; run on brain's seven files (DEC-001, DEC-002, RES-001 to RES-005)
@@ -81,9 +81,9 @@ ends with a checkpoint and a review with Peter.
   - Files: scripts/setup/migrate.ts, scripts/setup/write.ts, scripts/setup/__tests__/migrate.test.ts, docs/decisions/DEC-00{1,2}-*.md, docs/research/RES-00{1..5}-*.md
   - Depends: T10. Scope: M
 - [ ] T14: `brain check`, in the gate
-  - Acceptance: one finding line and exit 1 for each rule in spec success criterion 3; exit 0 on clean fixtures; row checks skip a migrated file; one informational line, exit unchanged, when migrated decisions have no `kind` ("3 migrated decisions have no kind: DEC-001, DEC-002, DEC-005"); paths from the config; `package.json` gains `workspace:check`, and `check` runs it
+  - Acceptance: the map parser (`scripts/workspace/map.ts`: map and plan rows, and the frontier: open rows whose blockers are all resolved), tested through `brain check`; one finding line and exit 1 for each rule in spec success criterion 3; exit 0 on clean fixtures; row checks skip a migrated file; one informational line, exit unchanged, when migrated decisions have no `kind` ("3 migrated decisions have no kind: DEC-001, DEC-002, DEC-005"); paths from the config; `package.json` gains `workspace:check`, and `check` runs it
   - Verify: one fixture per rule (CLI seam), and one for the informational line; `bun run check` green on brain
-  - Files: scripts/workspace/check.ts, scripts/workspace/__tests__/check.test.ts, fixtures, package.json
+  - Files: scripts/workspace/map.ts, scripts/workspace/check.ts, scripts/workspace/__tests__/check.test.ts, fixtures, package.json
   - Depends: T11, T12, T13. Scope: M
 - [ ] T15: `sync --check` in the gate, and the survival test
   - Acceptance: `bun run check` runs `bun run sync -- --check`; a test proves a brain-owned file in `agents/` and in `hooks/` survives `applyUpstream`, and that an upstream file at a brain-owned path stops the sync before any write
