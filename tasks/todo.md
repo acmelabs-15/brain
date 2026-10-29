@@ -230,7 +230,7 @@ ends with a checkpoint and a review with Peter.
   - Depends: T16, T31. Scope: M
 
 ### Checkpoint: phase 5
-- [ ] The hook's output is under 10,000 characters on every fixture; `bun run check` green
+- [x] The hook's output is under 10,000 characters on every fixture; `bun run check` green (4,505 to 5,093 characters, held by T32's test)
 - [ ] Review with Peter
 
 ## Phase 6: install

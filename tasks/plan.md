@@ -46,35 +46,28 @@ task in T04 and T06; each of those diffs is a word swap the reviewer checks for 
 ## Parallel waves
 
 Worked out by hand from the blocking edges; `brain plan` (T41) cannot read this plan, which
-is in the old layout, until T39 migrates it. Updated 2026-10-29 with T41 to T46 added, T01
-to T11 and T18 done, and T12, T13, T15, T17 and T30 running. Each wave is a frontier: every
-task in it can start once the waves above it are done. Waves cross phase lines; a phase
-checkpoint still reviews its own tasks.
+is in the old layout, until T39 migrates it. Updated 2026-10-29: T01 to T27, T29 to T32,
+T41, T42 and T44 to T47 done; T33 and T43 running. Each wave is a frontier: every task in
+it can start once the waves above it are done. Waves cross phase lines; a phase checkpoint
+still reviews its own tasks.
 
 | Wave | Tasks |
 |---|---|
-| A (running) | T12, T13, T15, T17, T30 |
-| B | T14, T19 |
-| C | T16, T20, T21, T26, T27, T41 |
-| D | T22, T23, T29, T31, T42, T44 |
-| E | T24, T32, T43, T45, T46 |
-| F | T25 |
-| G | T33 |
-| H | T34, T36 |
-| I | T28, T35, T37 |
-| J | T38 |
+| A (running) | T33, T43 |
+| B | T34, T36 |
+| C | T28, T35, T37 |
+| D | T38 |
 | Then | T39 after the second ask; T40 after the 0.10.0 release |
 
-The critical path from here is 10 tasks: T17, T19, T21, T23, T24, T25, T33, T34, T35, T38.
+The critical path from here is 4 tasks: T33, T34, T35, T38 (T33, T36, T37, T38 is as long).
 
-Tasks in one wave share some files: `package.json` (T14, T15, T16, T41), `scripts/brain.ts`
-(T14, T16, T41), `scripts/workspace/check.ts` (T14, T42, T43), `scripts/workspace/plan.ts`
-(T41, T43, T44), `scripts/lifecycle/` (T23, T24, T28, T32), `.claude-plugin/plugin.json` (T21,
-T32), `skills/interview-me/` (T19, T20, T21, T46) and `tasks/todo.md` (every task). Parallel
-tasks therefore run in separate git worktrees, and the main session merges each one back in
-turn, resolves those small overlaps, and is the only writer of the ticks in `tasks/todo.md`.
-For the rest of this build each wave runs whole (cap 8, Peter, 2026-10-29), unless two of
-its tasks edit the same function; then the later one waits.
+Tasks in one wave share some files: `skills/setup-brain/` (T33, T34, T36, T37),
+`scripts/setup/write.ts` (T33, T34, T36), `scripts/workspace/check.ts` (T43) and
+`tasks/todo.md` (every task). Parallel tasks therefore run in separate git worktrees, and the
+main session merges each one back in turn, resolves those small overlaps, and is the only
+writer of the ticks in `tasks/todo.md`. For the rest of this build each wave runs whole (cap
+8, Peter, 2026-10-29), unless two of its tasks edit the same function; then the later one
+waits.
 
 ## Checkpoints
 
