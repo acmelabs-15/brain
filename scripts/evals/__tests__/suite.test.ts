@@ -25,9 +25,10 @@ function graderType(text: string): string {
 }
 
 describe("eval suite", () => {
-  test("holds the twelve cases the spec names", async () => {
+  test("holds the cases the specs name", async () => {
     expect(await cases()).toEqual(
       [
+        "lifecycle/adr-is-dec",
         "lifecycle/build-clean-context",
         "lifecycle/plan-three-questions",
         "lifecycle/review-one-verdict",

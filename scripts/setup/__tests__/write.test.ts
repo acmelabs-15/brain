@@ -298,9 +298,10 @@ describe("the shipped ADR folder", () => {
     expect(domain).toContain("`docs/decisions/`");
   });
 
-  test("domain-modeling writes ADRs to docs/decisions/", async () => {
-    const format = await Bun.file(`${shipped}/skills/domain-modeling/ADR-FORMAT.md`).text();
-    expect(format).toContain("ADRs live in `docs/decisions/`");
+  test("domain-modeling writes decision records to docs/decisions/ through brain new-doc", async () => {
+    const format = await Bun.file(`${shipped}/skills/domain-modeling/DEC-FORMAT.md`).text();
+    expect(format).toContain("`docs/decisions/` by default");
+    expect(format).toContain("brain new-doc DEC <slug>");
   });
 
   test("no brain-owned skill file names docs/adr/", async () => {

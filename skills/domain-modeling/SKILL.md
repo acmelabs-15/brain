@@ -1,11 +1,11 @@
 ---
 name: domain-modeling
-description: Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording or editing an ADR.
+description: Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording or editing a decision record.
 ---
 
 # Domain Modeling
 
-Actively build and sharpen the project's domain model as you design. This is the *active* discipline: challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallise. (Merely *reading* `GLOSSARY.md` for vocabulary is not this skill: that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
+Actively build and sharpen the project's domain model as you design. This is the *active* discipline: challenging terms, inventing edge-case scenarios, and writing the glossary and decision records down the moment they crystallise. (Merely *reading* `GLOSSARY.md` for vocabulary is not this skill: that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
 
 ## File structure
 
@@ -16,8 +16,8 @@ Most repos have a single context:
 ├── GLOSSARY.md
 ├── docs/
 │   └── decisions/
-│       ├── 0001-event-sourced-orders.md
-│       └── 0002-postgres-for-write-model.md
+│       ├── DEC-001-event-sourced-orders.md
+│       └── DEC-002-postgres-for-write-model.md
 └── src/
 ```
 
@@ -27,17 +27,17 @@ If a `GLOSSARY-MAP.md` exists at the root, the repo has multiple contexts. The m
 /
 ├── GLOSSARY-MAP.md
 ├── docs/
-│   └── decisions/                    ← system-wide decisions
-├── src/
-│   ├── ordering/
-│   │   ├── GLOSSARY.md
-│   │   └── docs/decisions/           ← context-specific decisions
-│   └── billing/
-│       ├── GLOSSARY.md
-│       └── docs/decisions/
+│   └── decisions/                    ← every decision record, whatever context it touches
+└── src/
+    ├── ordering/
+    │   └── GLOSSARY.md
+    └── billing/
+        └── GLOSSARY.md
 ```
 
-Create files lazily: only when you have something to write. If no `GLOSSARY.md` exists, create one when the first term is resolved. If no `docs/decisions/` exists, create it when the first ADR is needed. A repo that already keeps its ADRs in another folder keeps using that folder.
+Decision records are repo-wide: they live in the workspace's decisions folder (`paths.decisions` in `docs/agents/workspace.md`, `docs/decisions/` by default), numbered across the whole repo. With no `docs/agents/workspace.md`, `brain new-doc` uses the default folders; tell the user once to run setup-brain.
+
+Create files lazily: only when you have something to write. If no `GLOSSARY.md` exists, create one when the first term is resolved. `brain new-doc` creates the decisions folder with the first decision record.
 
 ## During the session
 
@@ -63,12 +63,14 @@ When a term is resolved, update `GLOSSARY.md` right there. Don't batch these up:
 
 `GLOSSARY.md` should be totally devoid of implementation details. Do not treat `GLOSSARY.md` as a spec, a scratch pad, or a repository for implementation decisions. It is a glossary and nothing else.
 
-### Offer ADRs sparingly
+### Record every decision
 
-Only offer to create an ADR when all three are true:
+When the user makes a decision, record it the moment it is made, small or large:
 
-1. **Hard to reverse**: the cost of changing your mind later is meaningful
-2. **Surprising without context**: a future reader will wonder "why did they do it this way?"
-3. **The result of a real trade-off**: there were genuine alternatives and you picked one for specific reasons
+1. Run `brain new-doc DEC <slug>`. It claims the next number, writes the decision record from its template, and prints the path. On Claude Code, `brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`; on other hosts, `docs/agents/workspace.md` says how to run it.
+2. Fill the record in the format in [DEC-FORMAT.md](./DEC-FORMAT.md). The three tests there (`hard-to-reverse`, `surprising`, `real-trade-off`) set its kind: all three true is `kind: architecture`, an ADR; any one false is `kind: decision`.
+3. Run `brain check`. The record is done when every `<...>` placeholder is replaced and `brain check` reports no finding for it.
 
-If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](./ADR-FORMAT.md).
+A request for an ADR is a request for a decision record of the architecture kind: the same three steps.
+
+A choice you make on your own, cheap to reverse and with no effect on what gets built, gets no record. State it in chat, with its reason in one line.

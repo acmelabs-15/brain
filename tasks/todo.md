@@ -102,7 +102,7 @@ ends with a checkpoint and a review with Peter.
 
 ## Phase 3: define phase
 
-- [ ] T17: domain-modeling's DEC format, with the ADR eval
+- [x] T17: domain-modeling's DEC format, with the ADR eval
   - Acceptance: documents T10's DEC schema in `DEC-FORMAT.md` and changes no field; eval `lifecycle/adr-is-dec` written first ("write an ADR for <decision>" in a fresh brain repo yields a `DEC-NNN` file with `kind: architecture` that passes `brain check`); `ADR-FORMAT.md` moved to `DEC-FORMAT.md`; "offer ADRs sparingly" becomes "record every decision; the three tests set the kind"; decisions created with `brain new-doc DEC`; the "keeps using that folder" line goes; the description drops "ADR"
   - Verify: `bun run lifecycle:check`; the eval's dry check; a filled DEC passes `brain check`
   - Files: skills/domain-modeling/{SKILL.md,DEC-FORMAT.md,agents/openai.yaml}, evals/lifecycle/adr-is-dec/*
