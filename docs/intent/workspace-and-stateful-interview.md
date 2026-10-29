@@ -468,7 +468,7 @@ talk (`bun run plain-talk:render`):
 
 | Host | Channel |
 |---|---|
-| Claude Code | A plugin `SessionStart` hook (startup, clear, compact) that injects the protocol and the output of `brain status`. A hook survives a change of output style, and it can carry live state. |
+| Claude Code | A plugin `SessionStart` hook (startup, resume, clear, compact) that injects the protocol and the output of `brain status`; on resume, the output of `brain status` only (amended 2026-10-29). A hook survives a change of output style, and it can carry live state. |
 | Gemini CLI | The extension context file (`GEMINI.md`), next to plain talk |
 | Antigravity | A plugin rule with `trigger: always_on`, next to plain talk |
 | Codex | The marked block `setup-brain` already writes to `AGENTS.md` (global or project scope), extended with the protocol |
@@ -696,7 +696,7 @@ cannot.
 | Path definitions | One file, `docs/agents/workspace.md`, written by setup-brain | Matt's tracker-doc pattern |
 | Checks | In `bun run check` from day one | rjmurillo's validator was never built |
 | Generic session rules | Ship with the plugin as an always-on protocol, rendered per host | Peter: no more hand-written `AGENTS.md`; superpowers ships its rules the same way |
-| Claude Code channel for the protocol | A plugin `SessionStart` hook, not the output style | A hook survives an output-style change and can inject live state |
+| Claude Code channel for the protocol | A plugin `SessionStart` hook, not the output style. (Amended 2026-10-29: the matcher is `startup\|resume\|clear\|compact`. The hook reads `source` from its input. On `resume` it adds only the `brain` path and the `brain status` text, the five lines and `docs/STATUS.md`, because the session transcript already holds the protocol. On startup, clear and compact it adds the protocol as well. An input with no `source`, or a value the hook does not handle, gets the full text.) | A hook survives an output-style change and can inject live state. Amendment: Peter, 2026-10-29, on T32's question; https://code.claude.com/docs/en/hooks#sessionstart-input (`source` is `startup`, `resume`, `clear`, `compact` or `fork`) and https://code.claude.com/docs/en/hooks#add-context-for-claude ("Claude Code saves the injected text in the session transcript"), checked 2026-10-29 |
 | Repo-specific needs | `docs/agents/capabilities.md`, written by `setup-brain` | Keeps brain out of the repo's `CLAUDE.md` and `GEMINI.md` (brain-wrap.md's rule) |
 | The repo's own `AGENTS.md` | Stack, commands and boundaries only | agent-skills and `context-engineering`: a short rules file |
 | `docs/STATUS.md` | Kept as the task-end handoff. Refined by open question 13: `brain status` prints a five-line report, which `STATUS.md` feeds; `--json` and the `SessionStart` hook carry the full `STATUS.md` text | Peter's existing practice |

@@ -27,9 +27,10 @@ The plugin's output style, `talk-plain`, applies at the scope the plugin was ins
 `CLAUDE.md`.
 
 The plugin's `SessionStart` hook, in `scripts/hooks/claude-code.json`, runs at startup, after
-`/clear` and after a compaction. It gives the session the brain protocol, the full path of the
-`brain` CLI, and the `brain status` report with the text of `docs/STATUS.md`. It runs `bun`
-from `PATH`.
+`/clear`, after a compaction and when you resume a session. It gives the session the brain
+protocol, the full path of the `brain` CLI, and the `brain status` report with the text of
+`docs/STATUS.md`. On resume it gives the path and a new report only, since the session already
+holds the protocol. It runs `bun` from `PATH`.
 
 ## Verify
 
