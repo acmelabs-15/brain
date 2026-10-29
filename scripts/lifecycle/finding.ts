@@ -8,7 +8,8 @@ export type Finding = {
     | "glossary-term"
     | "expired-fallback"
     | "agent-list"
-    | "hook-file";
+    | "hook-file"
+    | "router";
   file: string;
   detail: string;
 };

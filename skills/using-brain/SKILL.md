@@ -1,19 +1,19 @@
 ---
 name: using-brain
-description: Routes a piece of work to the brain skill that fits it: the main flow from interview to ship, the prototype detour and the vocabulary layer. Use at session start, when unsure which skill or command applies, or at a stage boundary to choose continue, clear, handoff, sub-agent or compact. Names setup-brain as the once-per-repo precondition.
+description: Routes a piece of work to the brain skill that fits it: the stateful interview, the main flow from idea to ship, the prototype detour and the vocabulary layer. Use at session start, when resuming work, when unsure which skill or command applies, or at a stage boundary to choose continue, clear, handoff, sub-agent or compact. Names setup-brain as the once-per-repo precondition.
 ---
 
 # Using brain
 
 ## Overview
 
-brain's skills are engineering workflows organized by development stage. Each skill encodes a process that senior engineers follow. This meta-skill routes the work at hand to the right one.
+brain's skills are engineering workflows organized by lifecycle stage: define, plan, build, verify, review and ship. Each skill encodes a process that senior engineers follow. This meta-skill routes the work at hand to the right one.
 
 Most work travels one **main flow**: idea to ship. A **vocabulary layer** runs underneath every skill. The rest is standalone.
 
 ## Precondition
 
-Run setup-brain once per repo, before the first flow. It writes the plain-talk block and the domain docs layout that the other skills assume. Running it again is safe.
+Run setup-brain once per repo, before the first flow. It writes `docs/agents/workspace.md`, `docs/agents/capabilities.md`, `docs/agents/domain.md` and the `docs/STATUS.md` seed, and for Codex the plain-talk and protocol blocks. Running it again is safe, and `--check` reports drift without writing.
 
 ## Skill Discovery
 
@@ -23,11 +23,13 @@ When a task arrives, identify the situation and apply the corresponding skill:
 Task arrives
     │
     ├── First brain skill in this repo? ────→ setup-brain (once per repo)
+    ├── Starting or resuming a session? ────→ status (the protocol's session start, `brain status`)
     │
     │   MAIN FLOW: idea → ship
-    ├── Don't know what you want yet? ──────→ interview-me
-    │   └── A question needs a runnable answer? → handoff → prototype → handoff (the detour)
-    ├── Have a rough concept, need variants? → idea-refine
+    ├── Don't know what you want, or too big for one session? → interview-me (a stateful map)
+    │   ├── A question needs a runnable answer? → prototype (a prototype row)
+    │   └── A research row on the frontier? ───→ source-driven-development (in the researcher agent)
+    ├── Have a rough concept, need variants? → idea-refine (in an interview, it resolves ideate rows)
     ├── New project/feature/change? ──→ spec-driven-development
     ├── No quality bar written down? ──→ constraint-driven-development
     ├── Have a spec, need tasks? ──────→ planning-and-task-breakdown
@@ -48,9 +50,10 @@ Task arrives
     ├── Committing/branching? ─────────→ git-workflow-and-versioning
     ├── CI/CD pipeline work? ──────────→ ci-cd-and-automation
     ├── Deprecating/migrating? ────────→ deprecation-and-migration
-    ├── Writing docs/ADRs? ───────────→ documentation-and-adrs
+    ├── Recording a decision? ─────────→ domain-modeling (a DEC file through `brain new-doc`)
+    ├── Writing a README or API docs? ─→ documentation-and-adrs
     ├── Adding logs/metrics/alerts? ───→ observability-and-instrumentation
-    ├── Deploying/launching? ─────────→ shipping-and-launch
+    ├── Deploying/launching? ──────────→ shipping-and-launch
     │
     │   VOCABULARY LAYER: underneath every skill
     ├── A fuzzy or overloaded domain term? ───→ domain-modeling
@@ -66,24 +69,40 @@ A decision that is the user's goes through the host's user-question tool, one qu
 
 ### The interview
 
-In a repo, interview-me is stateful. It writes what it learns to `GLOSSARY.md`, ADRs and `docs/intent/`, so later sessions inherit it. With no repo (a plan, a design, a piece of writing) the same interview runs stateless and saves nothing. Facts are your job: look them up, and put only decisions to the user.
+interview-me is always stateful. In a repo it keeps the map in `docs/ideas/IDEA-NNN-<slug>.md`, which `brain new-doc IDEA` creates. Each row of the map is one question of one of three types:
+
+- a decide row, which the user resolves;
+- a research row, which a sub-agent resolves by finding facts and citing their sources;
+- a do row, which the agent or the user resolves by doing work that a later decision needs.
+
+Each decision goes to a DEC file the moment the user makes it, each finding to a RES file, and each new term to `GLOSSARY.md`. After every resolved row, interview-me works out the map again and writes it to disk. Only the main session writes the map. A session ends only between rows, and the next session resumes from the idea's `status` and the frontier of its map.
+
+A research row runs in a sub-agent: the `researcher` agent on Claude Code, the general-purpose agent on the other hosts. Its brief is in interview-me's `RESEARCH.md`, and its method is source-driven-development.
+
+With no repo (a plan, a design, a piece of writing) the map lives in the conversation, and the agent says so. Facts are your job: look them up, and put only decisions to the user.
 
 ### The prototype detour
 
-Some questions need a runnable answer: a state model, business logic, a UI you have to see. Then detour. Run handoff out, open a fresh session against that file, run prototype to answer the question with throwaway code, then run handoff back and reference what you learned from the original thread. Reach for prototype any time a design question is hard to settle on paper.
+Some questions need a runnable answer: a state model, business logic, a UI you have to see. Such a question is a prototype row in the map. Run prototype to answer it with throwaway code. The user's pick becomes a DEC file that links the prototype's branch. Run handoff out and back only when the prototype lives in another directory or harness. Reach for prototype any time a design question is hard to settle on paper.
 
 ### The vocabulary layer
 
-Domain words come from `GLOSSARY.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for domain-modeling, the skill that sharpens a fuzzy term, resolves an overloaded word and records a hard-to-reverse decision as an ADR. codebase-design is the deep-module vocabulary (module, interface, depth, seam) for designing a module's shape; test-driven-development and code-review-and-quality speak it. wait-what is the repair for a message that did not land: the agent re-pitches it in plain words from the glossary, mid-conversation, inside any skill.
+Domain words come from `GLOSSARY.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for domain-modeling, the skill that sharpens a fuzzy term, resolves an overloaded word and records each decision as a DEC file, whose three tests set its kind. codebase-design is the deep-module vocabulary (module, interface, depth, seam) for designing a module's shape; test-driven-development and code-review-and-quality speak it. wait-what is the repair for a message that did not land: the agent re-pitches it in plain words from the glossary, mid-conversation, inside any skill.
 
 ## Stage Boundaries
 
-A stage is a chunk of work inside a session: the interview, the spec, the plan, a task, the review. At the boundary between two stages choose one of five moves, in this order: continue, clear, handoff, sub-agent, compact. The first yes wins. Continue costs nothing and loses nothing, so rule it out first. Compact is the default at the bottom of the tree, not the first reach. Make the choice at a boundary; mid-stage, continue or split the rest into sub-agents. The ordered tree, the five questions and the reasoning behind each are in `../../references/brain/stage-boundaries.md`.
+The files carry the work, not the window. Each of these is on disk the moment it exists:
 
-Two window rules:
+- the map, which interview-me writes again after every row;
+- a DEC file for each decision, and a RES file for each finding;
+- the spec, which spec-driven-development writes from the map and those records;
+- the plan's rows and `docs/STATUS.md`, which the build updates after every task.
 
-- Keep define through plan in one unbroken window. The interview, the spec and the plan build on the same thinking, so compact or clear only after the plan is approved. Each task then starts in a clean context, working from the plan and the spec.
-- The smart zone is the window (about 150k tokens on current models) in which the model still reasons sharply. When a session nears it before the plan is approved, do not push on degraded: compact at the nearest stage boundary with an instruction that names what comes next, and carry on.
+So a session may end between two rows or after any completed task, when the context budget runs low (context-engineering). The next session reads the files and resumes.
+
+At a stage boundary, and between two tasks of a build, choose one of five moves in this order: continue, clear, handoff, sub-agent, compact. The first yes wins. Continue costs nothing and loses nothing, so rule it out first. Compact is the default at the bottom of the tree, not the first reach. Inside a row or a task, continue or split the rest into sub-agents. The ordered tree, the five questions and the reasoning behind each are in `../../references/brain/stage-boundaries.md`.
+
+The smart zone is the window (about 150k tokens on current models) in which the model still reasons sharply. When a session nears its end, finish the row or task in hand, check that its result is on disk, and make the move at that boundary.
 
 ## Core Operating Behaviors
 
@@ -158,6 +177,10 @@ Every skill includes a verification step. A task is not complete until verificat
 
 Per-skill verification is the local check. The project-wide bar that applies to *every* change, regardless of which skill is active, is the Definition of Done: tests pass, no regressions, behavior verified at runtime, docs updated. See `../../references/definition-of-done.md`. It complements each task's acceptance criteria rather than replacing them.
 
+### 7. Record As You Go
+
+Write each result to disk the moment it exists: a DEC file when the user decides, the finding in its RES file when it is confirmed, and the row update right after. A session can end at any boundary, and the next session knows only what the files hold.
+
 ## Failure Modes to Avoid
 
 These are the subtle errors that look like productivity but create problems:
@@ -175,40 +198,34 @@ These are the subtle errors that look like productivity but create problems:
 
 ## Skill Rules
 
-1. **Check for an applicable skill before starting work.** Skills encode processes that prevent common mistakes.
+1. **If a task matches a skill, you MUST invoke it.** Check before you start work. When there is even a 1% chance that a skill applies, load it before your first action, and follow it. Skills encode processes that prevent common mistakes, and a skill that turns out not to fit costs one read. Each of these thoughts means that a skill is about to be skipped. When you catch one, load the skill:
+
+   | Thought | Reality |
+   |---|---|
+   | "This is too small for a skill" | A small change is where a stale pattern or a skipped check slips in. The skill is short to read; the mistake is not short to find. |
+   | "I can just quickly implement this" | The skill holds the steps you would otherwise rebuild from memory, or skip. Loading it is the quick path. |
+   | "I'll gather context first" | The skill says which context to gather and how. Load it, then explore. |
 
 2. **Skills are workflows, not suggestions.** Follow the steps in order. Don't skip verification steps.
 
 3. **Multiple skills can apply.** A feature implementation might involve `idea-refine` → `spec-driven-development` → `planning-and-task-breakdown` → `incremental-implementation` → `test-driven-development` → `code-review-and-quality` → `code-simplification` → `shipping-and-launch` in sequence.
 
-4. **When in doubt, start with a spec.** If the task is non-trivial and there's no spec, begin with `spec-driven-development`.
+4. **When what is wanted is unclear, start with interview-me; when it is clear, start with the spec.** A non-trivial task with no spec starts in one of the two: interview-me charts the map, and spec-driven-development writes the spec from it.
 
 ## Lifecycle Sequence
 
-For a complete feature, the typical skill sequence is:
+A feature travels the six stages in order. The files carry it from each stage to the next, so each line says what the stage leaves on disk. Folder paths come from `docs/agents/workspace.md`.
 
-```
-0.  setup-brain                 → Once per repo, before the first flow
-1.  interview-me                → Extract what the user actually wants; stateful in a repo
-2.  idea-refine                 → Refine vague ideas
-3.  spec-driven-development     → Define what we're building, in SPEC.md or spec/
-4.  planning-and-task-breakdown → Break into verifiable chunks, in tasks/plan.md and tasks/todo.md
-    (keep 1 to 4 in one unbroken window; each task from 5 on starts in a clean context)
-5.  context-engineering         → Load the right context
-6.  source-driven-development   → Verify against official docs
-7.  incremental-implementation  → Build slice by slice
-8.  observability-and-instrumentation → Instrument as you build (runs parallel with 7-9, not after)
-9.  doubt-driven-development    → Cross-examine non-trivial decisions in-flight
-10. test-driven-development     → Prove each slice works
-11. code-review-and-quality     → Review before merge
-12. code-simplification         → Reduce unnecessary complexity while preserving behavior
-13. git-workflow-and-versioning → Clean commit history
-14. documentation-and-adrs      → Document decisions
-15. deprecation-and-migration   → Retire old systems and move users safely when needed
-16. shipping-and-launch         → Deploy safely
-```
+1. Define: the map in `docs/ideas/IDEA-NNN-<slug>.md`, a DEC file for each decision from the first question on, a RES file for each finding, then `spec.md` in `docs/specs/SPEC-NNN-<slug>/`.
+2. Plan: the rows of `tasks/plan.md` and the blocks of `tasks/todo.md`, in the spec folder.
+3. Build: one commit per task, and the task's row resolved in `plan.md`.
+4. Verify: a feedback loop that goes red on the bug, then the fix and its regression test.
+5. Review: one ranked list of findings and one verdict.
+6. Ship: the release, with its monitoring and its rollback plan.
 
-Not every task needs every skill. A bug fix might only need: `debugging-and-error-recovery` → `test-driven-development` → `code-review-and-quality`.
+Not every task needs every stage. A bug fix might need only debugging-and-error-recovery, test-driven-development and code-review-and-quality.
+
+spec-driven-development numbers its own stages 0 to 4, and they span three lifecycle stages. Its Stages 0 and 1 (scope check, specify) are the define stage. Its Stages 2 and 3 (plan, tasks) are the plan stage, where planning-and-task-breakdown is the canonical source. Its Stage 4 (implement) is the build stage, which incremental-implementation and test-driven-development carry.
 
 ### The combined skills and their commands
 
@@ -222,21 +239,24 @@ Eight skills carry the stages and keep addy's names: interview-me, spec-driven-d
 | Verify | debugging-and-error-recovery | `test` | `/test` | the skill by name |
 | Review | code-review-and-quality | `review` | `/review` | the skill by name |
 | Ship | shipping-and-launch | `ship` | `/ship` | the skill by name |
+| Any | status | the skill, shown as `/brain:status` | `/status` | the skill by name |
 
-In Claude Code every command sits under the plugin prefix: type `/brain`, a colon and the command name. Gemini CLI reads the TOML files in `commands/` and names each command after its file. Codex has no slash commands: invoke the skill with a dollar sign, `$spec-driven-development`. Antigravity lists the skills under the plugin prefix, the way Claude Code lists the commands. `constraints`, `webperf` and `code-simplify` are the same commands on both hosts.
+In Claude Code every command sits under the plugin prefix: type `/brain`, a colon and the command name. Claude Code shows a plugin skill as a command too, so the status skill is `/brain:status`. Gemini CLI reads the TOML files in `commands/` and names each command after its file. Codex has no slash commands: invoke the skill with a dollar sign, `$spec-driven-development`. Antigravity lists the skills under the plugin prefix, the way Claude Code lists the commands. `constraints`, `webperf` and `code-simplify` are the same commands on both hosts. On a host with no session-start hook, status is how the user or the agent gets the state of the work.
 
 ## Quick Reference
 
 | Stage | Skill | One-Line Summary |
 |-------|-------|-----------------|
-| Setup | setup-brain | Plain-talk block and domain docs layout, once per repo |
-| Define | interview-me | Surface what the user actually wants before any plan, spec, or code exists; stateful in a repo |
-| Define | idea-refine | Refine ideas through structured divergent and convergent thinking |
-| Define | prototype | Throwaway code that answers one design question, bridged by handoff |
-| Define | spec-driven-development | Requirements and acceptance criteria before code |
-| Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |
+| Setup | setup-brain | The workspace, capabilities and domain files and the `STATUS.md` seed, once per repo; `--check` reports drift |
+| Any | status | Where the work stands in five lines: stage, last step, next step, red items, decisions waiting on the user |
+| Define | interview-me | A stateful map across sessions, one question per row, until the destination is clear |
+| Define | idea-refine | Refine ideas through structured divergent and convergent thinking; resolves ideate rows |
+| Define | prototype | Throwaway code that answers one design question, as a prototype row in the map |
+| Define | spec-driven-development | Requirements and acceptance criteria before code, in the spec folder |
+| Define | constraint-driven-development | The quality bar as a written contract in `CONSTRAINTS.md`, and a diff that keeps it |
+| Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks: plan rows and todo blocks |
 | Build | incremental-implementation | Thin vertical slices, test each before expanding |
-| Build | source-driven-development | Verify against official docs before implementing |
+| Build | source-driven-development | Verify against official docs before implementing; the method of every research row |
 | Build | doubt-driven-development | Adversarial fresh-context review of every non-trivial decision |
 | Build | context-engineering | Right context at the right time |
 | Build | codebase-design | Deep modules: much behaviour behind a small interface at a clean seam |
@@ -252,11 +272,11 @@ In Claude Code every command sits under the plugin prefix: type `/brain`, a colo
 | Ship | git-workflow-and-versioning | Atomic commits, clean history |
 | Ship | ci-cd-and-automation | Automated quality gates on every change |
 | Ship | deprecation-and-migration | Remove old systems and migrate users safely |
-| Ship | documentation-and-adrs | Document the why, not just the what |
+| Ship | documentation-and-adrs | Docs that record the why; each decision goes to a DEC file |
 | Ship | observability-and-instrumentation | Structured logs, RED metrics, traces, symptom-based alerts |
 | Ship | shipping-and-launch | Pre-launch checklist, monitoring, rollback plan |
 | Any | ask-user-question | One decision per call through the host's user-question tool |
 | Any | handoff | A portable file that seeds a session in a new harness, directory or colleague's hands |
-| Any | domain-modeling | Sharpen a term, resolve an overloaded word, record an ADR |
+| Any | domain-modeling | Glossary terms and DEC files: sharpen a term, resolve an overloaded word, record a decision |
 | Any | wait-what | Re-pitch a message that did not land, in the glossary's words |
 | Any | writing-for-agents | How to write a skill, an AGENTS.md or a pointed-at doc |

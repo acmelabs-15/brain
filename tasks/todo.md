@@ -272,7 +272,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run lifecycle:check`; no "Phase 0" to "Phase 4" left in spec-driven-development or in a file that cites its sections
   - Files: skills/spec-driven-development/SKILL.md, GLOSSARY.md, the files that cite its phases
   - Depends: T49. Scope: S
-- [ ] T28: using-brain, the 1% rule, stage boundaries, with the two evals (moved here from phase 4)
+- [x] T28: using-brain, the 1% rule, stage boundaries, with the two evals (moved here from phase 4)
   - Acceptance: evals `lifecycle/skill-not-skipped` and `lifecycle/no-overload` written first; every change in the intent doc's `using-brain` table; Skill Rule 1 carries the 1% rule and the rejected thoughts, ported from Peter's hand-written `AGENTS.md`; the lifecycle sequence folded to one line per stage; `references/brain/phase-boundaries.md` says the files carry the work; `lifecycle:check` fails when `using-brain` names a missing skill or misses one
   - Verify: `bun test scripts/lifecycle`; the two evals' dry checks
   - Files: skills/using-brain/SKILL.md, references/brain/phase-boundaries.md, scripts/lifecycle/, evals/lifecycle/{skill-not-skipped,no-overload}/*

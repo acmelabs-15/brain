@@ -2,9 +2,20 @@ Adapted from mattpocock/skills, MIT, commit c55ee46.
 
 # Stage boundaries
 
-A **stage** is a chunk of work inside a session: the interview, the spec, the implementation, the QA. The definition is fuzzy on purpose. A stage ends when you think "ok, we are done with that".
+A **stage** is one part of the lifecycle: define, plan, build, verify, review or ship. A stage ends when its result is on disk: the map and its records, the spec, the plan, a commit, a verdict, a release.
 
-The **stage boundary** is the gap between two stages. It is the only place this decision belongs. Mid-stage there is no decision to make: continue, or split the work that is left into sub-agents. Compacting mid-stage makes the agent lose the thread.
+The **stage boundary** is the gap between two stages. The gap between two rows of a map, or between two tasks of a plan, works the same way. These gaps are the only place this decision belongs. In the middle of a row or a task there is no decision to make: continue, or split the work that is left into sub-agents. Compacting there makes the agent lose the thread.
+
+## The files carry the work
+
+In a brain repo the state of the work lives in files, not in the window:
+
+- the map, which interview-me writes again after every row;
+- a DEC file for each decision, and a RES file for each finding, each written the moment it lands;
+- the spec, which spec-driven-development writes from the map and those records;
+- the plan's rows and `docs/STATUS.md`, which the build updates after every task.
+
+So a move at a boundary loses less here than it would elsewhere: the next session reads the files back, and the protocol's session start resumes from them. End a session between two rows or after a completed task when the context budget runs low. What the files cannot hold is reasoning that nobody wrote down, which is why each decision goes to its DEC file the moment the user makes it.
 
 ## The five options
 
@@ -20,11 +31,11 @@ The **stage boundary** is the gap between two stages. It is the only place this 
 
 Work top to bottom at the boundary. The first **yes** wins.
 
-**1. Can you continue in this session?** Two things make the answer yes: the next stage needs this stage as a **primary source**, or you have enough [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) left (about 150k tokens) for the next stage to fit. Interview to implementation is the standard yes: the implementation wants the reasoning verbatim, not a summary of it. Continue costs nothing and loses nothing, so rule it out before anything else.
+**1. Can you continue in this session?** Two things make the answer yes: the next stage needs this session as a **primary source**, beyond what the files hold, or you have enough [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) left (about 150k tokens) for the next stage to fit. In a brain repo the define stage's reasoning is on disk in its DEC and RES files, so the plan and the build rarely need the interview's window itself. Continue costs nothing and loses nothing, so rule it out before anything else.
 
-**2. Is the context irrelevant to what comes next?** Is everything in this session (the exploration, the decisions, the dead ends) disposable? If so, **clear**. It is the cheapest move on the board: it takes no time and hands back the whole window. Clearing is not terminal: the old session stays resumable.
+**2. Is the context irrelevant to what comes next?** Is everything in this session (the exploration, the decisions, the dead ends) disposable, or already in the files? If so, **clear**. It is the cheapest move on the board: it takes no time and hands back the whole window. Clearing is not terminal: the old session stays resumable.
 
-The cost of getting this wrong is one-way. Clear a *relevant* context and you lose the **why** behind what you built. No amount of reading the diff back gets it returned.
+The cost of getting this wrong is one-way. Clear a *relevant* context and you lose any **why** that is not yet in a file. No amount of reading the diff back gets it returned. Record each decision as it is made, and a clear loses little.
 
 **3. Do you need to hand off?** Handoff is narrow. You need it only when you are:
 
@@ -50,7 +61,7 @@ Every move except **Continue** turns a **primary source** into a **secondary sou
 | Primary (Continue) | Full | Lots | Little |
 | Secondary (Compact, Handoff) | Lossy | Less | Lots |
 
-This is why question 1 comes first. You only pay the lossiness when staying costs more than it saves.
+This is why question 1 comes first. You only pay the lossiness when staying costs more than it saves. A DEC or RES file, written at the moment, is the exception: it is a primary source that survives every move.
 
 ## These are judgement calls
 
