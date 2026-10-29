@@ -163,6 +163,96 @@ describe("checkRetiredNames, wayfinder", () => {
   });
 });
 
+describe("checkRetiredNames, triage", () => {
+  test("a brain-owned file that names the triage skill is a finding with its line", async () => {
+    const root = await tree("triage-stray", {
+      "README.md": "# X\n\nUse `triage` for issues the user did not write.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([
+      {
+        kind: "retired-name",
+        file: "README.md",
+        detail:
+          "line 3 names triage, which is removed; re-seed it from mattpocock/skills if you need it",
+      },
+    ]);
+  });
+
+  test("each way a line names the skill is caught", async () => {
+    const root = await tree("triage-forms", {
+      "skills/using-brain/SKILL.md": [
+        "Read skills/triage/SKILL.md first.",
+        '"from": "skills/engineering/triage",',
+        "Type /brain:triage to start.",
+        "The Triage skill reads this flag.",
+        "the triage on-ramp in the tree",
+        "├── Issues you did not write? ─→ triage → briefs",
+        "| On-ramp | triage | Issues and PRs the user did not write |",
+      ].join("\n"),
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.detail.split(" names")[0])).toEqual([
+      "line 1",
+      "line 2",
+      "line 3",
+      "line 4",
+      "line 5",
+      "line 6",
+      "line 7",
+    ]);
+  });
+
+  test("the plain word passes: a triage checklist, triaged findings, the needs-triage label and triage-labels.md", async () => {
+    const root = await tree("triage-plain-word", {
+      "skills/debugging-and-error-recovery/SKILL.md": [
+        "## The Triage Checklist",
+        "4. DIAGNOSE using the triage checklist",
+        "No red-capable command, no triage.",
+        "### Test Failure Triage",
+        "For triaging `npm audit` findings, follow security-and-hardening.",
+        "Critical findings are triaged for reachability.",
+      ].join("\n"),
+      "skills/setup-brain/triage-labels.md":
+        "| `needs-triage` | `needs-triage` | Not evaluated |\n",
+      "evals/setup/second-run/scaffold.sh":
+        'cp "$plugin/skills/setup-brain/triage-labels.md" docs/agents/triage-labels.md\n',
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("a line that says triage is removed or retired passes", async () => {
+    const root = await tree("triage-removal", {
+      "spec/SPEC-x.md": [
+        "- `wayfinder` and `triage` are removed.",
+        "Removed: `skills/wayfinder/`, `skills/triage/`.",
+        "10. Retirements: `skills/triage` is retired.",
+      ].join("\n"),
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("an order to remove or re-seed the skill is not a removal", async () => {
+    const root = await tree("triage-stale", {
+      "README.md": "Remove `triage` from the router tree.\n",
+      "skills/setup-brain/SKILL.md": "Re-seed the triage skill from mattpocock/skills.\n",
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.file)).toEqual(["README.md", "skills/setup-brain/SKILL.md"]);
+  });
+
+  test("history and test folders may keep triage", async () => {
+    const root = await tree("triage-exempt", {
+      "CHANGELOG.md": "`triage` gets five documented fixes.\n",
+      "tasks/todo.md": "- [ ] T24: triage retired\n- `triage`\n",
+      "docs/research/RES-003-triage-wayfinder.md": "`triage`\n",
+      "docs/intent/x.md": "Move skills/triage/AGENT-BRIEF.md.\n",
+      "scripts/workspace/__tests__/fixtures/layout-0.8/docs/agents/issue-tracker.md":
+        "Used by the triage skill.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+});
+
 describe("checkGlossaryTerms", () => {
   test("a GLOSSARY.md with every workspace term passes", async () => {
     const root = await tree("glossary-full", { "GLOSSARY.md": fullGlossary });

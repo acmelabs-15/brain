@@ -137,7 +137,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun run check`; `bun run validate`
   - Files: skills/wayfinder/, skills/using-brain/SKILL.md, upstream.json, upstream.lock.json, README.md, spec/SPEC-{lifecycle,setup,upstream-sync}.md, scripts/lifecycle/, .changeset/<name>.md
   - Depends: T21. Scope: M
-- [ ] T24: triage retired
+- [x] T24: triage retired
   - Acceptance: `skills/triage` deleted, with its seed entry and lock entries; mentions removed outside history, including `using-brain`'s triage lines; `lifecycle:check` fails on a stray one; the breaking changeset gains "triage is removed; re-seed it from mattpocock/skills if you need it."
   - Verify: `bun run check`; `bun run validate`
   - Files: skills/triage/, skills/using-brain/SKILL.md, upstream.json, upstream.lock.json, README.md, spec/*, scripts/lifecycle/, .changeset/<name>.md

@@ -16,9 +16,9 @@ Issues for this repo live as GitLab issues. Use the `glab` CLI for every operati
 
 `glab` infers the repo from `git remote -v` inside a clone.
 
-## Merge requests as a triage surface
+## Merge requests as a request surface
 
-MRs as a request surface: no. Set to `yes` if this repo treats external merge requests as feature requests; the triage skill reads this flag.
+MRs as a request surface: no. Set to `yes` if this repo treats external merge requests as feature requests.
 
 When `yes`, MRs run through the same labels and states as issues with the `glab mr` equivalents: `glab mr view <number> --comments` and `glab mr diff <number>` to read; `glab mr list -F json`, keeping the MRs whose author is not a project member; `glab mr note`, `glab mr update --label` or `--unlabel`, `glab mr close`.
 

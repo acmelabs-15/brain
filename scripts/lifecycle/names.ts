@@ -9,13 +9,18 @@ import type { Finding } from "./finding";
 
 type Retired = { pattern: RegExp; allowLine: RegExp; detail: string };
 
+/** A line that says a skill is removed, retired or absorbed may still name it. */
+const removalLine = /\b(?:removed|retired|retirements?|absorbs|absorbed)\b/iu;
+
 /**
  * Each retired name, and the line text that may still name it. The rule for the old
  * glossary name is loose on purpose: any line that also names GLOSSARY passes, which covers
  * every line about the rename and could hide a stale mention on such a line. The rule for
- * the removed wayfinder is narrow: a line passes only when it says the skill is removed,
- * retired or absorbed. A line that only names interview-me, or tells the reader to remove
- * something, still fails.
+ * a removed skill is narrow: a line passes only when it says the skill is removed, retired
+ * or absorbed. A line that only names interview-me, or tells the reader to remove
+ * something, still fails. Triage is also a plain word (a triage checklist, triaged audit
+ * findings), so only the forms that name the skill count: a code span, a path or command,
+ * the name followed by skill or on-ramp, a router arrow and a table cell.
  */
 export const retiredNames: readonly Retired[] = [
   {
@@ -25,8 +30,14 @@ export const retiredNames: readonly Retired[] = [
   },
   {
     pattern: /\bwayfind(?:er|ing)/iu,
-    allowLine: /\b(?:removed|retired|retirements?|absorbs|absorbed)\b/iu,
+    allowLine: removalLine,
     detail: "names wayfinder, which is removed; interview-me keeps the map now",
+  },
+  {
+    pattern:
+      /[`]triage[`]|(?:[/]|brain:)triage(?![\w-])|\btriage (?:skill|on-ramp)|→\s+triage\b|\|\s*triage\s*\|/iu,
+    allowLine: removalLine,
+    detail: "names triage, which is removed; re-seed it from mattpocock/skills if you need it",
   },
 ];
 

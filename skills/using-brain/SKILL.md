@@ -1,6 +1,6 @@
 ---
 name: using-brain
-description: Routes a piece of work to the brain skill that fits it: the main flow from interview to ship, the triage on-ramp, the prototype detour and the vocabulary layer. Use at session start, when unsure which skill or command applies, or at a phase boundary to choose continue, clear, handoff, sub-agent or compact. Names setup-brain as the once-per-repo precondition.
+description: Routes a piece of work to the brain skill that fits it: the main flow from interview to ship, the prototype detour and the vocabulary layer. Use at session start, when unsure which skill or command applies, or at a phase boundary to choose continue, clear, handoff, sub-agent or compact. Names setup-brain as the once-per-repo precondition.
 ---
 
 # Using brain
@@ -9,7 +9,7 @@ description: Routes a piece of work to the brain skill that fits it: the main fl
 
 brain's skills are engineering workflows organized by development phase. Each skill encodes a process that senior engineers follow. This meta-skill routes the work at hand to the right one.
 
-Most work travels one **main flow**: idea to ship. One **on-ramp** merges onto it. A **vocabulary layer** runs underneath every skill. The rest is standalone.
+Most work travels one **main flow**: idea to ship. A **vocabulary layer** runs underneath every skill. The rest is standalone.
 
 ## Precondition
 
@@ -52,9 +52,6 @@ Task arrives
     ├── Adding logs/metrics/alerts? ───→ observability-and-instrumentation
     ├── Deploying/launching? ─────────→ shipping-and-launch
     │
-    │   ON-RAMPS: work that arrives, then merges onto the main flow
-    ├── Issues or PRs you did not write? ─────→ triage → briefs for incremental-implementation
-    │
     │   VOCABULARY LAYER: underneath every skill
     ├── A fuzzy or overloaded domain term? ───→ domain-modeling
     ├── A message that did not land? ─────────→ wait-what
@@ -74,10 +71,6 @@ In a repo, interview-me is stateful. It writes what it learns to `GLOSSARY.md`, 
 ### The prototype detour
 
 Some questions need a runnable answer: a state model, business logic, a UI you have to see. Then detour. Run handoff out, open a fresh session against that file, run prototype to answer the question with throwaway code, then run handoff back and reference what you learned from the original thread. Reach for prototype any time a design question is hard to settle on paper.
-
-### The on-ramps
-
-triage is for issues and PRs the user did not write: bug reports, incoming feature requests, anything that arrives raw. It moves them through triage states and writes agent-ready briefs that incremental-implementation picks up later. Tasks that planning-and-task-breakdown wrote are already agent-ready, so do not triage them.
 
 ### The vocabulary layer
 
@@ -242,7 +235,6 @@ In Claude Code every command sits under the plugin prefix: type `/brain`, a colo
 | Define | prototype | Throwaway code that answers one design question, bridged by handoff |
 | Define | spec-driven-development | Requirements and acceptance criteria before code |
 | Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |
-| On-ramp | triage | Issues and PRs the user did not write, moved to agent-ready briefs |
 | Build | incremental-implementation | Thin vertical slices, test each before expanding |
 | Build | source-driven-development | Verify against official docs before implementing |
 | Build | doubt-driven-development | Adversarial fresh-context review of every non-trivial decision |

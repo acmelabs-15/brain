@@ -1,8 +1,8 @@
-# Triage labels
+# Issue labels
 
 Adapted from mattpocock/skills, MIT, commit c55ee46.
 
-The triage skill speaks in five canonical roles. This file maps each role to the label string this repo's tracker uses. The triage skill creates a label in the tracker the first time it applies one that does not exist yet.
+Five canonical roles name the state of an issue. This file maps each role to the label string this repo's tracker uses.
 
 | Role | Label in this tracker | Meaning |
 |---|---|---|

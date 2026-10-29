@@ -108,10 +108,6 @@
           "to": "skills/domain-modeling"
         },
         {
-          "from": "skills/engineering/triage",
-          "to": "skills/triage"
-        },
-        {
           "from": "skills/productivity/wait-what",
           "to": "skills/wait-what"
         }

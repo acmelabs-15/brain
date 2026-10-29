@@ -15,9 +15,9 @@ Issues for this repo live as GitHub issues. Use the `gh` CLI for every operation
 
 `gh` infers the repo from `git remote -v` inside a clone.
 
-## Pull requests as a triage surface
+## Pull requests as a request surface
 
-PRs as a request surface: no. Set to `yes` if this repo treats external PRs as feature requests; the triage skill reads this flag.
+PRs as a request surface: no. Set to `yes` if this repo treats external PRs as feature requests.
 
 When `yes`, PRs run through the same labels and states as issues with the `gh pr` equivalents:
 

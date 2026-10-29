@@ -183,7 +183,7 @@ scripts/hooks/claude-code.json        the Claude-only hook file, named in .claud
 scripts/hooks/session-start.ts        injects the protocol and `brain status --json` output
 protocol/PROTOCOL.md                  the brain protocol, one source text
 claude/agents/researcher.md           Claude-only researcher, listed in .claude-plugin/plugin.json
-references/brain/agent-brief.md       moved from skills/triage/AGENT-BRIEF.md
+references/brain/agent-brief.md       moved from skills/triage/AGENT-BRIEF.md (triage is removed)
 skills/status/SKILL.md                the status entry point (/brain:status on Claude Code)
 commands/status.toml                  Gemini /status
 skills/setup-brain/                   templates: workspace.md, capabilities.md, STATUS.md seed, domain.md

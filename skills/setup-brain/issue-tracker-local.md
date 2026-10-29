@@ -8,7 +8,7 @@ Issues for this repo live as markdown files under `.scratch/`. The spec and the 
 
 - One feature per directory: `.scratch/<feature-slug>/`
 - One file per issue at `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01`, never one combined file
-- Triage state is a `Status:` line near the top of each issue file; the role strings are in `triage-labels.md`
+- An issue's state is a `Status:` line near the top of each issue file; the role strings are in `triage-labels.md`
 - Comments append at the bottom under a `## Comments` heading
 
 ## When a skill says "publish to the issue tracker"
