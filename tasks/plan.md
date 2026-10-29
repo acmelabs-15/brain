@@ -49,7 +49,7 @@ Worked out by hand from the blocking edges; `brain plan` (T41) cannot read this 
 is in the old layout, until T39 migrates it. Updated 2026-10-29: T01 to T27, T29 to T34,
 T36 and T41 to T48 done; T35, T37 and T49 running. Each wave is a frontier: every task in
 it can start once the waves above it are done. Waves cross phase lines; a phase checkpoint
-still reviews its own tasks.
+still reviews its own tasks. From the phase 5 review on, a task waits for every checkpoint whose phase it depends on (Peter, 2026-10-29, at the phase 2 review).
 
 | Wave | Tasks |
 |---|---|

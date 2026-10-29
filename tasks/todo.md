@@ -98,7 +98,7 @@ ends with a checkpoint and a review with Peter.
 
 ### Checkpoint: phase 2
 - [x] `bun run check` green with both new steps; the parallel test passes ten runs in a row (10 of 10, 2026-10-29)
-- [ ] Review with Peter
+- [x] Review with Peter: approved 2026-10-29. Waves ran past this checkpoint because this build's plan is in the old layout, which `brain plan` cannot read, and the hand-made waves treated checkpoints as reviews, not as edges. The edges are built and tested (T41, T42, T45); from the phase 5 review on, this build holds each later task until its checkpoint is approved
 
 ## Phase 3: define phase
 
