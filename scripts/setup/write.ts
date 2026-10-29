@@ -22,6 +22,8 @@ export type CodexScope = "global" | "project";
 export type Change = {
   path: string;
   action: "created" | "updated" | "unchanged" | "skipped" | "moved";
+  /** Why a change was skipped, printed beside it. */
+  note?: string;
 };
 export type SetupInput = {
   brain: string;
@@ -43,27 +45,47 @@ const glossaryMoves = [
   ["CONTEXT-MAP.md", "GLOSSARY-MAP.md"],
 ] as const;
 
-/** Move each old glossary file with `git mv`, so it keeps its history; never overwrite. */
-async function renameGlossary(input: SetupInput): Promise<Change[]> {
-  const changes: Change[] = [];
+function tracked(root: string, path: string): boolean {
+  return Bun.spawnSync(["git", "ls-files", "--error-unmatch", path], { cwd: root }).exitCode === 0;
+}
+
+/**
+ * Move each root glossary file to its new name with `git mv`, so it keeps its history.
+ * Every outcome is decided before the first move, so a dry run reports what a real run
+ * does, and a file that cannot move never leaves the others half moved. Per-context
+ * files that a map lists stay where they are.
+ */
+async function moveGlossaryFiles(input: SetupInput): Promise<Change[]> {
+  const planned: Change[] = [];
   for (const [from, to] of glossaryMoves) {
     if (!(await Bun.file(`${input.root}/${from}`).exists())) {
       continue;
     }
     const path = `${from} -> ${to}`;
     if (await Bun.file(`${input.root}/${to}`).exists()) {
-      changes.push({ path, action: "skipped" });
+      planned.push({ path, action: "skipped", note: `${to} already exists` });
+    } else if (tracked(input.root, from)) {
+      planned.push({ path, action: "moved" });
+    } else {
+      planned.push({ path, action: "skipped", note: "not tracked by git; move it by hand" });
+    }
+  }
+  if (input.dryRun) {
+    return planned;
+  }
+  const done: string[] = [];
+  for (const [from, to] of glossaryMoves) {
+    if (!planned.some((c) => c.path === `${from} -> ${to}` && c.action === "moved")) {
       continue;
     }
-    if (!input.dryRun) {
-      const moved = Bun.spawnSync(["git", "mv", from, to], { cwd: input.root });
-      if (moved.exitCode !== 0) {
-        throw new Error(`git mv ${from} ${to} failed: ${moved.stderr.toString().trim()}`);
-      }
+    const moved = Bun.spawnSync(["git", "mv", from, to], { cwd: input.root });
+    if (moved.exitCode !== 0) {
+      const before = done.length > 0 ? `; already moved: ${done.join(", ")}` : "";
+      throw new Error(`git mv ${from} ${to} failed: ${moved.stderr.toString().trim()}${before}`);
     }
-    changes.push({ path, action: "moved" });
+    done.push(from);
   }
-  return changes;
+  return planned;
 }
 
 export function defaultCodexHome(): string {
@@ -107,7 +129,7 @@ async function writeCodex(input: SetupInput, block: string): Promise<Change | nu
   const home = input.codexHome ?? defaultCodexHome();
   const path = `${home}/AGENTS.md`;
   if (!(await isDirectory(home))) {
-    return { path, action: "skipped" };
+    return { path, action: "skipped", note: "no Codex home directory" };
   }
   const current = (await readIfPresent(path)) ?? "";
   return put(input, path, path, replaceBlock(current, block, path));
@@ -117,7 +139,8 @@ export async function writeSetup(input: SetupInput): Promise<Change[]> {
   const block = await Bun.file(`${input.brain}/plain-talk/AGENTS-block.md`).text();
   const domainTemplate = await Bun.file(`${input.brain}/skills/setup-brain/domain.md`).text();
   const layoutName = input.layout === "single" ? "single-context" : "multi-context";
-  const changes: Change[] = input.renameGlossary === true ? await renameGlossary(input) : [];
+  // The glossary move runs first, so the change list shows it at the top.
+  const changes: Change[] = input.renameGlossary === true ? await moveGlossaryFiles(input) : [];
 
   const codex = await writeCodex(input, block);
   if (codex !== null) {
@@ -218,8 +241,8 @@ function parseArgs(argv: string[]): SetupInput {
 }
 
 function note(change: Change, dryRun: boolean): string {
-  if (change.action === "skipped") {
-    return "  (no Codex home directory)";
+  if (change.note !== undefined) {
+    return `  (${change.note})`;
   }
   return dryRun ? "  (dry run)" : "";
 }

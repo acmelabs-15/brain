@@ -160,7 +160,11 @@ describe("writeSetup, the Codex global file", () => {
     const root = await repo("codex-missing");
     const home = `${work}/codex-missing/.codex`;
     const changes = await writeSetup({ brain, root, ...base, codexHome: home });
-    expect(changes[0]).toEqual({ path: `${home}/AGENTS.md`, action: "skipped" });
+    expect(changes[0]).toEqual({
+      path: `${home}/AGENTS.md`,
+      action: "skipped",
+      note: "no Codex home directory",
+    });
     expect(await exists(home)).toBe(false);
   });
 
@@ -366,8 +370,39 @@ describe("writeSetup, the glossary rename", () => {
       "GLOSSARY.md": "# New\n",
     });
     const changes = await writeSetup({ brain, root, ...base, renameGlossary: true });
-    expect(changes[0]).toEqual({ path: "CONTEXT.md -> GLOSSARY.md", action: "skipped" });
+    expect(changes[0]).toEqual({
+      path: "CONTEXT.md -> GLOSSARY.md",
+      action: "skipped",
+      note: "GLOSSARY.md already exists",
+    });
     expect(await Bun.file(`${root}/GLOSSARY.md`).text()).toBe("# New\n");
+    expect(await exists(`${root}/CONTEXT.md`)).toBe(true);
+  });
+});
+
+describe("writeSetup, a glossary file git does not track", () => {
+  test("an untracked CONTEXT.md is skipped with a note, and stays", async () => {
+    const root = await gitRepo("rename-untracked", { "README.md": "# x\n" });
+    await Bun.write(`${root}/CONTEXT.md`, "# Terms\n");
+    for (const dryRun of [true, false]) {
+      const changes = await writeSetup({ brain, root, ...base, dryRun, renameGlossary: true });
+      expect(changes[0]).toEqual({
+        path: "CONTEXT.md -> GLOSSARY.md",
+        action: "skipped",
+        note: "not tracked by git; move it by hand",
+      });
+    }
+    expect(await exists(`${root}/CONTEXT.md`)).toBe(true);
+    expect(await exists(`${root}/GLOSSARY.md`)).toBe(false);
+  });
+
+  test("outside a git repo nothing moves, and both files are reported", async () => {
+    const root = await repo("rename-no-git", { "CONTEXT.md": "# T\n", "CONTEXT-MAP.md": "# M\n" });
+    const changes = await writeSetup({ brain, root, ...base, renameGlossary: true });
+    expect(changes.slice(0, 2).map((c) => [c.path, c.action, c.note])).toEqual([
+      ["CONTEXT.md -> GLOSSARY.md", "skipped", "not tracked by git; move it by hand"],
+      ["CONTEXT-MAP.md -> GLOSSARY-MAP.md", "skipped", "not tracked by git; move it by hand"],
+    ]);
     expect(await exists(`${root}/CONTEXT.md`)).toBe(true);
   });
 });

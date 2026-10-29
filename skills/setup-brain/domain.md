@@ -10,7 +10,7 @@ How brain's skills read this repo's domain documentation. Layout: {{layout}}.
 
 If a file is absent, proceed without it and do not suggest creating it. The domain-modeling skill creates `GLOSSARY.md` and the first ADR lazily, when a term or a decision is resolved.
 
-For one release, a repo with no `GLOSSARY.md` but a `CONTEXT.md` (or a `CONTEXT-MAP.md`) is read the same way, under its old name; tell the user once: "This repo still uses `CONTEXT.md`; run setup-brain to rename it to `GLOSSARY.md`."
+A repo with no `GLOSSARY.md` but an old `CONTEXT.md` (or `CONTEXT-MAP.md`) keeps its glossary there: read that file the same way, and tell the user once: "This repo still uses `CONTEXT.md`; run setup-brain to rename it to `GLOSSARY.md`."
 
 ## Use the glossary's words
 
