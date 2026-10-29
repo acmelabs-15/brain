@@ -206,6 +206,13 @@ describe("a required field", () => {
     expect(checkDoc("DEC", validDec.replace("evidence: [RES-001]\n", ""), "DEC-031")).toEqual([]);
   });
 
+  test("a new decision's decided date needs the name of who decided", () => {
+    const dateOnly = validDec.replace("decided: 2026-10-29 by Peter", "decided: 2026-10-29");
+    expect(checkDoc("DEC", dateOnly, "DEC-031")).toEqual([
+      'decided: "2026-10-29" is not YYYY-MM-DD by <name>',
+    ]);
+  });
+
   test("a proposed decision needs no decided line", () => {
     const proposed = validDec
       .replace("status: accepted", "status: proposed")
@@ -379,6 +386,26 @@ Decided 2026-09-19.
   test("has each field it does carry checked like a new file's", () => {
     const withKind = migratedDec.replace("migrated: 0.8", "migrated: 0.8\nkind: adr");
     expect(fields(checkDoc("DEC", withKind, "DEC-001"))).toEqual(["kind"]);
+  });
+
+  test("may carry a decided date with no name, as the migration writes it from git history", () => {
+    const dated = migratedDec.replace("migrated: 0.8", "migrated: 0.8\ndecided: 2026-09-19");
+    expect(checkDoc("DEC", dated, "DEC-001")).toEqual([]);
+  });
+
+  test("may carry a decided date with the name of who decided", () => {
+    const named = migratedDec.replace(
+      "migrated: 0.8",
+      "migrated: 0.8\ndecided: 2026-09-19 by Peter",
+    );
+    expect(checkDoc("DEC", named, "DEC-001")).toEqual([]);
+  });
+
+  test("fails on a decided value that is not a date", () => {
+    const wrong = migratedDec.replace("migrated: 0.8", "migrated: 0.8\ndecided: yesterday");
+    expect(checkDoc("DEC", wrong, "DEC-001")).toEqual([
+      'decided: "yesterday" is not YYYY-MM-DD, or YYYY-MM-DD by <name>',
+    ]);
   });
 
   test("names the 0.8 layout and no other", () => {

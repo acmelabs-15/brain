@@ -5,10 +5,11 @@
  * on every field.
  *
  * A file the migrate mode gave frontmatter carries `migrated: 0.8`. It needs only the field
- * that names it (`id`, or `spec` in a spec folder): the migration writes no value it cannot
- * read from the file's name, because a guessed `kind` or `status` would pass the check and
- * hide the gap. Its body is not checked, because the migration changes no byte of it. Every
- * field such a file does carry is checked like a new file's.
+ * that names it (`id`, or `spec` in a spec folder): the migration writes only the ID from the
+ * file's name and, in a DEC or RES, the date of the file's first commit, because a guessed
+ * `kind` or `status` would pass the check and hide the gap. Its body is not checked, because
+ * the migration changes no byte of it. Every field such a file does carry is checked like a
+ * new file's, except where a field names a rule for migrated files.
  */
 
 export type DocType = "IDEA" | "DEC" | "RES" | "spec" | "plan" | "todo";
@@ -23,6 +24,8 @@ export type Field = {
    */
   need: "always" | "new" | "optional";
   rule: Rule;
+  /** The rule a migrated file's value follows instead, when history cannot give all of it. */
+  migrated?: Rule;
   /** A new file may leave the field out when this holds: `decided` on a proposed decision. */
   unless?: (data: Record<string, unknown>) => boolean;
 };
@@ -132,6 +135,11 @@ export const schemas: Record<DocType, Schema> = {
       decided: {
         need: "new",
         rule: like(/^\d{4}-\d{2}-\d{2} by [^\s<>][^<>]*$/u, "YYYY-MM-DD by <name>"),
+        // The migration takes the date from the first commit; its author can be a placeholder.
+        migrated: like(
+          /^\d{4}-\d{2}-\d{2}(?: by [^\s<>][^<>]*)?$/u,
+          "YYYY-MM-DD, or YYYY-MM-DD by <name>",
+        ),
         unless: (data) => data.status === "proposed",
       },
     },
@@ -214,7 +222,8 @@ function checkFields(
       }
       continue;
     }
-    const problem = field.rule(value);
+    const rule = migrated ? (field.migrated ?? field.rule) : field.rule;
+    const problem = rule(value);
     if (problem !== null) {
       problems.push(`${key}: ${problem}`);
     } else if (key === schema.identity && value !== id) {

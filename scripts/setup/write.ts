@@ -2,6 +2,10 @@
  * Write what brain's skills assume is in a repo, and the one file Codex needs on this machine.
  *
  *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker local|github|gitlab] [--repo owner/name] [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--dry-run] [--brain <plugin root>]
+ *   bun run scripts/setup/write.ts --root <repo> --migrate [--dry-run]
+ *
+ * --migrate runs the migrate mode for a repo on brain 0.8 (see migrate.ts) instead of the
+ * writes below, and prints the commit it wrote.
  *
  * docs/agents/domain.md gets the consumer rules with the layout named.
  * docs/agents/issue-tracker.md and docs/agents/triage-labels.md come from the templates, local tracker by default.
@@ -15,6 +19,7 @@ import { mkdir, stat } from "node:fs/promises";
 import { homedir } from "node:os";
 
 import { replaceBlock } from "../plain-talk/block";
+import { migrate } from "./migrate";
 
 export type Layout = "single" | "multi";
 export type Tracker = "local" | "github" | "gitlab";
@@ -38,6 +43,8 @@ export type SetupInput = {
   codexScope?: CodexScope;
   /** Move a root CONTEXT.md and CONTEXT-MAP.md to the GLOSSARY names with `git mv`. */
   renameGlossary?: boolean;
+  /** Run the migrate mode for a repo on brain 0.8 instead of the install writes. */
+  migrate?: boolean;
 };
 
 const glossaryMoves = [
@@ -226,6 +233,10 @@ function parseArgs(argv: string[]): SetupInput {
       input.renameGlossary = true;
       continue;
     }
+    if (flag === "--migrate") {
+      input.migrate = true;
+      continue;
+    }
     if (flag === "--no-codex") {
       input.codexHome = null;
       continue;
@@ -247,15 +258,33 @@ function note(change: Change, dryRun: boolean): string {
   return dryRun ? "  (dry run)" : "";
 }
 
-if (import.meta.main) {
+/** Run the mode the flags pick, print each change, and return the exit code. */
+async function main(argv: string[]): Promise<number> {
+  let input: SetupInput;
   try {
-    const input = parseArgs(process.argv.slice(2));
-    const changes = await writeSetup(input);
-    for (const change of changes) {
-      console.log(`${change.action.padEnd(9)} ${change.path}${note(change, input.dryRun)}`);
-    }
+    input = parseArgs(argv);
   } catch (error) {
     console.error((error as Error).message);
-    process.exit(2);
+    return 2;
   }
+  try {
+    const result =
+      input.migrate === true
+        ? await migrate(input)
+        : { changes: await writeSetup(input), commit: null };
+    for (const change of result.changes) {
+      console.log(`${change.action.padEnd(9)} ${change.path}${note(change, input.dryRun)}`);
+    }
+    if (result.commit !== null) {
+      console.log(`committed ${result.commit}`);
+    }
+    return 0;
+  } catch (error) {
+    console.error((error as Error).message);
+    return 1;
+  }
+}
+
+if (import.meta.main) {
+  process.exit(await main(process.argv.slice(2)));
 }

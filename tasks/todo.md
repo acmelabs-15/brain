@@ -75,7 +75,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/workspace` (each fixture file passes `checkDoc`); the known frontier is written into the fixture's README for T14 and T16 to assert
   - Files: scripts/workspace/__tests__/fixtures/*, scripts/workspace/__tests__/fixtures.test.ts
   - Depends: T10. Scope: M
-- [ ] T13: the migrate mode's frontmatter step, run on brain (prefactor)
+- [x] T13: the migrate mode's frontmatter step, run on brain (prefactor)
   - Acceptance: `write.ts --migrate` adds frontmatter to a `DEC` or `RES` file that has none, from its schema, with `migrated: 0.8` in place of `from`, and changes no byte below it; `--dry-run` lists every file; one commit; run on brain's seven files (DEC-001, DEC-002, RES-001 to RES-005)
   - Verify: `bun test scripts/setup` (bodies byte-compared); `git diff` on brain shows frontmatter lines only
   - Files: scripts/setup/migrate.ts, scripts/setup/write.ts, scripts/setup/__tests__/migrate.test.ts, docs/decisions/DEC-00{1,2}-*.md, docs/research/RES-00{1..5}-*.md
