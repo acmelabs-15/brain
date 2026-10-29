@@ -229,6 +229,12 @@ ends with a checkpoint and a review with Peter.
   - Files: scripts/hooks/claude-code.json, scripts/hooks/session-start.ts, scripts/hooks/__tests__/session-start.test.ts, .claude-plugin/plugin.json, scripts/lifecycle/
   - Depends: T16, T31. Scope: M
 
+- [ ] T48: the `SessionStart` hook also fires on resume, with the status only
+  - Acceptance: the matcher in `scripts/hooks/claude-code.json` is `startup|resume|clear|compact`; `session-start.ts` reads `source` from its stdin input (confirmed in Claude Code's hooks reference, cited in the code); on `resume` it prints only the five `brain status` lines and the `STATUS.md` text, no protocol text; on startup, clear and compact it prints the protocol plus the status, as now; the Decisions row "Claude Code channel for the protocol" gains a dated amendment (Peter, 2026-10-29)
+  - Verify: one hook test per `source` value; the resume test asserts no protocol text and a size well under the full text; `bun run validate`
+  - Files: scripts/hooks/claude-code.json, scripts/hooks/session-start.ts, scripts/hooks/__tests__/session-start.test.ts, docs/intent/workspace-and-stateful-interview.md, spec/SPEC-workspace.md
+  - Depends: T32. Scope: S
+
 ### Checkpoint: phase 5
 - [x] The hook's output is under 10,000 characters on every fixture; `bun run check` green (4,505 to 5,093 characters, held by T32's test)
 - [ ] Review with Peter
