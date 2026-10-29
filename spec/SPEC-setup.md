@@ -62,6 +62,15 @@ capability map becomes a DEC file. When a plan sits beside several specs, the sk
 the user which spec it belongs to, one question, and passes the answer as `--plan-spec`;
 without that answer the script exits 2.
 
+**Amended 2026-10-29, by the workspace migrate mode (`SPEC-workspace.md`, task T37).**
+`--migrate` moves each intent doc in `docs/intent/` that the user picks to
+`docs/ideas/IDEA-NNN-<name>.md` with `git mv`, adding only its ID and `migrated: 0.8`; it
+gets no status, since only the user knows it. It removes `docs/agents/issue-tracker.md` and
+`docs/agents/triage-labels.md` with `git rm`, inside the run's one commit, only after the
+user's yes. The skill asks one question per intent doc and one for the tracker files, and
+passes the answers as `--ideas` and `--tracker-files`. A run that lacks an answer it needs
+exits 2 and names every such answer at once.
+
 **Amended 2026-10-29, by the workspace install flow (`SPEC-workspace.md`, task T34).** A
 second script, `scripts/setup/capabilities.ts`, proposes `docs/agents/capabilities.md` from
 the repo's files: toolchain checks from `packageManager` and `engines`, library skills from

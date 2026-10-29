@@ -24,7 +24,7 @@ There is no `docs/agents/workspace.md`, no `docs/STATUS.md`, and no root `SPEC.m
 
 - `tasks/plan.md` and `tasks/todo.md` belong to `spec/SPEC-billing.md`: the plan's second line names it. `spec/SPEC-accounts.md` gets a spec folder with no plan.
 - Both specs come from `docs/intent/billing.md`.
-- `docs/intent/usage-alerts.md` is a draft with no spec: if it becomes an idea, the idea is in define.
+- `docs/intent/usage-alerts.md` is a draft with no spec. If it becomes an idea, the idea gets no status, like every migrated idea: only the user knows it (Decisions row "Migrated files' fields").
 
 ## What brain must report
 

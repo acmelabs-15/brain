@@ -277,7 +277,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/setup` on the 0.8 fixture; bodies byte-compared
   - Files: scripts/setup/migrate.ts, scripts/setup/__tests__/migrate.test.ts, skills/setup-brain/SKILL.md
   - Depends: T13, T33. Scope: M
-- [ ] T37: migrate mode (b), intent docs and the tracker files
+- [x] T37: migrate mode (b), intent docs and the tracker files
   - Acceptance: `docs/intent/*.md` become IDEA files with `git mv` after the skill asks which ones, one question per call; `docs/agents/issue-tracker.md` and `triage-labels.md` are removed only with the user's yes
   - Verify: `bun test scripts/setup`
   - Files: scripts/setup/migrate.ts, scripts/setup/__tests__/migrate.test.ts, skills/setup-brain/SKILL.md

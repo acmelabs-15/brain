@@ -2,8 +2,11 @@
  * The setup writer's migrate mode, for a repo on brain 0.8 (`write.ts --migrate`).
  *
  * Every change is decided before the first write, so a dry run lists what a real run does.
+ * Each answer the run needs from the user is read first: when one is missing or names no file
+ * the run found, the run names every such answer in one UsageError and changes nothing.
  * A real run writes one commit of its own, which holds the migrated files and nothing else;
- * if a move, a write or the commit fails, every file goes back to its old place and bytes.
+ * if a move, a removal, a write or the commit fails, every file goes back to its old place and
+ * bytes.
  *
  * A migrated file gains frontmatter and nothing else: no byte below the frontmatter changes.
  * The frontmatter holds only what the file's name, its place and git's history can tell: its
@@ -21,6 +24,15 @@
  * approved map is the user's decision. Any other file in `spec/` stays where it is.
  *
  * The frontmatter step gives each DEC and RES file in place that has no frontmatter its own.
+ *
+ * The intent step moves each 0.8 intent doc in `docs/intent/` that the user picks (`ideas`) with
+ * `git mv` to an IDEA file, `IDEA-NNN-<slug>.md`, whose slug comes from the doc's file name. Its
+ * frontmatter holds its ID and `migrated: 0.8` only: no status, since a guessed one would hide
+ * that nobody set it. A doc the user did not pick stays where it is.
+ *
+ * The tracker step takes setup-brain 0.8's tracker files, `docs/agents/issue-tracker.md` and
+ * `docs/agents/triage-labels.md`, out with `git rm` when the user said yes (`trackerFiles:
+ * remove`); brain no longer reads them. It is the one step that deletes, and only on that yes.
  */
 import { mkdir, readdir, rmdir } from "node:fs/promises";
 import path from "node:path";
@@ -29,7 +41,7 @@ import { claim, claimsFolder, peek } from "../workspace/claims";
 import { findRepo, readConfig } from "../workspace/config";
 import type { Paths } from "../workspace/config";
 import { readFrontmatter } from "../workspace/schema";
-import type { Change, SetupInput } from "./write";
+import type { Change, SetupInput, TrackerAnswer } from "./write";
 
 /** An answer the run cannot use, or one it needs and lacks: write.ts exits 2 on it. */
 export class UsageError extends Error {
@@ -49,7 +61,8 @@ type Write = {
   path: string;
   full: string;
   before: Uint8Array;
-  after: Uint8Array;
+  /** The file's bytes after the run; null when the run takes the file out with `git rm`. */
+  after: Uint8Array | null;
   /** The path the file moves from with `git mv`; absent when the file stays in its place. */
   from?: string;
 };
@@ -59,6 +72,8 @@ type Undo = () => Promise<void> | void;
 const commitTitle = "chore: migrate to the brain workspace layout";
 const commitBody =
   "Move each brain 0.8 file to its place in the workspace with git mv, and give each migrated file its frontmatter: its ID, migrated: 0.8 and, in a DEC or RES, the date of its first commit. No byte below the frontmatter changes.";
+const removalBody =
+  "Remove setup-brain 0.8's tracker files with git rm, after the user's yes: brain no longer reads them.";
 
 const recordTypes = [
   { type: "DEC", folder: "decisions", dateField: "decided" },
@@ -70,6 +85,18 @@ const planFiles = ["tasks/plan.md", "tasks/todo.md"];
 
 /** The answer that keeps the plan and the todo where they are. */
 const noSpec = "none";
+
+/** The folder of the 0.8 intent docs, which become ideas when the user picks them. */
+const intentFolder = "docs/intent";
+
+/** The answer that keeps every intent doc where it is. */
+const noIdeas = "none";
+
+/** setup-brain 0.8's tracker files. With triage gone, brain no longer reads them. */
+const trackerFiles = ["docs/agents/issue-tracker.md", "docs/agents/triage-labels.md"];
+
+const notPicked = "the user did not pick it as an idea; it stays where it is";
+const kept = "the user chose to keep it; it stays where it is";
 
 function git(root: string, ...args: string[]) {
   return Bun.spawnSync(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
@@ -203,6 +230,9 @@ async function findSpecFiles(root: string): Promise<Found[]> {
   );
 }
 
+/** The spec the plan and the todo move beside, or the note that says why they stay. */
+type Owner = { spec: string } | { note: string };
+
 /** The specs a `--plan-spec` answer can name, then `none`, as a list a sentence ends with. */
 function choices(specs: string[]): string {
   const all = [...specs, noSpec];
@@ -215,11 +245,7 @@ function choices(specs: string[]): string {
  * a spec's path, or `none`. Throws a UsageError when the answer names no spec, or when several
  * specs need one and it is absent.
  */
-function planOwner(
-  specs: string[],
-  plans: string[],
-  answer: string | undefined,
-): { spec: string } | { note: string } | null {
+function planOwner(specs: string[], plans: string[], answer: string | undefined): Owner | null {
   const named = answer === undefined || answer === noSpec ? answer : path.normalize(answer);
   if (named !== undefined && named !== noSpec && !specs.includes(named)) {
     throw new UsageError(`--plan-spec ${answer} names no spec: pass ${choices(specs)}`);
@@ -337,7 +363,7 @@ async function movePlans(
   step: Step,
   root: string,
   plans: string[],
-  owner: { spec: string } | { note: string },
+  owner: Owner,
   folders: Map<string, SpecFolder>,
 ): Promise<void> {
   const target =
@@ -359,15 +385,15 @@ async function movePlans(
   }
 }
 
+/** The 0.8 files of the spec step, and the spec the plan belongs to, all read before any change. */
+type SpecFiles = { classified: Found[]; plans: string[]; owner: Owner | null };
+
 async function specStep(
-  input: Pick<SetupInput, "root" | "dryRun" | "planSpec">,
+  root: string,
+  dryRun: boolean,
   paths: Paths,
+  { classified, plans, owner }: SpecFiles,
 ): Promise<Step> {
-  const { root, dryRun } = input;
-  const classified = await findSpecFiles(root);
-  const plans = await existing(root, planFiles);
-  const specPaths = classified.filter((file) => file.kind === "spec").map((file) => file.path);
-  const owner = planOwner(specPaths, plans, input.planSpec);
   // Every reason to stay is known before a number is claimed, so no claim goes to a file that stays.
   const found = withReasons(root, classified);
   const moving = (kind: Found["kind"]) =>
@@ -382,6 +408,129 @@ async function specStep(
     await movePlans(step, root, plans, owner, folders);
   }
   return step;
+}
+
+/** The 0.8 intent docs: the Markdown files directly in `docs/intent/`, in name order. */
+async function findIntentDocs(root: string): Promise<string[]> {
+  const names = await filesIn(`${root}/${intentFolder}`);
+  return names.filter((name) => name.endsWith(".md")).map((name) => `${intentFolder}/${name}`);
+}
+
+/** What an `--ideas` answer can be, as the end of a sentence. */
+function ideaChoices(docs: string[]): string {
+  return docs.length === 0
+    ? `there is no intent doc, so pass ${noIdeas}`
+    : `pass paths from (${docs.join(", ")}), comma-separated, or ${noIdeas}`;
+}
+
+/**
+ * The intent docs the user picked to become ideas, from `answer`: their paths, comma-separated,
+ * or `none`. Throws a UsageError when intent docs exist and the answer is absent, or when the
+ * answer names a file that is no intent doc.
+ */
+function pickedIdeas(docs: string[], answer: string | undefined): string[] {
+  if (answer === undefined) {
+    if (docs.length === 0) {
+      return [];
+    }
+    throw new UsageError(
+      `the user picks which intent docs become ideas (${docs.join(", ")}): pass --ideas with the paths the user picked, comma-separated, or ${noIdeas}`,
+    );
+  }
+  if (answer === noIdeas) {
+    return [];
+  }
+  const named = answer
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter((entry) => entry !== "")
+    .map((entry) => path.normalize(entry));
+  const wrong = named.length === 0 ? [answer] : named.filter((doc) => !docs.includes(doc));
+  if (wrong.length > 0) {
+    throw new UsageError(
+      `--ideas ${wrong.join(",")}: no intent doc by that name; ${ideaChoices(docs)}`,
+    );
+  }
+  return named;
+}
+
+/**
+ * The user's answer on the tracker files that exist, or null when none exists. Throws a
+ * UsageError when one exists and the answer is absent: only the user's yes takes them out.
+ */
+function trackerAnswer(files: string[], answer: TrackerAnswer | undefined): TrackerAnswer | null {
+  if (files.length === 0) {
+    return null;
+  }
+  if (answer === undefined) {
+    throw new UsageError(
+      `the tracker files (${files.join(", ")}) go only on the user's yes: pass --tracker-files remove after a yes, else keep`,
+    );
+  }
+  return answer;
+}
+
+/** Move each intent doc the user picked to an IDEA file; list each other doc as skipped, with why. */
+async function intentStep(
+  root: string,
+  dryRun: boolean,
+  paths: Paths,
+  docs: string[],
+  picked: string[],
+): Promise<Step> {
+  const found = await Promise.all(
+    docs.map(async (doc) => {
+      const bytes = await Bun.file(`${root}/${doc}`).bytes();
+      const stays = picked.includes(doc) ? whyStays(root, doc, bytes) : notPicked;
+      return { doc, bytes, stays };
+    }),
+  );
+  const moving = found.filter((file) => file.stays === null).length;
+  const ids = await nextIds(root, "IDEA", paths.ideas, moving, dryRun);
+  const step: Step = { changes: [], writes: [] };
+  for (const { doc, bytes, stays } of found) {
+    if (stays !== null) {
+      step.changes.push({ path: doc, action: "skipped", note: stays });
+      continue;
+    }
+    const id = ids.shift() ?? "";
+    const slug = slugify(path.basename(doc, ".md")) || "idea";
+    const head = `---\nid: ${id}\nmigrated: 0.8\n---\n`;
+    addMove(step, root, doc, `${paths.ideas}/${id}-${slug}.md`, head, bytes);
+  }
+  return step;
+}
+
+/** Take out each tracker file on the user's yes; list each one kept or skipped, with why. */
+async function trackerStep(
+  root: string,
+  files: string[],
+  answer: TrackerAnswer | null,
+): Promise<Step> {
+  const step: Step = { changes: [], writes: [] };
+  for (const file of files) {
+    const note = answer === "keep" ? kept : skipReason(root, file);
+    if (note !== null) {
+      step.changes.push({ path: file, action: "skipped", note });
+      continue;
+    }
+    const full = `${root}/${file}`;
+    step.writes.push({ path: file, full, before: await Bun.file(full).bytes(), after: null });
+    step.changes.push({ path: file, action: "removed" });
+  }
+  return step;
+}
+
+/** What `read` returns, or the UsageError it throws, so that a run can name every bad answer at once. */
+function settle<T>(read: () => T): T | UsageError {
+  try {
+    return read();
+  } catch (error) {
+    if (error instanceof UsageError) {
+      return error;
+    }
+    throw error;
+  }
 }
 
 function gitMove(root: string, from: string, to: string): void {
@@ -404,8 +553,28 @@ async function removeFolders(made: string, folder: string): Promise<void> {
   }
 }
 
-/** Make one write, a move with `git mv` first when the file moves; push what takes it back. */
+/** Take the file out with `git rm`; push what puts it back in the index and on disk. */
+function gitRemove(root: string, write: Write, undo: Undo[]): void {
+  const removed = git(root, "rm", "--quiet", "--", write.path);
+  if (removed.exitCode !== 0) {
+    throw new Error(`git rm ${write.path} failed: ${removed.stderr.toString().trim()}`);
+  }
+  undo.push(async () => {
+    const reset = git(root, "reset", "--quiet", "--", write.path);
+    if (reset.exitCode !== 0) {
+      throw new Error(`git reset ${write.path} failed: ${reset.stderr.toString().trim()}`);
+    }
+    await mkdir(path.dirname(write.full), { recursive: true });
+    await Bun.write(write.full, write.before);
+  });
+}
+
+/** Make one write: a removal, or a move with `git mv` first when the file moves; push what takes it back. */
 async function apply(root: string, write: Write, undo: Undo[]): Promise<void> {
+  if (write.after === null) {
+    gitRemove(root, write, undo);
+    return;
+  }
   const { from } = write;
   if (from !== undefined) {
     const folder = path.dirname(write.full);
@@ -437,11 +606,36 @@ async function undoAll(undo: Undo[]): Promise<string[]> {
 
 /** Run the migrate mode in `input.root`: list each change, and on a real run write one commit. */
 export async function migrate(
-  input: Pick<SetupInput, "root" | "dryRun" | "planSpec">,
+  input: Pick<SetupInput, "root" | "dryRun" | "planSpec" | "ideas" | "trackerFiles">,
 ): Promise<MigrateResult> {
   const root = path.resolve(input.root);
+  const { dryRun } = input;
   const { paths } = await readConfig(root);
-  const steps = [await specStep({ ...input, root }, paths), await frontmatterStep(root, paths)];
+  const classified = await findSpecFiles(root);
+  const plans = await existing(root, planFiles);
+  const docs = await findIntentDocs(root);
+  const trackers = await existing(root, trackerFiles);
+  const specPaths = classified.filter((file) => file.kind === "spec").map((file) => file.path);
+  // Every answer is read before the first claim, so a refused run leaves no trace.
+  const owner = settle(() => planOwner(specPaths, plans, input.planSpec));
+  const picked = settle(() => pickedIdeas(docs, input.ideas));
+  const removal = settle(() => trackerAnswer(trackers, input.trackerFiles));
+  if (
+    owner instanceof UsageError ||
+    picked instanceof UsageError ||
+    removal instanceof UsageError
+  ) {
+    const refused = [owner, picked, removal].flatMap((answer) =>
+      answer instanceof UsageError ? [answer.message] : [],
+    );
+    throw new UsageError(refused.join("\n"));
+  }
+  const steps = [
+    await specStep(root, dryRun, paths, { classified, plans, owner }),
+    await frontmatterStep(root, paths),
+    await intentStep(root, dryRun, paths, docs, picked),
+    await trackerStep(root, trackers, removal),
+  ];
   const changes = steps.flatMap((step) => step.changes);
   const writes = steps.flatMap((step) => step.writes);
   if (input.dryRun || writes.length === 0) {
@@ -455,7 +649,8 @@ export async function migrate(
     const committed = writes.flatMap((write) =>
       write.from === undefined ? [write.path] : [write.from, write.path],
     );
-    const message = ["-m", commitTitle, "-m", commitBody];
+    const removes = writes.some((write) => write.after === null);
+    const message = ["-m", commitTitle, "-m", commitBody, ...(removes ? ["-m", removalBody] : [])];
     const commit = git(root, "commit", "--quiet", ...message, "--", ...committed);
     if (commit.exitCode !== 0) {
       throw new Error(`git commit failed: ${commit.stderr.toString().trim()}`);

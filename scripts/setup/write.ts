@@ -2,12 +2,19 @@
  * Write what brain's skills assume is in a repo, and the one file Codex needs on this machine.
  *
  *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--dry-run | --check] [--brain <plugin root>]
- *   bun run scripts/setup/write.ts --root <repo> --migrate [--plan-spec <spec>|none] [--dry-run]
+ *   bun run scripts/setup/write.ts --root <repo> --migrate [--plan-spec <spec>|none] [--ideas <path>,<path>|none] [--tracker-files remove|keep] [--dry-run]
  *
  * --migrate runs the migrate mode for a repo on brain 0.8 (see migrate.ts) instead of the
- * writes below, and prints the commit it wrote. --plan-spec is the user's answer when the repo
- * has several specs: the 0.8 spec that tasks/plan.md and tasks/todo.md belong to, or none.
- * Without it, several specs beside a plan exit 2, as does an answer that names no spec.
+ * writes below, and prints the commit it wrote. Each other flag is the user's answer to one
+ * question of setup-brain:
+ * --plan-spec, when the repo has several specs: the 0.8 spec that tasks/plan.md and
+ * tasks/todo.md belong to, or none.
+ * --ideas, when docs/intent/ holds Markdown files: the ones that become ideas, comma-separated,
+ * or none.
+ * --tracker-files, when docs/agents/issue-tracker.md or triage-labels.md exists: remove, after
+ * the user's yes, or keep.
+ * A run that lacks an answer it needs exits 2 and names each one, as does an answer that names
+ * no file the run found.
  *
  * docs/agents/domain.md gets the consumer rules with the layout named.
  * docs/agents/workspace.md gets the workspace template; a re-run keeps the folder paths and the
@@ -30,9 +37,10 @@ import { migrate, UsageError } from "./migrate";
 
 export type Layout = "single" | "multi";
 export type CodexScope = "global" | "project";
+export type TrackerAnswer = "remove" | "keep";
 export type Change = {
   path: string;
-  action: "created" | "updated" | "unchanged" | "skipped" | "moved";
+  action: "created" | "updated" | "unchanged" | "skipped" | "moved" | "removed";
   /** Why a change was skipped, printed beside it. */
   note?: string;
 };
@@ -51,6 +59,10 @@ export type SetupInput = {
   migrate?: boolean;
   /** The user's answer for the migrate mode: the 0.8 spec that `tasks/` belongs to, or `none`. */
   planSpec?: string;
+  /** The user's answer for the migrate mode: the intent docs that become ideas, comma-separated, or `none`. */
+  ideas?: string;
+  /** The user's answer for the migrate mode: `remove` the 0.8 tracker files, after a yes, or `keep` them. */
+  trackerFiles?: TrackerAnswer;
   /** Report drift: list what a run would change, write nothing, exit 1 when anything would. */
   check?: boolean;
 };
@@ -269,6 +281,17 @@ const valued: Record<string, Setter> = {
     input.planSpec = value;
     return true;
   },
+  "--ideas": (input, value) => {
+    input.ideas = value;
+    return true;
+  },
+  "--tracker-files": (input, value) => {
+    if (!oneOf(["remove", "keep"] as const, value)) {
+      return false;
+    }
+    input.trackerFiles = value;
+    return true;
+  },
   "--layout": (input, value) => {
     if (!oneOf(["single", "multi"] as const, value)) {
       return false;
@@ -325,8 +348,14 @@ function parseArgs(argv: string[]): SetupInput {
   if (input.check === true && input.migrate === true) {
     throw new Error("--check reports the install files; it does not apply to --migrate");
   }
-  if (input.planSpec !== undefined && input.migrate !== true) {
-    throw new Error("--plan-spec answers the migrate mode; add --migrate");
+  const answers = [
+    ["--plan-spec", input.planSpec],
+    ["--ideas", input.ideas],
+    ["--tracker-files", input.trackerFiles],
+  ];
+  const stray = answers.find(([, value]) => value !== undefined && input.migrate !== true);
+  if (stray !== undefined) {
+    throw new Error(`${stray[0]} answers the migrate mode; add --migrate`);
   }
   return input;
 }

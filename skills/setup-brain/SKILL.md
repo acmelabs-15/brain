@@ -37,7 +37,7 @@ Read what exists. Facts are your job; never ask the user for one you can look up
 - `GLOSSARY.md`, `GLOSSARY-MAP.md` and `docs/decisions/`: which exist. Also the old glossary names at the root, `CONTEXT.md` and `CONTEXT-MAP.md`.
 - Monorepo signals: `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or `packages/*` folders that each hold their own `src/`. Their absence means single-context, which is almost every repo.
 - The Codex home: `$CODEX_HOME`, else `~/.codex`. Whether the directory exists, and whether its `AGENTS.md` already holds the blocks between `<!-- brain:plain-talk:start -->` and `<!-- brain:plain-talk:end -->`, and between `<!-- brain:protocol:start -->` and `<!-- brain:protocol:end -->`.
-- The brain 0.8 layout: a root `SPEC.md`, Markdown files in `spec/`, `tasks/plan.md` and `tasks/todo.md`. When any of them exists, do "Migrate a repo on brain 0.8" below before step 3.
+- The brain 0.8 layout: a root `SPEC.md`, Markdown files in `spec/` or `docs/intent/`, `tasks/plan.md`, `tasks/todo.md`, `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md`. When any of them exists, do "Migrate a repo on brain 0.8" below before step 3.
 
 ## 3. Decide the small things, and say so
 
@@ -130,7 +130,7 @@ Running this skill again is safe: the scripts change nothing when everything is 
 
 ## Migrate a repo on brain 0.8
 
-A repo on brain 0.8 keeps its specs in a root `SPEC.md` or in `spec/`, and one plan in `tasks/plan.md` and `tasks/todo.md`. The script's migrate mode moves each file into the workspace with `git mv`, so its history follows it, and adds frontmatter to it. No byte below the frontmatter changes. The run writes one commit of its own.
+A repo on brain 0.8 keeps its specs in a root `SPEC.md` or in `spec/`, one plan in `tasks/plan.md` and `tasks/todo.md`, its intent docs in `docs/intent/`, and setup-brain 0.8's tracker files in `docs/agents/`. The script's migrate mode moves each file into the workspace with `git mv`, so its history follows it, and adds frontmatter to it. No byte below the frontmatter changes. The tracker files are the one exception: they go with `git rm`, and only on the user's yes. The run writes one commit of its own.
 
 | 0.8 file | Where the migrate mode puts it |
 |---|---|
@@ -138,15 +138,19 @@ A repo on brain 0.8 keeps its specs in a root `SPEC.md` or in `spec/`, and one p
 | `tasks/plan.md`, `tasks/todo.md` | The `tasks/` folder of the spec they belong to. |
 | The capability map in `spec/`, whose H1 opens with "Capability Map" | `docs/decisions/DEC-NNN-<slug>.md`. An approved map is the user's decision. |
 | A DEC or RES file with no frontmatter | Its own place, with frontmatter added. |
+| `docs/intent/<name>.md`, each one the user picks | `docs/ideas/IDEA-NNN-<name>.md`, with its ID and `migrated: 0.8`. It gets no status: only the user knows whether the idea is still in define. |
+| `docs/agents/issue-tracker.md`, `docs/agents/triage-labels.md` | Removed with `git rm` after the user's yes. brain's tracker skills are removed, so no brain skill reads these files now. |
 
-Every other file in `spec/` stays where it is. So does a file that git does not track or that has uncommitted changes. The script prints the reason beside each file it skips.
+Every other file in `spec/` stays where it is. So do an intent doc the user does not pick, a tracker file the user keeps, and a file that git does not track or that has uncommitted changes. The script prints the reason beside each file it skips.
 
 1. **Ask which spec the plan belongs to, only when `tasks/plan.md` or `tasks/todo.md` exists beside two or more specs.** With one spec, the files settle it: ask nothing. Put one question through the host's user-question tool, composed with the ask-user-question skill. Give one option per spec, by its 0.8 path, and a last option, none, which leaves the plan and the todo in `tasks/`. Recommend the spec that the plan names: a 0.8 plan names its spec near the top (`Spec: spec/SPEC-billing.md`). The step is done when you hold the answer: a spec's path, or none.
-2. **Show the dry run.** Leave out `--plan-spec` when step 1 asked nothing.
+2. **Ask, for each Markdown file in `docs/intent/`, whether it becomes an idea.** One question per call, one doc per question, so the question fits every host's option limit. Compose each with the ask-user-question skill, and put the doc's path, its H1 and its first lines in the question. Options: yes, it becomes an idea in `docs/ideas/`; no, it stays in `docs/intent/` as it is. Recommend yes for an intent doc: as an idea it sits in the workspace, where interview-me and `brain status` find it. Recommend no for a file that is no intent doc, such as an index. The step is done when every doc has an answer. The answer for the script is the paths that got a yes, comma-separated, or `none`.
+3. **Ask whether to remove the tracker files, only when `docs/agents/issue-tracker.md` or `docs/agents/triage-labels.md` exists.** One question for both, composed with the ask-user-question skill. Say what they are: setup-brain 0.8 wrote them for an issue tracker, and no brain skill reads them now. Options: remove them with `git rm`, inside the run's one commit; keep them as they are. Recommend remove, unless another tool in the repo still reads them, such as Matt Pocock's skills installed on their own; git history keeps the old text either way. Only an explicit yes removes them. The answer for the script is `remove` or `keep`.
+4. **Show the dry run.** Leave out each flag whose question steps 1 to 3 did not ask. Quote a value that holds a space.
 
    ```
-   bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --migrate --plan-spec <answer> --dry-run
+   bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --migrate --plan-spec <answer> --ideas <answer> --tracker-files <answer> --dry-run
    ```
 
-   Show every line: `moved <old> -> <new>`, `updated <file>`, or `skipped <file>` with its reason. Exit 2 means the script needs an answer that step 1 did not give, or the answer names no spec; its message lists the specs it found. The step is done when the user has seen every line.
-3. **Write, after the user's yes:** the same command without `--dry-run`. It prints `committed <sha>`; give the user that SHA. When a move or the commit fails, the script puts every file back as it was and exits 1; show its message.
+   Show every line: `moved <old> -> <new>`, `updated <file>`, `removed <file>`, or `skipped <file>` with its reason. Exit 2 means the script needs an answer that steps 1 to 3 did not give, or an answer names no file it found; its message names each flag and the files it found. The step is done when the user has seen every line.
+5. **Write, after the user's yes:** the same command without `--dry-run`. It prints `committed <sha>`; give the user that SHA. When a move, a removal or the commit fails, the script puts every file back as it was and exits 1; show its message.
