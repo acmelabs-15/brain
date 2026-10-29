@@ -55,10 +55,10 @@ ends with a checkpoint and a review with Peter.
 
 ## Phase 2: workspace foundation (`feat/workspace-layout`)
 
-- [ ] T09: the `brain` CLI skeleton and the workspace config (prefactor)
-  - Acceptance: `bun scripts/brain.ts` with no or an unknown subcommand prints usage and exits 2; the config reader takes `layout` and the four folder paths from `docs/agents/workspace.md` frontmatter, with the defaults when the file or a key is absent; `skills/setup-brain/workspace.md` is the template: `layout: 2`, the paths, the `brain <cmd>` definition, the new-doc-only rule
+- [ ] T09: the `brain` CLI skeleton and the `workspace.md` template (prefactor)
+  - Acceptance: `bun scripts/brain.ts` with no or an unknown subcommand prints usage and exits 2; `skills/setup-brain/workspace.md` is the template: `layout: 2`, the paths, the `brain <cmd>` definition, the new-doc-only rule (the config reader moved to T11, its first user, where the CLI seam can test it)
   - Verify: `bun test scripts/workspace` (CLI seam)
-  - Files: scripts/brain.ts, scripts/workspace/config.ts, scripts/workspace/__tests__/cli.test.ts, skills/setup-brain/workspace.md
+  - Files: scripts/brain.ts, scripts/workspace/__tests__/cli.test.ts, skills/setup-brain/workspace.md
   - Depends: T08. Scope: M
 - [ ] T10: the templates and their frontmatter schemas
   - Acceptance: IDEA, DEC, RES, spec, plan and todo templates as in the intent doc's File formats, with the H1 ID rule and the `spec:` field; one schema per type that check and new-doc share; plan rows carry ID, task, type (`task` or `checkpoint`), status, blocked by, result; todo blocks carry no status line and no Dependencies field; the RES finding line allows the optional validator; `from` is required for new DEC and RES files, and a migrated 0.8 file carries `migrated: 0.8` instead, the only case where the check accepts a missing `from`; `evidence` is optional for all files; the schemas are final for this build: T13 and T17 use them unchanged
@@ -66,9 +66,9 @@ ends with a checkpoint and a review with Peter.
   - Files: scripts/workspace/templates/{IDEA,DEC,RES,spec,plan,todo}.md, scripts/workspace/schema.ts, test
   - Depends: T09. Scope: M
 - [ ] T11: `brain new-doc`
-  - Acceptance: `brain new-doc IDEA|DEC|RES|SPEC <slug>` claims the next number with `mkdir` under `$(git rev-parse --git-common-dir)/brain/ids/<TYPE>/`, falls back to the user's cache directory outside git, writes the file from its template, prints the path; SPEC writes the folder with `spec.md`, `tasks/plan.md`, `tasks/todo.md`; a bad type or slug exits 2; `package.json` gains `new-doc`
+  - Acceptance: the config reader (`scripts/workspace/config.ts`) takes `layout` and the four folder paths from `docs/agents/workspace.md` frontmatter, with the defaults when the file or a key is absent, and new-doc writes into those folders; `brain new-doc IDEA|DEC|RES|SPEC <slug>` claims the next number with `mkdir` under `$(git rev-parse --git-common-dir)/brain/ids/<TYPE>/`, falls back to the user's cache directory outside git, writes the file from its template, prints the path; SPEC writes the folder with `spec.md`, `tasks/plan.md`, `tasks/todo.md`; a bad type or slug exits 2; `package.json` gains `new-doc`
   - Verify: CLI seam, one case per type; the parallel test: 20 processes, several runs, unique numbers, no gap without a failed claim
-  - Files: scripts/workspace/new-doc.ts, scripts/workspace/claims.ts, scripts/workspace/__tests__/new-doc.test.ts, package.json
+  - Files: scripts/workspace/config.ts, scripts/workspace/new-doc.ts, scripts/workspace/claims.ts, scripts/workspace/__tests__/new-doc.test.ts, package.json
   - Depends: T10. Scope: M
 - [ ] T12: shared fixtures and the map parser
   - Acceptance: fixture folders for an idea mid-define with a known frontier, a spec mid-build, no active work, and a 0.8-layout repo; a parser that reads map and plan rows and computes the frontier (open rows whose blockers are all resolved)
