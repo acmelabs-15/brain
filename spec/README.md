@@ -1,6 +1,6 @@
 # Specs
 
-`CAPABILITY-MAP.md` names the six modules and their build order. Each module has one
+`CAPABILITY-MAP.md` names the modules and their build order. Each module has one
 spec, `SPEC-<module id>.md`, written and approved before its plan under `tasks/`.
 
 | Module | Spec | State |
@@ -12,3 +12,5 @@ spec, `SPEC-<module id>.md`, written and approved before its plan under `tasks/`
 | lifecycle | `SPEC-lifecycle.md` | approved, built |
 | question | `SPEC-question.md` | approved, built |
 | evals | `SPEC-evals.md` | approved, built; the first run is Peter's task 5 |
+| workspace | `SPEC-workspace.md` | approved 2026-10-29 |
+| source-cache | `SPEC-source-cache.md` | approved 2026-10-29; own branch, `feat/source-cache` |

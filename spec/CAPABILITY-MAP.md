@@ -13,6 +13,9 @@ spec, `SPEC-<module id>.md`, written and built in the order below.
 | evals | Routing and plain-talk evals in CI | plain-talk, lifecycle |
 | question | Retired 2026-10-28 by DEC-002: the skill is upstream's text, with brain's metadata and one paragraph fixed. Was: the rewrite of ask-user-question from the 24 artifact files in Peter's repo: a short description, evidence per rule, honest host limits, brain's rules folded in (added 2026-09-19) | — |
 
-Build order: upstream-sync and host-manifests → plain-talk → setup → lifecycle and question, either order → evals
+| workspace | Added 2026-10-29. One workspace layout (`docs/decisions`, `docs/research`, `docs/ideas`, `docs/specs`), the `brain` CLI (new-doc, check, status), the stateful interview-me that absorbs wayfinder, the always-on protocol, setup-brain's install and migrate modes, and the `CONTEXT.md` to `GLOSSARY.md` rename | upstream-sync, plain-talk, setup, lifecycle |
+| source-cache | Added 2026-10-29. A hardened Bun port of agent-skills' sdd-cache hooks, wired by the plugin on Claude Code | — |
+
+Build order: upstream-sync and host-manifests → plain-talk → setup → lifecycle and question, either order → evals. Then workspace; source-cache any time, on its own branch.
 
 Sources: `docs/intent/brain-wrap.md`, `docs/research/RES-001-wrap-layout.md`.
