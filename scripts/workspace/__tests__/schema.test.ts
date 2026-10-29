@@ -36,7 +36,7 @@ const validIdea = `---
 id: IDEA-004
 status: define
 ---
-# IDEA-004: Keep the define phase on disk
+# IDEA-004: Keep the define stage on disk
 `;
 
 const validDec = `---
@@ -307,7 +307,7 @@ describe("the H1", () => {
   test("an H1 with no title fails", () => {
     expect(
       fields(
-        checkDoc("IDEA", validIdea.replace(": Keep the define phase on disk", ":"), "IDEA-004"),
+        checkDoc("IDEA", validIdea.replace(": Keep the define stage on disk", ":"), "IDEA-004"),
       ),
     ).toEqual(["H1"]);
   });

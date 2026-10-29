@@ -1,6 +1,6 @@
 ---
 name: status
-description: "Reports where the active work stands in five lines, read from the workspace and docs/STATUS.md: the phase, the last completed step, the next step, anything red, and the decisions waiting on the user. Use when a session starts or resumes and no status report is in context yet, when the user asks for the status, where the work stands or what comes next, and before you name a next step from memory."
+description: "Reports where the active work stands in five lines, read from the workspace and docs/STATUS.md: the stage, the last completed step, the next step, anything red, and the decisions waiting on the user. Use when a session starts or resumes and no status report is in context yet, when the user asks for the status, where the work stands or what comes next, and before you name a next step from memory."
 ---
 
 # Status
@@ -34,7 +34,7 @@ The step is done when the user has seen the lines and every red item has its nex
 
 | Line | What it holds |
 |---|---|
-| Phase | The active effort and its phase: an idea with `status: define` is in define; a spec whose `tasks/plan.md` has an `open` or `in-progress` row is in build. The active effort is the one the git branch names, else every effort that is not finished. A branch can name a finished effort; its phase is then "finished". "No active work" when no effort is active. |
+| Stage | The active effort and its stage: an idea with `status: define` is in define; a spec whose `tasks/plan.md` has an `open` or `in-progress` row is in build. The active effort is the one the git branch names, else every effort that is not finished. A branch can name a finished effort; its stage is then "finished". "No active work" when no effort is active. |
 | Last step | Each active effort's highest-numbered resolved row, with its result. |
 | Next step | The next step `docs/STATUS.md` names. Without one: each effort's first frontier row, then its rows in progress. When the rows give none: the first line of `docs/STATUS.md`. |
 | Red | A missing `docs/agents/workspace.md`, and the number of `brain check` findings. |

@@ -1,13 +1,13 @@
 ---
 name: using-brain
-description: Routes a piece of work to the brain skill that fits it: the main flow from interview to ship, the prototype detour and the vocabulary layer. Use at session start, when unsure which skill or command applies, or at a phase boundary to choose continue, clear, handoff, sub-agent or compact. Names setup-brain as the once-per-repo precondition.
+description: Routes a piece of work to the brain skill that fits it: the main flow from interview to ship, the prototype detour and the vocabulary layer. Use at session start, when unsure which skill or command applies, or at a stage boundary to choose continue, clear, handoff, sub-agent or compact. Names setup-brain as the once-per-repo precondition.
 ---
 
 # Using brain
 
 ## Overview
 
-brain's skills are engineering workflows organized by development phase. Each skill encodes a process that senior engineers follow. This meta-skill routes the work at hand to the right one.
+brain's skills are engineering workflows organized by development stage. Each skill encodes a process that senior engineers follow. This meta-skill routes the work at hand to the right one.
 
 Most work travels one **main flow**: idea to ship. A **vocabulary layer** runs underneath every skill. The rest is standalone.
 
@@ -76,14 +76,14 @@ Some questions need a runnable answer: a state model, business logic, a UI you h
 
 Domain words come from `GLOSSARY.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for domain-modeling, the skill that sharpens a fuzzy term, resolves an overloaded word and records a hard-to-reverse decision as an ADR. codebase-design is the deep-module vocabulary (module, interface, depth, seam) for designing a module's shape; test-driven-development and code-review-and-quality speak it. wait-what is the repair for a message that did not land: the agent re-pitches it in plain words from the glossary, mid-conversation, inside any skill.
 
-## Phase Boundaries
+## Stage Boundaries
 
-A phase is a chunk of work inside a session: the interview, the spec, the plan, a task, the review. At the boundary between two phases choose one of five moves, in this order: continue, clear, handoff, sub-agent, compact. The first yes wins. Continue costs nothing and loses nothing, so rule it out first. Compact is the default at the bottom of the tree, not the first reach. Make the choice at a boundary; mid-phase, continue or split the rest into sub-agents. The ordered tree, the five questions and the reasoning behind each are in `../../references/brain/phase-boundaries.md`.
+A stage is a chunk of work inside a session: the interview, the spec, the plan, a task, the review. At the boundary between two stages choose one of five moves, in this order: continue, clear, handoff, sub-agent, compact. The first yes wins. Continue costs nothing and loses nothing, so rule it out first. Compact is the default at the bottom of the tree, not the first reach. Make the choice at a boundary; mid-stage, continue or split the rest into sub-agents. The ordered tree, the five questions and the reasoning behind each are in `../../references/brain/stage-boundaries.md`.
 
 Two window rules:
 
 - Keep define through plan in one unbroken window. The interview, the spec and the plan build on the same thinking, so compact or clear only after the plan is approved. Each task then starts in a clean context, working from the plan and the spec.
-- The smart zone is the window (about 150k tokens on current models) in which the model still reasons sharply. When a session nears it before the plan is approved, do not push on degraded: compact at the nearest phase boundary with an instruction that names what comes next, and carry on.
+- The smart zone is the window (about 150k tokens on current models) in which the model still reasons sharply. When a session nears it before the plan is approved, do not push on degraded: compact at the nearest stage boundary with an instruction that names what comes next, and carry on.
 
 ## Core Operating Behaviors
 
@@ -227,7 +227,7 @@ In Claude Code every command sits under the plugin prefix: type `/brain`, a colo
 
 ## Quick Reference
 
-| Phase | Skill | One-Line Summary |
+| Stage | Skill | One-Line Summary |
 |-------|-------|-----------------|
 | Setup | setup-brain | Plain-talk block and domain docs layout, once per repo |
 | Define | interview-me | Surface what the user actually wants before any plan, spec, or code exists; stateful in a repo |

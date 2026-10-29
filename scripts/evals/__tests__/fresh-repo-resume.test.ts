@@ -269,7 +269,7 @@ describe("setup/fresh-repo-resume, the scaffold", () => {
     expect(status.exitCode).toBe(0);
     const lines = status.out.trim().split("\n");
     expect(lines).toHaveLength(5);
-    expect(lines[0]).toBe("Phase: no active work");
+    expect(lines[0]).toBe("Stage: no active work");
     expect(lines[2]).toStartWith("Next step: ");
     expect(lines[2]).toContain("interview-me");
     expect(lines[3]).toBe("Red: none");
@@ -312,14 +312,14 @@ describe("setup/fresh-repo-resume, the computed graders on played runs", () => {
     expect(await failing(run)).toEqual(["agents-md"]);
   });
 
-  test("a session that reports work that does not exist fails the phase grader", async () => {
+  test("a session that reports work that does not exist fails the stage grader", async () => {
     const run = await play("invented", () =>
       Promise.resolve({
         calls: [],
-        last: "Phase: define (IDEA-001: a probe CLI). Next step: IDEA-001#01, then interview-me's next row.",
+        last: "Stage: define (IDEA-001: a probe CLI). Next step: IDEA-001#01, then interview-me's next row.",
       }),
     );
-    expect(await failing(run)).toEqual(["phase"]);
+    expect(await failing(run)).toEqual(["stage"]);
   });
 
   test("a session that gives no next step fails the next-step grader", async () => {

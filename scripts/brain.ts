@@ -21,7 +21,7 @@ commands:
   new-doc <TYPE> <slug>   create the next numbered file: IDEA, DEC, RES or SPEC
   check                   check the workspace against its rules
   plan [<spec>] [--json]  print what can run at once in a spec's plan: waves, critical path
-  status [--json]         report the active work: phase, last step, next step`;
+  status [--json]         report the active work: stage, last step, next step`;
 
 /**
  * Each command takes the arguments after its name and returns the exit code. A new

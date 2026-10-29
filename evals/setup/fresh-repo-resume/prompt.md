@@ -1,5 +1,5 @@
 ---
-description: After setup-brain in a fresh repo, a new session reports its phase and next step, and the repo's AGENTS.md holds no brain text.
+description: After setup-brain in a fresh repo, a new session reports its stage and next step, and the repo's AGENTS.md holds no brain text.
 tags: [setup]
 max_turns: 15
 allowed_tools: [Read, Glob, Grep, Skill, Bash, Write, Edit]

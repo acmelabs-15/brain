@@ -1,10 +1,10 @@
 Adapted from mattpocock/skills, MIT, commit c55ee46.
 
-# Phase boundaries
+# Stage boundaries
 
-A **phase** is a chunk of work inside a session: the interview, the spec, the implementation, the QA. The definition is fuzzy on purpose. A phase ends when you think "ok, we are done with that".
+A **stage** is a chunk of work inside a session: the interview, the spec, the implementation, the QA. The definition is fuzzy on purpose. A stage ends when you think "ok, we are done with that".
 
-The **phase boundary** is the gap between two phases. It is the only place this decision belongs. Mid-phase there is no decision to make: continue, or split the work that is left into sub-agents. Compacting mid-phase makes the agent lose the thread.
+The **stage boundary** is the gap between two stages. It is the only place this decision belongs. Mid-stage there is no decision to make: continue, or split the work that is left into sub-agents. Compacting mid-stage makes the agent lose the thread.
 
 ## The five options
 
@@ -20,7 +20,7 @@ The **phase boundary** is the gap between two phases. It is the only place this 
 
 Work top to bottom at the boundary. The first **yes** wins.
 
-**1. Can you continue in this session?** Two things make the answer yes: the next phase needs this phase as a **primary source**, or you have enough [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) left (about 150k tokens) for the next phase to fit. Interview to implementation is the standard yes: the implementation wants the reasoning verbatim, not a summary of it. Continue costs nothing and loses nothing, so rule it out before anything else.
+**1. Can you continue in this session?** Two things make the answer yes: the next stage needs this stage as a **primary source**, or you have enough [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) left (about 150k tokens) for the next stage to fit. Interview to implementation is the standard yes: the implementation wants the reasoning verbatim, not a summary of it. Continue costs nothing and loses nothing, so rule it out before anything else.
 
 **2. Is the context irrelevant to what comes next?** Is everything in this session (the exploration, the decisions, the dead ends) disposable? If so, **clear**. It is the cheapest move on the board: it takes no time and hands back the whole window. Clearing is not terminal: the old session stays resumable.
 
@@ -31,13 +31,13 @@ The cost of getting this wrong is one-way. Clear a *relevant* context and you lo
 - swapping to a **new harness** (Claude Code to Codex, for example),
 - moving to a **new directory** or repo,
 - sending the work to a **colleague**,
-- or forking a side task you found **mid-phase** without derailing what you are doing.
+- or forking a side task you found **mid-stage** without derailing what you are doing.
 
 That list is the whole clause. What handoff buys is **portability**: a file that travels. If nothing is travelling, you do not need it.
 
 **4. Can the task be done AFK?** Is it scoped tightly enough to run with you away from the keyboard, no steering? Then send it to a **sub-agent** and leave this session untouched. Automated review is the standard case: the agent reads the diff and reports, and you are not needed while it does.
 
-**5. Otherwise, compact.** Relevant context, same harness, same directory, and you need to stay in the loop: this is where the tree lands, and it lands here often. Pass it an instruction (`/compact we're going to QA this area`) so the summary keeps what the next phase needs.
+**5. Otherwise, compact.** Relevant context, same harness, same directory, and you need to stay in the loop: this is where the tree lands, and it lands here often. Pass it an instruction (`/compact we're going to QA this area`) so the summary keeps what the next stage needs.
 
 Compact is the **default, not the first reach**. It sits at the bottom because the four questions above it are all cheaper or more precise. The failure mode when people start here is a fresh session that is confidently wrong about a decision the summary flattened.
 

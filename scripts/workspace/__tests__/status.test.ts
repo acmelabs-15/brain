@@ -66,7 +66,7 @@ type Json = {
   efforts: {
     id: string;
     kind: string;
-    phase: string;
+    stage: string;
     title: string;
     path: string;
     lastStep: Step | null;
@@ -110,7 +110,7 @@ describe("brain status, the five lines on each fixture", () => {
     expect(res.stderr).toBe("");
     expect(res.stdout).toBe(
       lines(
-        "Phase: define (IDEA-001: Sync notes across devices)",
+        "Stage: define (IDEA-001: Sync notes across devices)",
         "Last step: IDEA-001#04: Sync through a hosted service, or peer to peer? (DEC-002)",
         "Next step: IDEA-001#06. Build the two merge prototypes, then ask the user to pick one.",
         "Red: none",
@@ -126,7 +126,7 @@ describe("brain status, the five lines on each fixture", () => {
     expect(res.stderr).toBe("");
     expect(res.stdout).toBe(
       lines(
-        "Phase: build (SPEC-001: Export invoices as CSV)",
+        "Stage: build (SPEC-001: Export invoices as CSV)",
         "Last step: SPEC-001#03: Export works end to end (8b41d07; `bun run check`: green)",
         "Next step: SPEC-001#05: Quote customer names that hold commas or quotes; in progress: SPEC-001#04: Add the Export button to the invoices page",
         "Red: none",
@@ -142,7 +142,7 @@ describe("brain status, the five lines on each fixture", () => {
     expect(res.stderr).toBe("");
     expect(res.stdout).toBe(
       lines(
-        "Phase: no active work",
+        "Stage: no active work",
         "Last step: none",
         "Next step: none in the workspace; docs/STATUS.md says: No active work. Start with interview-me.",
         "Red: none",
@@ -159,7 +159,7 @@ describe("brain status, the lines the rows give", () => {
     const res = await brain(root, "status");
     expect(res.stdout).toBe(
       lines(
-        "Phase: define (IDEA-001: Sync notes across devices)",
+        "Stage: define (IDEA-001: Sync notes across devices)",
         "Last step: IDEA-001#04: Sync through a hosted service, or peer to peer? (DEC-002)",
         "Next step: IDEA-001#06: How do two edits to one note merge? Pick one of two prototypes; in progress: IDEA-001#05: Set up a test account on the sync service",
         "Red: none",
@@ -194,7 +194,7 @@ describe("brain status, the lines the rows give", () => {
     const res = await brain(root, "status");
     expect(res.stdout).toBe(
       lines(
-        "Phase: define (IDEA-002: Offline mode); build (SPEC-001: Export invoices as CSV)",
+        "Stage: define (IDEA-002: Offline mode); build (SPEC-001: Export invoices as CSV)",
         "Last step: SPEC-001#03: Export works end to end (8b41d07; `bun run check`: green)",
         "Next step: IDEA-002#01: Which screens must work offline?; SPEC-001#05: Quote customer names that hold commas or quotes; in progress: SPEC-001#04: Add the Export button to the invoices page",
         "Red: none",
@@ -220,7 +220,7 @@ describe("brain status, the lines the rows give", () => {
     const res = await brain(root, "status");
     expect(res.stdout).toBe(
       lines(
-        "Phase: define (IDEA-002: Offline mode)",
+        "Stage: define (IDEA-002: Offline mode)",
         "Last step: none",
         "Next step: IDEA-002#01: Which screens must work offline?",
         "Red: none",
@@ -230,13 +230,13 @@ describe("brain status, the lines the rows give", () => {
     expect(res.code).toBe(0);
   });
 
-  test("the git branch names a finished effort: its phase is finished, and the rows give no next step", async () => {
+  test("the git branch names a finished effort: its stage is finished, and the rows give no next step", async () => {
     const root = await repo("branch-finished", "no-active-work");
     Bun.spawnSync(["git", "symbolic-ref", "HEAD", "refs/heads/theme-tokens"], { cwd: root });
     const res = await brain(root, "status");
     expect(res.stdout).toBe(
       lines(
-        "Phase: finished (SPEC-001: Colour tokens for a light and a dark theme)",
+        "Stage: finished (SPEC-001: Colour tokens for a light and a dark theme)",
         "Last step: SPEC-001#03: Both themes pass the contrast check (9d7f3b4; `bun run check`: green)",
         "Next step: none in the workspace; docs/STATUS.md says: No active work. Start with interview-me.",
         "Red: none",
@@ -288,7 +288,7 @@ None.
     const res = await brain(root, "status");
     expect(res.stdout).toBe(
       lines(
-        "Phase: no active work",
+        "Stage: no active work",
         "Last step: none",
         "Next step: none in the workspace; docs/STATUS.md says: No active work. Start with interview-me.",
         "Red: none",
@@ -315,7 +315,7 @@ describe("brain status --json, on each fixture", () => {
     const [idea] = data.efforts;
     expect(idea?.id).toBe("IDEA-001");
     expect(idea?.kind).toBe("idea");
-    expect(idea?.phase).toBe("define");
+    expect(idea?.stage).toBe("define");
     expect(idea?.path).toBe("docs/ideas/IDEA-001-sync-notes.md");
     expect(refs(idea?.frontier ?? [])).toEqual(["IDEA-001#06", "IDEA-001#07", "IDEA-001#08"]);
     expect(refs(idea?.inProgress ?? [])).toEqual(["IDEA-001#05"]);
@@ -353,7 +353,7 @@ describe("brain status --json, on each fixture", () => {
     const [spec] = data.efforts;
     expect(spec?.id).toBe("SPEC-001");
     expect(spec?.kind).toBe("spec");
-    expect(spec?.phase).toBe("build");
+    expect(spec?.stage).toBe("build");
     expect(spec?.path).toBe("docs/specs/SPEC-001-invoice-csv-export");
     expect(refs(spec?.frontier ?? [])).toEqual(["SPEC-001#05"]);
     expect(refs(spec?.inProgress ?? [])).toEqual(["SPEC-001#04"]);
@@ -428,7 +428,7 @@ describe("brain status, a repo on the 0.8 layout", () => {
       "docs/agents/workspace.md": "---\nlayout: 2\n---\n# Workspace\n",
     });
     const res = await brain(root, "status");
-    expect(res.stdout.split("\n")[0]).toBe("Phase: no active work");
+    expect(res.stdout.split("\n")[0]).toBe("Stage: no active work");
     expect(res.code).toBe(0);
   });
 });
@@ -469,7 +469,7 @@ describe("brain status, usage and the config", () => {
   test("from a folder inside the repo, it reports on the whole repo", async () => {
     const root = await repo("inside", "spec-mid-build");
     const res = await brain(`${root}/docs/specs`, "status");
-    expect(res.stdout.split("\n")[0]).toBe("Phase: build (SPEC-001: Export invoices as CSV)");
+    expect(res.stdout.split("\n")[0]).toBe("Stage: build (SPEC-001: Export invoices as CSV)");
     expect(res.code).toBe(0);
   });
 
@@ -511,7 +511,7 @@ describe("brain status, red items", () => {
     const res = await brain(root, "status");
     expect(res.stdout).toBe(
       lines(
-        "Phase: define (IDEA-001: Sync notes across devices)",
+        "Stage: define (IDEA-001: Sync notes across devices)",
         "Last step: IDEA-001#04: Sync through a hosted service, or peer to peer? (DEC-002)",
         "Next step: IDEA-001#06. Build the two merge prototypes, then ask the user to pick one.",
         "Red: no docs/agents/workspace.md: run setup-brain",

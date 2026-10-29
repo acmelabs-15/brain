@@ -1,5 +1,5 @@
 /**
- * brain status: report the active work in five lines: the phase, the last completed step, the
+ * brain status: report the active work in five lines: the stage, the last completed step, the
  * next step, the red items, and the decisions waiting on the user. The active effort comes from
  * `effort.ts`, the one place that finds it: the effort the git branch names, else every effort
  * that is not finished. `docs/STATUS.md`, the handoff note the agent rewrites at task end, feeds
@@ -20,7 +20,7 @@ import type { DocType } from "./schema";
 
 const usage = `usage: brain status [--json]
 
-  Report the active work in five lines: phase, last step, next step, red items and the
+  Report the active work in five lines: stage, last step, next step, red items and the
   decisions waiting on the user. --json gives the same data, the full docs/STATUS.md text and
   the specs each idea produced. It changes no file.`;
 
@@ -58,7 +58,7 @@ type EffortState = {
   id: string;
   kind: Effort["kind"];
   /** An idea in define, a spec in build; `finished` when the branch names a finished effort. */
-  phase: "define" | "build" | "finished";
+  stage: "define" | "build" | "finished";
   title: string;
   /** The idea file, or the spec folder. */
   path: string;
@@ -132,14 +132,14 @@ function stateFrom(effort: Effort, title: string, rows: Row[]): EffortState {
     .filter((row) => row.status === "resolved")
     .toSorted((a, b) => Number(a.id) - Number(b.id))
     .at(-1);
-  let phase: EffortState["phase"] = effort.kind === "idea" ? "define" : "build";
+  let stage: EffortState["stage"] = effort.kind === "idea" ? "define" : "build";
   if (effort.finished) {
-    phase = "finished";
+    stage = "finished";
   }
   return {
     id: effort.id,
     kind: effort.kind,
-    phase,
+    stage,
     title,
     path: effort.path,
     lastStep: last === undefined ? null : step(last),
@@ -272,10 +272,10 @@ function fiveLines(
   red: { setup: boolean; findings: number },
   note: Note | null,
 ): string[] {
-  const phase =
+  const stage =
     efforts.length === 0
       ? "no active work"
-      : efforts.map((effort) => `${effort.phase} (${effortName(effort)})`).join("; ");
+      : efforts.map((effort) => `${effort.stage} (${effortName(effort)})`).join("; ");
   const last = efforts.flatMap((effort) => {
     const step = effort.lastStep;
     if (step === null) {
@@ -293,7 +293,7 @@ function fiveLines(
   }
   const waiting = note?.waiting ?? joined(efforts.flatMap((effort) => effort.waiting.map(shown)));
   return [
-    `Phase: ${phase}`,
+    `Stage: ${stage}`,
     `Last step: ${joined(last)}`,
     `Next step: ${nextLine(efforts, note)}`,
     `Red: ${joined(redItems)}`,

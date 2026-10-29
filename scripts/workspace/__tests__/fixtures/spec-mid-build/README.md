@@ -26,7 +26,7 @@ A layout-2 repo whose idea is specced and whose one spec is part way through its
 ## What brain must report
 
 - `brain check`: clean. It exits 0 with no finding. A resolved plan row's result is a commit SHA and a verification command, not a DEC or RES link: the link rule holds for map rows only. Checkpoint 03's phase is rows 01 and 02. Rows 04 and 05 depend on a task in it, so 03 blocks them, and it blocks no other task. The plan's "Parallel waves" section is the lines that `brain plan SPEC-001` prints above its Cap line.
-- Active effort: SPEC-001, the only spec with a row that is `open` or `in-progress`. IDEA-001 is specced, so it is not active. Phase: build.
+- Active effort: SPEC-001, the only spec with a row that is `open` or `in-progress`. IDEA-001 is specced, so it is not active. Stage: build.
 - Frontier of SPEC-001's plan: row 05, and no other row.
 - In progress: row 04.
 - Last completed step: row 03, the checkpoint. It is the highest-numbered resolved row.

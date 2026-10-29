@@ -32,7 +32,7 @@ and the research notes RES-002 to RES-004.
 | Verify | `test` | `debugging-and-error-recovery` | matt's feedback-loop gate as Phase 1 with the ten loop constructions and the tighten step; secrets redacted first; three to five ranked falsifiable hypotheses shown to the user; tagged logs, one variable at a time, the performance branch; the regression test only at a correct seam; cleanup lines; a bug with no loop stops and asks for what a loop needs (conflict 4); the human-in-the-loop script shipped beside the skill |
 | Review | `review` | `code-review-and-quality` | Step 0: fixed point, three-dot diff, ref and non-empty check, spec lookup order, standards files; five axes as parallel sub-agents, each with the diff and its section, under a 400-word cap; scope creep as a correctness finding; the twelve Fowler smells in the architecture brief; repo standard over baseline, tooling-enforced rules skipped; one merged ranked list and one verdict (conflict 3); severity labels plus a hard-violation or judgement-call tag |
 | Ship | `ship` | none; addy's `shipping-and-launch` stays vendored | no matt overlap |
-| Routing | none | `using-brain` | the phase-boundary tree and the smart-zone rule as a reference; stateful interview when a repo is present; `setup-brain` named as the precondition |
+| Routing | none | `using-brain` | the stage-boundary tree and the smart-zone rule as a reference; stateful interview when a repo is present; `setup-brain` named as the precondition |
 
 `constraints`, `webperf` and `code-simplify` stay addy's commands with only the namespace
 changed. `context-engineering`, `source-driven-development`, `doubt-driven-development`,
@@ -94,7 +94,7 @@ skills/<addy name>/                      combined skills, seeded, brain-owned: i
                                          debugging-and-error-recovery, code-review-and-quality, using-agent-skills
 skills/debugging-and-error-recovery/scripts/hitl-loop.template.sh
 references/brain/mockability.md          adapted from matt's tdd mocking notes, MIT
-references/brain/phase-boundaries.md     adapted from matt's ask-matt reference, MIT
+references/brain/stage-boundaries.md     adapted from matt's ask-matt reference, MIT
 scripts/lifecycle/check-refs.ts
 scripts/lifecycle/__tests__/check-refs.test.ts
 upstream.json                            except list on the skills take; seed list per combined skill

@@ -253,6 +253,73 @@ describe("checkRetiredNames, triage", () => {
   });
 });
 
+describe("checkRetiredNames, phase for the lifecycle", () => {
+  test("a Phase: line, the old lifecycle line of brain status, is a finding with its line", async () => {
+    const root = await tree("phase-line", {
+      "skills/status/SKILL.md": "# Status\n\nThe first line reads `Phase: define`.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([
+      {
+        kind: "retired-name",
+        file: "skills/status/SKILL.md",
+        detail: "line 3 names Phase:; the lifecycle line of brain status is Stage: now",
+      },
+    ]);
+  });
+
+  test("a phase boundary is caught in each form, the old file name too", async () => {
+    const root = await tree("phase-boundary", {
+      "skills/using-brain/SKILL.md": [
+        "## Phase Boundaries",
+        "Use it at a phase boundary.",
+        "The tree is in `../../references/brain/phase-boundaries.md`.",
+        "| Routing | the phase-boundary tree |",
+      ].join("\n"),
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.detail)).toEqual([
+      "line 1 names a phase boundary; the lifecycle word is stage now: stage boundary, stage-boundaries.md",
+      "line 2 names a phase boundary; the lifecycle word is stage now: stage boundary, stage-boundaries.md",
+      "line 3 names a phase boundary; the lifecycle word is stage now: stage boundary, stage-boundaries.md",
+      "line 4 names a phase boundary; the lifecycle word is stage now: stage boundary, stage-boundaries.md",
+    ]);
+  });
+
+  test("phase in the plan sense passes: a checkpoint's phase, a numbered phase, phases that share a wave", async () => {
+    const root = await tree("phase-plan", {
+      "skills/planning-and-task-breakdown/SKILL.md": [
+        "A checkpoint's phase is the tasks it checks: list them in its Blocked by.",
+        "### Checkpoint: phase 1",
+        "## Phase 2: Charges",
+        "Phases that share a wave: none.",
+      ].join("\n"),
+      "scripts/workspace/check.ts": "      phase: tasks.filter((task) => blocked(task)),\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("a line that also names the stage form describes the rename and passes", async () => {
+    const root = await tree("phase-rename-line", {
+      ".changeset/stage.md": [
+        "`brain status` prints `Stage:` where it printed `Phase:`.",
+        "`references/brain/phase-boundaries.md` moves to `stage-boundaries.md`.",
+      ].join("\n"),
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("history and test folders may keep the old lifecycle word", async () => {
+    const root = await tree("phase-exempt", {
+      "CHANGELOG.md": "Choose at a phase boundary.\n",
+      "tasks/todo.md": "- Files: references/brain/phase-boundaries.md\n",
+      "docs/research/RES-002-x.md": "| 5 Phase-boundary tree |\n",
+      "docs/intent/x.md": "`brain status` prints `Stage:`, not `Phase:`; Phase: define\n",
+      "scripts/hooks/__tests__/session-start.test.ts": '  "Phase: no active work",\n',
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+});
+
 describe("checkGlossaryTerms", () => {
   test("a GLOSSARY.md with every workspace term passes", async () => {
     const root = await tree("glossary-full", { "GLOSSARY.md": fullGlossary });
@@ -265,6 +332,18 @@ describe("checkGlossaryTerms", () => {
     });
     expect(await checkGlossaryTerms(root)).toEqual([
       { kind: "glossary-term", file: "GLOSSARY.md", detail: "no entry for Fog" },
+    ]);
+  });
+
+  test("the lifecycle word and the plan word, Stage and Phase, each need an entry", async () => {
+    const root = await tree("glossary-stage-phase", {
+      "GLOSSARY.md": fullGlossary
+        .replace("**Stage**:", "**Step**:")
+        .replace("**Phase**:", "**Part**:"),
+    });
+    expect(await checkGlossaryTerms(root)).toEqual([
+      { kind: "glossary-term", file: "GLOSSARY.md", detail: "no entry for Stage" },
+      { kind: "glossary-term", file: "GLOSSARY.md", detail: "no entry for Phase" },
     ]);
   });
 

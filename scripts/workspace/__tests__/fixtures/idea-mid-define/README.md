@@ -1,6 +1,6 @@
 # Fixture: an idea mid-define
 
-A layout-2 repo whose only effort is an idea in the define phase, part way through its map. The check, status and hook tests copy this tree into a temp git repo and run `brain` there.
+A layout-2 repo whose only effort is an idea in the define stage, part way through its map. The check, status and hook tests copy this tree into a temp git repo and run `brain` there.
 
 ## What it holds
 
@@ -29,7 +29,7 @@ A layout-2 repo whose only effort is an idea in the define phase, part way throu
 ## What brain must report
 
 - `brain check`: clean. It exits 0 with no finding.
-- Active effort: IDEA-001, the only idea, with `status: define`. Phase: define.
+- Active effort: IDEA-001, the only idea, with `status: define`. Stage: define.
 - Frontier of IDEA-001: rows 06, 07 and 08, and no other row.
 - Decisions waiting on the user: rows 06 (prototype) and 08 (interview), the decide rows on the frontier.
 - Research to start: row 07, the research row on the frontier.

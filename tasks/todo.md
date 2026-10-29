@@ -257,7 +257,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/setup`
   - Files: scripts/setup/capabilities.ts, scripts/setup/__tests__/capabilities.test.ts, skills/setup-brain/capabilities.md, skills/setup-brain/SKILL.md
   - Depends: T33. Scope: M
-- [ ] T49: "stage" for the lifecycle, "phase" for a plan
+- [x] T49: "stage" for the lifecycle, "phase" for a plan
   - Acceptance: as the Decisions row "Stage and phase are two words" says. `brain status` prints `Stage:` where it printed `Phase:`, and `--json` renames the field the same way; the values stay (define, build, finished). `references/brain/phase-boundaries.md` moves with `git mv` to `stage-boundaries.md`, and its title and using-brain's mentions follow. `GLOSSARY.md` has two entries, Stage and Phase, each naming the other under _Avoid_ for its sense. `lifecycle:check` fails, one finding line each, on `Phase:` in status output and on "phase boundary" in brain-owned text, with the retired-name guard's exceptions for history and tests. The hook text, the status skill, the protocol source (re-rendered), the fixture READMEs, the specs and the `setup/fresh-repo-resume` grader follow
   - Verify: the guard's tests red first; `bun test scripts/workspace scripts/hooks scripts/lifecycle scripts/evals`; `bun run plain-talk:render --check`
   - Files: scripts/workspace/status.ts and its tests and fixture READMEs, scripts/hooks/, scripts/lifecycle/names.ts, GLOSSARY.md, references/brain/stage-boundaries.md, skills/using-brain/SKILL.md, skills/status/SKILL.md, protocol/PROTOCOL.md, evals/setup/fresh-repo-resume/, spec/

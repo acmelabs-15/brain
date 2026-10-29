@@ -40,7 +40,7 @@ const cliSection = [
 const noWorkStatus = [
   "# brain status",
   "",
-  "Phase: no active work",
+  "Stage: no active work",
   "Last step: none",
   "Next step: none in the workspace; docs/STATUS.md says: No active work. Start with interview-me.",
   "Red: none",
@@ -239,7 +239,7 @@ describe("the session-start text on each fixture", () => {
       [
         "# brain status",
         "",
-        "Phase: define (IDEA-001: Sync notes across devices)",
+        "Stage: define (IDEA-001: Sync notes across devices)",
         "Last step: IDEA-001#04: Sync through a hosted service, or peer to peer? (DEC-002)",
         "Next step: IDEA-001#06. Build the two merge prototypes, then ask the user to pick one.",
         "Red: none",
@@ -256,7 +256,7 @@ describe("the session-start text on each fixture", () => {
     expect(context).toContain(brainCommand);
     expect(context).toContain(
       [
-        "Phase: build (SPEC-001: Export invoices as CSV)",
+        "Stage: build (SPEC-001: Export invoices as CSV)",
         "Last step: SPEC-001#03: Export works end to end (8b41d07; `bun run check`: green)",
         "Next step: SPEC-001#05: Quote customer names that hold commas or quotes; in progress: SPEC-001#04: Add the Export button to the invoices page",
         "Red: none",
@@ -278,7 +278,7 @@ describe("the session-start text on each fixture", () => {
   test("the repo is CLAUDE_PROJECT_DIR, wherever the hook process starts", async () => {
     const root = await repo("project-dir", "spec-mid-build");
     const context = contextOf(await spawnHook(root, { cwd: work }));
-    expect(context).toContain("Phase: build (SPEC-001: Export invoices as CSV)");
+    expect(context).toContain("Stage: build (SPEC-001: Export invoices as CSV)");
   });
 });
 
@@ -291,7 +291,7 @@ describe("when the status does not fit or does not run", () => {
     const context = contextOf(await spawnHook(root));
     expect(context).toContain(protocol);
     expect(context).toContain(brainCommand);
-    expect(context).toContain("Phase: define (IDEA-001: Sync notes across devices)");
+    expect(context).toContain("Stage: define (IDEA-001: Sync notes across devices)");
     expect(context).toContain("- Note line 1 of 400.");
     expect(context).not.toContain("- Note line 400 of 400.");
     const [kept, cut] = context.split(
@@ -331,7 +331,7 @@ describe("when the status does not fit or does not run", () => {
     const context = contextOf(await spawnHook(root, { stdin: input("resume", root) }));
     expect(protocolLinesIn(context)).toEqual([]);
     expect(context).toContain(brainCommand);
-    expect(context).toContain("Phase: define (IDEA-001: Sync notes across devices)");
+    expect(context).toContain("Stage: define (IDEA-001: Sync notes across devices)");
     expect(context).toContain("- Note line 1 of 500.");
     expect(context).not.toContain("- Note line 500 of 500.");
     const [kept, cut] = context.split(

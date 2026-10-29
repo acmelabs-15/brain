@@ -20,7 +20,11 @@ const removalLine = /\b(?:removed|retired|retirements?|absorbs|absorbed)\b/iu;
  * or absorbed. A line that only names interview-me, or tells the reader to remove
  * something, still fails. Triage is also a plain word (a triage checklist, triaged audit
  * findings), so only the forms that name the skill count: a code span, a path or command,
- * the name followed by skill or on-ramp, a router arrow and a table cell.
+ * the name followed by skill or on-ramp, a router arrow and a table cell. The lifecycle word is
+ * stage, and phase stays for a plan's tasks that one checkpoint waits on; so only two
+ * lifecycle forms count: the label of the first line of brain status (Phase, then a colon) and
+ * the boundary between two stages under its old name. A line that also names the stage form
+ * describes the rename and passes.
  */
 export const retiredNames: readonly Retired[] = [
   {
@@ -39,9 +43,23 @@ export const retiredNames: readonly Retired[] = [
     allowLine: removalLine,
     detail: "names triage, which is removed; re-seed it from mattpocock/skills if you need it",
   },
+  {
+    pattern: /\bPhase:/u,
+    allowLine: /\bStage:/u,
+    detail: "names Phase:; the lifecycle line of brain status is Stage: now",
+  },
+  {
+    pattern: /\bphase[- ]boundar/iu,
+    allowLine: /\bstage[- ]boundar/iu,
+    detail:
+      "names a phase boundary; the lifecycle word is stage now: stage boundary, stage-boundaries.md",
+  },
 ];
 
-/** The terms brain's GLOSSARY.md must define, one `**Term**:` entry each. */
+/**
+ * The terms brain's GLOSSARY.md must define, one `**Term**:` entry each: the workspace terms,
+ * then the lifecycle word and the plan word.
+ */
 export const glossaryTerms = [
   "Idea",
   "Effort",
@@ -58,6 +76,8 @@ export const glossaryTerms = [
   "Research record",
   "Workspace",
   "Protocol",
+  "Stage",
+  "Phase",
 ] as const;
 
 /** History keeps what was true then; test folders hold fixtures with the old names. */

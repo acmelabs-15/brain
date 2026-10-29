@@ -6,7 +6,7 @@
 2. Read `docs/agents/workspace.md`, `docs/agents/capabilities.md`, `docs/agents/domain.md` and the glossary that `domain.md` names, each to its last line. When one is missing, tell the user once to run setup-brain.
 3. Open the active effort: for an idea, its map; for a spec, `spec.md`, `tasks/plan.md` and `tasks/todo.md`.
 4. Check `git status` and the branch. Run the toolchain checks in `capabilities.md`. Keep work you did not start.
-5. Report in five lines or fewer: the phase, the last completed step, the next step, anything red, and the decisions that wait on the user. "Continue" resumes the next approved row or task.
+5. Report in five lines or fewer: the stage, the last completed step, the next step, anything red, and the decisions that wait on the user. "Continue" resumes the next approved row or task.
 
 ## Work through brain
 
@@ -19,14 +19,14 @@
 
 Run it:
 
-- at the start of a task, and at each phase change (plan, build, test, review, ship);
+- at the start of a task, and at each stage change (define, plan, build, verify, review, ship);
 - before you start a sub-agent;
 - after a compaction or a long run of tool calls;
 - before you guess a convention that a skill or a server would give.
 
 Confirm:
 
-- the brain skills for this phase;
+- the brain skills for this stage;
 - the library skills and servers in `docs/agents/capabilities.md`, each server proved by one real read-only call (a tool name in your list is no proof);
 - ask-user-question.
 
@@ -37,7 +37,7 @@ Load what is missing. When a server does not answer, stop the work that depends 
 A sub-agent sees nothing of your conversation. Its brief names:
 
 - the exact skills it loads and the servers it needs;
-- the capability check, run at its start and at each phase change; its first report says what it loaded and whether each server answered, and it stops and reports when a skill or a server fails;
+- the capability check, run at its start and at each stage change; its first report says what it loaded and whether each server answered, and it stops and reports when a skill or a server fails;
 - a scratch progress file outside the repo, where it logs each step;
 - its result file, named with the task ID first (`T10-result.md`); the name never starts with report, summary, findings or analysis, which Claude Code refuses for a sub-agent;
 - the resolved `brain` path.

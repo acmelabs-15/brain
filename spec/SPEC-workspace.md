@@ -10,7 +10,7 @@ agrees with that table row for row; a later decision changes both in the same co
 
 ## Objective
 
-brain's define phase keeps its state on disk, in one workspace layout that a repo gets from
+brain's define stage keeps its state on disk, in one workspace layout that a repo gets from
 `/setup-brain`.
 
 - `interview-me` absorbs `wayfinder`. It is always stateful: it keeps its design tree as a
@@ -27,7 +27,7 @@ brain's define phase keeps its state on disk, in one workspace layout that a rep
 User: Peter first, on Claude Code, Codex CLI, Gemini CLI and Antigravity CLI. Then anyone who
 installs brain.
 
-Why now: agent-skills' define phase writes files only when a skill ends, so a long interview
+Why now: agent-skills' define stage writes files only when a skill ends, so a long interview
 loses its progress between sessions. `wayfinder`, which interview-me absorbs, keeps state,
 but it sizes one decision to a session and keeps the map on an issue tracker.
 
@@ -45,7 +45,7 @@ Each area's detail lives in the intent doc; this spec does not repeat it.
 | Vendored files | idea-refine seeded and changed; documentation-and-adrs left, with the new-doc rule and an eval; Matt's pin to `d81f3a1` | Vendored files; rows for question 8 |
 | domain-modeling | `GLOSSARY.md`, `GLOSSARY-FORMAT.md`, `DEC-FORMAT.md`; every decision recorded | Glossary rename; row for question 9 |
 | Glossary rename | `CONTEXT.md` to `GLOSSARY.md` across brain-owned files; the plain-talk sources re-rendered; the fallback until 0.11.0; the guard; one amendment line in `brain-wrap.md` | Glossary rename |
-| Lifecycle skills and commands | Paths read from `workspace.md`; `/build` from a spec folder; `using-brain` per its table, with the 1% rule; `phase-boundaries.md` | `using-brain`; Brain-owned files to change; rows for questions 3, 14 |
+| Lifecycle skills and commands | Paths read from `workspace.md`; `/build` from a spec folder; `using-brain` per its table, with the 1% rule; `stage-boundaries.md` | `using-brain`; Brain-owned files to change; rows for questions 3, 14 |
 | Protocol | `protocol/PROTOCOL.md`, rendered to Gemini, Antigravity and Codex; the Claude-only `SessionStart` hook | Installing brain in a repo; row for question 12 |
 | setup-brain | Bun check; `workspace.md`, `capabilities.md`, `STATUS.md` seed; overlap report; `--check`; migrate mode; no tracker | Installing brain in a repo; rows for questions 6, 9, 10, 15 |
 | Gate | `bun run check` runs `workspace:check` and `sync --check`; new `lifecycle:check` guards | Checks; rows for questions 5, 8, 11, 12 |
@@ -95,7 +95,7 @@ because the success criteria test them.
   rule.
 - **Specs produced.** An idea file holds no list of its specs. `brain status` shows each idea's
   specs, computed from every `spec.md`'s `sources:` list.
-- **`brain status` output.** Five lines by default: phase, last completed step, next step,
+- **`brain status` output.** Five lines by default: stage, last completed step, next step,
   red items, decisions waiting on the user. `docs/STATUS.md`, the handoff note the agent
   rewrites at task end, feeds the next-step and waiting lines when it names them. `--json`
   carries the same data plus the full `STATUS.md` text, and the `SessionStart` hook injects
@@ -245,7 +245,7 @@ Seams, confirmed by Peter on 2026-10-29:
   several times, and asserts every number is unique and no number is skipped without a
   failed claim.
 - New eval cases, each within SPEC-evals' limit of three model runs per arm:
-  `setup/fresh-repo-resume` (install, then a new session reports phase and next step from
+  `setup/fresh-repo-resume` (install, then a new session reports stage and next step from
   `brain status` alone), `lifecycle/interview-resume` (resume from the idea file alone),
   `lifecycle/adr-is-dec`, `lifecycle/skill-not-skipped`, `lifecycle/no-overload`,
   `setup/migrate-08`. `lifecycle/build-clean-context` and `lifecycle/plan-three-questions`
@@ -295,7 +295,7 @@ Seams, confirmed by Peter on 2026-10-29:
 24. As a user, I want `plan.md` to hold the only status and `todo.md` the task blocks, so that status never disagrees with itself.
 25. As a user, I want the main session to update the plan row after a sub-agent reports, so that the plan has one writer.
 26. As a user, I want every H1 to start with an ID, so that titles stay unique across the repo.
-27. As a user, I want `brain status` to print phase, last step, next step, red items and decisions waiting on me in five lines, so that I know where I am at a glance.
+27. As a user, I want `brain status` to print stage, last step, next step, red items and decisions waiting on me in five lines, so that I know where I am at a glance.
 28. As a user on Claude Code, I want the protocol and `brain status` injected at session start, clear and compact, and `brain status` alone on resume, so that a session knows its current state before my first word.
 29. As a user on Gemini, Codex or Antigravity, I want a status command that runs the same script, so that every host reports the same state.
 30. As a user, I want `brain status` to be read-only, so that asking for the state never changes it.
@@ -387,14 +387,17 @@ Each item names how it is verified.
    amendment line. Test: lifecycle seam.
 9. brain's `GLOSSARY.md` exists, follows `GLOSSARY-FORMAT.md`, and defines idea, effort,
    destination, map, row, decide / research / do rows, frontier, fog, claim, decision record
-   (DEC), research record (RES), workspace and protocol. Test: a lifecycle check that every
-   listed term has an entry.
+   (DEC), research record (RES), workspace and protocol, and stage and phase, each of those two
+   naming the other under _Avoid_ for its sense (Decisions row "Stage and phase are two
+   words"). Test: a lifecycle check that every listed term has an entry.
 10. Retirements: `skills/wayfinder` and `skills/triage` are gone, with their seed and lock
     entries; `lifecycle:check` fails on a stray mention outside `CHANGELOG.md` and history; the
     breaking changeset carries both texts. Test: lifecycle seam; `bun run changeset status`.
 11. Guards: `lifecycle:check` fails on `hooks/hooks.json` or a root `hooks.json`, on a Claude
-    manifest agent list that misses an `agents/*.md` file, and on a `using-brain` that names a
-    missing skill or misses one. Test: lifecycle seam.
+    manifest agent list that misses an `agents/*.md` file, on a `using-brain` that names a
+    missing skill or misses one, and, in brain-owned text outside history and tests, on the
+    old lifecycle forms: `Phase:` where status output now prints `Stage:`, and a
+    phase boundary where brain now says stage boundary. Test: lifecycle seam.
 12. The setup writer's migrate mode, run on the 0.8-layout fixture, produces a repo that passes
     `brain check`. It moves only with `git mv`, deletes nothing without a yes, adds
     frontmatter without changing a body, and writes one commit; `workspace.md` records
@@ -411,7 +414,7 @@ Each item names how it is verified.
     - `lifecycle/build-clean-context`, moved: `/build` runs a task from
       `docs/specs/SPEC-001-<slug>/` with its block from `todo.md`.
     - `setup/fresh-repo-resume`: after `/setup-brain` in a fresh repo, a new session reports
-      its phase and next step, and the repo's `AGENTS.md` holds no brain text.
+      its stage and next step, and the repo's `AGENTS.md` holds no brain text.
     - `setup/migrate-08`, `lifecycle/adr-is-dec`, `lifecycle/skill-not-skipped`,
       `lifecycle/no-overload`; and `lifecycle/plan-three-questions`, `setup/fresh-repo` and
       `setup/second-run`, updated.
@@ -431,7 +434,7 @@ Each item names how it is verified.
 | Parallel research sub-agents never collide on a document number | 2 |
 | `bun run check` fails on a bad name, a duplicate number, a resolved row with no link, or a spec source that does not exist | 3, 4 |
 | `/build` runs from `specs/SPEC-NNN-<slug>/` (`docs/specs/` since question 2) | 15 (`lifecycle/build-clean-context`); 1 |
-| After `/setup-brain` in a fresh repo, a new session reports its phase and next step with no brain text in the repo's `AGENTS.md` | 15 (`setup/fresh-repo-resume`); 6, 7 |
+| After `/setup-brain` in a fresh repo, a new session reports its stage and next step with no brain text in the repo's `AGENTS.md` | 15 (`setup/fresh-repo-resume`); 6, 7 |
 | Outcome addition: the glossary rename | 8, 9 |
 | Outcome addition: the source cache | `SPEC-source-cache.md` |
 

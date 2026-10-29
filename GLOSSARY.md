@@ -5,6 +5,13 @@ how brain defines work and records what was decided and found.
 
 ## Language
 
+### The lifecycle
+
+**Stage**:
+One part of the lifecycle that takes work from an idea to shipped code: define, plan, build,
+verify, review or ship. The gap between two stages is a stage boundary.
+_Avoid_: phase (for the lifecycle)
+
 ### Defining work
 
 **Idea**:
@@ -60,9 +67,8 @@ _Avoid_: backlog, later
 ### Planning work
 
 **Phase**:
-A stretch of work that ends where the work stops to be checked. The lifecycle runs in phases,
-from define to ship; in a plan, a phase is the tasks that one checkpoint waits on.
-_Avoid_: stage, milestone
+The tasks in a plan that one checkpoint waits on.
+_Avoid_: stage (for a plan's tasks), milestone
 
 **Checkpoint**:
 A row in a plan that ends a phase: the work stops there until the phase's tasks are verified
