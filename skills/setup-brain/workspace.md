@@ -15,7 +15,11 @@ The workspace is this repo's folders for ideas, decisions, research and specs, w
 
 ## `brain <cmd>`
 
-`brain <cmd>` means running `scripts/brain.ts` from the brain plugin with bun; on Claude Code that is `${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts`, elsewhere resolve the plugin folder as setup-brain does.
+`brain <cmd>` means running `scripts/brain.ts` from the brain plugin with bun. Find the path this way:
+
+- On Claude Code, the session-start report names it, and every brain skill writes it in full. Bash commands do not get `CLAUDE_PLUGIN_ROOT`, so never type that variable into a command.
+- A sub-agent gets the path in its brief.
+- On another host, resolve the plugin folder as setup-brain does.
 
 ## Files
 

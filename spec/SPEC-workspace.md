@@ -159,9 +159,12 @@ bun run validate              # the host validators
 ```
 
 In a user repo, skills and briefs write `brain <cmd>`. `docs/agents/workspace.md` defines it
-once: "`brain <cmd>` means running `scripts/brain.ts` from the brain plugin with bun; on
-Claude Code that is `${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts`, elsewhere resolve the plugin
-folder as setup-brain does."
+once: "`brain <cmd>` means running `scripts/brain.ts` from the brain plugin with bun." Claude
+Code does not set `${CLAUDE_PLUGIN_ROOT}` for Bash commands; it fills it in only inside skill,
+command and agent text. So on Claude Code the session-start hook names the resolved path, each
+brain skill writes `${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts` in its own text, and a sub-agent
+brief carries the resolved path; on the other hosts, resolve the plugin folder as setup-brain
+does.
 
 Brain's `package.json` maps `bun run new-doc` and `bun run status` to the CLI. `check` is
 already the name of brain's gate, so the gate runs `brain check` as one of its steps, through
