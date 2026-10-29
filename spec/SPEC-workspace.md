@@ -337,7 +337,7 @@ Each item names how it is verified.
 7. `bun run plain-talk:render -- --check` is green, with the protocol rendered into
    `GEMINI.md`, `rules/` and the Codex block.
 8. Glossary rename: no brain-owned file outside history, the one-release fallback and
-   rename-describing text names `CONTEXT.md` or `CONTEXT-MAP.md`, the old `GLOSSARY.md` names; `lifecycle:check` fails on
+   rename-describing text names `CONTEXT.md` or `CONTEXT-MAP.md` (the names before `GLOSSARY.md`); `lifecycle:check` fails on
    one. Matt's pin is `d81f3a1`, `sync --check` is clean, and `brain-wrap.md` has one
    amendment line. Test: lifecycle seam.
 9. brain's `GLOSSARY.md` exists, follows `GLOSSARY-FORMAT.md`, and defines idea, effort,

@@ -5,11 +5,15 @@
 import { readdir } from "node:fs/promises";
 
 import { readLock } from "../sync/lib/lock";
-import type { Finding } from "./check-refs";
+import type { Finding } from "./finding";
 
 type Retired = { pattern: RegExp; allowLine: RegExp; detail: string };
 
-/** Each retired name, and the line text that may still name it: a line about the change. */
+/**
+ * Each retired name, and the line text that may still name it. The rule is loose on
+ * purpose: any line that also names GLOSSARY passes, which covers every line about the
+ * rename and could hide a stale mention on such a line.
+ */
 export const retiredNames: readonly Retired[] = [
   {
     pattern: /CONTEXT(?:-MAP)?\.md/u,
@@ -39,7 +43,9 @@ export const glossaryTerms = [
 
 /** History keeps what was true then; test folders hold fixtures with the old names. */
 const keptAsWritten = ["tasks/", "docs/research/", "docs/intent/", "CHANGELOG.md"];
-const neverRead = new Set(["node_modules", ".git", "evals/results"]);
+/** Folder names skipped wherever they appear, and folder paths skipped from the root. */
+const skippedNames = new Set(["node_modules", ".git"]);
+const skippedPaths = new Set(["evals/results"]);
 const textFile = /\.(?:md|toml|json|ts|ya?ml|sh)$/u;
 
 async function textFiles(root: string, rel = ""): Promise<string[]> {
@@ -48,10 +54,10 @@ async function textFiles(root: string, rel = ""): Promise<string[]> {
   for (const entry of entries) {
     const path = rel === "" ? entry.name : `${rel}/${entry.name}`;
     if (entry.isDirectory()) {
-      if (!neverRead.has(entry.name) && !neverRead.has(path)) {
+      if (!skippedNames.has(entry.name) && !skippedPaths.has(path)) {
         files.push(...(await textFiles(root, path)));
       }
-    } else if (textFile.test(entry.name)) {
+    } else if (entry.isFile() && textFile.test(entry.name)) {
       files.push(path);
     }
   }
@@ -68,7 +74,7 @@ export async function checkRetiredNames(root: string): Promise<Finding[]> {
   const findings: Finding[] = [];
   const files = await textFiles(root);
   for (const file of files.toSorted()) {
-    if (keptFile(file) || file in lock.files) {
+    if (keptFile(file) || Object.hasOwn(lock.files, file)) {
       continue;
     }
     const text = await Bun.file(`${root}/${file}`).text();

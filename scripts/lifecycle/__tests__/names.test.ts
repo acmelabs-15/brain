@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
-import { mkdir, mkdtemp, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, symlink } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
 import { checkGlossaryTerms, checkRetiredNames, glossaryTerms } from "../names";
@@ -65,6 +65,13 @@ describe("checkRetiredNames, the old glossary name", () => {
         seeds: {},
       }),
     });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("a symlink is never followed, so no file outside the root is read", async () => {
+    const outside = await tree("outside", { "notes.md": "CONTEXT.md\n" });
+    const root = await tree("linked", { "README.md": "# x\n" });
+    await symlink(`${outside}/notes.md`, `${root}/notes.md`);
     expect(await checkRetiredNames(root)).toEqual([]);
   });
 

@@ -7,14 +7,10 @@
  */
 import { readdir } from "node:fs/promises";
 
+import type { Finding } from "./finding";
 import { checkGlossaryTerms, checkRetiredNames } from "./names";
 
 export type Ref = { prefix: string | null; name: string };
-export type Finding = {
-  kind: "unresolved" | "old-prefix" | "flag-mismatch" | "retired-name" | "glossary-term";
-  file: string;
-  detail: string;
-};
 
 const prefixed = /\b(?<prefix>brain|agent-skills):(?<name>[a-z0-9][a-z0-9-]*)(?![a-z0-9:-])/gu;
 const skillTool =
