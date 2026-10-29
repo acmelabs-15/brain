@@ -241,7 +241,7 @@ ends with a checkpoint and a review with Peter.
 
 ## Phase 6: install
 
-- [ ] T33: setup-brain's install writer, with the fresh-repo eval
+- [x] T33: setup-brain's install writer, with the fresh-repo eval
   - Acceptance: eval `setup/fresh-repo-resume` written first (after `/setup-brain` in a fresh repo, a new session reports its phase and next step, and `AGENTS.md` holds no brain text); setup-brain checks for bun first and says plainly that brain needs it; writes `workspace.md`, the `STATUS.md` seed and `domain.md`; the Codex block carries plain talk and the protocol; `--check` reports drift and writes nothing; idempotent; `setup/fresh-repo` and `setup/second-run` updated for the new files
   - Verify: `bun test scripts/setup`; the evals' dry checks
   - Files: scripts/setup/write.ts, scripts/setup/__tests__/write.test.ts, skills/setup-brain/{SKILL.md,STATUS.md}, evals/setup/*

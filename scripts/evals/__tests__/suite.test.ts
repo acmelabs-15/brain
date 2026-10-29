@@ -41,6 +41,7 @@ describe("eval suite", () => {
         "plain-talk/context-first",
         "question/plan-approval",
         "setup/fresh-repo",
+        "setup/fresh-repo-resume",
         "setup/second-run",
         "wait-what/confused-by-reply",
         "wait-what/error-not-confusion",

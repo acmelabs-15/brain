@@ -187,3 +187,26 @@ and `brain new-doc` creates every numbered file. Three cases follow it:
 setup-brain's `workspace.md`, with Bash for `brain`. Agent stays out of
 `spec-underspecified`'s tools: the case measures the chart and the first question, and a
 research sub-agent would only add cost.
+
+## Amendment 2026-10-29, the install
+
+setup-brain now writes `docs/agents/workspace.md` and a `docs/STATUS.md` seed beside
+`domain.md`, and checks for bun first (`SPEC-setup.md`). The setup cases follow it:
+
+- `setup/fresh-repo` gains `file_exists` graders for `workspace.md` and `STATUS.md`, a
+  `tool_order` grader that puts `bun --version` before the writer, a `file_exists` grader
+  with `exists: false` on `AGENTS.md`, and a `regex` on `CLAUDE.md` that holds it to the
+  scaffold's text. Every grader is computed.
+- `setup/second-run`'s scaffold makes all three repo files from the plugin's templates, and
+  its judge names each one.
+- New: `setup/fresh-repo-resume`. Its scaffold is a committed repo just after setup-brain,
+  with the repo's own `AGENTS.md`. The prompt, "Where does the work in this repo stand, and
+  what is the next step?", names nothing of brain. `regex` graders on `last_message` look
+  for "no active work" and `interview-me`, a `regex` with `match: not_contains` holds
+  `AGENTS.md` free of brain text, and one `llm` grader fails a reply that names work that
+  does not exist. No grader reads a tool call: whether the plugin's `SessionStart` hook
+  runs inside `claude plugin eval` is not verified, and with the hook a session needs no
+  call to know its state. Its dry check shows that `brain status` and the hook give the
+  same lines.
+
+Each setup case has a dry check, `scripts/evals/__tests__/<case>.test.ts`.

@@ -2,8 +2,9 @@ import { afterAll, beforeAll, describe, expect, setDefaultTimeout, test } from "
 import { lstat, mkdir, mkdtemp, rm, stat, symlink } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
-import { endMarker, startMarker } from "../../plain-talk/block";
+import { endMarker, markersFor, startMarker } from "../../plain-talk/block";
 import { readLock } from "../../sync/lib/lock";
+import { readConfig } from "../../workspace/config";
 import { writeSetup } from "../write";
 
 // The flag tests start a bun process, which takes seconds on a loaded machine.
@@ -13,6 +14,26 @@ let work: string;
 let brain: string;
 
 const block = `${startMarker}\n## Talk plain\n\nBody v2.\n${endMarker}\n`;
+const protocolMarkers = markersFor("protocol");
+const protocol = `${protocolMarkers.start}\n## brain protocol\n\nRules v2.\n${protocolMarkers.end}\n`;
+/** A Codex file that held nothing before: the plain-talk block, then the protocol block. */
+const codexText = `${block}\n${protocol}`;
+const workspace = `---
+layout: 2
+paths:
+  decisions: docs/decisions
+  research: docs/research
+  ideas: docs/ideas
+  specs: docs/specs
+max_parallel: 8
+---
+# Workspace
+
+Rules v2.
+`;
+const seed = "# Status\n\nNo active work. Start with interview-me.\n";
+/** What a fresh run writes into the repo, in the order the change list names it. */
+const repoFiles = ["docs/agents/domain.md", "docs/agents/workspace.md", "docs/STATUS.md"];
 const exists = (p: string) =>
   stat(p).then(
     () => true,
@@ -43,12 +64,16 @@ beforeAll(async () => {
   work = await mkdtemp(`${tmpdir()}/brain-setup-`);
   brain = `${work}/brain`;
   await mkdir(`${brain}/plain-talk`, { recursive: true });
+  await mkdir(`${brain}/protocol`, { recursive: true });
   await mkdir(`${brain}/skills/setup-brain`, { recursive: true });
   await Bun.write(`${brain}/plain-talk/AGENTS-block.md`, block);
+  await Bun.write(`${brain}/protocol/AGENTS-block.md`, protocol);
   await Bun.write(
     `${brain}/skills/setup-brain/domain.md`,
     "# Domain docs\n\nLayout: {{layout}}.\n",
   );
+  await Bun.write(`${brain}/skills/setup-brain/workspace.md`, workspace);
+  await Bun.write(`${brain}/skills/setup-brain/STATUS.md`, seed);
 });
 
 afterAll(async () => {
@@ -58,13 +83,15 @@ afterAll(async () => {
 const base = { layout: "single" as const, dryRun: false, codexHome: null };
 
 describe("writeSetup, the repo", () => {
-  test("in an empty repo it creates docs/agents/domain.md, no tracker file and no context file", async () => {
+  test("in an empty repo it creates domain.md, workspace.md and the STATUS.md seed, and nothing else", async () => {
     const root = await repo("empty");
     const changes = await writeSetup({ brain, root, ...base });
-    expect(changes).toEqual([{ path: "docs/agents/domain.md", action: "created" }]);
+    expect(changes).toEqual(repoFiles.map((path) => ({ path, action: "created" })));
     expect(await Bun.file(`${root}/docs/agents/domain.md`).text()).toBe(
       "# Domain docs\n\nLayout: single-context.\n",
     );
+    expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(workspace);
+    expect(await Bun.file(`${root}/docs/STATUS.md`).text()).toBe(seed);
     expect(await exists(`${root}/docs/agents/issue-tracker.md`)).toBe(false);
     expect(await exists(`${root}/docs/agents/triage-labels.md`)).toBe(false);
     expect(await exists(`${root}/AGENTS.md`)).toBe(false);
@@ -76,7 +103,7 @@ describe("writeSetup, the repo", () => {
     const files = { "AGENTS.md": "# Mine\n", "CLAUDE.md": "# Claude\n", "GEMINI.md": "# Gemini\n" };
     const root = await repo("untouched", files);
     const changes = await writeSetup({ brain, root, ...base });
-    expect(changes.map((c) => c.path)).toEqual(["docs/agents/domain.md"]);
+    expect(changes.map((c) => c.path)).toEqual(repoFiles);
     for (const [path, body] of Object.entries(files)) {
       expect(await Bun.file(`${root}/${path}`).text()).toBe(body);
     }
@@ -86,14 +113,24 @@ describe("writeSetup, the repo", () => {
     const root = await repo("twice");
     await writeSetup({ brain, root, ...base });
     const changes = await writeSetup({ brain, root, ...base });
-    expect(changes.every((c) => c.action === "unchanged")).toBe(true);
+    expect(changes).toEqual(repoFiles.map((path) => ({ path, action: "unchanged" })));
   });
 
   test("dry run lists every change and writes nothing", async () => {
     const root = await repo("dry");
     const changes = await writeSetup({ brain, root, ...base, dryRun: true });
-    expect(changes.map((c) => `${c.action} ${c.path}`)).toEqual(["created docs/agents/domain.md"]);
+    expect(changes.map((c) => `${c.action} ${c.path}`)).toEqual(
+      repoFiles.map((path) => `created ${path}`),
+    );
     expect(await exists(`${root}/docs`)).toBe(false);
+  });
+
+  test("an existing docs/STATUS.md is the agent's handoff note: kept byte for byte", async () => {
+    const note = "# Status\n\n- Next: IDEA-001#03. Ask the user about the reader.\n";
+    const root = await repo("status-kept", { "docs/STATUS.md": note });
+    const changes = await writeSetup({ brain, root, ...base });
+    expect(changes).toContainEqual({ path: "docs/STATUS.md", action: "unchanged" });
+    expect(await Bun.file(`${root}/docs/STATUS.md`).text()).toBe(note);
   });
 
   test("multi layout names the map in domain.md", async () => {
@@ -105,27 +142,69 @@ describe("writeSetup, the repo", () => {
   });
 });
 
+describe("writeSetup, the workspace config", () => {
+  test("a re-run keeps the repo's folder paths and max_parallel, and brings the template's new text", async () => {
+    const before = workspace
+      .replace("decisions: docs/decisions", 'decisions: "docs/my decisions"')
+      .replace("max_parallel: 8", "max_parallel: 3")
+      .replace("Rules v2.", "Rules v1.");
+    const root = await repo("workspace-settings", { "docs/agents/workspace.md": before });
+    const changes = await writeSetup({ brain, root, ...base });
+    expect(changes).toContainEqual({ path: "docs/agents/workspace.md", action: "updated" });
+    expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(
+      workspace
+        .replace("decisions: docs/decisions", 'decisions: "docs/my decisions"')
+        .replace("max_parallel: 8", "max_parallel: 3"),
+    );
+    const config = await readConfig(root);
+    expect(config.paths.decisions).toBe("docs/my decisions");
+    const again = await writeSetup({ brain, root, ...base });
+    expect(again).toContainEqual({ path: "docs/agents/workspace.md", action: "unchanged" });
+  });
+
+  test("a workspace.md whose frontmatter is not valid YAML is skipped with the reason, and kept", async () => {
+    const before = "---\npaths: [docs/decisions\n---\n# Workspace\n";
+    const root = await repo("workspace-broken", { "docs/agents/workspace.md": before });
+    const changes = await writeSetup({ brain, root, ...base });
+    expect(changes).toContainEqual({
+      path: "docs/agents/workspace.md",
+      action: "skipped",
+      note: "its frontmatter is not valid YAML; fix it, then run setup-brain again",
+    });
+    expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(before);
+  });
+});
+
 describe("writeSetup, the Codex global file", () => {
-  test("a Codex home without AGENTS.md gets one holding the block, listed first", async () => {
+  test("a Codex home without AGENTS.md gets one holding plain talk and the protocol, listed first", async () => {
     const root = await repo("codex-new");
     const home = await codexHome("codex-new");
     const changes = await writeSetup({ brain, root, ...base, codexHome: home });
     expect(changes[0]).toEqual({ path: `${home}/AGENTS.md`, action: "created" });
-    expect(await Bun.file(`${home}/AGENTS.md`).text()).toBe(block);
+    expect(await Bun.file(`${home}/AGENTS.md`).text()).toBe(codexText);
   });
 
-  test("an existing file keeps every line outside the markers and gets an old block replaced", async () => {
+  test("an existing file keeps every line outside the markers, gets an old block replaced and the protocol added", async () => {
     const root = await repo("codex-existing");
     const before = `# My rules\n\nKeep this.\n\n${startMarker}\n## Talk plain\n\nBody v1.\n${endMarker}\n\nAnd this.\n`;
     const home = await codexHome("codex-existing", before);
     const changes = await writeSetup({ brain, root, ...base, codexHome: home });
     expect(changes[0]).toEqual({ path: `${home}/AGENTS.md`, action: "updated" });
     expect(await Bun.file(`${home}/AGENTS.md`).text()).toBe(
-      `# My rules\n\nKeep this.\n\n${block}\nAnd this.\n`,
+      `# My rules\n\nKeep this.\n\n${block}\nAnd this.\n\n${protocol}`,
     );
   });
 
-  test("a symlinked AGENTS.md stays a symlink and its target gets the block", async () => {
+  test("an old protocol block is replaced in place, and the text around it is kept", async () => {
+    const root = await repo("codex-protocol-old");
+    const oldProtocol = `${protocolMarkers.start}\n## brain protocol\n\nRules v1.\n${protocolMarkers.end}\n`;
+    const home = await codexHome("codex-protocol-old", `${block}\n${oldProtocol}\n# Mine\n`);
+    const changes = await writeSetup({ brain, root, ...base, codexHome: home });
+    expect(changes[0]).toEqual({ path: `${home}/AGENTS.md`, action: "updated" });
+    expect(await Bun.file(`${home}/AGENTS.md`).text()).toBe(`${codexText}\n# Mine\n`);
+  });
+
+  test("a symlinked AGENTS.md stays a symlink and its target gets both blocks", async () => {
     const root = await repo("codex-link");
     const home = await codexHome("codex-link");
     await Bun.write(`${work}/codex-link/AGENTS.md`, "# Home rules\n");
@@ -133,7 +212,9 @@ describe("writeSetup, the Codex global file", () => {
     await writeSetup({ brain, root, ...base, codexHome: home });
     const link = await lstat(`${home}/AGENTS.md`);
     expect(link.isSymbolicLink()).toBe(true);
-    expect(await Bun.file(`${work}/codex-link/AGENTS.md`).text()).toBe(`# Home rules\n\n${block}`);
+    expect(await Bun.file(`${work}/codex-link/AGENTS.md`).text()).toBe(
+      `# Home rules\n\n${codexText}`,
+    );
   });
 
   test("a missing Codex home is reported as skipped and nothing is created", async () => {
@@ -175,10 +256,20 @@ describe("writeSetup, the Codex global file", () => {
       `${home}/AGENTS.md has a start marker without an end marker`,
     );
   });
+
+  test("a broken protocol block is an error too, and the file is left as it was", async () => {
+    const root = await repo("codex-protocol-broken");
+    const before = `${block}\n${protocolMarkers.start}\nno end\n`;
+    const home = await codexHome("codex-protocol-broken", before);
+    await expect(writeSetup({ brain, root, ...base, codexHome: home })).rejects.toThrow(
+      `${home}/AGENTS.md has a start marker without an end marker`,
+    );
+    expect(await Bun.file(`${home}/AGENTS.md`).text()).toBe(before);
+  });
 });
 
 describe("writeSetup, Codex project scope", () => {
-  test("project scope writes the block into the repo AGENTS.md and skips the global file", async () => {
+  test("project scope writes both blocks into the repo AGENTS.md and skips the global file", async () => {
     const root = await repo("scope-project");
     const home = await codexHome("scope-project", "# Mine\n");
     const changes = await writeSetup({
@@ -190,7 +281,7 @@ describe("writeSetup, Codex project scope", () => {
     });
     expect(changes[0]).toEqual({ path: "AGENTS.md", action: "created" });
     expect(changes.some((c) => c.path === `${home}/AGENTS.md`)).toBe(false);
-    expect(await Bun.file(`${root}/AGENTS.md`).text()).toBe(block);
+    expect(await Bun.file(`${root}/AGENTS.md`).text()).toBe(codexText);
     expect(await Bun.file(`${home}/AGENTS.md`).text()).toBe("# Mine\n");
   });
 
@@ -199,7 +290,9 @@ describe("writeSetup, Codex project scope", () => {
     const root = await repo("scope-project-existing", { "AGENTS.md": before });
     const changes = await writeSetup({ brain, root, ...base, codexScope: "project" });
     expect(changes[0]).toEqual({ path: "AGENTS.md", action: "updated" });
-    expect(await Bun.file(`${root}/AGENTS.md`).text()).toBe(`# Repo\n\nKeep.\n\n${block}\nTail.\n`);
+    expect(await Bun.file(`${root}/AGENTS.md`).text()).toBe(
+      `# Repo\n\nKeep.\n\n${block}\nTail.\n\n${protocol}`,
+    );
   });
 
   test("project scope: a second run is unchanged, a dry run writes nothing, CLAUDE.md and GEMINI.md stay", async () => {
@@ -227,6 +320,53 @@ describe("writeSetup, Codex project scope", () => {
     const changes = await writeSetup({ brain, root, ...base, codexHome: home });
     expect(changes[0]).toEqual({ path: `${home}/AGENTS.md`, action: "created" });
     expect(await exists(`${root}/AGENTS.md`)).toBe(false);
+  });
+});
+
+describe("write.ts --check", () => {
+  const writeScript = `${import.meta.dir}/../write.ts`;
+  const check = (root: string) =>
+    Bun.spawnSync(["bun", writeScript, "--root", root, "--brain", brain, "--no-codex", "--check"]);
+
+  test("on a repo setup-brain has not touched: exit 1, each file named as drift, nothing written", async () => {
+    const root = await repo("check-fresh");
+    const run = check(root);
+    expect(run.exitCode).toBe(1);
+    const out = run.stdout.toString();
+    for (const path of repoFiles) {
+      expect(out).toContain(`created   ${path}`);
+    }
+    expect(out).toContain("3 files differ from what setup-brain writes: run setup-brain");
+    expect(await exists(`${root}/docs`)).toBe(false);
+  });
+
+  test("after a run: exit 0, every file unchanged", async () => {
+    const root = await repo("check-done");
+    await writeSetup({ brain, root, ...base });
+    const run = check(root);
+    expect(run.exitCode).toBe(0);
+    const out = run.stdout.toString();
+    for (const path of repoFiles) {
+      expect(out).toContain(`unchanged ${path}`);
+    }
+    expect(out).toContain("every file is in place");
+  });
+
+  test("one changed file: exit 1, that file named, the change not undone", async () => {
+    const root = await repo("check-drift");
+    await writeSetup({ brain, root, ...base });
+    await Bun.write(`${root}/docs/agents/domain.md`, "# Mine now\n");
+    const run = check(root);
+    expect(run.exitCode).toBe(1);
+    expect(run.stdout.toString()).toContain("updated   docs/agents/domain.md");
+    expect(run.stdout.toString()).toContain("1 file differs from what setup-brain writes");
+    expect(await Bun.file(`${root}/docs/agents/domain.md`).text()).toBe("# Mine now\n");
+  });
+
+  test("--check with --migrate is bad usage: exit 2", () => {
+    const run = Bun.spawnSync(["bun", writeScript, "--root", work, "--check", "--migrate"]);
+    expect(run.exitCode).toBe(2);
+    expect(run.stderr.toString()).toContain("--check");
   });
 });
 
@@ -372,6 +512,19 @@ describe("writeSetup, a glossary file git does not track", () => {
       ["CONTEXT-MAP.md -> GLOSSARY-MAP.md", "skipped", "not tracked by git; move it by hand"],
     ]);
     expect(await exists(`${root}/CONTEXT.md`)).toBe(true);
+  });
+});
+
+describe("the shipped STATUS.md seed", () => {
+  const shipped = `${import.meta.dir}/../../..`;
+
+  test("says there is no active work and names interview-me, with no labelled line that would hide the frontier", async () => {
+    // brain status takes a `Next:` or `Waiting on the user:` line over the rows, so a seeded one
+    // would still win after interview-me charts the first idea.
+    const text = await Bun.file(`${shipped}/skills/setup-brain/STATUS.md`).text();
+    expect(text).toContain("No active work.");
+    expect(text).toContain("interview-me");
+    expect(text).not.toMatch(/^(?:[-*] +)?(?:next|next step|waiting|waiting on the user): /imu);
   });
 });
 

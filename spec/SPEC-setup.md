@@ -46,6 +46,14 @@ script writes no `docs/agents/issue-tracker.md` or `docs/agents/triage-labels.md
 no `--tracker` or `--repo`. The workspace migrate mode removes those two files from an
 existing repo, only with the user's yes (`SPEC-workspace.md`).
 
+**Amended 2026-10-29, by the workspace install flow (`SPEC-workspace.md`, task T33).** The
+skill checks for bun first and says plainly that brain needs it. The script also writes
+`docs/agents/workspace.md`, where a re-run keeps the folder paths and `max_parallel` that
+the repo sets, and the `docs/STATUS.md` seed, only when the file is absent, since it is the
+agent's handoff note. The Codex file gets the protocol block beside the plain-talk block,
+each between its own markers. `--check` lists what a run would change, writes nothing, and
+exits 1 when a file differs. The skill says how to find the plugin folder on every host.
+
 Users: anyone who installs brain, once per repo. The user can run it as `/setup-brain`, and the agent can load it on its own (Peter, 2026-10-28).
 
 ## Process the skill follows
@@ -72,7 +80,7 @@ Users: anyone who installs brain, once per repo. The user can run it as `/setup-
 tested, and the skill prose only decides and explains.
 
 ```
-bun run scripts/setup/write.ts --root <repo> --layout single|multi [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--dry-run]
+bun run scripts/setup/write.ts --root <repo> --layout single|multi [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--dry-run | --check]
 ```
 
 - Writes `docs/agents/domain.md` from the skill's `domain.md`, the consumer rules, with the
