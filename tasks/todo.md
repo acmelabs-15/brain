@@ -80,7 +80,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/setup` (bodies byte-compared); `git diff` on brain shows frontmatter lines only
   - Files: scripts/setup/migrate.ts, scripts/setup/write.ts, scripts/setup/__tests__/migrate.test.ts, docs/decisions/DEC-00{1,2}-*.md, docs/research/RES-00{1..5}-*.md
   - Depends: T10. Scope: M
-- [ ] T14: `brain check`, in the gate
+- [x] T14: `brain check`, in the gate
   - Acceptance: the map parser (`scripts/workspace/map.ts`: map and plan rows, and the frontier: open rows whose blockers are all resolved), tested through `brain check`; one finding line and exit 1 for each rule in spec success criterion 3; exit 0 on clean fixtures; row checks skip a migrated file; one informational line, exit unchanged, when migrated decisions have no `kind` ("3 migrated decisions have no kind: DEC-001, DEC-002, DEC-005"); paths from the config; `package.json` gains `workspace:check`, and `check` runs it
   - Verify: one fixture per rule (CLI seam), and one for the informational line; `bun run check` green on brain
   - Files: scripts/workspace/map.ts, scripts/workspace/check.ts, scripts/workspace/__tests__/check.test.ts, fixtures, package.json

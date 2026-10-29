@@ -11,7 +11,7 @@ brain is one plugin for Claude Code, Codex CLI, Gemini CLI and Antigravity CLI. 
 ## Commands
 
 ```
-bun run check      # the gate: typecheck, lint, format, tests, version, render, lifecycle and sync checks
+bun run check      # the gate: typecheck, lint, format, tests, version, render, lifecycle, workspace and sync checks
 bun run validate   # the host validators
 bun run sync       # fetch every pinned upstream again
 bun run changeset  # a user-facing change gets one; the release workflow versions and tags from it

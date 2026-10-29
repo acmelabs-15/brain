@@ -2,14 +2,15 @@
  * The shared fixtures: whole repo trees under `fixtures/` that the check, status, hook and
  * migrate tests copy into a temp git repo. Each fixture's README names its purpose and the
  * state brain must report on it. These tests hold every fixture to its contract: a layout-2
- * fixture's workspace files each pass `checkDoc`, and the 0.8 fixture keeps the old layout
- * that the migrate mode takes as input.
+ * fixture's workspace files each pass `checkDoc`, each map and plan has the frontier its README
+ * names, and the 0.8 fixture keeps the old layout that the migrate mode takes as input.
  */
 import { describe, expect, test } from "bun:test";
 import { stat } from "node:fs/promises";
 
 import { configFile, readConfig } from "../config";
 import type { Paths } from "../config";
+import { frontier, readRows } from "../map";
 import { checkDoc, readFrontmatter } from "../schema";
 import type { DocType } from "../schema";
 
@@ -133,6 +134,23 @@ describe("every workspace file in a layout-2 fixture", () => {
     if (doc !== null) {
       expect(checkDoc(doc.type, await Bun.file(full).text(), doc.id)).toEqual([]);
     }
+  });
+});
+
+describe("the frontier each README names", () => {
+  test.each([
+    ["idea-mid-define", "docs/ideas/IDEA-001-sync-notes.md", "map", ["06", "07", "08"]],
+    ["spec-mid-build", "docs/specs/SPEC-001-invoice-csv-export/tasks/plan.md", "plan", ["05"]],
+    ["no-active-work", "docs/specs/SPEC-001-theme-tokens/tasks/plan.md", "plan", []],
+    ["no-active-work", "docs/specs/SPEC-002-theme-switch/tasks/plan.md", "plan", []],
+    ["no-active-work", "docs/ideas/IDEA-002-offline-mode.md", "map", ["01"]],
+  ] as const)("%s: %s", async (fixture, path, table, expected) => {
+    const { rows, problems } = readRows(
+      table,
+      await Bun.file(`${fixtures}/${fixture}/${path}`).text(),
+    );
+    expect(problems).toEqual([]);
+    expect(frontier(rows).map((row) => row.id)).toEqual([...expected]);
   });
 });
 

@@ -8,6 +8,7 @@
  * Exit codes: 0 clean, 1 a finding or a failed action, 2 bad usage.
  */
 
+import { check } from "./workspace/check";
 import { newDoc } from "./workspace/new-doc";
 
 type Command = (args: string[]) => Promise<number>;
@@ -23,7 +24,10 @@ commands:
  * Each command takes the arguments after its name and returns the exit code. A new
  * command is one entry here, such as `["new-doc", newDoc]`.
  */
-const commands = new Map<string, Command>([["new-doc", newDoc]]);
+const commands = new Map<string, Command>([
+  ["new-doc", newDoc],
+  ["check", check],
+]);
 
 async function main(argv: string[]): Promise<number> {
   const [name, ...args] = argv;
