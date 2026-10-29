@@ -191,7 +191,34 @@ Ask it through the same tool. The recommended option is your read of what they w
 
 ## Delegating research
 
-_T21 writes this section: research rows run in sub-agents, with the brief in the sibling file `RESEARCH.md`._
+A research row goes to a sub-agent: one sub-agent and one brief per row. The sub-agent finds the facts, follows each one to the source that owns it, and writes them to its own research record. A fact you think you know goes to the sub-agent too: memory is not a source.
+
+| Host | Agent for a research row |
+|---|---|
+| Claude Code | The brain plugin's `researcher` agent. It has every tool except Agent, so it cannot start agents of its own. |
+| Every other host | The host's general-purpose agent. The brief's "start no other agent" line keeps it alone. |
+
+A read-only agent such as Explore takes a quick lookup inside a decide row only. It cannot write a file, so it never takes a research row.
+
+To start the research for a row:
+
+1. Call the Skill tool with "writing-for-agents". A brief is a document an agent consumes, and its levers apply.
+2. Read [`RESEARCH.md`](RESEARCH.md) in full. It holds the brief, the rule for each of its fields, and the variants for a record to continue and for a session with no repo.
+3. Fill the brief. Give it this path for the brain CLI: `${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts`. Claude Code fills in the plugin folder when it loads this skill; a sub-agent's Bash has no `CLAUDE_PLUGIN_ROOT`, so the brief carries the full path. On another host, give `scripts/brain.ts` in the plugin folder you resolved.
+4. Start the agent with the brief, and set the row to `in-progress` in the idea file.
+
+The sub-agent claims its own record through `brain new-doc`: the brief gives the name format, never a number. You write the idea file; the sub-agent writes only its record.
+
+### Read the result
+
+The sub-agent replies with one path and nothing else. Read the file, not the reply: the file is the primary source. When the reply names no research record, look in the research folder for the record whose `from:` is the row.
+
+| You find | Next |
+|---|---|
+| The record, with `status: resolved` | Set the row to `resolved`, with the record's ID as its Result. Its follow-ups, `UNVERIFIED` lines among them, go into the re-map. |
+| The record, with `status: in-progress` | The sub-agent stopped early, and its findings stand. Start a new one with the brief for a record to continue. |
+| No record, and the reply is the progress file's path | The sub-agent's capability check failed. Tell the user what the file says, and set the row back to `open`. |
+| No record otherwise | The sub-agent never reached step 1. Start it again with the same brief. |
 
 ## Confirm the intent
 
