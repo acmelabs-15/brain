@@ -73,6 +73,15 @@ generated files are committed, so an install needs no build.
 
 The body is byte-identical in all four outputs. That is a test.
 
+The same pipeline renders a second source text, the brain protocol `protocol/PROTOCOL.md`
+(module `workspace`), into `rules/protocol.md` and `protocol/AGENTS-block.md`, and puts that
+block into `GEMINI.md` after the plain-talk text. Gemini CLI's reference names one context
+file per extension (`contextFileName`, https://geminicli.com/docs/extensions/reference/,
+checked 2026-10-29), so both texts share that file. Each block carries its name in its
+markers (`brain:plain-talk`, `brain:protocol`), so blocks of different names live side by
+side in one file, as plain talk and the protocol do in the Codex `AGENTS.md`. Every output is
+composed in memory, then written once.
+
 ## Tech Stack
 
 Bun 1.4.0, TypeScript, `bun:test`. No Node-only API.
@@ -97,9 +106,14 @@ plain-talk/templates/output-style.md       frontmatter template
 plain-talk/templates/gemini.md             heading template
 plain-talk/templates/antigravity-rule.md   rule frontmatter and heading template
 plain-talk/templates/agents-block.md       heading and markers template
+plain-talk/templates/protocol-rule.md      the protocol's rule frontmatter and heading template
+plain-talk/templates/protocol-block.md     the protocol's heading and markers template
+protocol/PROTOCOL.md                       the brain protocol, the second source text
+protocol/AGENTS-block.md                   generated; setup writes it into the Codex AGENTS.md
 output-styles/talk-plain.md                generated
-GEMINI.md                                  generated
+GEMINI.md                                  generated, with the protocol block at its end
 rules/talk-plain.md                        generated
+rules/protocol.md                          generated
 AGENTS.md                                  hand-written; the block at its end is generated
 scripts/plain-talk/block.ts                the marker replace, shared with setup
 scripts/plain-talk/render.ts
@@ -113,16 +127,23 @@ scripts/plain-talk/__tests__/render.test.ts
 // scripts/plain-talk/render.ts
 export type Target = { template: string; out: string };
 export type BlockTarget = { block: string; into: string };
+export type Source = {
+  path: string;
+  targets: readonly Target[];
+  blockTargets: readonly BlockTarget[];
+};
 
-export const targets: readonly Target[] = [
-  { template: "plain-talk/templates/output-style.md", out: "output-styles/talk-plain.md" },
-  { template: "plain-talk/templates/gemini.md", out: "GEMINI.md" },
-  { template: "plain-talk/templates/antigravity-rule.md", out: "rules/talk-plain.md" },
-  { template: "plain-talk/templates/agents-block.md", out: "plain-talk/AGENTS-block.md" },
-];
-
-export const blockTargets: readonly BlockTarget[] = [
-  { block: "plain-talk/AGENTS-block.md", into: "AGENTS.md" },
+export const sources: readonly Source[] = [
+  {
+    path: "plain-talk/PLAIN-TALK.md",
+    targets: [
+      { template: "plain-talk/templates/output-style.md", out: "output-styles/talk-plain.md" },
+      { template: "plain-talk/templates/gemini.md", out: "GEMINI.md" },
+      // ...
+    ],
+    blockTargets: [{ block: "plain-talk/AGENTS-block.md", into: "AGENTS.md" }],
+  },
+  // protocol/PROTOCOL.md: rules/protocol.md, protocol/AGENTS-block.md, the block into GEMINI.md
 ];
 
 export function render(template: string, body: string): string {
@@ -139,7 +160,11 @@ templates in a temp directory: every target written; the body identical in all;
 the output-style frontmatter carries the four fields; `--check` passes after a render
 and fails after a one-byte edit of an output or of the block inside the hand-written
 file; text outside the markers is kept; the block comes from the fresh render, not from
-the output file on disk; a template without `{{body}}` is an error.
+the output file on disk; a template without `{{body}}` is an error. With two sources: a
+block goes after another source's whole file, and a check run is clean after a render;
+blocks of two names share one file; two blocks of one name in a file are an error; every
+`rules/` template sets `trigger: always_on`; the protocol stays at or under 4,000
+characters, so the Claude Code session-start text keeps 6,000 of its 10,000 for the status.
 
 Behaviour, whether the agent talks plain, is not tested here. The `evals` module owns it.
 

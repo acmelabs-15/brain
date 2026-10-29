@@ -5,12 +5,14 @@
  *   bun run plain-talk:render -- --check exit 1 if any output differs from a fresh render
  *
  * Each source text has its own targets, of two kinds. A template target is a whole generated
- * file. A block target is a hand-written file that carries one generated block between the
- * plain-talk markers; the block is one of the same source's template targets.
+ * file. A block target is a file that carries one generated block between the markers of the
+ * block's name; the block is one of the same source's template targets. The file can be
+ * hand-written, or another source's template target: the block then goes after that source's
+ * text. Every output is composed in memory first, then written once.
  */
 import { mkdir } from "node:fs/promises";
 
-import { replaceBlock } from "./block";
+import { blockName, replaceBlock } from "./block";
 
 export type Target = { template: string; out: string };
 export type BlockTarget = { block: string; into: string };
@@ -30,6 +32,16 @@ export const sources: readonly Source[] = [
       { template: "plain-talk/templates/agents-block.md", out: "plain-talk/AGENTS-block.md" },
     ],
     blockTargets: [{ block: "plain-talk/AGENTS-block.md", into: "AGENTS.md" }],
+  },
+  {
+    // The brain protocol. Claude Code gets it from the session-start hook, which reads the
+    // source text itself; setup-brain writes the block into the Codex AGENTS.md.
+    path: "protocol/PROTOCOL.md",
+    targets: [
+      { template: "plain-talk/templates/protocol-rule.md", out: "rules/protocol.md" },
+      { template: "plain-talk/templates/protocol-block.md", out: "protocol/AGENTS-block.md" },
+    ],
+    blockTargets: [{ block: "protocol/AGENTS-block.md", into: "GEMINI.md" }],
   },
 ];
 
@@ -60,15 +72,11 @@ async function settle(root: string, path: string, next: string, check: boolean):
   return true;
 }
 
-/** Throws when two targets write one file, since each render would undo the other. */
+/** Throws when two template targets write one file, since each render would undo the other. */
 function assertOneWriterPerFile(list: readonly Source[]): void {
   const writer = new Map<string, string>();
   for (const source of list) {
-    const outputs = [
-      ...source.targets.map((target) => target.out),
-      ...source.blockTargets.map((target) => target.into),
-    ];
-    for (const out of outputs) {
+    for (const { out } of source.targets) {
       const first = writer.get(out);
       if (first !== undefined) {
         throw new Error(`${out} is written from both ${first} and ${source.path}`);
@@ -78,44 +86,77 @@ function assertOneWriterPerFile(list: readonly Source[]): void {
   }
 }
 
-/** Returns the targets of one source that differ from a fresh render. Writes them unless `check`. */
-async function renderSource(root: string, source: Source, check: boolean): Promise<string[]> {
-  const body = await Bun.file(`${root}/${source.path}`).text();
-  const rendered = new Map<string, string>();
-  const changed: string[] = [];
-  for (const target of source.targets) {
-    const template = await Bun.file(`${root}/${target.template}`).text();
-    const text = render(template, body, target.template);
-    rendered.set(target.out, text);
-    if (await settle(root, target.out, text, check)) {
-      changed.push(target.out);
+/** Every output path once, in the order the source list first names it. */
+function outputOrder(list: readonly Source[]): string[] {
+  const seen = new Set<string>();
+  for (const source of list) {
+    for (const target of source.targets) {
+      seen.add(target.out);
+    }
+    for (const target of source.blockTargets) {
+      seen.add(target.into);
     }
   }
-  for (const target of source.blockTargets) {
-    const block = rendered.get(target.block);
-    if (block === undefined) {
-      throw new Error(
-        `${target.into} takes its block from ${target.block}, which is not a target of ${source.path}`,
-      );
-    }
-    const current = (await readIfPresent(`${root}/${target.into}`)) ?? "";
-    if (await settle(root, target.into, replaceBlock(current, block, target.into), check)) {
-      changed.push(target.into);
-    }
-  }
-  return changed;
+  return [...seen];
 }
 
-/** Returns every source's targets that differ from a fresh render. Writes them unless `check`. */
+/** One source's template targets, rendered from its body: output path to text. */
+async function renderTargets(root: string, source: Source): Promise<Map<string, string>> {
+  const body = await Bun.file(`${root}/${source.path}`).text();
+  const rendered = new Map<string, string>();
+  for (const target of source.targets) {
+    const template = await Bun.file(`${root}/${target.template}`).text();
+    rendered.set(target.out, render(template, body, target.template));
+  }
+  return rendered;
+}
+
+/**
+ * The fresh text of every output: each template target first, then each block put into its
+ * file, which is a template target's fresh text or else the file on disk. Throws when a file
+ * would take two blocks of one name, since the second would undo the first.
+ */
+async function composeOutputs(root: string, list: readonly Source[]): Promise<Map<string, string>> {
+  const perSource = await Promise.all(list.map((source) => renderTargets(root, source)));
+  const next = new Map(perSource.flatMap((rendered) => [...rendered]));
+  const blockSource = new Map<string, string>();
+  for (const [index, source] of list.entries()) {
+    for (const target of source.blockTargets) {
+      const block = perSource[index]?.get(target.block);
+      if (block === undefined) {
+        throw new Error(
+          `${target.into} takes its block from ${target.block}, which is not a target of ${source.path}`,
+        );
+      }
+      const name = blockName(block, target.into);
+      const first = blockSource.get(`${target.into}\n${name}`);
+      if (first !== undefined) {
+        throw new Error(
+          `${target.into} takes two blocks named ${name}, from ${first} and ${source.path}`,
+        );
+      }
+      blockSource.set(`${target.into}\n${name}`, source.path);
+      const current =
+        next.get(target.into) ?? (await readIfPresent(`${root}/${target.into}`)) ?? "";
+      next.set(target.into, replaceBlock(current, block, target.into));
+    }
+  }
+  return next;
+}
+
+/** Returns every output that differs from a fresh render. Writes them unless `check`. */
 export async function renderAll(
   root: string,
   list: readonly Source[],
   check: boolean,
 ): Promise<string[]> {
   assertOneWriterPerFile(list);
+  const next = await composeOutputs(root, list);
   const changed: string[] = [];
-  for (const source of list) {
-    changed.push(...(await renderSource(root, source, check)));
+  for (const out of outputOrder(list)) {
+    if (await settle(root, out, next.get(out) as string, check)) {
+      changed.push(out);
+    }
   }
   return changed;
 }

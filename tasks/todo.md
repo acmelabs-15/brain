@@ -218,7 +218,7 @@ ends with a checkpoint and a review with Peter.
   - Verify: `bun test scripts/plain-talk`; `bun run plain-talk:render -- --check`
   - Files: scripts/plain-talk/render.ts, scripts/plain-talk/__tests__/render.test.ts
   - Depends: none. Scope: S
-- [ ] T31: the protocol, rendered per host
+- [x] T31: the protocol, rendered per host
   - Acceptance: `protocol/PROTOCOL.md` from the intent doc's draft, with "the user", the new-doc-only rule, the soft skill line, the status fallback and the task-end `brain check`; rendered into Gemini's context file, an Antigravity always-on rule and the Codex block
   - Verify: `bun run plain-talk:render -- --check`; `bun test scripts/plain-talk`
   - Files: protocol/PROTOCOL.md, plain-talk/templates/*, scripts/plain-talk/render.ts, rendered outputs

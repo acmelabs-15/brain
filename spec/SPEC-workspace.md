@@ -182,6 +182,8 @@ scripts/workspace/__tests__/fixtures/ shared repos: idea mid-define, spec mid-bu
 scripts/hooks/claude-code.json        the Claude-only hook file, named in .claude-plugin/plugin.json
 scripts/hooks/session-start.ts        injects the protocol and `brain status --json` output
 protocol/PROTOCOL.md                  the brain protocol, one source text
+protocol/AGENTS-block.md              rendered: the protocol block setup-brain writes for Codex
+rules/protocol.md                     rendered: the Antigravity always-on rule; GEMINI.md ends with the block
 claude/agents/researcher.md           Claude-only researcher, listed in .claude-plugin/plugin.json
 references/brain/agent-brief.md       moved from skills/triage/AGENT-BRIEF.md (triage is removed)
 skills/status/SKILL.md                the status entry point (/brain:status on Claude Code)

@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
-import { endMarker, startMarker } from "../block";
+import { endMarker, markersFor, startMarker } from "../block";
 import { render, renderAll, sources as realSources } from "../render";
 import type { BlockTarget, Source, Target } from "../render";
 
@@ -30,15 +30,28 @@ const second: Source = {
   blockTargets: [{ block: "second-block.md", into: "OTHER.md" }],
 };
 
+/** A third source text whose block, named third, goes into a file another source writes. */
+const third = markersFor("third");
+const thirdBlock = `${third.start}\nThird text.\n${third.end}\n`;
+function thirdInto(into: string): Source {
+  return {
+    path: "THIRD.md",
+    targets: [{ template: "templates/e.md", out: "third-block.md" }],
+    blockTargets: [{ block: "third-block.md", into }],
+  };
+}
+
 async function fixture(name: string, agents?: string): Promise<string> {
   const root = `${work}/${name}`;
   await mkdir(`${root}/templates`, { recursive: true });
   await Bun.write(`${root}/SOURCE.md`, body);
   await Bun.write(`${root}/SECOND.md`, "Second text.\n\n- rule\n\n");
+  await Bun.write(`${root}/THIRD.md`, "Third text.\n");
   await Bun.write(`${root}/templates/a.md`, "---\nname: a\n---\n\n{{body}}\n");
   await Bun.write(`${root}/templates/b.md`, "# b\n\n{{body}}\n");
   await Bun.write(`${root}/templates/c.md`, `${startMarker}\n{{body}}\n${endMarker}\n`);
   await Bun.write(`${root}/templates/d.md`, "# d\n\n{{body}}\n");
+  await Bun.write(`${root}/templates/e.md`, `${third.start}\n{{body}}\n${third.end}\n`);
   if (agents !== undefined) {
     await Bun.write(`${root}/AGENTS.md`, agents);
   }
@@ -209,19 +222,100 @@ describe("renderAll, several sources", () => {
   });
 });
 
+describe("renderAll, a block in a file that another source writes", () => {
+  test("the block goes after the whole file another source renders, and each file is written once", async () => {
+    const root = await fixture("into-whole");
+    const changed = await renderAll(root, [...only, thirdInto("b.md")], false);
+    expect(changed).toEqual(["out/a.md", "b.md", "out/deep/c.md", "third-block.md"]);
+    expect(await Bun.file(`${root}/b.md`).text()).toBe(
+      `# b\n\nLine one.\n\n## Part\n\n- item\n\n${thirdBlock}`,
+    );
+    expect(await renderAll(root, [...only, thirdInto("b.md")], true)).toEqual([]);
+  });
+
+  test("a check run reports the whole file when either source's part of it drifts", async () => {
+    const root = await fixture("into-whole-check");
+    const list = [...only, thirdInto("b.md")];
+    await renderAll(root, list, false);
+    const rendered = await Bun.file(`${root}/b.md`).text();
+    await Bun.write(`${root}/b.md`, rendered.replace("Third text.", "Edited."));
+    expect(await renderAll(root, list, true)).toEqual(["b.md"]);
+    await Bun.write(`${root}/b.md`, rendered.replace("Line one.", "Edited."));
+    expect(await renderAll(root, list, true)).toEqual(["b.md"]);
+  });
+
+  test("blocks of two names share one hand-written file, each between its own markers", async () => {
+    const root = await fixture("two-blocks", "# Repo rules\n");
+    await renderAll(root, [...withBlock, thirdInto("AGENTS.md")], false);
+    const c = await Bun.file(`${root}/out/deep/c.md`).text();
+    expect(await Bun.file(`${root}/AGENTS.md`).text()).toBe(`# Repo rules\n\n${c}\n${thirdBlock}`);
+    expect(await renderAll(root, [...withBlock, thirdInto("AGENTS.md")], true)).toEqual([]);
+  });
+
+  test("two blocks of one name in one file are an error naming the file, before any write", async () => {
+    const root = await fixture("two-same-name", "# Repo rules\n");
+    const sameName: Source = {
+      path: "THIRD.md",
+      targets: [{ template: "templates/c.md", out: "third-block.md" }],
+      blockTargets: [{ block: "third-block.md", into: "AGENTS.md" }],
+    };
+    await expect(renderAll(root, [...withBlock, sameName], false)).rejects.toThrow(
+      "AGENTS.md takes two blocks named plain-talk, from SOURCE.md and THIRD.md",
+    );
+    expect(await Bun.file(`${root}/out/a.md`).exists()).toBe(false);
+  });
+});
+
 describe("the real source list", () => {
-  test("one source, plain talk: four host outputs, and the block goes into brain's own AGENTS.md", () => {
-    expect(realSources).toEqual([
+  test("plain talk: four host outputs, and its block goes into brain's own AGENTS.md", () => {
+    expect(realSources[0]).toEqual({
+      path: "plain-talk/PLAIN-TALK.md",
+      targets: [
+        { template: "plain-talk/templates/output-style.md", out: "output-styles/talk-plain.md" },
+        { template: "plain-talk/templates/gemini.md", out: "GEMINI.md" },
+        { template: "plain-talk/templates/antigravity-rule.md", out: "rules/talk-plain.md" },
+        { template: "plain-talk/templates/agents-block.md", out: "plain-talk/AGENTS-block.md" },
+      ],
+      blockTargets: [{ block: "plain-talk/AGENTS-block.md", into: "AGENTS.md" }],
+    });
+  });
+
+  test("the protocol: an Antigravity rule, the block setup-brain writes for Codex, and that block in GEMINI.md", () => {
+    expect(realSources.slice(1)).toEqual([
       {
-        path: "plain-talk/PLAIN-TALK.md",
+        path: "protocol/PROTOCOL.md",
         targets: [
-          { template: "plain-talk/templates/output-style.md", out: "output-styles/talk-plain.md" },
-          { template: "plain-talk/templates/gemini.md", out: "GEMINI.md" },
-          { template: "plain-talk/templates/antigravity-rule.md", out: "rules/talk-plain.md" },
-          { template: "plain-talk/templates/agents-block.md", out: "plain-talk/AGENTS-block.md" },
+          { template: "plain-talk/templates/protocol-rule.md", out: "rules/protocol.md" },
+          { template: "plain-talk/templates/protocol-block.md", out: "protocol/AGENTS-block.md" },
         ],
-        blockTargets: [{ block: "plain-talk/AGENTS-block.md", into: "AGENTS.md" }],
+        blockTargets: [{ block: "protocol/AGENTS-block.md", into: "GEMINI.md" }],
       },
     ]);
+  });
+});
+
+describe("the real texts", () => {
+  const repo = `${import.meta.dir}/../../..`;
+
+  test("every rule for Antigravity opens with frontmatter that sets trigger: always_on", async () => {
+    const rules = realSources.flatMap((source) =>
+      source.targets.filter((target) => target.out.startsWith("rules/")),
+    );
+    expect(rules.map((rule) => rule.out)).toEqual(["rules/talk-plain.md", "rules/protocol.md"]);
+    for (const rule of rules) {
+      const template = await Bun.file(`${repo}/${rule.template}`).text();
+      expect(template).toStartWith("---\ntrigger: always_on\n");
+    }
+  });
+
+  test("the protocol leaves 6,000 of the session-start hook's 10,000 characters for the status", async () => {
+    const protocol = await Bun.file(`${repo}/protocol/PROTOCOL.md`).text();
+    expect(protocol.length).toBeLessThanOrEqual(4000);
+  });
+
+  test("the protocol says the user, never a person's name, because brain is public", async () => {
+    const protocol = await Bun.file(`${repo}/protocol/PROTOCOL.md`).text();
+    expect(protocol).toContain("the user");
+    expect(protocol).not.toMatch(/\bPeter\b/u);
   });
 });
