@@ -1,9 +1,12 @@
 /**
  * The Claude Code `SessionStart` hook: it gives a session the brain protocol, the path of the
- * `brain` CLI, and the state of the repo before the user's first word. `claude-code.json` runs
- * it on startup, resume, clear and compact. On resume it leaves the protocol out: Claude Code
- * keeps the text a hook injected in the session transcript, so a resumed session already holds
- * it, and only the status is new (https://code.claude.com/docs/en/hooks#add-context-for-claude).
+ * `brain` CLI, and the state of the repo before the user's first word. The entry in
+ * `claude-code.json` has no matcher, so Claude Code runs it on every `SessionStart` source
+ * (https://code.claude.com/docs/en/hooks#matcher-patterns), and this script decides what to
+ * print. On resume and fork it leaves the protocol out: Claude Code keeps the text a hook
+ * injected in the session transcript, so a session that carries the old transcript already
+ * holds it, and only the status is new
+ * (https://code.claude.com/docs/en/hooks#add-context-for-claude).
  *
  *   echo '{"source":"resume"}' | bun scripts/hooks/session-start.ts
  *
@@ -26,8 +29,16 @@ const statusTimeoutMs = 10_000;
 const intro =
   "The brain plugin adds this text at session start: the brain protocol, the path of the `brain` CLI on this machine, and the state of this repo from `brain status`.";
 
-const resumeIntro =
-  "The brain plugin adds this text when a session resumes: the path of the `brain` CLI on this machine and the current `brain status` of this repo. The protocol is not repeated; the session holds it from its start. This status replaces any earlier one in the session.";
+const statusOnlyIntro =
+  "The brain plugin adds this text when a session resumes or forks: the path of the `brain` CLI on this machine and the current `brain status` of this repo. The protocol is not repeated; the session's transcript already holds it. This status replaces any earlier one in the session.";
+
+/**
+ * The sources whose session carries the old transcript, and with it the protocol: `--resume`,
+ * `--continue` and `/resume` start `resume`; `--fork-session`, `/fork` and `/branch` start
+ * `fork` (https://code.claude.com/docs/en/hooks#sessionstart). Every other value, a missing one,
+ * and any value Claude Code adds later get the full text.
+ */
+const statusOnlySources = new Set(["resume", "fork"]);
 
 const cutLine =
   "The status text is cut here to keep this text under 10,000 characters. Run `brain status` and read docs/STATUS.md for the rest.";
@@ -94,8 +105,8 @@ function sessionSource(input: string): string | null {
 }
 
 /**
- * The text the hook adds to the session for the repo at `project`: on resume the `brain` path
- * and the status; for every other `source`, the protocol before them.
+ * The text the hook adds to the session for the repo at `project`: on resume and fork the
+ * `brain` path and the status; for every other `source`, the protocol before them.
  */
 async function sessionText(
   pluginRoot: string,
@@ -113,8 +124,8 @@ async function sessionText(
     "```",
   ].join("\n");
   let head: string;
-  if (source === "resume") {
-    head = ["# brain on resume", "", resumeIntro, "", cli].join("\n");
+  if (source !== null && statusOnlySources.has(source)) {
+    head = ["# brain on resume or fork", "", statusOnlyIntro, "", cli].join("\n");
   } else {
     const protocol = await Bun.file(path.join(pluginRoot, "protocol/PROTOCOL.md")).text();
     head = ["# brain protocol", "", intro, "", protocol.trim(), "", cli].join("\n");

@@ -296,7 +296,7 @@ Seams, confirmed by Peter on 2026-10-29:
 25. As a user, I want the main session to update the plan row after a sub-agent reports, so that the plan has one writer.
 26. As a user, I want every H1 to start with an ID, so that titles stay unique across the repo.
 27. As a user, I want `brain status` to print stage, last step, next step, red items and decisions waiting on me in five lines, so that I know where I am at a glance.
-28. As a user on Claude Code, I want the protocol and `brain status` injected at session start, clear and compact, and `brain status` alone on resume, so that a session knows its current state before my first word.
+28. As a user on Claude Code, I want the protocol and `brain status` injected whenever a session starts, and `brain status` alone on resume and fork, which carry the old transcript, so that a session knows its current state before my first word.
 29. As a user on Gemini, Codex or Antigravity, I want a status command that runs the same script, so that every host reports the same state.
 30. As a user, I want `brain status` to be read-only, so that asking for the state never changes it.
 31. As a user, I want the protocol carried by the plugin on every host, so that my repo's `AGENTS.md` holds only stack, commands and boundaries.
@@ -375,10 +375,12 @@ Each item names how it is verified.
    each idea produced, reports "run setup-brain to migrate" on the 0.8-layout fixture, and
    leaves the tree unchanged. Test: CLI seam, tree hashed before and after.
 6. The `SessionStart` hook's output is valid JSON whose `additionalContext` holds the protocol,
-   the five-line report and the `STATUS.md` text, under 10,000 characters. The matcher is
-   `startup|resume|clear|compact`; on `resume` the text holds the report and the `STATUS.md`
-   text with no protocol text (Decisions row "Claude Code channel for the protocol", amended
-   2026-10-29). Test: spawn the hook script on the fixtures, once per `source` value.
+   the five-line report and the `STATUS.md` text, under 10,000 characters. The hook entry has
+   no matcher, so it fires on every source; on `resume` and `fork` the text holds the report
+   and the `STATUS.md` text with no protocol text, and every other `source` value, a missing
+   one included, gets the full text (Decisions row "Claude Code channel for the protocol",
+   amended 2026-10-29). Test: spawn the hook script on the fixtures, once per known `source`
+   value and once for an unknown one.
 7. `bun run plain-talk:render -- --check` is green, with the protocol rendered into
    `GEMINI.md`, `rules/` and the Codex block.
 8. Glossary rename: no brain-owned file outside history, the fallback (until 0.11.0) and

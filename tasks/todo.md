@@ -235,7 +235,7 @@ ends with a checkpoint and a review with Peter.
   - Files: scripts/hooks/claude-code.json, scripts/hooks/session-start.ts, scripts/hooks/__tests__/session-start.test.ts, docs/intent/workspace-and-stateful-interview.md, spec/SPEC-workspace.md
   - Depends: T32. Scope: S
 
-- [ ] T50: the `SessionStart` hook fires on every source; the script decides
+- [x] T50: the `SessionStart` hook fires on every source; the script decides
   - Acceptance: the hook entry in `scripts/hooks/claude-code.json` names no source list, so it fires on every SessionStart source (confirm in Claude Code's hooks reference how an entry matches every source, and cite it); `session-start.ts` prints the status only for `resume` and `fork`, which carry the old transcript, and the full protocol plus status for every other value, including a missing one and any value Claude Code adds later; the Decisions row "Claude Code channel for the protocol" gains a line in its amendment (Peter, 2026-10-29)
   - Verify: one hook test per known source (startup, resume, fork, clear, compact) and one for an unknown value that asserts the full output; `bun run validate`
   - Files: scripts/hooks/claude-code.json, scripts/hooks/session-start.ts, scripts/hooks/__tests__/session-start.test.ts, docs/intent/workspace-and-stateful-interview.md, spec/SPEC-workspace.md, docs/install/claude-code.md

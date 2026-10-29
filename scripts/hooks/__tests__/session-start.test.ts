@@ -64,11 +64,14 @@ const fullNoWork = [
   noWorkStatus,
 ].join("\n");
 
-/** The resume text on the no-active-work fixture: the brain path and the status, no protocol. */
-const resumeNoWork = [
-  "# brain on resume",
+/**
+ * The text on resume or fork, on the no-active-work fixture: the brain path and the status, no
+ * protocol.
+ */
+const statusOnlyNoWork = [
+  "# brain on resume or fork",
   "",
-  "The brain plugin adds this text when a session resumes: the path of the `brain` CLI on this machine and the current `brain status` of this repo. The protocol is not repeated; the session holds it from its start. This status replaces any earlier one in the session.",
+  "The brain plugin adds this text when a session resumes or forks: the path of the `brain` CLI on this machine and the current `brain status` of this repo. The protocol is not repeated; the session's transcript already holds it. This status replaces any earlier one in the session.",
   "",
   cliSection,
   "",
@@ -83,7 +86,7 @@ function input(source: string, cwd: string): string {
   return JSON.stringify({ session_id: "abc123", hook_event_name: "SessionStart", source, cwd });
 }
 
-/** The lines of the protocol that appear in `context`; none should, on resume. */
+/** The lines of the protocol that appear in `context`; none should, on resume or fork. */
 function protocolLinesIn(context: string): string[] {
   return protocol.split("\n").filter((line) => line.trim() !== "" && context.includes(line));
 }
@@ -169,9 +172,9 @@ describe("the hook file and the manifest", () => {
     expect(manifest.hooks).toBe("./scripts/hooks/claude-code.json");
   });
 
-  test("its SessionStart entry fires on startup, resume, clear and compact, and its command runs the hook", async () => {
+  test("its SessionStart entry has no matcher, so it fires on every source, and its command runs the hook", async () => {
     type Handler = { type: string; command: string; args: string[] };
-    type Entry = { matcher: string; hooks: Handler[] };
+    type Entry = { matcher?: string; hooks: Handler[] };
     const file = (await Bun.file(`${pluginRoot}/scripts/hooks/claude-code.json`).json()) as {
       hooks: Record<string, Entry[]>;
     };
@@ -183,8 +186,10 @@ describe("the hook file and the manifest", () => {
     const entries = file.hooks.SessionStart ?? [];
     expect(entries).toHaveLength(1);
     const [entry] = entries as [Entry];
-    // The matcher values: https://code.claude.com/docs/en/hooks#sessionstart
-    expect(entry.matcher.split("|").toSorted()).toEqual(["clear", "compact", "resume", "startup"]);
+    // No matcher: an omitted matcher matches every occurrence of the event, so the hook runs on
+    // every source, and session-start.ts decides what to print:
+    // https://code.claude.com/docs/en/hooks#matcher-patterns
+    expect(Object.keys(entry)).toEqual(["hooks"]);
     // Exec form: `args` keeps the resolved path one argument, with no shell quoting.
     expect(entry.hooks).toEqual([
       { type: "command", command: "bun", args: [`${placeholder}/scripts/hooks/session-start.ts`] },
@@ -207,18 +212,20 @@ describe("the text for each source of the session", () => {
     },
   );
 
-  test("resume: the brain path, the five lines and docs/STATUS.md, with no protocol text", async () => {
-    const root = await repo("source-resume", "no-active-work");
-    const context = contextOf(await spawnHook(root, { stdin: input("resume", root) }));
-    expect(context).toBe(resumeNoWork);
-    expect(protocolLinesIn(context)).toEqual([]);
-    expect(context.length).toBeLessThan(fullNoWork.length / 2);
-  });
+  test.each(["resume", "fork"])(
+    "%s: the brain path, the five lines and docs/STATUS.md, with no protocol text",
+    async (source) => {
+      const root = await repo(`source-${source}`, "no-active-work");
+      const context = contextOf(await spawnHook(root, { stdin: input(source, root) }));
+      expect(context).toBe(statusOnlyNoWork);
+      expect(protocolLinesIn(context)).toEqual([]);
+      expect(context.length).toBeLessThan(fullNoWork.length / 2);
+    },
+  );
 
   test.each([
+    ["a source value Claude Code may add later", input("teleport", "/")],
     ["an input with no source field", JSON.stringify({ hook_event_name: "SessionStart" })],
-    ["fork, which the matcher leaves out", input("fork", "/")],
-    ["a source value the hooks reference does not list", input("teleport", "/")],
     ["an input that is not JSON", ""],
   ])("%s: the full text, the safe default", async (name, stdin) => {
     const root = await repo(`fallback-${name.replaceAll(/\W+/gu, "-")}`, "no-active-work");
