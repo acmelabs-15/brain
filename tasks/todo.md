@@ -49,9 +49,9 @@ ends with a checkpoint and a review with Peter.
   - Depends: T01 to T07. Scope: M
 
 ### Checkpoint: phase 1 (PR 1 merged)
-- [ ] `bun run check` and `bun run validate` green
-- [ ] Review with Peter; push and open PR 1 only after his yes
-- [ ] PR 1 merged with a merge commit; `feat/workspace-layout` rebased on `main`
+- [x] `bun run check` and `bun run validate` green
+- [x] Review with Peter; push and open PR 1 only after his yes (PR #13)
+- [x] PR 1 merged with a merge commit (80aaef91); `feat/workspace-layout` created from `main`
 
 ## Phase 2: workspace foundation (`feat/workspace-layout`)
 
