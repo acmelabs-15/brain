@@ -111,6 +111,31 @@ describe("eval suite", () => {
     expect([...missing].toSorted()).toEqual([]);
   });
 
+  test("the Evals workflow takes runs and ablation, and reads every input through env", async () => {
+    // An input written as ${{ ... }} inside a run block becomes shell text before bash reads
+    // it, so a crafted value runs as a command; through env it stays a value.
+    const workflow = await Bun.file(`${root}/../.github/workflows/evals.yml`).text();
+    expect(workflow).toMatch(/^ {6}runs:$/mu);
+    expect(workflow).toMatch(/^ {6}ablation:$/mu);
+    // A run block is its `run:` line and every deeper-indented line after it.
+    const runBlocks: string[] = [];
+    const lines = workflow.split("\n");
+    for (const [index, line] of lines.entries()) {
+      const indent = /^(?<indent> *)run: /u.exec(line)?.groups?.indent;
+      if (indent === undefined) {
+        continue;
+      }
+      const depth = indent.length;
+      const rest = lines.slice(index + 1);
+      const end = rest.findIndex((next) => next.trim() !== "" && next.search(/\S/u) <= depth);
+      runBlocks.push([line, ...rest.slice(0, end === -1 ? rest.length : end)].join("\n"));
+    }
+    expect(runBlocks.length).toBeGreaterThan(0);
+    expect(runBlocks.filter((block) => block.includes("${{ github.event.inputs"))).toEqual([]);
+    expect(workflow).toContain('args+=(--runs "$EVAL_RUNS")');
+    expect(workflow).toContain('args+=(--ablation "$EVAL_ABLATION")');
+  });
+
   test("a case with a scaffold declares it in case.yaml", async () => {
     for (const c of await cases()) {
       const dir = `${root}/${c}`;

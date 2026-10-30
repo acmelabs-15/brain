@@ -15,6 +15,14 @@ on:
         description: "Pass threshold, 0 to 1"
         required: false
         default: "0.85"
+      runs:
+        description: "Runs per case (empty uses each case's own, 3 by default)"
+        required: false
+        default: ""
+      ablation:
+        description: "none runs the plugin arm only; with-without adds the no-plugin arm (empty is with-without)"
+        required: false
+        default: ""
   schedule:
     - cron: "0 6 * * 1"
 
@@ -35,12 +43,24 @@ jobs:
       - name: Install Claude Code
         run: bun add -g @anthropic-ai/claude-code
       - name: Run the suite
+        # Inputs reach the script through env, never as ${{ }} text inside it, so a value
+        # cannot become a command.
+        env:
+          EVAL_CASES: ${{ github.event.inputs.cases }}
+          EVAL_RUNS: ${{ github.event.inputs.runs }}
+          EVAL_ABLATION: ${{ github.event.inputs.ablation }}
         run: |
           set -euo pipefail
           mkdir -p evals/results
           args=(plugin eval . --json evals/results/ci.json --trust-plugin --scaffold --allow-tools Bash Write Edit --no-publish)
-          if [ -n "${{ github.event.inputs.cases }}" ]; then
-            args+=(--case "${{ github.event.inputs.cases }}")
+          if [ -n "$EVAL_CASES" ]; then
+            args+=(--case "$EVAL_CASES")
+          fi
+          if [ -n "$EVAL_RUNS" ]; then
+            args+=(--runs "$EVAL_RUNS")
+          fi
+          if [ -n "$EVAL_ABLATION" ]; then
+            args+=(--ablation "$EVAL_ABLATION")
           fi
           claude "${args[@]}"
       - name: Store the result
@@ -51,4 +71,6 @@ jobs:
           path: evals/results/
           if-no-files-found: warn
       - name: Gate
-        run: bun run evals:gate evals/results/ci.json --threshold "${{ github.event.inputs.threshold || '0.85' }}"
+        env:
+          EVAL_THRESHOLD: ${{ github.event.inputs.threshold || '0.85' }}
+        run: bun run evals:gate evals/results/ci.json --threshold "$EVAL_THRESHOLD"
