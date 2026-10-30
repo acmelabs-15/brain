@@ -150,6 +150,15 @@ describe("eval suite", () => {
     expect(install).toBeLessThan(workflow.indexOf("name: Run the suite"));
   });
 
+  test("the Evals workflow runs the suite with TMPDIR outside /tmp", async () => {
+    // Claude Code roots each eval run under $TMPDIR and its generated sandbox policy denies
+    // writes to all of /tmp, so with the default TMPDIR every shell write fails (Claude Code
+    // issues #104631 and #104797).
+    const workflow = await Bun.file(`${root}/../.github/workflows/evals.yml`).text();
+    const suite = workflow.slice(workflow.indexOf("name: Run the suite"));
+    expect(suite).toContain('export TMPDIR="$RUNNER_TEMP/claude-eval"');
+  });
+
   test("a case with a scaffold declares it in case.yaml", async () => {
     for (const c of await cases()) {
       const dir = `${root}/${c}`;

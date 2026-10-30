@@ -71,6 +71,11 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p evals/results
+          # Workaround for a Claude Code defect (issues #104631, #104797): each run is rooted
+          # under $TMPDIR, and the eval's sandbox policy denies writes to all of /tmp, so with
+          # the default TMPDIR every shell write in a case fails as a read-only file system.
+          export TMPDIR="$RUNNER_TEMP/claude-eval"
+          mkdir -p "$TMPDIR"
           args=(plugin eval . --json evals/results/ci.json --trust-plugin --scaffold --allow-tools Bash Write Edit --no-publish)
           if [ -n "$EVAL_CASES" ]; then
             args+=(--case "$EVAL_CASES")
