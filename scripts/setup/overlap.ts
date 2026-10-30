@@ -7,15 +7,18 @@
  * Without --remove it writes nothing. For AGENTS.md, CLAUDE.md, .claude/CLAUDE.md and GEMINI.md it
  * lists each section and each line in it (a sentence, a table or a code block) as one of three kinds:
  *
- *   covered  a section of brain's protocol, or of docs/agents/capabilities.md outside its tables,
- *            holds three quarters or more of the line's words; the closest line there is printed;
+ *   covered  one sentence of brain's protocol, or of docs/agents/capabilities.md outside its tables,
+ *            holds every topic word of the line, and three quarters or more of that sentence's
+ *            topic words are the line's; that sentence is printed;
  *   moved    the line names the first cell of a capabilities.md row in a code span (a toolchain
  *            check, a library, a server), and capabilities.md holds every version the line names;
  *   orphan   neither. A table and a code block are always orphans: they stay as they are.
  *
- * A line of fewer than four topic words is covered only beside one line with nearly its words. A
- * bold label goes the way of its paragraph, and a line that ends with a colon above a list goes the
- * way of that list.
+ * Shared words alone cover nothing: "Stage the task's files by name." is an orphan, since its words
+ * are spread over a protocol section and the protocol's "Stage files by name." lacks "task". When
+ * the match is unsure the line stays: a false covered takes a user's line out of AGENTS.md, and a
+ * false orphan only keeps one. A bold label goes the way of its paragraph, and a line that ends with
+ * a colon above a list goes the way of that list.
  *
  * The protocol is read from the plugin at run time, protocol/PROTOCOL.md, so the report follows it.
  * An AGENTS.md section is offered when it has a covered or moved line and either its heading names
@@ -79,7 +82,8 @@ type Block = {
 type Section = { heading: string; level: number; start: number; end: number; blocks: Block[] };
 /** `eol` is the file's line end, "\r\n" or "\n"; `lines` hold no line end. */
 type Doc = { lines: string[]; eol: string; finalNewline: boolean; sections: Section[] };
-type Home = { name: string; words: Set<string>; units: { text: string; words: Set<string> }[] };
+/** A protocol or capabilities.md section by name, with its sentences: what can cover a line. */
+type Home = { name: string; units: { text: string; words: Set<string> }[] };
 type Entry = { value: string; home: string; row: string };
 type Context = {
   homes: Home[];
@@ -92,13 +96,11 @@ type Analysed = { section: Section; report: ReportSection; blockLines: ReportLin
 /** The rules files a host reads from a repo; only AGENTS.md is ever written. */
 const ruleFiles = ["AGENTS.md", "CLAUDE.md", ".claude/CLAUDE.md", "GEMINI.md"];
 const capabilitiesPath = "docs/agents/capabilities.md";
-/** The share of a line's words a section must hold for the line to count as covered. */
-const coveredShare = 0.75;
 /**
- * A line with fewer topic words than this meets many sections by chance ("One commit per task."),
- * so it counts as covered only beside one line that shares three quarters of the two lines' words.
+ * The share of a covering sentence's topic words that must be the line's, so that a short line
+ * does not meet a long sentence by chance ("Then check again." in "Run `brain check`.").
  */
-const shortLine = 4;
+const coveredShare = 0.75;
 const commitTitle = "docs: remove what brain now carries from AGENTS.md";
 
 const headingLine = /^(?<hashes>#{1,6})\s+(?<text>.+?)\s*#*\s*$/u;
@@ -150,23 +152,8 @@ function wordsOf(text: string): Set<string> {
   return words;
 }
 
-/** The share of `words` that `of` holds. */
-function share(words: Set<string>, of: Set<string>): number {
-  let held = 0;
-  for (const word of words) {
-    if (of.has(word)) {
-      held += 1;
-    }
-  }
-  return words.size === 0 ? 0 : held / words.size;
-}
-
-/** The words two lines share, as a share of the words either line has. */
-function likeness(a: Set<string>, b: Set<string>): number {
-  const both = share(a, b) * a.size;
-  const either = a.size + b.size - both;
-  return either === 0 ? 0 : both / either;
-}
+/** Whether `b` holds every word of `a`. */
+const subset = (a: Set<string>, b: Set<string>) => [...a].every((word) => b.has(word));
 
 const spansOf = (text: string) =>
   [...text.matchAll(/`(?<span>[^`]+)`/gu)].map((m) => (m.groups?.span ?? "").trim());
@@ -353,8 +340,7 @@ function homeOf(name: string, section: Section): Home {
   const units = section.blocks
     .filter((b) => !b.whole)
     .flatMap((b) => b.units.map((u) => ({ text: u.text, words: u.words })));
-  const words = wordsOf([section.heading, ...units.map((u) => u.text)].join(" "));
-  return { name, words, units };
+  return { name, units };
 }
 
 /** The protocol's sections and capabilities.md's: what can cover a line, and the rows a line can move to. */
@@ -405,44 +391,24 @@ function classify(line: Unit, ctx: Context): ReportLine {
       return { text, kind: "moved", home: entry.home, replacement: entry.row };
     }
   }
-  if (line.words.size < shortLine) {
-    let found: { home: string; text: string } | null = null;
-    let alike = 0;
-    for (const home of ctx.homes) {
-      for (const candidate of home.units) {
-        const value = likeness(line.words, candidate.words);
-        if (value > alike) {
-          found = { home: home.name, text: candidate.text };
-          alike = value;
-        }
+  // The covering sentence holds every word of the line; of those, the one with fewest others.
+  let found: { home: string; text: string } | null = null;
+  let closest = 0;
+  for (const home of ctx.homes) {
+    for (const sentence of home.units) {
+      if (!subset(line.words, sentence.words)) {
+        continue;
+      }
+      const held = line.words.size / sentence.words.size;
+      if (held > closest) {
+        found = { home: home.name, text: sentence.text };
+        closest = held;
       }
     }
-    return found === null || alike < coveredShare
-      ? { text, kind: "orphan" }
-      : { text, kind: "covered", home: found.home, replacement: found.text };
   }
-  let best: Home | null = null;
-  let bestShare = 0;
-  for (const home of ctx.homes) {
-    const held = share(line.words, home.words);
-    if (held > bestShare) {
-      best = home;
-      bestShare = held;
-    }
-  }
-  if (best === null || bestShare < coveredShare) {
-    return { text, kind: "orphan" };
-  }
-  let replacement = best.units[0]?.text ?? "";
-  let closest = -1;
-  for (const candidate of best.units) {
-    const held = share(line.words, candidate.words);
-    if (held > closest) {
-      replacement = candidate.text;
-      closest = held;
-    }
-  }
-  return { text, kind: "covered", home: best.name, replacement };
+  return found === null || closest < coveredShare
+    ? { text, kind: "orphan" }
+    : { text, kind: "covered", home: found.home, replacement: found.text };
 }
 
 /** One block's lines. A label, or a line with no topic word, goes the way of its block. */
@@ -480,8 +446,6 @@ function followLists(blocks: Block[], perBlock: ReportLine[][]): void {
     }
   }
 }
-
-const subset = (a: Set<string>, b: Set<string>) => [...a].every((word) => b.has(word));
 
 function analyse(section: Section, editable: boolean, ctx: Context): Analysed {
   const perBlock = section.blocks.map((block) => blockLines(block, ctx));

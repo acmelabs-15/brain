@@ -260,7 +260,18 @@ describe("the overlap report", () => {
     ]);
   });
 
-  test("a line of fewer than four topic words is covered only beside a protocol line with nearly its words", async () => {
+  test("words spread over a protocol section cover no line: one protocol sentence must hold them all", async () => {
+    const root = await folder("one-sentence", {
+      "AGENTS.md": "## Task end\n\nStage the task's files by name. Name the next file to stage.\n",
+    });
+    const lines = await linesOf(root);
+    expect(lines.map((line) => [line.kind, line.text, line.replacement])).toEqual([
+      ["orphan", "Stage the task's files by name.", undefined],
+      ["orphan", "Name the next file to stage.", undefined],
+    ]);
+  });
+
+  test("a line is covered only beside a protocol sentence that holds all its topic words and few others", async () => {
     const root = await folder("short", {
       "AGENTS.md":
         "## Task end\n\nStage files by name. Name the next action. Then check again. A skill that may apply: load it.\n",
@@ -574,6 +585,39 @@ describe("overlap.ts, the command", () => {
   });
 });
 
+describe("brain's own AGENTS.md against the protocol the plugin ships", () => {
+  test('"Stage the task\'s files by name." is an orphan line; the protocol\'s own "Stage files by name." is covered', async () => {
+    const root = await folder("brain-change-discipline", {
+      "AGENTS.md": [
+        "# Working on brain",
+        "",
+        "## Change discipline",
+        "",
+        "- Bun 1.4.0 only. No Node runtime, no Python.",
+        "- A failing test first, then the code, then `bun run check` green before the commit.",
+        "- One commit per task. Stage the task's files by name.",
+        "",
+        "## Commits",
+        "",
+        "Stage files by name.",
+        "",
+      ].join("\n"),
+    });
+    const found = await overlap({ brain: plugin, root, dryRun: true });
+    const lines = found.files[0]?.sections.flatMap((s) => s.lines) ?? [];
+    expect(lines.find((line) => line.text === "Stage the task's files by name.")).toEqual({
+      text: "Stage the task's files by name.",
+      kind: "orphan",
+    });
+    expect(lines.find((line) => line.text === "Stage files by name.")).toEqual({
+      text: "Stage files by name.",
+      kind: "covered",
+      home: "protocol: Task end",
+      replacement: "Stage files by name.",
+    });
+  });
+});
+
 describe("the resume fixture: AGENTS.md at ac74fb5 (SPEC-workspace criterion 13)", () => {
   test("is the resume repo's AGENTS.md at ac74fb5, byte for byte", async () => {
     const bytes = await Bun.file(fixture).arrayBuffer();
@@ -612,6 +656,7 @@ describe("the resume fixture: AGENTS.md at ac74fb5 (SPEC-workspace criterion 13)
     const after = await Bun.file(`${root}/AGENTS.md`).text();
     for (const kept of [
       "Write all tooling in Bun and TypeScript",
+      "Read [the capability map](spec/README.md), then the spec,",
       "Read [the record layout](docs/agents/workflow.md).",
       "[CLAUDE.md](CLAUDE.md) has the Claude spellings.",
       "Use `bun run intent`, never `bunx intent` or `intent install`",

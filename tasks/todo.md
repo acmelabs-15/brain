@@ -322,7 +322,7 @@ The merged review is in the build scratch folder, `review/merged.md`. Peter put 
   - Verify: fixtures: a map cycle fails; a new-doc file with no `--title` passes; a file with `<title>` left in its H1 fails; `--title` sets the H1
   - Files: scripts/workspace/check.ts, scripts/workspace/new-doc.ts, their tests and fixtures, spec/SPEC-workspace.md, docs/intent/workspace-and-stateful-interview.md, skills that show `brain new-doc` usage
   - Depends: none. Scope: M
-- [ ] T57: the overlap report counts a line as covered only when the protocol holds its meaning
+- [x] T57: the overlap report counts a line as covered only when the protocol holds its meaning
   - Acceptance: a line counts as covered only when a protocol line says the same rule, not when they only share words; "Stage the task's files by name." against the real protocol is an orphan line; criterion 13's resume fixture still offers the sections it offers now, or the result names each change and why
   - Verify: the new fixture, red first; the existing overlap tests
   - Files: scripts/setup/overlap.ts, scripts/setup/__tests__/overlap.test.ts
