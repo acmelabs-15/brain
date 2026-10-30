@@ -1,3 +1,7 @@
+---
+spec: SPEC-008
+migrated: 0.8
+---
 # Tasks: upstream-sync
 
 Phase 1: scaffold and pure logic

@@ -1,3 +1,7 @@
+---
+spec: SPEC-002
+migrated: 0.8
+---
 # Tasks: host-manifests
 
 - [x] Task 1: manifests

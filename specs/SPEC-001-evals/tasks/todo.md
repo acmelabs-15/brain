@@ -1,3 +1,7 @@
+---
+spec: SPEC-001
+migrated: 0.8
+---
 # Tasks: evals
 
 - [x] Task 1: gate script

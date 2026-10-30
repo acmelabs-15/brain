@@ -1,3 +1,7 @@
+---
+spec: SPEC-004
+migrated: 0.8
+---
 # Tasks: plain-talk
 
 - [x] Task 1: source text and templates

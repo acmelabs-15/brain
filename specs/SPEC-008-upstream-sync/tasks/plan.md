@@ -1,3 +1,7 @@
+---
+spec: SPEC-008
+migrated: 0.8
+---
 # Plan: upstream-sync
 
 Spec: `spec/SPEC-upstream-sync.md` (approved 2026-09-19). Toolchain: Bun 1.4.0, `bun:test`.

@@ -1,3 +1,7 @@
+---
+spec: SPEC-006
+migrated: 0.8
+---
 # Plan: setup
 
 Spec: `spec/SPEC-setup.md` (approved 2026-09-19). Depends on plain-talk, built: the block is `plain-talk/AGENTS-block.md`.

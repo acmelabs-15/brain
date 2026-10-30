@@ -1,3 +1,7 @@
+---
+spec: SPEC-004
+migrated: 0.8
+---
 # Plan: plain-talk
 
 Spec: `spec/SPEC-plain-talk.md` (approved 2026-09-19). Depends on host-manifests, built.

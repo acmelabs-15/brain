@@ -1,3 +1,7 @@
+---
+spec: SPEC-005
+migrated: 0.8
+---
 # Plan: question
 
 Spec: `spec/SPEC-question.md` (approved 2026-09-19). Depends on nothing. Sources: RES-004, RES-005, and the 24 artifact files at `/Users/peterkloss/Dev/ACMElabs/ask-user-question/skills/_artifacts/`.

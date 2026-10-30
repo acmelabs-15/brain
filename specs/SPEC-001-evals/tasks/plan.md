@@ -1,3 +1,7 @@
+---
+spec: SPEC-001
+migrated: 0.8
+---
 # Plan: evals
 
 Spec: `spec/SPEC-evals.md` (approved 2026-09-19). Depends on plain-talk, lifecycle and question, all built.

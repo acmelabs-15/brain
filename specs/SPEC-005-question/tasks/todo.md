@@ -1,3 +1,7 @@
+---
+spec: SPEC-005
+migrated: 0.8
+---
 # Tasks: question
 
 - [x] Task 1: the check

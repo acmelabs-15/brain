@@ -1,3 +1,7 @@
+---
+spec: SPEC-003
+migrated: 0.8
+---
 # Plan: lifecycle
 
 Spec: `spec/SPEC-lifecycle.md` (approved 2026-09-19). Depends on upstream-sync and setup, built.

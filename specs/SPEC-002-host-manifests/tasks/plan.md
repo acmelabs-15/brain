@@ -1,3 +1,7 @@
+---
+spec: SPEC-002
+migrated: 0.8
+---
 # Plan: host-manifests
 
 Spec: `spec/SPEC-host-manifests.md` (approved 2026-09-19). Depends on nothing; the vendored tree from upstream-sync is present.

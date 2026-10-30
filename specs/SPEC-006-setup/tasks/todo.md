@@ -1,3 +1,7 @@
+---
+spec: SPEC-006
+migrated: 0.8
+---
 # Tasks: setup
 
 - [x] Task 1: writer script

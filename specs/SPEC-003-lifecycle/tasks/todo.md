@@ -1,3 +1,7 @@
+---
+spec: SPEC-003
+migrated: 0.8
+---
 # Tasks: lifecycle
 
 - [x] Task 1: seeds
