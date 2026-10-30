@@ -34,6 +34,7 @@
  */
 import path from "node:path";
 
+import { git } from "../lib/git";
 import { UsageError } from "./migrate";
 import type { Change } from "./write";
 
@@ -120,10 +121,6 @@ const stopwords = new Set(
     "down out off again once via per both either neither how why where whether else too very md"
   ).split(" "),
 );
-
-function git(root: string, ...args: string[]) {
-  return Bun.spawnSync(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
-}
 
 /** A word's plain form, so "skills" meets "skill" and "libraries" meets "library". */
 function normal(word: string): string {
@@ -475,13 +472,13 @@ function analyse(section: Section, editable: boolean, ctx: Context): Analysed {
 /** The authors in the git history other than the user (by name or by email) and bot accounts. */
 function otherAuthors(root: string): string[] {
   const log = git(root, "shortlog", "-sne", "HEAD");
-  if (log.exitCode !== 0) {
+  if (!log.ok) {
     return [];
   }
-  const name = git(root, "config", "user.name").stdout.toString().trim();
-  const email = git(root, "config", "user.email").stdout.toString().trim().toLowerCase();
+  const name = git(root, "config", "user.name").out.trim();
+  const email = git(root, "config", "user.email").out.trim().toLowerCase();
   const others: string[] = [];
-  for (const line of log.stdout.toString().split("\n")) {
+  for (const line of log.out.split("\n")) {
     const found = /^\s*\d+\t(?<who>(?<name>.*) <(?<email>.*)>)$/u.exec(line)?.groups;
     if (found === undefined) {
       continue;
@@ -606,10 +603,10 @@ function trim(doc: Doc, all: Analysed[], picked: Analysed[]): { text: string; tr
 
 /** Why AGENTS.md cannot take a removal of its own commit, or null when git holds it as it is. */
 function refusal(root: string): string | null {
-  if (git(root, "ls-files", "--error-unmatch", "--", "AGENTS.md").exitCode !== 0) {
+  if (!git(root, "ls-files", "--error-unmatch", "--", "AGENTS.md").ok) {
     return "AGENTS.md is not tracked by git; commit it first, so the removal is a commit of its own";
   }
-  if (git(root, "diff", "--quiet", "HEAD", "--", "AGENTS.md").exitCode !== 0) {
+  if (!git(root, "diff", "--quiet", "HEAD", "--", "AGENTS.md").ok) {
     return "AGENTS.md has uncommitted changes; commit them first, so the removal is a commit of its own";
   }
   return null;
@@ -674,12 +671,11 @@ export async function overlap(input: OverlapInput): Promise<OverlapResult> {
   await Bun.write(`${root}/AGENTS.md`, text);
   const body = `setup-brain's overlap report found these sections covered by brain's protocol or by ${capabilitiesPath}: ${picked.map((a) => a.report.heading).join(", ")}. Each orphan line stays under its heading.`;
   const commit = git(root, "commit", "--quiet", "-m", commitTitle, "-m", body, "--", "AGENTS.md");
-  if (commit.exitCode !== 0) {
+  if (!commit.ok) {
     await Bun.write(`${root}/AGENTS.md`, agents.text);
-    const reason = commit.stderr.toString().trim();
-    throw new Error(`git commit failed: ${reason}\nAGENTS.md is back as it was.`);
+    throw new Error(`git commit failed: ${commit.error}\nAGENTS.md is back as it was.`);
   }
-  const sha = git(root, "rev-parse", "HEAD").stdout.toString().trim();
+  const sha = git(root, "rev-parse", "HEAD").out.trim();
   return { ...result, changes, commit: sha, trimmed };
 }
 

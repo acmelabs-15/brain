@@ -8,8 +8,8 @@
  *
  *   bun run lifecycle:check
  */
-import { readdir } from "node:fs/promises";
-
+import { fileNames, folderNames, readIfPresent } from "../lib/files";
+import { readFrontmatter } from "../workspace/schema";
 import { checkAgentList } from "./agents";
 import type { Finding } from "./finding";
 import { checkHookFiles } from "./hooks";
@@ -39,35 +39,26 @@ export function findRefs(text: string): Ref[] {
 }
 
 async function listFiles(dir: string, suffix: string): Promise<string[]> {
-  const entries = await readdir(dir, { withFileTypes: true }).catch(() => []);
-  return entries
-    .filter((entry) => entry.isFile() && entry.name.endsWith(suffix))
-    .map((entry) => `${dir}/${entry.name}`)
-    .toSorted();
-}
-
-async function skillDirs(root: string): Promise<string[]> {
-  const entries = await readdir(`${root}/skills`, { withFileTypes: true }).catch(() => []);
-  return entries
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => entry.name)
-    .toSorted();
+  const names = await fileNames(dir);
+  return names.filter((name) => name.endsWith(suffix)).map((name) => `${dir}/${name}`);
 }
 
 function frontmatterFlag(text: string): boolean {
-  const end = text.indexOf("\n---", 3);
-  const head = text.startsWith("---") && end !== -1 ? text.slice(0, end) : "";
-  return /^disable-model-invocation:\s*true\s*$/mu.test(head);
+  const frontmatter = readFrontmatter(text);
+  return (
+    frontmatter !== null &&
+    "data" in frontmatter &&
+    frontmatter.data["disable-model-invocation"] === true
+  );
 }
 
 async function readOrEmpty(path: string): Promise<string> {
-  const file = Bun.file(path);
-  return (await file.exists()) ? file.text() : "";
+  return (await readIfPresent(path)) ?? "";
 }
 
 export async function checkRefs(root: string): Promise<Finding[]> {
   const findings: Finding[] = [];
-  const skills = await skillDirs(root);
+  const skills = await folderNames(`${root}/skills`);
   const commandFiles = await listFiles(`${root}/.claude/commands`, ".md");
   const commands = new Set(commandFiles.map((file) => file.slice(file.lastIndexOf("/") + 1, -3)));
   const files = [

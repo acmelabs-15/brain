@@ -1,6 +1,7 @@
 /** Turn take-lists into units, and check them against what brain already owns. */
 import { readdir, stat } from "node:fs/promises";
 
+import { isDirectory } from "../../lib/files";
 import type { Mapping } from "./config";
 import type { Lock } from "./lock";
 
@@ -15,13 +16,6 @@ export type PlannedFile = { source: string; target: string };
 function exists(path: string): Promise<boolean> {
   return stat(path).then(
     () => true,
-    () => false,
-  );
-}
-
-function isDir(path: string): Promise<boolean> {
-  return stat(path).then(
-    (s) => s.isDirectory(),
     () => false,
   );
 }
@@ -44,7 +38,7 @@ export async function planUnits(upstream: string, takes: Mapping[], tree: string
         `upstream "${upstream}": take source "${from}" does not exist at the pinned commit`,
       );
     }
-    if (!(await isDir(source))) {
+    if (!(await isDirectory(source))) {
       units.push({ upstream, kind: "file", source, target: to });
       continue;
     }
@@ -63,7 +57,7 @@ export async function planUnits(upstream: string, takes: Mapping[], tree: string
         continue;
       }
       const childSource = `${source}/${child}`;
-      const kind = (await isDir(childSource)) ? "dir" : "file";
+      const kind = (await isDirectory(childSource)) ? "dir" : "file";
       units.push({ upstream, kind, source: childSource, target: `${to}/${child}` });
     }
   }

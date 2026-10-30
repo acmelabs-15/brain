@@ -48,9 +48,11 @@
  * from then on a run changes nothing. A run that skips a file until it is committed leaves the
  * marker out, so the run after that commit can still move the file.
  */
-import { mkdir, readdir, rm, rmdir } from "node:fs/promises";
+import { mkdir, rm, rmdir } from "node:fs/promises";
 import path from "node:path";
 
+import { fileNames } from "../lib/files";
+import { git } from "../lib/git";
 import { claim, claimsFolder, peek } from "../workspace/claims";
 import { configFile, findRepo, readConfig } from "../workspace/config";
 import type { Paths } from "../workspace/config";
@@ -138,35 +140,22 @@ const glossaryKept = "the user kept the old name; --rename-glossary moves it aft
 const adrFolderKept = "the user chose to keep the ADR folder; it stays as read-only history";
 const notAdr = "not an ADR (0001-<slug>.md); it stays where it is";
 
-function git(root: string, ...args: string[]) {
-  return Bun.spawnSync(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
-}
-
 /** The date of the file's first commit, following renames; null when git has none. */
 function firstCommitDate(root: string, file: string): string | null {
   const log = git(root, "log", "--follow", "--diff-filter=A", "--format=%as", "--", file);
-  const dates = log.exitCode === 0 ? log.stdout.toString().trim().split("\n") : [];
+  const dates = log.ok ? log.out.trim().split("\n") : [];
   return dates.findLast((date) => date !== "") ?? null;
 }
 
 /** Why the file cannot go into the commit as frontmatter only, or null when git holds it as it is. */
 function skipReason(root: string, file: string): string | null {
-  if (git(root, "ls-files", "--error-unmatch", "--", file).exitCode !== 0) {
+  if (!git(root, "ls-files", "--error-unmatch", "--", file).ok) {
     return notTracked;
   }
-  if (git(root, "diff", "--quiet", "HEAD", "--", file).exitCode !== 0) {
+  if (!git(root, "diff", "--quiet", "HEAD", "--", file).ok) {
     return uncommitted;
   }
   return null;
-}
-
-/** The names of the files directly in `folder`, sorted; none when the folder is absent. */
-async function filesIn(folder: string): Promise<string[]> {
-  const entries = await readdir(folder, { withFileTypes: true }).catch(() => []);
-  return entries
-    .filter((entry) => entry.isFile())
-    .map((entry) => entry.name)
-    .toSorted();
 }
 
 /** Lowercase words joined by hyphens, as a workspace name takes them; empty when none is left. */
@@ -239,7 +228,7 @@ async function frontmatterStep(root: string, paths: Paths): Promise<Step> {
   const step: Step = { changes: [], writes: [] };
   for (const { type, folder, dateField } of recordTypes) {
     const named = new RegExp(`^(?<id>${type}-\\d{3})-.+\\.md$`, "u");
-    for (const name of await filesIn(`${root}/${paths[folder]}`)) {
+    for (const name of await fileNames(`${root}/${paths[folder]}`)) {
       const id = named.exec(name)?.groups?.id;
       if (id === undefined) {
         continue;
@@ -317,7 +306,7 @@ async function existing(root: string, files: readonly string[]): Promise<string[
 
 /** The root `SPEC.md` and the Markdown files in `spec/`, in path order, each classified. */
 async function findSpecFiles(root: string): Promise<Found[]> {
-  const inSpec = await filesIn(`${root}/${specFolder}`);
+  const inSpec = await fileNames(`${root}/${specFolder}`);
   const files = [
     ...(await existing(root, [rootSpec])),
     ...inSpec.filter((name) => name.endsWith(".md")).map((name) => `${specFolder}/${name}`),
@@ -502,7 +491,7 @@ async function findAdrs(
       others.push({ path: `${folder}/`, action: "skipped", note: adrFolderKept });
       continue;
     }
-    for (const name of await filesIn(`${root}/${folder}`)) {
+    for (const name of await fileNames(`${root}/${folder}`)) {
       if (adrName.test(name)) {
         files.push(`${folder}/${name}`);
       } else {
@@ -531,7 +520,7 @@ function adrStep(root: string, paths: Paths, { adrs, others }: AdrFiles, ids: st
 
 /** The 0.8 intent docs: the Markdown files directly in `docs/intent/`, in name order. */
 async function findIntentDocs(root: string): Promise<string[]> {
-  const names = await filesIn(`${root}/${intentFolder}`);
+  const names = await fileNames(`${root}/${intentFolder}`);
   return names.filter((name) => name.endsWith(".md")).map((name) => `${intentFolder}/${name}`);
 }
 
@@ -709,8 +698,8 @@ function settle<T>(read: () => T): T | UsageError {
 
 function gitMove(root: string, from: string, to: string): void {
   const moved = git(root, "mv", "--", from, to);
-  if (moved.exitCode !== 0) {
-    throw new Error(`git mv ${from} ${to} failed: ${moved.stderr.toString().trim()}`);
+  if (!moved.ok) {
+    throw new Error(`git mv ${from} ${to} failed: ${moved.error}`);
   }
 }
 
@@ -730,13 +719,13 @@ async function removeFolders(made: string, folder: string): Promise<void> {
 /** Take the file out with `git rm`; push what puts it back in the index and on disk. */
 function gitRemove(root: string, write: Write, undo: Undo[]): void {
   const removed = git(root, "rm", "--quiet", "--", write.path);
-  if (removed.exitCode !== 0) {
-    throw new Error(`git rm ${write.path} failed: ${removed.stderr.toString().trim()}`);
+  if (!removed.ok) {
+    throw new Error(`git rm ${write.path} failed: ${removed.error}`);
   }
   undo.push(async () => {
     const reset = git(root, "reset", "--quiet", "--", write.path);
-    if (reset.exitCode !== 0) {
-      throw new Error(`git reset ${write.path} failed: ${reset.stderr.toString().trim()}`);
+    if (!reset.ok) {
+      throw new Error(`git reset ${write.path} failed: ${reset.error}`);
     }
     await mkdir(path.dirname(write.full), { recursive: true });
     await Bun.write(write.full, write.before);
@@ -751,8 +740,8 @@ async function addNew(root: string, write: Write, after: Uint8Array, undo: Undo[
   });
   await Bun.write(write.full, after);
   const added = git(root, "add", "--", write.path);
-  if (added.exitCode !== 0) {
-    throw new Error(`git add ${write.path} failed: ${added.stderr.toString().trim()}`);
+  if (!added.ok) {
+    throw new Error(`git add ${write.path} failed: ${added.error}`);
   }
 }
 
@@ -814,8 +803,8 @@ async function commitWrites(root: string, writes: Write[]): Promise<void> {
     ];
     const message = [commitTitle, ...bodies].flatMap((part) => ["-m", part]);
     const commit = git(root, "commit", "--quiet", ...message, "--", ...committed);
-    if (commit.exitCode !== 0) {
-      throw new Error(`git commit failed: ${commit.stderr.toString().trim()}`);
+    if (!commit.ok) {
+      throw new Error(`git commit failed: ${commit.error}`);
     }
   } catch (error) {
     const problems = await undoAll(undo);
@@ -889,5 +878,5 @@ export async function migrate(input: MigrateInput): Promise<MigrateResult> {
     return { changes, commit: null };
   }
   await commitWrites(root, writes);
-  return { changes, commit: git(root, "rev-parse", "HEAD").stdout.toString().trim() };
+  return { changes, commit: git(root, "rev-parse", "HEAD").out.trim() };
 }

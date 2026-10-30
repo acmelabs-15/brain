@@ -6,6 +6,7 @@
 import { realpath } from "node:fs/promises";
 import path from "node:path";
 
+import { git } from "../lib/git";
 import { readFrontmatter } from "./schema";
 
 export type Paths = { decisions: string; research: string; ideas: string; specs: string };
@@ -44,20 +45,12 @@ const defaults: WorkspaceConfig = {
   maxParallelFrom: "default",
 };
 
-function git(cwd: string, ...args: string[]): string[] | null {
-  try {
-    const run = Bun.spawnSync(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
-    return run.exitCode === 0 ? run.stdout.toString().trim().split("\n") : null;
-  } catch {
-    // No git on this machine: the folder is not in a repo git can see.
-    return null;
-  }
-}
-
 /** Find the repo that `cwd` is in: its root and git's common folder, or `cwd` itself outside git. */
 export async function findRepo(cwd: string): Promise<Repo> {
   const here = await realpath(cwd);
-  const [top, common] = git(here, "rev-parse", "--show-toplevel", "--git-common-dir") ?? [];
+  // With no git on this machine, the folder is not in a repo git can see.
+  const run = git(here, "rev-parse", "--show-toplevel", "--git-common-dir");
+  const [top, common] = run.ok ? run.out.trim().split("\n") : [];
   if (top === undefined || common === undefined) {
     return { root: here, gitCommonDir: null };
   }

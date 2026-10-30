@@ -12,6 +12,7 @@
  */
 import { mkdir } from "node:fs/promises";
 
+import { readIfPresent } from "../lib/files";
 import { blockName, replaceBlock } from "./block";
 
 export type Target = { template: string; out: string };
@@ -52,11 +53,6 @@ export function render(template: string, body: string, name = "template"): strin
     throw new Error(`${name} has no ${slot} slot`);
   }
   return `${template.replace(slot, body.trimEnd()).trimEnd()}\n`;
-}
-
-async function readIfPresent(path: string): Promise<string | null> {
-  const file = Bun.file(path);
-  return (await file.exists()) ? file.text() : null;
 }
 
 /** Write `next` to `path` unless it already holds it. Returns whether it differed. */

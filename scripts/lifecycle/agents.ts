@@ -3,8 +3,9 @@
  * file the list misses never loads. The check runs inside `bun run lifecycle:check`, and an
  * upstream bump that adds an agent fails there until the list names it.
  */
-import { readdir, stat } from "node:fs/promises";
+import { stat } from "node:fs/promises";
 
+import { fileNames } from "../lib/files";
 import type { Finding } from "./finding";
 
 const manifestPath = ".claude-plugin/plugin.json";
@@ -24,11 +25,8 @@ async function isMarkdownFile(path: string): Promise<boolean> {
 
 /** Every top-level `.md` file in `agents/`, as a path from the root. */
 async function agentFiles(root: string): Promise<string[]> {
-  const entries = await readdir(`${root}/agents`, { withFileTypes: true }).catch(() => []);
-  return entries
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
-    .map((entry) => `agents/${entry.name}`)
-    .toSorted();
+  const names = await fileNames(`${root}/agents`);
+  return names.filter((name) => name.endsWith(".md")).map((name) => `agents/${name}`);
 }
 
 /** One finding per agent file the list misses, and per listed path that is not an agent file. */

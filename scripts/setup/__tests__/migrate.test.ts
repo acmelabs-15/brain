@@ -663,6 +663,25 @@ describe("migrate, the intent docs", () => {
     });
   });
 
+  test("reads a name with glob characters as a literal path: a[1].md moves alone, and a dirty a1.md stays out of the commit", async () => {
+    const root = await gitRepo("literal-paths", {
+      "docs/intent/a[1].md": "# Intent: a[1]\n",
+      "docs/intent/a1.md": "# Intent: a1\n",
+    });
+    await put(root, { "docs/intent/a1.md": "# Intent: a1\n\nEdited.\n" });
+    const result = await migrate({ root, dryRun: false, ideas: "docs/intent/a[1].md" });
+    expect(result.changes).toEqual([
+      { path: "docs/intent/a1.md", action: "skipped", note: notPicked },
+      { path: "docs/intent/a[1].md -> docs/ideas/IDEA-001-a-1.md", action: "moved" },
+      workspaceCreated,
+    ]);
+    expect(gitOut(root, "show", "--format=", "--name-only", "--no-renames", "HEAD")).toBe(
+      `${workspacePath}\ndocs/ideas/IDEA-001-a-1.md\ndocs/intent/a[1].md`,
+    );
+    expect(gitOut(root, "show", "HEAD:docs/intent/a1.md")).toBe("# Intent: a1");
+    expect(await Bun.file(`${root}/docs/intent/a1.md`).text()).toBe("# Intent: a1\n\nEdited.\n");
+  });
+
   test("an --ideas answer that names no intent doc is refused, and names the docs", async () => {
     const root = await fixtureRepo("wrong-idea");
     const run = migrate({

@@ -2,8 +2,9 @@
  * Names brain has retired must not come back, and brain's own glossary must define the
  * workspace terms. Both run inside `bun run lifecycle:check`.
  */
-import { lstat, readdir, realpath } from "node:fs/promises";
+import { lstat, realpath } from "node:fs/promises";
 
+import { git } from "../lib/git";
 import { readLock } from "../sync/lib/lock";
 import type { Finding } from "./finding";
 
@@ -87,38 +88,34 @@ const skippedNames = new Set(["node_modules", ".git"]);
 const skippedPaths = new Set(["evals/results"]);
 const textFile = /\.(?:md|toml|json|ts|ya?ml|sh)$/u;
 
-async function walkedFiles(root: string, rel = ""): Promise<string[]> {
-  const entries = await readdir(rel === "" ? root : `${root}/${rel}`, { withFileTypes: true });
-  const files: string[] = [];
-  for (const entry of entries) {
-    const path = rel === "" ? entry.name : `${rel}/${entry.name}`;
-    if (entry.isDirectory()) {
-      if (!skippedNames.has(entry.name) && !skippedPaths.has(path)) {
-        files.push(...(await walkedFiles(root, path)));
-      }
-    } else if (entry.isFile() && textFile.test(entry.name)) {
-      files.push(path);
-    }
-  }
-  return files;
+/** True when a folder of `path` is one the scan skips: a skipped name anywhere, or a skipped path from the root. */
+function inSkippedFolder(path: string): boolean {
+  const folders = path.split("/").slice(0, -1);
+  return (
+    folders.some((name) => skippedNames.has(name)) ||
+    [...skippedPaths].some((skipped) => path.startsWith(`${skipped}/`))
+  );
+}
+
+/** The text files in the folder tree under `root`, dotfiles included; a symlink is never followed. */
+async function scannedFiles(root: string): Promise<string[]> {
+  const found = await Array.fromAsync(new Bun.Glob("**").scan({ cwd: root, dot: true }));
+  return found.filter((path) => textFile.test(path) && !inSkippedFolder(path));
 }
 
 /**
  * The repo's text files. In a git repo these are the files git tracks or would track, so
  * whatever .gitignore names (worktrees, node_modules, build output) is never read; a
- * symlink is never followed. Outside git, a walk of the folder tree.
+ * symlink is never followed. Outside git, a scan of the folder tree.
  */
 async function textFiles(root: string): Promise<string[]> {
-  const listed = Bun.spawnSync(
-    ["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
-    { cwd: root },
-  );
-  const inRepo = Bun.spawnSync(["git", "rev-parse", "--show-toplevel"], { cwd: root });
-  if (listed.exitCode !== 0 || inRepo.stdout.toString().trim() !== (await realpath(root))) {
-    return walkedFiles(root);
+  const listed = git(root, "ls-files", "-z", "--cached", "--others", "--exclude-standard");
+  const inRepo = git(root, "rev-parse", "--show-toplevel");
+  if (!listed.ok || inRepo.out.trim() !== (await realpath(root))) {
+    return scannedFiles(root);
   }
   const files: string[] = [];
-  for (const path of listed.stdout.toString().split("\0")) {
+  for (const path of listed.out.split("\0")) {
     if (!textFile.test(path)) {
       continue;
     }

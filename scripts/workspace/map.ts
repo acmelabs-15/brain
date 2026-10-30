@@ -4,6 +4,7 @@
  * to its file, a question or task, a type, a status, the rows that block it, and a result. The
  * frontier is worked out from the rows each time, never written down.
  */
+import { tableCells } from "../lib/table";
 import { rowStatus, tables } from "./schema";
 
 /** Which table a file holds: a map (an idea) or a plan (a spec's `tasks/plan.md`). */
@@ -43,23 +44,11 @@ function listed(items: readonly string[]): string {
   return `${items.slice(0, -1).join(", ")} or ${items.at(-1)}`;
 }
 
-/** The cells of a Markdown table line, or null when the line is not one. */
-function cells(line: string): string[] | null {
-  const trimmed = line.trim();
-  if (!trimmed.startsWith("|")) {
-    return null;
-  }
-  const inner =
-    trimmed.length > 1 && trimmed.endsWith("|") ? trimmed.slice(1, -1) : trimmed.slice(1);
-  // A cell may hold an escaped pipe, `\|`, as Markdown allows.
-  return inner.split(/(?<!\\)\|/u).map((cell) => cell.trim());
-}
-
 /** The lines below the header of the first table whose header is `columns`; null when none is. */
 function tableLines(text: string, columns: readonly string[]): string[][] | null {
   const lines = text.split("\n");
   const start = lines.findIndex((line) => {
-    const header = cells(line);
+    const header = tableCells(line);
     return header?.length === columns.length && header.every((cell, at) => cell === columns[at]);
   });
   if (start === -1) {
@@ -67,7 +56,7 @@ function tableLines(text: string, columns: readonly string[]): string[][] | null
   }
   const found: string[][] = [];
   for (const [at, line] of lines.slice(start + 1).entries()) {
-    const row = cells(line);
+    const row = tableCells(line);
     if (row === null) {
       break;
     }

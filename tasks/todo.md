@@ -302,7 +302,7 @@ ends with a checkpoint and a review with Peter.
 
 The merged review is in the build scratch folder, `review/merged.md`. Peter put the required fixes, the shared helpers (A) and the overlap match (C) into PR 2; the rest is follow-up work in `docs/ideas/`.
 
-- [ ] T53: one shared lib for git and file helpers; literal pathspecs
+- [x] T53: one shared lib for git and file helpers; literal pathspecs
   - Acceptance: one `git()` helper sets `GIT_LITERAL_PATHSPECS=1` and replaces the copies in `setup/migrate.ts`, `setup/overlap.ts`, `workspace/config.ts` and the inline git spawns (`workspace/effort.ts`, `setup/glossary.ts`, `setup/write.ts`, `lifecycle/names.ts`); `git mv` in `write.ts` gets `--`; one helper each for the folder listing, `readIfPresent`, the folder test and the table-cell split replace their copies; `lifecycle/check-refs.ts` reads frontmatter through `readFrontmatter`; `lifecycle/names.ts` drops `walkedFiles` for `Bun.Glob`; no behaviour changes beyond the pathspecs
   - Verify: a test with a tracked `a[1].md` beside a dirty `a1.md`: the migrate commit holds `a[1].md` alone; every existing test passes unchanged
   - Files: a new shared folder under `scripts/`, and the files above

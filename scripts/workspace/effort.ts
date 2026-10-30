@@ -6,9 +6,10 @@
  * finished; a command that takes a slug checks that first, and with none of these the user names
  * it.
  */
-import { readdir } from "node:fs/promises";
 import path from "node:path";
 
+import { fileNames, folderNames, readIfPresent } from "../lib/files";
+import { git } from "../lib/git";
 import type { Paths } from "./config";
 import { stillToDo } from "./graph";
 import { readRows } from "./map";
@@ -34,28 +35,16 @@ const slug = "[a-z0-9]+(?:-[a-z0-9]+)*";
 const ideaName = new RegExp(`^(?<name>(?<id>IDEA-\\d{3})-(?<slug>${slug}))\\.md$`, "u");
 const specName = new RegExp(`^(?<name>(?<id>SPEC-\\d{3})-(?<slug>${slug}))$`, "u");
 
-/** The entries of a folder, sorted by name; none when it is absent. */
-async function entries(folder: string) {
-  const found = await readdir(folder, { withFileTypes: true }).catch(() => []);
-  return found.toSorted((a, b) => (a.name < b.name ? -1 : 1));
-}
-
-/** The text of a file, or null when it is absent. */
-async function textOf(full: string): Promise<string | null> {
-  const file = Bun.file(full);
-  return (await file.exists()) ? await file.text() : null;
-}
-
 /** Every idea and spec in the workspace: ideas first, each kind in name order. */
 export async function listEfforts(root: string, paths: Paths): Promise<Effort[]> {
   const found: Effort[] = [];
-  for (const entry of await entries(path.join(root, paths.ideas))) {
-    const groups = ideaName.exec(entry.name)?.groups;
-    if (!entry.isFile() || groups?.id === undefined) {
+  for (const name of await fileNames(path.join(root, paths.ideas))) {
+    const groups = ideaName.exec(name)?.groups;
+    if (groups?.id === undefined) {
       continue;
     }
-    const where = path.join(paths.ideas, entry.name);
-    const frontmatter = readFrontmatter((await textOf(path.join(root, where))) ?? "");
+    const where = path.join(paths.ideas, name);
+    const frontmatter = readFrontmatter((await readIfPresent(path.join(root, where))) ?? "");
     const define =
       frontmatter !== null && !("error" in frontmatter) && frontmatter.data.status === "define";
     found.push({
@@ -67,13 +56,13 @@ export async function listEfforts(root: string, paths: Paths): Promise<Effort[]>
       finished: !define,
     });
   }
-  for (const entry of await entries(path.join(root, paths.specs))) {
-    const groups = specName.exec(entry.name)?.groups;
-    if (!entry.isDirectory() || groups?.id === undefined) {
+  for (const name of await folderNames(path.join(root, paths.specs))) {
+    const groups = specName.exec(name)?.groups;
+    if (groups?.id === undefined) {
       continue;
     }
-    const where = path.join(paths.specs, entry.name);
-    const plan = await textOf(path.join(root, where, "tasks/plan.md"));
+    const where = path.join(paths.specs, name);
+    const plan = await readIfPresent(path.join(root, where, "tasks/plan.md"));
     const { rows } = plan === null ? { rows: [] } : readRows("plan", plan);
     found.push({
       kind: "spec",
@@ -89,16 +78,8 @@ export async function listEfforts(root: string, paths: Paths): Promise<Effort[]>
 
 /** The current branch's name; null on a detached head, outside git, or with no git. */
 function branch(root: string): string | null {
-  try {
-    const run = Bun.spawnSync(["git", "symbolic-ref", "--quiet", "--short", "HEAD"], {
-      cwd: root,
-      stdout: "pipe",
-      stderr: "pipe",
-    });
-    return run.exitCode === 0 ? run.stdout.toString().trim() : null;
-  } catch {
-    return null;
-  }
+  const run = git(root, "symbolic-ref", "--quiet", "--short", "HEAD");
+  return run.ok ? run.out.trim() : null;
 }
 
 /**

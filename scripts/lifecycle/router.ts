@@ -4,8 +4,8 @@
  * skill. A name with no skill behind it routes work nowhere; a skill the Quick Reference misses
  * is a skill no session finds. The check runs inside `bun run lifecycle:check` and fails on either.
  */
-import { readdir } from "node:fs/promises";
-
+import { folderNames } from "../lib/files";
+import { tableCells } from "../lib/table";
 import type { Finding } from "./finding";
 
 const routerFile = "skills/using-brain/SKILL.md";
@@ -25,27 +25,19 @@ function section(text: string, title: string): string[] {
   return end === -1 ? rest : rest.slice(0, end);
 }
 
-/** The cells of one table row. */
-function cells(line: string): string[] {
-  return line
-    .trim()
-    .replaceAll(/^\||\|$/gu, "")
-    .split("|")
-    .map((cell) => cell.trim());
-}
-
 /** Each table in `lines`, as its header cells and its body rows; the separator row is dropped. */
 function tables(lines: string[]): { header: string[]; rows: string[][] }[] {
   const found: { header: string[]; rows: string[][] }[] = [];
-  let block: string[] = [];
+  let block: string[][] = [];
   for (const line of [...lines, ""]) {
-    if (line.trim().startsWith("|")) {
-      block.push(line);
+    const cells = tableCells(line);
+    if (cells !== null) {
+      block.push(cells);
       continue;
     }
     if (block.length >= 2) {
-      const [head = "", , ...body] = block;
-      found.push({ header: cells(head), rows: body.map(cells) });
+      const [header = [], , ...rows] = block;
+      found.push({ header, rows });
     }
     block = [];
   }
@@ -97,14 +89,13 @@ function treeTargets(text: string): string[] {
 }
 
 async function skillNames(root: string): Promise<string[]> {
-  const entries = await readdir(`${root}/skills`, { withFileTypes: true }).catch(() => []);
   const names: string[] = [];
-  for (const entry of entries) {
-    if (entry.isDirectory() && (await Bun.file(`${root}/skills/${entry.name}/SKILL.md`).exists())) {
-      names.push(entry.name);
+  for (const name of await folderNames(`${root}/skills`)) {
+    if (await Bun.file(`${root}/skills/${name}/SKILL.md`).exists()) {
+      names.push(name);
     }
   }
-  return names.toSorted();
+  return names;
 }
 
 /** One finding per skill using-brain names that does not exist, and per skill its Quick Reference misses. */

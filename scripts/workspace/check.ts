@@ -9,9 +9,11 @@
  * which leaves the exit code alone.
  * Exit codes: 0 clean, 1 a finding or a config it cannot use, 2 bad usage.
  */
-import { realpath, stat } from "node:fs/promises";
+import { realpath } from "node:fs/promises";
 import path from "node:path";
 
+import { isDirectory } from "../lib/files";
+import { tableCells } from "../lib/table";
 import { findRepo, readConfig } from "./config";
 import type { Paths } from "./config";
 import { blockersOf } from "./graph";
@@ -83,16 +85,9 @@ type Result = {
 /** The row table a file type holds: an idea's map, a plan's task rows. */
 const tablesOf: Partial<Record<DocType, Table>> = { IDEA: "map", plan: "plan" };
 
-async function isFolder(full: string): Promise<boolean> {
-  return await stat(full).then(
-    (found) => found.isDirectory(),
-    () => false,
-  );
-}
-
 /** The files under `folder`, relative to it and sorted; none when it is absent. Dotfiles stay out. */
 async function filesUnder(folder: string): Promise<string[]> {
-  if (!(await isFolder(folder))) {
+  if (!(await isDirectory(folder))) {
     return [];
   }
   const found = await Array.fromAsync(new Bun.Glob("**").scan({ cwd: folder }));
@@ -269,14 +264,10 @@ function wavesSection(body: string): string[] | null {
  */
 function plainText(lines: readonly string[]): string {
   const plain = lines.map((line) => {
-    const text = line.trim();
-    if (!text.startsWith("|")) {
-      return text;
+    const cells = tableCells(line);
+    if (cells === null) {
+      return line.trim();
     }
-    const cells = text
-      .replaceAll(/^\||(?<!\\)\|$/gu, "")
-      .split(/(?<!\\)\|/u)
-      .map((cell) => cell.trim());
     const delimiter = cells.every((cell) => /^:?-+:?$/u.test(cell));
     return `| ${cells.map((cell) => (delimiter ? "---" : cell)).join(" | ")} |`;
   });

@@ -6,9 +6,9 @@
  * A repo is migrated when its `docs/agents/workspace.md` records `layout: 2`: the migrate mode
  * writes that line in its commit, and from then on a run of it changes nothing.
  */
-import { readdir } from "node:fs/promises";
 import path from "node:path";
 
+import { fileNames } from "../lib/files";
 import { configFile } from "./config";
 import type { Paths } from "./config";
 import { readFrontmatter } from "./schema";
@@ -59,15 +59,6 @@ const oldLayout: [shown: string, pattern: string][] = [
   ...trackerFiles.map((file): [string, string] => [file, file]),
 ];
 
-/** The names of the files directly in `folder`, sorted; none when the folder is absent. */
-async function filesIn(folder: string): Promise<string[]> {
-  const entries = await readdir(folder, { withFileTypes: true }).catch(() => []);
-  return entries
-    .filter((entry) => entry.isFile())
-    .map((entry) => entry.name)
-    .toSorted();
-}
-
 /** The 0.8 files under `root`, as a report names them: the glossary, specs, plan, intent docs and tracker files. */
 export async function findOldLayout(root: string): Promise<string[]> {
   const found: string[] = [];
@@ -113,7 +104,7 @@ export async function findAdrFolders(root: string, paths: Paths): Promise<string
     if (folder === paths.decisions) {
       continue;
     }
-    const names = await filesIn(path.join(root, folder));
+    const names = await fileNames(path.join(root, folder));
     if (names.some((name) => adrName.test(name))) {
       found.push(folder);
     }
@@ -123,7 +114,7 @@ export async function findAdrFolders(root: string, paths: Paths): Promise<string
 
 /** The files of `folder` under `root` whose names match `pattern`, as paths from the root. */
 export async function filesNamed(root: string, folder: string, pattern: RegExp): Promise<string[]> {
-  const names = await filesIn(path.join(root, folder));
+  const names = await fileNames(path.join(root, folder));
   return names.filter((name) => pattern.test(name)).map((name) => `${folder}/${name}`);
 }
 

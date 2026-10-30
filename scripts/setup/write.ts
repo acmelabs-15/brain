@@ -35,9 +35,11 @@
  * nothing, and exits 1 when a file differs from what a run would write, or when a run skips a file
  * until the user fixes it by hand. A missing Codex home is not drift.
  */
-import { mkdir, stat } from "node:fs/promises";
+import { mkdir } from "node:fs/promises";
 import { homedir } from "node:os";
 
+import { isDirectory, readIfPresent } from "../lib/files";
+import { git } from "../lib/git";
 import { replaceBlock } from "../plain-talk/block";
 import { readConfig } from "../workspace/config";
 import type { Paths } from "../workspace/config";
@@ -105,10 +107,10 @@ async function moveGlossaryFiles(input: SetupInput): Promise<Change[]> {
     if (stays !== null) {
       continue;
     }
-    const moved = Bun.spawnSync(["git", "mv", from, to], { cwd: input.root });
-    if (moved.exitCode !== 0) {
+    const moved = git(input.root, "mv", "--", from, to);
+    if (!moved.ok) {
       const before = done.length > 0 ? `; already moved: ${done.join(", ")}` : "";
-      throw new Error(`git mv ${from} ${to} failed: ${moved.stderr.toString().trim()}${before}`);
+      throw new Error(`git mv ${from} ${to} failed: ${moved.error}${before}`);
     }
     done.push(from);
   }
@@ -117,18 +119,6 @@ async function moveGlossaryFiles(input: SetupInput): Promise<Change[]> {
 
 export function defaultCodexHome(): string {
   return process.env.CODEX_HOME ?? `${homedir()}/.codex`;
-}
-
-async function readIfPresent(path: string): Promise<string | null> {
-  const file = Bun.file(path);
-  return (await file.exists()) ? file.text() : null;
-}
-
-function isDirectory(path: string): Promise<boolean> {
-  return stat(path).then(
-    (s) => s.isDirectory(),
-    () => false,
-  );
 }
 
 /** Write `next` to `full` unless it already holds it. `path` is how the change is reported. */
