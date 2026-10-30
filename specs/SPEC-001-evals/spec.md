@@ -1,3 +1,7 @@
+---
+spec: SPEC-001
+migrated: 0.8
+---
 # Spec: evals
 
 Module `evals` of `CAPABILITY-MAP.md`. Depends on `plain-talk` and `lifecycle`.

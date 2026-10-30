@@ -1,3 +1,7 @@
+---
+spec: SPEC-006
+migrated: 0.8
+---
 # Spec: setup
 
 Module `setup` of `CAPABILITY-MAP.md`. Depends on `plain-talk`.

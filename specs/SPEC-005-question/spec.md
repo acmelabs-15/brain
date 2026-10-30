@@ -1,3 +1,7 @@
+---
+spec: SPEC-005
+migrated: 0.8
+---
 # Spec: question
 
 Module `question` of `CAPABILITY-MAP.md`, added 2026-09-19. Depends on nothing.

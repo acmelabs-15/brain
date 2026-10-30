@@ -1,3 +1,7 @@
+---
+spec: SPEC-007
+migrated: 0.8
+---
 # Spec: source-cache
 
 Module `source-cache` of `CAPABILITY-MAP.md`. Depends on nothing.

@@ -1,3 +1,7 @@
+---
+spec: SPEC-008
+migrated: 0.8
+---
 # Spec: upstream-sync
 
 Module `upstream-sync` of `CAPABILITY-MAP.md`. Status: draft for review, 2026-09-19.

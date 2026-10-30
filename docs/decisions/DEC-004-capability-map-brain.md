@@ -1,3 +1,8 @@
+---
+id: DEC-004
+migrated: 0.8
+decided: 2026-09-19
+---
 # Capability Map: brain
 
 Approved by Peter on 2026-09-19. Module ids are fixed. Each module has its own

@@ -1,3 +1,7 @@
+---
+spec: SPEC-009
+migrated: 0.8
+---
 # Spec: workspace
 
 Module `workspace` of `CAPABILITY-MAP.md`. Depends on `upstream-sync`, `plain-talk`, `setup`

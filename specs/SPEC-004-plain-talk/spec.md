@@ -1,3 +1,7 @@
+---
+spec: SPEC-004
+migrated: 0.8
+---
 # Spec: plain-talk
 
 Module `plain-talk` of `CAPABILITY-MAP.md`. Depends on `host-manifests`.

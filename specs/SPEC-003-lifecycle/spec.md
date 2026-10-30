@@ -1,3 +1,7 @@
+---
+spec: SPEC-003
+migrated: 0.8
+---
 # Spec: lifecycle
 
 Module `lifecycle` of `CAPABILITY-MAP.md`. Depends on `upstream-sync` and `setup`, both

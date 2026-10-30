@@ -1,3 +1,7 @@
+---
+spec: SPEC-009
+migrated: 0.8
+---
 # Tasks: workspace
 
 Spec: `spec/SPEC-workspace.md`. Plan: `tasks/plan.md`. Each task: a failing test first where

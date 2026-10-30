@@ -1,3 +1,7 @@
+---
+spec: SPEC-002
+migrated: 0.8
+---
 # Spec: host-manifests
 
 Module `host-manifests` of `CAPABILITY-MAP.md`. Status: draft for review, 2026-09-19.

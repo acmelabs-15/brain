@@ -1,3 +1,7 @@
+---
+spec: SPEC-009
+migrated: 0.8
+---
 # Plan: workspace
 
 Spec: `spec/SPEC-workspace.md` (approved 2026-10-29). Decisions: the Decisions table in
