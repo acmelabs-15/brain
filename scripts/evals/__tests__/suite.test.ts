@@ -150,6 +150,19 @@ describe("eval suite", () => {
     expect(install).toBeLessThan(workflow.indexOf("name: Run the suite"));
   });
 
+  test("the Evals workflow keeps each trace, scans it for keys, and uploads it for 14 days", async () => {
+    // Graders are fixed against real traces, so each run's trace is kept. Artifacts on this
+    // public repo can be downloaded, so a trace or result that holds a key pattern stops both
+    // uploads (Peter, 2026-10-30).
+    const workflow = await Bun.file(`${root}/../.github/workflows/evals.yml`).text();
+    const args = workflow.match(/args=\((?<args>[^)]*)\)/u)?.groups?.args ?? "";
+    expect(args).toContain("--keep-temp");
+    expect(workflow).toContain("sk-ant-|oat01");
+    expect(workflow).toMatch(/name: eval-traces\n(?: {10}.*\n)*? {10}retention-days: 14/u);
+    // Both uploads, the results and the traces, wait for a clean scan.
+    expect(workflow.match(/steps\.scan\.outcome == 'success'/gu)?.length).toBe(2);
+  });
+
   test("the Evals workflow runs the suite with TMPDIR outside /tmp", async () => {
     // Claude Code roots each eval run under $TMPDIR and its generated sandbox policy denies
     // writes to all of /tmp, so with the default TMPDIR every shell write fails (Claude Code

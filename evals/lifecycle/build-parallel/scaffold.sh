@@ -49,7 +49,7 @@ sources: []
 # SPEC-001: Text tools
 
 ## Objective
-Five functions on a text, each in its own module on top of `words` in `src/text.ts`: the word count, the longest word, each word capitalized, the words in reverse order, and the distinct words. Then a summary that names the word count and the longest word.
+Five functions on a text, each in its own module on top of `words` in `src/text.ts`: the word count, the longest word, each word capitalized, the words in reverse order, and the distinct words. Then a summary that names the word count and the longest word. A text with no words has no longest word: `longestWord` returns `""` for it.
 
 ## Commands
 Install: `bun install`
@@ -130,10 +130,11 @@ One block per row of `plan.md`, under the row's number. The row in `plan.md` hol
 
 ## Task 02: Find the longest word
 
-**Description:** `longestWord(text)` in `src/longest.ts` returns the longest word, the first one on a tie.
+**Description:** `longestWord(text)` in `src/longest.ts` returns the longest word, the first one on a tie, and `""` for a text with no words.
 
 **Acceptance criteria:**
 - [ ] `longestWord("a bbb cc")` returns `"bbb"`
+- [ ] `longestWord("")` returns `""`
 
 **Verification:**
 - [ ] `bun test src/__tests__/longest.test.ts` passes

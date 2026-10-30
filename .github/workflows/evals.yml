@@ -76,7 +76,7 @@ jobs:
           # the default TMPDIR every shell write in a case fails as a read-only file system.
           export TMPDIR="$RUNNER_TEMP/claude-eval"
           mkdir -p "$TMPDIR"
-          args=(plugin eval . --json evals/results/ci.json --trust-plugin --scaffold --allow-tools Bash Write Edit --no-publish)
+          args=(plugin eval . --json evals/results/ci.json --trust-plugin --scaffold --allow-tools Bash Write Edit --no-publish --keep-temp)
           if [ -n "$EVAL_CASES" ]; then
             args+=(--case "$EVAL_CASES")
           fi
@@ -90,12 +90,43 @@ jobs:
             args+=(--concurrency "$EVAL_CONCURRENCY")
           fi
           claude "${args[@]}"
-      - name: Store the result
+      - name: Collect the traces and scan for keys
+        # Each run's trace is kept (--keep-temp) so graders can be fixed against real
+        # sessions. Artifacts on this public repo can be downloaded, so a key pattern in a
+        # trace or a result stops both uploads.
+        id: scan
         if: always()
+        run: |
+          set -euo pipefail
+          mkdir -p evals/traces
+          if [ -f evals/results/ci.json ]; then
+            jq -r '.cases[] | .name as $n | .arms | to_entries[] | .key as $arm
+              | .value | to_entries[] | [$n, $arm, (.key | tostring), (.value.tracePath // "")] | @tsv' \
+              evals/results/ci.json |
+            while IFS=$'\t' read -r name arm run trace; do
+              if [ -n "$trace" ] && [ -f "$trace" ]; then
+                cp "$trace" "evals/traces/${name//\//__}.${arm}.${run}.jsonl"
+              fi
+            done
+          fi
+          if grep -rlE 'sk-ant-|oat01' evals/traces evals/results; then
+            echo "a key pattern was found in the files above; nothing is uploaded" >&2
+            exit 1
+          fi
+      - name: Store the result
+        if: always() && steps.scan.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: eval-result
           path: evals/results/
+          if-no-files-found: warn
+      - name: Store the traces
+        if: always() && steps.scan.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-traces
+          path: evals/traces/
+          retention-days: 14
           if-no-files-found: warn
       - name: Gate
         env:
