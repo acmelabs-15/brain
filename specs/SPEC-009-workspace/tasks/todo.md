@@ -358,4 +358,4 @@ The merged review is in the build scratch folder, `review/merged.md`. Peter put 
   - Depends: the 0.10.0 release. Scope: S
 
 ### Checkpoint: phase 7
-- [ ] `bun run check` green; review with Peter; PR 3 only after his yes
+- [x] `bun run check` green; review with Peter; PR 3 only after his yes
