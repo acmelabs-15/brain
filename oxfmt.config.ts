@@ -27,5 +27,9 @@ export default defineConfig({
     "scripts/workspace/__tests__/fixtures",
     // A byte-for-byte copy of a user's hand-written AGENTS.md, the overlap report's input.
     "scripts/setup/__tests__/fixtures",
+    // Real eval replies and traces from CI, and CHANGELOG sections as changesets writes them,
+    // whose bullet continuation lines the formatter would join.
+    "scripts/evals/__tests__/fixtures",
+    "scripts/version/__tests__/fixtures",
   ],
 });

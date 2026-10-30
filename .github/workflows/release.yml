@@ -4,7 +4,8 @@ name: Release
 #
 # On a push to main with pending changesets, changesets/action opens a pull request
 # named `ci: Version Packages`. That pull request bumps the version, rewrites
-# CHANGELOG.md, and runs version:sync so every host manifest agrees.
+# CHANGELOG.md with its breaking changes first (scripts/version/breaking-first.ts), and
+# runs version:sync so every host manifest agrees.
 #
 # Merging it lands a commit with no changesets left. This workflow then cuts:
 #
