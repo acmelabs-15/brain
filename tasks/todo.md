@@ -328,6 +328,12 @@ The merged review is in the build scratch folder, `review/merged.md`. Peter put 
   - Files: scripts/setup/overlap.ts, scripts/setup/__tests__/overlap.test.ts
   - Depends: none. Scope: M
 
+- [ ] T58: graders fixed against real CI traces; three skill texts
+  - Acceptance: Peter's rules (2026-10-30): each fixed grader passes the saved CI trace where the behaviour was right and fails at least one example where it was wrong, and that example is a grader test; a grader is loosened only where a trace shows correct behaviour. `build-parallel`'s start graders check worktrees based on the branch head and parallel starts, not the exact git command form; `migrate-08`'s `check-ran` accepts the migrate and then `brain check` in one call when the order inside the command is right. ask-user-question's plain-text form keeps the tool's layout (options with outcome and cost, one "(Recommended)" with its reason); interview-me lets a later row appear in an option only as a cost; the debugging skill ends its reply with the question
+  - Verify: the dry checks re-grade the saved traces; every fixed grader has a passing real trace and a failing example; `bun run check`
+  - Files: evals/lifecycle/build-parallel/graders/, evals/setup/migrate-08/graders/, scripts/evals/__tests__/, skills/ask-user-question/SKILL.md, skills/interview-me/SKILL.md, skills/debugging-and-error-recovery/SKILL.md
+  - Depends: T57. Scope: M
+
 ### Checkpoint: phase 6
 - [x] The full suite once; `bun run validate`; code-review-and-quality over the branch (936 pass, 1 skip; the five-axis review, `review/merged.md` in the build scratch folder, verdict "request changes"; its required fixes and Peter's additions are T53 to T57, merged; B and D are IDEA-001)
 - [x] T35's overlap report on brain's own `AGENTS.md`, report-only, for Peter to decide what the protocol now covers
