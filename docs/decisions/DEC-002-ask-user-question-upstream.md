@@ -1,3 +1,8 @@
+---
+id: DEC-002
+migrated: 0.8
+decided: 2026-10-28
+---
 # DEC-002: ask-user-question is upstream's skill, copied as is
 
 Decided 2026-10-28 by Peter.

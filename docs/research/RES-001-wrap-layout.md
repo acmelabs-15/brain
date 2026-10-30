@@ -1,3 +1,8 @@
+---
+id: RES-001
+migrated: 0.8
+date: 2026-09-19
+---
 # RES-001: How brain carries agent-skills for four hosts
 
 Date: 2026-09-19. Status: evidence gathered, decision open.

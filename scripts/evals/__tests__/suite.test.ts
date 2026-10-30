@@ -25,18 +25,26 @@ function graderType(text: string): string {
 }
 
 describe("eval suite", () => {
-  test("holds the twelve cases the spec names", async () => {
+  test("holds the cases the specs name", async () => {
     expect(await cases()).toEqual(
       [
+        "lifecycle/adr-is-dec",
         "lifecycle/build-clean-context",
+        "lifecycle/interview-parallel-research",
+        "lifecycle/build-parallel",
+        "lifecycle/interview-resume",
+        "lifecycle/no-overload",
         "lifecycle/plan-three-questions",
         "lifecycle/review-one-verdict",
+        "lifecycle/skill-not-skipped",
         "lifecycle/spec-underspecified",
         "lifecycle/verify-no-loop",
         "plain-talk/choice-as-table",
         "plain-talk/context-first",
         "question/plan-approval",
         "setup/fresh-repo",
+        "setup/fresh-repo-resume",
+        "setup/migrate-08",
         "setup/second-run",
         "wait-what/confused-by-reply",
         "wait-what/error-not-confusion",
@@ -56,6 +64,112 @@ describe("eval suite", () => {
       );
       expect(types.some((t) => computed.has(t))).toBe(true);
     }
+  });
+
+  test("no frontmatter value holds ---, where the eval loader would end the block", async () => {
+    // `claude plugin eval` 2.1.312 ends a case file's frontmatter at the first "---" after
+    // the opening line, even inside a value, and then the whole suite fails to load. A
+    // regex writes the run as -{3}.
+    const broken: string[] = [];
+    for (const c of await cases()) {
+      const dir = `${root}/${c}`;
+      const entries = await readdir(`${dir}/graders`);
+      const graders = entries.filter((f) => f.endsWith(".md"));
+      for (const file of ["prompt.md", ...graders.map((g) => `graders/${g}`)]) {
+        const text = await Bun.file(`${dir}/${file}`).text();
+        if (!text.startsWith("---\n")) {
+          continue;
+        }
+        const end = text.indexOf("---", 4);
+        if (end === -1 || text[end - 1] !== "\n" || !/^---(?:\n|$)/u.test(text.slice(end))) {
+          broken.push(`${c}/${file}`);
+        }
+      }
+    }
+    expect(broken).toEqual([]);
+  });
+
+  test("the Evals workflow runs scaffolds and grants every gated tool a case asks for", async () => {
+    // `claude plugin eval` 2.1.312 gives a case Bash, Write, Edit or WebFetch only when the
+    // command line grants it with --allow-tools; the case's allowed_tools alone is not enough.
+    const gated = new Set(["Bash", "Write", "Edit", "WebFetch"]);
+    const workflow = await Bun.file(`${root}/../.github/workflows/evals.yml`).text();
+    const args = workflow.match(/args=\((?<args>[^)]*)\)/u)?.groups?.args ?? "";
+    const grant = args.match(/--allow-tools(?<tools>(?: +[A-Z]\w*)+)/u)?.groups?.tools ?? "";
+    const granted = new Set(grant.trim().split(/ +/u));
+    expect(args).toContain("--scaffold");
+    const missing = new Set<string>();
+    for (const c of await cases()) {
+      const prompt = await Bun.file(`${root}/${c}/prompt.md`).text();
+      const asked = prompt.match(/^allowed_tools: \[(?<tools>[^\]]*)\]/mu)?.groups?.tools ?? "";
+      for (const tool of asked.split(",").map((t) => t.trim())) {
+        if (gated.has(tool) && !granted.has(tool)) {
+          missing.add(tool);
+        }
+      }
+    }
+    expect([...missing].toSorted()).toEqual([]);
+  });
+
+  test("the Evals workflow takes runs and ablation, and reads every input through env", async () => {
+    // An input written as ${{ ... }} inside a run block becomes shell text before bash reads
+    // it, so a crafted value runs as a command; through env it stays a value.
+    const workflow = await Bun.file(`${root}/../.github/workflows/evals.yml`).text();
+    expect(workflow).toMatch(/^ {6}runs:$/mu);
+    expect(workflow).toMatch(/^ {6}ablation:$/mu);
+    // A run block is its `run:` line and every deeper-indented line after it.
+    const runBlocks: string[] = [];
+    const lines = workflow.split("\n");
+    for (const [index, line] of lines.entries()) {
+      const indent = /^(?<indent> *)run: /u.exec(line)?.groups?.indent;
+      if (indent === undefined) {
+        continue;
+      }
+      const depth = indent.length;
+      const rest = lines.slice(index + 1);
+      const end = rest.findIndex((next) => next.trim() !== "" && next.search(/\S/u) <= depth);
+      runBlocks.push([line, ...rest.slice(0, end === -1 ? rest.length : end)].join("\n"));
+    }
+    expect(runBlocks.length).toBeGreaterThan(0);
+    expect(runBlocks.filter((block) => block.includes("${{ github.event.inputs"))).toEqual([]);
+    expect(workflow).toContain('args+=(--runs "$EVAL_RUNS")');
+    expect(workflow).toContain('args+=(--ablation "$EVAL_ABLATION")');
+    // Cases run eight at once by default: one at a time, the suite takes about an hour.
+    expect(workflow).toMatch(/^ {6}concurrency:\n(?: {8}.*\n)*? {8}default: "8"$/mu);
+    expect(workflow).toContain('args+=(--concurrency "$EVAL_CONCURRENCY")');
+  });
+
+  test("the Evals workflow installs the Linux shell sandbox before the suite runs", async () => {
+    // On Linux, `claude plugin eval` refuses a granted shell tool unless bubblewrap and socat
+    // are installed, and on Ubuntu 24.04 AppArmor must let bwrap create user namespaces
+    // (https://code.claude.com/docs/en/sandboxing#set-up-linux-and-wsl2).
+    const workflow = await Bun.file(`${root}/../.github/workflows/evals.yml`).text();
+    const install = workflow.indexOf("apt-get install -y bubblewrap socat");
+    expect(install).toBeGreaterThan(-1);
+    expect(workflow).toContain("/etc/apparmor.d/bwrap");
+    expect(install).toBeLessThan(workflow.indexOf("name: Run the suite"));
+  });
+
+  test("the Evals workflow keeps each trace, scans it for keys, and uploads it for 14 days", async () => {
+    // Graders are fixed against real traces, so each run's trace is kept. Artifacts on this
+    // public repo can be downloaded, so a trace or result that holds a key pattern stops both
+    // uploads (Peter, 2026-10-30).
+    const workflow = await Bun.file(`${root}/../.github/workflows/evals.yml`).text();
+    const args = workflow.match(/args=\((?<args>[^)]*)\)/u)?.groups?.args ?? "";
+    expect(args).toContain("--keep-temp");
+    expect(workflow).toContain("sk-ant-|oat01");
+    expect(workflow).toMatch(/name: eval-traces\n(?: {10}.*\n)*? {10}retention-days: 14/u);
+    // Both uploads, the results and the traces, wait for a clean scan.
+    expect(workflow.match(/steps\.scan\.outcome == 'success'/gu)?.length).toBe(2);
+  });
+
+  test("the Evals workflow runs the suite with TMPDIR outside /tmp", async () => {
+    // Claude Code roots each eval run under $TMPDIR and its generated sandbox policy denies
+    // writes to all of /tmp, so with the default TMPDIR every shell write fails (Claude Code
+    // issues #104631 and #104797).
+    const workflow = await Bun.file(`${root}/../.github/workflows/evals.yml`).text();
+    const suite = workflow.slice(workflow.indexOf("name: Run the suite"));
+    expect(suite).toContain('export TMPDIR="$RUNNER_TEMP/claude-eval"');
   });
 
   test("a case with a scaffold declares it in case.yaml", async () => {

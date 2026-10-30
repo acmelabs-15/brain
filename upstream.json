@@ -8,6 +8,7 @@
           "from": "skills",
           "to": "skills",
           "except": [
+            "idea-refine",
             "interview-me",
             "spec-driven-development",
             "planning-and-task-breakdown",
@@ -39,6 +40,10 @@
         {
           "from": "commands",
           "to": "commands"
+        },
+        {
+          "from": "skills/idea-refine",
+          "to": "skills/idea-refine"
         },
         {
           "from": "skills/interview-me",
@@ -101,14 +106,6 @@
         {
           "from": "skills/engineering/domain-modeling",
           "to": "skills/domain-modeling"
-        },
-        {
-          "from": "skills/engineering/triage",
-          "to": "skills/triage"
-        },
-        {
-          "from": "skills/engineering/wayfinder",
-          "to": "skills/wayfinder"
         },
         {
           "from": "skills/productivity/wait-what",

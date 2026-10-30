@@ -1,3 +1,8 @@
+---
+id: RES-002
+migrated: 0.8
+date: 2026-09-19
+---
 # RES-002: What matt's skills add over addy's, pair by pair
 
 Date: 2026-09-19. Status: evidence gathered, decision open.

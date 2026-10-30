@@ -97,7 +97,7 @@ Cannot reproduce on demand:
 
 ### When you cannot build a loop
 
-Stop and say so. List what you tried. Then Call the Skill tool with "ask-user-question" and ask for the one thing that would make a loop possible: (a) access to the environment that reproduces it, (b) a redacted captured artifact (HAR file, log dump, core dump, screen recording with timestamps), or (c) permission to add temporary production instrumentation. A bug without a loop stays open until one exists. Hypotheses wait for the loop.
+Stop and say so. List what you tried. Then call the Skill tool with "ask-user-question" and ask for the one thing that would make a loop possible: (a) access to the environment that reproduces it, (b) a redacted captured artifact (HAR file, log dump, core dump, screen recording with timestamps), or (c) permission to add temporary production instrumentation. The question's options are these three asks, and the recommended option is one of them. The question ends the reply. A bug without a loop stays open until one exists. Hypotheses wait for the loop.
 
 ### Completion criterion: a tight loop that goes red
 

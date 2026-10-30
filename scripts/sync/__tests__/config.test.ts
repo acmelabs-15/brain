@@ -28,8 +28,14 @@ describe("parseConfig", () => {
       "mattpocock-skills",
       "ask-user-question",
     ]);
-    expect(config.upstreams["agent-skills"]?.seed).toHaveLength(10);
-    expect(config.upstreams["agent-skills"]?.take[0]?.except).toHaveLength(8);
+    expect(config.upstreams["agent-skills"]?.seed).toHaveLength(11);
+    expect(config.upstreams["agent-skills"]?.take[0]?.except).toHaveLength(9);
+    // idea-refine is seeded: the take leaves it out, and the seed list copies it once.
+    expect(config.upstreams["agent-skills"]?.take[0]?.except).toContain("idea-refine");
+    expect(config.upstreams["agent-skills"]?.seed).toContainEqual({
+      from: "skills/idea-refine",
+      to: "skills/idea-refine",
+    });
     expect(config.upstreams["ask-user-question"]?.take).toEqual([]);
     expect(config.upstreams["ask-user-question"]?.seed).toHaveLength(1);
   });

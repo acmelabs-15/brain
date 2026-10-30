@@ -15,7 +15,8 @@ gemini extensions install /path/to/brain
 ```
 
 The extension reads `gemini-extension.json` at the repository root, the `skills/`
-folder, and `commands/*.toml`. Its context file, `GEMINI.md`, is sent with every prompt.
+folder, and `commands/*.toml`. Its context file, `GEMINI.md`, holds the plain-talk text and
+the brain protocol, and is sent with every prompt.
 
 ## Verify
 

@@ -15,6 +15,18 @@ on:
         description: "Pass threshold, 0 to 1"
         required: false
         default: "0.85"
+      runs:
+        description: "Runs per case (empty uses each case's own, 3 by default)"
+        required: false
+        default: ""
+      ablation:
+        description: "none runs the plugin arm only; with-without adds the no-plugin arm (empty is with-without)"
+        required: false
+        default: ""
+      concurrency:
+        description: "Runs at once, 1 to 8; they share the key's rate limit"
+        required: false
+        default: "8"
   schedule:
     - cron: "0 6 * * 1"
 
@@ -34,21 +46,89 @@ jobs:
       - run: bun install --frozen-lockfile
       - name: Install Claude Code
         run: bun add -g @anthropic-ai/claude-code
+      - name: Install the shell sandbox
+        # On Linux, Claude Code confines Bash with bubblewrap and socat, and refuses a granted
+        # shell tool without them. On Ubuntu 24.04 and later, AppArmor must let bwrap create
+        # user namespaces. https://code.claude.com/docs/en/sandboxing#set-up-linux-and-wsl2
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y bubblewrap socat
+          if [ "$(sysctl -n kernel.apparmor_restrict_unprivileged_userns 2>/dev/null || echo 0)" = "1" ]; then
+            printf '%s\n' 'abi <abi/4.0>,' 'include <tunables/global>' '' \
+              'profile bwrap /usr/bin/bwrap flags=(unconfined) {' '  userns,' \
+              '  include if exists <local/bwrap>' '}' | sudo tee /etc/apparmor.d/bwrap > /dev/null
+            sudo systemctl reload apparmor
+          fi
       - name: Run the suite
+        # Inputs reach the script through env, never as ${{ }} text inside it, so a value
+        # cannot become a command.
+        env:
+          EVAL_CASES: ${{ github.event.inputs.cases }}
+          EVAL_RUNS: ${{ github.event.inputs.runs }}
+          EVAL_ABLATION: ${{ github.event.inputs.ablation }}
+          EVAL_CONCURRENCY: ${{ github.event.inputs.concurrency || '8' }}
         run: |
           set -euo pipefail
           mkdir -p evals/results
-          args=(plugin eval . --json evals/results/ci.json --trust-plugin --scaffold --no-publish)
-          if [ -n "${{ github.event.inputs.cases }}" ]; then
-            args+=(--case "${{ github.event.inputs.cases }}")
+          # Workaround for a Claude Code defect (issues #104631, #104797): each run is rooted
+          # under $TMPDIR, and the eval's sandbox policy denies writes to all of /tmp, so with
+          # the default TMPDIR every shell write in a case fails as a read-only file system.
+          export TMPDIR="$RUNNER_TEMP/claude-eval"
+          mkdir -p "$TMPDIR"
+          args=(plugin eval . --json evals/results/ci.json --trust-plugin --scaffold --allow-tools Bash Write Edit --no-publish --keep-temp)
+          if [ -n "$EVAL_CASES" ]; then
+            args+=(--case "$EVAL_CASES")
+          fi
+          if [ -n "$EVAL_RUNS" ]; then
+            args+=(--runs "$EVAL_RUNS")
+          fi
+          if [ -n "$EVAL_ABLATION" ]; then
+            args+=(--ablation "$EVAL_ABLATION")
+          fi
+          if [ -n "$EVAL_CONCURRENCY" ]; then
+            args+=(--concurrency "$EVAL_CONCURRENCY")
           fi
           claude "${args[@]}"
-      - name: Store the result
+      - name: Collect the traces and scan for keys
+        # Each run's trace is kept (--keep-temp) so graders can be fixed against real
+        # sessions. Artifacts on this public repo can be downloaded, so a key pattern in a
+        # trace or a result stops both uploads.
+        id: scan
         if: always()
+        run: |
+          set -euo pipefail
+          mkdir -p evals/traces
+          if [ -f evals/results/ci.json ]; then
+            jq -r '.cases[] | .name as $n | .arms | to_entries[] | .key as $arm
+              | .value | to_entries[] | [$n, $arm, (.key | tostring), (.value.tracePath // "")] | @tsv' \
+              evals/results/ci.json |
+            while IFS=$'\t' read -r name arm run trace; do
+              if [ -n "$trace" ] && [ -f "$trace" ]; then
+                cp "$trace" "evals/traces/${name//\//__}.${arm}.${run}.jsonl"
+              fi
+            done
+          fi
+          if grep -rlE 'sk-ant-|oat01' evals/traces evals/results; then
+            echo "a key pattern was found in the files above; nothing is uploaded" >&2
+            exit 1
+          fi
+      - name: Store the result
+        if: always() && steps.scan.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: eval-result
           path: evals/results/
           if-no-files-found: warn
+      - name: Store the traces
+        if: always() && steps.scan.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-traces
+          path: evals/traces/
+          retention-days: 14
+          if-no-files-found: warn
       - name: Gate
-        run: bun run evals:gate evals/results/ci.json --threshold "${{ github.event.inputs.threshold || '0.85' }}"
+        env:
+          EVAL_THRESHOLD: ${{ github.event.inputs.threshold || '0.85' }}
+        run: bun run evals:gate evals/results/ci.json --threshold "$EVAL_THRESHOLD"

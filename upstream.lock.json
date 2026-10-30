@@ -156,26 +156,6 @@
       "upstream": "mattpocock-skills",
       "sha256": "5c479fd562c691851690e8b18c8501045bef0943c10743d636b2fae26add1d28"
     },
-    "skills/idea-refine/SKILL.md": {
-      "upstream": "agent-skills",
-      "sha256": "79e773058963adc7646b0115b4f8a4afc974c5ff95843e4ef1cafff3cb51899e"
-    },
-    "skills/idea-refine/examples.md": {
-      "upstream": "agent-skills",
-      "sha256": "563204bfbf2f80a444151695205af4cb759e722b3d1e5460e08f278a69c89ba1"
-    },
-    "skills/idea-refine/frameworks.md": {
-      "upstream": "agent-skills",
-      "sha256": "161ebc18fdf2d996bc62a87a2d747cf1bf53548354f8925de25c732c27f00309"
-    },
-    "skills/idea-refine/refinement-criteria.md": {
-      "upstream": "agent-skills",
-      "sha256": "1ca2973a4d01b5cb37ab7ddb2eff77fa4e792634a33d0ce44961c068fc88d51a"
-    },
-    "skills/idea-refine/scripts/idea-refine.sh": {
-      "upstream": "agent-skills",
-      "sha256": "f02a52408a4218047c032d221483abfbb48d11f090bb4915965c7419bf2e0e47"
-    },
     "skills/observability-and-instrumentation/SKILL.md": {
       "upstream": "agent-skills",
       "sha256": "e7fcb0820306d46268de9594d676ad98e35040858926c412b7000faa52a61f87"
@@ -338,6 +318,26 @@
       "upstream": "mattpocock-skills",
       "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
     },
+    "skills/idea-refine/SKILL.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/idea-refine/examples.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/idea-refine/frameworks.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/idea-refine/refinement-criteria.md": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
+    "skills/idea-refine/scripts/idea-refine.sh": {
+      "upstream": "agent-skills",
+      "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
+    },
     "skills/incremental-implementation/SKILL.md": {
       "upstream": "agent-skills",
       "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
@@ -358,22 +358,6 @@
       "upstream": "agent-skills",
       "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
     },
-    "skills/triage/AGENT-BRIEF.md": {
-      "upstream": "mattpocock-skills",
-      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
-    },
-    "skills/triage/OUT-OF-SCOPE.md": {
-      "upstream": "mattpocock-skills",
-      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
-    },
-    "skills/triage/SKILL.md": {
-      "upstream": "mattpocock-skills",
-      "seededAt": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-    },
-    "skills/triage/agents/openai.yaml": {
-      "upstream": "mattpocock-skills",
-      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
-    },
     "skills/using-brain/SKILL.md": {
       "upstream": "agent-skills",
       "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
@@ -383,14 +367,6 @@
       "seededAt": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
     },
     "skills/wait-what/agents/openai.yaml": {
-      "upstream": "mattpocock-skills",
-      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
-    },
-    "skills/wayfinder/SKILL.md": {
-      "upstream": "mattpocock-skills",
-      "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
-    },
-    "skills/wayfinder/agents/openai.yaml": {
       "upstream": "mattpocock-skills",
       "seededAt": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7"
     }

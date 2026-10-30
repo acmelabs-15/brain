@@ -32,7 +32,7 @@ and the research notes RES-002 to RES-004.
 | Verify | `test` | `debugging-and-error-recovery` | matt's feedback-loop gate as Phase 1 with the ten loop constructions and the tighten step; secrets redacted first; three to five ranked falsifiable hypotheses shown to the user; tagged logs, one variable at a time, the performance branch; the regression test only at a correct seam; cleanup lines; a bug with no loop stops and asks for what a loop needs (conflict 4); the human-in-the-loop script shipped beside the skill |
 | Review | `review` | `code-review-and-quality` | Step 0: fixed point, three-dot diff, ref and non-empty check, spec lookup order, standards files; five axes as parallel sub-agents, each with the diff and its section, under a 400-word cap; scope creep as a correctness finding; the twelve Fowler smells in the architecture brief; repo standard over baseline, tooling-enforced rules skipped; one merged ranked list and one verdict (conflict 3); severity labels plus a hard-violation or judgement-call tag |
 | Ship | `ship` | none; addy's `shipping-and-launch` stays vendored | no matt overlap |
-| Routing | none | `using-brain` | the phase-boundary tree and the smart-zone rule as a reference; stateful interview when a repo is present; `setup-brain` named as the precondition; the two on-ramps in the tree |
+| Routing | none | `using-brain` | the stage-boundary tree and the smart-zone rule as a reference; stateful interview when a repo is present; `setup-brain` named as the precondition |
 
 `constraints`, `webperf` and `code-simplify` stay addy's commands with only the namespace
 changed. `context-engineering`, `source-driven-development`, `doubt-driven-development`,
@@ -40,18 +40,16 @@ changed. `context-engineering`, `source-driven-development`, `doubt-driven-devel
 `code-simplification`, `security-and-hardening`, `performance-optimization`,
 `git-workflow-and-versioning`, `ci-cd-and-automation`, `deprecation-and-migration`,
 `documentation-and-adrs`, `observability-and-instrumentation`, `shipping-and-launch`,
-`constraint-driven-development`, `idea-refine` and `using-brain`' siblings stay vendored
-and unchanged.
+`constraint-driven-development` and `using-brain`' siblings stay vendored and unchanged.
 
 ## brain-owned skills beside the combined ones
 
 | Skill | Origin | State after this module |
 |---|---|---|
 | `ask-user-question` | seeded from Peter's repo | the decision mechanism every stage names; its rewrite is the proposed `question` module |
-| `triage` | seeded from matt | the five documented defects fixed; grilling replaced by the interview rules; labels created in the tracker on first use; the agent brief keeps addy's files list |
-| `wayfinder` | seeded from matt | same fixes; one question per call through the question tool (Peter); the map hands off to `spec` |
-| `setup-brain` | brain | gains one tracker question, GitHub, GitLab or local markdown, local by default, and writes `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md` through its script |
+| `setup-brain` | brain | writes `docs/agents/domain.md` and the Codex block through its script; the tracker question and the two tracker files this module added were removed by `SPEC-workspace.md` (open question 10) |
 | `domain-modeling` | seeded from matt (Peter, 2026-10-19) | ADRs go to `docs/decisions/`, the folder agent-skills uses, or to the folder a repo already keeps them in |
+| `idea-refine` | seeded from addy (Peter, 2026-10-29) | a standalone run saves its one-pager as an idea file through `brain new-doc IDEA`; an `ideate` row resolves to a decision record; one question per call through the question tool; no bash script |
 | `wait-what` | seeded from matt (Peter, 2026-10-28) | the agent invokes it on its own: no `disable-model-invocation` flag, no Codex `allow_implicit_invocation: false`, and a description that names the ways a user shows confusion about the agent's last message; the body is matt's text |
 | `writing-for-agents`, `codebase-design`, `prototype`, `handoff` | vendored from matt | unchanged |
 
@@ -72,7 +70,7 @@ one-way step. On a host without sub-agents the command says to clear between tas
 - Domain words come from `GLOSSARY.md` through `docs/agents/domain.md`; a missing term is a
   gap for `domain-modeling`.
 - The spec and the plan live in the repo: `spec/` or `SPEC.md`, `tasks/plan.md`,
-  `tasks/todo.md`. A tracker, when setup chose one, holds issues, not the plan.
+  `tasks/todo.md`.
 
 ## Tech Stack
 
@@ -96,7 +94,7 @@ skills/<addy name>/                      combined skills, seeded, brain-owned: i
                                          debugging-and-error-recovery, code-review-and-quality, using-agent-skills
 skills/debugging-and-error-recovery/scripts/hitl-loop.template.sh
 references/brain/mockability.md          adapted from matt's tdd mocking notes, MIT
-references/brain/phase-boundaries.md     adapted from matt's ask-matt reference, MIT
+references/brain/stage-boundaries.md     adapted from matt's ask-matt reference, MIT
 scripts/lifecycle/check-refs.ts
 scripts/lifecycle/__tests__/check-refs.test.ts
 upstream.json                            except list on the skills take; seed list per combined skill

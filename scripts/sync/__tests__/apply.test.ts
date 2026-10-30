@@ -124,4 +124,58 @@ describe("applyUpstream", () => {
     expect(await Bun.file(`${root}/skills/domain-modeling/SKILL.md`).text()).toBe("dm\n");
     expect(Object.keys(lock.files)).toEqual(["skills/domain-modeling/SKILL.md"]);
   });
+
+  test("a brain-owned file in agents/ and in hooks/ survives a pin bump that changes, adds and drops upstream files beside it", async () => {
+    const takes = [
+      { from: "agents", to: "agents" },
+      { from: "hooks", to: "hooks" },
+    ];
+    const v1 = await tree("own-v1", {
+      "agents/code-reviewer.md": "reviewer 1\n",
+      "agents/test-engineer.md": "engineer 1\n",
+      "hooks/session-start.sh": "start 1\n",
+      "hooks/simplify-ignore.sh": "ignore 1\n",
+    });
+    const v2 = await tree("own-v2", {
+      "agents/code-reviewer.md": "reviewer 2\n",
+      "agents/security-auditor.md": "auditor 1\n",
+      "hooks/session-start.sh": "start 2\n",
+      "hooks/sdd-cache-pre.sh": "cache 1\n",
+    });
+    const root = `${work}/brain-own`;
+    await mkdir(root, { recursive: true });
+    const lock = emptyLock();
+    await applyUpstream({
+      name: "addy",
+      units: await planUnits("addy", takes, v1),
+      tree: v1,
+      lock,
+      root,
+    });
+    await Bun.write(`${root}/agents/researcher.md`, "brain's researcher\n");
+    await Bun.write(`${root}/hooks/brain-session.ts`, "brain's hook\n");
+
+    const result = await applyUpstream({
+      name: "addy",
+      units: await planUnits("addy", takes, v2),
+      tree: v2,
+      lock,
+      root,
+    });
+
+    expect(await Bun.file(`${root}/agents/researcher.md`).text()).toBe("brain's researcher\n");
+    expect(await Bun.file(`${root}/hooks/brain-session.ts`).text()).toBe("brain's hook\n");
+    expect(await Bun.file(`${root}/agents/code-reviewer.md`).text()).toBe("reviewer 2\n");
+    expect(await Bun.file(`${root}/hooks/sdd-cache-pre.sh`).text()).toBe("cache 1\n");
+    expect(result.deleted.toSorted()).toEqual([
+      "agents/test-engineer.md",
+      "hooks/simplify-ignore.sh",
+    ]);
+    expect(Object.keys(lock.files).toSorted()).toEqual([
+      "agents/code-reviewer.md",
+      "agents/security-auditor.md",
+      "hooks/sdd-cache-pre.sh",
+      "hooks/session-start.sh",
+    ]);
+  });
 });

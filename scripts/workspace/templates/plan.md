@@ -1,0 +1,29 @@
+---
+spec: {{spec}}
+---
+# {{spec}} plan: {{title}}
+
+## Overview
+<one paragraph: what this plan builds, and in what order>
+
+## Decisions
+<one line per DEC file this plan follows: - DEC-NNN: <title>>
+
+## Tasks
+This table holds the only status of each task; its block in `todo.md` holds the detail. A resolved row's result is the commit SHA, then the verification command and its outcome.
+
+<!-- Write one row per task or checkpoint right under the table's header, numbered from 01: | 01 | <task> | <task or checkpoint> | open | — | — | -->
+
+| # | Task | Type | Status | Blocked by | Result |
+|---|---|---|---|---|---|
+
+## Parallel waves
+<the lines that `brain plan` prints above its Cap line, as it prints them>
+
+## Risks
+| Risk | Impact | Mitigation |
+|---|---|---|
+| <risk> | <high, medium or low> | <mitigation> |
+
+## Open questions
+- <a question for the user>

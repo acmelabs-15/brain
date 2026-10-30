@@ -1,6 +1,6 @@
 ---
 name: interview-me
-description: Interviews the user one decision per call through the host's user-question tool, in design-tree order, until no decision is open and the user confirms the restate. Facts go to sub-agents, decisions to the user. Use when an ask lacks who, why, success or constraint, when the user says "interview me", "grill me", "are we sure?" or "stress-test my thinking", or before guessing a requirement.
+description: Interviews the user until the intent is confirmed, and keeps the work on disk as a map in an idea file, so one interview can run over any number of sessions. Decide rows go to the user one question per call, research rows to sub-agents, and each resolved row links to its decision or research record. Use when an ask lacks who, why, success or constraint, when an idea is too big for one session, when the user names an idea to continue, when the user says "interview me", "grill me", "are we sure?" or "stress-test my thinking", or before guessing a requirement.
 ---
 
 # Interview Me
@@ -11,7 +11,9 @@ What people ask for and what they want are different things. They ask for "a das
 
 The cheapest moment to find this gap is before any plan, spec or code exists. Once building starts, switching costs are real. The user rationalises the wrong thing into a "good enough" thing, and the misfit gets locked in.
 
-This skill closes the gap before it costs anything. The other Define-phase skills assume you already know roughly what you want: idea-refine generates variations from an idea, spec-driven-development writes the requirements down, doubt-driven-development stress-tests a plan after you draft one. Interview-me comes before all of those. You map the ask as a design tree, ask one decision at a time with a recommendation attached, and stop when no decision is left open and the user confirms the restate.
+This skill closes the gap before it costs anything. It charts the ask as a **map** in an **idea** file: one row per question, and each row resolved by the user, by a sub-agent or by a piece of work. Decide rows go to the user one at a time, each with a recommendation. The interview ends when the frontier and the fog are empty and the user confirms the intent.
+
+The interview is always stateful. No one knows at the start whether it takes one session or ten, so the map is on disk before the first question, and every session works from it.
 
 ## When to Use
 
@@ -19,8 +21,10 @@ Apply this skill when:
 
 - The ask is missing at least one of: **who** the user is, **why** they want it, what **success** looks like, what the binding **constraint** is
 - The request is conventional rather than specific ("build me X", "make it faster") and you cannot unpack the convention without guessing
+- The way from the idea to its destination is not visible yet, or the work looks too big for one session
 - You are tempted to start with assumptions you have not surfaced
 - The user has not said which value they optimise for when two reasonable ones are in tension (simplicity against flexibility, cost against speed)
+- The user names an idea to continue (see [Resume](#resume))
 - The user explicitly invokes: "interview me", "grill me", "before we start, are we sure?", "stress-test my thinking"
 
 **When NOT to use:**
@@ -29,61 +33,208 @@ Apply this skill when:
 - The user has explicitly asked for speed over verification
 - Pure information requests ("how does X work?", "what does this code do?")
 - Mechanical operations (renames, formats, file moves)
-- Every decision in the tree is already settled and you can write the restate in Step 6 now
+- You can write every line of the intent now, and no question is open
 
 ## Loading Constraints
 
-This skill needs a live, responsive user. **Do not invoke in non-interactive contexts** such as CI pipelines, scheduled runs, `/loop` or an autonomous loop. If you are in one of those and the ask is underspecified, state the gap as a blocker for the user instead of guessing.
+This skill needs a live user who answers. In a non-interactive run (a CI pipeline, a scheduled run, `/loop`, an autonomous loop), write the gap down as a blocker for the user instead of guessing.
 
-## The Process
+## Start of every session
 
-### Step 1: Hypothesise and draw the design tree
+### Load three skills
 
-Before asking anything, write your best read of what the user wants in **one sentence**, plus what is still missing:
+Load all three before the first row, in every session. A skill that an agent must call only on a condition is the one it skips.
+
+1. Call the Skill tool with "ask-user-question". It composes every question to the user.
+2. Call the Skill tool with "domain-modeling". It writes each sharpened term to `GLOSSARY.md` and each decision to a decision record.
+3. Call the Skill tool with "context-engineering". It owns the rule for where a session may end.
+
+### Run `brain`
+
+`brain` is brain's command-line tool. It creates every numbered file and checks the workspace. On Claude Code, run it as:
 
 ```
-HYPOTHESIS: You want a way to answer "how are we doing?" in standup, and "dashboard" was the convention that came to mind.
-MISSING: who it is for, what "metrics" means here, what success looks like.
+bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" <cmd>
 ```
 
-Then map the ask as a **design tree**. Every decision branches into the decisions that hang off it. "Who is it for" comes before "what does it show". "What does it show" comes before "how often does it refresh". Keep the tree in your working notes and keep it current.
+Claude Code fills in the plugin path when it loads this skill. On another host, resolve the plugin folder as setup-brain does, then run `scripts/brain.ts` from it with bun. Below, `brain <cmd>` stands for this command.
 
-The **frontier** is every decision whose prerequisites are settled: the questions you can ask now without guessing at answers you have not heard. A decision whose parent is still open is not on the frontier. The first frontier usually holds the four coverage questions: who the user is, why now, what success looks like, and what the binding constraint is.
+Every numbered file (IDEA, DEC, RES) comes from `brain new-doc`. Its claim gives each number to one agent only; a file written by hand can take a number that another agent holds. In a repo with no `docs/agents/workspace.md`, `brain new-doc` uses the default folders: tell the user once to run setup-brain.
 
-### Step 2: Sort the frontier into facts and decisions
+### No repo
 
-Facts are your job, never the user's. A fact is anything the codebase, the docs or a tool can answer: which framework the repo uses, whether a list of experiments already exists, what the current latency is. Dispatch a sub-agent to find it and keep interviewing. A running lookup is an unsettled prerequisite: the questions downstream of it wait for the report, the rest of the frontier goes out now. A question the user could answer only by opening a file is a fact you should have fetched.
+When the session has no repo (an interview about a plan, a design or a piece of writing), the map lives in the conversation, and you say so once, at the chart: "This map lives in our conversation only. It is lost when the conversation ends." Keep the same sections and the same row format, and show the whole map each time it changes. A resolved row's Result holds the answer in a few words, because there is no file to link.
 
-Decisions are the user's. A decision is a fork where two paths are defensible, the choice changes what gets built, and reading more will not settle it. Each one becomes a question.
+## The idea file
 
-Small reversible choices stay with you. If a choice is cheap to undo and does not change what gets built (a file name, a default sort order, the order of two independent steps), decide it, state it with the reason in one line, and move on. The user can overturn it at any time.
+The idea file is `IDEA-NNN-<slug>.md` in the workspace's ideas folder (`paths.ideas` in `docs/agents/workspace.md`, `docs/ideas/` by default). It is the interview's whole state: a new session needs nothing else.
 
-### Step 3: Ask one decision per call, with a recommendation
+| Part | Holds |
+|---|---|
+| `status` in the frontmatter | `define` while the interview runs; `specced` once a spec exists; `done` when the idea ends with no spec, and then `result:` names the `DEC-NNN` or the commit SHA it produced; `parked` when the user sets the idea aside |
+| H1 | `# IDEA-NNN: <title>`: the ID, then the idea's name |
+| Intent | six lines: Outcome, User, Why now, Success, Constraint, Out of scope. It is a draft until the user confirms it (see [Confirm the intent](#confirm-the-intent)) |
+| Destination | one or two lines: what reaching the end of this map looks like (a spec, a decision or a change) |
+| Notes | the skills every session loads, and the user's standing preferences for this idea |
+| Map | the rows |
+| Not yet specified | the fog |
+| Out of scope | work ruled beyond the destination |
 
-Take the next frontier question. When several are open, pick the one with the most decisions hanging off it. Call the Skill tool with "ask-user-question" and let it compose the call to the host's user-question tool: the question text, the options, the one recommended option with the fact behind it, and the layout. One question per call. Wait for the reply. No question in chat prose, no batch.
+### Rows
 
-Your hypothesis for the answer is the recommended option, with the reasoning that produced it. The user reacts faster to a wrong guess than they generate an answer from scratch. The recommendation commits you to a hypothesis you can be visibly wrong about, which keeps you honest. It surfaces your assumptions, which is what the interview exists to expose. The risk is a polite user picking your recommendation to be agreeable. Be visibly willing to be wrong, and now and then recommend the direction you expect them to push back on.
+A row is one question with one kind of answer. Size is not part of a row: one row can take a minute, another a whole session. Rows are named by how they resolve:
 
-Domain words come from `GLOSSARY.md`, read through `docs/agents/domain.md`. A question names a concept with the glossary's term. A concept the glossary lacks is a gap to note for the domain-modeling skill.
+| Kind | Type in the map | Resolved by | Result |
+|---|---|---|---|
+| Decide | `interview` | the user, through one question ([Decide rows](#decide-rows)) | a decision record, `DEC` |
+| Decide | `prototype` | the user's pick between prototypes. Call the Skill tool with "prototype" to build them | a `DEC` that records the pick and links the prototype branch |
+| Decide | `ideate` | the user's pick between directions. Call the Skill tool with "idea-refine" to generate them | a `DEC` that records the chosen direction, with the other variations as considered options |
+| Research | `research` | a sub-agent that finds facts and cites their sources ([Delegating research](#delegating-research)) | a research record, `RES` with `kind: research` |
+| Do | `task` | work that a later decision needs, done by you, or by the user from a precise checklist | a `RES` with `kind: task`: what was done, and the facts later rows need |
 
-Why one per call, not a batch: the user cannot react to your hypotheses if you bury them in a list. Batches invite skim-reading and surface answers. The third question often depends on the answer to the first, and asking them together locks in the wrong framing. The user's energy for careful thought is finite; spend it one question at a time.
+A do row names the decision it unblocks. The map plans; it never builds. Work that delivers part of the destination is not a row: rule it out of scope, or rewrite it as the question it hides.
 
-### Step 4: Read the reply, recompute the frontier, record what settled
+The map is a table with the columns `| # | Question | Type | Status | Blocked by | Result |`:
 
-Read the whole reply. Free text is not rejection. A reply can carry a condition, a correction and a side topic at once. A partial answer settles the part it covers; ask the gap next. "Whatever you think is best" is delegation, not a decision: re-ask with two concrete options as a choice.
+- **#**: two digits, local to the file, never reused. Other files cite a row as `IDEA-004#03`, and a DEC or RES records it in its `from:` field.
+- **Question**: one line. The detail lives in the DEC or RES file, so the map stays an index and never grows into a store.
+- **Status**: `open`, `in-progress`, `resolved`, or `superseded by NN` when row NN replaced it.
+- **Blocked by**: the rows whose answers this row needs, as `02, 04`, or `—` when it needs none. Each number names a row in the same map.
+- **Result**: on a `resolved` row, the ID of the one DEC or RES file that resolved it, such as `DEC-007`, never inline text. On every other row, `—`.
 
-Each answer reshapes the tree. A settled decision pushes the frontier outward and unblocks the questions that depended on it. A correction can prune a branch or add one. Recompute the frontier, then return to Step 3 for the next question.
+The **frontier** is every `open` row whose blocking rows are all `resolved`. Work it out from the map each time. It is never written down.
 
-When a repo is present, keep a paper trail as you go. Call the Skill tool with "domain-modeling" after an answer that sharpens a term or resolves a decision: it writes the term to `GLOSSARY.md` and the decision to an ADR at the moment they crystallise. Without a repo the interview is stateless, and the restate in Step 6 is the only record.
+A choice you make on your own, cheap to undo and with no effect on what gets built, is not a row and gets no file. State it in chat with its reason in one line.
 
-### Step 5: Listen for "want" versus "should want"
+### Fog and out of scope
+
+**Fog or row?** The test is whether you can state the question precisely now, not whether you can answer it now. A sharp question becomes a row, even when it is blocked. A question you can tell is coming but cannot yet phrase goes to "Not yet specified", as loosely as you see it. Fog is coarser than a row: when the frontier reaches it, one patch can become several rows, or none.
+
+Fog lies toward the destination. Work beyond the destination is not fog. It goes to "Out of scope" with one line on why, and it comes back only if the user redraws the destination.
+
+## Chart (always runs first)
+
+The chart writes the map before the first question, and asks the user nothing. Run it when no idea file exists for this work yet.
+
+1. **Hypothesise, then draft the destination.** Write your best read of what the user wants in one sentence, and what is still missing:
+
+   ```
+   HYPOTHESIS: You want a way to answer "how are we doing?" in standup, and "dashboard" was the convention that came to mind.
+   MISSING: who it is for, what "metrics" means here, what success looks like.
+   ```
+
+   Draft the destination from the hypothesis: the spec, decision or change this map finds its way to. Keep it bounded. A map for one defined outcome stays true; a map for a whole product decays before it is half walked. When you are unsure of the destination, the question that settles it is a row, and the rows it shapes wait on it.
+
+2. **Map the frontier breadth-first.** List every question you can state precisely now, across the whole space, wide before deep. The first frontier usually holds the four coverage questions: who the user is, why now, what success looks like, and the binding constraint. Give each question its type from the Rows table. A question you cannot state yet is fog; work past the destination is out of scope.
+
+3. **Write the idea file.** Pick a slug from the hypothesis (lowercase words joined by hyphens, such as `team-metrics`) and a title of a few words, and run:
+
+   ```
+   bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc IDEA <slug> --title "<title>"
+   ```
+
+   It claims the next idea number, writes the file from its template with the title in its H1, and prints the path. Then fill every part:
+
+   - The Intent draft: your hypothesis on each line. Where you cannot guess, name the row that settles it: `- Success: open, row 03.` Leave the "Confirmed by" comment as it is; it becomes a line only after the user's explicit yes.
+   - The Destination.
+   - Notes: "Every session loads ask-user-question, domain-modeling and context-engineering.", then any standing preference the user stated.
+   - The Map: one row per question from step 2, right under the table's header, numbered from `01`, with status `open`, Blocked by `—` for now, and Result `—`.
+   - The fog under "Not yet specified", and "Out of scope" (write "None yet." when nothing is ruled out).
+
+4. **Wire the blocking edges in a second pass.** With every row numbered, give each row the rows whose answers it needs. A row that needs no answer keeps `—`. No row waits on itself, directly or through other rows.
+
+5. **Start the research.** Start every research row on the frontier at once, up to the cap, as [Start every research row at once](#start-every-research-row-at-once) says.
+
+The chart is done when `brain check` reports no finding for the idea file, no `<...>` placeholder is left outside the template's comments, and the user has the path, the destination and the first frontier in a few lines. Then the loop takes the first frontier row.
+
+## The loop
+
+The loop takes rows from the frontier, resolves each one, and re-maps after each. The map on disk is current after every row, so the interview can stop between any two rows and lose nothing.
+
+1. **Compute the frontier** from the map on disk: every `open` row whose Blocked by rows are all `resolved`.
+2. **Take its rows by type.**
+   - Research rows: start them all at once, up to the cap, as [Start every research row at once](#start-every-research-row-at-once) says. They run while you work on the other rows.
+   - Do rows: do the work when you can. When only the user can do it, give the user a precise checklist and set the row to `in-progress`; it resolves when the user reports the work done.
+   - Decide rows: take one, as [Decide rows](#decide-rows) says. One question per call; wait for the reply. The next decide row waits for the re-map.
+3. **Record the result the moment it exists.** The [Rows](#rows) table names the record for each type.
+   - A decide row: write the `DEC` the moment the user decides, before the next question. Follow domain-modeling's three steps: run the command below, fill the record with `from: IDEA-NNN#NN` (this row), and run `brain check`.
+
+     ```
+     bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc DEC <slug> --title "<the decision, in a few words>"
+     ```
+
+     A reply that settles part of the row, or hands the choice back to you, gets no record. The row stays `open`, and its gap is the next question.
+   - A research row: the sub-agent replies with the path of its `RES` file. Read the file to its last line. It is the result when its `status` is `resolved`.
+   - A do row: run `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc RES <slug> --title "<the work, in a few words>"`, and fill the record with `kind: task`, what was done, and the facts later rows need.
+
+   Then set the row to `resolved`, with the record's ID in Result.
+4. **Re-map**, as below, and write the idea file.
+5. **Go back to step 1.** When the frontier is empty:
+   - Rows are still `in-progress`: wait for their results.
+   - Only fog is left: sharpen it into rows, or rule it out of scope with one line on why.
+   - The fog is empty too: go to [Finish](#finish).
+
+### Re-map after every resolved row
+
+Every resolved row of every type gets its own re-map, on disk, before the next row starts. A finding can surface more research, and a decision can surface research that it now depends on. Read the new record against the whole map, then change the map:
+
+- **Add** the rows the result surfaced: the Follow-ups of a `RES` file, and the questions a decision opens. A new row takes the next number above every row number in the Map and in "Out of scope". Give it its type and its blocking rows.
+- **Graduate** fog that the result made sharp: it becomes rows. Fog that is still vague stays.
+- **Rule out** an `open` row that the result put beyond the destination. Remove it from the Map, and write it under "Out of scope" as `- Row 10, <question>: <why>`. Remove its number from every Blocked by cell (`—` when none is left). Its number stays out of use.
+- **Revise** an `open` row whose question still holds but reads wrong now: give it the sharper wording.
+- **Supersede** a row whose question the result changed: set it to `superseded by NN`, and add row NN with the new question. When a new decision replaces an earlier one, the old `DEC` gets `status: superseded by DEC-NNN`, as domain-modeling's DEC format says.
+- **Update the Intent** lines that the result settles, such as `- Success: open, row 03.`
+- **Rewrite `docs/STATUS.md`** when the repo has one: the next frontier row, anything red, and the decide rows that wait on the user.
+
+The re-map is done when the idea file on disk holds every change and `brain check` reports no finding for it.
+
+### Single writer
+
+Only the main session writes the idea file. A sub-agent writes its own `RES` file and nothing else, and lists the questions it found under `## Follow-ups`; the re-map turns them into rows. When several results arrive together, take them one at a time, in the order they arrived, each with its own re-map. One writer keeps parallel sub-agents from overwriting each other's rows.
+
+### Where a session ends
+
+A session ends only between rows: after a re-map is on disk, and only when the context budget runs low. This is context-engineering's rule: a fresh session is safe at a completed task boundary, not at an arbitrary token count. Leaving costs nothing, because the map is current after every row.
+
+Before you end the session:
+
+1. Wait for each running research sub-agent to reply, and re-map its row. A sub-agent ends with its session, so its row would stay `in-progress` with its work half done.
+2. Tell the user the path of the idea file and the next frontier row. A new session resumes from the idea file alone ([Resume](#resume)).
+
+A do row that the user runs from a checklist can stay `in-progress` across sessions.
+
+## Decide rows
+
+A decide row goes to the user. A decision is a fork where two paths are defensible, the choice changes what gets built, and reading more will not settle it. Every decide row ends in one question: an `interview` row asks it at once; a `prototype` or `ideate` row asks it when the prototype or idea-refine skill has made the options.
+
+### Facts are yours
+
+A fact is anything the code, the docs or a tool can answer: which framework the repo uses, whether a list of experiments already exists, what the current latency is. A fact is never the user's job. A quick lookup inside a decide row goes to a sub-agent and never becomes a row. A fact that needs sources and a record is a research row. A question the user could answer only by opening a file is a fact you should have fetched.
+
+### One question per call, with a recommendation
+
+When several decide rows are on the frontier, take the one with the most rows waiting on it. Compose the question with ask-user-question: the question text, the options, the one recommended option with the fact behind it, and the layout. Send one question per call through the host's user-question tool, and wait for the reply.
+
+The options answer this row and nothing past it. A row that waits on this one gets its own question after the re-map, even when this answer seems to settle it too: once this row resolves, the user can weigh the next one differently. A later row appears in an option only as a cost of that option, such as "row 07 then needs the larger storage plan". The choice for that row waits for its own question.
+
+Your hypothesis for the answer is the recommended option, with the reasoning that produced it. The user reacts faster to a wrong guess than they produce an answer from nothing. The recommendation commits you to a hypothesis you can be visibly wrong about, and it surfaces the assumptions the interview exists to expose. The risk is a polite user who picks it to be agreeable. Be visibly willing to be wrong, and now and then recommend the direction you expect them to push back on.
+
+Why one per call: the user cannot react to your hypotheses when they are buried in a list. A batch invites skim-reading and surface answers. The third question often depends on the answer to the first, and asking them together locks in the wrong framing.
+
+A question names each concept with the glossary's word, from `GLOSSARY.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for domain-modeling.
+
+### Read the whole reply
+
+Free text is not rejection. One reply can carry a condition, a correction and a side topic at once. A partial answer settles the part it covers, and the gap is the next question. "Whatever you think is best" is delegation, not a decision: ask again with two concrete options as a choice.
+
+### Want versus should want
 
 The most dangerous answers are the ones where the user says what a thoughtful answer *sounds like* rather than what they want. Watch for:
 
 - Answers that pattern-match best-practice talk ("I want it to be scalable", "clean architecture") without specifics
 - Answers that defer to convention ("the way most apps do it", "the standard approach")
 - Phrases like "I should probably...", "I think I'm supposed to...", "good engineering practice says..."
-- Buzzwords as goals, when "modern", "scalable" or "robust" is the answer instead of a specific outcome
+- Buzzwords ("modern", "scalable", "robust") given as the answer instead of a specific outcome
 
 When you hear these, the next question is:
 
@@ -91,9 +242,51 @@ When you hear these, the next question is:
 
 Ask it through the same tool. The recommended option is your read of what they would pick without an audience. That single question often does more work than the previous five.
 
-### Step 6: Restate intent in the user's own words
+## Delegating research
 
-When the frontier is empty, write back what you now think the user wants. Keep it tight (5 to 8 lines), use their language, and structure it so the user can confirm or correct line by line. Put the restate inside one user-question call with the options "yes" and "refine". Everything the user needs to decide sits inside that call.
+A research row goes to a sub-agent: one sub-agent and one brief per row. The sub-agent finds the facts, follows each one to the source that owns it, and writes them to its own research record. A fact you think you know goes to the sub-agent too: memory is not a source.
+
+| Host | Agent for a research row |
+|---|---|
+| Claude Code | The brain plugin's `researcher` agent. It has every tool except Agent, so it cannot start agents of its own. |
+| Every other host | The host's general-purpose agent. The brief's "start no other agent" line keeps it alone. |
+
+On Claude Code, when the user has turned agent teams on (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`) in an interactive session, the research rows may run as an agent team instead. "Run the rows as an agent team" in [`RESEARCH.md`](RESEARCH.md) says when and how.
+
+A read-only agent such as Explore takes a quick lookup inside a decide row only. It cannot write a file, so it never takes a research row.
+
+### Start every research row at once
+
+Every research row on the frontier starts at once, so the interview waits for the slowest lookup only, never for a queue of them. A research row on the frontier needs no open row's answer, so no research row gains from waiting on another.
+
+The **cap** is the most research agents that run at once: `max_parallel` in `docs/agents/workspace.md`, or 8 when the file or the key is absent. The `BRAIN_MAX_PARALLEL` environment variable overrides it. Every research agent still running counts against the cap.
+
+1. Call the Skill tool with "writing-for-agents". A brief is a document an agent consumes, and its levers apply.
+2. Read [`RESEARCH.md`](RESEARCH.md) in full. It holds the brief, the rule for each of its fields, and the variants for a record to continue, for a session with no repo, and for an agent team.
+3. Fill one brief per row. Give each this path for the brain CLI: `${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts`. Claude Code fills in the plugin folder when it loads this skill; a sub-agent's Bash has no `CLAUDE_PLUGIN_ROOT`, so the brief carries the full path. On another host, give `scripts/brain.ts` in the plugin folder you resolved.
+4. Start every agent in one turn, up to the cap, before you wait for any result. On Claude Code, that is one message with one Agent call per row.
+5. Set each started row to `in-progress`, in one write of the idea file.
+
+When the frontier holds more research rows than the cap leaves room for, start first the rows with the most rows waiting on them. Each time a research record comes back and its re-map is on disk, the loop starts the next research row while the cap has room.
+
+Starting fewer rows than the frontier holds, while the cap has room, needs a reason. Tell the user the reason before you start them, such as "this host runs one sub-agent at a time". "To be safe" is not a reason.
+
+Each sub-agent claims its own record through `brain new-doc`: the brief gives the name format, never a number. You write the idea file; each sub-agent writes only its record.
+
+### Read the result
+
+The sub-agent replies with one path and nothing else. Read the file, not the reply: the file is the primary source. When the reply names no research record, look in the research folder for the record whose `from:` is the row.
+
+| You find | Next |
+|---|---|
+| The record, with `status: resolved` | Set the row to `resolved`, with the record's ID as its Result. Its follow-ups, `UNVERIFIED` lines among them, go into the re-map. |
+| The record, with `status: in-progress` | The sub-agent stopped early, and its findings stand. Start a new one with the brief for a record to continue. |
+| No record, and the reply is the progress file's path | The sub-agent's capability check failed. Tell the user what the file says, and set the row back to `open`. |
+| No record otherwise | The sub-agent never reached step 1. Start it again with the same brief. |
+
+## Confirm the intent
+
+The Intent section is the restate: what you now think the user wants, in their words, one line each, so the user can confirm or correct it line by line. Put it inside one user-question call with the options "yes" and "refine". Everything the user needs to decide sits inside that call.
 
 ```
 Here is what I now think you want:
@@ -106,38 +299,69 @@ Here is what I now think you want:
 - Out of scope: <one line: what we are explicitly not doing>
 ```
 
-Including "Out of scope" is non-negotiable. Half of misalignment is silent disagreement about what is *not* being built.
+The "Out of scope" line is never left out. Half of misalignment is silent disagreement about what is *not* being built.
 
-### Step 7: Confirm with an explicit yes
+The gate is an explicit yes. Any clear yes counts: "yes", "approved", "that's it", "go ahead with that". Do not ask again because the words differ from a list. After the yes, replace the comment under the Intent with the line it names: `Confirmed by <name> on <YYYY-MM-DD>.`
 
-The gate is explicit written approval of the restate. Any clear yes counts: "yes", "approved", "that's it", "go ahead with that". Do not re-ask because the words differ from a list.
+A hedged reply is not a yes, and it gets one follow-up. "Sounds good", "sure, let's go" and "I guess" get "Anything you would refine?" The reply to that follow-up decides. Do not ask a third time about the same restate.
 
-A hedged reply is not yes, and it is asked about once. "Sounds good", "sure, let's go" and "I guess" get one follow-up: "Anything you would refine?" The reply to that follow-up decides. Do not ask a third time about the same restate.
+Silence is not consent. The interview waits for a reply and chooses nothing on the user's behalf. If the user goes quiet and then says "okay, let's start", they have given up on the interview, not agreed: stop and ask whether you missed something.
 
-Silence is not consent. There is no "correct me now or I proceed": the interview waits for a reply and chooses nothing on the user's behalf. If the user goes quiet and then says "okay, let's start", they have given up on the interview, not converged. Stop and ask whether you missed something.
+A correction goes into the Intent and the map. It can reopen rows, so the restate waits until the frontier and the fog are empty again.
 
-If they correct you, fold the correction in, recompute the frontier (a correction can reopen it) and restate. Loop until the frontier is empty and the yes is explicit.
+The interview is done only when both hold: the frontier and the fog are empty, and the user gave an explicit yes to the restate. Neither alone is enough. An empty frontier without a yes is your model, not a shared one. A yes to a restate with open rows is a yes to a guess.
 
-### The stop condition
+The stop has a floor. If several rows resolve and the map keeps growing, that is information about the ask, not a reason to keep grinding. Step back and say so: "I have resolved X rows and the map keeps growing. Something foundational is missing. Want to step back?"
 
-You are done when both hold:
+## Finish
 
-1. The frontier is empty: every branch of the design tree is visited, and nothing is left silently assumed.
-2. The user gave an explicit yes to the restate.
+The interview finishes when the frontier and the fog are both empty. The Destination says how the idea ends: with a spec, or with no spec, as a decision or as a change made in place.
 
-Neither alone is enough. An empty frontier without a yes is your model, not a shared one. A yes to a restate with open branches is a yes to a guess.
+1. **Restate.** Write the restate into the Intent section: each line in the user's words, and no line left as `open, row NN`.
+2. **Confirm** it as [Confirm the intent](#confirm-the-intent) says: one question call, an explicit yes, then the `Confirmed by` line. The same question names how the idea ends: the spec to write, or the decision or change that ends it with no spec. The yes covers both. A correction can reopen rows: go back to [The loop](#the-loop).
+3. **End the idea** the way the user confirmed:
 
-The stop has a floor. If you have gone several rounds and the frontier is not shrinking, that is information about the ask, not a reason to keep grinding. Step back and say so: "I have asked X questions and the tree keeps growing. Something foundational is missing. Want to step back?"
+   | The idea ends with | Do | Then set in the idea's frontmatter |
+   |---|---|---|
+   | A spec | Call the Skill tool with "spec-driven-development". Give it the idea's ID, and the `DEC` and `RES` files the spec rests on, for the spec's `sources:`. One idea may produce several specs. | `status: specced`, once a `spec.md` lists the idea in `sources:` |
+   | A decision, and no spec | Nothing more: a decide row already wrote the decision's `DEC` file. | `status: done`, and `result: DEC-NNN` with that decision's ID |
+   | A change made in place, and no spec | Make the change, and commit it. | `status: done`, and `result:` with the commit's full SHA in quotes, from `git rev-parse HEAD` |
 
-## Output
+4. **Run `brain check`.** It fails a `done` idea with no `result`, or with a `result` that names a `DEC` file that does not exist.
 
-The output of this skill is a **confirmed statement of intent**: the restate from Step 6 with the explicit yes from Step 7. That is the deliverable. Specs, plans and task lists are downstream; they consume the intent this skill produces.
+Finish is done when the Intent holds the `Confirmed by` line, the idea's `status` is `specced` or `done` as the table says, and `brain check` reports no finding for the idea file.
 
-When a repo is present, the terms and decisions already sit in `GLOSSARY.md` and `docs/decisions/` from Step 4. If the user wants the intent itself to persist (a multi-session project, a handoff to another collaborator), offer to save it to `docs/intent/<topic>.md`. Save only if they confirm.
+## Resume
+
+A new session resumes from the idea file alone. The map holds every answer so far, so the conversation that produced it is not needed.
+
+1. **Find the active effort.** Take the first that applies, in the order `docs/agents/workspace.md` gives:
+   1. The idea the user names (its slug, ID or title), or the slug passed to the command.
+   2. The git branch name, when it matches an idea's slug or ID.
+   3. The only idea or spec that is not finished: an idea with `status: define`, or a spec whose `tasks/plan.md` has an `open` or `in-progress` row.
+   4. Otherwise, ask the user which one, as one question.
+
+   When the active effort is a spec, the interview is over: the spec's next task is the next row on the frontier of its `tasks/plan.md`. When no idea file exists for this work, run the [Chart](#chart-always-runs-first) instead.
+2. **Read the idea file to its last line, and act on its `status`:**
+
+   | `status` | Next |
+   |---|---|
+   | `define` | Steps 3 and 4. When the frontier and the fog are both empty, continue [Finish](#finish) at its first step not yet done. |
+   | `specced` | The interview is finished. Resume the spec that lists this idea in `sources:`: its next task is the next row on the frontier of its `tasks/plan.md`. |
+   | `done` | The idea ended with no spec, and nothing is left to resume. Tell the user what its `result:` names: the decision, or the commit of the change. |
+   | `parked` | The user set the idea aside. Resume it only when the user names it: set `status: define`, then steps 3 and 4. |
+
+3. **Settle each row left `in-progress`.** Find its `RES` file by the `from:` field, `from: IDEA-NNN#NN`.
+   - The `RES` file has `status: resolved`: its sub-agent finished after the last re-map. Set the row to `resolved` with the record's ID in Result, and re-map.
+   - A research row whose `RES` file is still `in-progress`, or missing: its sub-agent ended with its session, and the row gets a new one. For an `in-progress` file, send the brief for a record to continue from [`RESEARCH.md`](RESEARCH.md), which names that file; for a missing one, send the usual brief. Start it in the same turn as the frontier's research rows in step 4, within the cap.
+   - A do row on the user's checklist stays `in-progress` until the user reports the work done. A do row that you ran: run it again.
+4. **Take the next frontier row** in [The loop](#the-loop). A `resolved` row is settled: its record holds the answer, and you read that record when a later question needs its facts. The user answers each question once. When the user wants to reopen a settled row, add a row that supersedes it.
+
+Before the first question, tell the user in a few lines where the map stands: the rows resolved so far, the frontier, and the row you take now.
+
+Resume is done when the frontier comes from the map on disk and the first question is for a row on it.
 
 ## Example
-
-A short before-and-after.
 
 **Without interview-me:**
 
@@ -153,92 +377,110 @@ The agent has assumed who it is for, what metrics, what "our" means, and what su
 ```
 User: build me a dashboard for our metrics
 
-Agent (working notes):
+Agent (chart):
 HYPOTHESIS: You want a way to answer "how are we doing?" in standup, and "dashboard" is the conventional answer.
-TREE: who asks -> what "metrics" means -> where the data lives (fact) -> what done looks like
-FRONTIER: who asks. Sub-agent dispatched: which metrics the repo already exports.
+DESTINATION (draft): a spec for the view that answers "how are we doing?"
+$ brain new-doc IDEA team-metrics --title "Team metrics"
+docs/ideas/IDEA-003-team-metrics.md
 
-Agent (user-question tool, one call):
+## Map
+| # | Question | Type | Status | Blocked by | Result |
+|---|---|---|---|---|---|
+| 01 | Who asks "how are we doing?" | interview | open | — | — |
+| 02 | Which metrics does the repo already export? | research | in-progress | — | — |
+| 03 | What does a good answer let the reader decide? | interview | open | 01 | — |
+| 04 | Which metrics answer that question? | interview | open | 02, 03 | — |
+
+## Not yet specified
+- How fresh the numbers must be, once the reader is known.
+
+Agent (user-question tool, one call, row 01):
   Question:    When you say "how are we doing?", who is asking?
   Options:     You alone / The engineering team in standup / Up the chain (manager, exec, board)
   Recommended: The engineering team in standup, because "we" usually scopes that way and standups are where this question gets asked. For execs the metrics and the framing change a lot.
 
 User: It's actually for me. I keep losing track of which experiments are running and what their early signal looks like.
-
-Agent (working notes):
-Updated read: not a team dashboard. A personal experiment tracker. Tree pruned: the standup branch is gone.
-New frontier: is the gap the list or the results?
-
-Agent (user-question tool, one call):
-  Question:    Is the gap that you do not know which experiments exist, or that you cannot see their results in one place?
-  Options:     No list exists / The list exists, the results are scattered
-  Recommended: The second, because the sub-agent found no experiment registry in the repo but did find three result exporters.
-
-User: First one actually. I literally don't have a list. They're spread across different docs.
-
-Agent: <calls domain-modeling to record "experiment" as a glossary term, recomputes the frontier, continues>
 ```
 
-Two questions in, the agent has found the ask is not "a dashboard". It is "a list". Different artifact, different scope, different work. The dashboard would have been wrong.
+Row 01 resolves to a decision record, and the destination moves: not a team dashboard but a personal list of experiments. Rows 03 and 04 assumed a team view, so sharper rows supersede them. The dashboard would have been wrong, and the map shows why.
 
 ## Interaction with Other Skills
 
-- **ask-user-question**: composes every question this skill asks. Interview-me decides which decision to ask and when; ask-user-question decides how the call reads.
-- **domain-modeling**: runs alongside when a repo is present. It records each sharpened term and each resolved decision as the interview goes.
-- **idea-refine**: downstream. If the confirmed intent is "I want X but I do not know how to scope it", hand off to idea-refine to generate variations against the now-explicit intent.
-- **spec-driven-development**: downstream. If the confirmed intent is concrete ("X for Y users with Z success criteria"), hand off to spec-driven-development to write it down.
-- **prototype**: sideways. When a frontier question needs a runnable answer ("does this state model feel right?", "what should this screen look like?"), hand off to prototype, then bring the answer back as a settled decision.
-- **handoff**: when the interview must continue in another session or with another agent, hand off with the current tree, the frontier and the restate draft, so the next session does not re-ask settled decisions.
+- **ask-user-question**: composes every question this skill asks. Interview-me decides which row to ask and when; ask-user-question decides how the call reads.
+- **domain-modeling**: loaded at the start. It records each sharpened term in `GLOSSARY.md` and each decision as a `DEC` file.
+- **context-engineering**: loaded at the start. It owns the rule for where a session may end.
+- **idea-refine**: resolves `ideate` rows. It generates and stress-tests directions; the user picks one, and the `DEC` keeps the others as considered options.
+- **prototype**: resolves `prototype` rows. The user picks between prototypes; the `DEC` links the prototype branch.
+- **source-driven-development**: research sub-agents follow its source rules ([Delegating research](#delegating-research)).
+- **spec-driven-development**: downstream. It takes the confirmed intent and the map's decision records.
 - **planning-and-task-breakdown**: two hops downstream of this skill (after the spec).
-- **doubt-driven-development**: opposite end of the timeline. Interview-me is pre-decision intent extraction; doubt-driven is post-decision artifact review. Both catch divergence, at different moments.
-- **source-driven-development**: orthogonal. Interview-me clarifies what the user wants; SDD verifies framework facts. They do not compete.
+- **doubt-driven-development**: opposite end of the timeline. Interview-me finds the intent before a decision; doubt-driven reviews an artifact after it. Both catch divergence, at different moments.
 
 ## Common Rationalizations
 
 | Rationalization | Reality |
 |---|---|
-| "The ask is clear enough" | If you cannot write the user's desired outcome in one sentence right now, the ask is not clear. Run Step 1 before deciding. |
+| "The ask is clear enough" | If you cannot write the user's desired outcome in one sentence right now, the ask is not clear. Run the chart before deciding. |
+| "This interview is short; it needs no file" | No one knows at the start whether it takes one session or ten. The map is on disk before the first question. |
+| "I'll write the idea file by hand" | Only `brain new-doc` claims the number for one agent. A file made by hand can take a number another agent holds. |
+| "I'll put the answer in the Result cell" | The map is an index. A resolved row links to one `DEC` or `RES` file, and the detail lives there. |
 | "Asking too many questions wastes their time" | Four to six targeted questions cost minutes. Building the wrong thing costs weeks, and the user bears that cost. |
 | "I'll figure it out as I build" | Switching costs after code exists are ten times what they are now. Discovery during implementation is rework. |
-| "They said 'whatever you think', so I should decide" | "Whatever you think" is delegation, not decision. Re-ask with two concrete options as a choice. |
-| "I'll ask the whole frontier at once to save rounds" | The frontier orders the questions; it does not license a batch. One decision per call, the next one chosen after the answer. |
-| "I'll ask the user which framework the repo uses" | That is a fact. A sub-agent fetches it while you ask the next decision. |
-| "Every choice is the user's" | A cheap, reversible choice that does not change what gets built stays with you. State it with the reason. |
+| "They said 'whatever you think', so I should decide" | "Whatever you think" is delegation, not decision. Ask again with two concrete options as a choice. |
+| "I'll ask the whole frontier at once to save rounds" | The frontier orders the questions; it does not license a batch. One question per call, the next one chosen after the answer. |
+| "I'll ask the user which framework the repo uses" | That is a fact. A sub-agent fetches it while you ask the next decide row. |
+| "I'll start one research row and see what it finds first" | A research row on the frontier needs no open row's answer. Start them all at once; a finding that changes another row is a re-map, not a reason to wait. |
+| "Every choice is the user's" | A cheap, reversible choice that does not change what gets built stays with you. State it with the reason; it gets no row. |
 | "If I attach my recommendation, I'm leading them" | Leading is the point. Reacting is faster than generating from scratch. The risk is sycophancy, not leading; mitigate by being visibly willing to be wrong. |
-| "We've talked enough, I get it" | Test it: is the frontier empty? If a branch is unvisited, you are assuming its answer. |
+| "We've talked enough, I get it" | Test it: are the frontier and the fog empty? An open row is an answer you are assuming. |
 | "The user said 'sounds good', we're done" | A hedged reply gets one follow-up. A clear yes to the concrete restate ends it; the clarity matters, the exact words do not. |
 | "I listed my assumptions; silence means they agree" | Silence is not consent. The interview waits for a reply. |
 
 ## Red Flags
 
+- The first question asked before the idea file exists, or a map kept only in working notes in a repo
+- An idea file written by hand instead of through `brain new-doc`
+- A resolved row whose Result is inline text, or names no `DEC` or `RES` file
+- A row that delivers part of the destination ("build the X") instead of asking a question
+- A sharp question left in the fog, or work beyond the destination written as fog
 - Two or more questions in one call, or a question asked in chat prose instead of the user-question tool
 - A question without a recommended option and its reason: that is surveying, not committing
-- A question whose prerequisite decision is still open: it is not on the frontier yet
-- A question the codebase or the docs could answer: a fact sent to the user instead of a sub-agent
-- Accepting "whatever you think is best" as a terminal answer
-- Asking a third time about the same restate after one clarifying follow-up
-- Proceeding on silence, or on "correct me now or I proceed"
-- Producing a spec, plan or task list before the user gave an explicit yes to the restate
+- A question for a row that is not on the frontier: a row it waits on is still open
+- A question the code or the docs could answer: a fact sent to the user instead of a sub-agent
+- Research rows on the frontier started one turn after another, or fewer started than the frontier holds while the cap had room, with no reason told to the user
+- Accepting "whatever you think is best" as a final answer
 - Questions framed as "what would be best practice?" instead of "what do you actually want?"
 - A sophistication-signalling answer ("scalable", "clean", "modern") accepted without the want-versus-should probe
-- Several rounds without the frontier shrinking, and no step back
-- A term sharpened or a decision resolved in a repo without a domain-modeling call
-- Saving the intent doc before the user confirmed (the doc itself implies a yes the user did not give)
-- Skipping the "Out of scope" line in the restate
+- A term sharpened or a decision made with no domain-modeling call
+- An Intent with no "Out of scope" line
+- The "Confirmed by" line written before the user's explicit yes
+- Asking a third time about the same restate after one follow-up
+- Proceeding on silence, or on "correct me now or I proceed"
+- A spec, plan or task list produced before the user's explicit yes to the restate
+- Several rows resolved while the map keeps growing, and no step back
 
 ## Verification
 
 After applying interview-me:
 
-- [ ] A one-sentence hypothesis and a design tree were written before the first question
+- [ ] ask-user-question, domain-modeling and context-engineering were loaded before the first row
+- [ ] The chart ran first: a one-sentence hypothesis, a destination, and the idea file written through `brain new-doc` before the first question (with no repo: the map in the conversation, and the user told so)
+- [ ] Every row is one line with a type, a status, its blocking rows and a Result; every resolved row links to one `DEC` or `RES` file
+- [ ] The fog is under "Not yet specified", and work beyond the destination is under "Out of scope"
+- [ ] `brain check` reports no finding for the idea file
+- [ ] Every research row on the frontier started at once, in one turn and up to the cap, with one agent and one brief per row; a start of fewer came only after a reason told to the user
+- [ ] Each result was recorded the moment it existed: a `DEC` the moment the user decided, before the next question
+- [ ] Every resolved row, of every type, got its own re-map on disk before the next row started, and only the main session wrote the idea file
+- [ ] The session ended only between rows, after a re-map, with the reply of every running research sub-agent settled first
 - [ ] Every question went through the host's user-question tool, one per call, composed with ask-user-question
 - [ ] Every question carried a recommended option with the reason behind it
+- [ ] Every question was for a row on the frontier when asked
 - [ ] Every fact a question needed went to a sub-agent, not to the user
-- [ ] Every question was on the frontier when asked: its prerequisites were settled
 - [ ] The want-versus-should probe ran on each convention-signalling answer
-- [ ] In a repo, domain-modeling was called after each sharpened term or resolved decision
-- [ ] Small reversible choices the agent took were stated with their reason
-- [ ] The restate (Outcome / User / Why now / Success / Constraint / Out of scope) went to the user inside one question call
-- [ ] The frontier was empty at the restate
+- [ ] Small reversible choices you took were stated with their reason, with no row
+- [ ] The restate, with its "Out of scope" line, went to the user inside one question call
 - [ ] The user gave an explicit yes to the restate; a hedged reply got one follow-up, silence got none
-- [ ] Handoffs (idea-refine, spec-driven-development, prototype, handoff) were framed in the confirmed intent, not the original ask
+- [ ] Finish began only when the frontier and the fog were both empty, and stopped only when its done line held
+- [ ] A resumed session found the active effort in the workspace's order, and took its next row from the frontier of the map on disk
+- [ ] On resume, each row left `in-progress` was settled from its record before the first question, and a stopped research record was continued, not started again
+- [ ] No settled row was asked again; a row the user reopened got a new row that supersedes it

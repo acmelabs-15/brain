@@ -27,9 +27,15 @@ One install per host. Each page has install, verify, update and remove:
 - [Gemini CLI](docs/install/gemini-cli.md)
 - [Antigravity CLI](docs/install/antigravity.md)
 
-Then, once per repo, run `setup-brain`. It sets the glossary layout and the issue tracker,
-and on a machine with Codex it writes the plain-talk block into `~/.codex/AGENTS.md` once, or
-into this repo's `AGENTS.md` when you choose the project scope.
+Then, once per repo, run `setup-brain`. It checks for bun, which brain's scripts need, and
+writes the workspace layout, the glossary rules and a `docs/STATUS.md` handoff note into
+`docs/`. It proposes `docs/agents/capabilities.md` from the repo's files, the toolchain
+checks, library skills and MCP servers the repo needs, and writes it after your yes. On a
+machine with Codex it writes the plain-talk and protocol blocks into
+`~/.codex/AGENTS.md` once, or into this repo's `AGENTS.md` when you choose the project
+scope. When the repo's `AGENTS.md` or `CLAUDE.md` already holds rules that brain now
+carries, it shows that overlap, and removes only the `AGENTS.md` sections you pick, in a
+commit of its own. `setup-brain --check` reports drift and writes nothing.
 
 ## What is inside
 
@@ -37,8 +43,10 @@ into this repo's `AGENTS.md` when you choose the project scope.
 |---|---|---|
 | `skills/` | 25 agent-skills, 3 of mattpocock/skills, ask-user-question, and brain's own | vendored ones are byte-identical to upstream; brain's own sit beside them |
 | `references/`, `agents/`, `hooks/` | agent-skills' checklists, personas and hook scripts | vendored |
-| `.claude/commands/`, `commands/` | the nine lifecycle commands for Claude Code, and for Gemini and Antigravity | seeded from agent-skills, brain-owned |
-| `output-styles/`, `GEMINI.md`, `rules/`, `plain-talk/` | the plain-talk text and its rendered forms; the block at the end of `AGENTS.md` is one of them | brain |
+| `claude/agents/` | the Claude-only `researcher` agent, which runs a research row from interview-me's brief | brain |
+| `scripts/hooks/` | the Claude-only `SessionStart` hook, which gives each session the brain protocol and the `brain status` report | brain |
+| `.claude/commands/`, `commands/` | the lifecycle commands: nine for Claude Code, where `status` is a skill, and ten for Gemini and Antigravity | seeded from agent-skills, brain-owned |
+| `output-styles/`, `GEMINI.md`, `rules/`, `plain-talk/`, `protocol/` | the plain-talk text and the brain protocol, with their rendered forms; the block at the end of `AGENTS.md` is one of them | brain |
 | `upstream.json`, `upstream.lock.json` | which commit of each upstream is vendored, and a hash per file | brain |
 | `licenses/` | the upstream licence texts | vendored |
 
@@ -63,9 +71,9 @@ call, and reads the glossary through `docs/agents/domain.md`.
 | Simplify | `code-simplify` | `code-simplification` |
 | Web performance | `webperf` | the `web-performance-auditor` persona |
 
-Two on-ramps feed the lifecycle: `triage` for issues the user did not write, and
-`wayfinder` for work too big for one session. `using-brain` routes a request to the
-right stage. `wait-what` is the repair when a reply does not land.
+Work too big for one session goes to `interview-me`, which keeps its map in
+`docs/ideas/`. `using-brain` routes a request to the right stage. `wait-what` is the
+repair when a reply does not land.
 
 The eight skills that carry brain's additions keep agent-skills' names. They are seeded
 from addy's text and owned by brain: `interview-me`, `spec-driven-development`,
@@ -75,17 +83,21 @@ research behind each fold is under `docs/research/`.
 
 ## Evals
 
-brain measures its own claims with Claude Code's plugin eval command: ten cases under
+brain measures its own claims with Claude Code's plugin eval command: the cases under
 `evals/`, each a prompt plus graders, run with the plugin and without it, so the delta
 shows what brain adds. Every run is model calls on the account that runs it. Claude Code
 2.1.269 or later is needed.
 
 ```
-claude plugin eval . --ablation none --case 'setup/*'   # the setup cases, plugin arm only
-claude plugin eval . --case 'plain-talk/*'              # the plain-talk cases, both arms
-claude plugin eval . --json evals/results/ci.json       # everything, for the gate
-bun run evals:gate evals/results/ci.json                # exit 1 under the threshold, 0.85 by default
+claude plugin eval . --scaffold --allow-tools Bash Write Edit --ablation none --case 'setup/*'  # the setup cases, plugin arm only
+claude plugin eval . --scaffold --allow-tools Bash Write Edit --case 'plain-talk/*'             # the plain-talk cases, both arms
+claude plugin eval . --scaffold --allow-tools Bash Write Edit --json evals/results/ci.json      # everything, for the gate
+bun run evals:gate evals/results/ci.json                                                        # exit 1 under the threshold, 0.85 by default
 ```
+
+`--scaffold` runs each case's `scaffold.sh`, and `--allow-tools` grants the tools the cases ask for.
+Without them, Claude Code skips the scripts and keeps Bash, Write and Edit from every case
+(`claude plugin eval --help`, 2.1.312).
 
 The `Evals` workflow runs the suite by hand or weekly, never on every push, and needs
 the `ANTHROPIC_API_KEY` repository secret. `evals/results/` is not committed.
@@ -96,7 +108,7 @@ Bun only.
 
 ```
 bun install
-bun run check                  # typecheck, lint, format check, tests, version and render checks
+bun run check                  # typecheck, lint, format check, tests, version, render, lifecycle and sync checks
 bun run sync                   # fetch every pinned upstream and rewrite the vendored tree
 bun run sync -- --check        # fail if a vendored file drifted
 bun run sync -- --report       # what addy changed in a seeded command since it was seeded

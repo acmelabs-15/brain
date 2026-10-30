@@ -81,10 +81,240 @@ describe("checkRetiredNames, the old glossary name", () => {
     expect(await checkRetiredNames(root)).toEqual([]);
   });
 
+  test("in a git repo, a file git ignores is never read, and an untracked one is", async () => {
+    const root = await tree("git-mode", {
+      ".gitignore": "ignored/\n",
+      "ignored/copy/SKILL.md": "CONTEXT.md\n",
+      "fresh.md": "CONTEXT.md\n",
+    });
+    Bun.spawnSync(["git", "init", "-q"], { cwd: root });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.file)).toEqual(["fresh.md"]);
+  });
+
   test("node_modules and .git are never read", async () => {
     const root = await tree("skipped", {
       "node_modules/pkg/README.md": "CONTEXT.md\n",
       ".git/info/x.md": "CONTEXT.md\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+});
+
+describe("checkRetiredNames, wayfinder", () => {
+  test("a brain-owned file that names wayfinder is a finding with its line", async () => {
+    const root = await tree("wayfinder-stray", {
+      "README.md": "# X\n\nUse `wayfinder` for work too big for one session.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([
+      {
+        kind: "retired-name",
+        file: "README.md",
+        detail: "line 3 names wayfinder, which is removed; interview-me keeps the map now",
+      },
+    ]);
+  });
+
+  test("Wayfinder in any case, and wayfinding, are caught too", async () => {
+    const root = await tree("wayfinder-case", {
+      "skills/setup-brain/issue-tracker-local.md":
+        "## Wayfinding operations\n\nWayfinder charts a map.\n",
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.detail.split(" names")[0])).toEqual(["line 1", "line 3"]);
+  });
+
+  test("a line that says wayfinder is removed, retired or absorbed passes", async () => {
+    const root = await tree("wayfinder-removal", {
+      ".changeset/retire-wayfinder-and-triage.md":
+        "**Breaking:** wayfinder is removed. Its job moved into interview-me.\n",
+      "spec/CAPABILITY-MAP.md":
+        "| workspace | the stateful interview-me that absorbs wayfinder |\n",
+      "spec/SPEC-x.md":
+        "Removed: `skills/wayfinder/`.\n10. Retirements: `skills/wayfinder` is retired.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("naming interview-me on the line is not enough, and an order to remove is not a removal", async () => {
+    const root = await tree("wayfinder-stale", {
+      "skills/using-brain/SKILL.md":
+        "An idea one session can hold goes to interview-me instead of wayfinder.\n",
+      "skills/setup-brain/issue-tracker-github.md":
+        "Remove the `wayfinder:map` label at the end.\n",
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.file)).toEqual([
+      "skills/setup-brain/issue-tracker-github.md",
+      "skills/using-brain/SKILL.md",
+    ]);
+  });
+
+  test("history and test folders may keep wayfinder", async () => {
+    const root = await tree("wayfinder-exempt", {
+      "CHANGELOG.md": "`wayfinder` gets a reworded opening paragraph.\n",
+      "tasks/todo.md": "- [ ] T23: wayfinder retired\n- wayfinder\n",
+      "docs/research/RES-003-triage-wayfinder.md": "wayfinder\n",
+      "docs/intent/x.md": "wayfinder\n",
+      "scripts/workspace/__tests__/fixtures/layout-0.8/docs/agents/issue-tracker.md":
+        "Used by the wayfinder skill.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+});
+
+describe("checkRetiredNames, triage", () => {
+  test("a brain-owned file that names the triage skill is a finding with its line", async () => {
+    const root = await tree("triage-stray", {
+      "README.md": "# X\n\nUse `triage` for issues the user did not write.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([
+      {
+        kind: "retired-name",
+        file: "README.md",
+        detail:
+          "line 3 names triage, which is removed; re-seed it from mattpocock/skills if you need it",
+      },
+    ]);
+  });
+
+  test("each way a line names the skill is caught", async () => {
+    const root = await tree("triage-forms", {
+      "skills/using-brain/SKILL.md": [
+        "Read skills/triage/SKILL.md first.",
+        '"from": "skills/engineering/triage",',
+        "Type /brain:triage to start.",
+        "The Triage skill reads this flag.",
+        "the triage on-ramp in the tree",
+        "├── Issues you did not write? ─→ triage → briefs",
+        "| On-ramp | triage | Issues and PRs the user did not write |",
+      ].join("\n"),
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.detail.split(" names")[0])).toEqual([
+      "line 1",
+      "line 2",
+      "line 3",
+      "line 4",
+      "line 5",
+      "line 6",
+      "line 7",
+    ]);
+  });
+
+  test("the plain word passes: a triage checklist, triaged findings, the needs-triage label and triage-labels.md", async () => {
+    const root = await tree("triage-plain-word", {
+      "skills/debugging-and-error-recovery/SKILL.md": [
+        "## The Triage Checklist",
+        "4. DIAGNOSE using the triage checklist",
+        "No red-capable command, no triage.",
+        "### Test Failure Triage",
+        "For triaging `npm audit` findings, follow security-and-hardening.",
+        "Critical findings are triaged for reachability.",
+      ].join("\n"),
+      "skills/setup-brain/triage-labels.md":
+        "| `needs-triage` | `needs-triage` | Not evaluated |\n",
+      "evals/setup/second-run/scaffold.sh":
+        'cp "$plugin/skills/setup-brain/triage-labels.md" docs/agents/triage-labels.md\n',
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("a line that says triage is removed or retired passes", async () => {
+    const root = await tree("triage-removal", {
+      "spec/SPEC-x.md": [
+        "- `wayfinder` and `triage` are removed.",
+        "Removed: `skills/wayfinder/`, `skills/triage/`.",
+        "10. Retirements: `skills/triage` is retired.",
+      ].join("\n"),
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("an order to remove or re-seed the skill is not a removal", async () => {
+    const root = await tree("triage-stale", {
+      "README.md": "Remove `triage` from the router tree.\n",
+      "skills/setup-brain/SKILL.md": "Re-seed the triage skill from mattpocock/skills.\n",
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.file)).toEqual(["README.md", "skills/setup-brain/SKILL.md"]);
+  });
+
+  test("history and test folders may keep triage", async () => {
+    const root = await tree("triage-exempt", {
+      "CHANGELOG.md": "`triage` gets five documented fixes.\n",
+      "tasks/todo.md": "- [ ] T24: triage retired\n- `triage`\n",
+      "docs/research/RES-003-triage-wayfinder.md": "`triage`\n",
+      "docs/intent/x.md": "Move skills/triage/AGENT-BRIEF.md.\n",
+      "scripts/workspace/__tests__/fixtures/layout-0.8/docs/agents/issue-tracker.md":
+        "Used by the triage skill.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+});
+
+describe("checkRetiredNames, phase for the lifecycle", () => {
+  test("a Phase: line, the old lifecycle line of brain status, is a finding with its line", async () => {
+    const root = await tree("phase-line", {
+      "skills/status/SKILL.md": "# Status\n\nThe first line reads `Phase: define`.\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([
+      {
+        kind: "retired-name",
+        file: "skills/status/SKILL.md",
+        detail: "line 3 names Phase:; the lifecycle line of brain status is Stage: now",
+      },
+    ]);
+  });
+
+  test("a phase boundary is caught in each form, the old file name too", async () => {
+    const root = await tree("phase-boundary", {
+      "skills/using-brain/SKILL.md": [
+        "## Phase Boundaries",
+        "Use it at a phase boundary.",
+        "The tree is in `../../references/brain/phase-boundaries.md`.",
+        "| Routing | the phase-boundary tree |",
+      ].join("\n"),
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.detail)).toEqual([
+      "line 1 names a phase boundary; the lifecycle word is stage now: stage boundary, stage-boundaries.md",
+      "line 2 names a phase boundary; the lifecycle word is stage now: stage boundary, stage-boundaries.md",
+      "line 3 names a phase boundary; the lifecycle word is stage now: stage boundary, stage-boundaries.md",
+      "line 4 names a phase boundary; the lifecycle word is stage now: stage boundary, stage-boundaries.md",
+    ]);
+  });
+
+  test("phase in the plan sense passes: a checkpoint's phase, a numbered phase, phases that share a wave", async () => {
+    const root = await tree("phase-plan", {
+      "skills/planning-and-task-breakdown/SKILL.md": [
+        "A checkpoint's phase is the tasks it checks: list them in its Blocked by.",
+        "### Checkpoint: phase 1",
+        "## Phase 2: Charges",
+        "Phases that share a wave: none.",
+      ].join("\n"),
+      "scripts/workspace/check.ts": "      phase: tasks.filter((task) => blocked(task)),\n",
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("a line that also names the stage form describes the rename and passes", async () => {
+    const root = await tree("phase-rename-line", {
+      ".changeset/stage.md": [
+        "`brain status` prints `Stage:` where it printed `Phase:`.",
+        "`references/brain/phase-boundaries.md` moves to `stage-boundaries.md`.",
+      ].join("\n"),
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("history and test folders may keep the old lifecycle word", async () => {
+    const root = await tree("phase-exempt", {
+      "CHANGELOG.md": "Choose at a phase boundary.\n",
+      "tasks/todo.md": "- Files: references/brain/phase-boundaries.md\n",
+      "docs/research/RES-002-x.md": "| 5 Phase-boundary tree |\n",
+      "docs/intent/x.md": "`brain status` prints `Stage:`, not `Phase:`; Phase: define\n",
+      "scripts/hooks/__tests__/session-start.test.ts": '  "Phase: no active work",\n',
     });
     expect(await checkRetiredNames(root)).toEqual([]);
   });
@@ -102,6 +332,18 @@ describe("checkGlossaryTerms", () => {
     });
     expect(await checkGlossaryTerms(root)).toEqual([
       { kind: "glossary-term", file: "GLOSSARY.md", detail: "no entry for Fog" },
+    ]);
+  });
+
+  test("the lifecycle word and the plan word, Stage and Phase, each need an entry", async () => {
+    const root = await tree("glossary-stage-phase", {
+      "GLOSSARY.md": fullGlossary
+        .replace("**Stage**:", "**Step**:")
+        .replace("**Phase**:", "**Part**:"),
+    });
+    expect(await checkGlossaryTerms(root)).toEqual([
+      { kind: "glossary-term", file: "GLOSSARY.md", detail: "no entry for Stage" },
+      { kind: "glossary-term", file: "GLOSSARY.md", detail: "no entry for Phase" },
     ]);
   });
 

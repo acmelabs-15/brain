@@ -1,14 +1,20 @@
 /**
  * Every skill a command or skill names must exist, under the brain: prefix or bare, and
  * a user-invoked skill must say so in both hosts' files. The run also applies the name
- * checks in names.ts: no retired name, and a complete glossary.
+ * checks in names.ts (no retired name, and a complete glossary), the agent-list check in
+ * agents.ts (the Claude manifest names every agent), the hook-file check in hooks.ts (no
+ * hook file that another host loads by default) and the router check in router.ts (using-brain
+ * names every skill, and no skill that does not exist).
  *
  *   bun run lifecycle:check
  */
-import { readdir } from "node:fs/promises";
-
+import { fileNames, folderNames, readIfPresent } from "../lib/files";
+import { readFrontmatter } from "../workspace/schema";
+import { checkAgentList } from "./agents";
 import type { Finding } from "./finding";
+import { checkHookFiles } from "./hooks";
 import { checkFallbackExpiry, checkGlossaryTerms, checkRetiredNames } from "./names";
+import { checkRouter } from "./router";
 
 export type Ref = { prefix: string | null; name: string };
 
@@ -33,35 +39,26 @@ export function findRefs(text: string): Ref[] {
 }
 
 async function listFiles(dir: string, suffix: string): Promise<string[]> {
-  const entries = await readdir(dir, { withFileTypes: true }).catch(() => []);
-  return entries
-    .filter((entry) => entry.isFile() && entry.name.endsWith(suffix))
-    .map((entry) => `${dir}/${entry.name}`)
-    .toSorted();
-}
-
-async function skillDirs(root: string): Promise<string[]> {
-  const entries = await readdir(`${root}/skills`, { withFileTypes: true }).catch(() => []);
-  return entries
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => entry.name)
-    .toSorted();
+  const names = await fileNames(dir);
+  return names.filter((name) => name.endsWith(suffix)).map((name) => `${dir}/${name}`);
 }
 
 function frontmatterFlag(text: string): boolean {
-  const end = text.indexOf("\n---", 3);
-  const head = text.startsWith("---") && end !== -1 ? text.slice(0, end) : "";
-  return /^disable-model-invocation:\s*true\s*$/mu.test(head);
+  const frontmatter = readFrontmatter(text);
+  return (
+    frontmatter !== null &&
+    "data" in frontmatter &&
+    frontmatter.data["disable-model-invocation"] === true
+  );
 }
 
 async function readOrEmpty(path: string): Promise<string> {
-  const file = Bun.file(path);
-  return (await file.exists()) ? file.text() : "";
+  return (await readIfPresent(path)) ?? "";
 }
 
 export async function checkRefs(root: string): Promise<Finding[]> {
   const findings: Finding[] = [];
-  const skills = await skillDirs(root);
+  const skills = await folderNames(`${root}/skills`);
   const commandFiles = await listFiles(`${root}/.claude/commands`, ".md");
   const commands = new Set(commandFiles.map((file) => file.slice(file.lastIndexOf("/") + 1, -3)));
   const files = [
@@ -114,6 +111,9 @@ if (import.meta.main) {
     ...(await checkRetiredNames(root)),
     ...(await checkGlossaryTerms(root)),
     ...(await checkFallbackExpiry(root)),
+    ...(await checkAgentList(root)),
+    ...(await checkHookFiles(root)),
+    ...(await checkRouter(root)),
   ];
   for (const finding of findings) {
     console.log(`${finding.kind.padEnd(14)} ${finding.file}: ${finding.detail}`);
@@ -123,6 +123,6 @@ if (import.meta.main) {
     process.exit(1);
   }
   console.log(
-    "every skill reference resolves, every user-invoked flag agrees, no retired name is left",
+    "every skill reference resolves, every user-invoked flag agrees, no retired name is left, every agent is listed, no other host loads a hook file, using-brain routes to every skill",
   );
 }

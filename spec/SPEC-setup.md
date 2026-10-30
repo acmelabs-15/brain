@@ -1,7 +1,7 @@
 # Spec: setup
 
 Module `setup` of `CAPABILITY-MAP.md`. Depends on `plain-talk`.
-Status: approved 2026-09-19; amended the same day, see the amendment notes.
+Status: approved 2026-09-19; amended since, see the amendment notes.
 
 ## Objective
 
@@ -11,10 +11,7 @@ brain skills assume is there:
 1. The domain-docs layout: single-context (`GLOSSARY.md` at the root, `docs/decisions/`) or
    multi-context (`GLOSSARY-MAP.md` at the root), and the consumer rules that tell
    every brain skill to read the glossary before it names a domain concept.
-2. The issue tracker and the label vocabulary, `docs/agents/issue-tracker.md` and
-   `docs/agents/triage-labels.md`, which the triage and wayfinder skills read. The spec
-   and the plan still live in the repo; only issues go to the tracker.
-3. The plain-talk block for Codex: once per machine in the Codex global `AGENTS.md`, or,
+2. The plain-talk block for Codex: once per machine in the Codex global `AGENTS.md`, or,
    at project scope, in this repo's `AGENTS.md`.
 
 It is the brain counterpart of matt's `setup-matt-pocock-skills`, cut down to what
@@ -43,21 +40,85 @@ agent-skills uses, instead of `docs/adr/`. A repo that already keeps its ADRs in
 folder keeps using that folder. `domain-modeling` was seeded from matt for this change,
 because it names the folder too.
 
+**Amended 2026-10-29, by the workspace decision on open question 10.** The tracker item is
+removed, so the Codex block is now item 2. The skill asks no tracker question, and the
+script writes no `docs/agents/issue-tracker.md` or `docs/agents/triage-labels.md` and takes
+no `--tracker` or `--repo`. The workspace migrate mode removes those two files from an
+existing repo, only with the user's yes (`SPEC-workspace.md`).
+
+**Amended 2026-10-29, by the workspace install flow (`SPEC-workspace.md`, task T33).** The
+skill checks for bun first and says plainly that brain needs it. The script also writes
+`docs/agents/workspace.md`, where a re-run keeps the folder paths and `max_parallel` that
+the repo sets, and the `docs/STATUS.md` seed, only when the file is absent, since it is the
+agent's handoff note. The Codex file gets the protocol block beside the plain-talk block,
+each between its own markers. `--check` lists what a run would change, writes nothing, and
+exits 1 when a file differs. The skill says how to find the plugin folder on every host.
+
+**Amended 2026-10-29, by the workspace migrate mode (`SPEC-workspace.md`, task T36).**
+`--migrate` moves a 0.8 repo's specs (`SPEC.md`, `spec/SPEC-<module>.md`) to
+`docs/specs/SPEC-NNN-<slug>/spec.md`, and `tasks/plan.md` and `tasks/todo.md` into that
+folder's `tasks/`, each with `git mv` and frontmatter added, no byte below it changed. The
+capability map becomes a DEC file. When a plan sits beside several specs, the skill asks
+the user which spec it belongs to, one question, and passes the answer as `--plan-spec`;
+without that answer the script exits 2.
+
+**Amended 2026-10-29, by the workspace migrate mode (`SPEC-workspace.md`, task T37).**
+`--migrate` moves each intent doc in `docs/intent/` that the user picks to
+`docs/ideas/IDEA-NNN-<name>.md` with `git mv`, adding only its ID and `migrated: 0.8`; it
+gets no status, since only the user knows it. It removes `docs/agents/issue-tracker.md` and
+`docs/agents/triage-labels.md` with `git rm`, inside the run's one commit, only after the
+user's yes. The skill asks one question per intent doc and one for the tracker files, and
+passes the answers as `--ideas` and `--tracker-files`. A run that lacks an answer it needs
+exits 2 and names every such answer at once.
+
+**Amended 2026-10-29, by the workspace migrate mode (`SPEC-workspace.md`, task T38).**
+`--migrate` moves each ADR that brain 0.8 wrote, `docs/decisions/0001-<slug>.md`, to
+`docs/decisions/DEC-NNN-<slug>.md` with `kind: architecture`, numbered after the capability
+map. When the repo has an ADR folder of another tool (`doc/adr/`, the folder a root
+`.adr-dir` names, and the like), the skill asks one question for the repo and passes
+`--adr-folder move` or `keep`; a kept folder stays as read-only history, and `domain.md`
+names it. `--rename-glossary` puts T05's glossary move into the same commit. The commit also
+creates `docs/agents/workspace.md` with `layout: 2`, which marks the repo as migrated: a
+later `--migrate` changes nothing. A run that skips a file until it is committed leaves
+`workspace.md` out, so the next run can still move that file. Until the marker is there, the
+install writes skip `workspace.md` on a repo on the 0.8 layout, and `--check` exits 1 and
+names what the migrate mode still has to move. After the commit, the skill runs
+`brain check`.
+
+**Amended 2026-10-29, by the workspace install flow (`SPEC-workspace.md`, task T34).** A
+second script, `scripts/setup/capabilities.ts`, proposes `docs/agents/capabilities.md` from
+the repo's files: toolchain checks from `packageManager` and `engines`, library skills from
+the dependencies matched against the skills the host lists, and servers from the MCP config
+file each host reads from a repo. The skill shows the dry run and writes the file only after
+the user's yes, one question per call. An existing `capabilities.md` is the repo's file: a
+run keeps it and lists each proposed row it does not name.
+
+**Amended 2026-10-29, by the overlap report (`SPEC-workspace.md`, task T35).** A third
+script, `scripts/setup/overlap.ts`, reports where the repo's `AGENTS.md`, `CLAUDE.md`,
+`.claude/CLAUDE.md` and `GEMINI.md` repeat brain's protocol, which it reads from the plugin
+at run time, or the facts in `capabilities.md`. It lists each line as covered, moved or
+orphan, and names the other authors in the git history. The skill shows the report and asks
+one multi-select question, and recommends report-only when other people commit to the repo.
+On the user's pick, `--remove` trims each picked `AGENTS.md` section to its orphan lines, in
+one commit that holds `AGENTS.md` alone. `CLAUDE.md` and `GEMINI.md` are reported only.
+`capabilities.ts` also proposes a toolchain check that `AGENTS.md` names with its version, so
+that line counts as moved.
+
+
 Users: anyone who installs brain, once per repo. The user can run it as `/setup-brain`, and the agent can load it on its own (Peter, 2026-10-28).
 
 ## Process the skill follows
 
 1. **Explore.** Read what exists: `GLOSSARY.md`, `GLOSSARY-MAP.md`, `docs/decisions/`,
-   `docs/agents/domain.md`, `docs/agents/issue-tracker.md`, monorepo signals
-   (`pnpm-workspace.yaml`, a `workspaces` field, `packages/*` with their own `src/`),
-   the git remote, and the Codex home. Facts are the skill's job; it never asks the user
-   for one it can look up.
+   `docs/agents/domain.md`, monorepo signals (`pnpm-workspace.yaml`, a `workspaces` field,
+   `packages/*` with their own `src/`), and the Codex home. Facts are the skill's job; it
+   never asks the user for one it can look up.
 2. **Decide the small things itself, and say so.** Single-context is the default and is
    written without a question. The Codex file is written when the Codex home exists and
    skipped when it does not.
 3. **Ask the questions that are the user's, through ask-user-question, one per call.** The
-   tracker, always; the layout, only when monorepo signals exist; the Codex scope, global or
-   this repo, only when a Codex home exists on the machine. Nothing else forks.
+   layout, only when monorepo signals exist; the Codex scope, global or this repo, only when
+   a Codex home exists on the machine. Nothing else forks.
 4. **Show, then write.** Show the dry run and, when the Codex file is in it, the block as
    it will appear there. Then run the writer script, which is the only thing that touches
    files.
@@ -70,13 +131,11 @@ Users: anyone who installs brain, once per repo. The user can run it as `/setup-
 tested, and the skill prose only decides and explains.
 
 ```
-bun run scripts/setup/write.ts --root <repo> --layout single|multi [--tracker local|github|gitlab] [--repo owner/name] [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--dry-run]
+bun run scripts/setup/write.ts --root <repo> --layout single|multi [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--dry-run | --check]
 ```
 
 - Writes `docs/agents/domain.md` from the skill's `domain.md`, the consumer rules, with the
   chosen layout named. Creates `docs/agents/` if missing.
-- Writes `docs/agents/issue-tracker.md` from the skill's `issue-tracker-<tracker>.md`, with
-  the repo slug filled in, and `docs/agents/triage-labels.md` from `triage-labels.md`.
 - Inserts or replaces the plain-talk block in `<codex home>/AGENTS.md` between the markers
   that `plain-talk/AGENTS-block.md` carries, through `scripts/plain-talk/block.ts`, the
   same replace the renderer uses. Text outside the markers is never touched. A symlink
@@ -102,10 +161,14 @@ Bun 1.4.0, TypeScript, `bun:test`. No Node-only API.
 skills/setup-brain/SKILL.md            model-invoked and user-invoked
 skills/setup-brain/agents/openai.yaml  Codex metadata, no policy block
 skills/setup-brain/domain.md           the consumer-rules template; brain-owned, adapted from matt's
-skills/setup-brain/issue-tracker-local.md, issue-tracker-github.md, issue-tracker-gitlab.md, triage-labels.md
-                                       the tracker and label templates; brain-owned, adapted from matt's
+skills/setup-brain/capabilities.md     the capabilities template: toolchain, library skills, servers
 scripts/setup/write.ts
 scripts/setup/__tests__/write.test.ts
+scripts/setup/capabilities.ts          proposes and writes capabilities.md
+scripts/setup/__tests__/capabilities.test.ts
+scripts/setup/overlap.ts               reports what brain now carries; removes the picked AGENTS.md sections
+scripts/setup/__tests__/overlap.test.ts
+scripts/setup/__tests__/fixtures/      a hand-written AGENTS.md, copied byte for byte
 scripts/plain-talk/block.ts            the marker replace, shared with the renderer
 ```
 
@@ -142,7 +205,8 @@ Codex homes in a temp directory: a repo with no files; a repo whose `AGENTS.md`,
 with other content and an old block; one whose `AGENTS.md` is a symlink; a missing Codex
 home; `codexHome: null`; project scope, where the block lands in the repo `AGENTS.md`, other
 text kept, and the global file is untouched; a second run on each is byte-identical; `--dry-run` writes
-nothing and lists every change; multi layout names the map in `domain.md`. Against brain's
+nothing and lists every change; multi layout names the map in `domain.md`; the retired
+`--tracker` and `--repo` flags exit 2 and write nothing. Against brain's
 shipped files: `domain.md` and `domain-modeling` name `docs/decisions/`, and no brain-owned
 skill file names `docs/adr/`.
 
@@ -152,11 +216,11 @@ The conversation in the skill, exploring and asking, is not tested here. `evals`
 
 - **Always:** write through the script; keep text outside the markers untouched; show before writing.
 - **Ask first:** the layout, only when monorepo signals exist; any change to what the block says, which is `plain-talk`'s.
-- **Never:** write a repo's `CLAUDE.md` or `GEMINI.md`; write a repo's `AGENTS.md` outside project scope; create `GLOSSARY.md` or an ADR here; put the spec or the plan in the tracker.
+- **Never:** write a repo's `CLAUDE.md` or `GEMINI.md`; write a repo's `AGENTS.md` outside project scope; create `GLOSSARY.md` or an ADR here.
 
 ## Success Criteria
 
-1. After `setup-brain` in a fresh repo: `docs/agents/domain.md`, `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md` exist, no repo context file was written, and a second run changes nothing. By test.
+1. After `setup-brain` in a fresh repo: `docs/agents/domain.md` exists, no tracker file and no repo context file was written, and a second run changes nothing. By test.
 2. With a Codex home whose `AGENTS.md` has other content, every line outside the markers is unchanged and a symlink stays a symlink. By test.
 3. In a Codex session on that machine, the agent answers with one line of context first. Manual, recorded on the Codex install page.
 4. `bun test` passes with the network off.

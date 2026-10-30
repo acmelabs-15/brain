@@ -6,7 +6,10 @@ export type Finding = {
     | "flag-mismatch"
     | "retired-name"
     | "glossary-term"
-    | "expired-fallback";
+    | "expired-fallback"
+    | "agent-list"
+    | "hook-file"
+    | "router";
   file: string;
   detail: string;
 };

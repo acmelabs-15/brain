@@ -127,6 +127,42 @@ describe("sync cli", () => {
     expect(await exists(`${root}/upstream.lock.json`)).toBe(false);
   });
 
+  test("an upstream file at a brain-owned path in hooks/ stops the sync before any write", async () => {
+    const shaH = "c".repeat(40);
+    await pack("addy", shaH, {
+      "agents/code-reviewer.md": "reviewer\n",
+      "hooks/session-start.sh": "start\n",
+      "hooks/brain-session.ts": "upstream's hook\n",
+    });
+    const root = `${work}/collide-hooks`;
+    await mkdir(`${root}/hooks`, { recursive: true });
+    await Bun.write(`${root}/hooks/brain-session.ts`, "brain's hook\n");
+    await Bun.write(
+      `${root}/upstream.json`,
+      JSON.stringify({
+        upstreams: {
+          addy: {
+            repo: "o/addy",
+            sha: shaH,
+            take: [
+              { from: "agents", to: "agents" },
+              { from: "hooks", to: "hooks" },
+            ],
+          },
+        },
+      }),
+    );
+    const sync = await run(root);
+    expect(sync.code).toBe(1);
+    expect(sync.stderr).toContain(
+      'upstream "addy": target "hooks/brain-session.ts" exists and is not vendored',
+    );
+    expect(await Bun.file(`${root}/hooks/brain-session.ts`).text()).toBe("brain's hook\n");
+    expect(await exists(`${root}/agents/code-reviewer.md`)).toBe(false);
+    expect(await exists(`${root}/hooks/session-start.sh`)).toBe(false);
+    expect(await exists(`${root}/upstream.lock.json`)).toBe(false);
+  });
+
   test("an unknown flag exits 2", async () => {
     const root = await brainRoot("flag");
     const res = await run(root, "--nope");

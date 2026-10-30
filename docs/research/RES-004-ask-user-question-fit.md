@@ -1,3 +1,8 @@
+---
+id: RES-004
+migrated: 0.8
+date: 2026-09-19
+---
 # RES-004: Where ask-user-question fits in brain
 
 Date: 2026-09-19. Status: evidence gathered, decision open.

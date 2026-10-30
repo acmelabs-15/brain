@@ -32,8 +32,24 @@ schema.
 | `ask_user` | [Gemini CLI](references/gemini-cli.md) |
 
 Follow that tool's availability and schema. If no permitted question tool
-exists, state that limitation and use an allowed plain-text question when
-possible. Keep dependent work unresolved.
+exists, state that limitation and ask in plain text, in the tool's layout:
+
+- The context, then the one bounded question.
+- One option per line: its label, what happens, and what it costs.
+- One option's label ends in "(Recommended)", and its reason stands beside it
+  or in the question text.
+- The question and its options end the reply. Any note goes before them.
+
+```text
+This session has no question tool, so I ask here.
+Cross-device draft recovery is a confirmed requirement. Server storage gives it.
+Should drafts require sign-in, or should we revise the recovery requirement?
+- Require sign-in (Recommended): meets the recovery requirement, which is why I
+  recommend it. Users must sign in before they save a draft.
+- Revise the recovery requirement: drafts need no sign-in. They stay on one device.
+```
+
+Keep dependent work unresolved.
 
 **Wait for the person.** Keep an unanswered question pending. Add no response
 deadline, idle inference, cancellation timer, or automatic answer. A delivery

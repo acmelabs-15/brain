@@ -4,41 +4,103 @@ description: Implement tasks incrementally — build, test, verify, commit. Add 
 
 Invoke the brain:incremental-implementation skill alongside brain:test-driven-development. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `GLOSSARY.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
 
+## The spec folder
+
+Find the active spec through `docs/agents/workspace.md`. Read that file to its last line: `paths.specs` names the folder of specs, and "Find the active effort" says which spec is active. When the file is missing, use `docs/specs`, the default, and tell the user once to run setup-brain, which writes it. The active spec's folder holds three files:
+
+- `spec.md`: the spec.
+- `tasks/plan.md`: the row table, which holds the only status of each task. The next task is the next row on its frontier: an `open` row whose `Blocked by` rows are all `resolved`.
+- `tasks/todo.md`: one block per row, under the row's number, with the task's description, acceptance criteria, verification, files likely touched and scope.
+
+`brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`. Claude Code fills in that path in this text only, so copy it from here into each command and each brief.
+
 ## Modes
 
 - **`/build`** — implement the *next* pending task, then stop (careful, one slice at a time).
-- **`/build auto`** — generate the plan if needed, get a single approval, then implement *every* task, each in a clean context, without stopping between them.
+- **`/build auto`** — generate the plan if needed, get a single approval, then implement *every* task: all the tasks on the frontier at once, each in a sub-agent with a worktree of its own.
 
-`$ARGUMENTS` selects the mode. Treat `auto` (canonical) or `all` as autonomous mode; anything else (or empty) is the default single-task mode. Note: autonomous mode is not faster *per task* — it runs the same test-driven loop — it only removes the human stepping *between* tasks.
+`$ARGUMENTS` selects the mode. Treat `auto` (canonical) or `all` as autonomous mode; anything else (or empty) is the default single-task mode. Note: autonomous mode runs the same test-driven loop per task. It removes the human stepping *between* tasks, and it runs side by side the tasks that need nothing from each other.
 
 ## Default: one task
 
-Pick the next pending task from the plan. Then:
+Take the next row on the frontier of the spec's `tasks/plan.md`. Then:
 
-1. Read the task's acceptance criteria
+1. Read the row's block in `tasks/todo.md`: its acceptance criteria and its verification
 2. Load relevant context (existing code, patterns, types)
 3. Write a failing test for the expected behavior (RED)
 4. Implement the minimum code to pass the test (GREEN)
 5. Run the full test suite to check for regressions
 6. Run the build to verify compilation
-7. Commit with a descriptive message
-8. Mark the task complete and stop
+7. Commit the code with a descriptive message, the task's files staged by name
+8. Close the row (see "Close a row") and stop
 
 ## Autonomous: the whole plan (`/build auto`)
 
 Use this once a spec exists and you want to collapse plan + build into one run. It removes the manual stepping between tasks — **not** the verification. Every task still earns a passing test and its own commit.
 
-1. **Require a spec.** Look only for a spec at a known path: `SPEC.md` at the repo root, `docs/SPEC.md`, or a file under `spec/`. A README or arbitrary doc does **not** count. If none exists, stop and tell the user to run `/spec` first — do not invent requirements.
-2. **Establish a clean baseline.** Run `git status --porcelain`. If there are uncommitted changes outside the expected planning artifacts (`SPEC.md`, `docs/SPEC.md`, `spec/*`, `tasks/plan.md`, `tasks/todo.md`), stop and ask the user to commit, stash, or confirm how to handle them. Autonomous per-task commits must not absorb unrelated local work, or the clean-rollback guarantee breaks.
-3. **Plan if needed.** If there is no `tasks/plan.md`, invoke brain:planning-and-task-breakdown to generate one.
-4. **Single checkpoint.** Present the full plan and wait for an unambiguous affirmative (e.g. "approve", "go", "yes"). Treat hedged responses ("looks reasonable", "I guess") as **not** approved. This is the only human gate — after approval, run autonomously. If you generated `tasks/plan.md`, commit it as a single preparatory commit now so it doesn't bleed into the first task's commit.
-5. **Execute every task in dependency order, each in a clean context.** Use each task's declared dependencies; if they aren't explicit, execute in the order the plan lists them. For each task, hand it to one sub-agent with the Agent tool and nothing from this conversation: the plain-talk block from `${CLAUDE_PLUGIN_ROOT}/plain-talk/AGENTS-block.md` at the top of the prompt, because the output style never reaches a sub-agent; the task's text from `tasks/todo.md`, the spec section it cites, the instruction to invoke brain:incremental-implementation and brain:test-driven-development, and the rule to stage only the files that task touched plus its task-status update — never `git add -A` — and to make one commit; and the rule that a decision the spec does not cover comes back in its report as one question, because a sub-agent cannot ask the user. Wait for its report before the next task. A long plan then stays as sharp on the last task as on the first, and any point is a clean rollback. On a host without a sub-agent tool, do the task in this session, commit, clear the context, and re-invoke `/build auto`; it resumes from the next pending task.
+1. **Require a spec.** Use the active spec from "The spec folder". A README or arbitrary doc does **not** count. If no spec is active, stop and tell the user to run `/spec` first — do not invent requirements.
+2. **Establish a clean baseline.** Run `git status --porcelain`. If there are uncommitted changes outside the active spec's folder (`docs/specs/SPEC-NNN-<slug>/` with the default paths: its `spec.md`, `tasks/plan.md` and `tasks/todo.md`), stop and ask the user to commit, stash, or confirm how to handle them. Autonomous per-task commits must not absorb unrelated local work, or the clean-rollback guarantee breaks.
+3. **Plan if needed.** If the spec's `tasks/plan.md` holds no task row yet (a fresh plan from the template holds none), invoke brain:planning-and-task-breakdown to write the plan.
+4. **Single checkpoint.** Present the full plan and wait for an unambiguous affirmative (e.g. "approve", "go", "yes"). Treat hedged responses ("looks reasonable", "I guess") as **not** approved. This is the only approval before the plan's own checkpoint rows — after approval, run autonomously. If you wrote the plan, commit `tasks/plan.md` and `tasks/todo.md` as a single preparatory commit now so they don't bleed into the first task's commit.
+5. **Run the frontier in parallel**, as "Run the frontier" says, until no task is left on it or a checkpoint row stops the build. Each task runs in a clean context and a worktree of its own, so a long plan stays as sharp on the last task as on the first, and every merge is a clean rollback point.
 6. **Stop and ask the user** (do not push through) when:
-   - a test can't be made to pass or the build breaks without an obvious fix → follow brain:debugging-and-error-recovery
+   - a test can't be made to pass, a merge conflict is more than a small overlap in a shared file, or the build breaks without an obvious fix → follow brain:debugging-and-error-recovery
    - the spec is ambiguous, or a task needs a decision the spec doesn't cover
    - a task is high-risk or irreversible — auth/permission changes, destructive data migrations, payments, deletions, deploys, anything touching secrets, **or anything you can't undo with `git revert`** → follow brain:doubt-driven-development and get explicit sign-off before continuing
 
-   After the user resolves a blocker, they re-invoke `/build auto` — it resumes from the next pending task.
-7. **Summarize at the end:** tasks completed, tests added, commits made, and anything skipped, flagged, or left for the user.
+   After the user resolves a blocker, they re-invoke `/build auto` — it resumes from the frontier.
+7. **Summarize at the end:** tasks completed, tests added, commits made, how many tasks started at once in each wave and the reason wherever fewer started than could, the path of each worktree kept for a failed task, and anything skipped, flagged, or left for the user.
+
+## Run the frontier
+
+`brain plan --json` works out the frontier: its first wave is every `open` row whose `Blocked by` rows are all `resolved`. `criticalPath` is the longest chain of rows still to do. `maxParallel` is the cap: `max_parallel` in `docs/agents/workspace.md` (default 8), or the `BRAIN_MAX_PARALLEL` variable, which wins.
+
+1. **Note the feature branch:** `git branch --show-current`. Every task builds on the feature branch's current head, never on `main`.
+2. **Start every task on the frontier at once**, up to the cap counted with the tasks still running: one Agent call per task, all in one message, each with `isolation: "worktree"` on the call itself. When an Agent call's result says it cannot create the worktree, start that task again through "The worktree fallback", and every later task of this build too. When the cap bites, start the rows on `criticalPath` first, then the rest in table order. A running task keeps its row `open`, so the frontier still lists it: leave it running.
+3. **Start fewer only for a reason, and tell the user that reason before you start them.** A reason is a fact about the tasks or the host: two tasks that edit the same function (`sharedFiles` lists the files a wave's tasks share), or a host that runs one sub-agent at a time. "To be safe" is not a reason.
+4. **Brief each sub-agent** with nothing from this conversation:
+   - the plain-talk block from `${CLAUDE_PLUGIN_ROOT}/plain-talk/AGENTS-block.md` at the top of the prompt, because the output style never reaches a sub-agent;
+   - its base: Claude Code starts a worktree on the repo's default branch unless the `worktree.baseRef` setting is `"head"` (https://code.claude.com/docs/en/worktrees#choose-the-base-branch). So its first step is `git merge --ff-only <feature branch>`, then the install command from the spec's Commands or the repo's `AGENTS.md`, because a new worktree has no installed dependencies. If the merge fails, it stops and reports. A task in a fallback worktree gets step 3 of "The worktree fallback" in place of this base;
+   - the task's block from `tasks/todo.md`, copied whole, with the path of the spec folder and the spec section the block cites;
+   - the `brain` path from "The spec folder", because a sub-agent's commands do not get the plugin variable;
+   - the instruction to invoke brain:incremental-implementation and brain:test-driven-development;
+   - the rule to leave `tasks/plan.md` and `tasks/todo.md` to this session, to stage only the files the task touched, by name, and to make one commit on its worktree's branch;
+   - its result file: `T<NN>-result.md`, task ID first, in a folder outside the repo that you create for this build, holding the commit SHA, the verification command with its outcome, and any question. A sub-agent's file name never starts with report, summary, findings or analysis, which Claude Code refuses;
+   - its reply: the result file's path plus one line: pass or fail, the commit SHA, and any question;
+   - the rule that a decision the spec does not cover comes back as one question in its result, because a sub-agent cannot ask the user.
+5. **Merge one task at a time.** When a sub-agent of a fallback task replies, check the tree first (step 4 of "The worktree fallback"). Then read its line. Read its result file only when the line says fail or asks a question; then stop (step 6 above). When several tasks have passed, take the one on `criticalPath` first:
+   1. Merge its branch into the feature branch: `git merge --no-ff <its branch>`. Resolve a small overlap in a shared file yourself.
+   2. Run the repo's check command on the merged head.
+   3. Close the row (see "Close a row").
+   4. When the merge changed a file or an interface that a running task uses, tell that task to rebase onto the feature branch's new head before it commits: SendMessage to the agent ID its Agent call returned (https://code.claude.com/docs/en/sub-agents#resume-subagents).
+   5. Remove a fallback task's worktree (step 6 of "The worktree fallback").
+6. **Move the frontier.** After each closed row, run `brain plan --json` again, and start each task that has newly reached the frontier, as in item 2.
+7. **A checkpoint row on the frontier stops the build for the user's review.** Start no new task, and tell the user that this is why. Let the running tasks finish, and merge them. Run the checks in the checkpoint's block, then present the checkpoint: what its phase built, and each check with its outcome. After the user's unambiguous yes, close the checkpoint row, its result the checks and the user's yes, and go on from item 6.
+
+On a host without a sub-agent tool, run the frontier's tasks one at a time in this session, and tell the user that reason once: do the task, commit, close the row, clear the context, and re-invoke `/build auto`; it resumes from the frontier.
+
+## The worktree fallback
+
+Use it when the host gives a sub-agent no worktree of its own. On Claude Code, that is an Agent call whose result says it cannot create the worktree; `claude plugin eval` answers `Cannot create agent worktree: worktree isolation is unavailable in this session`. Each cause the worktree docs list is a fact about the repo or the session, not about one task (https://code.claude.com/docs/en/worktrees#troubleshooting). So after the first refusal, run that task and every later task of this build through the fallback, with no `isolation` on their Agent calls.
+
+The folder is `.claude/worktrees/`, where Claude Code makes its own worktrees. A sub-agent with no worktree starts in this session's folder, and its `cd` does not carry over to its next command (https://code.claude.com/docs/en/sub-agents#write-subagent-files). Claude Code's isolation checks guard only a sub-agent in a worktree of its own (https://code.claude.com/docs/en/worktrees#how-claude-code-enforces-isolation), so this session checks its own tree. Claude Code's cleanup sweep keeps every worktree made with `git worktree add` (https://code.claude.com/docs/en/worktrees#clean-up-subagent-and-background-session-worktrees), so this session removes each one.
+
+1. **Make each task's worktree from the feature branch's head**, then run the install command there: `git worktree add -b build/T<NN> .claude/worktrees/T<NN> <feature branch>`, then `cd .claude/worktrees/T<NN> && <install command>`. When that folder is still there from a stopped build, ask the user whether to reuse it or remove it.
+2. **Record this session's tree** before the first fallback task starts: `git status --porcelain --untracked-files=all -- ':!.claude/worktrees'`. Keep the output for the whole build. This session commits each change it makes, so a correct run never changes it.
+3. **Give each task its worktree.** In place of the base, the brief names the worktree's absolute path and says: work only in that path; every file you read or write is under it; start every shell command with `cd <path> && `; the branch `build/T<NN>` already holds the feature branch's head, and the install has run; commit there. It also names the feature branch, for a rebase this session may ask for.
+4. **Check the tree when a task replies**, before anything else: run the record's command again. A line the record lacks means an agent wrote in this session's tree. Then stop the build, merge nothing, and tell the user the new lines and the task that replied.
+5. **Merge the branch `build/T<NN>`** as "Run the frontier" says.
+6. **Remove the worktree after its merge:** `git worktree remove .claude/worktrees/T<NN>`, then `git worktree prune`, then `git branch -d build/T<NN>`.
+7. **A failed task keeps its worktree** and its branch, for the user to inspect. The stop message and the closing summary name its path, and the path of every other fallback worktree still on disk.
+
+## Close a row
+
+This session is the only writer of `tasks/plan.md` and of the ticks in `tasks/todo.md`. After a task's commit (`/build`) or its merge (`/build auto`):
+
+1. Tick the boxes in the task's block of `tasks/todo.md`.
+2. Set the task's row in `tasks/plan.md` to `resolved`, and write its result as the table asks: the task's commit SHA, then the verification command and its outcome.
+3. Replace the text of the plan's "Parallel waves" section with the waves text of a fresh `brain plan`, everything above its `Cap:` line: a resolved row leaves the waves. A plan without the section gets one, below the Tasks table.
+4. Run `brain check`. No finding may name a file in the spec folder.
+5. Commit `tasks/plan.md` and `tasks/todo.md` alone, staged by name, in a commit of their own: the row's result names the task's commit, which exists only once that commit does.
 
 If any step fails, follow the brain:debugging-and-error-recovery skill.

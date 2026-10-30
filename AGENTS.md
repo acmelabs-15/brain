@@ -6,12 +6,12 @@ brain is one plugin for Claude Code, Codex CLI, Gemini CLI and Antigravity CLI. 
 
 - A file listed in `upstream.lock.json` is vendored. A change to it goes upstream, as a pull request to the pack it comes from. `bun run sync -- --check` fails on a local edit.
 - Every other file is brain's. The eight combined skills and the commands were seeded from addy's text and are owned here; `bun run sync -- --report` shows what addy changed since.
-- A generated file names its source. `output-styles/talk-plain.md`, `GEMINI.md`, `rules/talk-plain.md`, `plain-talk/AGENTS-block.md` and the block at the end of this file come from `plain-talk/PLAIN-TALK.md`. Edit the source, then run `bun run plain-talk:render`.
+- A generated file names its source. `output-styles/talk-plain.md`, `GEMINI.md`, `rules/talk-plain.md`, `plain-talk/AGENTS-block.md` and the block at the end of this file come from `plain-talk/PLAIN-TALK.md`. `rules/protocol.md`, `protocol/AGENTS-block.md` and the protocol block in `GEMINI.md` come from `protocol/PROTOCOL.md`. Edit the source, then run `bun run plain-talk:render`.
 
 ## Commands
 
 ```
-bun run check      # the gate: typecheck, lint, format, tests, version, render and lifecycle checks
+bun run check      # the gate: typecheck, lint, format, tests, version, render, lifecycle, workspace and sync checks
 bun run validate   # the host validators
 bun run sync       # fetch every pinned upstream again
 bun run changeset  # a user-facing change gets one; the release workflow versions and tags from it

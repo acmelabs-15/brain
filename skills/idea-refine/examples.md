@@ -1,12 +1,14 @@
 # Ideation Session Examples
 
-These examples demonstrate what good ideation sessions look like across different kinds of ideas. Study the rhythm, tone, and structure — not just the content. The skill should feel equally at home with a vague startup concept, a feature for an existing product, or a process improvement.
+These examples demonstrate what good ideation sessions look like across different kinds of ideas, and inside an interview. Study the rhythm, tone, and structure — not just the content. The skill should feel equally at home with a vague startup concept, a feature for an existing product, a process improvement, or an `ideate` row in an interview's map.
+
+Every question in these examples goes through the host's user-question tool, one question per call, with a recommended option. `brain` stands for the command the skill's "Run `brain`" section gives.
 
 ---
 
 ## Example 1: Vague Early-Stage Concept (Full 3-Phase Session)
 
-**User invokes:** `/ideate I want to help small local restaurants compete with the big delivery platforms`
+**User invokes:** `/idea-refine I want to help small local restaurants compete with the big delivery platforms`
 
 ### Phase 1: Understand & Expand
 
@@ -14,13 +16,29 @@ These examples demonstrate what good ideation sessions look like across differen
 
 > **How might we** give independent restaurants the reach and convenience customers expect from delivery platforms, without forcing them into a model that erodes their margins and brand?
 
-That's a big space. Let me sharpen it:
+That's a big space. Let me sharpen it, one question at a time.
 
-1. **Which part of "compete"?** Customer acquisition? Delivery logistics? Online ordering UX? Loyalty/retention? Margin pressure from platform fees?
-2. **Who are you building for?** The restaurant owner? The diner? Both?
-3. **What's the constraint?** Are you thinking software? A cooperative model? Something physical?
+**Skill asks (user-question tool, one call):**
+
+```
+Question:    Who are you building for: the restaurant owner, the diner, or both?
+Options:     The restaurant owner / The diner / Both
+Recommended: The restaurant owner, because "help restaurants compete" names them, and the platform fees land on them.
+```
 
 **User responds:** "Restaurant owners. The core pain is that they're paying 25-30% commission to delivery apps but feel they can't opt out because that's where the customers are. I'm thinking software but I'm open."
+
+That reply also settles two questions I had queued: which part of "compete" (the commission) and the constraint (software). One gap is left: what success looks like.
+
+**Skill asks (user-question tool, one call):**
+
+```
+Question:    What would count as success for a restaurant owner after a first test?
+Options:     Regulars order direct instead of through the apps / More orders overall / A lower commission rate from the platforms
+Recommended: Regulars order direct, because the commission falls on orders the platform did not find for them.
+```
+
+**User responds:** "Regulars ordering direct. That's the money they shouldn't be paying."
 
 **Skill continues:**
 
@@ -42,7 +60,13 @@ Here are 6 variations:
 
 Variation 5 and 6 together are interesting. Instead of trying to out-platform the platforms, you'd build something hyper-narrow: a reordering and retention tool for a restaurant's best existing customers. No discovery, no delivery, no marketplace. Just "keep your regulars ordering direct."
 
-Which directions interest you?
+**Skill asks (user-question tool, one call):**
+
+```
+Question:    Which variations should we take into Phase 2? Pick any.
+Options:     1 Direct channel / 2 Customer pays / 3 Pickup only / 4 Collective / 5 Regulars / 6 Runs itself
+Recommended: 5 and 6 together, because regulars need no discovery, and the owner has no time to manage a tool.
+```
 
 ---
 
@@ -80,6 +104,16 @@ Branded ordering for the restaurant *plus* the retention automation. More comple
 **The honest read:** Direction A is the sharper bet. Direction B is safer but less differentiated. The biggest risk for A is the channel-switching problem — getting customers to order through a new method. If you can crack that (and variation 6's "zero effort" approach might help — an SMS-based reorder doesn't require a new app), the rest follows.
 
 One thing I want to push back on: you said variation 1 feels "necessary but boring." That instinct to include the "necessary" thing is how products lose focus. If the regulars engine works, you can add a branded ordering channel later. But if you build the channel first, you're just another Square Online competitor.
+
+**Skill asks (user-question tool, one call):**
+
+```
+Question:    Which direction should the one-pager take?
+Options:     A: the regulars engine / B: a direct channel plus retention
+Recommended: A, because it is the sharper bet. B builds two products, and its ordering channel is a commodity.
+```
+
+**User responds:** "A. Drop the channel for now."
 
 ---
 
@@ -125,11 +159,87 @@ SMS-first (not app-first) is likely the right channel. A text saying "Hey, want 
 - Is there a way to bootstrap the regular customer list from existing POS data instead of manual entry?
 - What's the pricing model? Per-order fee? Monthly subscription?
 
+### Save the idea file
+
+**Skill asks (user-question tool, one call):**
+
+```
+Question:    Save this one-pager as an idea file? interview-me can then confirm the intent and work through the open questions in a later session.
+Options:     Save it / Keep it in this chat only
+Recommended: Save it, because the one-pager is lost with this conversation otherwise.
+```
+
+**User responds:** "Save it."
+
+```
+$ brain new-doc IDEA regulars-reorder --title "ReOrder: Keep Your Regulars Ordering Direct"
+docs/ideas/IDEA-001-regulars-reorder.md
+```
+
+The skill fills the file from the one-pager. The Problem Statement, the Recommended Direction and the MVP Scope go to Destination. Each Key Assumption becomes a research row. Each sharp Open Question becomes a row, and the vague one goes to "Not yet specified". The Not Doing list goes to Out of scope. Phase 1 never asked "why now", so that Intent line names the row that asks it.
+
+```markdown
+---
+id: IDEA-001
+status: define # define | specced | done | parked
+---
+# IDEA-001: ReOrder: Keep Your Regulars Ordering Direct
+
+## Intent
+- Outcome: independent restaurants keep their regulars ordering direct, without the 25-30% platform commission.
+- User: the owner of an independent restaurant who pays a delivery platform 25-30% commission.
+- Why now: open, row 07.
+- Success: regulars order direct instead of through the delivery apps.
+- Constraint: software that runs itself; the owner is in the kitchen, not at a dashboard.
+- Out of scope: delivery, discovery, branded apps, menu and POS work, and dashboards.
+
+<!-- After the user's explicit yes to this intent, add the line: Confirmed by <name> on <YYYY-MM-DD>. -->
+
+## Destination
+How might we help independent restaurants retain their best existing customers through direct ordering, eliminating the 25-30% platform commission on the revenue that matters most?
+
+Direction: a regulars-only retention engine that runs itself, SMS-first. Restaurants already know their regulars; they need help moving those relationships off-platform.
+
+MVP scope: SMS reordering for regulars the owner adds by hand (name, phone, usual order; a 15-minute setup). The customer confirms by reply and pays by link, the order reaches the restaurant by text, and pickup is the only option.
+
+## Notes
+Every session loads ask-user-question, domain-modeling and context-engineering.
+Drafted by idea-refine on 2026-10-29; the intent waits for interview-me's confirmation.
+
+## Map
+| # | Question | Type | Status | Blocked by | Result |
+|---|---|---|---|---|---|
+| 01 | Do regulars reorder by SMS instead of through their delivery app? (test: 5 restaurants, 20 regulars each, 4 weeks) | research | open | — | — |
+| 02 | Will owners name their top 20-30 regulars and share their contact details? (test: ask 10 owners) | research | open | — | — |
+| 03 | Do savings of $8-10 per order make owners do the setup? (test: interview 10 owners) | research | open | — | — |
+| 04 | What rules apply to SMS marketing to restaurant customers? | research | open | — | — |
+| 05 | How does a "usual" order follow menu and price changes? | interview | open | — | — |
+| 06 | Per-order fee or monthly subscription? | interview | open | 03 | — |
+| 07 | Why build this now? | interview | open | — | — |
+
+## Not yet specified
+- Filling the list of regulars from POS data instead of by hand: which POS systems and exports, unknown until the test restaurants are chosen.
+
+## Out of scope
+- Delivery logistics: the expensive, complex part, and not the core problem; pickup tests demand first.
+- Customer acquisition and discovery: that is the platforms' game; this competes on retention.
+- Branded restaurant apps and websites: a commodity that Square and Toast already sell.
+- Menu management and POS integration: scope creep; "your usual" needs no dynamic menu.
+- Analytics dashboards: the owner is in the kitchen; a weekly text summary instead.
+```
+
+```
+$ brain check
+no finding in 1 workspace file
+```
+
+The intent stays a draft: the file has no "Confirmed by" line. The skill tells the user the path, and that interview-me resumes from it, confirms the intent and works through rows 01 to 07.
+
 ---
 
 ## Example 2: Feature Idea Within an Existing Product (Codebase-Aware)
 
-**User invokes:** `/ideate adding real-time collaboration to our document editor`
+**User invokes:** `/idea-refine adding real-time collaboration to our document editor`
 
 ### Phase 1: Understand & Expand
 
@@ -137,17 +247,21 @@ SMS-first (not app-first) is likely the right channel. A text saying "Hey, want 
 
 > **How might we** let multiple people work on the same document simultaneously in a way that feels natural, not chaotic?
 
-I scanned your codebase and see you're using a block-based editor architecture with a REST API for persistence. No WebSocket infrastructure currently. That's important context. A few questions:
+I scanned your codebase and see you're using a block-based editor architecture with a REST API for persistence. No WebSocket infrastructure currently. That's important context. First question:
 
-1. **What's the collaboration pattern?** Are people editing the same paragraph at the same time (Google Docs style)? Or working in different sections (Notion style)? Or reviewing/commenting while one person edits?
-2. **How many simultaneous users?** 2-3 (pair editing)? 10+ (team workspace)?
-3. **What's driving this now?** Customer requests? Competitive pressure? Internal need?
+**Skill asks (user-question tool, one call):**
+
+```
+Question:    When several people work on one document, how do they work?
+Options:     The same paragraph at once (Google Docs style) / Different sections (Notion style) / One person edits, the others review and comment
+Recommended: Different sections, because your editor stores independent blocks, and block-level work is the common case there.
+```
 
 **User responds:** "2-5 people, usually working in different sections. Customers keep asking. We're losing deals to Notion because they assume any modern editor has this."
 
 **Skill continues:**
 
-The competitive pressure framing matters — this might be a checkbox feature (must-have to stay in the consideration set) rather than a differentiator. That changes how much you should invest.
+That reply also answers the next two questions I had: how many people (2-5) and why now (lost deals). The competitive pressure framing matters — this might be a checkbox feature (must-have to stay in the consideration set) rather than a differentiator. That changes how much you should invest.
 
 I see your document model uses independent blocks with a flat ordering system (`src/models/document.ts:45`). That's actually favorable — block-level granularity means conflicts are rarer than character-level editing.
 
@@ -167,15 +281,15 @@ Given your architecture and the competitive context, I'd push you toward variati
 
 ---
 
-*Phase 2 would cluster into "minimum viable co-editing (1 or 3)" vs. "differentiated collaboration model (2 or 4)" — evaluating whether to check the competitive box quickly or invest in something that becomes a selling point.*
+*Phase 2 would open with one question, which variations to carry forward (1 and 3 recommended), then cluster into "minimum viable co-editing (1 or 3)" vs. "differentiated collaboration model (2 or 4)" — evaluating whether to check the competitive box quickly or invest in something that becomes a selling point. It would close with one question: which direction to take.*
 
-*Phase 3 would produce a one-pager recommending block-level locking as the MVP, with a "Not Doing" list that includes character-level CRDT (too complex), offline sync (not needed for 2-5 users), and AI features (premature).*
+*Phase 3 would produce a one-pager recommending block-level locking as the MVP, with a "Not Doing" list that includes character-level CRDT (too complex), offline sync (not needed for 2-5 users), and AI features (premature). After the user's yes, it would save the one-pager as an idea file, as Example 1 does.*
 
 ---
 
 ## Example 3: Process/Workflow Idea (Non-Product)
 
-**User invokes:** `/ideate a better way to run our weekly team retrospectives — they've gotten stale and people dread them`
+**User invokes:** `/idea-refine a better way to run our weekly team retrospectives — they've gotten stale and people dread them`
 
 ### Phase 1: Understand & Expand
 
@@ -183,15 +297,21 @@ Given your architecture and the competitive context, I'd push you toward variati
 
 > **How might we** make retrospectives genuinely useful — something the team looks forward to — instead of a recurring meeting people endure?
 
-Before expanding:
+Before expanding, one question:
 
-1. **What's stale about them?** Same format every time? Same people talking? Action items that never get done? Topics feel repetitive?
-2. **Team size and dynamic?** 5 people who all speak up, or 15 where 3 dominate?
-3. **What does a *good* retro look like to you?** Have you had one that worked? What made it different?
+**Skill asks (user-question tool, one call):**
+
+```
+Question:    What has gone stale about the retros?
+Options:     The same format every time / The same few people talk / Action items never get done / The topics repeat
+Recommended: Action items never get done. This is a guess: a retro that changes nothing is the usual reason people stop caring.
+```
 
 **User responds:** "8 people, maybe 3-4 actually talk. Same 'what went well / what didn't / action items' format for a year. The action items pile up and nothing changes. People think it's theater."
 
 **Skill continues:**
+
+That one reply covers the team size, who talks and the format. It also says what success is: a retro that changes something. So the variations come next.
 
 The action item problem is the real signal. If nothing changes after the retro, people rationally disengage. The meeting isn't stale — it's **broken at the output layer**. The format might be fine if the follow-through worked.
 
@@ -213,9 +333,88 @@ The interesting tension: variations 1 and 5 fix the *output* problem (nothing ch
 
 ---
 
-*Phase 2 would evaluate in terms of: effort to try (most are free — just change how you run the next meeting), risk (variation 2 is the biggest departure), and whether the team's real problem is output (action items die) or input (not enough honesty).*
+*Phase 2 would open with one question, which variations to carry forward, then evaluate in terms of: effort to try (most are free — just change how you run the next meeting), risk (variation 2 is the biggest departure), and whether the team's real problem is output (action items die) or input (not enough honesty).*
 
-*Phase 3 would produce a one-pager recommending starting with variation 1 (one action item, demo next week) as a zero-cost experiment, combined with variation 3's anonymous submission. "Not Doing" list: new tools, elaborate facilitation techniques, or anything requiring budget. The first fix should take 0 minutes of prep and $0.*
+*Phase 3 would produce a one-pager recommending starting with variation 1 (one action item, demo next week) as a zero-cost experiment, combined with variation 3's anonymous submission. "Not Doing" list: new tools, elaborate facilitation techniques, or anything requiring budget. The first fix should take 0 minutes of prep and $0. With no repo for a team process, the one-pager stays in the conversation, and the skill says so once.*
+
+---
+
+## Example 4: An `ideate` Row Inside an Interview
+
+interview-me works on `docs/ideas/IDEA-001-sync-notes.md`: notes written on a phone must reach a laptop within a minute, and the team runs no new server. Row 01 (phones and laptops, DEC-001) and row 02 (the local note store can emit a change feed, RES-001) are resolved. Row 04 is now on the frontier:
+
+```
+| 04 | Sync through a hosted service, or peer to peer? | ideate | open | 01, 02 | — |
+```
+
+interview-me calls the Skill tool with "idea-refine" for row 04.
+
+### Phase 1: Understand & Expand
+
+**Skill response:**
+
+The idea file's Intent already names the user, the success line (95% of edits on a second device within 60 seconds) and the constraint (no new server). So Phase 1 asks no sharpening question.
+
+> **How might we** get each edit to the user's other devices within a minute, with no server of our own?
+
+Here are 5 variations:
+
+1. **A hosted sync service** fed by the store's change feed (RES-001).
+2. **Peer to peer** over the local network.
+3. **Inversion — no sync:** the laptop reads the phone's store on demand.
+4. **Simplification — files on the user's cloud drive.**
+5. **Constraint removal — a sync server of our own.**
+
+**Skill asks (user-question tool, one call):** which variations to take into Phase 2, with 1 and 2 recommended because they need no server of their own. Sam picks 1, 2 and 4.
+
+### Phase 2: Evaluate & Converge
+
+Three directions: A, a hosted service (1); B, peer to peer (2); C, cloud-drive files (4). The stress-test finds that two devices are rarely online at once, which breaks B, and that C cannot merge two edits to one note.
+
+**Skill asks (user-question tool, one call):**
+
+```
+Question:    Row 04: which direction should sync take?
+Options:     A: a hosted sync service / B: peer to peer / C: files on the user's cloud drive
+Recommended: A, because two devices are rarely online at once, which rules out B, and C cannot merge two edits to one note.
+```
+
+**User responds:** "A."
+
+### The decision record
+
+The skill records the pick at once, and writes no one-pager:
+
+```
+$ brain new-doc DEC hosted-sync-service --title "Sync through a hosted service fed by the store's change feed"
+docs/decisions/DEC-002-hosted-sync-service.md
+```
+
+```markdown
+---
+id: DEC-002
+status: accepted
+kind: architecture
+adr-test:
+  hard-to-reverse: true
+  surprising: true
+  real-trade-off: true
+from: IDEA-001#04
+evidence: [RES-001]
+decided: 2026-10-24 by Sam
+---
+# DEC-002: Sync through a hosted service fed by the store's change feed
+
+Row 04 asked how notes reach the user's other devices. Sam chose a hosted sync service that reads the local store's change feed (RES-001), because it meets the 60-second target with no server of our own.
+
+## Considered Options
+- Peer to peer over the local network: two devices are rarely online at once.
+- Files on the user's cloud drive: they cannot merge two edits to one note.
+- The laptop reads the phone's store on demand: the phone must be online for every read.
+- A sync server of our own: the team runs no new server.
+```
+
+After `brain check` reports no finding, the skill hands back to interview-me. interview-me sets row 04 to `resolved` with `DEC-002`, and re-maps with what the skill hands it: a test account on the service to try it on (a task row), and the service's cost per active user (a research row).
 
 ---
 
@@ -223,7 +422,7 @@ The interesting tension: variations 1 and 5 fix the *output* problem (nothing ch
 
 1. **The restatement changes the frame.** "Help restaurants compete" becomes "retain existing customers." "Add real-time collaboration" becomes "let people work simultaneously without chaos." "Fix stale retros" becomes "fix the output layer."
 
-2. **Questions diagnose before prescribing.** Each question determines which *type* of problem this actually is. The retro example reveals the problem is action item follow-through, not meeting format — and that changes every variation.
+2. **Questions diagnose before prescribing, one at a time.** Each question determines which *type* of problem this actually is. The retro example reveals the problem is action item follow-through, not meeting format — and that changes every variation. Each question goes in its own call, with a recommendation, and a reply often answers the next question too: Example 1 asks two of its planned questions, and Example 3 asks one. Inside an interview, the idea file answers them first (Example 4).
 
 3. **Variations have reasons.** Each one explains *why* it exists (what lens generated it), not just *what* it is. The label (Inversion, Simplification, etc.) teaches the user to think this way themselves.
 
@@ -236,3 +435,5 @@ The interesting tension: variations 1 and 5 fix the *output* problem (nothing ch
 7. **The "Not Doing" list does real work.** It's specific and reasoned. Each item is something you might *want* to do but shouldn't yet.
 
 8. **The skill adapts to context.** A codebase-aware example references actual architecture. A process idea generates zero-cost experiments instead of products. The framework stays the same but the output matches the domain.
+
+9. **The result lands in a file.** A standalone run ends in an idea file that interview-me resumes, its intent still a draft (Example 1). An `ideate` row ends in a decision record, whose Considered Options keep every direction the user did not take (Example 4).
