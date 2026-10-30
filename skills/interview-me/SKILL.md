@@ -215,7 +215,7 @@ A fact is anything the code, the docs or a tool can answer: which framework the 
 
 When several decide rows are on the frontier, take the one with the most rows waiting on it. Compose the question with ask-user-question: the question text, the options, the one recommended option with the fact behind it, and the layout. Send one question per call through the host's user-question tool, and wait for the reply.
 
-The options answer this row and nothing past it. A row that waits on this one gets its own question after the re-map, even when this answer seems to settle it too: once this row resolves, the user can weigh the next one differently.
+The options answer this row and nothing past it. A row that waits on this one gets its own question after the re-map, even when this answer seems to settle it too: once this row resolves, the user can weigh the next one differently. A later row appears in an option only as a cost of that option, such as "row 07 then needs the larger storage plan". The choice for that row waits for its own question.
 
 Your hypothesis for the answer is the recommended option, with the reasoning that produced it. The user reacts faster to a wrong guess than they produce an answer from nothing. The recommendation commits you to a hypothesis you can be visibly wrong about, and it surfaces the assumptions the interview exists to expose. The risk is a polite user who picks it to be agreeable. Be visibly willing to be wrong, and now and then recommend the direction you expect them to push back on.
 

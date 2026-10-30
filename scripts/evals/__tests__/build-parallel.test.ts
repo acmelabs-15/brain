@@ -10,9 +10,17 @@
  * main session makes each worktree itself with `git worktree add` (the worktree fallback, T52).
  *
  * A real run of `claude plugin eval` 2.1.312 (2026-10-29) writes the `trace` target one content
- * block per line, and each tool result on the line right after its own call, even when one
- * assistant message made several calls. The calls of one message share its `msg_` id. The dry
- * check builds each played trace in that shape.
+ * block per line, and each tool result after its own call, even when one assistant message made
+ * several calls. The calls of one message share its `msg_` id. The dry check builds each played
+ * trace in that shape.
+ *
+ * The CI run of 2.1.314 (2026-10-30) also put system lines and the sub-agents' own lines between
+ * an Agent call and its result. Its behaviour was right: the harness refused isolation, the main
+ * session made all five worktrees from the branch head in one Bash loop, started the five tasks
+ * before the first merge, merged them one at a time and stopped at checkpoint 06. The fixture
+ * `fixtures/build-parallel.trace.jsonl` keeps the lines of that trace the trace graders read, byte
+ * for byte: every Agent and Bash call, the main session's and the sub-agents', each Agent call's
+ * result, and the system lines between a call and its result.
  */
 import { afterAll, beforeAll, describe, expect, setDefaultTimeout, test } from "bun:test";
 import { mkdir, mkdtemp, readdir, realpath, rm } from "node:fs/promises";
@@ -46,8 +54,11 @@ type Grader = Record<string, unknown> & { name: string; type: string };
 /** One tool call of the main session: the tool's name, its input, and the result it got. */
 type Call = { tool: string; input: Record<string, unknown>; result?: string; error?: boolean };
 
-/** What a run leaves: its workspace, its tool calls message by message, and its last reply. */
-type Run = { root: string; turns: Call[][]; last: string };
+/**
+ * What a run leaves: its workspace, its tool calls message by message, and its last reply. A
+ * saved run is a trace a real run wrote; it keeps that trace's text.
+ */
+type Run = { root: string; turns: Call[][]; last: string; saved?: string };
 
 /** The frontmatter of a case file, or an empty map when it has none. */
 function front(text: string): Record<string, unknown> {
@@ -91,9 +102,12 @@ function reply(id: string, call: Call): object {
 /**
  * The run as JSON lines: the init line with the session's tools, the prompt, then each message's
  * tool calls, each on its own line with the message's id and followed by its result, then the
- * last reply.
+ * last reply. A saved run gives the text its real run wrote.
  */
 function trace(run: Run): string {
+  if (run.saved !== undefined) {
+    return run.saved;
+  }
   const lines: object[] = [
     { type: "system", subtype: "init", tools: [{ name: "Agent" }, { name: "Bash" }] },
     {
@@ -167,6 +181,46 @@ async function failing(run: Run): Promise<string[]> {
   const failed: string[] = [];
   for (const each of await readGraders()) {
     if (each.type !== "llm" && !(await passes(each, run))) {
+      failed.push(each.name);
+    }
+  }
+  return failed;
+}
+
+/** The fixture: the lines of the CI trace of 2026-10-30 that the trace graders read. */
+const savedTrace = `${import.meta.dir}/fixtures/build-parallel.trace.jsonl`;
+
+/** Whether a trace alone settles a grader: a regex on the trace, or a count of tool calls. */
+function readsTrace(each: Grader): boolean {
+  return (each.type === "regex" && each.target === "trace") || each.type === "tool_used";
+}
+
+/**
+ * A run from a saved trace. As the runner counts them, every tool_use block is a call, a
+ * sub-agent's too; the trace target is each line, joined by line breaks.
+ */
+function savedRun(text: string): Run {
+  const lines = text.trimEnd().split("\n");
+  const calls: Call[] = [];
+  for (const line of lines) {
+    const data = JSON.parse(line) as { type?: string; message?: { content?: unknown } };
+    const content = data.message?.content;
+    if (data.type === "assistant" && Array.isArray(content)) {
+      for (const block of content as { type?: string; name?: string; input?: object }[]) {
+        if (block.type === "tool_use") {
+          calls.push({ tool: String(block.name), input: { ...block.input } });
+        }
+      }
+    }
+  }
+  return { root: "", turns: [calls], last: "", saved: lines.join("\n") };
+}
+
+/** The name of each grader that a saved trace settles alone and that fails it. */
+async function failingSaved(run: Run): Promise<string[]> {
+  const failed: string[] = [];
+  for (const each of await readGraders()) {
+    if (readsTrace(each) && !(await passes(each, run))) {
       failed.push(each.name);
     }
   }
@@ -494,6 +548,8 @@ async function closeRow(run: Run, id: string, sha: string, check: boolean): Prom
 type Fallback = {
   /** The start point of each `git worktree add`; the feature branch when left out. */
   base?: string;
+  /** One Bash loop makes every worktree of a batch and installs in it, as the CI run did. */
+  loop?: boolean;
   /** The brief names the worktree's path; true when left out. */
   path?: boolean;
   /** The row whose sub-agent also writes its module in the main session's tree. */
@@ -542,8 +598,15 @@ async function startBatch(run: Run, name: string, batch: string[], play: Play): 
     run.turns.push(calls);
     return started;
   }
-  const made = batch.map((id) => ({ id, ...fallbackTask(run.root, id, fallback.base ?? branch) }));
-  run.turns.push(made.flatMap((each) => each.calls));
+  const base = fallback.base ?? branch;
+  const made = batch.map((id) => ({ id, ...fallbackTask(run.root, id, base) }));
+  if (fallback.loop === true) {
+    const tree = fallbackTree("$n");
+    const command = `for n in ${batch.join(" ")}; do git worktree add -b build/T$n ${tree} ${base} && (cd ${tree} && bun install); done`;
+    run.turns.push([{ tool: "Bash", input: { command, description: "Make the worktrees" } }]);
+  } else {
+    run.turns.push(made.flatMap((each) => each.calls));
+  }
   const calls: Call[] = [];
   for (const { id, tree } of made) {
     const worktree = (fallback.path ?? true) ? tree : undefined;
@@ -920,6 +983,27 @@ describe("lifecycle/build-parallel, the graders on played runs where the Agent t
     ]);
   });
 
+  test("a fallback run that makes every worktree in one Bash loop, as the CI run did, passes every computed grader", async () => {
+    const run = await buildAuto("fallback-loop", { fallback: { loop: true } });
+    expect(
+      run.turns.flat().filter((call) => /worktree add/u.test(String(call.input.command))),
+    ).toHaveLength(1);
+    expect(await failing(run)).toEqual([]);
+  });
+
+  test("a fallback run whose one loop makes the worktrees from main fails every start", async () => {
+    const run = await buildAuto("fallback-loop-from-main", {
+      fallback: { loop: true, base: "main" },
+    });
+    expect(await failing(run)).toEqual([
+      "started-01",
+      "started-02",
+      "started-03",
+      "started-04",
+      "started-05",
+    ]);
+  });
+
   test("a fallback run whose worktrees start from main, not the branch head, fails every start", async () => {
     const run = await buildAuto("fallback-from-main", { fallback: { base: "main" } });
     expect(await failing(run)).toEqual([
@@ -964,5 +1048,64 @@ describe("lifecycle/build-parallel, the graders on played runs where the Agent t
     );
     expect(run.last).toContain(`Task 03 failed. Kept worktrees: ${fallbackTree("03")}`);
     expect(await failing(run)).toEqual(["rows-resolved", "stops-at-checkpoint"]);
+  });
+});
+
+describe("lifecycle/build-parallel, the graders on the CI trace of 2026-10-30", () => {
+  const starts = ["started-01", "started-02", "started-03", "started-04", "started-05"];
+
+  test("the fixture holds whole trace lines and no key, and an Agent call's result can come lines after the call", async () => {
+    const text = await Bun.file(savedTrace).text();
+    const lines = text.trimEnd().split("\n");
+    for (const line of lines) {
+      expect(JSON.stringify(JSON.parse(line))).toBe(line);
+    }
+    expect(text).not.toMatch(/sk-ant-|oat01|api[_-]?key/iu);
+    const call = lines.findIndex((line) => line.includes('"name":"Agent"'));
+    const id = /"id":"(?<id>toolu_\w+)"/u.exec(lines[call] ?? "")?.groups?.id ?? "";
+    const result = lines.findIndex((line) => line.includes(`"tool_use_id":"${id}"`));
+    expect(lines[call + 1]).toContain('"type":"user"');
+    const launch = lines.findIndex(
+      (line, index) =>
+        index > result && line.includes('"name":"Agent"') && !line.includes('"isolation"'),
+    );
+    expect(lines[launch + 1]).toContain('"subtype":"background_tasks_changed"');
+  });
+
+  test("a trace alone settles each task's start, the worktree grader and the branch head", async () => {
+    const graders = await readGraders();
+    expect(graders.filter(readsTrace).map((each) => each.name)).toEqual([
+      "branch-head",
+      ...starts,
+      "worktrees",
+    ]);
+  });
+
+  test("the CI run, which made every worktree from the branch head in one loop and started the five tasks before the first merge, passes every grader the trace settles", async () => {
+    const run = savedRun(await Bun.file(savedTrace).text());
+    expect(await failingSaved(run)).toEqual([]);
+  });
+
+  test("the CI run with its worktrees made from main fails every start", async () => {
+    const text = await Bun.file(savedTrace).text();
+    const fromMain = text.replace("/T$n feat/text-tools &&", "/T$n main &&");
+    expect(fromMain).not.toBe(text);
+    expect(await failingSaved(savedRun(fromMain))).toEqual(starts);
+  });
+
+  test("the CI run with its first merge moved before the second start fails every later start", async () => {
+    const text = await Bun.file(savedTrace).text();
+    const lines = text.trimEnd().split("\n");
+    const firstMerge = lines.findIndex((line) => line.includes("git merge --no-ff build/T01"));
+    const second = lines.findIndex(
+      (line) =>
+        line.includes('"name":"Agent"') &&
+        line.includes("longest.test.ts") &&
+        !line.includes('"isolation"'),
+    );
+    expect(firstMerge).toBeGreaterThan(second);
+    const [moved] = lines.splice(firstMerge, 1);
+    lines.splice(second, 0, moved ?? "");
+    expect(await failingSaved(savedRun(lines.join("\n")))).toEqual(starts.slice(1));
   });
 });

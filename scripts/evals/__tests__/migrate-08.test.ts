@@ -5,6 +5,10 @@
  * report), and applies the case's graders to it, as `claude plugin eval` 2.1.312 reads them. It
  * plays faulty runs too, each failing the graders it should. No grader can run `brain check`, so
  * the test runs it on the played run: the migrated repo passes it.
+ *
+ * The CI run of 2.1.314 (2026-10-30) was right, and failed only `check-ran`: one Bash call ran
+ * the migrate and then `brain check`. The fixture `fixtures/migrate-08.trace.jsonl` keeps that
+ * trace's Bash calls, byte for byte, and the test grades it again.
  */
 import { afterAll, beforeAll, describe, expect, setDefaultTimeout, test } from "bun:test";
 import { mkdir, mkdtemp, readdir, realpath, rm, stat } from "node:fs/promises";
@@ -25,8 +29,11 @@ type Grader = Record<string, unknown> & { name: string; type: string };
 /** One tool call of a run: the tool's name and its input. */
 type Call = { tool: string; input: Record<string, unknown> };
 
-/** What a run leaves: its workspace, the files it created and its tool calls. */
-type Run = { root: string; created: string[]; calls: Call[] };
+/**
+ * What a run leaves: its workspace, the files it created and its tool calls. A saved run is a
+ * trace a real run wrote; it keeps that trace's text.
+ */
+type Run = { root: string; created: string[]; calls: Call[]; saved?: string };
 
 /** A tool call a grader names: a tool, and a pattern on its JSON input. */
 type CallMatch = { tool?: unknown; input_match?: unknown };
@@ -59,10 +66,45 @@ function matching(run: Run, match: CallMatch): number[] {
   );
 }
 
+/**
+ * The run's trace as `claude plugin eval` 2.1.314 writes it: one content block per line, each
+ * tool call on a line of its own and its result after it. A saved run gives its own text.
+ */
+function trace(run: Run): string {
+  if (run.saved !== undefined) {
+    return run.saved;
+  }
+  return run.calls
+    .flatMap((call, index) => [
+      {
+        type: "assistant",
+        message: {
+          id: `msg_${index}`,
+          role: "assistant",
+          content: [{ type: "tool_use", id: `toolu_${index}`, name: call.tool, input: call.input }],
+        },
+        parent_tool_use_id: null,
+      },
+      {
+        type: "user",
+        message: {
+          role: "user",
+          content: [{ tool_use_id: `toolu_${index}`, type: "tool_result", content: "exit 0" }],
+        },
+        parent_tool_use_id: null,
+      },
+    ])
+    .map((line) => JSON.stringify(line))
+    .join("\n");
+}
+
 /** The text a regex grader reads; null when its file does not exist, which fails the grader. */
 async function targetText(target: unknown, run: Run): Promise<string | null> {
   if (target === "files") {
     return run.created.join("\n");
+  }
+  if (target === "trace") {
+    return trace(run);
   }
   const file = target as { source?: unknown; path?: unknown };
   if (file?.source === "file" && typeof file.path === "string") {
@@ -107,6 +149,47 @@ async function failing(run: Run): Promise<string[]> {
   const failed: string[] = [];
   for (const each of await readGraders()) {
     if (!(await passes(each, run))) {
+      failed.push(each.name);
+    }
+  }
+  return failed;
+}
+
+/** The fixture: the Bash calls of the CI trace of 2026-10-30, the lines the call graders read. */
+const savedTrace = `${import.meta.dir}/fixtures/migrate-08.trace.jsonl`;
+
+/** Whether a trace alone settles a grader: a regex on the trace, or the order or count of calls. */
+function readsTrace(each: Grader): boolean {
+  return (
+    (each.type === "regex" && each.target === "trace") ||
+    each.type === "tool_order" ||
+    each.type === "tool_used"
+  );
+}
+
+/** A run from a saved trace: as the runner counts them, every tool_use block is a call. */
+function savedRun(text: string): Run {
+  const lines = text.trimEnd().split("\n");
+  const calls: Call[] = [];
+  for (const line of lines) {
+    const data = JSON.parse(line) as { type?: string; message?: { content?: unknown } };
+    const content = data.message?.content;
+    if (data.type === "assistant" && Array.isArray(content)) {
+      for (const block of content as { type?: string; name?: string; input?: object }[]) {
+        if (block.type === "tool_use") {
+          calls.push({ tool: String(block.name), input: { ...block.input } });
+        }
+      }
+    }
+  }
+  return { root: "", created: [], calls, saved: lines.join("\n") };
+}
+
+/** The name of each grader that a saved trace settles alone and that fails it. */
+async function failingSaved(run: Run): Promise<string[]> {
+  const failed: string[] = [];
+  for (const each of await readGraders()) {
+    if (readsTrace(each) && !(await passes(each, run))) {
       failed.push(each.name);
     }
   }
@@ -192,6 +275,11 @@ type Flow = {
   dryRun?: boolean;
   migrate?: boolean;
   check?: boolean;
+  /**
+   * One Bash call runs the migrate and `brain check`, in this order inside its command. The
+   * scripts themselves always run migrate first; only the command the grader reads changes.
+   */
+  oneCall?: "migrate-then-check" | "check-then-migrate";
   /** The heading of each `AGENTS.md` section the run removes after the overlap report. */
   remove?: string[];
 };
@@ -201,14 +289,22 @@ function setupFlow(root: string, flow: Flow = {}): Call[] {
   const given = flow.given ?? answers;
   const flags = migrateFlags(given, flow.renameGlossary ?? true);
   const calls = [bunCheck];
-  if (flow.migrate ?? true) {
-    if (flow.dryRun ?? true) {
-      calls.push(bun(root, scripts.write, ...flags, "--dry-run"));
+  if (flow.oneCall === undefined) {
+    if (flow.migrate ?? true) {
+      if (flow.dryRun ?? true) {
+        calls.push(bun(root, scripts.write, ...flags, "--dry-run"));
+      }
+      calls.push(bun(root, scripts.write, ...flags));
     }
-    calls.push(bun(root, scripts.write, ...flags));
-  }
-  if (flow.check ?? true) {
-    calls.push(bun(root, "brain.ts", "check"));
+    if (flow.check ?? true) {
+      calls.push(bun(root, "brain.ts", "check"));
+    }
+  } else {
+    calls.push(bun(root, scripts.write, ...flags, "--dry-run"));
+    const migrate = String(bun(root, scripts.write, ...flags).input.command);
+    const check = String(bun(root, "brain.ts", "check").input.command);
+    const parts = flow.oneCall === "migrate-then-check" ? [migrate, check] : [check, migrate];
+    calls.push({ tool: "Bash", input: { command: parts.join("; echo ---; ") } });
   }
   const install = ["--root", ".", "--layout", "single", "--no-codex"];
   calls.push(
@@ -377,5 +473,58 @@ describe("setup/migrate-08, the graders on faulty runs", () => {
       "workspace-layout",
     ]);
     expect(run.created).not.toContain("docs/agents/workspace.md");
+  });
+});
+
+describe("setup/migrate-08, the migrate and brain check in one Bash call", () => {
+  test("a run that runs the migrate and then brain check in one call passes every grader", async () => {
+    const run = await play("one-call", { oneCall: "migrate-then-check" });
+    expect(await failing(run)).toEqual([]);
+  });
+
+  test("a run that runs brain check before the migrate in one call fails only the check grader", async () => {
+    const run = await play("one-call-check-first", { oneCall: "check-then-migrate" });
+    expect(await failing(run)).toEqual(["check-ran"]);
+  });
+});
+
+describe("setup/migrate-08, the graders on the CI trace of 2026-10-30", () => {
+  test("the fixture holds whole trace lines and no key", async () => {
+    const text = await Bun.file(savedTrace).text();
+    for (const line of text.trimEnd().split("\n")) {
+      expect(JSON.stringify(JSON.parse(line))).toBe(line);
+    }
+    expect(text).not.toMatch(/sk-ant-|oat01|api[_-]?key/iu);
+  });
+
+  test("a trace alone settles the check, the dry run and the overlap report", async () => {
+    const graders = await readGraders();
+    expect(graders.filter(readsTrace).map((each) => each.name)).toEqual([
+      "check-ran",
+      "dry-run-first",
+      "overlap-ran",
+    ]);
+  });
+
+  test("the CI run, which ran the migrate and then brain check in one Bash call, passes every grader the trace settles", async () => {
+    const run = savedRun(await Bun.file(savedTrace).text());
+    expect(await failingSaved(run)).toEqual([]);
+  });
+
+  test("the CI run with brain check moved before the migrate inside that call fails only the check grader", async () => {
+    const text = await Bun.file(savedTrace).text();
+    const lines = text.trimEnd().split("\n");
+    const index = lines.findIndex((line) => /--rename-glossary 2>&1[^\n]*brain\.ts/u.test(line));
+    const data = JSON.parse(lines[index] ?? "") as {
+      message: { content: { input: { command: string } }[] };
+    };
+    const [use] = data.message.content;
+    const parts = use?.input.command.split("; echo ---; ") ?? [];
+    expect(parts).toHaveLength(2);
+    if (use !== undefined) {
+      use.input.command = parts.toReversed().join("; echo ---; ");
+    }
+    lines[index] = JSON.stringify(data);
+    expect(await failingSaved(savedRun(lines.join("\n")))).toEqual(["check-ran"]);
   });
 });
