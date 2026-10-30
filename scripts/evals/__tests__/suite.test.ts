@@ -134,6 +134,9 @@ describe("eval suite", () => {
     expect(runBlocks.filter((block) => block.includes("${{ github.event.inputs"))).toEqual([]);
     expect(workflow).toContain('args+=(--runs "$EVAL_RUNS")');
     expect(workflow).toContain('args+=(--ablation "$EVAL_ABLATION")');
+    // Cases run eight at once by default: one at a time, the suite takes about an hour.
+    expect(workflow).toMatch(/^ {6}concurrency:\n(?: {8}.*\n)*? {8}default: "8"$/mu);
+    expect(workflow).toContain('args+=(--concurrency "$EVAL_CONCURRENCY")');
   });
 
   test("the Evals workflow installs the Linux shell sandbox before the suite runs", async () => {

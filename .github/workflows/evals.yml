@@ -23,6 +23,10 @@ on:
         description: "none runs the plugin arm only; with-without adds the no-plugin arm (empty is with-without)"
         required: false
         default: ""
+      concurrency:
+        description: "Runs at once, 1 to 8; they share the key's rate limit"
+        required: false
+        default: "8"
   schedule:
     - cron: "0 6 * * 1"
 
@@ -63,6 +67,7 @@ jobs:
           EVAL_CASES: ${{ github.event.inputs.cases }}
           EVAL_RUNS: ${{ github.event.inputs.runs }}
           EVAL_ABLATION: ${{ github.event.inputs.ablation }}
+          EVAL_CONCURRENCY: ${{ github.event.inputs.concurrency || '8' }}
         run: |
           set -euo pipefail
           mkdir -p evals/results
@@ -75,6 +80,9 @@ jobs:
           fi
           if [ -n "$EVAL_ABLATION" ]; then
             args+=(--ablation "$EVAL_ABLATION")
+          fi
+          if [ -n "$EVAL_CONCURRENCY" ]; then
+            args+=(--concurrency "$EVAL_CONCURRENCY")
           fi
           claude "${args[@]}"
       - name: Store the result
