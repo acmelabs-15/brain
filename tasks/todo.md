@@ -298,9 +298,39 @@ ends with a checkpoint and a review with Peter.
   - Files: scripts/setup/migrate.ts, scripts/setup/__tests__/migrate.test.ts, skills/setup-brain/SKILL.md, evals/setup/migrate-08/*
   - Depends: T05, T35, T37 (its eval runs the whole setup-brain flow, overlap step included). Scope: M
 
+### Review fixes (phase 6 review, Peter, 2026-10-29)
+
+The merged review is in the build scratch folder, `review/merged.md`. Peter put the required fixes, the shared helpers (A) and the overlap match (C) into PR 2; the rest is follow-up work in `docs/ideas/`.
+
+- [ ] T53: one shared lib for git and file helpers; literal pathspecs
+  - Acceptance: one `git()` helper sets `GIT_LITERAL_PATHSPECS=1` and replaces the copies in `setup/migrate.ts`, `setup/overlap.ts`, `workspace/config.ts` and the inline git spawns (`workspace/effort.ts`, `setup/glossary.ts`, `setup/write.ts`, `lifecycle/names.ts`); `git mv` in `write.ts` gets `--`; one helper each for the folder listing, `readIfPresent`, the folder test and the table-cell split replace their copies; `lifecycle/check-refs.ts` reads frontmatter through `readFrontmatter`; `lifecycle/names.ts` drops `walkedFiles` for `Bun.Glob`; no behaviour changes beyond the pathspecs
+  - Verify: a test with a tracked `a[1].md` beside a dirty `a1.md`: the migrate commit holds `a[1].md` alone; every existing test passes unchanged
+  - Files: a new shared folder under `scripts/`, and the files above
+  - Depends: none. Scope: M
+- [ ] T54: the session-start hook survives odd `brain status` output
+  - Acceptance: the JSON parse and the `report` field are guarded; on any parse or shape error the hook prints the one-line failure text and the protocol, as it does when `brain status` fails
+  - Verify: hook tests for stdout that is not JSON, JSON without `report`, and a `report` that is not a list
+  - Files: scripts/hooks/session-start.ts, scripts/hooks/__tests__/session-start.test.ts
+  - Depends: none. Scope: S
+- [ ] T55: `setup-brain --check` reports a `workspace.md` it cannot read
+  - Acceptance: a `skipped` change counts as drift (exit 1, with its note), except the 0.8-layout case that `waiting` already reports
+  - Verify: a `write.test.ts` case with invalid YAML in `workspace.md`
+  - Files: scripts/setup/write.ts, scripts/setup/__tests__/write.test.ts
+  - Depends: none. Scope: S
+- [ ] T56: `brain check` finds map cycles; the placeholder-title rule, and `brain new-doc --title`
+  - Acceptance: a map whose blocked-by edges form a cycle gets one finding line; the placeholder rule stays, limited to the H1 title; `brain new-doc` takes `--title "<text>"` and, without it, builds the title from the slug (`pin-addy-skills` becomes "Pin addy skills"), so a fresh file passes `brain check`; success criterion 3 and the Decisions table name both rules (Peter, 2026-10-29)
+  - Verify: fixtures: a map cycle fails; a new-doc file with no `--title` passes; a file with `<title>` left in its H1 fails; `--title` sets the H1
+  - Files: scripts/workspace/check.ts, scripts/workspace/new-doc.ts, their tests and fixtures, spec/SPEC-workspace.md, docs/intent/workspace-and-stateful-interview.md, skills that show `brain new-doc` usage
+  - Depends: none. Scope: M
+- [ ] T57: the overlap report counts a line as covered only when the protocol holds its meaning
+  - Acceptance: a line counts as covered only when a protocol line says the same rule, not when they only share words; "Stage the task's files by name." against the real protocol is an orphan line; criterion 13's resume fixture still offers the sections it offers now, or the result names each change and why
+  - Verify: the new fixture, red first; the existing overlap tests
+  - Files: scripts/setup/overlap.ts, scripts/setup/__tests__/overlap.test.ts
+  - Depends: none. Scope: M
+
 ### Checkpoint: phase 6
 - [ ] The full suite once; `bun run validate`; code-review-and-quality over the branch
-- [ ] T35's overlap report on brain's own `AGENTS.md`, report-only, for Peter to decide what the protocol now covers
+- [x] T35's overlap report on brain's own `AGENTS.md`, report-only, for Peter to decide what the protocol now covers
 - [ ] Review with Peter; push and open PR 2 only after his yes
 
 ## Phase 7: brain's history (after a second ask) and the fallback's end (in 0.11.0); separate PRs

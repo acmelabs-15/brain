@@ -53,7 +53,7 @@ still reviews its own tasks. From the phase 5 review on, a task waits for every 
 
 | Wave | Tasks |
 |---|---|
-| A (running) | T28, T38, T52 |
+| A (running) | T53, T54, T55, T56, T57 |
 | Then | T39 after the second ask; T40 after the 0.10.0 release |
 
 The critical path from here is 1 task: T38 (T28 and T52 are as long).
