@@ -31,7 +31,7 @@ describe("commands on spec folders", () => {
 
   for (const path of [".claude/commands/build.md", "commands/build.toml"]) {
     test(`${path} keeps work in the active spec folder out of the clean-baseline stop`, async () => {
-      expect(await read(path)).toContain("docs/specs/SPEC-NNN-<slug>/");
+      expect(await read(path)).toContain("`specs/SPEC-NNN-<slug>/`");
     });
   }
 

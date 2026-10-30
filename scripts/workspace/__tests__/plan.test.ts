@@ -5,7 +5,7 @@
  * README names what brain must report for each.
  */
 import { afterAll, beforeAll, describe, expect, setDefaultTimeout, test } from "bun:test";
-import { cp, mkdir, mkdtemp, realpath, rm } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, realpath, rename, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
 // Each test starts a bun process, which takes seconds on a loaded machine (parallel builds run
@@ -362,6 +362,8 @@ describe("brain plan, the cap on tasks at once", () => {
   test("no workspace.md: the cap is the default, 8", async () => {
     const root = await repo("cap-no-file", "plan-shapes");
     await rm(`${root}/${workspaceFile}`);
+    // With no workspace.md, every folder is at its default: the specs move to specs/.
+    await rename(`${root}/docs/specs`, `${root}/specs`);
     const res = await brain(root, "plan", "SPEC-002");
     expect(res.stderr).toBe("");
     expect(res.stdout).toBe(wideWith("Cap: 8 tasks at once (the default).", "4 of 4"));
@@ -413,6 +415,8 @@ describe("brain plan, the cap on tasks at once", () => {
       `${import.meta.dir}/../../../skills/setup-brain/workspace.md`,
     ).text();
     const root = await repo("cap-template", "plan-shapes", { [workspaceFile]: template });
+    // The template names the default spec folder, so the specs move to specs/.
+    await rename(`${root}/docs/specs`, `${root}/specs`);
     const res = await brain(root, "plan", "SPEC-002");
     expect(res.stderr).toBe("");
     expect(res.stdout).toBe(wide);

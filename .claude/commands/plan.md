@@ -4,7 +4,7 @@ description: Break work into small verifiable tasks with acceptance criteria and
 
 Invoke the brain:planning-and-task-breakdown skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `GLOSSARY.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
 
-Find the active spec through `docs/agents/workspace.md`. Read that file to its last line: `paths.specs` names the folder of specs, and "Find the active effort" says which spec is active. When the file is missing, use `docs/specs`, the default, and tell the user once to run setup-brain, which writes it. When no spec exists in the specs folder or in the conversation, stop and tell the user to run `/spec` first. A spec given in the conversation gets its spec folder through planning-and-task-breakdown.
+Find the active spec through `docs/agents/workspace.md`. Read that file to its last line: `paths.specs` names the folder of specs, and "Find the active effort" says which spec is active. When the file is missing, use `specs/`, the default, and tell the user once to run setup-brain, which writes it. When no spec exists in the specs folder or in the conversation, stop and tell the user to run `/spec` first. A spec given in the conversation gets its spec folder through planning-and-task-breakdown.
 
 Read the spec folder's `spec.md` and the relevant codebase sections. Then:
 

@@ -2,7 +2,7 @@
 type: regex
 target:
   source: file
-  path: docs/specs/SPEC-001-text-tools/tasks/plan.md
+  path: specs/SPEC-001-text-tools/tasks/plan.md
 pattern: '^\| *05 *\|[^|\n]*\| *task *\| *resolved *\|[^\n]*\n\| *06 *\|[^|\n]*\| *checkpoint *\| *(?:open|in-progress) *\|[^\n]*\n\| *07 *\|[^|\n]*\| *task *\| *open *\|'
 flags: m
 ---

@@ -16,7 +16,7 @@ If the request bundles several independently testable capabilities, first propos
 
 Save each spec in its own spec folder:
 
-1. Run `brain new-doc SPEC <slug> --title "<the spec's title>"`, where `brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`. It claims the next number and writes `SPEC-NNN-<slug>/`, with `spec.md`, `tasks/plan.md` and `tasks/todo.md`, each with the title in its H1, into the folder of specs that `docs/agents/workspace.md` names. When that file is missing, new-doc uses `docs/specs`, the default; tell the user once to run setup-brain, which writes it.
+1. Run `brain new-doc SPEC <slug> --title "<the spec's title>"`, where `brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`. It claims the next number and writes `SPEC-NNN-<slug>/`, with `spec.md`, `tasks/plan.md` and `tasks/todo.md`, each with the title in its H1, into the folder of specs that `docs/agents/workspace.md` names. When that file is missing, new-doc uses `specs/`, the default; tell the user once to run setup-brain, which writes it.
 2. Write the spec into `spec.md`, and list the IDEA, DEC and RES files it comes from in `sources:`.
 3. Leave `tasks/plan.md` and `tasks/todo.md` as they are; `/plan` fills them.
 

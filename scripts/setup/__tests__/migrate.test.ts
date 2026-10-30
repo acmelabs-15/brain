@@ -283,10 +283,10 @@ const fixtureMoves = [
     "docs/decisions/DEC-002-capability-map-billing.md",
     "---\nid: DEC-002\nmigrated: 0.8\ndecided: 2026-09-19\n---\n",
   ],
-  ["spec/SPEC-accounts.md", "docs/specs/SPEC-001-accounts/spec.md", specHead("SPEC-001")],
-  ["spec/SPEC-billing.md", "docs/specs/SPEC-002-billing/spec.md", specHead("SPEC-002")],
-  ["tasks/plan.md", "docs/specs/SPEC-002-billing/tasks/plan.md", specHead("SPEC-002")],
-  ["tasks/todo.md", "docs/specs/SPEC-002-billing/tasks/todo.md", specHead("SPEC-002")],
+  ["spec/SPEC-accounts.md", "specs/SPEC-001-accounts/spec.md", specHead("SPEC-001")],
+  ["spec/SPEC-billing.md", "specs/SPEC-002-billing/spec.md", specHead("SPEC-002")],
+  ["tasks/plan.md", "specs/SPEC-002-billing/tasks/plan.md", specHead("SPEC-002")],
+  ["tasks/todo.md", "specs/SPEC-002-billing/tasks/todo.md", specHead("SPEC-002")],
   // The ADR step: brain 0.8's ADR takes the next DEC number after the capability map.
   [
     "docs/decisions/0001-keep-the-ledger-in-postgres.md",
@@ -394,14 +394,7 @@ describe("migrate, the spec step", () => {
       trackerPaths.map((file) => `D\t${file}`),
     );
     expect(
-      gitOut(
-        root,
-        "log",
-        "--follow",
-        "--format=%s",
-        "--",
-        "docs/specs/SPEC-002-billing/tasks/plan.md",
-      ),
+      gitOut(root, "log", "--follow", "--format=%s", "--", "specs/SPEC-002-billing/tasks/plan.md"),
     ).toBe("chore: migrate to the brain workspace layout\ninit");
   });
 
@@ -425,7 +418,7 @@ describe("migrate, the spec step", () => {
     const result = await migrate({ root, dryRun: true, ...allAnswers });
     expect(result).toEqual({ changes: allChanges, commit: null });
     expect(gitOut(root, "status", "--porcelain")).toBe("");
-    expect(await exists(`${root}/docs/specs`)).toBe(false);
+    expect(await exists(`${root}/specs`)).toBe(false);
     expect(await exists(`${root}/docs/ideas`)).toBe(false);
     expect(await exists(`${root}/${workspacePath}`)).toBe(false);
     expect(await exists(`${root}/GLOSSARY.md`)).toBe(false);
@@ -446,7 +439,7 @@ describe("migrate, the spec step", () => {
       "tasks/todo.md": "# Tasks: Invoice CSV export\n",
     });
     const result = await migrate({ root, dryRun: false });
-    const folder = "docs/specs/SPEC-001-invoice-csv-export";
+    const folder = "specs/SPEC-001-invoice-csv-export";
     expect(result.changes).toEqual([
       { path: `SPEC.md -> ${folder}/spec.md`, action: "moved" },
       { path: `tasks/plan.md -> ${folder}/tasks/plan.md`, action: "moved" },
@@ -464,11 +457,11 @@ describe("migrate, the spec step", () => {
   test("numbers each spec above the specs and the claims already there, in a dry run as in a real run", async () => {
     const root = await gitRepo("numbers", {
       "SPEC.md": "# Spec: Export\n",
-      "docs/specs/SPEC-001-old/spec.md": "---\nspec: SPEC-001\nmigrated: 0.8\n---\n# Spec: Old\n",
+      "specs/SPEC-001-old/spec.md": "---\nspec: SPEC-001\nmigrated: 0.8\n---\n# Spec: Old\n",
     });
     await mkdir(`${root}/.git/brain/ids/SPEC/002`, { recursive: true });
     const moved: Change[] = [
-      { path: "SPEC.md -> docs/specs/SPEC-003-export/spec.md", action: "moved" },
+      { path: "SPEC.md -> specs/SPEC-003-export/spec.md", action: "moved" },
       workspaceCreated,
     ];
     const dry = await migrate({ root, dryRun: true });
@@ -572,7 +565,7 @@ describe("migrate, the spec step", () => {
         action: "skipped",
         note: "has frontmatter already; move it by hand",
       },
-      { path: "spec/SPEC-cli.md -> docs/specs/SPEC-001-cli/spec.md", action: "moved" },
+      { path: "spec/SPEC-cli.md -> specs/SPEC-001-cli/spec.md", action: "moved" },
       workspaceCreated,
     ]);
   });
@@ -974,7 +967,7 @@ describe("write.ts --migrate", () => {
     }
     expect(await exists(`${root}/GLOSSARY.md`)).toBe(false);
     expect(await exists(`${root}/${workspacePath}`)).toBe(false);
-    expect(await exists(`${root}/docs/specs`)).toBe(false);
+    expect(await exists(`${root}/specs`)).toBe(false);
     expect(await exists(`${root}/docs/ideas`)).toBe(false);
     expect(gitOut(root, "status", "--porcelain", "--untracked-files=no")).toBe("");
     expect(gitOut(root, "rev-parse", "HEAD")).toBe(head);

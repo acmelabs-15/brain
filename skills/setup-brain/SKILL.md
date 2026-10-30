@@ -177,7 +177,7 @@ That commit also creates `docs/agents/workspace.md`, which records `layout: 2`. 
 | Layout 1 file | Where the migrate mode puts it |
 |---|---|
 | `CONTEXT.md`, `CONTEXT-MAP.md` at the root, after the user's yes | `GLOSSARY.md`, `GLOSSARY-MAP.md`, the same move as the glossary rename of step 4. |
-| `SPEC.md`, `spec/SPEC.md`, `spec/SPEC-<module>.md` | `docs/specs/SPEC-NNN-<slug>/spec.md`. The slug is the module id, else the title in the spec's H1. |
+| `SPEC.md`, `spec/SPEC.md`, `spec/SPEC-<module>.md` | `specs/SPEC-NNN-<slug>/spec.md`. The slug is the module id, else the title in the spec's H1. |
 | `tasks/plan.md`, `tasks/todo.md` | The `tasks/` folder of the spec they belong to. |
 | The capability map in `spec/`, whose H1 opens with "Capability Map" | `docs/decisions/DEC-NNN-<slug>.md`. An approved map is the user's decision. |
 | `docs/decisions/0001-<slug>.md`, an ADR that brain wrote on layout 1 | `docs/decisions/DEC-NNN-<slug>.md`, with `kind: architecture`: an ADR is an architecture decision. |

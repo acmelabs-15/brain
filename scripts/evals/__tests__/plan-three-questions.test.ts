@@ -18,7 +18,7 @@ const repo = `${import.meta.dir}/../../..`;
 const caseDir = `${repo}/evals/lifecycle/plan-three-questions`;
 const cli = `${repo}/scripts/brain.ts`;
 const slug = "word-counter";
-const folder = `docs/specs/SPEC-001-${slug}`;
+const folder = `specs/SPEC-001-${slug}`;
 const planPath = `${folder}/tasks/plan.md`;
 const todoPath = `${folder}/tasks/todo.md`;
 let work: string;

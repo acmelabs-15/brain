@@ -173,7 +173,7 @@ Capture the diff command once and reuse it. Confirm the ref resolves and the dif
 
 1. Issue references in the commit messages (`#123`, `Closes #45`, `!67`). Fetch the issue with `gh issue view <n>` when the remote is GitHub.
 2. A path the user gave.
-3. The active spec folder in the workspace, found as `docs/agents/workspace.md` says: a spec whose slug or `spec.md` title matches the branch name or the feature. The spec is its `spec.md`; the block in its `tasks/todo.md` for the task the change delivers holds that task's acceptance criteria. In a repo with no `docs/agents/workspace.md`, look in the default specs folder, `docs/specs/`, and tell the user once to run setup-brain.
+3. The active spec folder in the workspace, found as `docs/agents/workspace.md` says: a spec whose slug or `spec.md` title matches the branch name or the feature. The spec is its `spec.md`; the block in its `tasks/todo.md` for the task the change delivers holds that task's acceptance criteria. In a repo with no `docs/agents/workspace.md`, look in the default specs folder, `specs/`, and tell the user once to run setup-brain.
 4. Nothing found: the spec's location is the user's decision. Call the Skill tool with "ask-user-question" to compose the one question. If the user says there is no spec, the correctness sub-agent reviews without one and the final report says "no spec available".
 
 Small reversible choices stay with you: decide them and state the reason.

@@ -216,7 +216,7 @@ These are the subtle errors that look like productivity but create problems:
 
 A feature travels the six stages in order. The files carry it from each stage to the next, so each line says what the stage leaves on disk. Folder paths come from `docs/agents/workspace.md`.
 
-1. Define: the map in `docs/ideas/IDEA-NNN-<slug>.md`, a DEC file for each decision from the first question on, a RES file for each finding, then `spec.md` in `docs/specs/SPEC-NNN-<slug>/`.
+1. Define: the map in `docs/ideas/IDEA-NNN-<slug>.md`, a DEC file for each decision from the first question on, a RES file for each finding, then `spec.md` in `specs/SPEC-NNN-<slug>/`.
 2. Plan: the rows of `tasks/plan.md` and the blocks of `tasks/todo.md`, in the spec folder.
 3. Build: one commit per task, and the task's row resolved in `plan.md`.
 4. Verify: a feedback loop that goes red on the bug, then the fix and its regression test.

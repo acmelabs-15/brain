@@ -2,7 +2,7 @@
 type: regex
 target:
   source: file
-  path: docs/specs/SPEC-001-word-counter/tasks/plan.md
+  path: specs/SPEC-001-word-counter/tasks/plan.md
 pattern: '^\| *01 *\| *[^<|\s][^|\n]*\| *(?:task|checkpoint) *\|'
 flags: m
 ---
