@@ -8,3 +8,5 @@ evals/results/
 evals/**/*.jsonl
 !evals/**/history.jsonl
 .claude/worktrees/
+# The Codex CLI writes .agents/skills/ when it opens the repo; .agents/plugins/ stays tracked.
+.agents/skills/
