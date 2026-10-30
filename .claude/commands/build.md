@@ -41,7 +41,7 @@ Use this once a spec exists and you want to collapse plan + build into one run. 
 1. **Require a spec.** Use the active spec from "The spec folder". A README or arbitrary doc does **not** count. If no spec is active, stop and tell the user to run `/spec` first — do not invent requirements.
 2. **Establish a clean baseline.** Run `git status --porcelain`. If there are uncommitted changes outside the active spec's folder (`docs/specs/SPEC-NNN-<slug>/` with the default paths: its `spec.md`, `tasks/plan.md` and `tasks/todo.md`), stop and ask the user to commit, stash, or confirm how to handle them. Autonomous per-task commits must not absorb unrelated local work, or the clean-rollback guarantee breaks.
 3. **Plan if needed.** If the spec's `tasks/plan.md` holds no task row yet, only the template's placeholder row, invoke brain:planning-and-task-breakdown to write the plan.
-4. **Single checkpoint.** Present the full plan and wait for an unambiguous affirmative (e.g. "approve", "go", "yes"). Treat hedged responses ("looks reasonable", "I guess") as **not** approved. This is the only human gate before the plan's own checkpoint rows — after approval, run autonomously. If you wrote the plan, commit `tasks/plan.md` and `tasks/todo.md` as a single preparatory commit now so they don't bleed into the first task's commit.
+4. **Single checkpoint.** Present the full plan and wait for an unambiguous affirmative (e.g. "approve", "go", "yes"). Treat hedged responses ("looks reasonable", "I guess") as **not** approved. This is the only approval before the plan's own checkpoint rows — after approval, run autonomously. If you wrote the plan, commit `tasks/plan.md` and `tasks/todo.md` as a single preparatory commit now so they don't bleed into the first task's commit.
 5. **Run the frontier in parallel**, as "Run the frontier" says, until no task is left on it or a checkpoint row stops the build. Each task runs in a clean context and a worktree of its own, so a long plan stays as sharp on the last task as on the first, and every merge is a clean rollback point.
 6. **Stop and ask the user** (do not push through) when:
    - a test can't be made to pass, a merge conflict is more than a small overlap in a shared file, or the build breaks without an obvious fix → follow brain:debugging-and-error-recovery
@@ -70,7 +70,7 @@ Use this once a spec exists and you want to collapse plan + build into one run. 
    - the rule that a decision the spec does not cover comes back as one question in its result, because a sub-agent cannot ask the user.
 5. **Merge one task at a time.** When a sub-agent of a fallback task replies, check the tree first (step 4 of "The worktree fallback"). Then read its line. Read its result file only when the line says fail or asks a question; then stop (step 6 above). When several tasks have passed, take the one on `criticalPath` first:
    1. Merge its branch into the feature branch: `git merge --no-ff <its branch>`. Resolve a small overlap in a shared file yourself.
-   2. Run the gate, the repo's check command, on the merged head.
+   2. Run the repo's check command on the merged head.
    3. Close the row (see "Close a row").
    4. When the merge changed a file or an interface that a running task uses, tell that task to rebase onto the feature branch's new head before it commits: SendMessage to the agent ID its Agent call returned (https://code.claude.com/docs/en/sub-agents#resume-subagents).
    5. Remove a fallback task's worktree (step 6 of "The worktree fallback").

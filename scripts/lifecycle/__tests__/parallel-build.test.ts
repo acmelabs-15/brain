@@ -31,7 +31,7 @@ const rules: [string, RegExp][] = [
   ["never main", /never (?:on )?`main`/u],
   ["the install step first", /install/u],
   ["one merge at a time", /one (?:task|merge) at a time/iu],
-  ["the gate after each merge", /\bgate\b/u],
+  ["the check command after each merge", /check command/u],
   ["one writer of plan rows and todo ticks", /only writer|only the main session writes/iu],
   ["a rebase when a merge changes what a task uses", /rebase/u],
   ["a checkpoint row stops the build", /checkpoint row on the frontier stops the build/iu],
