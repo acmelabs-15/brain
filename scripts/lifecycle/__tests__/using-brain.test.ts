@@ -40,11 +40,15 @@ describe("using-brain, Skill Rule 1: the 1% rule", () => {
     expect(one).toContain('"I\'ll gather context first"');
   });
 
-  test("stays out of the protocol, which keeps its one soft sentence", async () => {
+  test("reaches every session as a short form in the protocol; the long form stays here", async () => {
+    // Peter, 2026-10-30: nothing preloads using-brain, so the protocol carries Rule 1's short
+    // form in place of its soft line, and using-brain keeps the long form.
     const protocol = await read("protocol/PROTOCOL.md");
-    expect(protocol).not.toContain("1%");
+    expect(protocol).toContain(
+      "Before you act, load any skill that may apply, even at a 1% chance. 'Too small for a skill', 'I'll just do it quickly' and 'I'll gather context first' are not reasons to skip one.",
+    );
+    expect(protocol).not.toContain("When a skill may apply, load it before you act.");
     expect(protocol).not.toMatch(/MUST invoke/u);
-    expect(protocol).toContain("When a skill may apply, load it before you act.");
   });
 });
 
