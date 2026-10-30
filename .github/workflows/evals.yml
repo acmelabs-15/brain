@@ -42,6 +42,20 @@ jobs:
       - run: bun install --frozen-lockfile
       - name: Install Claude Code
         run: bun add -g @anthropic-ai/claude-code
+      - name: Install the shell sandbox
+        # On Linux, Claude Code confines Bash with bubblewrap and socat, and refuses a granted
+        # shell tool without them. On Ubuntu 24.04 and later, AppArmor must let bwrap create
+        # user namespaces. https://code.claude.com/docs/en/sandboxing#set-up-linux-and-wsl2
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y bubblewrap socat
+          if [ "$(sysctl -n kernel.apparmor_restrict_unprivileged_userns 2>/dev/null || echo 0)" = "1" ]; then
+            printf '%s\n' 'abi <abi/4.0>,' 'include <tunables/global>' '' \
+              'profile bwrap /usr/bin/bwrap flags=(unconfined) {' '  userns,' \
+              '  include if exists <local/bwrap>' '}' | sudo tee /etc/apparmor.d/bwrap > /dev/null
+            sudo systemctl reload apparmor
+          fi
       - name: Run the suite
         # Inputs reach the script through env, never as ${{ }} text inside it, so a value
         # cannot become a command.

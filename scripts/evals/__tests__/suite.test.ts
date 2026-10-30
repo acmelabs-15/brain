@@ -136,6 +136,17 @@ describe("eval suite", () => {
     expect(workflow).toContain('args+=(--ablation "$EVAL_ABLATION")');
   });
 
+  test("the Evals workflow installs the Linux shell sandbox before the suite runs", async () => {
+    // On Linux, `claude plugin eval` refuses a granted shell tool unless bubblewrap and socat
+    // are installed, and on Ubuntu 24.04 AppArmor must let bwrap create user namespaces
+    // (https://code.claude.com/docs/en/sandboxing#set-up-linux-and-wsl2).
+    const workflow = await Bun.file(`${root}/../.github/workflows/evals.yml`).text();
+    const install = workflow.indexOf("apt-get install -y bubblewrap socat");
+    expect(install).toBeGreaterThan(-1);
+    expect(workflow).toContain("/etc/apparmor.d/bwrap");
+    expect(install).toBeLessThan(workflow.indexOf("name: Run the suite"));
+  });
+
   test("a case with a scaffold declares it in case.yaml", async () => {
     for (const c of await cases()) {
       const dir = `${root}/${c}`;
