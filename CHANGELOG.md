@@ -1,5 +1,47 @@
 # @acmelabs/brain
 
+## 0.10.0
+
+### Breaking Changes
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`6d9133c`](https://github.com/acmelabs-15/brain/commit/6d9133cc87fb17ba95ebf341f2fe019c24224f5f) - a decision is now a `DEC-NNN-<slug>.md` file in `docs/decisions/`, created with `brain new-doc DEC <slug>`. domain-modeling no longer writes `0001-<slug>.md` ADRs. A repo with such ADRs must move them first: run setup-brain to migrate, which turns each one into a DEC file in the same commit as the rest of the move.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`359eba9`](https://github.com/acmelabs-15/brain/commit/359eba94ce0f499e93534ab69778e224a7f68833) - wayfinder is removed. Its job moved into interview-me, which now keeps a multi-session map in docs/ideas/. Maps on an issue tracker are not migrated.
+  **Breaking:** triage is removed; re-seed it from mattpocock/skills if you need it.
+  **Breaking:** setup-brain no longer writes `docs/agents/issue-tracker.md` or `docs/agents/triage-labels.md`, and its script no longer takes `--tracker` or `--repo`.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`6d9133c`](https://github.com/acmelabs-15/brain/commit/6d9133cc87fb17ba95ebf341f2fe019c24224f5f) - `/spec`, `/plan` and `/build` now read and write a spec folder, `docs/specs/SPEC-NNN-<slug>/`, with `spec.md`, `tasks/plan.md` and `tasks/todo.md` in it. They no longer use `SPEC.md`, `spec/` or `tasks/` at the repo root. A repo on layout 1 (brain 0.9 and earlier) must move its files first: run setup-brain to migrate. Until then, `brain status` says so.
+
+### Minor Changes
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`6d9133c`](https://github.com/acmelabs-15/brain/commit/6d9133cc87fb17ba95ebf341f2fe019c24224f5f) - New: the `brain` CLI, which skills and sessions run with bun. `brain new-doc` creates the next numbered file (IDEA, DEC, RES or SPEC), `brain check` checks the workspace against its rules, `brain status` reports the stage, the last step and the next step, and `brain plan` prints what can run at once in a spec's plan. The `status` skill gives the same report from inside a session.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`94fef6d`](https://github.com/acmelabs-15/brain/commit/94fef6de847891c99e46cfaa4f8d4b65153bae20) - brain now carries its protocol into every session: how a session starts, checks its skills and servers, briefs sub-agents and ends a task. Gemini CLI gets it in the extension's `GEMINI.md`, after the plain-talk text. Antigravity CLI gets it as the always-on rule `rules/protocol.md`.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`6d9133c`](https://github.com/acmelabs-15/brain/commit/6d9133cc87fb17ba95ebf341f2fe019c24224f5f) - New: `/build auto` starts every task that is ready at once, each in a worktree of its own, up to `max_parallel` in `docs/agents/workspace.md` (8 by default; `BRAIN_MAX_PARALLEL` overrides it). The main session merges the tasks one at a time and stops at each checkpoint for your review.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`d21d9e2`](https://github.com/acmelabs-15/brain/commit/d21d9e2a86ac42fd3e9bfcfe260e256871218f16) - On Claude Code, a `SessionStart` hook gives each session the brain protocol, the full path of the `brain` CLI, and the `brain status` report with the text of `docs/STATUS.md`. It runs whenever a session starts: at startup, after `/clear`, after a compaction, and when you resume or fork a session. It needs `bun` on `PATH`. On resume and on a fork it gives the path and a new report only, since the session already holds the protocol.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`6d9133c`](https://github.com/acmelabs-15/brain/commit/6d9133cc87fb17ba95ebf341f2fe019c24224f5f) - New: interview-me keeps its map in an idea file, `docs/ideas/IDEA-NNN-<slug>.md`, and resumes from that file alone, so one interview can run over any number of sessions.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`c119e17`](https://github.com/acmelabs-15/brain/commit/c119e17b1311cd903d8fee48ccc58c5b4eb0198b) - setup-brain now proposes `docs/agents/capabilities.md`, the file the protocol's capability check reads, and writes it after your yes. It proposes toolchain checks from `packageManager` and `engines` in `package.json`, a library's skills when an installed plugin is named after a dependency, and the MCP servers in the repo's config files for Claude Code, Codex, Gemini CLI and Antigravity. An existing `capabilities.md` is kept as it is; a re-run lists each proposed row it does not name yet.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`03f2d3e`](https://github.com/acmelabs-15/brain/commit/03f2d3e49a66f868ef3ebce0aec254f771b9cd9e) - setup-brain now prepares a repo for the brain workspace. It checks for bun first, and writes `docs/agents/workspace.md` and a `docs/STATUS.md` seed beside `docs/agents/domain.md`. For Codex it writes the brain protocol block beside the plain-talk block. A re-run keeps the repo's folder paths and `max_parallel`, and never rewrites `docs/STATUS.md`. `setup-brain --check` reports drift and writes nothing.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`6322ef9`](https://github.com/acmelabs-15/brain/commit/6322ef9deb70774d48df42a6fa332eebd276ed0d) - setup-brain's migrate mode turns the intent docs of a repo on layout 1 (brain 0.9 and earlier) into ideas. setup-brain asks, one doc per question, which files in `docs/intent/` become ideas; each one it picks moves with `git mv` to `docs/ideas/IDEA-NNN-<name>.md` and gains frontmatter only. It also asks whether to remove setup-brain 0.8's `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md`, and removes them with `git rm` only after a yes.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`cb74f69`](https://github.com/acmelabs-15/brain/commit/cb74f69cb624594a3f9c3c3eb4183d5d2129e4e9) - setup-brain's migrate mode finishes the move from layout 1 (brain 0.9 and earlier) in one commit. Each ADR that brain wrote on layout 1, `docs/decisions/0001-<slug>.md`, becomes a decision record with `kind: architecture`. setup-brain asks once per repo whether to move an ADR folder of another tool, such as adr-tools' `doc/adr/`, into `docs/decisions/` the same way; a kept folder stays as read-only history, and `docs/agents/domain.md` points to it. The glossary move to `GLOSSARY.md` goes into the same commit, and so does `docs/agents/workspace.md`, whose `layout: 2` marks the repo as migrated: a later run moves nothing and asks nothing again. Until then, setup-brain writes no `workspace.md` on a repo on the 0.8 layout, and `--check` exits 1. After the migration, setup-brain runs `brain check` on the repo.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`91d910b`](https://github.com/acmelabs-15/brain/commit/91d910bf53909aa5a47da5f48b5748e39dd72240) - setup-brain's migrate mode moves the specs of a repo on layout 1 (brain 0.9 and earlier) into the workspace. Each spec in `SPEC.md` or `spec/` moves with `git mv` to `docs/specs/SPEC-NNN-<slug>/spec.md`, and `tasks/plan.md` and `tasks/todo.md` move into the `tasks/` folder of the spec they belong to. The capability map becomes a decision record. Each moved file gains frontmatter only, so its history follows it. When a plan sits beside several specs, setup-brain asks which spec it belongs to.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`27e8713`](https://github.com/acmelabs-15/brain/commit/27e8713bdb1b3537979a75d24f16a19fcf4cd698) - setup-brain now reports where a hand-written `AGENTS.md`, `CLAUDE.md` or `GEMINI.md` repeats the rules that brain's protocol carries, or the facts that `docs/agents/capabilities.md` holds. It lists each line as covered, moved or orphan. It removes only the `AGENTS.md` sections you pick, keeps their orphan lines, and writes that change as a commit of its own. When other people commit to the repo, it recommends report-only. It never edits `CLAUDE.md` or `GEMINI.md`. `capabilities.md` also takes a toolchain check that `AGENTS.md` names with its version, such as `` `bun --version` (1.4.4 or later) ``.
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`791a7f1`](https://github.com/acmelabs-15/brain/commit/791a7f17cc3f54682ced47d2a9eb7d69634ceec0) - using-brain now tells an agent to load a skill when there is even a 1% chance that it applies, and names three thoughts that mean a skill is about to be skipped. It routes to the stateful interview, the status skill and DEC files. Its stage boundaries say that the files carry the work, so a session may end between two rows of a map or after any completed task.
+
+### Patch Changes
+
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`3941fce`](https://github.com/acmelabs-15/brain/commit/3941fcea111f5462ad93ac7a0401c2cde8264870) - A question in plain text, for a session with no question tool, keeps the tool's layout: one option per line with what happens and what it costs, and one option whose label ends in "(Recommended)", with its reason. The question and its options end the reply. interview-me names a later row in an option only as a cost of that option. When the debugging skill cannot build a loop, it recommends one of its three asks and ends the reply with the question.
+
 ## 0.9.0
 
 ### Minor Changes
