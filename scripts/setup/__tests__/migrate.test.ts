@@ -834,6 +834,67 @@ describe("migrate, the ADRs", () => {
   });
 });
 
+describe("migrate, the specs folder of a first install", () => {
+  /** The line that asks where brain's specs go when the root specs/ holds only openapi.yaml. */
+  const asksSpecsFolder =
+    "specs/ holds files that are not spec folders (openapi.yaml), and only the user can say where brain's specs go: pass --specs-folder with docs/specs, another folder in the repo, or specs";
+
+  test("a docs/specs/ that holds a spec folder from brain 0.10.0 or 0.11.0 takes the moved spec, numbered after it, and workspace.md names it", async () => {
+    const root = await gitRepo("specs-old-folder", {
+      "SPEC.md": "# Spec: Export\n",
+      "docs/specs/SPEC-001-import/spec.md":
+        "---\nspec: SPEC-001\nsources: []\n---\n# SPEC-001: Import\n",
+      "specs/openapi.yaml": "openapi: 3.1.0\n",
+    });
+    const result = await migrate({ root, dryRun: false });
+    expect(result.changes).toEqual([
+      { path: "SPEC.md -> docs/specs/SPEC-002-export/spec.md", action: "moved" },
+      workspaceCreated,
+    ]);
+    expect(await Bun.file(`${root}/${workspacePath}`).text()).toContain("\n  specs: docs/specs\n");
+  });
+
+  test("a root specs/ with other files needs the user's answer, named with the other answers, before any change", async () => {
+    const root = await fixtureRepo("specs-ask");
+    await put(root, { "specs/openapi.yaml": "openapi: 3.1.0\n" });
+    commitAll(root, "api");
+    const run = migrate({ root, dryRun: false });
+    await expect(run).rejects.toBeInstanceOf(UsageError);
+    await expect(run).rejects.toThrow("pass --plan-spec with spec/SPEC-accounts.md");
+    await expect(run).rejects.toThrow(asksSpecsFolder);
+    await run.catch(() => null);
+    expect(gitOut(root, "status", "--porcelain")).toBe("");
+    expect(await exists(`${root}/.git/brain`)).toBe(false);
+  });
+
+  test("with the answer, the specs move into the folder the user named, and workspace.md names it", async () => {
+    const root = await gitRepo("specs-answer", {
+      "SPEC.md": "# Spec: Export\n",
+      "specs/openapi.yaml": "openapi: 3.1.0\n",
+    });
+    const result = await migrate({ root, dryRun: false, specsFolder: "docs/specs" });
+    expect(result.changes).toEqual([
+      { path: "SPEC.md -> docs/specs/SPEC-001-export/spec.md", action: "moved" },
+      workspaceCreated,
+    ]);
+    expect(await Bun.file(`${root}/${workspacePath}`).text()).toContain("\n  specs: docs/specs\n");
+    expect(await Bun.file(`${root}/specs/openapi.yaml`).text()).toBe("openapi: 3.1.0\n");
+  });
+
+  test("a workspace.md that records no layout yet keeps its specs folder: no question", async () => {
+    const root = await gitRepo("specs-workspace-kept", {
+      "SPEC.md": "# Spec: Export\n",
+      [workspacePath]: "---\npaths:\n  specs: specs\n---\n# Workspace\n",
+      "specs/openapi.yaml": "openapi: 3.1.0\n",
+    });
+    const result = await migrate({ root, dryRun: true });
+    expect(result.changes).toEqual([
+      { path: "SPEC.md -> specs/SPEC-001-export/spec.md", action: "moved" },
+      { path: workspacePath, action: "updated" },
+    ]);
+  });
+});
+
 describe("write.ts --migrate", () => {
   const writeScript = `${import.meta.dir}/../write.ts`;
   const run = (...args: string[]) => Bun.spawnSync(["bun", writeScript, ...args]);

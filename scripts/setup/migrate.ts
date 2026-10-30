@@ -47,6 +47,11 @@
  * repo's own settings kept, into the same commit. Its `layout: 2` marks the repo as migrated:
  * from then on a run changes nothing. A run that skips a file until it is committed leaves the
  * marker out, so the run after that commit can still move the file.
+ *
+ * When the repo has no `workspace.md`, the run is its first install, and its specs folder is the
+ * one `firstSpecsFolder` picks: `docs/specs` when it already holds a spec folder, else the user's
+ * answer (`specsFolder`), else the default. The spec step moves the specs there, and the workspace
+ * step writes it. When the default folder holds other files, the answer is one the run needs.
  */
 import { mkdir, rm, rmdir } from "node:fs/promises";
 import path from "node:path";
@@ -70,7 +75,7 @@ import {
 } from "../workspace/old-layout";
 import { readFrontmatter } from "../workspace/schema";
 import { planGlossaryMoves } from "./glossary";
-import { workspaceText } from "./workspace-config";
+import { firstSpecsFolder, workspaceText } from "./workspace-config";
 import type { AdrFolderAnswer, Change, SetupInput, TrackerAnswer } from "./write";
 
 /** An answer the run cannot use, or one it needs and lacks: write.ts exits 2 on it. */
@@ -90,7 +95,14 @@ export type MigrateResult = {
 /** What a migrate run reads: the repo, the user's answers, and the plugin that holds the templates. */
 export type MigrateInput = Pick<
   SetupInput,
-  "root" | "dryRun" | "planSpec" | "ideas" | "trackerFiles" | "adrFolder" | "renameGlossary"
+  | "root"
+  | "dryRun"
+  | "planSpec"
+  | "ideas"
+  | "trackerFiles"
+  | "adrFolder"
+  | "renameGlossary"
+  | "specsFolder"
 > & {
   /** The brain plugin's folder, for the workspace template; this script's own plugin when absent. */
   brain?: string;
@@ -650,11 +662,33 @@ async function trackerStep(
 }
 
 /**
- * Write the workspace config, whose `layout: 2` marks the repo as migrated, from the plugin's
- * template with the repo's settings kept. When `changes` holds a file that waits for a commit,
- * leave it out, so that the run after the commit can still move that file.
+ * The specs folder of a first install, the run that creates `workspace.md`; undefined when the
+ * repo's own `workspace.md` names the folders. A UsageError when only the user can say where
+ * brain's specs go.
  */
-async function workspaceStep(root: string, brain: string, changes: Change[]): Promise<Step> {
+async function newSpecsFolder(
+  root: string,
+  answer: string | undefined,
+): Promise<string | undefined | UsageError> {
+  if (await Bun.file(path.join(root, configFile)).exists()) {
+    return undefined;
+  }
+  const specs = await firstSpecsFolder(root, answer);
+  return "error" in specs ? new UsageError(specs.error) : specs.folder;
+}
+
+/**
+ * Write the workspace config, whose `layout: 2` marks the repo as migrated, from the plugin's
+ * template with the repo's settings kept, or with `specs` on a first install. When `changes`
+ * holds a file that waits for a commit, leave it out, so that the run after the commit can still
+ * move that file.
+ */
+async function workspaceStep(
+  root: string,
+  brain: string,
+  changes: Change[],
+  specs: string | undefined,
+): Promise<Step> {
   const step: Step = { changes: [], writes: [] };
   const waiting = changes.some(
     (change) => change.action === "skipped" && waits.has(change.note ?? ""),
@@ -672,7 +706,7 @@ async function workspaceStep(root: string, brain: string, changes: Change[]): Pr
   }
   const before = isNew ? new Uint8Array() : await Bun.file(full).bytes();
   const template = await Bun.file(`${brain}/skills/setup-brain/workspace.md`).text();
-  const next = workspaceText(template, isNew ? null : new TextDecoder().decode(before));
+  const next = workspaceText(template, isNew ? null : new TextDecoder().decode(before), specs);
   if (next === null) {
     const why = "its frontmatter is not valid YAML; fix it, then run the migrate mode again";
     step.changes.push({ path: configFile, action: "skipped", note: why });
@@ -827,7 +861,7 @@ async function commitWrites(root: string, writes: Write[]): Promise<void> {
 export async function migrate(input: MigrateInput): Promise<MigrateResult> {
   const root = path.resolve(input.root);
   const { dryRun } = input;
-  const { paths } = await readConfig(root);
+  const { paths: configured } = await readConfig(root);
   const layout = await recordedLayout(root);
   if (layout !== null && layout >= currentLayout) {
     const note = `records layout: ${layout}; the repo is migrated, so nothing moves`;
@@ -837,25 +871,29 @@ export async function migrate(input: MigrateInput): Promise<MigrateResult> {
   const plans = await existing(root, planFiles);
   const docs = await findIntentDocs(root);
   const trackers = await existing(root, trackerFiles);
-  const adrFolders = await findAdrFolders(root, paths);
+  const adrFolders = await findAdrFolders(root, configured);
   const specPaths = classified.filter((file) => file.kind === "spec").map((file) => file.path);
   // Every answer is read before the first claim, so a refused run leaves no trace.
   const owner = settle(() => planOwner(specPaths, plans, input.planSpec));
   const picked = settle(() => pickedIdeas(docs, input.ideas));
   const removal = settle(() => trackerAnswer(trackers, input.trackerFiles));
   const adrMove = settle(() => adrFolderAnswer(adrFolders, input.adrFolder));
-  const answers = [owner, picked, removal, adrMove];
+  const specs = await newSpecsFolder(root, input.specsFolder);
+  const answers = [owner, picked, removal, adrMove, specs];
   if (
     owner instanceof UsageError ||
     picked instanceof UsageError ||
     removal instanceof UsageError ||
-    adrMove instanceof UsageError
+    adrMove instanceof UsageError ||
+    specs instanceof UsageError
   ) {
     const refused = answers.flatMap((answer) =>
       answer instanceof UsageError ? [answer.message] : [],
     );
     throw new UsageError(refused.join("\n"));
   }
+  // A first install's specs folder takes the moved specs, as the workspace.md it writes names it.
+  const paths = specs === undefined ? configured : { ...configured, specs };
   // Every reason to stay is known before a number is claimed, so no claim goes to a file that stays.
   const found = withReasons(root, classified);
   const adrs = await findAdrs(root, paths, adrFolders, adrMove);
@@ -871,7 +909,7 @@ export async function migrate(input: MigrateInput): Promise<MigrateResult> {
     await trackerStep(root, trackers, removal),
   ];
   const before = steps.flatMap((step) => step.changes);
-  steps.push(await workspaceStep(root, input.brain ?? `${import.meta.dir}/../..`, before));
+  steps.push(await workspaceStep(root, input.brain ?? `${import.meta.dir}/../..`, before, specs));
   const changes = steps.flatMap((step) => step.changes);
   const writes = steps.flatMap((step) => step.writes);
   if (dryRun || writes.length === 0) {

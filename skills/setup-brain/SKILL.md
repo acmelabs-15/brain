@@ -43,6 +43,7 @@ Read what exists. Facts are your job; never ask the user for one you can look up
 
 - Single-context is the default. Write it without a question.
 - `workspace.md` and the `STATUS.md` seed take no question: every repo gets the same layout.
+- The specs folder, `paths.specs` in `workspace.md`, is the script's pick on a first install, the run that creates `workspace.md`. It is `specs/`, or `docs/specs/` when that folder already holds a spec folder `SPEC-NNN-<slug>/`: `brain new-doc SPEC` wrote there on brain 0.10.0 and 0.11.0, and those specs stay where they are. A re-run keeps the folders an existing `workspace.md` names.
 - At global scope the Codex file is written when the Codex home exists and skipped when it does not. Text outside the markers is kept, and a symlink there stays a symlink.
 
 State each decision in one sentence before you go on.
@@ -54,6 +55,12 @@ Every question goes through the host's user-question tool, composed with the ask
 - **The layout, only when the exploration found monorepo signals.** Single-context, one `GLOSSARY.md` at the root, or multi-context, a `GLOSSARY-MAP.md` at the root that points to one `GLOSSARY.md` per context. Recommend single-context when the signals are weak.
 - **The glossary rename, only when a root `CONTEXT.md` or `CONTEXT-MAP.md` exists without its new name beside it, and the migration did not ask it in this run.** Move it with `git mv` to `GLOSSARY.md` or `GLOSSARY-MAP.md`, or leave it. Recommend the move: it keeps the file's history. brain's skills and Matt's read only the new names, so no skill reads a glossary left under the old name. Only the root files move: a per-context file that `CONTEXT-MAP.md` lists stays where it is, and the user moves it by hand.
 - **The Codex scope, only when a Codex home exists on this machine.** Global, both blocks in `~/.codex/AGENTS.md` for every repo, or project, both blocks in this repo's `AGENTS.md` only. Recommend global: a Codex plugin install is global, so brain's skills are in every repo, and the Codex docs put communication style in the global file. Project writes this repo's `AGENTS.md`, so say so in the option: the blocks reach teammates who lack brain, and plain talk and the protocol reach Codex in this repo only.
+- **The specs folder, only when a dry run (step 5, or step 6 of the migration) exits 2 with a line that names `--specs-folder`.** That line says the root `specs/` holds files that are not spec folders, such as API specs or test specs, and names them. Put those files in the question, and say that brain keeps each spec in a `SPEC-NNN-<slug>/` folder inside the specs folder. Options:
+  - `docs/specs`: brain's specs sit in `docs/` beside its decisions and research, apart from the other files. Its cost: it is not brain's default, so where brain's docs say `specs/`, this repo means `docs/specs/`. Recommend this: nothing clashes, and `brain check` stays clean. When `docs/specs/` exists and holds other files too, recommend a folder the user names instead.
+  - A folder the user names, inside the repo. Its cost: the same as `docs/specs`, with a name only this repo uses.
+  - `specs` anyway, brain's default: the other files stay beside brain's specs. Its cost: `brain check` reports each of them as a finding until they move.
+
+  The answer for the script is `--specs-folder <folder>`. The question is settled when the reply names one folder.
 
 Nothing else forks before the write. `capabilities.md` gets its own question in step 6. When no Codex home exists, say so and pass `--no-codex`.
 
@@ -66,6 +73,8 @@ bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --layout single --dr
 ```
 
 Add `--layout multi`, `--codex-scope project` or `--rename-glossary` when the user chose that option, and `--no-codex` when no Codex home exists.
+
+Exit 2 with a line that names `--specs-folder` means the script wrote nothing and needs the user's answer: ask step 4's specs-folder question, then run the dry run again with `--specs-folder <answer>`. Keep that flag on the run without `--dry-run`.
 
 When the Codex file is in the list, show the blocks as they will appear there. When the user agrees, run the same command without `--dry-run`.
 
@@ -177,7 +186,7 @@ That commit also creates `docs/agents/workspace.md`, which records `layout: 2`. 
 | Layout 1 file | Where the migrate mode puts it |
 |---|---|
 | `CONTEXT.md`, `CONTEXT-MAP.md` at the root, after the user's yes | `GLOSSARY.md`, `GLOSSARY-MAP.md`, the same move as the glossary rename of step 4. |
-| `SPEC.md`, `spec/SPEC.md`, `spec/SPEC-<module>.md` | `specs/SPEC-NNN-<slug>/spec.md`. The slug is the module id, else the title in the spec's H1. |
+| `SPEC.md`, `spec/SPEC.md`, `spec/SPEC-<module>.md` | `specs/SPEC-NNN-<slug>/spec.md`, or that folder in the specs folder of step 3 or of the user's answer. The slug is the module id, else the title in the spec's H1. |
 | `tasks/plan.md`, `tasks/todo.md` | The `tasks/` folder of the spec they belong to. |
 | The capability map in `spec/`, whose H1 opens with "Capability Map" | `docs/decisions/DEC-NNN-<slug>.md`. An approved map is the user's decision. |
 | `docs/decisions/0001-<slug>.md`, an ADR that brain wrote on layout 1 | `docs/decisions/DEC-NNN-<slug>.md`, with `kind: architecture`: an ADR is an architecture decision. |
@@ -193,13 +202,13 @@ Every other file in `spec/` and in an ADR folder stays where it is. So do an int
 3. **Ask whether to remove the tracker files, only when `docs/agents/issue-tracker.md` or `docs/agents/triage-labels.md` exists.** One question for both, composed with the ask-user-question skill. Say what they are: setup-brain wrote them on layout 1 for an issue tracker, and no brain skill reads them now. Options: remove them with `git rm`, inside the run's one commit; keep them as they are. Recommend remove, unless another tool in the repo still reads them, such as Matt Pocock's skills installed on their own; git history keeps the old text either way. Only an explicit yes removes them. The answer for the script is `remove` or `keep`.
 4. **Ask the glossary rename of step 4 here, to `GLOSSARY.md`, only when a root `CONTEXT.md` or `CONTEXT-MAP.md` exists without its new name beside it.** The same question, with the same recommendation, so that the move goes into the run's one commit. The answer for the script is `--rename-glossary` on a yes, and no flag on a no.
 5. **Ask whether to move the ADR folder, only when the repo has an ADR folder of another tool.** One question for the repo, covering every such folder, composed with the ask-user-question skill. Put each folder's path, its number of ADRs and two of their titles in the question. Options: move each ADR into `docs/decisions/` as a DEC file with `kind: architecture`, inside the run's one commit; keep the folder as read-only history, which `domain.md` points to, while each new decision still gets a DEC file. Recommend move: then every decision lives in one folder, which `brain check` and the brain skills read. Recommend keep when another tool still writes ADRs into the folder. The answer for the script is `move` or `keep`.
-6. **Show the dry run.** Leave out each flag whose question steps 1 to 5 did not ask. Quote a value that holds a space.
+6. **Show the dry run.** Leave out each flag whose question was not asked. Quote a value that holds a space.
 
    ```
-   bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --migrate --plan-spec <answer> --ideas <answer> --tracker-files <answer> --adr-folder <answer> --rename-glossary --dry-run
+   bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --migrate --plan-spec <answer> --ideas <answer> --tracker-files <answer> --adr-folder <answer> --rename-glossary --specs-folder <answer> --dry-run
    ```
 
-   Show every line: `moved <old> -> <new>`, `updated <file>`, `created <file>`, `removed <file>`, or `skipped <file>` with its reason. When a reason ends with "commit it first" or "commit them first", tell the user which file waits: the user commits it, and you show the dry run again. Exit 2 means the script needs an answer that steps 1 to 5 did not give, or an answer names no file it found; its message names each flag and the files it found. The step is done when the user has seen every line.
+   Show every line: `moved <old> -> <new>`, `updated <file>`, `created <file>`, `removed <file>`, or `skipped <file>` with its reason. When a reason ends with "commit it first" or "commit them first", tell the user which file waits: the user commits it, and you show the dry run again. Exit 2 means the script needs an answer that steps 1 to 5 did not give, or an answer names no file it found; its message names each flag and the files it found. A line that names `--specs-folder` gets the specs-folder question of step 4 of the setup. The step is done when the user has seen every line.
 7. **Write, after the user's yes:** the same command without `--dry-run`. It prints `committed <sha>`; give the user that SHA. When a move, a removal, a write or the commit fails, the script puts every file back as it was and exits 1; show its message. When the user says no, go on with step 3 of the setup: the install leaves `workspace.md` out, so the next run of setup-brain offers the migration again.
 8. **Check the migrated repo** with `brain check`:
 
