@@ -382,14 +382,16 @@ Last: set status: resolved. Reply with the file path only.
 | Map rows, plan tasks | Local to their file, two digits | `IDEA-004#03` |
 | Fixed files in a spec | Plain names | `spec.md`, `tasks/plan.md` |
 
-`brain new-doc <TYPE> <slug>`:
+`brain new-doc <TYPE> <slug> [--title "<text>"]`:
 
 1. Finds the highest existing number for the type.
 2. Claims the next one atomically with `mkdir $(git rev-parse --git-common-dir)/brain/ids/<TYPE>/<NNN>`.
    `mkdir` fails if the directory exists, so only one agent wins a number; the loser
    retries with the next. Outside a git repo, the claims folder is in the user's cache
    directory.
-3. Creates the file from the type's template and prints the path.
+3. Creates the file from the type's template and prints the path. Each H1 gets the
+   `--title` text after the ID, or the slug as words (Decisions row "Placeholder titles and
+   map cycles").
 
 The claims live inside git's own folder, so a user's `.gitignore` needs nothing, and
 claims stay unique across worktrees on one machine (amended 2026-10-29; first drafted as
@@ -750,6 +752,7 @@ cannot.
 | No tasks in an external tracker | planning-and-task-breakdown drops its external-tracker option: tasks live only in the spec folder's plan rows and todo blocks, so status has one home and `brain plan` sees every task's files. T43 makes the edit, since it already changes that skill | Peter, 2026-10-29, on T27's finding |
 | Stage and phase are two words | "Stage" is the lifecycle: define, plan, build, verify, review, ship, as using-brain's Stage column already says. "Phase" is only the plan sense: the tasks one checkpoint waits on. `brain status` prints `Stage:`, not `Phase:`, at no user cost because it has not shipped. The boundary sense follows: `references/brain/phase-boundaries.md` becomes `stage-boundaries.md`, with its title and using-brain's mentions. `GLOSSARY.md` gets two entries, Stage and Phase, each naming the other under _Avoid_ for its sense. `lifecycle:check` (or `brain check`) fails on `Phase:` in status output or "phase boundary" in brain-owned text | Peter, 2026-10-29, on T47's question |
 | Skill sections named phases | spec-driven-development's Phase 0 to 4 (Scope check, Specify, Plan, Tasks, Implement) are the lifecycle, so they become stages. Other skills keep the phases they number as their own sections (idea-refine, debugging-and-error-recovery, `/ship`), and the rollout and commit-message examples stay. `GLOSSARY.md`'s Phase entry gains one line: "A skill may number its own sections as phases (idea-refine, debugging); those are sections of that skill, not plan phases." | Peter, 2026-10-29, on T49's question |
+| Placeholder titles and map cycles | `brain check` keeps the rule that reports an H1 whose title is still a template placeholder (`# DEC-001: <title>`). The rule reads the H1 title only. `brain new-doc` takes `--title "<text>"` for every type and writes it after the ID in each H1. Without it, new-doc builds the title from the slug: `pin-addy-skills` becomes "Pin addy skills". So a file from new-doc never trips the rule, and the rule catches a template copied by hand. In the same review fix, `brain check` reports a map whose blocked-by edges form a cycle, in one line, as it already did for a plan; before, such a map passed and `brain status` showed nothing red. Success criterion 3 names both rules | Peter, 2026-10-29, at the phase 6 review: his answer on finding 6 (the placeholder rule), and required finding 4 (map cycles) |
 | The protocol's budget | The protocol stays within its 4,000 characters, which leave 6,000 of the session-start hook's 10,000 for the status. A new rule goes to using-brain (routing and working rules) or to `docs/agents/workspace.md` (layout and naming), not to the protocol. The budget test in `scripts/plain-talk/__tests__/render.test.ts` says so where a new rule would break it; `protocol/PROTOCOL.md` has no room for the line (3,975 characters) | Peter, 2026-10-29, at the phase 5 review |
 
 ## Rejected options

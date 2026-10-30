@@ -3,7 +3,7 @@ id: {{id}}
 status: define # define | specced | done | parked
 result: # with status: done, the DEC-NNN or the commit SHA this idea produced
 ---
-# {{id}}: <title>
+# {{id}}: {{title}}
 
 ## Intent
 - Outcome: <one line>

@@ -172,7 +172,7 @@ Recommended: Save it, because the one-pager is lost with this conversation other
 **User responds:** "Save it."
 
 ```
-$ brain new-doc IDEA regulars-reorder
+$ brain new-doc IDEA regulars-reorder --title "ReOrder: Keep Your Regulars Ordering Direct"
 docs/ideas/IDEA-001-regulars-reorder.md
 ```
 
@@ -386,7 +386,7 @@ Recommended: A, because two devices are rarely online at once, which rules out B
 The skill records the pick at once, and writes no one-pager:
 
 ```
-$ brain new-doc DEC hosted-sync-service
+$ brain new-doc DEC hosted-sync-service --title "Sync through a hosted service fed by the store's change feed"
 docs/decisions/DEC-002-hosted-sync-service.md
 ```
 

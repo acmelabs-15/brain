@@ -127,15 +127,14 @@ The chart writes the map before the first question, and asks the user nothing. R
 
 2. **Map the frontier breadth-first.** List every question you can state precisely now, across the whole space, wide before deep. The first frontier usually holds the four coverage questions: who the user is, why now, what success looks like, and the binding constraint. Give each question its type from the Rows table. A question you cannot state yet is fog; work past the destination is out of scope.
 
-3. **Write the idea file.** Pick a slug from the hypothesis (lowercase words joined by hyphens, such as `team-metrics`) and run:
+3. **Write the idea file.** Pick a slug from the hypothesis (lowercase words joined by hyphens, such as `team-metrics`) and a title of a few words, and run:
 
    ```
-   bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc IDEA <slug>
+   bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc IDEA <slug> --title "<title>"
    ```
 
-   It claims the next idea number, writes the file from its template, and prints the path. Then fill every part:
+   It claims the next idea number, writes the file from its template with the title in its H1, and prints the path. Then fill every part:
 
-   - The H1 title after the ID.
    - The Intent draft: your hypothesis on each line. Where you cannot guess, name the row that settles it: `- Success: open, row 03.` Leave the "Confirmed by" comment as it is; it becomes a line only after the user's explicit yes.
    - The Destination.
    - Notes: "Every session loads ask-user-question, domain-modeling and context-engineering.", then any standing preference the user stated.
@@ -161,12 +160,12 @@ The loop takes rows from the frontier, resolves each one, and re-maps after each
    - A decide row: write the `DEC` the moment the user decides, before the next question. Follow domain-modeling's three steps: run the command below, fill the record with `from: IDEA-NNN#NN` (this row), and run `brain check`.
 
      ```
-     bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc DEC <slug>
+     bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc DEC <slug> --title "<the decision, in a few words>"
      ```
 
      A reply that settles part of the row, or hands the choice back to you, gets no record. The row stays `open`, and its gap is the next question.
    - A research row: the sub-agent replies with the path of its `RES` file. Read the file to its last line. It is the result when its `status` is `resolved`.
-   - A do row: run `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc RES <slug>`, and fill the record with `kind: task`, what was done, and the facts later rows need.
+   - A do row: run `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc RES <slug> --title "<the work, in a few words>"`, and fill the record with `kind: task`, what was done, and the facts later rows need.
 
    Then set the row to `resolved`, with the record's ID in Result.
 4. **Re-map**, as below, and write the idea file.
@@ -381,7 +380,7 @@ User: build me a dashboard for our metrics
 Agent (chart):
 HYPOTHESIS: You want a way to answer "how are we doing?" in standup, and "dashboard" is the conventional answer.
 DESTINATION (draft): a spec for the view that answers "how are we doing?"
-$ brain new-doc IDEA team-metrics
+$ brain new-doc IDEA team-metrics --title "Team metrics"
 docs/ideas/IDEA-003-team-metrics.md
 
 ## Map

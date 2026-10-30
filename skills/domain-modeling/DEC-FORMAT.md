@@ -7,14 +7,14 @@ A decision record is a file that records one decision the user made, with its re
 Decision records live in the workspace's decisions folder: `paths.decisions` in `docs/agents/workspace.md`, `docs/decisions/` by default. Create each record with:
 
 ```
-brain new-doc DEC <slug>
+brain new-doc DEC <slug> --title "<title>"
 ```
 
-It claims the next free number, writes `DEC-NNN-<slug>.md` from the template, and prints the path. The claim gives each number to one agent only, which a file written by hand cannot do. The slug is lowercase words joined by hyphens, such as `orders-event-sourcing`. The folder comes into being with the first record.
+It claims the next free number, writes `DEC-NNN-<slug>.md` from the template, and prints the path. The claim gives each number to one agent only, which a file written by hand cannot do. The slug is lowercase words joined by hyphens, such as `orders-event-sourcing`. The title is the decision in a few words; without `--title`, new-doc makes it from the slug ("Orders event sourcing"). The folder comes into being with the first record.
 
 ## Fill the template
 
-new-doc fills the ID and today's date. You replace every `<...>` placeholder. A filled record:
+new-doc fills the ID, the title and today's date. You replace every `<...>` placeholder. A filled record:
 
 ```md
 ---

@@ -1,8 +1,9 @@
 /**
- * brain new-doc <TYPE> <slug>: claim the next number of a type, write its file from the
- * type's template, and print the path. A SPEC gets a folder with three files, each printed.
- * The folders come from the workspace config; the number is one above every file of the type
- * and every claim made before.
+ * brain new-doc <TYPE> <slug> [--title "<text>"]: claim the next number of a type, write its file
+ * from the type's template, and print the path. A SPEC gets a folder with three files, each
+ * printed. Each H1 gets the title: the --title text, or the slug as words. The folders come
+ * from the workspace config; the number is one above every file of the type and every claim
+ * made before.
  */
 import { mkdir, realpath } from "node:fs/promises";
 import path from "node:path";
@@ -11,10 +12,11 @@ import { claim, claimsFolder } from "./claims";
 import { findRepo, readConfig } from "./config";
 import type { Paths } from "./config";
 
-const usage = `usage: brain new-doc <TYPE> <slug>
+const usage = `usage: brain new-doc <TYPE> <slug> [--title "<text>"]
 
-  TYPE   IDEA, DEC, RES or SPEC
-  slug   lowercase words joined by hyphens, such as pin-skills`;
+  TYPE     IDEA, DEC, RES or SPEC
+  slug     lowercase words joined by hyphens, such as pin-addy-skills
+  --title  the title after the ID in each H1; without it, the slug as words: "Pin addy skills"`;
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
@@ -47,12 +49,26 @@ function today(): string {
   return `${now.getFullYear()}-${twoDigits(now.getMonth() + 1)}-${twoDigits(now.getDate())}`;
 }
 
-/** Fill a template: `{{id}}` in a numbered file and `{{spec}}` in a spec folder take the ID. */
-function fill(template: string, id: string, date: string): string {
-  return template.replaceAll("{{id}}", id).replaceAll("{{spec}}", id).replaceAll("{{date}}", date);
+/** The title a slug gives when there is no --title: its words, the first one capitalized. */
+function titleOf(slug: string): string {
+  const words = slug.replaceAll("-", " ");
+  return `${words.charAt(0).toUpperCase()}${words.slice(1)}`;
 }
 
-async function create(type: string, kind: Kind, slug: string): Promise<string[]> {
+/**
+ * Fill a template: `{{id}}` in a numbered file and `{{spec}}` in a spec folder take the ID. The
+ * title goes in last, through a function, so its text stays as given: no `$&` or `{{id}}` in it
+ * is read as a pattern.
+ */
+function fill(template: string, id: string, date: string, title: string): string {
+  return template
+    .replaceAll("{{id}}", id)
+    .replaceAll("{{spec}}", id)
+    .replaceAll("{{date}}", date)
+    .replaceAll("{{title}}", () => title);
+}
+
+async function create(type: string, kind: Kind, slug: string, title: string): Promise<string[]> {
   const cwd = await realpath(process.cwd());
   const repo = await findRepo(cwd);
   const config = await readConfig(repo.root);
@@ -72,7 +88,7 @@ async function create(type: string, kind: Kind, slug: string): Promise<string[]>
     for (const { end, template } of files) {
       const file = `${folder}/${id}-${slug}${end}`;
       await mkdir(path.dirname(file), { recursive: true });
-      await Bun.write(file, fill(template, id, date));
+      await Bun.write(file, fill(template, id, date, title));
       written.push(path.relative(cwd, file));
     }
   } catch (error) {
@@ -82,10 +98,24 @@ async function create(type: string, kind: Kind, slug: string): Promise<string[]>
   return written;
 }
 
-/** Run `brain new-doc <TYPE> <slug>` and return the exit code. */
+/**
+ * Split off --title and the text after it: the other arguments, and the title (null when there is
+ * no --title). Null when --title has no text after it.
+ */
+function takeTitle(args: string[]): { rest: string[]; title: string | null } | null {
+  const at = args.indexOf("--title");
+  if (at === -1) {
+    return { rest: args, title: null };
+  }
+  const title = args[at + 1];
+  return title === undefined ? null : { rest: args.toSpliced(at, 2), title };
+}
+
+/** Run `brain new-doc <TYPE> <slug> [--title "<text>"]` and return the exit code. */
 export async function newDoc(args: string[]): Promise<number> {
-  const [type, slug] = args;
-  if (args.length !== 2 || type === undefined || slug === undefined) {
+  const taken = takeTitle(args);
+  const [type, slug] = taken?.rest ?? [];
+  if (taken?.rest.length !== 2 || type === undefined || slug === undefined) {
     console.error(usage);
     return 2;
   }
@@ -100,8 +130,15 @@ export async function newDoc(args: string[]): Promise<number> {
     console.error(usage);
     return 2;
   }
+  // A title must fill one H1 line, so it needs text and no line break.
+  const { title } = taken;
+  if (title !== null && (title.trim() === "" || /[\r\n]/u.test(title))) {
+    console.error(`bad title: ${JSON.stringify(title)}`);
+    console.error(usage);
+    return 2;
+  }
   try {
-    for (const file of await create(type, kind, slug)) {
+    for (const file of await create(type, kind, slug, title?.trim() ?? titleOf(slug))) {
       console.log(file);
     }
     return 0;

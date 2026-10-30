@@ -5,7 +5,7 @@ kind: <research or task>
 from: <IDEA-NNN#NN> # a row (IDEA-NNN#NN, SPEC-NNN#NN), an idea or spec (IDEA-NNN, SPEC-NNN), or user
 date: {{date}}
 ---
-# {{id}}: <title>
+# {{id}}: {{title}}
 
 ## Question
 <the row's question>

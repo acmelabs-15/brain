@@ -1,7 +1,7 @@
 ---
 spec: {{spec}}
 ---
-# {{spec}} todo: <title>
+# {{spec}} todo: {{title}}
 
 One block per row of `plan.md`, under the row's number. The row in `plan.md` holds the status and the rows that block it.
 

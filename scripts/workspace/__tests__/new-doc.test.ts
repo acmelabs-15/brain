@@ -107,7 +107,7 @@ describe("brain new-doc, one case per type", () => {
     expect(res.stdout).toBe("docs/decisions/DEC-001-pin-skills.md\n");
     const text = await Bun.file(`${repo}/docs/decisions/DEC-001-pin-skills.md`).text();
     expect(text).toContain(`\ndecided: ${today} by <name>\n`);
-    expect(text).toContain("\n# DEC-001: <title>\n");
+    expect(text).toContain("\n# DEC-001: Pin skills\n");
     expect(fields(checkDoc("DEC", text, "DEC-001"))).toEqual([
       "kind",
       "adr-test",
@@ -163,6 +163,96 @@ describe("brain new-doc, one case per type", () => {
     ]);
     expect(await listed(`${repo}/.git/brain/ids/DEC`)).toEqual(["001", "002"]);
     expect(await listed(`${repo}/.git/brain/ids/RES`)).toEqual(["001"]);
+  });
+});
+
+/** The H1 of each file a run printed, in the order it printed them. */
+async function headings(root: string, stdout: string): Promise<string[]> {
+  const paths = stdout.split("\n").filter((line) => line !== "");
+  const texts = await Promise.all(paths.map((path) => Bun.file(`${root}/${path}`).text()));
+  return texts.map((text) => text.split("\n").find((line) => line.startsWith("# ")) ?? "");
+}
+
+describe("brain new-doc, the title", () => {
+  test.each([
+    ["IDEA", ["# IDEA-001: Pin addy skills"]],
+    ["DEC", ["# DEC-001: Pin addy skills"]],
+    ["RES", ["# RES-001: Pin addy skills"]],
+    [
+      "SPEC",
+      [
+        "# SPEC-001: Pin addy skills",
+        "# SPEC-001 plan: Pin addy skills",
+        "# SPEC-001 todo: Pin addy skills",
+      ],
+    ],
+  ])("with no --title, %s takes its title from the slug, as words", async (type, expected) => {
+    const repo = await gitRepo(`title-slug-${type}`);
+    const res = await brain(repo, ["new-doc", type, "pin-addy-skills"]);
+    expect(res.stderr).toBe("");
+    expect(res.code).toBe(0);
+    expect(await headings(repo, res.stdout)).toEqual(expected);
+  });
+
+  test("--title sets the title in the H1 of every file it writes", async () => {
+    const repo = await gitRepo("title-option");
+    const res = await brain(repo, [
+      "new-doc",
+      "SPEC",
+      "workspace",
+      "--title",
+      "Keep the define stage on disk",
+    ]);
+    expect(res.stderr).toBe("");
+    expect(res.code).toBe(0);
+    expect(await headings(repo, res.stdout)).toEqual([
+      "# SPEC-001: Keep the define stage on disk",
+      "# SPEC-001 plan: Keep the define stage on disk",
+      "# SPEC-001 todo: Keep the define stage on disk",
+    ]);
+  });
+
+  test("--title may come first, and its text is written as given, with no placeholder filled in it", async () => {
+    const repo = await gitRepo("title-verbatim");
+    const title = "Pay in $& or {{id}}, with  <care>";
+    const res = await brain(repo, ["new-doc", "--title", title, "DEC", "pay-in-dollars"]);
+    expect(res.stderr).toBe("");
+    expect(res.code).toBe(0);
+    expect(await headings(repo, res.stdout)).toEqual([`# DEC-001: ${title}`]);
+  });
+
+  test("a fresh file of any type has no H1 finding, and spec.md and todo.md, whose only placeholder was the title, pass brain check", async () => {
+    const repo = await gitRepo("title-checked");
+    for (const type of ["IDEA", "DEC", "RES", "SPEC"]) {
+      const res = await brain(repo, ["new-doc", type, "pin-addy-skills"]);
+      expect(res.code).toBe(0);
+    }
+    const res = await brain(repo, ["check"]);
+    const findings = res.stdout.split("\n").filter((line) => line.includes(": "));
+    expect(findings.length).toBeGreaterThan(0);
+    expect(findings.filter((line) => line.includes(": H1: "))).toEqual([]);
+    expect(findings.filter((line) => /\/(?:spec|tasks\/todo)\.md: /u.test(line))).toEqual([]);
+  });
+
+  test.each([
+    ["--title with no text after it", ["DEC", "pin-skills", "--title"], "usage"],
+    ["an empty title", ["DEC", "pin-skills", "--title", ""], 'bad title: ""'],
+    ["a title of spaces", ["DEC", "pin-skills", "--title", "   "], 'bad title: "   "'],
+    [
+      "a title of two lines",
+      ["DEC", "pin-skills", "--title", "One\nTwo"],
+      'bad title: "One\\nTwo"',
+    ],
+    ["--title twice", ["DEC", "pin-skills", "--title", "One", "--title", "Two"], "usage"],
+  ])("%s prints the usage, exits 2, and writes and claims nothing", async (_name, args, said) => {
+    const repo = await gitRepo(`title-bad-${Bun.hash(JSON.stringify(args))}`);
+    const res = await brain(repo, ["new-doc", ...args]);
+    expect(res.code).toBe(2);
+    expect(res.stdout).toBe("");
+    expect(res.stderr).toContain(said === "usage" ? "usage: brain new-doc" : said);
+    expect(res.stderr).toContain('usage: brain new-doc <TYPE> <slug> [--title "<text>"]');
+    expect(await exists(`${repo}/docs`)).toBe(false);
+    expect(await exists(`${repo}/.git/brain`)).toBe(false);
   });
 });
 

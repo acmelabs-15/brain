@@ -285,6 +285,25 @@ decided: 2026-10-24 by Sam
     expect(res.code).toBe(1);
   });
 
+  test("a map whose blocked-by edges form a cycle: rows 08 and 10 wait on each other", async () => {
+    // Neither row can reach the frontier, so the map would stall with nothing red.
+    const row08 = "encrypted at launch? | interview | open | — |";
+    const row10 = "on the test account | task | open | 05 |";
+    const text = await Bun.file(`${fixtures}/idea-mid-define/${idea}`).text();
+    expect(text).toContain(row08);
+    expect(text).toContain(row10);
+    const root = await repo("map-cycle", "idea-mid-define", {
+      [idea]: text
+        .replace(row08, "encrypted at launch? | interview | open | 10 |")
+        .replace(row10, "on the test account | task | open | 05, 08 |"),
+    });
+    const res = await brain(root, "check");
+    expect(res.stdout).toBe(
+      lines(`${idea}: cycle: 08 is blocked by 10, 10 by 08`, "1 finding in 5 workspace files"),
+    );
+    expect(res.code).toBe(1);
+  });
+
   test("a blocked-by that names no row in the same plan", async () => {
     const root = await repo(
       "blocked-by-plan",
@@ -420,7 +439,7 @@ decided: 2026-10-24 by Sam
     expect(res.code).toBe(1);
   });
 
-  test("an H1 whose title is still the template's placeholder", async () => {
+  test("an H1 whose title is still the template's placeholder, as in a template copied by hand", async () => {
     const path = "docs/decisions/DEC-001-phones-and-laptops.md";
     const root = await repo(
       "h1-placeholder",

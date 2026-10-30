@@ -67,7 +67,7 @@ When a term is resolved, update `GLOSSARY.md` right there. Don't batch these up:
 
 When the user makes a decision, record it the moment it is made, small or large:
 
-1. Run `brain new-doc DEC <slug>`. It claims the next number, writes the decision record from its template, and prints the path. On Claude Code, `brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`; on other hosts, `docs/agents/workspace.md` says how to run it.
+1. Run `brain new-doc DEC <slug> --title "<the decision, in a few words>"`. It claims the next number, writes the decision record from its template with the title in its H1, and prints the path. On Claude Code, `brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`; on other hosts, `docs/agents/workspace.md` says how to run it.
 2. Fill the record in the format in [DEC-FORMAT.md](./DEC-FORMAT.md). The three tests there (`hard-to-reverse`, `surprising`, `real-trade-off`) set its kind: all three true is `kind: architecture`, an ADR; any one false is `kind: decision`.
 3. Run `brain check`. The record is done when every `<...>` placeholder is replaced and `brain check` reports no finding for it.
 

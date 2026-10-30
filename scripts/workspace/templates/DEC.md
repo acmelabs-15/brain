@@ -10,6 +10,6 @@ from: <IDEA-NNN#NN> # a row (IDEA-NNN#NN, SPEC-NNN#NN), an idea or spec (IDEA-NN
 evidence: [] # the RES files this decision rests on
 decided: {{date}} by <name>
 ---
-# {{id}}: <title>
+# {{id}}: {{title}}
 
 <1-3 sentences: the context, what was decided, and why. Name the rejected options when they are worth remembering.>

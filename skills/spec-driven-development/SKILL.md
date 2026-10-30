@@ -154,15 +154,14 @@ Then add the three sections that follow them in the template:
 
 9. **Prior-art tests**: existing tests the new ones should resemble, by path, at the seams from step 3.
 
-**Where the spec lives.** Every spec lives in its own spec folder, `SPEC-NNN-<slug>/`, in the workspace's specs folder (`paths.specs` in `docs/agents/workspace.md`, `docs/specs/` by default). Create the folder with `brain new-doc`, never by hand. Pick a slug (lowercase words joined by hyphens; for a module spec, its module id) and run:
+**Where the spec lives.** Every spec lives in its own spec folder, `SPEC-NNN-<slug>/`, in the workspace's specs folder (`paths.specs` in `docs/agents/workspace.md`, `docs/specs/` by default). Create the folder with `brain new-doc`, never by hand. Pick a slug (lowercase words joined by hyphens; for a module spec, its module id) and the spec's title, and run:
 
 ```
-bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc SPEC <slug>
+bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc SPEC <slug> --title "<title>"
 ```
 
-It claims the next spec number and writes `spec.md`, `tasks/plan.md` and `tasks/todo.md` from brain's templates. `spec.md` comes from `scripts/workspace/templates/spec.md` in the plugin, which holds the sections above plus Tech Stack, Success Criteria and Open Questions. Fill `spec.md`:
+It claims the next spec number and writes `spec.md`, `tasks/plan.md` and `tasks/todo.md` from brain's templates, each with the spec's ID and the title in its H1: `# SPEC-012: <title>`. `spec.md` comes from `scripts/workspace/templates/spec.md` in the plugin, which holds the sections above plus Tech Stack, Success Criteria and Open Questions. Fill `spec.md`:
 
-- The H1: the ID the template wrote, then the spec's title: `# SPEC-012: <title>`.
 - Every section, with the template's headings unchanged.
 - `sources:` in the frontmatter: every IDEA, DEC and RES file the spec comes from, such as `sources: [IDEA-004, DEC-031, RES-009]`. Links run one way: an idea holds no list of its specs.
 - When `sources:` names an idea, set that idea's `status` to `specced`. The idea is then finished, and a session that resumes it goes to this spec.

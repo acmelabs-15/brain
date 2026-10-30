@@ -371,8 +371,14 @@ Each item names how it is verified.
    section (a bad name, a duplicate number, frontmatter that does not match its template, a
    resolved row with no existing `DEC` or `RES` link, a blocked-by that names no row in the
    same map, a spec `sources:` entry that does not exist, a superseded-by with no target),
-   plus a wrong H1 prefix, a `spec:` field that does not match its folder, and a malformed
-   `RES` finding. It exits 0 on the clean fixtures. Test: one fixture per rule.
+   plus a wrong H1 prefix, a `spec:` field that does not match its folder, a malformed `RES`
+   finding, a map whose blocked-by edges form a cycle, and an H1 whose title is still a
+   template placeholder (`# DEC-001: <title>`). It exits 0 on the clean fixtures. The
+   placeholder rule reads the H1 title only. A file from `brain new-doc` never trips it:
+   new-doc takes `--title "<text>"` and, without it, builds the title from the slug
+   (`pin-addy-skills` becomes "Pin addy skills"), so the rule catches a template copied by
+   hand (Decisions row "Placeholder titles and map cycles"). Test: one fixture per rule; a
+   file new-doc writes with no `--title` gets no H1 finding; `--title` sets the H1.
 4. `bun run check` runs `workspace:check` and `sync --check`, and is green on brain. Brain's
    seven `DEC` and `RES` files gain frontmatter through the migrate mode (`migrated: 0.8` in
    place of `from`), with their bodies

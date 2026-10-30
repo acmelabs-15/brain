@@ -138,39 +138,37 @@ function brain(root: string, ...args: string[]): { exitCode: number; out: string
   return { exitCode: res.exitCode, out: `${res.stdout.toString()}${res.stderr.toString()}` };
 }
 
-/** Run `brain new-doc SPEC <name>` in a scaffold; return the Bash call as the skill spells it. */
+/** Run `brain new-doc SPEC <name> --title` in a scaffold; return the Bash call as the skill spells it. */
 function newSpec(root: string, name: string): Call {
-  const res = brain(root, "new-doc", "SPEC", name);
+  const res = brain(root, "new-doc", "SPEC", name, "--title", "Word counter");
   expect(res.exitCode).toBe(0);
   // Claude Code puts the plugin's path in place of ${CLAUDE_PLUGIN_ROOT} when the skill loads.
   return {
     tool: "Bash",
-    input: { command: `bun "/plugins/brain/scripts/brain.ts" new-doc SPEC ${name}` },
+    input: {
+      command: `bun "/plugins/brain/scripts/brain.ts" new-doc SPEC ${name} --title "Word counter"`,
+    },
   };
 }
 
 /** The spec from the prompt, written into the spec.md that new-doc made. */
 function fillSpec(text: string): string {
-  return text
-    .replace("<title>", "Word counter")
-    .replace(
-      /## Objective\n<[^>\n]*>/u,
-      "## Objective\nA command-line tool that prints the number of words in a text file.",
-    );
+  return text.replace(
+    /## Objective\n<[^>\n]*>/u,
+    "## Objective\nA command-line tool that prints the number of words in a text file.",
+  );
 }
 
-/** The plan of a correct run: its H1, and one open row per task, in the template's format. */
+/** The plan of a correct run: one open row per task, in the template's format. */
 function fillPlan(text: string): string {
-  return text
-    .replace("<title>", "Word counter")
-    .replace(
-      "| 01 | <task> | <task or checkpoint> | open | — | — |",
-      [
-        "| 01 | Count the words in a file | task | open | — | — |",
-        "| 02 | Exit 1 on a missing file | task | open | 01 | — |",
-        "| 03 | Checkpoint: after tasks 01-02 | checkpoint | open | 01, 02 | — |",
-      ].join("\n"),
-    );
+  return text.replace(
+    "| 01 | <task> | <task or checkpoint> | open | — | — |",
+    [
+      "| 01 | Count the words in a file | task | open | — | — |",
+      "| 02 | Exit 1 on a missing file | task | open | 01 | — |",
+      "| 03 | Checkpoint: after tasks 01-02 | checkpoint | open | 01, 02 | — |",
+    ].join("\n"),
+  );
 }
 
 /** The block of one task, in the template's format. */
@@ -200,7 +198,7 @@ function fillTodo(text: string): string {
     block("02", "Exit 1 on a missing file", "A missing file exits 1 with a message", "missing"),
     "## Checkpoint 03: After tasks 01-02\n- [ ] `bun test` passes\n",
   ].join("\n");
-  return text.replace("<title>", "Word counter").replace(/## Task 01: [\s\S]*$/u, blocks);
+  return text.replace(/## Task 01: [\s\S]*$/u, blocks);
 }
 
 /**

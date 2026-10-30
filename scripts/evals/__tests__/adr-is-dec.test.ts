@@ -19,6 +19,8 @@ const caseDir = `${import.meta.dir}/../../../evals/lifecycle/adr-is-dec`;
 const cli = `${import.meta.dir}/../../brain.ts`;
 const slug = "orders-event-sourcing";
 const record = `docs/decisions/DEC-001-${slug}.md`;
+/** The title a correct run gives the record through --title: the decision, in a few words. */
+const title = "Event-source the orders write model";
 let work: string;
 
 type Grader = Record<string, unknown> & { name: string; type: string };
@@ -138,16 +140,16 @@ async function scaffold(name: string): Promise<string> {
   return root;
 }
 
-/** Run `brain new-doc DEC <name>` in a scaffold, and return the command as the skill spells it. */
+/** Run `brain new-doc DEC <name> --title` in a scaffold, and return the command as the skill spells it. */
 function newDoc(root: string, name: string): string {
-  const res = Bun.spawnSync(["bun", cli, "new-doc", "DEC", name], {
+  const res = Bun.spawnSync(["bun", cli, "new-doc", "DEC", name, "--title", title], {
     cwd: root,
     env: { ...process.env, GIT_CEILING_DIRECTORIES: work },
   });
   expect(res.stderr.toString()).toBe("");
   expect(res.exitCode).toBe(0);
   // Claude Code puts the plugin's path in place of ${CLAUDE_PLUGIN_ROOT} when the skill loads.
-  return `bun "/plugins/brain/scripts/brain.ts" new-doc DEC ${name}`;
+  return `bun "/plugins/brain/scripts/brain.ts" new-doc DEC ${name} --title "${title}"`;
 }
 
 /** Fill a new decision record the way an agent does for the case's decision: an ADR. */
@@ -159,7 +161,6 @@ function fillAsArchitecture(text: string): string {
     .replace("real-trade-off: <true or false>", "real-trade-off: true")
     .replace("<IDEA-NNN#NN>", "user")
     .replace("<name>", "Sam")
-    .replace("<title>", "Event-source the orders write model")
     .replace(
       /<1-3 sentences:[^>\n]*>/u,
       "Finance needs a full audit trail of every order change, so the orders write model is event-sourced and the read side is projected into Postgres. Plain CRUD tables lose that trail, and a hosted event store is out because ops runs only Postgres.",

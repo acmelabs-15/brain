@@ -16,10 +16,10 @@ import { isDirectory } from "../lib/files";
 import { tableCells } from "../lib/table";
 import { findRepo, readConfig } from "./config";
 import type { Paths } from "./config";
-import { blockersOf } from "./graph";
+import { blockersOf, findCycle } from "./graph";
 import { readRows } from "./map";
 import type { Row, Table } from "./map";
-import { parallelWaves, renderParallelWaves } from "./plan";
+import { cycleProblem, parallelWaves, renderParallelWaves } from "./plan";
 import { checkDoc, readFrontmatter } from "./schema";
 import type { DocType } from "./schema";
 
@@ -223,7 +223,8 @@ function checkpointProblems(plan: readonly Row[]): string[] {
 
 /**
  * The problems with the rows of a map or plan. A map row's result must name an existing DEC or
- * RES; a plan's checkpoints must block the right tasks.
+ * RES, and its blocked-by edges must hold no cycle; a plan's checkpoints must block the right
+ * tasks (a plan's cycle is the waves check's finding, as `brain plan` names it).
  */
 function rowProblems(table: Table, body: string, known: Set<string>): string[] {
   const { rows, problems } = readRows(table, body);
@@ -239,6 +240,11 @@ function rowProblems(table: Table, body: string, known: Set<string>): string[] {
     for (const link of links.filter((id) => !known.has(id))) {
       problems.push(`row ${row.id}: result ${link} does not exist`);
     }
+  }
+  // A row left out for its format only takes edges away, so a cycle in the rest is a real one.
+  const cycle = findCycle(rows);
+  if (cycle !== null) {
+    problems.push(cycleProblem(cycle));
   }
   return problems;
 }

@@ -71,7 +71,7 @@ function filesByRow(todo: string): Map<string, string[]> {
 }
 
 /** The text that names a cycle: `["02", "04", "03", "02"]` is "02 is blocked by 04, 04 by 03, 03 by 02". */
-function cycleProblem(cycle: string[]): string {
+export function cycleProblem(cycle: string[]): string {
   const [row, blocker, ...rest] = cycle;
   const later = rest.map((next, at) => `${cycle[at + 1]} by ${next}`);
   return `cycle: ${[`${row} is blocked by ${blocker}`, ...later].join(", ")}`;

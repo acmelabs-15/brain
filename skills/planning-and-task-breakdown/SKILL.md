@@ -184,7 +184,7 @@ Tasks live only in these two files, so status has one home and `brain plan` sees
 When spec-driven-development wrote the spec, `brain new-doc SPEC` created both files from brain's templates. When the spec has no spec folder yet (it came in the chat, or from a file outside the workspace), create one first:
 
 ```
-bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc SPEC <slug>
+bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc SPEC <slug> --title "<the spec's title>"
 ```
 
 Claude Code fills in the plugin path when it loads this skill. On another host, resolve the plugin folder as setup-brain does, then run `scripts/brain.ts` from it with bun. Put the spec into the new `spec.md`, as spec-driven-development's step 5 says. In a repo with no `docs/agents/workspace.md`, the command uses the default folders: tell the user once to run setup-brain.

@@ -9,12 +9,16 @@ function template(type: DocType): Promise<string> {
   return Bun.file(`${templates}/${type}.md`).text();
 }
 
-/** Fill a template the way new-doc does: the claimed ID or the spec's ID, and today's date. */
+/**
+ * Fill a template the way new-doc does: the claimed ID or the spec's ID, today's date, and the
+ * title from the slug.
+ */
 function newDocFill(text: string, id: string): string {
   return text
     .replaceAll("{{id}}", id)
     .replaceAll("{{spec}}", id)
-    .replaceAll("{{date}}", "2026-10-29");
+    .replaceAll("{{date}}", "2026-10-29")
+    .replaceAll("{{title}}", "Workspace");
 }
 
 /** The cells of the table header that opens with `| # |`. */
@@ -95,7 +99,7 @@ spec: SPEC-012
 `;
 
 describe("templates", () => {
-  test("hold only the placeholders new-doc fills: {{id}} in a numbered file, {{spec}} in a spec folder, {{date}}", async () => {
+  test("hold only the placeholders new-doc fills: {{id}} in a numbered file, {{spec}} in a spec folder, {{date}}, {{title}}", async () => {
     const found: Record<string, string[]> = {};
     for (const type of ["IDEA", "DEC", "RES", "spec", "plan", "todo"] as const) {
       const text = await template(type);
@@ -103,12 +107,12 @@ describe("templates", () => {
       found[type] = [...new Set(names.map((match) => match.groups?.name ?? ""))].toSorted();
     }
     expect(found).toEqual({
-      IDEA: ["id"],
-      DEC: ["date", "id"],
-      RES: ["date", "id"],
-      spec: ["spec"],
-      plan: ["spec"],
-      todo: ["spec"],
+      IDEA: ["id", "title"],
+      DEC: ["date", "id", "title"],
+      RES: ["date", "id", "title"],
+      spec: ["spec", "title"],
+      plan: ["spec", "title"],
+      todo: ["spec", "title"],
     });
   });
 
@@ -139,8 +143,7 @@ describe("templates", () => {
       .replace("real-trade-off: <true or false>", "real-trade-off: true")
       .replace("<IDEA-NNN#NN>", "IDEA-004#03")
       .replace("[] # the RES files", "[RES-001] # the RES files")
-      .replace("<name>", "Peter")
-      .replace("<title>", "Pin addy's skills by SHA and sync with Bun");
+      .replace("<name>", "Peter");
     expect(checkDoc("DEC", filled, "DEC-031")).toEqual([]);
   });
 

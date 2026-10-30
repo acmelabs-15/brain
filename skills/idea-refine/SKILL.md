@@ -159,19 +159,19 @@ A standalone run ends here. The one-pager becomes an idea file, and interview-me
 
 With no repo, the one-pager stays in the conversation: say so once, and the run ends. In a repo, ask one question: save the one-pager as an idea file? Recommend yes, because interview-me resumes from the file, and the one-pager is lost with the conversation otherwise. Save only after a yes.
 
-1. Pick a slug from the idea's name: lowercase words joined by hyphens, such as `regulars-reorder`. Run:
+1. Pick a slug from the idea's name: lowercase words joined by hyphens, such as `regulars-reorder`. Run, with the one-pager's Idea Name as the title:
 
    ```
-   bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc IDEA <slug>
+   bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc IDEA <slug> --title "<Idea Name>"
    ```
 
-   It claims the next idea number, writes `IDEA-NNN-<slug>.md` from its template into the workspace's ideas folder, and prints the path. It creates the folder when the folder is missing.
+   It claims the next idea number, writes `IDEA-NNN-<slug>.md` from its template into the workspace's ideas folder, with the title in its H1, and prints the path. It creates the folder when the folder is missing.
 
 2. Fill each part of the idea file from the one-pager:
 
    | One-pager | Idea file |
    |---|---|
-   | Idea Name | The H1 title after the ID: `# IDEA-NNN: <Idea Name>`. |
+   | Idea Name | The H1 title after the ID, which `--title` already wrote: `# IDEA-NNN: <Idea Name>`. |
    | Problem Statement, Recommended Direction, MVP Scope | Destination, in that order: the "How might we" line, then the direction, then the MVP scope. |
    | Key Assumptions to Validate | The Map: one `research` row per assumption. Its question asks whether the assumption holds, and names the test in a few words. |
    | Open Questions | The Map, for each question you can state precisely: an `interview` row when the user decides it, a `research` row when facts answer it. Every other question goes to "Not yet specified". |
@@ -198,14 +198,13 @@ interview-me sends an `ideate` row here when the row reaches the frontier of its
 3. **Record the pick** the moment the user picks. Run:
 
    ```
-   bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc DEC <slug>
+   bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc DEC <slug> --title "<the chosen direction>"
    ```
 
    Fill it as [domain-modeling's DEC format](../domain-modeling/DEC-FORMAT.md) says, with these parts for an `ideate` row:
 
    - `from: IDEA-NNN#NN`, the `ideate` row.
    - `evidence`: the `RES` files the stress-test used, or `[]`.
-   - The H1 title: the chosen direction.
    - The body: the row's question, the chosen direction, and why the user chose it, in 1-3 sentences.
    - A `## Considered Options` section: every other direction, and every variation that no direction took up, one line each with the reason it lost.
 

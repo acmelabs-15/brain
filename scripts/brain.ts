@@ -18,7 +18,9 @@ type Command = (args: string[]) => Promise<number>;
 const usage = `usage: brain <command> [args]
 
 commands:
-  new-doc <TYPE> <slug>   create the next numbered file: IDEA, DEC, RES or SPEC
+  new-doc <TYPE> <slug> [--title "<text>"]
+                          create the next numbered file: IDEA, DEC, RES or SPEC, with the
+                          title in its H1 (without --title, the slug as words)
   check                   check the workspace against its rules
   plan [<spec>] [--json]  print what can run at once in a spec's plan: waves, critical path
   status [--json]         report the active work: stage, last step, next step`;

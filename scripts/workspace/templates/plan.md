@@ -1,7 +1,7 @@
 ---
 spec: {{spec}}
 ---
-# {{spec}} plan: <title>
+# {{spec}} plan: {{title}}
 
 ## Overview
 <one paragraph: what this plan builds, and in what order>

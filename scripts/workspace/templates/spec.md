@@ -2,7 +2,7 @@
 spec: {{spec}}
 sources: [] # the IDEA, DEC and RES files this spec comes from
 ---
-# {{spec}}: <title>
+# {{spec}}: {{title}}
 
 ## Objective
 <what we build and why; the acceptance criteria>

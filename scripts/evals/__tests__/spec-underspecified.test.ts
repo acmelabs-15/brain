@@ -121,21 +121,22 @@ function brain(root: string, ...args: string[]): { exitCode: number; out: string
   return { exitCode: res.exitCode, out: `${res.stdout.toString()}${res.stderr.toString()}` };
 }
 
-/** Run `brain new-doc IDEA <name>` in a scaffold; return the Bash call as the skill spells it. */
+/** Run `brain new-doc IDEA <name> --title` in a scaffold; return the Bash call as the skill spells it. */
 function newIdea(root: string, name: string): Call {
-  const res = brain(root, "new-doc", "IDEA", name);
+  const res = brain(root, "new-doc", "IDEA", name, "--title", "Team metrics");
   expect(res.exitCode).toBe(0);
   // Claude Code puts the plugin's path in place of ${CLAUDE_PLUGIN_ROOT} when the skill loads.
   return {
     tool: "Bash",
-    input: { command: `bun "/plugins/brain/scripts/brain.ts" new-doc IDEA ${name}` },
+    input: {
+      command: `bun "/plugins/brain/scripts/brain.ts" new-doc IDEA ${name} --title "Team metrics"`,
+    },
   };
 }
 
 /** The chart of interview-me's example: the hypothesis as a draft, four rows, and the fog. */
 function chart(text: string): string {
   return text
-    .replace("<title>", "Team metrics")
     .replace("- Outcome: <one line>", '- Outcome: a view that answers "how are we doing?"')
     .replace("- User: <one line>", "- User: open, row 01.")
     .replace("- Why now: <one line>", "- Why now: open, row 01.")
