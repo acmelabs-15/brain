@@ -118,5 +118,5 @@ bun run validate               # claude plugin validate --strict, and agy plugin
 To update an upstream: change its `sha` in `upstream.json`, run `bun run sync`, read the
 diff, commit. Never edit a vendored file; a change goes upstream as a pull request.
 
-Design records: `spec/` (the capability map and one spec per module), `docs/intent/`,
-`docs/research/`, `docs/decisions/`.
+Design records: `specs/` (one spec folder per module, with its plan), `docs/intent/`,
+`docs/research/`, `docs/decisions/` (the capability map is `DEC-004`).

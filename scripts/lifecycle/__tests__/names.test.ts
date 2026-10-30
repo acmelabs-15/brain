@@ -95,6 +95,43 @@ describe("checkRetiredNames, the old glossary name", () => {
   });
 });
 
+/** A spec folder file as the migrate mode leaves it: its frontmatter above an old body. */
+function migrated(id: string): string {
+  return `---\nspec: ${id}\nmigrated: 0.8\n---\n# Plan\n\nCONTEXT.md\n`;
+}
+
+describe("checkRetiredNames, plans the migrate mode moved", () => {
+  test("a migrated plan and todo in a spec folder keep the words they had in tasks/", async () => {
+    const root = await tree("migrated-plan", {
+      "specs/SPEC-009-workspace/tasks/plan.md": migrated("SPEC-009"),
+      "specs/SPEC-009-workspace/tasks/todo.md": migrated("SPEC-009"),
+    });
+    expect(await checkRetiredNames(root)).toEqual([]);
+  });
+
+  test("the spec folders are the ones workspace.md names", async () => {
+    const root = await tree("migrated-plan-config", {
+      "docs/agents/workspace.md": "---\nlayout: 2\npaths:\n  specs: docs/specs\n---\n# Workspace\n",
+      "docs/specs/SPEC-001-evals/tasks/plan.md": migrated("SPEC-001"),
+      "specs/SPEC-001-evals/tasks/plan.md": migrated("SPEC-001"),
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.file)).toEqual(["specs/SPEC-001-evals/tasks/plan.md"]);
+  });
+
+  test("a plan written in a spec folder, and a migrated spec, are still checked", async () => {
+    const root = await tree("unmigrated-plan", {
+      "specs/SPEC-010-new/tasks/plan.md": "---\nspec: SPEC-010\n---\n# Plan\n\nCONTEXT.md\n",
+      "specs/SPEC-009-workspace/spec.md": migrated("SPEC-009"),
+    });
+    const found = await checkRetiredNames(root);
+    expect(found.map((f) => f.file)).toEqual([
+      "specs/SPEC-009-workspace/spec.md",
+      "specs/SPEC-010-new/tasks/plan.md",
+    ]);
+  });
+});
+
 describe("checkRetiredNames, wayfinder", () => {
   test("a brain-owned file that names wayfinder is a finding with its line", async () => {
     const root = await tree("wayfinder-stray", {

@@ -36,13 +36,17 @@ export const sources: readonly Source[] = [
   },
   {
     // The brain protocol. Claude Code gets it from the session-start hook, which reads the
-    // source text itself; setup-brain writes the block into the Codex AGENTS.md.
+    // source text itself; setup-brain writes the block into the Codex AGENTS.md. Brain's own
+    // AGENTS.md carries it at project scope, so a render keeps that copy in step too.
     path: "protocol/PROTOCOL.md",
     targets: [
       { template: "plain-talk/templates/protocol-rule.md", out: "rules/protocol.md" },
       { template: "plain-talk/templates/protocol-block.md", out: "protocol/AGENTS-block.md" },
     ],
-    blockTargets: [{ block: "protocol/AGENTS-block.md", into: "GEMINI.md" }],
+    blockTargets: [
+      { block: "protocol/AGENTS-block.md", into: "GEMINI.md" },
+      { block: "protocol/AGENTS-block.md", into: "AGENTS.md" },
+    ],
   },
 ];
 

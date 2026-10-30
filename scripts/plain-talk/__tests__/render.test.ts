@@ -280,7 +280,7 @@ describe("the real source list", () => {
     });
   });
 
-  test("the protocol: an Antigravity rule, the block setup-brain writes for Codex, and that block in GEMINI.md", () => {
+  test("the protocol: an Antigravity rule, the block setup-brain writes for Codex, and that block in GEMINI.md and brain's own AGENTS.md", () => {
     expect(realSources.slice(1)).toEqual([
       {
         path: "protocol/PROTOCOL.md",
@@ -288,7 +288,10 @@ describe("the real source list", () => {
           { template: "plain-talk/templates/protocol-rule.md", out: "rules/protocol.md" },
           { template: "plain-talk/templates/protocol-block.md", out: "protocol/AGENTS-block.md" },
         ],
-        blockTargets: [{ block: "protocol/AGENTS-block.md", into: "GEMINI.md" }],
+        blockTargets: [
+          { block: "protocol/AGENTS-block.md", into: "GEMINI.md" },
+          { block: "protocol/AGENTS-block.md", into: "AGENTS.md" },
+        ],
       },
     ]);
   });

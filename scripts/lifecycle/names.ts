@@ -6,6 +6,8 @@ import { lstat, realpath } from "node:fs/promises";
 
 import { git } from "../lib/git";
 import { readLock } from "../sync/lib/lock";
+import { readConfig } from "../workspace/config";
+import { readFrontmatter } from "../workspace/schema";
 import type { Finding } from "./finding";
 
 type Retired = { pattern: RegExp; allowLine: RegExp; detail: string };
@@ -132,9 +134,27 @@ function keptFile(path: string): boolean {
   return keptAsWritten.some((prefix) => path.startsWith(prefix)) || path.includes("__tests__/");
 }
 
+/** A spec folder's plan or todo, as a path from the spec folders. */
+const specPlan = /^SPEC-\d{3}-[^/]+\/tasks\/(?:plan|todo)\.md$/u;
+
+/**
+ * True for a plan or todo that the migrate mode moved from `tasks/` into a spec folder under
+ * `specs`: its frontmatter carries `migrated`, and its body keeps the words it had in `tasks/`.
+ * A plan written in a spec folder later, and every spec, are still checked.
+ */
+function migratedPlan(file: string, text: string, specs: string): boolean {
+  const inSpecs = file.startsWith(`${specs}/`) && specPlan.test(file.slice(specs.length + 1));
+  const frontmatter = inSpecs ? readFrontmatter(text) : null;
+  return (
+    frontmatter !== null && "data" in frontmatter && Object.hasOwn(frontmatter.data, "migrated")
+  );
+}
+
 /** Every line in a brain-owned text file that names a retired name. */
 export async function checkRetiredNames(root: string): Promise<Finding[]> {
   const lock = await readLock(`${root}/upstream.lock.json`);
+  const config = await readConfig(root);
+  const { specs } = config.paths;
   const findings: Finding[] = [];
   const files = await textFiles(root);
   for (const file of files.toSorted()) {
@@ -142,6 +162,9 @@ export async function checkRetiredNames(root: string): Promise<Finding[]> {
       continue;
     }
     const text = await Bun.file(`${root}/${file}`).text();
+    if (migratedPlan(file, text, specs)) {
+      continue;
+    }
     for (const [index, line] of text.split("\n").entries()) {
       for (const name of retiredNames) {
         if (name.pattern.test(line) && !name.allowLine.test(line)) {
