@@ -46,6 +46,28 @@ const cutLine =
 /** The fields of `brain status --json` the hook uses. */
 type Status = { report: string[]; note: { text: string } | null };
 
+/**
+ * The fields the hook uses from `brain status --json` output, or why the output does not hold
+ * them. Output of another shape with exit 0 is a fault in `brain status`; the hook then says so
+ * in one line, as it does when `brain status` fails, and keeps the rest of its text.
+ */
+function readStatus(stdout: string): Status | { problem: string } {
+  let value: unknown;
+  try {
+    value = JSON.parse(stdout);
+  } catch {
+    return { problem: "it is not JSON" };
+  }
+  const { report, note } = (value ?? {}) as { report?: unknown; note?: unknown };
+  if (!Array.isArray(report) || !report.every((line) => typeof line === "string")) {
+    return { problem: "it has no `report` list of strings" };
+  }
+  if (note !== null && typeof (note as { text?: unknown } | undefined)?.text !== "string") {
+    return { problem: "its `note` is not null or an object with a `text` string" };
+  }
+  return { report, note: note as Status["note"] };
+}
+
 /** The status section: the five lines and the handoff note, or why `brain status` failed. */
 async function statusText(brain: string, project: string): Promise<string> {
   let run: { code: number | null; signal: string | null; stdout: string; stderr: string };
@@ -72,7 +94,10 @@ async function statusText(brain: string, project: string): Promise<string> {
     const first = run.stderr.split("\n").find((line) => line.trim() !== "");
     return `# brain status\n\n\`brain status\` failed with ${how}${first === undefined ? "" : `: ${first.trim()}`}`;
   }
-  const status = JSON.parse(run.stdout) as Status;
+  const status = readStatus(run.stdout);
+  if ("problem" in status) {
+    return `# brain status\n\n\`brain status --json\` gave output that the hook cannot read: ${status.problem}`;
+  }
   const note = status.note === null ? "This repo has no docs/STATUS.md." : status.note.text.trim();
   return `# brain status\n\n${status.report.join("\n")}\n\n# docs/STATUS.md\n\n${note}`;
 }

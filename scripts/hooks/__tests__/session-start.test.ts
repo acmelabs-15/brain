@@ -107,8 +107,20 @@ async function repo(name: string, fixture: string, files: Record<string, string>
 }
 
 /**
+ * A plugin root under the work folder whose `brain` CLI is a stub: its `scripts/brain.ts` prints
+ * `stdout` and exits 0, which `brain status --json` never does with that text. The protocol is
+ * the real one.
+ */
+async function stubPlugin(name: string, stdout: string): Promise<string> {
+  const root = `${work}/plugin-${name}`;
+  await cp(`${pluginRoot}/protocol`, `${root}/protocol`, { recursive: true });
+  await Bun.write(`${root}/scripts/brain.ts`, `process.stdout.write(${JSON.stringify(stdout)});\n`);
+  return root;
+}
+
+/**
  * Spawn `command` as Claude Code spawns a hook for `project`, with `stdin` as its input (a
- * startup session by default); git stops at the work folder.
+ * startup session by default) and `plugin` as the plugin's root; git stops at the work folder.
  */
 async function spawnHook(
   project: string,
@@ -116,13 +128,14 @@ async function spawnHook(
     command = ["bun", hook],
     cwd = project,
     stdin = input("startup", cwd),
-  }: { command?: string[]; cwd?: string; stdin?: string } = {},
+    plugin = pluginRoot,
+  }: { command?: string[]; cwd?: string; stdin?: string; plugin?: string } = {},
 ) {
   const proc = Bun.spawn(command, {
     cwd,
     env: {
       ...process.env,
-      CLAUDE_PLUGIN_ROOT: pluginRoot,
+      CLAUDE_PLUGIN_ROOT: plugin,
       CLAUDE_PROJECT_DIR: project,
       GIT_CEILING_DIRECTORIES: work,
     },
@@ -359,6 +372,58 @@ describe("when the status does not fit or does not run", () => {
     expect(
       context.endsWith(
         "# brain status\n\n`brain status` failed with exit 1: docs/agents/workspace.md: max_parallel: 0 is not a whole number of 1 or more",
+      ),
+    ).toBe(true);
+  });
+});
+
+describe("when brain status exits 0 with output the hook cannot read", () => {
+  const notJson = "it is not JSON";
+  const noReport = "it has no `report` list of strings";
+  const badNote = "its `note` is not null or an object with a `text` string";
+
+  test.each([
+    ["stdout that is not JSON", "Stage: define\nNext step: none\n", notJson],
+    ["empty stdout", "", notJson],
+    ["JSON that is not an object", "null", noReport],
+    ["JSON with no report", JSON.stringify({ note: null }), noReport],
+    [
+      "a report that is not a list",
+      JSON.stringify({ report: "Stage: define", note: null }),
+      noReport,
+    ],
+    [
+      "a report with a line that is not a string",
+      JSON.stringify({ report: ["Stage: define", 5], note: null }),
+      noReport,
+    ],
+    ["a note with no text", JSON.stringify({ report: ["Stage: define"], note: {} }), badNote],
+  ])(
+    "%s: the protocol, the brain path and one line that says so",
+    async (name, stdout, problem) => {
+      const slug = name.replaceAll(/\W+/gu, "-");
+      const plugin = await stubPlugin(slug, stdout);
+      const root = await repo(`odd-${slug}`, "no-active-work");
+      const context = contextOf(await spawnHook(root, { plugin }));
+      expect(context).toContain(protocol);
+      expect(context).toContain(`bun "${plugin}/scripts/brain.ts" <cmd>`);
+      expect(
+        context.endsWith(
+          `\n\n# brain status\n\n\`brain status --json\` gave output that the hook cannot read: ${problem}`,
+        ),
+      ).toBe(true);
+    },
+  );
+
+  test("on resume: the brain path and the one line, with no protocol text", async () => {
+    const plugin = await stubPlugin("odd-resume", "Stage: define\n");
+    const root = await repo("odd-resume", "no-active-work");
+    const context = contextOf(await spawnHook(root, { plugin, stdin: input("resume", root) }));
+    expect(protocolLinesIn(context)).toEqual([]);
+    expect(context).toContain(`bun "${plugin}/scripts/brain.ts" <cmd>`);
+    expect(
+      context.endsWith(
+        `\n\n# brain status\n\n\`brain status --json\` gave output that the hook cannot read: ${notJson}`,
       ),
     ).toBe(true);
   });

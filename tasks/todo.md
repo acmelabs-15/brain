@@ -307,7 +307,7 @@ The merged review is in the build scratch folder, `review/merged.md`. Peter put 
   - Verify: a test with a tracked `a[1].md` beside a dirty `a1.md`: the migrate commit holds `a[1].md` alone; every existing test passes unchanged
   - Files: a new shared folder under `scripts/`, and the files above
   - Depends: none. Scope: M
-- [ ] T54: the session-start hook survives odd `brain status` output
+- [x] T54: the session-start hook survives odd `brain status` output
   - Acceptance: the JSON parse and the `report` field are guarded; on any parse or shape error the hook prints the one-line failure text and the protocol, as it does when `brain status` fails
   - Verify: hook tests for stdout that is not JSON, JSON without `report`, and a `report` that is not a list
   - Files: scripts/hooks/session-start.ts, scripts/hooks/__tests__/session-start.test.ts
