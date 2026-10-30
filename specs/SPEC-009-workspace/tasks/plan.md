@@ -58,7 +58,7 @@ still reviews its own tasks. From the phase 5 review on, a task waits for every 
 | Wave | Tasks |
 |---|---|
 | A (running) | T53, T54, T55, T56, T57 |
-| Then | T39 after the second ask; T40 after the 0.10.0 release |
+| Then (done) | T39 after the second ask; T40 after the 0.10.0 release (PR #18, in 0.11.0) |
 
 The critical path from here is 1 task: T38 (T28 and T52 are as long).
 
@@ -103,4 +103,4 @@ Every phase ends with a checkpoint row in `tasks/todo.md` and a review with Pete
 - At T06: what to do with the uncommitted `brain-wrap.md` change.
 - At T28: the 1% wording is ported from Peter's hand-written `AGENTS.md`; the build reads
   `/Users/peterkloss/Dev/resume/AGENTS.md` for it, and asks if that file lacks it.
-- At T39: the second ask before brain's history moves.
+- At T39: the second ask before brain's history moves. Answered: Peter said yes, and T39 is done.
