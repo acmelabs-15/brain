@@ -24,7 +24,7 @@ Every session loads ask-user-question, domain-modeling and context-engineering. 
 ## Map
 | # | Question | Type | Status | Blocked by | Result |
 |---|---|---|---|---|---|
-| 01 | Which of rows 02 to 18 are worth doing, and in what order? | interview | open | — | — |
+| 01 | Which of rows 02 to 19 are worth doing, and in what order? | interview | open | — | — |
 | 02 | Split `scripts/setup/migrate.ts` (893 lines) by step (spec, decisions, intent, tracker, workspace), with the undo writer (`commitWrites`, `apply`, `undoAll`) in its own file (architecture 6, readability 2) | task | open | 01 | — |
 | 03 | Split `scripts/setup/overlap.ts` (829 lines) into its text, Markdown and report parts (architecture 6, readability 2) | task | open | 01 | — |
 | 04 | Give the migrate mode its own entry file, not `write.ts --migrate`, with its own usage text; `write.ts`'s header is about 45 lines and `SetupInput` has 14 fields (readability 4) | task | open | 01 | — |
@@ -42,6 +42,7 @@ Every session loads ask-user-question, domain-modeling and context-engineering. 
 | 16 | Two functions named `titleOf` mean different things: `workspace/status.ts:73` and `setup/migrate.ts:286`; and `check.ts`'s `slug` constant holds a pattern (readability 8, 9) | task | open | 01 | — |
 | 17 | The hook puts `docs/STATUS.md` into the session's context: frame it as text from the repo, not instructions (`hooks/session-start.ts:75`); `folderPath` does not resolve symlinks (`workspace/config.ts:75`) (security notes) | task | open | 01 | — |
 | 18 | `workspace/graph.ts`, `map.ts` and `effort.ts` load only in spawned `brain` processes, so coverage cannot measure them; decide whether they get direct unit tests (main session's test review) | task | open | 01 | — |
+| 19 | `build-parallel`'s start graders (`evals/lifecycle/build-parallel/graders/started-0N.md`): one worktree made from the branch satisfies all five, even when the others come from `main`; and a sub-agent's `git merge --ff-only` counts as a merge (T58's limits) | task | open | 01 | — |
 
 ## Not yet specified
 - Whether the glossary needs an entry for "gate" in the sense of a repo's check command, which brain's `AGENTS.md` uses.
