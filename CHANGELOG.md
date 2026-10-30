@@ -1,14 +1,18 @@
 # @acmelabs/brain
 
+## 0.11.0
+
+### Breaking Changes
+
+- [#18](https://github.com/acmelabs-15/brain/pull/18) [`0a500c6`](https://github.com/acmelabs-15/brain/commit/0a500c668de3d29374c340c723b1013fea9cd810) - brain no longer reads `CONTEXT.md` in place of `GLOSSARY.md`, as 0.9.0 announced. A repo that keeps its glossary only in a root `CONTEXT.md` or `CONTEXT-MAP.md` now has no glossary that brain's skills read. To keep it, run setup-brain and say yes to the glossary rename: its `--rename-glossary` moves the file to `GLOSSARY.md` or `GLOSSARY-MAP.md` with `git mv`, so the file keeps its history. The same run rewrites `docs/agents/domain.md`, which no longer names `CONTEXT.md` in place of `GLOSSARY.md`.
+
 ## 0.10.0
 
 ### Breaking Changes
 
 - [#15](https://github.com/acmelabs-15/brain/pull/15) [`6d9133c`](https://github.com/acmelabs-15/brain/commit/6d9133cc87fb17ba95ebf341f2fe019c24224f5f) - a decision is now a `DEC-NNN-<slug>.md` file in `docs/decisions/`, created with `brain new-doc DEC <slug>`. domain-modeling no longer writes `0001-<slug>.md` ADRs. A repo with such ADRs must move them first: run setup-brain to migrate, which turns each one into a DEC file in the same commit as the rest of the move.
 
-- [#15](https://github.com/acmelabs-15/brain/pull/15) [`359eba9`](https://github.com/acmelabs-15/brain/commit/359eba94ce0f499e93534ab69778e224a7f68833) - wayfinder is removed. Its job moved into interview-me, which now keeps a multi-session map in docs/ideas/. Maps on an issue tracker are not migrated.
-  **Breaking:** triage is removed; re-seed it from mattpocock/skills if you need it.
-  **Breaking:** setup-brain no longer writes `docs/agents/issue-tracker.md` or `docs/agents/triage-labels.md`, and its script no longer takes `--tracker` or `--repo`.
+- [#15](https://github.com/acmelabs-15/brain/pull/15) [`359eba9`](https://github.com/acmelabs-15/brain/commit/359eba94ce0f499e93534ab69778e224a7f68833) - wayfinder is removed. Its job moved into interview-me, which now keeps a multi-session map in docs/ideas/. Maps on an issue tracker are not migrated. **Breaking:** triage is removed; re-seed it from mattpocock/skills if you need it. **Breaking:** setup-brain no longer writes `docs/agents/issue-tracker.md` or `docs/agents/triage-labels.md`, and its script no longer takes `--tracker` or `--repo`.
 
 - [#15](https://github.com/acmelabs-15/brain/pull/15) [`6d9133c`](https://github.com/acmelabs-15/brain/commit/6d9133cc87fb17ba95ebf341f2fe019c24224f5f) - `/spec`, `/plan` and `/build` now read and write a spec folder, `docs/specs/SPEC-NNN-<slug>/`, with `spec.md`, `tasks/plan.md` and `tasks/todo.md` in it. They no longer use `SPEC.md`, `spec/` or `tasks/` at the repo root. A repo on layout 1 (brain 0.9 and earlier) must move its files first: run setup-brain to migrate. Until then, `brain status` says so.
 
