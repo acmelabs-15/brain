@@ -29,7 +29,7 @@ bun run changeset  # a user-facing change gets one; the release workflow version
 ## Change discipline
 
 - Bun 1.4.0 only. No Node runtime, no Python.
-- A failing test first, then the code, then `bun run check` green before the commit.
+- A failing test first, then the code. Per commit, run the test files for what you touched, then `bun run typecheck`, `bun run lint`, `bun run format:check` and the fast checks (`bun run lifecycle:check`, `bun run workspace:check`, and the render, version and sync checks); a text-only change needs only the checks that read that text. Run the full `bun run check` and `bun run validate` once, in the background, before a push or at a checkpoint.
 - One commit per task. Stage the task's files by name.
 - A decision that is the user's goes through the ask-user-question skill, one question per call.
 
