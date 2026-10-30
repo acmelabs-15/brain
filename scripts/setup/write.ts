@@ -1,8 +1,14 @@
 /**
  * Write what brain's skills assume is in a repo, and the one file Codex needs on this machine.
  *
- *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--dry-run | --check] [--brain <plugin root>]
- *   bun run scripts/setup/write.ts --root <repo> --migrate [--plan-spec <spec>|none] [--ideas <path>,<path>|none] [--tracker-files remove|keep] [--adr-folder move|keep] [--rename-glossary] [--dry-run] [--brain <plugin root>]
+ *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--specs-folder <folder>] [--dry-run | --check] [--brain <plugin root>]
+ *   bun run scripts/setup/write.ts --root <repo> --migrate [--plan-spec <spec>|none] [--ideas <path>,<path>|none] [--tracker-files remove|keep] [--adr-folder move|keep] [--rename-glossary] [--specs-folder <folder>] [--dry-run] [--brain <plugin root>]
+ *
+ * A first install, the run that creates docs/agents/workspace.md in either mode, picks the specs
+ * folder: docs/specs when it already holds a spec folder (brain 0.10.0 and 0.11.0 wrote specs
+ * there), else the user's answer, --specs-folder, else specs. When specs/ holds files that are
+ * not spec folders and there is no answer, the run writes nothing and exits 2, naming those files
+ * and the flag. A run that finds workspace.md keeps its folders, and --check never asks.
  *
  * --migrate runs the migrate mode for a repo on brain 0.8 (see migrate.ts) instead of the
  * writes below, and prints the commit it wrote. Each other flag is the user's answer to one
@@ -41,7 +47,7 @@ import { homedir } from "node:os";
 import { isDirectory, readIfPresent } from "../lib/files";
 import { git } from "../lib/git";
 import { replaceBlock } from "../plain-talk/block";
-import { readConfig } from "../workspace/config";
+import { configFile, readConfig } from "../workspace/config";
 import type { Paths } from "../workspace/config";
 import {
   currentLayout,
@@ -51,7 +57,7 @@ import {
 } from "../workspace/old-layout";
 import { planGlossaryMoves } from "./glossary";
 import { migrate, UsageError } from "./migrate";
-import { workspaceText } from "./workspace-config";
+import { firstSpecsFolder, workspaceText } from "./workspace-config";
 
 export type Layout = "single" | "multi";
 export type CodexScope = "global" | "project";
@@ -84,6 +90,8 @@ export type SetupInput = {
   trackerFiles?: TrackerAnswer;
   /** The user's answer for the migrate mode: `move` the ADR folder's ADRs into the decisions folder, after a yes, or `keep` it. */
   adrFolder?: AdrFolderAnswer;
+  /** The user's answer for a first install: the specs folder, when `specs/` holds other files. */
+  specsFolder?: string;
   /** Report drift: list what a run would change, write nothing, exit 1 when anything would. */
   check?: boolean;
 };
@@ -184,20 +192,41 @@ async function toMigrate(root: string, paths: Paths | null): Promise<string[]> {
   return findToMigrate(root, paths);
 }
 
-/** Write the workspace config, keeping the repo's own settings; skip a file it cannot read, and a repo to migrate. */
+/**
+ * The specs folder when this run creates `workspace.md`; undefined when the run keeps the file,
+ * leaves it to the migrate mode, or only reports, since to `--check` a missing file is drift
+ * whatever it would hold. Throws a UsageError when only the user can say where brain's specs go.
+ */
+async function newSpecsFolder(input: SetupInput, waiting: string[]): Promise<string | undefined> {
+  const kept = await Bun.file(`${input.root}/${configFile}`).exists();
+  if (kept || waiting.length > 0 || input.check === true) {
+    return undefined;
+  }
+  const specs = await firstSpecsFolder(input.root, input.specsFolder);
+  if ("error" in specs) {
+    throw new UsageError(specs.error);
+  }
+  return specs.folder;
+}
+
+/**
+ * Write the workspace config, keeping the repo's own settings, or with `specs` on a first
+ * install; skip a file it cannot read, and a repo to migrate.
+ */
 async function writeWorkspace(
   input: SetupInput,
   template: string,
   waiting: string[],
+  specs: string | undefined,
 ): Promise<Change> {
-  const path = "docs/agents/workspace.md";
+  const path = configFile;
   const full = `${input.root}/${path}`;
   if (waiting.length > 0) {
     const why =
       "the repo is on layout 1 (brain 0.9 and earlier): the migrate mode writes this file";
     return { path, action: "skipped", note: why };
   }
-  const next = workspaceText(template, await readIfPresent(full));
+  const next = workspaceText(template, await readIfPresent(full), specs);
   if (next === null) {
     const why = "its frontmatter is not valid YAML; fix it, then run setup-brain again";
     return { path, action: "skipped", note: why };
@@ -243,6 +272,8 @@ export async function writeSetup(input: SetupInput): Promise<Change[]> {
   const paths = await repoPaths(input.root);
   const adrFolders = paths === null ? [] : await findAdrFolders(input.root, paths);
   const waiting = await toMigrate(input.root, paths);
+  // A run that needs the user's answer stops here, before its first change.
+  const specs = await newSpecsFolder(input, waiting);
   // The glossary move runs first, so the change list shows it at the top.
   const changes: Change[] = input.renameGlossary === true ? await moveGlossaryFiles(input) : [];
 
@@ -259,7 +290,7 @@ export async function writeSetup(input: SetupInput): Promise<Change[]> {
   const domainPath = "docs/agents/domain.md";
   changes.push(
     await put(input, domainPath, `${input.root}/${domainPath}`, domain),
-    await writeWorkspace(input, await template("skills/setup-brain/workspace.md"), waiting),
+    await writeWorkspace(input, await template("skills/setup-brain/workspace.md"), waiting, specs),
     await writeSeed(input, await template("skills/setup-brain/STATUS.md")),
   );
   return changes;
@@ -298,6 +329,10 @@ const valued: Record<string, Setter> = {
       return false;
     }
     input.trackerFiles = value;
+    return true;
+  },
+  "--specs-folder": (input, value) => {
+    input.specsFolder = value;
     return true;
   },
   "--adr-folder": (input, value) => {

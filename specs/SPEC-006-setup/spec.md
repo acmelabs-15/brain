@@ -108,6 +108,17 @@ one commit that holds `AGENTS.md` alone. `CLAUDE.md` and `GEMINI.md` are reporte
 `capabilities.ts` also proposes a toolchain check that `AGENTS.md` names with its version, so
 that line counts as moved.
 
+**Amended 2026-10-29, by the specs folder of a first install (DEC-005, which refines DEC-003).** A first
+install is the run that creates `docs/agents/workspace.md`, the migrate mode included. It keeps
+`docs/specs/` as the specs folder when that folder already holds a `SPEC-NNN-<slug>/` folder,
+which `brain new-doc SPEC` wrote there on 0.10.0 and 0.11.0 in a repo with no `workspace.md`;
+nothing moves. Else, when the root `specs/` holds files that are not spec folders (dotfiles
+aside), the script writes nothing and exits 2 with one line that names them and
+`--specs-folder`. The skill asks the user one question, `docs/specs` recommended, a folder the
+user names, or `specs` anyway, and runs the script again with `--specs-folder <folder>`. The
+first case decides alone: then the second asks nothing. A run that finds `workspace.md` keeps
+its folders, and `--check` never asks.
+
 
 Users: anyone who installs brain, once per repo. The user can run it as `/setup-brain`, and the agent can load it on its own (Peter, 2026-10-28).
 
@@ -135,7 +146,7 @@ Users: anyone who installs brain, once per repo. The user can run it as `/setup-
 tested, and the skill prose only decides and explains.
 
 ```
-bun run scripts/setup/write.ts --root <repo> --layout single|multi [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--dry-run | --check]
+bun run scripts/setup/write.ts --root <repo> --layout single|multi [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--specs-folder <folder>] [--dry-run | --check]
 ```
 
 - Writes `docs/agents/domain.md` from the skill's `domain.md`, the consumer rules, with the
@@ -210,7 +221,9 @@ with other content and an old block; one whose `AGENTS.md` is a symlink; a missi
 home; `codexHome: null`; project scope, where the block lands in the repo `AGENTS.md`, other
 text kept, and the global file is untouched; a second run on each is byte-identical; `--dry-run` writes
 nothing and lists every change; multi layout names the map in `domain.md`; the retired
-`--tracker` and `--repo` flags exit 2 and write nothing. Against brain's
+`--tracker` and `--repo` flags exit 2 and write nothing; a first install beside a
+`docs/specs/SPEC-001-<slug>/` writes `specs: docs/specs`, and one beside a root `specs/` with
+other files exits 2 until `--specs-folder` gives the folder. Against brain's
 shipped files: `domain.md` and `domain-modeling` name `docs/decisions/`, and no brain-owned
 skill file names `docs/adr/`.
 

@@ -32,15 +32,18 @@ export const configFile = "docs/agents/workspace.md";
 /** The environment variable that overrides `max_parallel`. */
 const capVariable = "BRAIN_MAX_PARALLEL";
 
+/** The folders a repo gets when its `workspace.md`, or a key in it, is absent. */
+export const defaultPaths: Readonly<Paths> = {
+  decisions: "docs/decisions",
+  research: "docs/research",
+  ideas: "docs/ideas",
+  specs: "specs",
+};
+
 /** The layout a repo gets when its `workspace.md`, or a key in it, is absent. */
 const defaults: WorkspaceConfig = {
   layout: 2,
-  paths: {
-    decisions: "docs/decisions",
-    research: "docs/research",
-    ideas: "docs/ideas",
-    specs: "specs",
-  },
+  paths: defaultPaths,
   maxParallel: 8,
   maxParallelFrom: "default",
 };
@@ -67,7 +70,7 @@ function show(value: unknown): string {
 }
 
 /** A folder from the config, cleaned; or the problem when it does not name a folder in the repo. */
-function folderPath(value: unknown): { folder: string } | { error: string } {
+export function folderPath(value: unknown): { folder: string } | { error: string } {
   if (typeof value !== "string" || value === "") {
     return { error: `${show(value)} is not a folder path` };
   }

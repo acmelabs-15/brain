@@ -80,7 +80,11 @@ because the success criteria test them.
   `brain new-doc`". The protocol states the second rule too.
 - **Spec folder.** The default is `specs/` at the root (DEC-003, which amends the Decisions
   row for open question 2). A re-run of setup-brain keeps each folder an existing
-  `workspace.md` names, so a workspace from 0.10.0 or 0.11.0 keeps `docs/specs/`.
+  `workspace.md` names, so a workspace from 0.10.0 or 0.11.0 keeps `docs/specs/`. A first
+  install, the run that creates `workspace.md`, keeps `docs/specs/` when it already holds a
+  `SPEC-NNN-<slug>/` folder, and nothing moves. Else, when the root `specs/` holds other files,
+  such as API specs, setup-brain asks the user where brain's specs go, `docs/specs/`
+  recommended, and passes the answer as `--specs-folder` (DEC-005, which refines DEC-003).
 - **Claims.** new-doc claims under `$(git rev-parse --git-common-dir)/brain/ids/<TYPE>/`;
   outside a git repo, under a folder in the user's cache directory.
 - **Migrated files.** `from` is required for new `DEC` and `RES` files. A file the migrate

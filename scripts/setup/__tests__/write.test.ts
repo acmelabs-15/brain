@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { endMarker, markersFor, startMarker } from "../../plain-talk/block";
 import { readLock } from "../../sync/lib/lock";
 import { readConfig } from "../../workspace/config";
+import { UsageError } from "../migrate";
 import { writeSetup } from "../write";
 import type { Change } from "../write";
 
@@ -193,6 +194,92 @@ describe("writeSetup, the workspace config", () => {
     expect(paths.specs).toBe("docs/specs");
     expect(await exists(`${root}/${spec}`)).toBe(true);
     expect(await exists(`${root}/specs`)).toBe(false);
+  });
+
+  test("a first install keeps docs/specs/ when it holds a spec folder from brain 0.10.0 or 0.11.0, and moves nothing", async () => {
+    // brain new-doc SPEC on 0.10.0 or 0.11.0, in a repo with no workspace.md, wrote the spec here.
+    const spec = "docs/specs/SPEC-001-invoice-csv-export/spec.md";
+    const root = await repo("specs-first-0.11.0", {
+      [spec]: "---\nspec: SPEC-001\nsources: []\n---\n# SPEC-001: Export invoices as CSV\n",
+    });
+    const changes = await writeSetup({ brain, root, ...base });
+    expect(changes).toContainEqual({ path: "docs/agents/workspace.md", action: "created" });
+    expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(
+      workspace.replace("\n  specs: specs\n", "\n  specs: docs/specs\n"),
+    );
+    expect(await exists(`${root}/${spec}`)).toBe(true);
+    expect(await exists(`${root}/specs`)).toBe(false);
+  });
+
+  test("a spec folder in docs/specs/ decides the first install: a root specs/ with other files asks nothing", async () => {
+    const root = await repo("specs-first-both", {
+      "docs/specs/SPEC-001-invoice-csv-export/spec.md": "# SPEC-001: Export invoices as CSV\n",
+      "specs/openapi.yaml": "openapi: 3.1.0\n",
+    });
+    await writeSetup({ brain, root, ...base });
+    const { paths } = await readConfig(root);
+    expect(paths.specs).toBe("docs/specs");
+  });
+
+  test("spec folders and dotfiles in specs/, and a docs/specs/ with no spec folder, ask nothing: the default stands", async () => {
+    const root = await repo("specs-first-clean", {
+      "specs/SPEC-001-invoice-csv-export/spec.md": "# SPEC-001: Export invoices as CSV\n",
+      "specs/SPEC-001-invoice-csv-export/notes.md": "# Notes\n",
+      "specs/.DS_Store": "",
+      "docs/specs/README.md": "# Specs\n",
+    });
+    await writeSetup({ brain, root, ...base });
+    expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(workspace);
+  });
+
+  test("a first install stops when the root specs/ holds files that are not spec folders: a UsageError names them and --specs-folder, and nothing is written", async () => {
+    const root = await repo("specs-first-other", {
+      "specs/openapi.yaml": "openapi: 3.1.0\n",
+      "specs/contract/orders.test.ts": "test('orders', () => {});\n",
+      "specs/SPEC-001-invoice-csv-export/spec.md": "# SPEC-001: Export invoices as CSV\n",
+      "specs/.gitkeep": "",
+    });
+    const run = writeSetup({ brain, root, ...base });
+    await expect(run).rejects.toBeInstanceOf(UsageError);
+    await expect(run).rejects.toThrow(
+      "specs/ holds files that are not spec folders (contract/, openapi.yaml), and only the user can say where brain's specs go: pass --specs-folder with docs/specs, another folder in the repo, or specs",
+    );
+    await run.catch(() => null);
+    expect(await exists(`${root}/docs`)).toBe(false);
+  });
+
+  test.each(["docs/specs", "records/specs", "specs"])(
+    "the answer --specs-folder %s is the first install's paths.specs, and the root specs/ stays as it is",
+    async (answer) => {
+      const root = await repo(`specs-first-answer-${answer.replaceAll("/", "-")}`, {
+        "specs/openapi.yaml": "openapi: 3.1.0\n",
+      });
+      await writeSetup({ brain, root, ...base, specsFolder: answer });
+      expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(
+        workspace.replace("\n  specs: specs\n", `\n  specs: ${answer}\n`),
+      );
+      expect(await Bun.file(`${root}/specs/openapi.yaml`).text()).toBe("openapi: 3.1.0\n");
+    },
+  );
+
+  test("an answer outside the repo is refused with a UsageError, and nothing is written", async () => {
+    const root = await repo("specs-first-outside", { "specs/openapi.yaml": "openapi: 3.1.0\n" });
+    const run = writeSetup({ brain, root, ...base, specsFolder: "../elsewhere" });
+    await expect(run).rejects.toBeInstanceOf(UsageError);
+    await expect(run).rejects.toThrow(
+      '--specs-folder "../elsewhere" is not a folder inside the repo',
+    );
+    await run.catch(() => null);
+    expect(await exists(`${root}/docs`)).toBe(false);
+  });
+
+  test("a re-run keeps the specs folder its workspace.md names and asks nothing, even when that folder holds other files", async () => {
+    const root = await repo("specs-rerun-other", {
+      "docs/agents/workspace.md": workspace,
+      "specs/openapi.yaml": "openapi: 3.1.0\n",
+    });
+    const changes = await writeSetup({ brain, root, ...base });
+    expect(changes).toContainEqual({ path: "docs/agents/workspace.md", action: "unchanged" });
   });
 
   test("a workspace.md whose frontmatter is not valid YAML is skipped with the reason, and kept", async () => {
@@ -508,6 +595,38 @@ describe("write.ts --check", () => {
     const run = Bun.spawnSync(["bun", writeScript, "--root", work, "--check", "--migrate"]);
     expect(run.exitCode).toBe(2);
     expect(run.stderr.toString()).toContain("--check");
+  });
+});
+
+describe("write.ts, the specs folder of a first install", () => {
+  const writeScript = `${import.meta.dir}/../write.ts`;
+  const run = (root: string, ...flags: string[]) =>
+    Bun.spawnSync(["bun", writeScript, "--root", root, "--brain", brain, "--no-codex", ...flags]);
+
+  test("a root specs/ with other files exits 2 with one line that names them and the flag, prints no change and writes nothing; the answer then writes", async () => {
+    const root = await repo("cli-specs-other", { "specs/openapi.yaml": "openapi: 3.1.0\n" });
+    const asked = run(root, "--dry-run");
+    expect(asked.exitCode).toBe(2);
+    expect(asked.stderr.toString()).toBe(
+      "specs/ holds files that are not spec folders (openapi.yaml), and only the user can say where brain's specs go: pass --specs-folder with docs/specs, another folder in the repo, or specs\n",
+    );
+    expect(asked.stdout.toString()).toBe("");
+    expect(await exists(`${root}/docs`)).toBe(false);
+    const answered = run(root, "--specs-folder", "docs/specs");
+    expect(answered.exitCode).toBe(0);
+    expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(
+      workspace.replace("\n  specs: specs\n", "\n  specs: docs/specs\n"),
+    );
+  });
+
+  test("--check on that repo is drift, exit 1, not bad usage: setup-brain asks when it runs", async () => {
+    const root = await repo("cli-specs-check", { "specs/openapi.yaml": "openapi: 3.1.0\n" });
+    const checked = run(root, "--check");
+    expect(checked.exitCode).toBe(1);
+    expect(checked.stdout.toString()).toContain("created   docs/agents/workspace.md\n");
+    expect(checked.stdout.toString()).toEndWith(
+      "3 files differ from what setup-brain writes: run setup-brain\n",
+    );
   });
 });
 
