@@ -1,5 +1,11 @@
 # @acmelabs/brain
 
+## 0.12.0
+
+### Minor Changes
+
+- [#20](https://github.com/acmelabs-15/brain/pull/20) [`3e4cc59`](https://github.com/acmelabs-15/brain/commit/3e4cc59083ddccd33e496992643b68e11a4eff47) - The default spec folder is now `specs/SPEC-NNN-<slug>/` at the repo's root, not `docs/specs/SPEC-NNN-<slug>/`. A new install and a migration from layout 1 get `specs/`. A repo that already has `docs/agents/workspace.md` keeps the spec folder that file names: a re-run of setup-brain changes no path, so a workspace from 0.10.0 or 0.11.0 keeps `docs/specs/`, and nothing moves.
+
 ## 0.11.0
 
 ### Breaking Changes
