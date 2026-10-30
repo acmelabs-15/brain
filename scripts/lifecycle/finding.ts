@@ -6,7 +6,6 @@ export type Finding = {
     | "flag-mismatch"
     | "retired-name"
     | "glossary-term"
-    | "expired-fallback"
     | "agent-list"
     | "hook-file"
     | "router";

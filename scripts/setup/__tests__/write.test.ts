@@ -670,10 +670,11 @@ describe("the shipped STATUS.md seed", () => {
 describe("the shipped glossary rules", () => {
   const shipped = `${import.meta.dir}/../../..`;
 
-  test("domain.md names GLOSSARY.md and holds the one-release CONTEXT.md fallback", async () => {
+  test("domain.md names GLOSSARY.md and GLOSSARY-MAP.md, and no CONTEXT.md to read in their place", async () => {
+    // The fallback to an old CONTEXT.md shipped in 0.9.0 and 0.10.0 only, and 0.11.0 removes it.
     const domain = await Bun.file(`${shipped}/skills/setup-brain/domain.md`).text();
     expect(domain).toContain("`GLOSSARY.md`");
     expect(domain).toContain("`GLOSSARY-MAP.md`");
-    expect(domain).toMatch(/no `GLOSSARY\.md`[^\n]*`CONTEXT\.md`[^\n]*setup-brain/u);
+    expect(domain).not.toContain("CONTEXT.md");
   });
 });
