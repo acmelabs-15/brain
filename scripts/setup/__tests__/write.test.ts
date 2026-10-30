@@ -25,7 +25,7 @@ paths:
   decisions: docs/decisions
   research: docs/research
   ideas: docs/ideas
-  specs: docs/specs
+  specs: specs
 max_parallel: 8
 ---
 # Workspace
@@ -161,6 +161,38 @@ describe("writeSetup, the workspace config", () => {
     expect(config.paths.decisions).toBe("docs/my decisions");
     const again = await writeSetup({ brain, root, ...base });
     expect(again).toContainEqual({ path: "docs/agents/workspace.md", action: "unchanged" });
+  });
+
+  test("a new install gets setup-brain's spec folder, specs/ at the repo's root", async () => {
+    const root = await repo("specs-new");
+    await writeSetup({ brain: `${import.meta.dir}/../../..`, root, ...base });
+    expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toContain(
+      "\n  specs: specs\n",
+    );
+    const { paths } = await readConfig(root);
+    expect(paths.specs).toBe("specs");
+  });
+
+  test("a repo that migrated on 0.10.0 keeps docs/specs/: a re-run keeps the folder its workspace.md names, and moves nothing", async () => {
+    const shipped = `${import.meta.dir}/../../..`;
+    const template = await Bun.file(`${shipped}/skills/setup-brain/workspace.md`).text();
+    // setup-brain 0.10.0 wrote this template with docs/specs as the spec folder.
+    const before = template.replace("\n  specs: specs\n", "\n  specs: docs/specs\n");
+    expect(before).not.toBe(template);
+    const spec = "docs/specs/SPEC-001-invoice-csv-export/spec.md";
+    const root = await repo("specs-0.10.0", {
+      "docs/agents/workspace.md": before,
+      [spec]: "---\nspec: SPEC-001\nsources: []\n---\n# SPEC-001: Export invoices as CSV\n",
+    });
+    const changes = await writeSetup({ brain: shipped, root, ...base });
+    expect(changes.map((change) => change.path)).toEqual(repoFiles);
+    expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toContain(
+      "\n  specs: docs/specs\n",
+    );
+    const { paths } = await readConfig(root);
+    expect(paths.specs).toBe("docs/specs");
+    expect(await exists(`${root}/${spec}`)).toBe(true);
+    expect(await exists(`${root}/specs`)).toBe(false);
   });
 
   test("a workspace.md whose frontmatter is not valid YAML is skipped with the reason, and kept", async () => {

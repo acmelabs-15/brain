@@ -2,7 +2,7 @@
 type: regex
 target:
   source: file
-  path: docs/specs/SPEC-001-greeter/tasks/plan.md
+  path: specs/SPEC-001-greeter/tasks/plan.md
 pattern: '^\| *01 *\|[^|\n]*\| *task *\| *resolved *\|[^|\n]*\| *`?[0-9a-f]{7,40}\b[^\n]*\n\| *02 *\|[^|\n]*\| *task *\| *resolved *\|[^|\n]*\| *`?[0-9a-f]{7,40}\b'
 flags: m
 ---

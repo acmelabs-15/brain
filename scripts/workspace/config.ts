@@ -39,7 +39,7 @@ const defaults: WorkspaceConfig = {
     decisions: "docs/decisions",
     research: "docs/research",
     ideas: "docs/ideas",
-    specs: "docs/specs",
+    specs: "specs",
   },
   maxParallel: 8,
   maxParallelFrom: "default",

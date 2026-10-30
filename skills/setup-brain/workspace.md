@@ -4,7 +4,7 @@ paths:
   decisions: docs/decisions
   research: docs/research
   ideas: docs/ideas
-  specs: docs/specs
+  specs: specs
 max_parallel: 8
 ---
 # Workspace

@@ -17,7 +17,7 @@ setDefaultTimeout(60_000);
 const repo = `${import.meta.dir}/../../..`;
 const caseDir = `${repo}/evals/lifecycle/build-clean-context`;
 const cli = `${repo}/scripts/brain.ts`;
-const folder = "docs/specs/SPEC-001-greeter";
+const folder = "specs/SPEC-001-greeter";
 const planPath = `${folder}/tasks/plan.md`;
 const todoPath = `${folder}/tasks/todo.md`;
 // Claude Code puts the plugin's path in place of ${CLAUDE_PLUGIN_ROOT} when the command loads.
@@ -344,10 +344,10 @@ describe("lifecycle/build-clean-context, the case files", () => {
     expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(template);
     expect(await filesIn(root)).toEqual([
       "docs/agents/workspace.md",
+      "package.json",
       `${folder}/spec.md`,
       planPath,
       todoPath,
-      "package.json",
     ]);
     expect(git(root, "status", "--porcelain")).toBe("");
     expect(git(root, "log", "--format=%s")).toBe("scaffold");

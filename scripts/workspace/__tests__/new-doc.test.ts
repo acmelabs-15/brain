@@ -134,9 +134,9 @@ describe("brain new-doc, one case per type", () => {
     expect(res.code).toBe(0);
     expect(res.stdout).toBe(
       [
-        "docs/specs/SPEC-001-workspace/spec.md",
-        "docs/specs/SPEC-001-workspace/tasks/plan.md",
-        "docs/specs/SPEC-001-workspace/tasks/todo.md",
+        "specs/SPEC-001-workspace/spec.md",
+        "specs/SPEC-001-workspace/tasks/plan.md",
+        "specs/SPEC-001-workspace/tasks/todo.md",
         "",
       ].join("\n"),
     );
@@ -145,7 +145,7 @@ describe("brain new-doc, one case per type", () => {
       ["plan", "tasks/plan.md"],
       ["todo", "tasks/todo.md"],
     ] as const) {
-      const text = await Bun.file(`${repo}/docs/specs/SPEC-001-workspace/${path}`).text();
+      const text = await Bun.file(`${repo}/specs/SPEC-001-workspace/${path}`).text();
       expect(text).toStartWith("---\nspec: SPEC-001\n");
       expect(checkDoc(type, text, "SPEC-001")).toEqual([]);
     }
@@ -282,11 +282,11 @@ describe("brain new-doc, the next number", () => {
 
   test("is one above the highest spec folder for a SPEC", async () => {
     const repo = await gitRepo("above-specs", {
-      "docs/specs/SPEC-003-old/spec.md": "old\n",
+      "specs/SPEC-003-old/spec.md": "old\n",
     });
     const res = await brain(repo, ["new-doc", "SPEC", "next"]);
     expect(res.stderr).toBe("");
-    expect(res.stdout).toStartWith("docs/specs/SPEC-004-next/spec.md\n");
+    expect(res.stdout).toStartWith("specs/SPEC-004-next/spec.md\n");
   });
 
   test("is one above the highest claim, so a claimed number whose file is gone is never reused", async () => {
@@ -324,7 +324,7 @@ describe("brain new-doc, the workspace config", () => {
       "docs/ideas/IDEA-001-first.md",
       "docs/decisions/DEC-001-first.md",
       "docs/research/RES-001-first.md",
-      "docs/specs/SPEC-001-first/spec.md",
+      "specs/SPEC-001-first/spec.md",
     ]);
   });
 
@@ -332,17 +332,19 @@ describe("brain new-doc, the workspace config", () => {
     const repo = await gitRepo("config-paths", {
       "docs/agents/workspace.md": workspaceTemplate
         .replace("decisions: docs/decisions", "decisions: records/decisions")
-        .replace("specs: docs/specs", "specs: specs/"),
+        .replace("specs: specs", "specs: docs/specs/"),
       "records/decisions/DEC-004-kept.md": "kept\n",
       "docs/decisions/DEC-020-not-read.md": "outside the configured folder\n",
+      "docs/specs/SPEC-002-kept/spec.md": "kept\n",
+      "specs/SPEC-009-not-read/spec.md": "outside the configured folder\n",
     });
     const decision = await brain(repo, ["new-doc", "DEC", "next"]);
     const spec = await brain(repo, ["new-doc", "SPEC", "next"]);
     expect(decision.stderr + spec.stderr).toBe("");
     expect(decision.stdout).toBe("records/decisions/DEC-005-next.md\n");
-    expect(spec.stdout).toStartWith("specs/SPEC-001-next/spec.md\n");
+    expect(spec.stdout).toStartWith("docs/specs/SPEC-003-next/spec.md\n");
     expect(await exists(`${repo}/records/decisions/DEC-005-next.md`)).toBe(true);
-    expect(await exists(`${repo}/specs/SPEC-001-next/tasks/todo.md`)).toBe(true);
+    expect(await exists(`${repo}/docs/specs/SPEC-003-next/tasks/todo.md`)).toBe(true);
   });
 
   test.each([

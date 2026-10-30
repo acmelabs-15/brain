@@ -174,7 +174,7 @@ If a task is L or larger, break it into smaller tasks. An agent performs best on
 
 ## Output Files
 
-A plan lives in its spec's folder: `SPEC-NNN-<slug>/` in the workspace's specs folder (`paths.specs` in `docs/agents/workspace.md`, `docs/specs/` by default).
+A plan lives in its spec's folder: `SPEC-NNN-<slug>/` in the workspace's specs folder (`paths.specs` in `docs/agents/workspace.md`, `specs/` by default).
 
 - **Plan document:** the spec folder's `tasks/plan.md`: the index, the only status of every task, and the only place for its blocking edges.
 - **Task blocks:** the spec folder's `tasks/todo.md`, one block per row of the plan. `/build` hands each block to the sub-agent that builds it, and `brain plan` reads each block's files.

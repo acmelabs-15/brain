@@ -2,7 +2,7 @@
 type: regex
 target:
   source: file
-  path: docs/specs/SPEC-001-greeter/tasks/todo.md
+  path: specs/SPEC-001-greeter/tasks/todo.md
 pattern: '^(?![\s\S]*- \[ \])[\s\S]*- \[[xX]\]'
 ---
 

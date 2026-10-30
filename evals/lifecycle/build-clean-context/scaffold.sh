@@ -5,7 +5,7 @@ set -euo pipefail
 git init -q .
 git config user.email eval@example.com
 git config user.name eval
-mkdir -p docs/agents docs/specs/SPEC-001-greeter/tasks
+mkdir -p docs/agents specs/SPEC-001-greeter/tasks
 cat > docs/agents/workspace.md <<'BRAIN_WORKSPACE_MD'
 ---
 layout: 2
@@ -13,7 +13,7 @@ paths:
   decisions: docs/decisions
   research: docs/research
   ideas: docs/ideas
-  specs: docs/specs
+  specs: specs
 max_parallel: 8
 ---
 # Workspace
@@ -72,7 +72,7 @@ A sub-agent writes its result to a file named after its task or record, the ID f
 
 A background watcher reports its own outcome, its failure included, as a line of output. Silence is not "still running": check a job's status before you report it in progress. macOS has no `timeout` command.
 BRAIN_WORKSPACE_MD
-cat > docs/specs/SPEC-001-greeter/spec.md <<'SPEC'
+cat > specs/SPEC-001-greeter/spec.md <<'SPEC'
 ---
 spec: SPEC-001
 sources: []
@@ -88,7 +88,7 @@ Test: `bun test`
 ## Testing Strategy
 `bun:test`, with the tests in `src/__tests__/`.
 SPEC
-cat > docs/specs/SPEC-001-greeter/tasks/plan.md <<'PLAN'
+cat > specs/SPEC-001-greeter/tasks/plan.md <<'PLAN'
 ---
 spec: SPEC-001
 ---
@@ -117,7 +117,7 @@ Files that more than one task in a wave touches: none.
 
 Phases that share a wave: none.
 PLAN
-cat > docs/specs/SPEC-001-greeter/tasks/todo.md <<'TODO'
+cat > specs/SPEC-001-greeter/tasks/todo.md <<'TODO'
 ---
 spec: SPEC-001
 ---

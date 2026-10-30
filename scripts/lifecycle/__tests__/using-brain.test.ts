@@ -102,7 +102,7 @@ describe("using-brain, the rest of its table in the intent doc", () => {
       (match) => match.groups?.stage,
     );
     expect(stages).toEqual(["Define", "Plan", "Build", "Verify", "Review", "Ship"]);
-    expect(lifecycle).toContain("docs/specs/SPEC-NNN-<slug>/");
+    expect(lifecycle).toContain("`specs/SPEC-NNN-<slug>/`");
   });
 
   test("the lifecycle names where spec-driven-development's own stages fall", async () => {

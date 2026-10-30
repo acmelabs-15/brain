@@ -6,7 +6,7 @@ Invoke the brain:incremental-implementation skill alongside brain:test-driven-de
 
 ## The spec folder
 
-Find the active spec through `docs/agents/workspace.md`. Read that file to its last line: `paths.specs` names the folder of specs, and "Find the active effort" says which spec is active. When the file is missing, use `docs/specs`, the default, and tell the user once to run setup-brain, which writes it. The active spec's folder holds three files:
+Find the active spec through `docs/agents/workspace.md`. Read that file to its last line: `paths.specs` names the folder of specs, and "Find the active effort" says which spec is active. When the file is missing, use `specs/`, the default, and tell the user once to run setup-brain, which writes it. The active spec's folder holds three files:
 
 - `spec.md`: the spec.
 - `tasks/plan.md`: the row table, which holds the only status of each task. The next task is the next row on its frontier: an `open` row whose `Blocked by` rows are all `resolved`.
@@ -39,7 +39,7 @@ Take the next row on the frontier of the spec's `tasks/plan.md`. Then:
 Use this once a spec exists and you want to collapse plan + build into one run. It removes the manual stepping between tasks — **not** the verification. Every task still earns a passing test and its own commit.
 
 1. **Require a spec.** Use the active spec from "The spec folder". A README or arbitrary doc does **not** count. If no spec is active, stop and tell the user to run `/spec` first — do not invent requirements.
-2. **Establish a clean baseline.** Run `git status --porcelain`. If there are uncommitted changes outside the active spec's folder (`docs/specs/SPEC-NNN-<slug>/` with the default paths: its `spec.md`, `tasks/plan.md` and `tasks/todo.md`), stop and ask the user to commit, stash, or confirm how to handle them. Autonomous per-task commits must not absorb unrelated local work, or the clean-rollback guarantee breaks.
+2. **Establish a clean baseline.** Run `git status --porcelain`. If there are uncommitted changes outside the active spec's folder (`specs/SPEC-NNN-<slug>/` with the default paths: its `spec.md`, `tasks/plan.md` and `tasks/todo.md`), stop and ask the user to commit, stash, or confirm how to handle them. Autonomous per-task commits must not absorb unrelated local work, or the clean-rollback guarantee breaks.
 3. **Plan if needed.** If the spec's `tasks/plan.md` holds no task row yet (a fresh plan from the template holds none), invoke brain:planning-and-task-breakdown to write the plan.
 4. **Single checkpoint.** Present the full plan and wait for an unambiguous affirmative (e.g. "approve", "go", "yes"). Treat hedged responses ("looks reasonable", "I guess") as **not** approved. This is the only approval before the plan's own checkpoint rows — after approval, run autonomously. If you wrote the plan, commit `tasks/plan.md` and `tasks/todo.md` as a single preparatory commit now so they don't bleed into the first task's commit.
 5. **Run the frontier in parallel**, as "Run the frontier" says, until no task is left on it or a checkpoint row stops the build. Each task runs in a clean context and a worktree of its own, so a long plan stays as sharp on the last task as on the first, and every merge is a clean rollback point.

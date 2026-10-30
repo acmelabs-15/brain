@@ -25,7 +25,7 @@ git remote add origin "$PWD/.git/origin.git"
 git push -q origin main
 git remote set-head origin main
 git switch -q -c feat/text-tools
-mkdir -p docs/agents docs/specs/SPEC-001-text-tools/tasks src/__tests__
+mkdir -p docs/agents specs/SPEC-001-text-tools/tasks src/__tests__
 cp "$plugin/skills/setup-brain/workspace.md" docs/agents/workspace.md
 printf 'node_modules/\n.claude/worktrees/\n' > .gitignore
 printf '{ "name": "text-tools", "type": "module" }\n' > package.json
@@ -41,7 +41,7 @@ import { words } from "../text";
 
 test("words", () => expect(words(" a  b c ")).toEqual(["a", "b", "c"]));
 TEXT_TEST
-cat > docs/specs/SPEC-001-text-tools/spec.md <<'SPEC'
+cat > specs/SPEC-001-text-tools/spec.md <<'SPEC'
 ---
 spec: SPEC-001
 sources: []
@@ -58,7 +58,7 @@ Test: `bun test`
 ## Testing Strategy
 `bun:test`, with the tests in `src/__tests__/`.
 SPEC
-cat > docs/specs/SPEC-001-text-tools/tasks/plan.md <<'PLAN'
+cat > specs/SPEC-001-text-tools/tasks/plan.md <<'PLAN'
 ---
 spec: SPEC-001
 ---
@@ -104,7 +104,7 @@ Phases that share a wave: none.
 ## Open questions
 - None.
 PLAN
-cat > docs/specs/SPEC-001-text-tools/tasks/todo.md <<'TODO'
+cat > specs/SPEC-001-text-tools/tasks/todo.md <<'TODO'
 ---
 spec: SPEC-001
 ---

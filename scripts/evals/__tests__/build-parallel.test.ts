@@ -36,7 +36,7 @@ const repo = `${import.meta.dir}/../../..`;
 const caseDir = `${repo}/evals/lifecycle/build-parallel`;
 const cli = `${repo}/scripts/brain.ts`;
 const branch = "feat/text-tools";
-const folder = "docs/specs/SPEC-001-text-tools";
+const folder = "specs/SPEC-001-text-tools";
 const planPath = `${folder}/tasks/plan.md`;
 const todoPath = `${folder}/tasks/todo.md`;
 // Claude Code puts the plugin's path in place of ${CLAUDE_PLUGIN_ROOT} when the command loads.
@@ -813,10 +813,10 @@ describe("lifecycle/build-parallel, the scaffold", () => {
     expect(await filesIn(root)).toEqual([
       "README.md",
       "docs/agents/workspace.md",
+      "package.json",
       `${folder}/spec.md`,
       planPath,
       todoPath,
-      "package.json",
       "src/__tests__/text.test.ts",
       "src/text.ts",
     ]);

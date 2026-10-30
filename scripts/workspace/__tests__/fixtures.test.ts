@@ -122,6 +122,12 @@ describe.each(Object.keys(layout2))("the %s fixture", (fixture) => {
     expect(config.layout).toBe(2);
   });
 
+  test("keeps docs/specs, the spec folder of a 0.10.0 workspace and not the default, so a test on it fails when brain skips paths.specs", async () => {
+    expect(await Bun.file(`${root}/${configFile}`).text()).toContain("\n  specs: docs/specs\n");
+    const { paths } = await readConfig(root);
+    expect(paths.specs).toBe("docs/specs");
+  });
+
   test("holds a workspace file of each type it is for", () => {
     const types = new Set(files[fixture]?.map((file) => file.doc?.type));
     expect([...types].toSorted()).toEqual(layout2[fixture]?.toSorted() ?? []);

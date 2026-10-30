@@ -154,7 +154,7 @@ Then add the three sections that follow them in the template:
 
 9. **Prior-art tests**: existing tests the new ones should resemble, by path, at the seams from step 3.
 
-**Where the spec lives.** Every spec lives in its own spec folder, `SPEC-NNN-<slug>/`, in the workspace's specs folder (`paths.specs` in `docs/agents/workspace.md`, `docs/specs/` by default). Create the folder with `brain new-doc`, never by hand. Pick a slug (lowercase words joined by hyphens; for a module spec, its module id) and the spec's title, and run:
+**Where the spec lives.** Every spec lives in its own spec folder, `SPEC-NNN-<slug>/`, in the workspace's specs folder (`paths.specs` in `docs/agents/workspace.md`, `specs/` by default). Create the folder with `brain new-doc`, never by hand. Pick a slug (lowercase words joined by hyphens; for a module spec, its module id) and the spec's title, and run:
 
 ```
 bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts" new-doc SPEC <slug> --title "<title>"

@@ -16,7 +16,7 @@ brain's define stage keeps its state on disk, in one workspace layout that a rep
 - `interview-me` absorbs `wayfinder`. It is always stateful: it keeps its design tree as a
   map in `docs/ideas/IDEA-NNN-<slug>.md`, across as many sessions as the work needs.
 - Every user decision lands in a `DEC` file, every fact in a `RES` file. Each spec lives in
-  `docs/specs/SPEC-NNN-<slug>/`.
+  `specs/SPEC-NNN-<slug>/` (DEC-003).
 - One CLI, `brain`, creates every numbered document (`brain new-doc`), checks the workspace
   (`brain check`) and reports the state (`brain status`).
 - The session rules ship with the plugin as an always-on protocol, so a repo needs only
@@ -37,7 +37,7 @@ Each area's detail lives in the intent doc; this spec does not repeat it.
 
 | Area | What changes | Intent doc section |
 |---|---|---|
-| Layout and formats | `docs/decisions`, `docs/research`, `docs/ideas`, `docs/specs/SPEC-NNN-<slug>/`; IDEA, DEC, RES, spec, plan and todo templates; IDs in every H1 | Layout; File formats; Decisions rows for questions 2, 3, 4 |
+| Layout and formats | `docs/decisions`, `docs/research`, `docs/ideas`, `specs/SPEC-NNN-<slug>/`; IDEA, DEC, RES, spec, plan and todo templates; IDs in every H1 | Layout; File formats; Decisions rows for questions 2 (amended by DEC-003), 3, 4 |
 | `brain` CLI | `new-doc` with claims in git's common folder; `check`; `status` (read-only, five lines, `--json`) | Numbering and the new-doc helper; Checks; rows "Running brain's scripts", question 13 |
 | interview-me | Rewritten: always stateful, chart, loop, re-map after every row, single writer, session boundary, resume, finding the active effort, delegating research | The stateful interview; Delegating research |
 | Research | Researcher agent (Claude only); the brief; `references/brain/agent-brief.md`; the optional validator field | Delegating research; rows for questions 10, 11, 17 |
@@ -74,6 +74,9 @@ because the success criteria test them.
   `--check` read them; none hard-codes a path. It also states two rules: `brain <cmd>` (as in
   Commands) and "every numbered file (IDEA, SPEC, DEC, RES) is created only through
   `brain new-doc`". The protocol states the second rule too.
+- **Spec folder.** The default is `specs/` at the root (DEC-003, which amends the Decisions
+  row for open question 2). A re-run of setup-brain keeps each folder an existing
+  `workspace.md` names, so a workspace from 0.10.0 or 0.11.0 keeps `docs/specs/`.
 - **Claims.** new-doc claims under `$(git rev-parse --git-common-dir)/brain/ids/<TYPE>/`;
   outside a git repo, under a folder in the user's cache directory.
 - **Migrated files.** `from` is required for new `DEC` and `RES` files. A file the migrate
@@ -195,7 +198,7 @@ references/brain/agent-brief.md       moved from skills/triage/AGENT-BRIEF.md (t
 skills/status/SKILL.md                the status entry point (/brain:status on Claude Code)
 commands/status.toml                  Gemini /status
 skills/setup-brain/                   templates: workspace.md, capabilities.md, STATUS.md seed, domain.md
-docs/specs/                           created by the history slice only; brain's own work stays in spec/ until then
+specs/                                created by the history slice only; brain's own work stays in spec/ until then
 ```
 
 Removed: `skills/wayfinder/`, `skills/triage/`, `skills/setup-brain/issue-tracker-*.md`,
@@ -297,7 +300,7 @@ Seams, confirmed by Peter on 2026-10-29:
 20. As a maintainer, I want `bun run check` to run the workspace check on brain itself, so that brain follows its own layout.
 21. As a maintainer, I want `bun run check` to run `sync --check`, so that an edit to a vendored file fails before commit.
 22. As a user, I want a fixed file copied from another spec caught by its old ID, so that a spec folder never carries another spec's plan.
-23. As a user, I want `/build` to run from `docs/specs/SPEC-NNN-<slug>/`, so that several efforts can live side by side.
+23. As a user, I want `/build` to run from `specs/SPEC-NNN-<slug>/`, so that several efforts can live side by side.
 24. As a user, I want `plan.md` to hold the only status and `todo.md` the task blocks, so that status never disagrees with itself.
 25. As a user, I want the main session to update the plan row after a sub-agent reports, so that the plan has one writer.
 26. As a user, I want every H1 to start with an ID, so that titles stay unique across the repo.
@@ -428,7 +431,7 @@ Each item names how it is verified.
     - `lifecycle/interview-resume`: a new session, given only the idea file, takes the next
       frontier row and asks no settled question.
     - `lifecycle/build-clean-context`, moved: `/build` runs a task from
-      `docs/specs/SPEC-001-<slug>/` with its block from `todo.md`.
+      `specs/SPEC-001-<slug>/` with its block from `todo.md`.
     - `setup/fresh-repo-resume`: after `/setup-brain` in a fresh repo, a new session reports
       its stage and next step, and the repo's `AGENTS.md` holds no brain text.
     - `setup/migrate-08`, `lifecycle/adr-is-dec`, `lifecycle/skill-not-skipped`,
@@ -449,7 +452,7 @@ Each item names how it is verified.
 | Every resolved map row links to a `DEC` or `RES` file | 3 |
 | Parallel research sub-agents never collide on a document number | 2 |
 | `bun run check` fails on a bad name, a duplicate number, a resolved row with no link, or a spec source that does not exist | 3, 4 |
-| `/build` runs from `specs/SPEC-NNN-<slug>/` (`docs/specs/` since question 2) | 15 (`lifecycle/build-clean-context`); 1 |
+| `/build` runs from `specs/SPEC-NNN-<slug>/` (`docs/specs/` in 0.10.0 and 0.11.0, by question 2; the root again by DEC-003) | 15 (`lifecycle/build-clean-context`); 1 |
 | After `/setup-brain` in a fresh repo, a new session reports its stage and next step with no brain text in the repo's `AGENTS.md` | 15 (`setup/fresh-repo-resume`); 6, 7 |
 | Outcome addition: the glossary rename | 8, 9 |
 | Outcome addition: the source cache | `SPEC-source-cache.md` |

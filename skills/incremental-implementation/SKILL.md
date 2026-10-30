@@ -18,7 +18,7 @@ Build in thin vertical slices: implement one piece, test it, verify it, then exp
 
 **When NOT to use:** Single-file, single-function changes where the scope is already minimal.
 
-**Where the tasks live.** A task comes from the active spec folder (`docs/agents/workspace.md` says how to find it): a row on the frontier of its `tasks/plan.md` (an `open` row whose Blocked by rows are all `resolved`), with the task's detail in the block of the same number in its `tasks/todo.md`. The block's acceptance criteria and verification steps bound the task. In a repo with no `docs/agents/workspace.md`, look in the default specs folder, `docs/specs/`, and tell the user once to run setup-brain.
+**Where the tasks live.** A task comes from the active spec folder (`docs/agents/workspace.md` says how to find it): a row on the frontier of its `tasks/plan.md` (an `open` row whose Blocked by rows are all `resolved`), with the task's detail in the block of the same number in its `tasks/todo.md`. The block's acceptance criteria and verification steps bound the task. In a repo with no `docs/agents/workspace.md`, look in the default specs folder, `specs/`, and tell the user once to run setup-brain.
 
 ## The Increment Cycle
 
