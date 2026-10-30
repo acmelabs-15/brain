@@ -312,7 +312,7 @@ The merged review is in the build scratch folder, `review/merged.md`. Peter put 
   - Verify: hook tests for stdout that is not JSON, JSON without `report`, and a `report` that is not a list
   - Files: scripts/hooks/session-start.ts, scripts/hooks/__tests__/session-start.test.ts
   - Depends: none. Scope: S
-- [ ] T55: `setup-brain --check` reports a `workspace.md` it cannot read
+- [x] T55: `setup-brain --check` reports a `workspace.md` it cannot read
   - Acceptance: a `skipped` change counts as drift (exit 1, with its note), except the 0.8-layout case that `waiting` already reports
   - Verify: a `write.test.ts` case with invalid YAML in `workspace.md`
   - Files: scripts/setup/write.ts, scripts/setup/__tests__/write.test.ts

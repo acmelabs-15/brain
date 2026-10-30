@@ -32,7 +32,8 @@
  * global file is left alone; the skill passes that scope only after the user's explicit yes.
  * CLAUDE.md and GEMINI.md are never touched: Claude Code, Gemini CLI and Antigravity get the text
  * from the plugin. Every change is listed; --dry-run lists and writes nothing; --check lists, writes
- * nothing, and exits 1 when a file differs from what a run would write.
+ * nothing, and exits 1 when a file differs from what a run would write, or when a run skips a file
+ * until the user fixes it by hand. A missing Codex home is not drift.
  */
 import { mkdir, stat } from "node:fs/promises";
 import { homedir } from "node:os";
@@ -152,6 +153,9 @@ function withBlocks(text: string, blocks: string[], fileName: string): string {
   return next;
 }
 
+/** The note on the Codex file when this machine has no Codex home: no drift, since a run skips the file too. */
+const noCodexHome = "no Codex home directory";
+
 async function writeCodex(input: SetupInput, blocks: string[]): Promise<Change | null> {
   if (input.codexScope === "project") {
     const path = `${input.root}/AGENTS.md`;
@@ -164,7 +168,7 @@ async function writeCodex(input: SetupInput, blocks: string[]): Promise<Change |
   const home = input.codexHome ?? defaultCodexHome();
   const path = `${home}/AGENTS.md`;
   if (!(await isDirectory(home))) {
-    return { path, action: "skipped", note: "no Codex home directory" };
+    return { path, action: "skipped", note: noCodexHome };
   }
   const current = (await readIfPresent(path)) ?? "";
   return put(input, path, path, withBlocks(current, blocks, path));
@@ -389,8 +393,10 @@ function note(change: Change, dryRun: boolean): string {
 }
 
 /**
- * The closing line of `--check`, and its exit code: 1 when a run would change a file, or when
- * the repo is on the brain 0.8 layout and the migrate mode has files to move.
+ * The closing line of `--check`, and its exit code: 1 when a run would change a file, when a run
+ * skips a file until the user fixes it by hand, or when the repo is on the brain 0.8 layout and
+ * the migrate mode has files to move. That last case skips `workspace.md` too, and its line says so.
+ * A machine with no Codex home is no drift: no run writes a Codex file there.
  */
 function checkSummary(changes: Change[], waiting: string[]): { line: string; code: number } {
   if (waiting.length > 0) {
@@ -400,12 +406,15 @@ function checkSummary(changes: Change[], waiting: string[]): { line: string; cod
       code: 1,
     };
   }
-  const drift = changes.filter((c) => c.action !== "unchanged" && c.action !== "skipped").length;
-  if (drift === 0) {
+  const drift = changes.filter((c) => c.action !== "unchanged" && c.note !== noCodexHome);
+  if (drift.length === 0) {
     return { line: "every file is in place", code: 0 };
   }
-  const files = drift === 1 ? "1 file differs" : `${drift} files differ`;
-  return { line: `${files} from what setup-brain writes: run setup-brain`, code: 1 };
+  const files = drift.length === 1 ? "1 file differs" : `${drift.length} files differ`;
+  const fix = drift.some((c) => c.action === "skipped")
+    ? "fix each skipped file by hand, then run setup-brain"
+    : "run setup-brain";
+  return { line: `${files} from what setup-brain writes: ${fix}`, code: 1 };
 }
 
 /** Run the mode the flags pick, print each change, and return the exit code. */

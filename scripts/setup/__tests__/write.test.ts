@@ -435,6 +435,43 @@ describe("write.ts --check", () => {
     );
   });
 
+  test("a workspace.md whose frontmatter is not valid YAML is drift: exit 1, its note shown, the file kept", async () => {
+    const before = "---\npaths: [docs/decisions\n---\n# Workspace\n";
+    const root = await repo("check-broken-yaml", { "docs/agents/workspace.md": before });
+    await writeSetup({ brain, root, ...base });
+    const run = check(root);
+    expect(run.exitCode).toBe(1);
+    const out = run.stdout.toString();
+    expect(out).toContain(
+      "skipped   docs/agents/workspace.md  (its frontmatter is not valid YAML; fix it, then run setup-brain again)",
+    );
+    expect(out).toEndWith(
+      "1 file differs from what setup-brain writes: fix each skipped file by hand, then run setup-brain\n",
+    );
+    expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(before);
+  });
+
+  test("no Codex home on this machine is no drift: a run skips that file too, so exit 0", async () => {
+    const root = await repo("check-no-codex-home");
+    await writeSetup({ brain, root, ...base });
+    const home = `${work}/check-no-codex-home/.codex`;
+    const run = Bun.spawnSync([
+      "bun",
+      writeScript,
+      "--root",
+      root,
+      "--brain",
+      brain,
+      "--codex-home",
+      home,
+      "--check",
+    ]);
+    expect(run.exitCode).toBe(0);
+    const out = run.stdout.toString();
+    expect(out).toContain(`skipped   ${home}/AGENTS.md  (no Codex home directory)`);
+    expect(out).toEndWith("every file is in place\n");
+  });
+
   test("--check with --migrate is bad usage: exit 2", () => {
     const run = Bun.spawnSync(["bun", writeScript, "--root", work, "--check", "--migrate"]);
     expect(run.exitCode).toBe(2);
@@ -583,6 +620,36 @@ describe("writeSetup, a glossary file git does not track", () => {
       ["CONTEXT.md -> GLOSSARY.md", "skipped", "not tracked by git; move it by hand"],
       ["CONTEXT-MAP.md -> GLOSSARY-MAP.md", "skipped", "not tracked by git; move it by hand"],
     ]);
+    expect(await exists(`${root}/CONTEXT.md`)).toBe(true);
+  });
+});
+
+describe("write.ts --check, a glossary move", () => {
+  const writeScript = `${import.meta.dir}/../write.ts`;
+
+  test("a glossary move that a run cannot make is drift: exit 1, its note shown, nothing moved", async () => {
+    const root = await gitRepo("check-glossary-both", {
+      "CONTEXT.md": "# Old\n",
+      "GLOSSARY.md": "# New\n",
+    });
+    await writeSetup({ brain, root, ...base });
+    const run = Bun.spawnSync([
+      "bun",
+      writeScript,
+      "--root",
+      root,
+      "--brain",
+      brain,
+      "--no-codex",
+      "--rename-glossary",
+      "--check",
+    ]);
+    expect(run.exitCode).toBe(1);
+    const out = run.stdout.toString();
+    expect(out).toContain("skipped   CONTEXT.md -> GLOSSARY.md  (GLOSSARY.md already exists)");
+    expect(out).toEndWith(
+      "1 file differs from what setup-brain writes: fix each skipped file by hand, then run setup-brain\n",
+    );
     expect(await exists(`${root}/CONTEXT.md`)).toBe(true);
   });
 });

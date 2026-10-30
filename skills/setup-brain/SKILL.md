@@ -162,7 +162,7 @@ When the user asks for `--check`, or asks whether the setup is current, run the 
 bun "${CLAUDE_PLUGIN_ROOT}/scripts/setup/write.ts" --root . --layout single --check
 ```
 
-It writes nothing. It lists each file, then ends with "every file is in place" (exit 0), with how many files differ (exit 1), or on a repo on the brain 0.8 layout with what the migrate mode still has to move (exit 1). Show the lines. A normal run, after the user's yes, brings each file that differs in line.
+It writes nothing. It lists each file, then ends with "every file is in place" (exit 0), with how many files differ (exit 1), or on a repo on the brain 0.8 layout with what the migrate mode still has to move (exit 1). Show the lines. A normal run, after the user's yes, brings each file that differs in line. A skipped file counts as a file that differs: the user fixes it by hand first, as its note says. A Codex file skipped because no Codex home exists does not count.
 
 `--check` covers the files of step 5. For `capabilities.md`, run step 6's dry run: it says whether the file exists and lists each row it does not name yet.
 
