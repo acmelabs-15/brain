@@ -5,8 +5,8 @@ compatibility: "Interactive Claude Code, Codex, or Gemini CLI with a permitted u
 metadata:
   type: core
   library: brain
-  library_version: "0.12.0"
-  version: "0.12.0"
+  library_version: "0.12.1"
+  version: "0.12.1"
 ---
 
 # Ask user question
