@@ -1,6 +1,6 @@
 # Working on brain
 
-brain is one plugin for Claude Code, Codex CLI, Gemini CLI and Antigravity CLI. `README.md` says what is inside; `spec/README.md` indexes the module specs. This file holds what an agent needs on every turn here.
+brain is one plugin for Claude Code, Codex CLI, Gemini CLI and Antigravity CLI. `README.md` says what is inside; `specs/` holds one spec folder per module, and `brain status` (`bun run status`) says where the work stands. This file holds what an agent needs on every turn here.
 
 ## Ownership
 
@@ -21,8 +21,8 @@ bun run changeset  # a user-facing change gets one; the release workflow version
 
 | What | Where |
 |---|---|
-| The capability map and one spec per module | `spec/` |
-| The current plan and task list; done plans by module | `tasks/plan.md`, `tasks/todo.md`; `tasks/done/<module>/` |
+| The capability map; one spec per module | `docs/decisions/DEC-004-capability-map-brain.md`; `specs/SPEC-NNN-<module>/spec.md` |
+| Each module's plan and task list; the one done plan with no spec of its own | `specs/SPEC-NNN-<module>/tasks/plan.md` and `todo.md`; `tasks/done/context-scope/` |
 | Intent, research notes, decision records, install pages | `docs/intent/`, `docs/research/`, `docs/decisions/`, `docs/install/` |
 | Tests | `__tests__/` beside the file under test, `bun:test` |
 
