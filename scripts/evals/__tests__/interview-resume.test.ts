@@ -370,3 +370,53 @@ describe("lifecycle/interview-resume, the computed graders on played runs", () =
     expect(await failing(run)).toEqual(["interview-fired"]);
   });
 });
+
+/** A run that is only its last reply, for a grader on `last_message`. */
+function replyRun(last: string): Run {
+  return { root: "", created: [], calls: [], last };
+}
+
+/** The case's no-settled-question grader. */
+async function settledGrader(): Promise<Grader | undefined> {
+  const graders = await readGraders();
+  return graders.find((each) => each.name === "no-settled-question");
+}
+
+describe("lifecycle/interview-resume, no-settled-question against the real CI replies", () => {
+  // Pass 2 on CI (Claude Code 2.1.314): both sessions asked only row 09, and the judges still
+  // failed them, reading the settled prices in each option's cost as a question about them.
+  // The grader is computed now, so the saved replies re-grade it locally (Peter, 2026-10-30).
+  const replies = [0, 1].map((i) => `${import.meta.dir}/fixtures/interview-resume.reply-${i}.md`);
+  const wrong = [
+    "Before row 09: do you still want a hosted service, or should we go peer to peer?",
+    "Should two edits to one note still merge line by line?",
+    "Which devices sync at launch: phones, laptops or both?",
+  ];
+
+  test("is a computed grader on the last reply", async () => {
+    const grader = await settledGrader();
+    expect([grader?.type, grader?.target, grader?.match]).toEqual([
+      "regex",
+      "last_message",
+      "not_contains",
+    ]);
+  });
+
+  test("passes both saved replies, which ask only row 09", async () => {
+    const grader = await settledGrader();
+    for (const path of replies) {
+      const last = await Bun.file(path).text();
+      expect(last).toContain("encrypted at launch?");
+      expect(grader !== undefined && passes(grader, replyRun(last))).toBe(true);
+    }
+  });
+
+  test("fails a reply that asks about a settled point", async () => {
+    const grader = await settledGrader();
+    const base = await Bun.file(replies[1] ?? "").text();
+    for (const question of wrong) {
+      const last = `${base}\n\n${question}`;
+      expect(grader !== undefined && passes(grader, replyRun(last))).toBe(false);
+    }
+  });
+});
