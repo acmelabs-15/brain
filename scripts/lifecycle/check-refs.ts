@@ -13,7 +13,7 @@ import { readFrontmatter } from "../workspace/schema";
 import { checkAgentList } from "./agents";
 import type { Finding } from "./finding";
 import { checkHookFiles } from "./hooks";
-import { checkFallbackExpiry, checkGlossaryTerms, checkRetiredNames } from "./names";
+import { checkGlossaryTerms, checkRetiredNames } from "./names";
 import { checkRouter } from "./router";
 
 export type Ref = { prefix: string | null; name: string };
@@ -110,7 +110,6 @@ if (import.meta.main) {
     ...(await checkRefs(root)),
     ...(await checkRetiredNames(root)),
     ...(await checkGlossaryTerms(root)),
-    ...(await checkFallbackExpiry(root)),
     ...(await checkAgentList(root)),
     ...(await checkHookFiles(root)),
     ...(await checkRouter(root)),
