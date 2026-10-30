@@ -67,6 +67,10 @@ An effort is the idea or spec that a session works on. The active effort is the 
 ## Sub-agents
 
 A sub-agent writes its result to a file named after its task or record, the ID first: `T10-result.md`, `RES-032-<slug>.md`. A sub-agent's file name never starts with report, summary, findings or analysis: Claude Code refuses a sub-agent's write to such a `.md` file.
+
+## Background work
+
+A background watcher reports its own outcome, its failure included, as a line of output. Silence is not "still running": check a job's status before you report it in progress. macOS has no `timeout` command.
 BRAIN_WORKSPACE_MD
 cat > docs/specs/SPEC-001-greeter/spec.md <<'SPEC'
 ---
