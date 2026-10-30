@@ -193,7 +193,8 @@ async function writeWorkspace(
   const path = "docs/agents/workspace.md";
   const full = `${input.root}/${path}`;
   if (waiting.length > 0) {
-    const why = "the repo is on the brain 0.8 layout: the migrate mode writes this file";
+    const why =
+      "the repo is on layout 1 (brain 0.9 and earlier): the migrate mode writes this file";
     return { path, action: "skipped", note: why };
   }
   const next = workspaceText(template, await readIfPresent(full));
@@ -392,7 +393,7 @@ function checkSummary(changes: Change[], waiting: string[]): { line: string; cod
   if (waiting.length > 0) {
     const found = waiting.join(", ");
     return {
-      line: `the repo is on the brain 0.8 layout (${found}): run setup-brain to migrate`,
+      line: `the repo is on layout 1 (brain 0.9 and earlier): run setup-brain to migrate. Found: ${found}`,
       code: 1,
     };
   }

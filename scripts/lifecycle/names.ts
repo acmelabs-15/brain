@@ -76,6 +76,7 @@ export const glossaryTerms = [
   "Decision record",
   "Research record",
   "Workspace",
+  "Layout 1",
   "Protocol",
   "Stage",
   "Phase",

@@ -23,7 +23,7 @@ Add `--json` when the five lines are not enough. The JSON holds the same lines, 
 
 Show the lines to the user exactly as printed. Then give the next action for each of these:
 
-- **One line that says "run setup-brain to migrate".** The repo is on the brain 0.8 layout. Tell the user to run setup-brain, which moves the files with `git mv` and changes no body.
+- **One line that says "run setup-brain to migrate".** The repo is on layout 1 (brain 0.9 and earlier). Tell the user to run setup-brain, which moves the files with `git mv` and changes no body.
 - **Red names `brain check` findings.** Run `brain check` and show its list. Each line names a file and the rule it breaks.
 - **Red names a missing `docs/agents/workspace.md`.** Tell the user once to run setup-brain. Until then, `brain` uses the default folders.
 - **The next step names a row that is already resolved.** `docs/STATUS.md` is older than the rows. Say so, and take the first frontier row from `--json` instead.

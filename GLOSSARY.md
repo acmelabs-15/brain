@@ -99,6 +99,10 @@ _Avoid_: lock, reservation
 A repo's folders for ideas, decisions, research and specs, with the naming rules they follow.
 _Avoid_: docs tree, structure
 
+**Layout 1**:
+The files of brain 0.9 and earlier, before the workspace: a root `SPEC.md` or `spec/`, one plan in `tasks/`, and ADRs as `docs/decisions/0001-<slug>.md`. setup-brain's migrate mode moves a repo from layout 1 to the workspace, which `docs/agents/workspace.md` records as `layout: 2`.
+_Avoid_: 0.8 layout, old layout
+
 **Protocol**:
 The rules brain carries into every session on every host: how a session starts, checks its
 skills and servers, briefs sub-agents and ends a task.

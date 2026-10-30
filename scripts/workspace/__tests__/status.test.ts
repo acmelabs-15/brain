@@ -398,7 +398,7 @@ describe("brain status --json, on each fixture", () => {
 
 describe("brain status, a repo on the 0.8 layout", () => {
   const migrate =
-    "This repo is on the brain 0.8 layout: run setup-brain to migrate. Found: CONTEXT.md, spec/, tasks/plan.md, tasks/todo.md, docs/intent/, docs/agents/issue-tracker.md, docs/agents/triage-labels.md.";
+    "This repo is on layout 1 (brain 0.9 and earlier): run setup-brain to migrate. Found: CONTEXT.md, spec/, tasks/plan.md, tasks/todo.md, docs/intent/, docs/agents/issue-tracker.md, docs/agents/triage-labels.md.";
 
   test("layout-0.8: one line, run setup-brain to migrate, naming the 0.8 files it found", async () => {
     const root = await repo("old", "layout-0.8");

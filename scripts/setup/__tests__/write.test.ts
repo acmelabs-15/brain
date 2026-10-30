@@ -180,7 +180,7 @@ describe("writeSetup, a repo on the brain 0.8 layout", () => {
   const waitsForMigration: Change = {
     path: "docs/agents/workspace.md",
     action: "skipped",
-    note: "the repo is on the brain 0.8 layout: the migrate mode writes this file",
+    note: "the repo is on layout 1 (brain 0.9 and earlier): the migrate mode writes this file",
   };
 
   test("writes domain.md and the seed, and leaves workspace.md to the migrate mode: its layout: 2 marks a migrated repo", async () => {
@@ -431,7 +431,7 @@ describe("write.ts --check", () => {
     const run = check(root);
     expect(run.exitCode).toBe(1);
     expect(run.stdout.toString()).toEndWith(
-      "the repo is on the brain 0.8 layout (tasks/plan.md, docs/decisions/0001-use-bun.md): run setup-brain to migrate\n",
+      "the repo is on layout 1 (brain 0.9 and earlier): run setup-brain to migrate. Found: tasks/plan.md, docs/decisions/0001-use-bun.md\n",
     );
   });
 

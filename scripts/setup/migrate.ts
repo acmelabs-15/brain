@@ -112,9 +112,9 @@ type Undo = () => Promise<void> | void;
 
 const commitTitle = "chore: migrate to the brain workspace layout";
 const commitBody =
-  "Move each brain 0.8 file to its place in the workspace with git mv, and give each migrated file its frontmatter: its ID, migrated: 0.8, in a DEC or RES the date of its first commit, and in a former ADR kind: architecture. No byte below the frontmatter changes.";
+  "Move each layout 1 file to its place in the workspace with git mv, and give each migrated file its frontmatter: its ID, migrated: 0.8, in a DEC or RES the date of its first commit, and in a former ADR kind: architecture. No byte below the frontmatter changes.";
 const removalBody =
-  "Remove setup-brain 0.8's tracker files with git rm, after the user's yes: brain no longer reads them.";
+  "Remove the tracker files of layout 1 with git rm, after the user's yes: brain no longer reads them.";
 const layoutBody = "Record layout: 2 in docs/agents/workspace.md: the repo is migrated.";
 
 const recordTypes = [

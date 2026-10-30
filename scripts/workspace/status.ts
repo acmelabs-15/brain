@@ -279,7 +279,7 @@ async function readStatus(root: string): Promise<Status> {
   const note = await readNote(root);
   const old = setup ? await findOldLayout(root) : [];
   if (old.length > 0) {
-    const line = `This repo is on the brain 0.8 layout: run setup-brain to migrate. Found: ${old.join(", ")}.`;
+    const line = `This repo is on layout 1 (brain 0.9 and earlier): run setup-brain to migrate. Found: ${old.join(", ")}.`;
     return { migrate: old, report: [line], efforts: [], ideas: [], red: [], note };
   }
   const { paths } = await readConfig(root);

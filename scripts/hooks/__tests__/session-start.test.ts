@@ -291,7 +291,7 @@ describe("the session-start text on each fixture", () => {
     const context = contextOf(await spawnHook(root));
     expect(context).toContain(protocol);
     expect(context).toContain(
-      "# brain status\n\nThis repo is on the brain 0.8 layout: run setup-brain to migrate. Found: CONTEXT.md, spec/, tasks/plan.md, tasks/todo.md, docs/intent/, docs/agents/issue-tracker.md, docs/agents/triage-labels.md.\n",
+      "# brain status\n\nThis repo is on layout 1 (brain 0.9 and earlier): run setup-brain to migrate. Found: CONTEXT.md, spec/, tasks/plan.md, tasks/todo.md, docs/intent/, docs/agents/issue-tracker.md, docs/agents/triage-labels.md.\n",
     );
   });
 
