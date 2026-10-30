@@ -138,14 +138,14 @@ The chart writes the map before the first question, and asks the user nothing. R
    - The Intent draft: your hypothesis on each line. Where you cannot guess, name the row that settles it: `- Success: open, row 03.` Leave the "Confirmed by" comment as it is; it becomes a line only after the user's explicit yes.
    - The Destination.
    - Notes: "Every session loads ask-user-question, domain-modeling and context-engineering.", then any standing preference the user stated.
-   - The Map: one row per question from step 2, numbered from `01`, with status `open`, Blocked by `—` for now, and Result `—`.
+   - The Map: one row per question from step 2, right under the table's header, numbered from `01`, with status `open`, Blocked by `—` for now, and Result `—`.
    - The fog under "Not yet specified", and "Out of scope" (write "None yet." when nothing is ruled out).
 
 4. **Wire the blocking edges in a second pass.** With every row numbered, give each row the rows whose answers it needs. A row that needs no answer keeps `—`. No row waits on itself, directly or through other rows.
 
 5. **Start the research.** Start every research row on the frontier at once, up to the cap, as [Start every research row at once](#start-every-research-row-at-once) says.
 
-The chart is done when `brain check` reports no finding for the idea file, no `<...>` placeholder is left outside the "Confirmed by" comment, and the user has the path, the destination and the first frontier in a few lines. Then the loop takes the first frontier row.
+The chart is done when `brain check` reports no finding for the idea file, no `<...>` placeholder is left outside the template's comments, and the user has the path, the destination and the first frontier in a few lines. Then the loop takes the first frontier row.
 
 ## The loop
 

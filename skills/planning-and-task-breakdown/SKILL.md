@@ -203,7 +203,7 @@ Fill the sections the template wrote (`scripts/workspace/templates/plan.md` in t
 | H1 | The spec's ID, then the title: `# SPEC-012 plan: <title>` |
 | Overview | One paragraph: what this plan builds, and in what order |
 | Decisions | One line per decision record the plan follows: `- DEC-031: <title>`. A decision is a link here, never its text. A decision the user makes while you plan gets its own record first, in [domain-modeling's DEC format](../domain-modeling/DEC-FORMAT.md) |
-| Tasks | The row table below |
+| Tasks | The row table below. The template wrote its header only; write the rows right under it |
 | Parallel waves | What `brain plan` prints above its `Cap:` line, as it prints it (see The Parallel waves section) |
 | Risks | One row per risk: the risk, its impact (high, medium or low), the mitigation |
 | Open questions | The questions for the user |

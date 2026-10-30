@@ -7,4 +7,4 @@ pattern: '^\| *01 *\| *[^<|\s][^|\n]*\| *(?:task|checkpoint) *\|'
 flags: m
 ---
 
-The spec came in the chat, so the plan skill makes its spec folder with `brain new-doc SPEC word-counter`, the first spec in this repo. Row 01 of the plan names a real task, not the template's `<task>` placeholder, so the plan was written before the first question.
+The spec came in the chat, so the plan skill makes its spec folder with `brain new-doc SPEC word-counter`, the first spec in this repo. The template's row table holds its header only, so a row 01 that names a real task shows the plan was written before the first question.

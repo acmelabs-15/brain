@@ -221,17 +221,29 @@ describe("brain new-doc, the title", () => {
     expect(await headings(repo, res.stdout)).toEqual([`# DEC-001: ${title}`]);
   });
 
-  test("a fresh file of any type has no H1 finding, and spec.md and todo.md, whose only placeholder was the title, pass brain check", async () => {
-    const repo = await gitRepo("title-checked");
-    for (const type of ["IDEA", "DEC", "RES", "SPEC"]) {
+  test("a fresh IDEA and a fresh SPEC, with no --title, pass brain check: spec.md, plan.md and todo.md too", async () => {
+    const repo = await gitRepo("fresh-passes");
+    for (const type of ["IDEA", "SPEC"]) {
       const res = await brain(repo, ["new-doc", type, "pin-addy-skills"]);
       expect(res.code).toBe(0);
     }
     const res = await brain(repo, ["check"]);
-    const findings = res.stdout.split("\n").filter((line) => line.includes(": "));
+    expect(res.stderr).toBe("");
+    expect(res.stdout).toBe("no finding in 4 workspace files\n");
+    expect(res.code).toBe(0);
+  });
+
+  test("a fresh DEC and a fresh RES get no H1 finding: only the fields their agent fills fail", async () => {
+    const repo = await gitRepo("fresh-records");
+    for (const type of ["DEC", "RES"]) {
+      const res = await brain(repo, ["new-doc", type, "pin-addy-skills"]);
+      expect(res.code).toBe(0);
+    }
+    const res = await brain(repo, ["check"]);
+    const findings = res.stdout.split("\n").filter((line) => line.includes(".md: "));
     expect(findings.length).toBeGreaterThan(0);
     expect(findings.filter((line) => line.includes(": H1: "))).toEqual([]);
-    expect(findings.filter((line) => /\/(?:spec|tasks\/todo)\.md: /u.test(line))).toEqual([]);
+    expect(res.code).toBe(1);
   });
 
   test.each([

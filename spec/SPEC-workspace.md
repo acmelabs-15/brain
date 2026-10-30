@@ -377,8 +377,10 @@ Each item names how it is verified.
    placeholder rule reads the H1 title only. A file from `brain new-doc` never trips it:
    new-doc takes `--title "<text>"` and, without it, builds the title from the slug
    (`pin-addy-skills` becomes "Pin addy skills"), so the rule catches a template copied by
-   hand (Decisions row "Placeholder titles and map cycles"). Test: one fixture per rule; a
-   file new-doc writes with no `--title` gets no H1 finding; `--title` sets the H1.
+   hand (Decisions row "Placeholder titles and map cycles"). The IDEA and plan templates hold
+   their row table's header only, so a fresh IDEA and a fresh SPEC pass `brain check` whole.
+   Test: one fixture per rule; a fresh IDEA and a fresh SPEC from new-doc, with no `--title`,
+   pass; a fresh DEC or RES gets no H1 finding; `--title` sets the H1.
 4. `bun run check` runs `workspace:check` and `sync --check`, and is green on brain. Brain's
    seven `DEC` and `RES` files gain frontmatter through the migrate mode (`migrated: 0.8` in
    place of `from`), with their bodies

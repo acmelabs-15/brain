@@ -161,9 +161,12 @@ function fillSpec(text: string): string {
 
 /** The plan of a correct run: one open row per task, in the template's format. */
 function fillPlan(text: string): string {
+  // The template's table has its header only; the rows go right under it.
   return text.replace(
-    "| 01 | <task> | <task or checkpoint> | open | — | — |",
+    "| # | Task | Type | Status | Blocked by | Result |\n|---|---|---|---|---|---|",
     [
+      "| # | Task | Type | Status | Blocked by | Result |",
+      "|---|---|---|---|---|---|",
       "| 01 | Count the words in a file | task | open | — | — |",
       "| 02 | Exit 1 on a missing file | task | open | 01 | — |",
       "| 03 | Checkpoint: after tasks 01-02 | checkpoint | open | 01, 02 | — |",

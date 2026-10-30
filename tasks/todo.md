@@ -317,7 +317,7 @@ The merged review is in the build scratch folder, `review/merged.md`. Peter put 
   - Verify: a `write.test.ts` case with invalid YAML in `workspace.md`
   - Files: scripts/setup/write.ts, scripts/setup/__tests__/write.test.ts
   - Depends: none. Scope: S
-- [ ] T56: `brain check` finds map cycles; the placeholder-title rule, and `brain new-doc --title`
+- [x] T56: `brain check` finds map cycles; the placeholder-title rule, and `brain new-doc --title`
   - Acceptance: a map whose blocked-by edges form a cycle gets one finding line; the placeholder rule stays, limited to the H1 title; `brain new-doc` takes `--title "<text>"` and, without it, builds the title from the slug (`pin-addy-skills` becomes "Pin addy skills"), so a fresh file passes `brain check`; success criterion 3 and the Decisions table name both rules (Peter, 2026-10-29)
   - Verify: fixtures: a map cycle fails; a new-doc file with no `--title` passes; a file with `<title>` left in its H1 fails; `--title` sets the H1
   - Files: scripts/workspace/check.ts, scripts/workspace/new-doc.ts, their tests and fixtures, spec/SPEC-workspace.md, docs/intent/workspace-and-stateful-interview.md, skills that show `brain new-doc` usage

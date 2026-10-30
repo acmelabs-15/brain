@@ -23,4 +23,4 @@ Write the plan into the spec folder's `tasks/plan.md` and the task list into its
 
 Then run `brain check`, where `brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`. No finding may name a file in the spec folder.
 
-If the spec's `tasks/plan.md` already holds task rows, not only the template's placeholder row, stop and ask before writing — never silently overwrite a plan.
+If the spec's `tasks/plan.md` already holds task rows (a fresh plan from the template holds none), stop and ask before writing — never silently overwrite a plan.

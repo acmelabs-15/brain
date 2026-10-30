@@ -22,9 +22,10 @@ result: # with status: done, the DEC-NNN or the commit SHA this idea produced
 <the skills every session loads, and standing preferences for this idea>
 
 ## Map
+<!-- Write one row per question right under the table's header, numbered from 01: | 01 | <question> | <interview, prototype, ideate, research or task> | open | — | — | -->
+
 | # | Question | Type | Status | Blocked by | Result |
 |---|---|---|---|---|---|
-| 01 | <question> | <interview, prototype, ideate, research or task> | open | — | — |
 
 ## Not yet specified
 <fog: questions you can tell are coming but cannot state precisely yet>

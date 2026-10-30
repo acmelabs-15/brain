@@ -152,8 +152,11 @@ function chart(text: string): string {
       "## Notes\nEvery session loads ask-user-question, domain-modeling and context-engineering.",
     )
     .replace(
-      "| 01 | <question> | <interview, prototype, ideate, research or task> | open | — | — |",
+      // The template's map has its header only; the rows go right under it.
+      "| # | Question | Type | Status | Blocked by | Result |\n|---|---|---|---|---|---|",
       [
+        "| # | Question | Type | Status | Blocked by | Result |",
+        "|---|---|---|---|---|---|",
         '| 01 | Who asks "how are we doing?" | interview | open | — | — |',
         "| 02 | Which metrics does the repo already export? | research | open | — | — |",
         "| 03 | What does a good answer let the reader decide? | interview | open | 01 | — |",

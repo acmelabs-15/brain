@@ -166,7 +166,7 @@ It claims the next spec number and writes `spec.md`, `tasks/plan.md` and `tasks/
 - `sources:` in the frontmatter: every IDEA, DEC and RES file the spec comes from, such as `sources: [IDEA-004, DEC-031, RES-009]`. Links run one way: an idea holds no list of its specs.
 - When `sources:` names an idea, set that idea's `status` to `specced`. The idea is then finished, and a session that resumes it goes to this spec.
 
-Leave `tasks/plan.md` and `tasks/todo.md` as the templates wrote them; planning-and-task-breakdown fills them in Stage 2. The spec is a repo file, committed beside the code. `spec.md` is done when `brain check` reports no finding for it; the findings for the plan and todo files stay until Stage 2 fills them.
+Leave `tasks/plan.md` and `tasks/todo.md` as the templates wrote them; planning-and-task-breakdown fills them in Stage 2. The spec is a repo file, committed beside the code. `spec.md` is done when `brain check` reports no finding for it. The plan and todo files pass `brain check` as the templates wrote them.
 
 **External spec tools:** This workflow is format-agnostic. If the project already uses OpenSpec or another specification system, keep that system's artifact format and storage conventions instead of creating a duplicate spec folder. This skill owns the clarification, content, and approval gates; the external tool owns how the approved spec is represented.
 

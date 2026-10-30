@@ -181,13 +181,13 @@ With no repo, the one-pager stays in the conversation: say so once, and the run 
 
    - **Intent**: a draft of each line from Phase 1. The user and success come from the sharpening answers, the outcome from the problem statement, and the out-of-scope line from the Not Doing list. Where the session gave no answer, add an `interview` row that asks for it, and name that row: `- Why now: open, row 06.` Leave the "Confirmed by" comment as it is.
    - **Notes**: `Every session loads ask-user-question, domain-modeling and context-engineering.` and `Drafted by idea-refine on <YYYY-MM-DD>; the intent waits for interview-me's confirmation.`
-   - **The Map**: number the rows from `01`. Every row starts with status `open` and Result `—`. In a second pass, give each row the rows whose answers it needs in Blocked by, or `—` when it needs none.
+   - **The Map**: write the rows right under the table's header, numbered from `01`. Every row starts with status `open` and Result `—`. In a second pass, give each row the rows whose answers it needs in Blocked by, or `—` when it needs none.
    - **"Not yet specified"**: write `None yet.` when every open question became a row.
    - Keep `status: define` in the frontmatter.
 
 3. Run `brain check`.
 
-The save is done when `brain check` reports no finding for the idea file, no `<...>` placeholder is left outside the "Confirmed by" comment, and the user has the path. Tell the user the next step: interview-me resumes from this file, confirms the intent, and walks the map.
+The save is done when `brain check` reports no finding for the idea file, no `<...>` placeholder is left outside the template's comments, and the user has the path. Tell the user the next step: interview-me resumes from this file, confirms the intent, and walks the map.
 
 ### Resolve an `ideate` row
 
