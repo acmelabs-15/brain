@@ -337,7 +337,7 @@ The merged review is in the build scratch folder, `review/merged.md`. Peter put 
 ### Checkpoint: phase 6
 - [x] The full suite once; `bun run validate`; code-review-and-quality over the branch (936 pass, 1 skip; the five-axis review, `review/merged.md` in the build scratch folder, verdict "request changes"; its required fixes and Peter's additions are T53 to T57, merged; B and D are IDEA-001)
 - [x] T35's overlap report on brain's own `AGENTS.md`, report-only, for Peter to decide what the protocol now covers
-- [ ] Review with Peter; push and open PR 2 only after his yes
+- [x] Review with Peter; push and open PR 2 only after his yes (approved 2026-10-30, after pass 2 on CI and the interview-resume grader fix; open items are in IDEA-001 and the PR's "Not in this PR")
 
 ## Phase 7: brain's history (after a second ask) and the fallback's end (in 0.11.0); separate PRs
 
