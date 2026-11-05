@@ -1,6 +1,6 @@
 ---
 name: planning-and-task-breakdown
-description: Breaks a spec into ordered, verifiable tasks: finds a prefactor, slices vertically, sequences a wide refactor as expand, migrate, contract, writes the plan rows and task blocks into the spec folder's tasks/plan.md and tasks/todo.md, and puts granularity, blocking edges and merge-or-split to the user before build. Use when a spec needs implementable tasks, a task is too large to start, scope needs an estimate, or parallel work is possible.
+description: "Breaks a spec into ordered, verifiable tasks: finds a prefactor, slices vertically, sequences a wide refactor as expand, migrate, contract, writes the plan rows and task blocks into the spec folder's tasks/plan.md and tasks/todo.md, and puts granularity, blocking edges and merge-or-split to the user before build. Use when a spec needs implementable tasks, a task is too large to start, scope needs an estimate, or parallel work is possible."
 ---
 
 # Planning and Task Breakdown
@@ -142,7 +142,7 @@ A checkpoint's phase is the tasks it checks: list them in its Blocked by. Then l
 
 Present the breakdown as a numbered list. For each task, show its title, the tasks that block it, and the end-to-end behaviour it delivers.
 
-Then put three questions to the user, one per call. Call the Skill tool with "ask-user-question" to compose each call. Every decision in this skill that is the user's goes through that same call.
+Review the three dimensions below against the current plan and the user's existing answers. Load ask-user-question to compose one question at a time for only the unresolved dimensions. Read the whole reply: one answer can settle several dimensions. Reuse an existing approval when it covers this version of the plan; a changed plan reopens only the affected dimensions.
 
 | Question | What it settles |
 |---|---|
@@ -150,7 +150,7 @@ Then put three questions to the user, one per call. Call the Skill tool with "as
 | Are the blocking edges correct: does each task depend only on the tasks that gate it? | Dependency order |
 | Should any task be merged, or split further? | Task boundaries |
 
-Apply each answer to the plan's rows and the task blocks before the next question. An answer that changes a row, an edge or a block's files makes the Parallel waves section stale: write it again from `brain plan` before the next question. Repeat the three questions until the user approves the breakdown. That approval is the gate before implementation starts.
+Apply each answer to the plan's rows and task blocks before the next question, and preserve its approval source in the existing decision records. An answer that changes a row, an edge or a block's files makes Parallel waves stale: write it again from `brain plan`. Check all three dimensions again, keeping valid answers and asking only what remains unsettled. The user's approval of all three dimensions for the current plan is the gate before implementation starts; completing three calls is not that gate.
 
 A small reversible choice (the wording of a title, the order of two independent tasks) stays with you: decide it and state the reason.
 
@@ -224,7 +224,7 @@ The row table holds every task and checkpoint, in order:
 - **Type**: `task` or `checkpoint`.
 - **Status**: `open`, `in-progress`, `resolved`, or `superseded by NN` when row NN replaced it. Every row of a new plan starts `open`.
 - **Blocked by**: the rows this one needs, as `01, 02`, or `—`. Each number names a row in the same table.
-- **Result**: `—` until the row is resolved; then the commit SHA, the verification command and its outcome, such as `3f2a91c; bun test src: 4 pass`.
+- **Result**: `—` until the row is resolved; then the integrated commit or ordered commits, the verification command and its outcome, such as `3f2a91c; bun test src: 4 pass`. Follow the [commit contract](../../references/brain/commit-contract.md) for slices, task results and the separate state-record commit. This uses the existing Result cell; it adds no new schema.
 
 You write the rows. During the build, the main session is their only writer: after each task it ticks the task's boxes, updates Status and Result, then writes the Parallel waves section again, because a resolved row leaves the waves. A sub-agent ticks nothing.
 
@@ -246,7 +246,7 @@ The section shows what can run at once: the waves (each wave is the frontier onc
 2. Put every line it prints above its `Cap:` line under the `## Parallel waves` heading, below the Tasks table. The cap lines stay out, so a change to `max_parallel` leaves the section current.
 3. Whenever a row, an edge or a block's files change, run `brain plan` again and replace the section. A section that differs from what `brain plan` prints now is stale, and `brain check` reports it, as it reports a missing one.
 
-The plan is done when every row has its block, the Parallel waves section is what `brain plan` prints now, and `brain check` reports no finding in the spec folder.
+The plan is done when every row has its block, Parallel waves matches `brain plan`, `brain check` reports no finding in the spec folder, and the user has approved all three review dimensions for this version.
 
 ## Parallelization Opportunities
 
@@ -268,7 +268,7 @@ Work the **frontier**: every `open` row whose Blocked by rows are all `resolved`
 | "I can hold it all in my head" | Context windows are finite. Written plans survive session boundaries and compaction. |
 | "The old `tasks/plan.md` is stale, I'll just replace it" | Its open and in-progress rows may be mid-build in another session. Overwriting them destroys work state that exists nowhere else. Stop and ask. |
 | "The rename is mechanical, one task covers it" | A change with a codebase-wide blast radius cannot land green as one slice. Sequence it as expand, migrate, contract. |
-| "The breakdown is obvious, the approval questions are a formality" | The user sees granularity and edges you cannot. Three questions cost minutes; a wrong build costs the plan. |
+| "The breakdown is obvious, the approval is a formality" | The user owns task size, blocking edges and task boundaries. Establish approval for each; reuse valid answers instead of repeating the exchange. |
 
 ## Red Flags
 
@@ -302,7 +302,7 @@ Before starting implementation, confirm:
 - [ ] No task touches more than ~5 files
 - [ ] Checkpoint rows exist between major phases, each blocking only the later tasks that depend on its phase
 - [ ] `brain check` reports no finding in the spec folder
-- [ ] The user approved the breakdown through the three Step 6 questions
+- [ ] The user's answers approve all three Step 6 dimensions for the current plan; the evidence is recorded and no affected choice remains unresolved
 
 ## See Also
 

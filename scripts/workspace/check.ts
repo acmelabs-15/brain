@@ -12,11 +12,11 @@
 import { realpath } from "node:fs/promises";
 import path from "node:path";
 
-import { isDirectory } from "../lib/files";
+import { folderNames, isDirectory } from "../lib/files";
 import { tableCells } from "../lib/table";
 import { findRepo, readConfig } from "./config";
 import type { Paths } from "./config";
-import { blockersOf, findCycle } from "./graph";
+import { blockersOf, findCycle, layWaves, stillToDo } from "./graph";
 import { readRows } from "./map";
 import type { Row, Table } from "./map";
 import { cycleProblem, parallelWaves, renderParallelWaves } from "./plan";
@@ -35,6 +35,7 @@ const specFiles: Record<string, DocType> = {
   "tasks/plan.md": "plan",
   "tasks/todo.md": "todo",
 };
+const specFolderName = new RegExp(`^SPEC-\\d{3}-${slug}$`, "u");
 
 /**
  * Each workspace folder, the name a file in it must have, and the shape a finding names. In a
@@ -73,6 +74,7 @@ const folders: { key: keyof Paths; name: RegExp; shape: string; type?: DocType }
 
 /** A workspace file whose name gives it a type. Paths are relative to the repo's root. */
 type Doc = { path: string; type: DocType; id: string; unit: string };
+type LoadedDoc = { doc: Doc; text: string };
 type Finding = { path: string; problem: string };
 type Result = {
   findings: Finding[];
@@ -120,6 +122,35 @@ async function scan(
     }
   }
   return { docs, findings, files };
+}
+
+/** A migrated spec may have no old plan to move; every new spec needs all three fixed files. */
+async function missingSpecFiles(
+  root: string,
+  paths: Paths,
+  loaded: LoadedDoc[],
+): Promise<Finding[]> {
+  const present = new Set(loaded.map(({ doc }) => doc.path));
+  const specs = new Map(
+    loaded.filter(({ doc }) => doc.type === "spec").map(({ doc, text }) => [doc.unit, text]),
+  );
+  const findings: Finding[] = [];
+  for (const name of await folderNames(path.join(root, paths.specs))) {
+    if (!specFolderName.test(name)) {
+      continue;
+    }
+    const unit = path.join(paths.specs, name);
+    const frontmatter = readFrontmatter(specs.get(unit) ?? "");
+    const migrated =
+      frontmatter !== null && "data" in frontmatter && String(frontmatter.data.migrated) === "0.8";
+    for (const [file, type] of Object.entries(specFiles)) {
+      const where = path.join(unit, file);
+      if (!present.has(where) && !(migrated && type !== "spec")) {
+        findings.push({ path: where, problem: `file: missing required ${type} file` });
+      }
+    }
+  }
+  return findings;
 }
 
 /** One finding for each file or spec folder past the first that takes an ID already taken. */
@@ -221,12 +252,41 @@ function checkpointProblems(plan: readonly Row[]): string[] {
   return problems;
 }
 
+/** A map row can resolve only from completed research; old records may omit outcome. */
+function researchResultProblems(
+  row: string,
+  links: string[],
+  research: Map<string, Record<string, unknown>>,
+): string[] {
+  return links.flatMap((id) => {
+    const record = research.get(id);
+    if (record === undefined) {
+      return [];
+    }
+    const { status, outcome } = record;
+    const answered =
+      status === "resolved" &&
+      (outcome === undefined || outcome === null || outcome === "answered");
+    return answered
+      ? []
+      : [
+          `row ${row}: ${id} is not answered research (status: ${String(status)}, outcome: ${String(outcome ?? "absent")})`,
+        ];
+  });
+}
+
 /**
  * The problems with the rows of a map or plan. A map row's result must name an existing DEC or
  * RES, and its blocked-by edges must hold no cycle; a plan's checkpoints must block the right
  * tasks (a plan's cycle is the waves check's finding, as `brain plan` names it).
  */
-function rowProblems(table: Table, body: string, known: Set<string>): string[] {
+function rowProblems(
+  table: Table,
+  body: string,
+  known: Set<string>,
+  research: Map<string, Record<string, unknown>>,
+  decisions: Map<string, Record<string, unknown>>,
+): string[] {
   const { rows, problems } = readRows(table, body);
   if (table === "plan") {
     // A row that breaks the format is left out of `rows`, so its edges would be missing.
@@ -240,11 +300,59 @@ function rowProblems(table: Table, body: string, known: Set<string>): string[] {
     for (const link of links.filter((id) => !known.has(id))) {
       problems.push(`row ${row.id}: result ${link} does not exist`);
     }
+    if (row.status === "resolved") {
+      problems.push(...researchResultProblems(row.id, links, research));
+      for (const link of links) {
+        // Later supersession preserves a historical resolution; a still-proposed DEC never supplied one.
+        if (decisions.get(link)?.status === "proposed") {
+          problems.push(`row ${row.id}: ${link} is proposed and cannot resolve a map row`);
+        }
+      }
+    }
   }
   // A row left out for its format only takes edges away, so a cycle in the rest is a real one.
   const cycle = findCycle(rows);
-  if (cycle !== null) {
+  if (cycle === null) {
+    for (const { row, blocker } of layWaves(rows).stuck) {
+      problems.push(
+        `row ${row.id}: blocked by ${blocker.id}, which is superseded by ${blocker.supersededBy}`,
+      );
+    }
+  } else {
     problems.push(cycleProblem(cycle));
+  }
+  return problems;
+}
+
+/** A level-two section without comments; null when the section is absent. */
+function ideaSection(body: string, heading: string): string | null {
+  const lines = body.replaceAll(/<!--[\s\S]*?-->/gu, "").split("\n");
+  const start = lines.findIndex((line) => line.trim() === `## ${heading}`);
+  if (start === -1) {
+    return null;
+  }
+  const below = lines.slice(start + 1);
+  const end = below.findIndex((line) => /^#{1,2} /u.test(line));
+  return (end === -1 ? below : below.slice(0, end)).join("\n").trim();
+}
+
+/** A finished idea has a settled map, no fog and a recorded confirmation of its intent. */
+function ideaCompletionProblems(status: unknown, body: string): string[] {
+  if (status !== "done" && status !== "specced") {
+    return [];
+  }
+  const problems = readRows("map", body)
+    .rows.filter(stillToDo)
+    .map((row) => `status: ${status}, but row ${row.id} is ${row.status}`);
+  const fog = ideaSection(body, "Not yet specified");
+  if (fog === null) {
+    problems.push(`status: ${status}, but Not yet specified is missing`);
+  } else if (fog !== "" && !/^(?:- )?None\.?$/iu.test(fog)) {
+    problems.push(`status: ${status}, but Not yet specified still holds fog`);
+  }
+  const intent = ideaSection(body, "Intent") ?? "";
+  if (!/^Confirmed by [^<>\n]+ on \d{4}-\d{2}-\d{2}\.\s*$/mu.test(intent)) {
+    problems.push(`status: ${status}, but Intent has no confirmation`);
   }
   return problems;
 }
@@ -321,8 +429,25 @@ export async function checkWorkspace(root: string, paths: Paths): Promise<Result
   findings.push(...duplicates(docs));
   const known = new Set(docs.map((doc) => doc.id));
   const unclassified: string[] = [];
-  for (const doc of docs) {
-    const text = await Bun.file(path.join(root, doc.path)).text();
+  const loaded = await Promise.all(
+    docs.map(async (doc) => ({
+      doc,
+      text: await Bun.file(path.join(root, doc.path)).text(),
+    })),
+  );
+  findings.push(...(await missingSpecFiles(root, paths, loaded)));
+  const research = new Map<string, Record<string, unknown>>();
+  const decisions = new Map<string, Record<string, unknown>>();
+  for (const { doc, text } of loaded) {
+    if (doc.type === "RES" || doc.type === "DEC") {
+      const frontmatter = readFrontmatter(text);
+      if (frontmatter !== null && "data" in frontmatter) {
+        const records = doc.type === "RES" ? research : decisions;
+        records.set(doc.id, frontmatter.data);
+      }
+    }
+  }
+  for (const { doc, text } of loaded) {
     const problems = checkDoc(doc.type, text, doc.id);
     const frontmatter = readFrontmatter(text);
     // Without fields to read, the schema's one finding says all there is to say.
@@ -337,7 +462,10 @@ export async function checkWorkspace(root: string, paths: Paths): Promise<Result
       if (!migrated) {
         problems.push(...placeholderTitle(body));
         if (table !== undefined) {
-          problems.push(...rowProblems(table, body, known));
+          problems.push(...rowProblems(table, body, known, research, decisions));
+        }
+        if (doc.type === "IDEA") {
+          problems.push(...ideaCompletionProblems(data.status, body));
         }
         if (doc.type === "plan") {
           const todo = Bun.file(path.join(root, doc.unit, "tasks", "todo.md"));

@@ -422,7 +422,6 @@ describe("setup/migrate-08, a correct run", () => {
   test("the install files that follow the migration stay uncommitted, for the user to commit", () => {
     expect(git(run.root, "status", "--porcelain").split("\n").toSorted()).toEqual([
       " M docs/agents/domain.md",
-      "?? docs/STATUS.md",
       "?? docs/agents/capabilities.md",
     ]);
   });

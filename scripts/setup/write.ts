@@ -1,5 +1,5 @@
 /**
- * Write what brain's skills assume is in a repo, and the one file Codex needs on this machine.
+ * Write the consumer workspace. The Codex adapter runs only with an explicit scope.
  *
  *   bun run scripts/setup/write.ts --root <repo> --layout single|multi [--codex-scope global|project] [--codex-home <dir> | --no-codex] [--rename-glossary] [--specs-folder <folder>] [--dry-run | --check] [--brain <plugin root>]
  *   bun run scripts/setup/write.ts --root <repo> --migrate [--plan-spec <spec>|none] [--ideas <path>,<path>|none] [--tracker-files remove|keep] [--adr-folder move|keep] [--rename-glossary] [--specs-folder <folder>] [--dry-run] [--brain <plugin root>]
@@ -31,17 +31,18 @@
  * max_parallel that the repo's own file sets, and brings the rest of the template's text. On a
  * repo on the brain 0.8 layout that is not migrated yet, it is skipped: its `layout: 2` marks a
  * migrated repo, so the migrate mode writes it, and --check exits 1 until then.
- * docs/STATUS.md gets the seed once; after that it is the agent's handoff note and is never written.
+ * A legacy docs/STATUS.md is preserved as history; rows and records now hold current state.
  * <codex home>/AGENTS.md gets the plain-talk block and the protocol block, each between its own
- * markers, when the Codex home directory exists ($CODEX_HOME, else ~/.codex); a symlink there is
- * written through and kept. At project scope the blocks go into the repo's AGENTS.md instead and the
+ * markers, only with --codex-scope global and an existing Codex home ($CODEX_HOME, else ~/.codex).
+ * A symlink there is written through and kept. At project scope the blocks go into AGENTS.md and the
  * global file is left alone; the skill passes that scope only after the user's explicit yes.
  * CLAUDE.md and GEMINI.md are never touched: Claude Code, Gemini CLI and Antigravity get the text
  * from the plugin. Every change is listed; --dry-run lists and writes nothing; --check lists, writes
  * nothing, and exits 1 when a file differs from what a run would write, or when a run skips a file
- * until the user fixes it by hand. A missing Codex home is not drift.
+ * until the user fixes it by hand. A missing Codex home is not drift. Invalid or unsupported newer
+ * workspace configurations fail before writes. Omitted layout retains an existing domain layout.
  */
-import { mkdir } from "node:fs/promises";
+import { mkdir, rename, unlink } from "node:fs/promises";
 import { homedir } from "node:os";
 
 import { isDirectory, readIfPresent } from "../lib/files";
@@ -72,11 +73,12 @@ export type Change = {
 export type SetupInput = {
   brain: string;
   root: string;
-  layout: Layout;
+  /** A selected domain layout; omitted preserves an existing layout, else uses single-context. */
+  layout?: Layout;
   dryRun: boolean;
   /** The Codex home directory; `undefined` means the default, `null` leaves the Codex step out. */
   codexHome?: string | null;
-  /** Where the Codex block goes: the global file (default) or this repo's AGENTS.md. */
+  /** Explicitly enable the Codex adapter at global or project scope. Omitted leaves Codex alone. */
   codexScope?: CodexScope;
   /** Move a root CONTEXT.md and CONTEXT-MAP.md to the GLOSSARY names with `git mv`. */
   renameGlossary?: boolean;
@@ -155,6 +157,9 @@ function withBlocks(text: string, blocks: string[], fileName: string): string {
 const noCodexHome = "no Codex home directory";
 
 async function writeCodex(input: SetupInput, blocks: string[]): Promise<Change | null> {
+  if (input.codexScope === undefined) {
+    return null;
+  }
   if (input.codexScope === "project") {
     const path = `${input.root}/AGENTS.md`;
     const current = (await readIfPresent(path)) ?? "";
@@ -172,12 +177,15 @@ async function writeCodex(input: SetupInput, blocks: string[]): Promise<Change |
   return put(input, path, path, withBlocks(current, blocks, path));
 }
 
-/** The repo's workspace folders; null when its `workspace.md` cannot be read, which the workspace step reports. */
-function repoPaths(root: string): Promise<Paths | null> {
-  return readConfig(root).then(
-    (config) => config.paths,
-    () => null,
-  );
+/** Validate the workspace before any setup write; an older plugin cannot rewrite a newer layout. */
+async function repoPaths(root: string): Promise<Paths> {
+  const config = await readConfig(root);
+  if (config.layout > currentLayout) {
+    throw new Error(
+      `${configFile}: layout ${config.layout} is newer than supported layout ${currentLayout}; update brain before setup`,
+    );
+  }
+  return config.paths;
 }
 
 /**
@@ -252,23 +260,44 @@ function domainText(template: string, layout: Layout, adrFolders: string[]): str
     : text.replace(/^- `docs\/decisions\/`.*$/mu, (line) => [line, ...kept].join("\n"));
 }
 
-/** Write the STATUS.md seed once. After that the file is the agent's handoff note, kept as it is. */
-async function writeSeed(input: SetupInput, seed: string): Promise<Change> {
-  const path = "docs/STATUS.md";
-  const full = `${input.root}/${path}`;
-  if (await Bun.file(full).exists()) {
-    return { path, action: "unchanged" };
+/** Preserve an old note byte for byte; history never supplies current status. */
+async function retireStatusNote(input: SetupInput): Promise<Change[]> {
+  const from = "docs/STATUS.md";
+  const to = "docs/agents/history/STATUS.md";
+  const text = await readIfPresent(`${input.root}/${from}`);
+  if (text === null) {
+    return [];
   }
-  return put(input, path, full, seed);
+  const previous = await readIfPresent(`${input.root}/${to}`);
+  if (previous !== null && previous !== text) {
+    return [
+      {
+        path: from,
+        action: "skipped",
+        note: `${to} already holds different history; preserve both before retiring the note`,
+      },
+    ];
+  }
+  if (!input.dryRun) {
+    await mkdir(`${input.root}/docs/agents/history`, { recursive: true });
+    await (previous === null
+      ? rename(`${input.root}/${from}`, `${input.root}/${to}`)
+      : unlink(`${input.root}/${from}`));
+  }
+  return [{ path: `${from} -> ${to}`, action: "moved" }];
 }
 
 /** Write every install file, or with `dryRun` only list it; return one change per file. */
 export async function writeSetup(input: SetupInput): Promise<Change[]> {
+  if (!input.dryRun) {
+    // Validate every template, marker and workspace setting before the first side effect.
+    await writeSetup({ ...input, dryRun: true });
+  }
   const template = (name: string) => Bun.file(`${input.brain}/${name}`).text();
-  const blocks = [
-    await template("plain-talk/AGENTS-block.md"),
-    await template("protocol/AGENTS-block.md"),
-  ];
+  const blocks =
+    input.codexScope === undefined
+      ? []
+      : [await template("plain-talk/AGENTS-block.md"), await template("protocol/AGENTS-block.md")];
   const paths = await repoPaths(input.root);
   const adrFolders = paths === null ? [] : await findAdrFolders(input.root, paths);
   const waiting = await toMigrate(input.root, paths);
@@ -282,16 +311,18 @@ export async function writeSetup(input: SetupInput): Promise<Change[]> {
     changes.push(codex);
   }
 
+  const existingDomain = await readIfPresent(`${input.root}/docs/agents/domain.md`);
   const domain = domainText(
     await template("skills/setup-brain/domain.md"),
-    input.layout,
+    input.layout ??
+      (existingDomain?.includes("Layout: multi-context") === true ? "multi" : "single"),
     adrFolders,
   );
   const domainPath = "docs/agents/domain.md";
   changes.push(
     await put(input, domainPath, `${input.root}/${domainPath}`, domain),
     await writeWorkspace(input, await template("skills/setup-brain/workspace.md"), waiting, specs),
-    await writeSeed(input, await template("skills/setup-brain/STATUS.md")),
+    ...(await retireStatusNote(input)),
   );
   return changes;
 }
@@ -362,7 +393,6 @@ function parseArgs(argv: string[]): SetupInput {
   const input: SetupInput = {
     brain: `${import.meta.dir}/../..`,
     root: process.cwd(),
-    layout: "single",
     dryRun: false,
   };
   for (let i = 0; i < argv.length; i += 1) {
@@ -453,6 +483,9 @@ async function main(argv: string[]): Promise<number> {
     return 2;
   }
   try {
+    if (input.migrate === true) {
+      await repoPaths(input.root);
+    }
     const result =
       input.migrate === true
         ? await migrate(input)

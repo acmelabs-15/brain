@@ -97,6 +97,13 @@ function kindFollowsAdrTest(data: Record<string, unknown>): string[] {
     : [`kind: ${kind} disagrees with adr-test, which makes it ${expected}`];
 }
 
+/** An explicit partial or blocked outcome keeps the research record in progress. */
+function resolvedResearchIsAnswered(data: Record<string, unknown>): string[] {
+  return data.status === "resolved" && (data.outcome === "partial" || data.outcome === "blocked")
+    ? [`status: resolved requires outcome: answered, not ${data.outcome}`]
+    : [];
+}
+
 const from: Field = {
   need: "new",
   rule: like(
@@ -166,12 +173,14 @@ export const schemas: Record<DocType, Schema> = {
     fields: {
       id: { need: "always", rule: like(/^RES-\d{3}$/u, "RES-NNN") },
       status: { need: "new", rule: oneOf("in-progress", "resolved") },
+      outcome: { need: "optional", rule: oneOf("answered", "partial", "blocked") },
       kind: { need: "new", rule: oneOf("research", "task") },
       from,
       evidence,
       date: { need: "new", rule: like(/^\d{4}-\d{2}-\d{2}$/u, "YYYY-MM-DD") },
     },
     heading: (id) => `# ${id}: `,
+    across: resolvedResearchIsAnswered,
   },
   spec: {
     identity: "spec",
@@ -288,9 +297,9 @@ function parseYaml(text: string): { data: unknown } | { error: string } {
 export function readFrontmatter(
   text: string,
 ): { data: Record<string, unknown>; body: string } | { error: string } | null {
-  const parts = /^---\n(?:(?<head>[\s\S]*?)\n)?---(?:\n|$)/u.exec(text);
+  const parts = /^---\r?\n(?:(?<head>[\s\S]*?)\r?\n)?---(?:\r?\n|$)/u.exec(text);
   if (parts === null) {
-    return null;
+    return /^---\r?\n/u.test(text) ? { error: "missing closing delimiter" } : null;
   }
   const parsed = parseYaml(parts.groups?.head ?? "");
   if ("error" in parsed) {

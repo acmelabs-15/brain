@@ -5,6 +5,7 @@
  * frontier is worked out from the rows each time, never written down.
  */
 import { tableCells } from "../lib/table";
+import { findCycle } from "./graph";
 import { rowStatus, tables } from "./schema";
 
 /** Which table a file holds: a map (an idea) or a plan (a spec's `tasks/plan.md`). */
@@ -111,7 +112,8 @@ function readRow(table: Table, line: string[]): { row: Row } | { problems: strin
 /**
  * Read the rows of the map or plan table in a file's text: the first table whose header is the
  * table's columns. A row that breaks the format is left out of `rows` and named in `problems`,
- * as is a `blocked by` or `superseded by` that names no row in the same table.
+ * as is a `blocked by` or `superseded by` that names no row in the same table. Replacement
+ * links must end at a current row, so a superseded-by cycle is also a problem.
  */
 export function readRows(table: Table, text: string): Rows {
   const { columns } = tables[table];
@@ -148,6 +150,14 @@ export function readRows(table: Table, text: string): Rows {
         `row ${row.id}: superseded by ${row.supersededBy}, which is not a row in this ${table}`,
       );
     }
+  }
+  const replacements = rows.map((row) => ({
+    ...row,
+    blockedBy: row.supersededBy === null ? [] : [row.supersededBy],
+  }));
+  const cycle = findCycle(replacements);
+  if (cycle !== null) {
+    problems.push(`row ${cycle[0]}: superseded-by cycle (${cycle.join(" -> ")})`);
   }
   return { rows, problems };
 }

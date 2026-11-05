@@ -9,7 +9,7 @@ A layout-2 repo whose only effort is an idea in the define stage, part way throu
 - `docs/decisions/DEC-001-*.md` (kind `decision`) and `DEC-002-*.md` (kind `architecture`, from the `ideate` row): the results of rows 01 and 04.
 - `docs/research/RES-001-*.md`: the resolved result of row 02. One finding carries an `etag` validator.
 - `docs/research/RES-002-*.md`: `status: in-progress`, `kind: task`, from row 05. Row 05 is not resolved, so its Result cell is `—`.
-- `docs/STATUS.md`: the handoff note, written at the end of row 04.
+- `docs/STATUS.md`: a legacy note, kept to prove that rows supply status even when a note exists.
 
 ## The map
 
@@ -35,6 +35,6 @@ A layout-2 repo whose only effort is an idea in the define stage, part way throu
 - Research to start: row 07, the research row on the frontier.
 - In progress: row 05.
 - Last completed step: row 04, resolved to DEC-002 on 2026-10-24. It is the highest-numbered resolved row and the latest decision.
-- Next step: row 06, the first row of the frontier. `docs/STATUS.md` names the same row, and the same waiting rows, 06 and 08.
+- Next step: row 06, the first row of the frontier. Waiting rows are 06 and 08. The legacy note does not supply either line.
 - Red: none.
 - Specs IDEA-001 produced: none. The repo has no spec.

@@ -10,12 +10,6 @@ import { folderNames } from "../lib/files";
 import { defaultPaths, folderPath } from "../workspace/config";
 import { readFrontmatter } from "../workspace/schema";
 
-/** The settings in `docs/agents/workspace.md` that belong to the repo: a re-run keeps each one set. */
-const repoSettings = [
-  ...["decisions", "research", "ideas", "specs"].map((key) => ({ key, line: `  ${key}` })),
-  { key: "max_parallel", line: "max_parallel" },
-];
-
 /** A spec folder's name, as `brain new-doc SPEC` writes it. */
 const specFolderName = /^SPEC-\d{3}-[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
@@ -43,16 +37,29 @@ export function workspaceText(
   if (frontmatter !== null && "error" in frontmatter) {
     return null;
   }
-  const data = frontmatter?.data ?? {};
-  const paths = typeof data.paths === "object" && data.paths !== null ? data.paths : {};
-  const set: Record<string, unknown> = { specs, ...paths, max_parallel: data.max_parallel };
-  // Only the frontmatter holds settings; the body is the template's, as it is.
   const end = template.indexOf("\n---\n", 3);
   let head = template.slice(0, end);
-  for (const { key, line } of repoSettings) {
-    const value = set[key];
+  const data = frontmatter?.data ?? {};
+  if (frontmatter !== null && current !== null && data.layout === 2) {
+    // The parsed body's offset preserves the whole header, including comments and CRLF delimiters.
+    const parsedTemplate = readFrontmatter(template);
+    if (parsedTemplate === null || "error" in parsedTemplate) {
+      throw new Error("the workspace template needs valid frontmatter");
+    }
+    return current.slice(0, current.length - frontmatter.body.length) + parsedTemplate.body;
+  }
+  const paths = typeof data.paths === "object" && data.paths !== null ? data.paths : {};
+  const values: Record<string, unknown> = { specs, ...paths, max_parallel: data.max_parallel };
+  for (const key of [...Object.keys(defaultPaths), "max_parallel"]) {
+    const value = values[key];
     if (typeof value === "string" || typeof value === "number") {
+      const line = key === "max_parallel" ? key : `  ${key}`;
       head = head.replace(new RegExp(`^${line}: .*$`, "mu"), () => `${line}: ${yamlScalar(value)}`);
+    }
+  }
+  for (const [key, value] of Object.entries(data)) {
+    if (!["layout", "paths", "max_parallel"].includes(key)) {
+      head += `\n${JSON.stringify(key)}: ${JSON.stringify(value)}`;
     }
   }
   return `${head}${template.slice(end)}`;

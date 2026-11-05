@@ -7,7 +7,7 @@ git init -q .
 printf '{ "name": "probe", "version": "0.0.1" }\n' > package.json
 plugin="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 templates="$plugin/skills/setup-brain"
-for template in domain.md workspace.md STATUS.md; do
+for template in domain.md workspace.md; do
   if [ ! -f "$templates/$template" ]; then
     echo "scaffold: $templates/$template not found" >&2
     exit 1
@@ -16,4 +16,3 @@ done
 mkdir -p docs/agents
 sed 's/{{layout}}/single-context/' "$templates/domain.md" > docs/agents/domain.md
 cp "$templates/workspace.md" docs/agents/workspace.md
-cp "$templates/STATUS.md" docs/STATUS.md

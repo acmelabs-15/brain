@@ -52,7 +52,6 @@ describe("setup/second-run, the scaffold", () => {
     expect(changes.map((change) => `${change.action} ${change.path}`)).toEqual([
       "unchanged docs/agents/domain.md",
       "unchanged docs/agents/workspace.md",
-      "unchanged docs/STATUS.md",
     ]);
   });
 });
@@ -66,7 +65,7 @@ describe("setup/second-run, the graders", () => {
       input_match: "scripts/setup/write\\.ts",
     });
     const judge = await Bun.file(`${caseDir}/graders/reports-unchanged.md`).text();
-    for (const path of ["docs/agents/domain.md", "docs/agents/workspace.md", "docs/STATUS.md"]) {
+    for (const path of ["docs/agents/domain.md", "docs/agents/workspace.md"]) {
       expect(judge).toContain(path);
     }
   });

@@ -162,7 +162,7 @@ describe("brain check, one finding line per rule", () => {
     ["docs/research/RES-3-cache.md", "name: not RES-NNN-<slug>.md"],
     ["docs/ideas/IDEA-002-Offline_Mode.md", "name: not IDEA-NNN-<slug>.md"],
     [
-      "docs/specs/SPEC-001-sync/notes.md",
+      "docs/specs/not-a-spec/notes.md",
       "name: not SPEC-NNN-<slug>/spec.md, tasks/plan.md or tasks/todo.md",
     ],
   ])("a bad name: %s", async (path, problem) => {
@@ -202,12 +202,16 @@ decided: 2026-10-24 by Sam
     const root = await repo("duplicate-spec", "spec-mid-build", {
       "docs/specs/SPEC-001-invoice-pdf-export/spec.md":
         "---\nspec: SPEC-001\nsources: [IDEA-001]\n---\n# SPEC-001: Export invoices as PDF\n",
+      "docs/specs/SPEC-001-invoice-pdf-export/tasks/plan.md":
+        "---\nspec: SPEC-001\n---\n# SPEC-001 plan: Export invoices as PDF\n\n| # | Task | Type | Status | Blocked by | Result |\n|---|---|---|---|---|---|\n",
+      "docs/specs/SPEC-001-invoice-pdf-export/tasks/todo.md":
+        "---\nspec: SPEC-001\n---\n# SPEC-001 todo: Export invoices as PDF\n",
     });
     const res = await brain(root, "check");
     expect(res.stdout).toBe(
       lines(
         "docs/specs/SPEC-001-invoice-pdf-export: number: SPEC-001 is also docs/specs/SPEC-001-invoice-csv-export",
-        "1 finding in 9 workspace files",
+        "1 finding in 11 workspace files",
       ),
     );
     expect(res.code).toBe(1);
@@ -405,10 +409,17 @@ decided: 2026-10-24 by Sam
 
   test("a plan copied from another spec is caught by its old ID, in the spec field and the H1", async () => {
     const copied = await Bun.file(`${fixtures}/spec-mid-build/${plan}`).text();
+    const todo = await Bun.file(
+      `${fixtures}/spec-mid-build/docs/specs/SPEC-001-invoice-csv-export/tasks/todo.md`,
+    ).text();
     const root = await repo("copied-plan", "spec-mid-build", {
       "docs/specs/SPEC-002-invoice-pdf-export/spec.md":
         "---\nspec: SPEC-002\nsources: [IDEA-001]\n---\n# SPEC-002: Export invoices as PDF\n",
       "docs/specs/SPEC-002-invoice-pdf-export/tasks/plan.md": copied,
+      "docs/specs/SPEC-002-invoice-pdf-export/tasks/todo.md": todo.replaceAll(
+        "SPEC-001",
+        "SPEC-002",
+      ),
     });
     const res = await brain(root, "check");
     const path = "docs/specs/SPEC-002-invoice-pdf-export/tasks/plan.md";
@@ -416,7 +427,7 @@ decided: 2026-10-24 by Sam
       lines(
         `${path}: spec: "SPEC-001" does not match the file's ID SPEC-002`,
         `${path}: H1: "# SPEC-001 plan: Export invoices as CSV" does not open with "# SPEC-002 plan: "`,
-        "2 findings in 10 workspace files",
+        "2 findings in 11 workspace files",
       ),
     );
     expect(res.code).toBe(1);

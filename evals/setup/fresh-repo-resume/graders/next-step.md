@@ -1,7 +1,8 @@
 ---
 type: regex
 target: last_message
-pattern: 'interview-me'
+pattern: 'Next step: none'
+flags: i
 ---
 
-With no active work, the next-step line of `brain status` quotes the `STATUS.md` seed: "Start with interview-me." A reply that names no next step, or another one, fails.
+With no active effort, the report says there is no next step in the workspace. The session routes the user's actual request instead of treating a retired status note as authority.

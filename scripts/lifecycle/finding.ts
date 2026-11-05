@@ -1,6 +1,8 @@
 /** One problem a lifecycle check found, in one file. */
 export type Finding = {
   kind:
+    | "metadata"
+    | "body-size"
     | "unresolved"
     | "old-prefix"
     | "flag-mismatch"

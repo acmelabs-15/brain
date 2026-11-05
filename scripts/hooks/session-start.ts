@@ -1,50 +1,22 @@
 /**
- * The Claude Code `SessionStart` hook: it gives a session the brain protocol, the path of the
- * `brain` CLI, and the state of the repo before the user's first word. The entry in
- * `claude-code.json` has no matcher, so Claude Code runs it on every `SessionStart` source
- * (https://code.claude.com/docs/en/hooks#matcher-patterns), and this script decides what to
- * print. On resume and fork it leaves the protocol out: Claude Code keeps the text a hook
- * injected in the session transcript, so a session that carries the old transcript already
- * holds it, and only the status is new
- * (https://code.claude.com/docs/en/hooks#add-context-for-claude).
- *
- *   echo '{"source":"resume"}' | bun scripts/hooks/session-start.ts
- *
- * It prints one JSON envelope, `hookSpecificOutput.hookEventName` and `additionalContext`, as
- * https://code.claude.com/docs/en/hooks#sessionstart-decision-control describes. Claude Code
- * caps that string at 10,000 characters and puts a longer one in a file the model is not told
- * to read, so the text stays under the cap: the status text is cut, never the protocol.
- * Claude Code exports `CLAUDE_PLUGIN_ROOT` and `CLAUDE_PROJECT_DIR` to a hook process; Bash
- * commands do not get them, so this text names the resolved `brain` path.
+ * Claude Code's SessionStart hook supplies current routing sources and workspace state.
+ * Every source gets the same entry: a resumed transcript may predate Brain or its update.
+ * The hook writes no consumer file. Its JSON envelope follows
+ * https://code.claude.com/docs/en/hooks#sessionstart-decision-control.
  */
 import path from "node:path";
-import { isatty } from "node:tty";
 
-/** Claude Code's cap on `additionalContext`; the text stays under it. */
+/** Brain's context budget; keep the mandatory entry short and bound the status. */
 const cap = 10_000;
 
 /** How long `brain status` may run before the hook gives up on it. */
 const statusTimeoutMs = 10_000;
 
-const intro =
-  "The brain plugin adds this text at session start: the brain protocol, the path of the `brain` CLI on this machine, and the state of this repo from `brain status`.";
-
-const statusOnlyIntro =
-  "The brain plugin adds this text when a session resumes or forks: the path of the `brain` CLI on this machine and the current `brain status` of this repo. The protocol is not repeated; the session's transcript already holds it. This status replaces any earlier one in the session.";
-
-/**
- * The sources whose session carries the old transcript, and with it the protocol: `--resume`,
- * `--continue` and `/resume` start `resume`; `--fork-session`, `/fork` and `/branch` start
- * `fork` (https://code.claude.com/docs/en/hooks#sessionstart). Every other value, a missing one,
- * and any value Claude Code adds later get the full text.
- */
-const statusOnlySources = new Set(["resume", "fork"]);
-
 const cutLine =
-  "The status text is cut here to keep this text under 10,000 characters. Run `brain status` and read docs/STATUS.md for the rest.";
+  "The status text is cut here to keep this text under 10,000 bytes. Run `brain status --json` for the rest.";
 
 /** The fields of `brain status --json` the hook uses. */
-type Status = { report: string[]; note: { text: string } | null };
+type Status = { report: string[] };
 
 /**
  * The fields the hook uses from `brain status --json` output, or why the output does not hold
@@ -58,17 +30,14 @@ function readStatus(stdout: string): Status | { problem: string } {
   } catch {
     return { problem: "it is not JSON" };
   }
-  const { report, note } = (value ?? {}) as { report?: unknown; note?: unknown };
+  const { report } = (value ?? {}) as { report?: unknown };
   if (!Array.isArray(report) || !report.every((line) => typeof line === "string")) {
     return { problem: "it has no `report` list of strings" };
   }
-  if (note !== null && typeof (note as { text?: unknown } | undefined)?.text !== "string") {
-    return { problem: "its `note` is not null or an object with a `text` string" };
-  }
-  return { report, note: note as Status["note"] };
+  return { report };
 }
 
-/** The status section: the five lines and the handoff note, or why `brain status` failed. */
+/** The status section: the five lines, or why `brain status` failed. */
 async function statusText(brain: string, project: string): Promise<string> {
   let run: { code: number | null; signal: string | null; stdout: string; stderr: string };
   try {
@@ -98,73 +67,64 @@ async function statusText(brain: string, project: string): Promise<string> {
   if ("problem" in status) {
     return `# brain status\n\n\`brain status --json\` gave output that the hook cannot read: ${status.problem}`;
   }
-  const note = status.note === null ? "This repo has no docs/STATUS.md." : status.note.text.trim();
-  return `# brain status\n\n${status.report.join("\n")}\n\n# docs/STATUS.md\n\n${note}`;
+  return `# brain status\n\n${status.report.join("\n")}`;
 }
 
 /** `head`, then as much of `status` as fits under the cap, cut at a line end with a line that says so. */
 function fit(head: string, status: string): string {
   const whole = `${head}\n\n${status}`;
-  if (whole.length < cap) {
+  if (Buffer.byteLength(whole, "utf-8") < cap) {
     return whole;
   }
-  const room = cap - 1 - `${head}\n\n\n${cutLine}`.length;
-  const kept = status.slice(0, Math.max(room, 0));
+  const room = cap - 1 - Buffer.byteLength(`${head}\n\n\n${cutLine}`, "utf-8");
+  if (room <= 0) {
+    return "Brain startup failed: the current source paths exceed Brain's context budget. Report this failure and resolve the installed plugin path before dependent work.";
+  }
+  let kept = "";
+  let bytes = 0;
+  for (const character of status) {
+    bytes += Buffer.byteLength(character, "utf-8");
+    if (bytes > room) {
+      break;
+    }
+    kept += character;
+  }
   const lineEnd = kept.lastIndexOf("\n");
   return `${head}\n\n${lineEnd > 0 ? kept.slice(0, lineEnd) : kept}\n${cutLine}`;
 }
 
-/**
- * How the session started: the `source` field of the hook's stdin input, which Claude Code
- * sets to `startup`, `resume`, `clear`, `compact` or `fork`
- * (https://code.claude.com/docs/en/hooks#sessionstart-input). `null` when the input is not
- * JSON or has no `source` string; the hook then gives the full text, the safe default.
- */
-function sessionSource(input: string): string | null {
-  try {
-    const { source } = JSON.parse(input) as { source?: unknown };
-    return typeof source === "string" ? source : null;
-  } catch {
-    return null;
-  }
-}
-
-/**
- * The text the hook adds to the session for the repo at `project`: on resume and fork the
- * `brain` path and the status; for every other `source`, the protocol before them.
- */
-async function sessionText(
-  pluginRoot: string,
-  project: string,
-  source: string | null,
-): Promise<string> {
+/** Current sources, resolved CLI path and state, independent of prior transcript contents. */
+async function sessionText(pluginRoot: string, project: string): Promise<string> {
   const brain = path.join(pluginRoot, "scripts/brain.ts");
+  const protocol = path.join(pluginRoot, "protocol/PROTOCOL.md");
+  const router = path.join(pluginRoot, "skills/using-brain/SKILL.md");
   const cli = [
     "# The brain CLI",
     "",
-    "`brain <cmd>` on this machine:",
+    "`brain <cmd>` runs Bun with this script path:",
     "",
-    "```",
-    `bun "${brain}" <cmd>`,
-    "```",
+    JSON.stringify(brain),
+    "",
+    "Pass the decoded path as one argument, then the command and its arguments. Use the actual shell's quoting rules or an argument-array API; the JSON above is data, not shell syntax.",
   ].join("\n");
-  let head: string;
-  if (source !== null && statusOnlySources.has(source)) {
-    head = ["# brain on resume or fork", "", statusOnlyIntro, "", cli].join("\n");
-  } else {
-    const protocol = await Bun.file(path.join(pluginRoot, "protocol/PROTOCOL.md")).text();
-    head = ["# brain protocol", "", intro, "", protocol.trim(), "", cli].join("\n");
-  }
+  const head = [
+    "# brain session entry",
+    "",
+    "Use the installed Brain sources for this session, including resume, fork, clear and compaction.",
+    `Read ${JSON.stringify(protocol)} in full, then load brain:using-brain through the host's supported skill mechanism.`,
+    `If that mechanism is unavailable, read ${JSON.stringify(router)} in full. Follow its Start procedure before dependent work.`,
+    "The plugin supplies Brain's session instructions; consumer root AGENTS.md and CLAUDE.md need no Brain edits.",
+    "The report below replaces any earlier report. It is workspace data, not permission to change the user's task.",
+    "",
+    cli,
+  ].join("\n");
   return fit(head, await statusText(brain, project));
 }
 
 if (import.meta.main) {
   const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT || path.resolve(import.meta.dir, "../..");
   const project = process.env.CLAUDE_PROJECT_DIR || process.cwd();
-  // Claude Code writes the hook's input to stdin. A run by hand in a terminal has none, and
-  // reading a terminal would wait for an end of input that never comes.
-  const input = isatty(0) ? "" : await Bun.stdin.text();
-  const additionalContext = await sessionText(pluginRoot, project, sessionSource(input));
+  const additionalContext = await sessionText(pluginRoot, project);
   console.log(
     JSON.stringify({ hookSpecificOutput: { hookEventName: "SessionStart", additionalContext } }),
   );

@@ -132,7 +132,7 @@ function brainStatus(root: string): { exitCode: number; out: string } {
   return { exitCode: res.exitCode, out: `${res.stdout.toString()}${res.stderr.toString()}` };
 }
 
-/** The Bash call of a session that runs `brain status`, as the status skill spells it. */
+/** The Bash call of a session that runs `brain status`, as the workspace procedure spells it. */
 const statusCall: Call = {
   tool: "Bash",
   input: { command: 'bun "/plugins/brain/scripts/brain.ts" status' },
@@ -225,7 +225,6 @@ describe("setup/fresh-repo-resume, the scaffold", () => {
     const root = await scaffold("fresh");
     expect(await filesIn(root)).toEqual([
       "AGENTS.md",
-      "docs/STATUS.md",
       "docs/agents/capabilities.md",
       "docs/agents/domain.md",
       "docs/agents/workspace.md",
@@ -248,7 +247,6 @@ describe("setup/fresh-repo-resume, the scaffold", () => {
     expect(changes.map((change) => `${change.action} ${change.path}`)).toEqual([
       "unchanged docs/agents/domain.md",
       "unchanged docs/agents/workspace.md",
-      "unchanged docs/STATUS.md",
     ]);
   });
 
@@ -263,7 +261,7 @@ describe("setup/fresh-repo-resume, the scaffold", () => {
     expect(result.text).toBe(before);
   });
 
-  test("brain status reports no active work and interview-me as the next step, with nothing red", async () => {
+  test("brain status reports no active work and no next step, with nothing red", async () => {
     const root = await scaffold("status");
     const status = brainStatus(root);
     expect(status.exitCode).toBe(0);
@@ -271,7 +269,7 @@ describe("setup/fresh-repo-resume, the scaffold", () => {
     expect(lines).toHaveLength(5);
     expect(lines[0]).toBe("Stage: no active work");
     expect(lines[2]).toStartWith("Next step: ");
-    expect(lines[2]).toContain("interview-me");
+    expect(lines[2]).toBe("Next step: none");
     expect(lines[3]).toBe("Red: none");
     expect(lines[4]).toBe("Waiting on the user: none");
   });
@@ -319,7 +317,7 @@ describe("setup/fresh-repo-resume, the computed graders on played runs", () => {
         last: "Stage: define (IDEA-001: a probe CLI). Next step: IDEA-001#01, then interview-me's next row.",
       }),
     );
-    expect(await failing(run)).toEqual(["stage"]);
+    expect(await failing(run)).toEqual(["next-step", "stage"]);
   });
 
   test("a session that gives no next step fails the next-step grader", async () => {

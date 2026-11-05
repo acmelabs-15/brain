@@ -1,6 +1,6 @@
 ---
 name: incremental-implementation
-description: Delivers a task in thin, verifiable slices: implement, run the touched test files, typecheck, commit, repeat. After the last slice it runs the full suite once and calls code-review-and-quality before the task is done. Use when a change touches more than one file, when picking up the next task from a spec folder's tasks/plan.md or running its frontier in parallel, when a change goes behind a feature flag, or when a task feels too big for one step.
+description: "Delivers a task in thin, verifiable slices: implement, run the touched test files, typecheck, commit, repeat. After the last slice it runs the full suite once and calls code-review-and-quality before the task is done. Use when a change touches more than one file, when picking up the next task from a spec folder's tasks/plan.md or running its frontier in parallel, when a change goes behind a feature flag, or when a task feels too big for one step."
 ---
 
 # Incremental Implementation
@@ -19,6 +19,8 @@ Build in thin vertical slices: implement one piece, test it, verify it, then exp
 **When NOT to use:** Single-file, single-function changes where the scope is already minimal.
 
 **Where the tasks live.** A task comes from the active spec folder (`docs/agents/workspace.md` says how to find it): a row on the frontier of its `tasks/plan.md` (an `open` row whose Blocked by rows are all `resolved`), with the task's detail in the block of the same number in its `tasks/todo.md`. The block's acceptance criteria and verification steps bound the task. In a repo with no `docs/agents/workspace.md`, look in the default specs folder, `specs/`, and tell the user once to run setup-brain.
+
+Before implementation, read [the commit contract](../../references/brain/commit-contract.md). It owns slice commits, task completion, integration and separate state-record commits.
 
 ## The Increment Cycle
 
@@ -217,6 +219,7 @@ The frontier of a plan often holds several tasks that need nothing from each oth
 - **A worktree the host does not give, the main session makes.** Gemini CLI never gives a sub-agent a worktree; Claude Code refuses one in some sessions, such as `claude plugin eval`. Then the main session runs `git worktree add` from the feature branch's head, runs the install there, and gives the sub-agent that path; the brief says to work only in it. On Claude Code this starts after the first refusal and holds for every later task. The `/build auto` command's "The worktree fallback" section has the steps.
 - **The main tree stays as it was.** Before the first fallback task starts, the main session records `git status --porcelain --untracked-files=all`, with the worktree folder left out. When a fallback task replies, it runs the command again. A line the record lacks means a sub-agent wrote in the main tree: the main session stops the build, merges nothing, and tells the user.
 - **A merged fallback worktree goes.** After the merge: `git worktree remove`, then `git worktree prune`. A failed task keeps its worktree for the user to inspect, and the report names its path.
+- **Read before integration.** The main session reads every task's complete result, scoped diff and acceptance/verification evidence, including successful tasks. Resolve missing evidence before integrating.
 - **One merge at a time.** The main session merges each finished task into the feature branch, resolves small overlaps in shared files, and runs the repo's check command after each merge.
 - **One writer.** Only the main session writes plan rows and todo ticks. It closes each row in a commit of its own, after the task's merge, because the row's result names the task's commit SHA.
 - **Rebase on change.** When a merge changes a file or an interface that a running task uses, the main session tells that task to rebase onto the new head.

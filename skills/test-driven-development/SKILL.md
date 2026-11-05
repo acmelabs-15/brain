@@ -39,9 +39,9 @@ The examples below use TypeScript for illustration. The workflow is identical in
 
 A **seam** is the public interface you test at. You observe behavior there without reaching inside. Tests live at seams, never against internals.
 
-Test only at agreed seams. Before you write the first test, write down the seams under test and confirm them with the user. Pick the fewest and highest seams that cover the behavior. Prefer a seam that already exists over a new one. You cannot test everything. Agreeing the seams up front puts the testing effort on the critical paths and the complex logic, not on every edge case.
+Test only at agreed seams. Before the first test, inspect the spec, task and user's answers for seams already approved for this behavior. Reuse that approval while its scope holds, and state its source. Ask only about a new, materially changed or unresolved seam. Pick the fewest and highest seams that cover the behavior; prefer an existing seam. This keeps testing focused on critical paths and complex logic.
 
-The spec may already carry the seams: `spec.md` in the active spec folder (`docs/agents/workspace.md` says how to find it), sections Testing Strategy and Prior-art tests. If it does, list them and confirm them in one question. If it does not, propose them in one question. Either way, call the Skill tool with "ask-user-question" to compose the call: one question, the proposed seams as options, one recommendation with its reason. No test is written at an unconfirmed seam.
+The spec may carry the approved seams in Testing Strategy and Prior-art tests; `docs/agents/workspace.md` locates the active spec. A seam's presence alone is not approval: check the supporting decision or user answer. When that evidence settles the current seam, proceed without another question. Otherwise load ask-user-question to compose one question about only the remaining choice, with the alternatives and the recommendation's reason inside it. A changed seam reopens only the affected choice. Keep dependent tests pending until that choice is settled.
 
 When the shape of the interface is itself in question (how deep the module is, where the seam belongs, what the interface exposes), read the codebase-design skill. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms. It is a reference to consult, not a session to run.
 
@@ -428,7 +428,7 @@ This separation keeps the test free of knowledge of the fix, which makes it more
 
 After completing any implementation:
 
-- [ ] The seams under test were confirmed by the user before the first test
+- [ ] The seams under test have user approval for the current behavior; unchanged approvals are reused and changed or unresolved seams are settled before dependent tests
 - [ ] Every new behavior has a corresponding test at an agreed seam
 - [ ] The full suite passes, run with the repository's own test command (`npm test`, `./gradlew test`, `pytest`, `go test ./...`, ...)
 - [ ] Bug fixes include a reproduction test that failed before the fix
