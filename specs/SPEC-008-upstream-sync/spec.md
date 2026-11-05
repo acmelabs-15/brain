@@ -8,7 +8,7 @@ Module `upstream-sync` of `CAPABILITY-MAP.md`. Status: draft for review, 2026-09
 
 ## Objective
 
-Carry three upstream packs inside brain's own tree as real files, each pinned to
+Carry two upstream packs inside brain's own tree as real files, each pinned to
 one commit, so that all four hosts see one flat `skills/` folder and an update is
 a SHA bump plus one script run.
 
@@ -20,7 +20,9 @@ Users: brain maintainers and CI. Nobody who installs brain runs this.
 | agent-skills, seeded | addyosmani/agent-skills | `.claude/commands/*.md` (9), `commands/*.toml` (9) | `.claude/commands/`, `commands/`, copied once, then brain-owned |
 | mattpocock-skills | mattpocock/skills | `skills/productivity/writing-for-agents`, `skills/engineering/codebase-design`, `skills/engineering/prototype`, `skills/productivity/handoff`, `LICENSE` | `skills/writing-for-agents/`, `skills/codebase-design/`, `skills/prototype/`, `skills/handoff/`, `licenses/mattpocock-skills.LICENSE` |
 | mattpocock-skills, seeded | mattpocock/skills | `skills/engineering/domain-modeling` (Peter, 2026-10-19), `skills/productivity/wait-what` (Peter, 2026-10-28) | `skills/domain-modeling/`, `skills/wait-what/`, copied once, then brain-owned |
-| ask-user-question | acmelabs-15/ask-user-question | `skills/ask-user-question` | `skills/ask-user-question/` |
+
+DEC-006 (2026-11-04) dropped a third upstream, acmelabs-15/ask-user-question.
+`skills/ask-user-question/` stays brain-owned, with no pin and no seed entry.
 
 `references/` must sit at the root: seven addy skills link to `../../references/<file>.md`
 (20 links, counted 2026-09-19). `agents/` is taken because Claude Code and
@@ -124,13 +126,6 @@ package.json  tsconfig.json  bunfig.toml  .github/workflows/ci.yml
         { "from": "skills/productivity/writing-for-agents", "to": "skills/writing-for-agents" }
       ],
       "license": "LICENSE"
-    },
-    "ask-user-question": {
-      "repo": "acmelabs-15/ask-user-question",
-      "sha": "d6594010d0ce100df831e5de91ba11c54f5796ce",
-      "take": [
-        { "from": "skills/ask-user-question", "to": "skills/ask-user-question" }
-      ]
     }
   }
 }
@@ -216,5 +211,5 @@ export async function checkTree(root: string, lock: Lock): Promise<Drift[]> {
 
 ## Open Questions
 
-1. acmelabs-15/ask-user-question has no LICENSE file. brain is public, so it needs one before that pack is vendored. Peter owns that repo.
+1. Closed 2026-11-04 by DEC-006: whether acmelabs-15/ask-user-question needs a LICENSE file before its pack is vendored no longer matters. The pack is no longer an upstream, so it is never vendored.
 2. Provenance per skill, such as antfu's `SYNC.md` inside each vendored directory, is not done here because it breaks byte identity with upstream. The root lock carries the provenance. Say if a per-skill file is wanted anyway.

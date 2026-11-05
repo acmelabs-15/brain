@@ -1,5 +1,6 @@
 ---
 id: DEC-002
+status: superseded by DEC-006
 migrated: 0.8
 decided: 2026-10-28
 ---

@@ -278,22 +278,6 @@
       "upstream": "agent-skills",
       "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
     },
-    "skills/ask-user-question/SKILL.md": {
-      "upstream": "ask-user-question",
-      "seededAt": "62d3b797efc672758b803d3b7bc08bab210562bc"
-    },
-    "skills/ask-user-question/references/claude-code.md": {
-      "upstream": "ask-user-question",
-      "seededAt": "62d3b797efc672758b803d3b7bc08bab210562bc"
-    },
-    "skills/ask-user-question/references/codex.md": {
-      "upstream": "ask-user-question",
-      "seededAt": "62d3b797efc672758b803d3b7bc08bab210562bc"
-    },
-    "skills/ask-user-question/references/gemini-cli.md": {
-      "upstream": "ask-user-question",
-      "seededAt": "62d3b797efc672758b803d3b7bc08bab210562bc"
-    },
     "skills/code-review-and-quality/SKILL.md": {
       "upstream": "agent-skills",
       "seededAt": "c004a74784a08295d52749b04cda634125b9a581"
