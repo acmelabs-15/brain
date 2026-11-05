@@ -5,8 +5,8 @@ compatibility: "Interactive session with a supported user-reply channel. Use a p
 metadata:
   type: core
   library: brain
-  library_version: "0.12.1"
-  version: "0.12.1"
+  library_version: "0.13.0"
+  version: "0.13.0"
 ---
 
 # Ask user question
