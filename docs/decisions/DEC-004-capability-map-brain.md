@@ -10,7 +10,7 @@ spec, `SPEC-<module id>.md`, written and built in the order below.
 
 | Module id | Responsibility | Depends on |
 |---|---|---|
-| upstream-sync | The SHA pin file, the Bun sync script, the drift check and the provenance record for agent-skills, mattpocock/skills and ask-user-question | — |
+| upstream-sync | The SHA pin file, the Bun sync script, the drift check and the provenance record for agent-skills and mattpocock/skills (ask-user-question dropped 2026-11-04 by DEC-006) | — |
 | host-manifests | The four host manifests, one version script, one install page per host | — |
 | plain-talk | One source text rendered into the Claude output style, the Gemini context file, the Antigravity rule and the AGENTS.md block, paired with wait-what | host-manifests |
 | setup | brain's own per-repo setup skill: sets the GLOSSARY.md layout; once per machine, the block in the Codex global AGENTS.md | plain-talk |
