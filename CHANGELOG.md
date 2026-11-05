@@ -1,5 +1,25 @@
 # @acmelabs/brain
 
+## 0.13.0
+
+### Minor Changes
+
+- [#28](https://github.com/acmelabs-15/brain/pull/28) [`2ca689f`](https://github.com/acmelabs-15/brain/commit/2ca689f2b49277e90b6fcb51c684db6a0220ee23) - Restore Claude sessions through an explicit current router entry without adding Brain instructions to consumer root files. Keep contributor instructions in Brain's root AGENTS.md and CLAUDE.md, with a visible exception for the exact Claude plugin-root warning.
+
+  Preserve host boundaries and workspace settings during setup, reject invalid or newer layouts before writing, report capability-value drift, and use supported question controls. Reuse settled decisions and align task commits and result review across the workflow.
+
+  Keep skill bodies within the supported host loading limit, import the separately pinned upstream security fix, and correct installation, refresh and removal guidance for all four hosts. Codex configuration now requires an explicit setup scope; callers relying on implicit cross-host writes must select that scope deliberately.
+
+- [#28](https://github.com/acmelabs-15/brain/pull/28) [`ab2ef5d`](https://github.com/acmelabs-15/brain/commit/ab2ef5d3b481329e58ddebdd351466ec7428f4b9) - Keep interview answers and research progress ready to resume after interruption. Evaluate the whole map after every answer, reject unfinished completion, and inspect completed work before repeating an action. Research records can distinguish answered, partial and blocked outcomes.
+
+  Use ask-user-question as the owner of question and approval rules, and provide a complete conversation-only interview path. Validate required skill metadata locally.
+
+  Retire the separate status note as live state. Status comes from current rows and records; setup preserves an existing note in history.
+
+- [#28](https://github.com/acmelabs-15/brain/pull/28) [`8e8b25e`](https://github.com/acmelabs-15/brain/commit/8e8b25edc1bda67825ae4d861418eac548a7ff24) - Move status and session-recovery instructions into the workspace document. Startup and resume follow that procedure, and setup updates installed copies while retaining each repo's settings.
+
+  **Breaking:** remove the standalone status skill, including skill-only invocation on Codex and Antigravity. Ask for status in chat or follow the workspace procedure instead. Claude Code keeps `/brain:status` as a thin command, Gemini keeps `/status`, and the `brain status` CLI is unchanged.
+
 ## 0.12.1
 
 ### Patch Changes
