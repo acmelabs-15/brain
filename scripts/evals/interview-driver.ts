@@ -1,4 +1,4 @@
-import { existsSync, realpathSync } from "node:fs";
+import { existsSync, lstatSync, realpathSync } from "node:fs";
 /** Real Claude tool events with a scripted user; this does not test native dialog rendering. */
 import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
@@ -100,6 +100,44 @@ function inside(file: string, cwd: string): boolean {
   const absolute = canonical(path.resolve(cwd, file));
   const root = canonical(cwd);
   return absolute === root || absolute.startsWith(`${root}/`);
+}
+
+function artifactPath(relative: string): boolean {
+  return (
+    relative === "GLOSSARY.md" ||
+    (relative.endsWith(".md") &&
+      /^docs\/(?:ideas|decisions|research)\/[A-Za-z0-9][A-Za-z0-9._-]*\.md$/u.test(relative))
+  );
+}
+
+/** Records are writable; fixture source, runtime configuration and completion receipts are not. */
+export function allowedArtifactWrite(input: ObjectValue, cwd: string): boolean {
+  const { file_path: file } = input;
+  if (typeof file !== "string" || file.startsWith("~") || /(?:^|\/)\.\.(?:\/|$)/u.test(file)) {
+    return false;
+  }
+  const absolute = path.resolve(cwd, file);
+  const relative = path.relative(path.resolve(cwd), absolute);
+  if (!artifactPath(relative)) {
+    return false;
+  }
+  try {
+    const root = canonical(path.resolve(cwd));
+    let segment = root;
+    for (const part of relative.split(path.sep)) {
+      segment = path.join(segment, part);
+      const stat = lstatSync(segment, { throwIfNoEntry: false });
+      if (stat?.isSymbolicLink()) {
+        return false;
+      }
+      if (stat === undefined) {
+        break;
+      }
+    }
+    return artifactPath(path.relative(root, canonical(absolute)));
+  } catch {
+    return false;
+  }
 }
 
 /** Read defaults are the fixture; only the selected plugin is an additional read root. */
@@ -228,7 +266,7 @@ export async function runSession(options: SessionOptions): Promise<SessionResult
       allowedCommand(String(input.command ?? ""), brain, options.commands)
     ) {
       response = { behavior: "allow", updatedInput: input };
-    } else if (["Write", "Edit"].includes(tool) && inside(String(input.file_path ?? ""), cwd)) {
+    } else if (["Write", "Edit"].includes(tool) && allowedArtifactWrite(input, cwd)) {
       response = { behavior: "allow", updatedInput: input };
     } else if (["Read", "Glob", "Grep"].includes(tool) && allowedRead(tool, input, cwd, plugin)) {
       response = { behavior: "allow", updatedInput: input };

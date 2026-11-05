@@ -43,6 +43,8 @@ The cases cover:
 
 Each session writes its real CLI events to `trace.jsonl`, host replies to `host.jsonl`, and a file snapshot before each question. The host sends an answer only when one question matches the scripted subject. It interrupts at the first question without a scripted answer. An unexpected question, error, or timeout is recorded as such; it is not an interview success.
 
+The model can write only Markdown records directly in the fixture's ideas, decisions and research folders, plus its root glossary. Fixture scripts, configuration and completion receipts stay read-only. The host rejects traversal and symlinks in record write paths. The fixed brain CLI creates numbered records through its bounded command allowlist.
+
 Every arm has `outputs/transcript.md`, `outputs/files.json`, and `timing.json`. Costs remain null when the CLI does not report them. A harness interruption is not a user refusal or approval. The final unanswered question provides a state boundary, not proof of indefinite waiting.
 
 Grade the expectations against both the events and the saved files. Check the specific files that existed before the next question, not only the final snapshot. Apply the official skill-creator grading schema and generate its review viewer after both arms complete. Record native UI rendering, long waits, and actual parallel worker timing as unverified.
