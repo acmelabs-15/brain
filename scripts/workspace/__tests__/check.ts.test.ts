@@ -117,3 +117,47 @@ describe("finished ideas", () => {
     });
   });
 });
+
+describe("research that resolves a map row", () => {
+  const research = "docs/research/RES-001-store-change-feed.md";
+
+  async function result(name: string, status: string, outcome: string): Promise<string> {
+    const root = await changedMap(
+      name,
+      "| 02 | Does the store emit changes? | research | resolved | — | RES-001 |",
+    );
+    const file = `${root}/${research}`;
+    const text = await Bun.file(file).text();
+    await Bun.write(file, text.replace("status: resolved", `status: ${status}\n${outcome}`));
+    return root;
+  }
+
+  test.each(["", "outcome: answered\n"])(
+    "accepts resolved research with outcome %s",
+    async (outcome) => {
+      const root = await result(`answered-${Bun.hash(outcome)}`, "resolved", outcome);
+      expect(await findings(root)).toEqual([]);
+    },
+  );
+
+  test.each([
+    ["in-progress", "partial"],
+    ["in-progress", "blocked"],
+    ["resolved", "partial"],
+    ["resolved", "blocked"],
+  ])("rejects a row resolved by %s research with outcome %s", async (status, outcome) => {
+    const root = await result(`${status}-${outcome}`, status, `outcome: ${outcome}\n`);
+    expect(await findings(root)).toContainEqual({
+      path: idea,
+      problem: `row 02: RES-001 is not answered research (status: ${status}, outcome: ${outcome})`,
+    });
+  });
+
+  test("rejects a row linked to an unfinished legacy record", async () => {
+    const root = await result("unfinished-legacy", "in-progress", "");
+    expect(await findings(root)).toContainEqual({
+      path: idea,
+      problem: "row 02: RES-001 is not answered research (status: in-progress, outcome: absent)",
+    });
+  });
+});

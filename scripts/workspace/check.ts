@@ -221,12 +221,40 @@ function checkpointProblems(plan: readonly Row[]): string[] {
   return problems;
 }
 
+/** A map row can resolve only from completed research; old records may omit outcome. */
+function researchResultProblems(
+  row: string,
+  links: string[],
+  research: Map<string, Record<string, unknown>>,
+): string[] {
+  return links.flatMap((id) => {
+    const record = research.get(id);
+    if (record === undefined) {
+      return [];
+    }
+    const { status, outcome } = record;
+    const answered =
+      status === "resolved" &&
+      (outcome === undefined || outcome === null || outcome === "answered");
+    return answered
+      ? []
+      : [
+          `row ${row}: ${id} is not answered research (status: ${String(status)}, outcome: ${String(outcome ?? "absent")})`,
+        ];
+  });
+}
+
 /**
  * The problems with the rows of a map or plan. A map row's result must name an existing DEC or
  * RES, and its blocked-by edges must hold no cycle; a plan's checkpoints must block the right
  * tasks (a plan's cycle is the waves check's finding, as `brain plan` names it).
  */
-function rowProblems(table: Table, body: string, known: Set<string>): string[] {
+function rowProblems(
+  table: Table,
+  body: string,
+  known: Set<string>,
+  research: Map<string, Record<string, unknown>>,
+): string[] {
   const { rows, problems } = readRows(table, body);
   if (table === "plan") {
     // A row that breaks the format is left out of `rows`, so its edges would be missing.
@@ -239,6 +267,9 @@ function rowProblems(table: Table, body: string, known: Set<string>): string[] {
     }
     for (const link of links.filter((id) => !known.has(id))) {
       problems.push(`row ${row.id}: result ${link} does not exist`);
+    }
+    if (row.status === "resolved") {
+      problems.push(...researchResultProblems(row.id, links, research));
     }
   }
   // A row left out for its format only takes edges away, so a cycle in the rest is a real one.
@@ -360,8 +391,22 @@ export async function checkWorkspace(root: string, paths: Paths): Promise<Result
   findings.push(...duplicates(docs));
   const known = new Set(docs.map((doc) => doc.id));
   const unclassified: string[] = [];
-  for (const doc of docs) {
-    const text = await Bun.file(path.join(root, doc.path)).text();
+  const loaded = await Promise.all(
+    docs.map(async (doc) => ({
+      doc,
+      text: await Bun.file(path.join(root, doc.path)).text(),
+    })),
+  );
+  const research = new Map<string, Record<string, unknown>>();
+  for (const { doc, text } of loaded) {
+    if (doc.type === "RES") {
+      const frontmatter = readFrontmatter(text);
+      if (frontmatter !== null && "data" in frontmatter) {
+        research.set(doc.id, frontmatter.data);
+      }
+    }
+  }
+  for (const { doc, text } of loaded) {
     const problems = checkDoc(doc.type, text, doc.id);
     const frontmatter = readFrontmatter(text);
     // Without fields to read, the schema's one finding says all there is to say.
@@ -376,7 +421,7 @@ export async function checkWorkspace(root: string, paths: Paths): Promise<Result
       if (!migrated) {
         problems.push(...placeholderTitle(body));
         if (table !== undefined) {
-          problems.push(...rowProblems(table, body, known));
+          problems.push(...rowProblems(table, body, known, research));
         }
         if (doc.type === "IDEA") {
           problems.push(...ideaCompletionProblems(data.status, body));
