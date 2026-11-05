@@ -38,9 +38,9 @@ describe("findRefs", () => {
 describe("checkRefs", () => {
   test("a clean tree has no findings", async () => {
     const root = await tree("clean", {
-      "skills/tdd/SKILL.md": "---\nname: tdd\n---\nbody",
+      "skills/tdd/SKILL.md": "---\nname: tdd\ndescription: Write tests first.\n---\nbody",
       "skills/setup/SKILL.md":
-        '---\nname: setup\ndisable-model-invocation: true\n---\nCall the Skill tool with "tdd".',
+        '---\nname: setup\ndescription: Set up the repo.\ndisable-model-invocation: true\n---\nCall the Skill tool with "tdd".',
       "skills/setup/agents/openai.yaml": "policy:\n  allow_implicit_invocation: false\n",
       ".claude/commands/build.md": "Invoke the brain:tdd skill.",
       "commands/build.toml": 'prompt = """\nInvoke the tdd skill: Skill tool with "tdd".\n"""',
@@ -50,9 +50,10 @@ describe("checkRefs", () => {
 
   test("an unresolved name, an agent-skills prefix, and a flag mismatch are each a finding", async () => {
     const root = await tree("dirty", {
-      "skills/tdd/SKILL.md": "---\nname: tdd\ndisable-model-invocation: true\n---\nbody",
+      "skills/tdd/SKILL.md":
+        "---\nname: tdd\ndescription: Write tests first.\ndisable-model-invocation: true\n---\nbody",
       "skills/tdd/agents/openai.yaml": "interface:\n  display_name: t\n",
-      "skills/other/SKILL.md": "---\nname: other\n---\nbody",
+      "skills/other/SKILL.md": "---\nname: other\ndescription: Another skill.\n---\nbody",
       "skills/other/agents/openai.yaml": "policy:\n  allow_implicit_invocation: false\n",
       ".claude/commands/build.md": "Invoke the brain:nope skill and agent-skills:tdd.",
     });
@@ -77,7 +78,8 @@ describe("findRefs, markers", () => {
 describe("checkRefs, command names", () => {
   test("brain:<name> resolves to a command file as well as to a skill", async () => {
     const root = await tree("commands", {
-      "skills/tdd/SKILL.md": "---\nname: tdd\n---\nRun brain:build when ready.",
+      "skills/tdd/SKILL.md":
+        "---\nname: tdd\ndescription: Write tests first.\n---\nRun brain:build when ready.",
       ".claude/commands/build.md": "Invoke the brain:tdd skill.",
     });
     expect(await checkRefs(root)).toEqual([]);

@@ -52,6 +52,22 @@ function frontmatterFlag(text: string): boolean {
   );
 }
 
+function metadataProblems(text: string): string[] {
+  const frontmatter = readFrontmatter(text);
+  if (frontmatter === null) {
+    return ["frontmatter: missing or unclosed"];
+  }
+  if ("error" in frontmatter) {
+    return [`frontmatter: ${frontmatter.error}`];
+  }
+  return ["name", "description"].flatMap((field) => {
+    const value = frontmatter.data[field];
+    return typeof value === "string" && value.trim() !== ""
+      ? []
+      : [`${field}: needs a nonempty string`];
+  });
+}
+
 async function readOrEmpty(path: string): Promise<string> {
   return (await readIfPresent(path)) ?? "";
 }
@@ -90,6 +106,13 @@ export async function checkRefs(root: string): Promise<Finding[]> {
   }
   for (const name of skills) {
     const skill = await readOrEmpty(`${root}/skills/${name}/SKILL.md`);
+    findings.push(
+      ...metadataProblems(skill).map((detail): Finding => ({
+        kind: "metadata",
+        file: `skills/${name}/SKILL.md`,
+        detail,
+      })),
+    );
     const yaml = await readOrEmpty(`${root}/skills/${name}/agents/openai.yaml`);
     const claudeFlag = frontmatterFlag(skill);
     const codexFlag = /allow_implicit_invocation:\s*false/u.test(yaml);
@@ -122,6 +145,6 @@ if (import.meta.main) {
     process.exit(1);
   }
   console.log(
-    "every skill reference resolves, every user-invoked flag agrees, no retired name is left, every agent is listed, no other host loads a hook file, using-brain routes to every skill",
+    "every skill has valid metadata, every skill reference resolves, every user-invoked flag agrees, no retired name is left, every agent is listed, no other host loads a hook file, using-brain routes to every skill",
   );
 }
