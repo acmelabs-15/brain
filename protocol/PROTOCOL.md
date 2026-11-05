@@ -2,11 +2,10 @@
 
 ## Session start
 
-1. Get the state. On Claude Code, the session-start text holds the `brain status` report. Elsewhere, run `brain status`. When it cannot run, read the active effort's map or `tasks/plan.md` and its linked records. Work out the frontier by hand, and tell the user so.
-2. Read `docs/agents/workspace.md`, `docs/agents/capabilities.md`, `docs/agents/domain.md` and the glossary that `domain.md` names, each to its last line. When one is missing, tell the user once to run setup-brain.
+1. Read `docs/agents/workspace.md` in full and follow its **Session state** procedure. If the file or its **Session state** section is missing, read the plugin's `skills/setup-brain/workspace.md` template. Keep any existing workspace settings and follow its missing-or-older-workspace case.
+2. Read `docs/agents/capabilities.md`, `docs/agents/domain.md` and the glossary that `domain.md` names, each to its last line. When one is missing, tell the user once to run setup-brain.
 3. Open the active effort: for an idea, its map; for a spec, `spec.md`, `tasks/plan.md` and `tasks/todo.md`.
 4. Check `git status` and the branch. Run the toolchain checks in `capabilities.md`. Keep work you did not start.
-5. Report in five lines or fewer: the stage, the last completed step, the next step, anything red, and the decisions that wait on the user. "Continue" resumes the next approved row or task.
 
 ## Work through brain
 

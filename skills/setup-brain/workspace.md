@@ -23,6 +23,29 @@ The workspace is this repo's folders for ideas, decisions, research and specs, w
 - A sub-agent gets the path in its brief.
 - On another host, resolve the plugin folder as setup-brain does.
 
+## Session state
+
+Use this procedure at session start, after clearing or resuming a session, and when the user asks where work stands.
+
+1. Get the current report. Reuse the report the session-start hook just supplied; otherwise run `brain status`. It reads the whole repo from any folder inside it and writes no file. Use `brain status --json` when you need each effort's frontier, rows in progress, full red items, or the specs produced by an idea.
+2. Show the five lines as printed. The report uses the effort the git branch names, or every unfinished effort when the branch names none. Use **Find the active effort** below to select the work; ask through ask-user-question when that choice remains the user's.
+3. Give each reported problem its next action. A layout-1 report needs setup-brain's migration. A missing workspace file needs setup-brain; until then the CLI uses its default folders. For workspace-check findings, run `brain check` and show the file and rule it names. For blocked research, read its record for the missing prerequisite and retry condition.
+4. With no active work, route the user's request through using-brain. With active work, follow **Resume** below and read its current records before naming the next action.
+
+| Line | Meaning |
+|---|---|
+| Stage | Each reported effort and its stage from current rows: define, build or finished; no active work when none is selected |
+| Last step | Each reported effort's highest-numbered resolved row and its result |
+| Next step | The first frontier row, followed by rows in progress; a linked partial or blocked research record names that outcome and its record |
+| Red | Missing workspace setup, workspace-check findings, and blocked research records |
+| Waiting on the user | Decide rows on the frontier |
+
+When Bun or the plugin path is unavailable, read the selected idea's map or spec's plan and their linked records. Compute the frontier by hand and state that limit.
+
+**Missing or older workspace:** when the file is absent, use this template's defaults as a reference and report that setup is needed. When an installed copy lacks this section, use this template's procedure with the installed copy's settings and report that setup-brain must refresh its guidance. The status command itself creates no files.
+
+This procedure is complete when the user has the current report, each red item has a supported next action, and the active effort is selected or its selection waits on the user. "Continue" resumes the next approved row or task after the session's required reads and checks.
+
 ## Files
 
 | Type | Folder | Name |

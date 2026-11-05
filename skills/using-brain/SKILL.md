@@ -23,7 +23,7 @@ When a task arrives, identify the situation and apply the corresponding skill:
 Task arrives
     │
     ├── First brain skill in this repo? ────→ setup-brain (once per repo)
-    ├── Starting or resuming a session? ────→ status (the protocol's session start, `brain status`)
+    ├── Starting, clearing or resuming a session? → Workspace Session state (docs/agents/workspace.md)
     │
     │   MAIN FLOW: idea → ship
     ├── Don't know what you want, or too big for one session? → interview-me (a stateful map)
@@ -239,16 +239,16 @@ Eight skills carry the stages and keep addy's names: interview-me, spec-driven-d
 | Verify | debugging-and-error-recovery | `test` | `/test` | the skill by name |
 | Review | code-review-and-quality | `review` | `/review` | the skill by name |
 | Ship | shipping-and-launch | `ship` | `/ship` | the skill by name |
-| Any | status | the skill, shown as `/brain:status` | `/status` | the skill by name |
 
-In Claude Code every command sits under the plugin prefix: type `/brain`, a colon and the command name. Claude Code shows a plugin skill as a command too, so the status skill is `/brain:status`. Gemini CLI reads the TOML files in `commands/` and names each command after its file. Codex has no slash commands: invoke the skill with a dollar sign, `$spec-driven-development`. Antigravity lists the skills under the plugin prefix, the way Claude Code lists the commands. `constraints`, `webperf` and `code-simplify` are the same commands on both hosts. On a host with no session-start hook, status is how the user or the agent gets the state of the work.
+In Claude Code every command sits under the plugin prefix: type `/brain`, a colon and the command name. Gemini CLI reads the TOML files in `commands/` and names each command after its file. Codex has no slash commands: invoke a lifecycle skill with a dollar sign, `$spec-driven-development`. Antigravity lists the skills under the plugin prefix, the way Claude Code lists the commands. `constraints`, `webperf` and `code-simplify` are the same commands on both hosts.
+
+Status is a workspace procedure, not a skill. `/brain:status` in Claude Code and `/status` in Gemini are thin commands that follow **Session state** in `docs/agents/workspace.md`. On other hosts, or when the user asks for status in chat, follow that section directly. The `brain status` CLI remains the read-only source of the report.
 
 ## Quick Reference
 
 | Stage | Skill | One-Line Summary |
 |-------|-------|-----------------|
 | Setup | setup-brain | The workspace, capabilities and domain files, once per repo; `--check` reports drift |
-| Any | status | Where the work stands in five lines: stage, last step, next step, red items, decisions waiting on the user |
 | Define | interview-me | A stateful map across sessions, one question per row, until the destination is clear |
 | Define | idea-refine | Refine ideas through structured divergent and convergent thinking; resolves ideate rows |
 | Define | prototype | Throwaway code that answers one design question, as a prototype row in the map |

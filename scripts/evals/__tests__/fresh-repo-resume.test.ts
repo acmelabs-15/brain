@@ -132,7 +132,7 @@ function brainStatus(root: string): { exitCode: number; out: string } {
   return { exitCode: res.exitCode, out: `${res.stdout.toString()}${res.stderr.toString()}` };
 }
 
-/** The Bash call of a session that runs `brain status`, as the status skill spells it. */
+/** The Bash call of a session that runs `brain status`, as the workspace procedure spells it. */
 const statusCall: Call = {
   tool: "Bash",
   input: { command: 'bun "/plugins/brain/scripts/brain.ts" status' },

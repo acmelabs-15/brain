@@ -1,7 +1,7 @@
 description = "Report the active work in five lines: stage, last step, next step, red items, decisions waiting on the user"
 
 prompt = """
-Invoke the status skill. It runs `brain status`, which reads the workspace's rows and records and writes no file.
+Read `docs/agents/workspace.md` in full. Follow **Session state** there to run `brain status` and report its result.
 
-Show the five lines to the user exactly as printed. Then give the next action for each red item, and for a report that says to run setup-brain.
+If the file or its **Session state** section is missing, read the installed brain plugin's `skills/setup-brain/workspace.md` as the reference. Keep any existing workspace settings and follow its missing-or-older-workspace case.
 """

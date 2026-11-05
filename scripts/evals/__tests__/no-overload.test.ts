@@ -179,7 +179,7 @@ describe("lifecycle/no-overload, the case files", () => {
     expect(namesIn(String(none?.input_match))).toEqual(lifecycle);
   });
 
-  test("the skills outside the six stages are the router's setup, status and any-stage skills", async () => {
+  test("the skills outside the six stages are the router's setup and any-stage skills", async () => {
     // A known list, so a skill moved out of a lifecycle stage shows up here as a choice.
     const { other } = await routerSkills();
     expect(other).toEqual([
@@ -187,7 +187,6 @@ describe("lifecycle/no-overload, the case files", () => {
       "domain-modeling",
       "handoff",
       "setup-brain",
-      "status",
       "wait-what",
       "writing-for-agents",
     ]);

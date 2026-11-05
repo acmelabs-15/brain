@@ -41,11 +41,11 @@ commit of its own. `setup-brain --check` reports drift and writes nothing.
 
 | Folder | Holds | Owner |
 |---|---|---|
-| `skills/` | 25 agent-skills (16 vendored, 9 seeded), 6 of mattpocock/skills (4 vendored, 2 seeded), and brain's own: ask-user-question, setup-brain and status | vendored ones are byte-identical to upstream; the rest are brain's |
+| `skills/` | 25 agent-skills (16 vendored, 9 seeded), 6 of mattpocock/skills (4 vendored, 2 seeded), and brain's own: ask-user-question and setup-brain | vendored ones are byte-identical to upstream; the rest are brain's |
 | `references/`, `agents/`, `hooks/` | agent-skills' checklists, personas and hook scripts, and brain's own references in `references/brain/` | vendored, except `references/brain/` |
 | `claude/agents/` | the Claude-only `researcher` agent, which runs a research row from interview-me's brief | brain |
 | `scripts/hooks/` | the Claude-only `SessionStart` hook, which gives each session the brain protocol and the `brain status` report | brain |
-| `.claude/commands/`, `commands/` | the lifecycle commands: nine for Claude Code, where `status` is a skill, and ten for Gemini and Antigravity | brain; all but `status` seeded from agent-skills |
+| `.claude/commands/`, `commands/` | lifecycle commands and a thin `status` shortcut: ten for Claude Code, Gemini and Antigravity | brain; all but `status` seeded from agent-skills |
 | `output-styles/`, `GEMINI.md`, `rules/`, `plain-talk/`, `protocol/` | the plain-talk text and the brain protocol, with their rendered forms; the two blocks at the end of `AGENTS.md` are among them | brain |
 | `upstream.json`, `upstream.lock.json` | which commit of each upstream is vendored, and a hash per file | brain |
 | `licenses/` | the upstream licence texts | vendored |
@@ -74,6 +74,8 @@ call, and reads the glossary through `docs/agents/domain.md`.
 Work too big for one session goes to `interview-me`, which keeps its map in
 `docs/ideas/`. `using-brain` routes a request to the right stage. `wait-what` is the
 repair when a reply does not land.
+
+Session state and recovery live in `docs/agents/workspace.md`, written from the setup-brain template. The `status` command follows that document; there is no separate status skill.
 
 The nine skills that carry brain's additions keep agent-skills' names, except `using-brain`,
 which was `using-agent-skills`. They are seeded from addy's text and owned by brain:

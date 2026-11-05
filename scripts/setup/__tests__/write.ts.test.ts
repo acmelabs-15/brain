@@ -7,6 +7,20 @@ import { writeSetup } from "../write";
 const roots: string[] = [];
 const brain = `${import.meta.dir}/../../..`;
 
+test("setup refreshes an older workspace with session guidance and retains its settings", async () => {
+  const root = await mkdtemp(`${tmpdir()}/brain-workspace-guidance-`);
+  roots.push(root);
+  const old =
+    "---\nlayout: 2\npaths:\n  decisions: records/decisions\n  research: records/research\n  ideas: records/ideas\n  specs: records/specs\nmax_parallel: 3\n---\n# Workspace\n\n## Resume\nRead the active map.\n";
+  const file = `${root}/docs/agents/workspace.md`;
+  await Bun.write(file, old);
+  await writeSetup({ root, brain, layout: "single", dryRun: false, codexHome: null });
+  const updated = await Bun.file(file).text();
+  expect(updated).toContain("## Session state");
+  expect(updated).toContain("brain status --json");
+  expect(updated.split("---")[1]).toBe(old.split("---")[1]);
+});
+
 afterEach(async () => {
   await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
 });

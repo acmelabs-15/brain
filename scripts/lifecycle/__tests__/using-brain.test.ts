@@ -113,11 +113,24 @@ describe("using-brain, the rest of its table in the intent doc", () => {
     expect(lifecycle).toMatch(/Stage 4[^.;]*build/u);
   });
 
-  test("the commands table names the status command on each host", async () => {
-    const lifecycle = section(await read("skills/using-brain/SKILL.md"), "Lifecycle Sequence");
-    const row = lifecycle.split("\n").find((line) => /^\|[^|]*\| status \|/u.test(line));
-    expect(row).toBeDefined();
-    expect(row).toContain("/brain:status");
-    expect(row).toContain("`/status`");
+  test("status shortcuts reach workspace guidance without a status skill", async () => {
+    expect(await Bun.file(`${root}/skills/status/SKILL.md`).exists()).toBe(false);
+    expect(await Bun.file(`${root}/skills/status/agents/openai.yaml`).exists()).toBe(false);
+    for (const command of [".claude/commands/status.md", "commands/status.toml"]) {
+      const text = await read(command);
+      expect(text).toContain("docs/agents/workspace.md");
+      expect(text).toContain("Session state");
+      expect(text).toContain("brain status");
+      expect(text).toContain("file or its **Session state** section is missing");
+      expect(text).toContain("Keep any existing workspace settings");
+      expect(text).not.toMatch(/Invoke.*status skill/iu);
+    }
+    const workspace = await read("skills/setup-brain/workspace.md");
+    expect(workspace).toContain("## Session state");
+    expect(workspace).toContain("brain status --json");
+    expect(await read("docs/agents/workspace.md")).toContain("## Session state");
+    const protocol = await read("protocol/PROTOCOL.md");
+    expect(protocol).toMatch(/workspace\.md[^\n]*Session state/u);
+    expect(protocol).toContain("file or its **Session state** section is missing");
   });
 });
