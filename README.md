@@ -3,12 +3,12 @@
 A development lifecycle for coding agents, as one plugin for Claude Code, Codex CLI,
 Gemini CLI and Antigravity CLI.
 
-brain carries [Addy Osmani's agent-skills](https://github.com/addyosmani/agent-skills)
-unchanged and adds three things:
+brain carries [Addy Osmani's agent-skills](https://github.com/addyosmani/agent-skills),
+16 of its 25 skills unchanged, and adds three things:
 
-- **A glossary discipline.** Matt Pocock's `domain-modeling` skill keeps a `GLOSSARY.md`
-  glossary and one-paragraph ADRs, and every brain skill reads the glossary before it
-  names a domain concept.
+- **A glossary discipline.** The `domain-modeling` skill, seeded from Matt Pocock's, keeps a
+  `GLOSSARY.md` glossary and one-paragraph decision records, and every brain skill reads the
+  glossary before it names a domain concept.
 - **Plain talk on every turn.** One text, rendered for each host: an output style for
   Claude Code, a context file for Gemini CLI, an always-on rule for Antigravity, and an
   `AGENTS.md` block that the `setup-brain` skill writes into the Codex global file. The
@@ -41,12 +41,12 @@ commit of its own. `setup-brain --check` reports drift and writes nothing.
 
 | Folder | Holds | Owner |
 |---|---|---|
-| `skills/` | 25 agent-skills, 3 of mattpocock/skills, ask-user-question, and brain's own | vendored ones are byte-identical to upstream; brain's own sit beside them |
-| `references/`, `agents/`, `hooks/` | agent-skills' checklists, personas and hook scripts | vendored |
+| `skills/` | 25 agent-skills (16 vendored, 9 seeded), 6 of mattpocock/skills (4 vendored, 2 seeded), and brain's own: ask-user-question, setup-brain and status | vendored ones are byte-identical to upstream; the rest are brain's |
+| `references/`, `agents/`, `hooks/` | agent-skills' checklists, personas and hook scripts, and brain's own references in `references/brain/` | vendored, except `references/brain/` |
 | `claude/agents/` | the Claude-only `researcher` agent, which runs a research row from interview-me's brief | brain |
 | `scripts/hooks/` | the Claude-only `SessionStart` hook, which gives each session the brain protocol and the `brain status` report | brain |
-| `.claude/commands/`, `commands/` | the lifecycle commands: nine for Claude Code, where `status` is a skill, and ten for Gemini and Antigravity | seeded from agent-skills, brain-owned |
-| `output-styles/`, `GEMINI.md`, `rules/`, `plain-talk/`, `protocol/` | the plain-talk text and the brain protocol, with their rendered forms; the block at the end of `AGENTS.md` is one of them | brain |
+| `.claude/commands/`, `commands/` | the lifecycle commands: nine for Claude Code, where `status` is a skill, and ten for Gemini and Antigravity | brain; all but `status` seeded from agent-skills |
+| `output-styles/`, `GEMINI.md`, `rules/`, `plain-talk/`, `protocol/` | the plain-talk text and the brain protocol, with their rendered forms; the two blocks at the end of `AGENTS.md` are among them | brain |
 | `upstream.json`, `upstream.lock.json` | which commit of each upstream is vendored, and a hash per file | brain |
 | `licenses/` | the upstream licence texts | vendored |
 
@@ -75,11 +75,12 @@ Work too big for one session goes to `interview-me`, which keeps its map in
 `docs/ideas/`. `using-brain` routes a request to the right stage. `wait-what` is the
 repair when a reply does not land.
 
-The eight skills that carry brain's additions keep agent-skills' names. They are seeded
-from addy's text and owned by brain: `interview-me`, `spec-driven-development`,
-`planning-and-task-breakdown`, `incremental-implementation`, `test-driven-development`,
-`debugging-and-error-recovery`, `code-review-and-quality`, `using-brain`. The
-research behind each fold is under `docs/research/`.
+The nine skills that carry brain's additions keep agent-skills' names, except `using-brain`,
+which was `using-agent-skills`. They are seeded from addy's text and owned by brain:
+`idea-refine`, `interview-me`, `spec-driven-development`, `planning-and-task-breakdown`,
+`incremental-implementation`, `test-driven-development`, `debugging-and-error-recovery`,
+`code-review-and-quality`, `using-brain`. The research behind each fold is under
+`docs/research/`.
 
 ## Evals
 
@@ -108,10 +109,10 @@ Bun only.
 
 ```
 bun install
-bun run check                  # typecheck, lint, format check, tests, version, render, lifecycle and sync checks
+bun run check                  # typecheck, lint, format check, tests, version, render, lifecycle, workspace and sync checks
 bun run sync                   # fetch every pinned upstream and rewrite the vendored tree
 bun run sync -- --check        # fail if a vendored file drifted
-bun run sync -- --report       # what addy changed in a seeded command since it was seeded
+bun run sync -- --report       # what upstream changed in a seeded file since it was seeded
 bun run validate               # claude plugin validate --strict, and agy plugin validate
 ```
 
