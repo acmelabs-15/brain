@@ -36,19 +36,15 @@ const cliSection = [
   "```",
 ].join("\n");
 
-/** The status section on the no-active-work fixture: the five lines, then docs/STATUS.md. */
+/** The status section on the no-active-work fixture: the five lines from rows and records. */
 const noWorkStatus = [
   "# brain status",
   "",
   "Stage: no active work",
   "Last step: none",
-  "Next step: none in the workspace; docs/STATUS.md says: No active work. Start with interview-me.",
+  "Next step: none",
   "Red: none",
   "Waiting on the user: none",
-  "",
-  "# docs/STATUS.md",
-  "",
-  "No active work. Start with interview-me.",
 ].join("\n");
 
 /** The full text on the no-active-work fixture: the protocol, the brain path and the status. */
@@ -217,7 +213,7 @@ describe("the hook file and the manifest", () => {
 
 describe("the text for each source of the session", () => {
   test.each(["startup", "clear", "compact"])(
-    "%s: the protocol, the brain path, the five lines and docs/STATUS.md, in that order",
+    "%s: the protocol, the brain path, the five lines, in that order",
     async (source) => {
       const root = await repo(`source-${source}`, "no-active-work");
       const context = contextOf(await spawnHook(root, { stdin: input(source, root) }));
@@ -226,7 +222,7 @@ describe("the text for each source of the session", () => {
   );
 
   test.each(["resume", "fork"])(
-    "%s: the brain path, the five lines and docs/STATUS.md, with no protocol text",
+    "%s: the brain path, the five lines, with no protocol text",
     async (source) => {
       const root = await repo(`source-${source}`, "no-active-work");
       const context = contextOf(await spawnHook(root, { stdin: input(source, root) }));
@@ -248,11 +244,9 @@ describe("the text for each source of the session", () => {
 });
 
 describe("the session-start text on each fixture", () => {
-  test("idea-mid-define: the five lines of an idea in define, and the full docs/STATUS.md text", async () => {
+  test("idea-mid-define: the five lines of an idea in define, with no legacy note", async () => {
     const root = await repo("idea", "idea-mid-define");
     const context = contextOf(await spawnHook(root));
-    const noteSource = await Bun.file(`${root}/docs/STATUS.md`).text();
-    const note = noteSource.trim();
     expect(context).toContain(protocol);
     expect(context).toContain(brainCommand);
     expect(context).toContain(
@@ -261,15 +255,15 @@ describe("the session-start text on each fixture", () => {
         "",
         "Stage: define (IDEA-001: Sync notes across devices)",
         "Last step: IDEA-001#04: Sync through a hosted service, or peer to peer? (DEC-002)",
-        "Next step: IDEA-001#06. Build the two merge prototypes, then ask the user to pick one.",
+        "Next step: IDEA-001#06: How do two edits to one note merge? Pick one of two prototypes; in progress: IDEA-001#05: Set up a test account on the sync service",
         "Red: none",
-        "Waiting on the user: IDEA-001#06 (pick a merge prototype) and IDEA-001#08 (end-to-end encryption at launch).",
+        "Waiting on the user: IDEA-001#06: How do two edits to one note merge? Pick one of two prototypes; IDEA-001#08: Must notes be end-to-end encrypted at launch?",
       ].join("\n"),
     );
-    expect(context.endsWith(`# docs/STATUS.md\n\n${note}`)).toBe(true);
+    expect(context).not.toContain("# docs/STATUS.md");
   });
 
-  test("spec-mid-build: the five lines of a spec in build, and a line that the repo has no docs/STATUS.md", async () => {
+  test("spec-mid-build: the five lines of a spec in build", async () => {
     const root = await repo("spec", "spec-mid-build");
     const context = contextOf(await spawnHook(root));
     expect(context).toContain(protocol);
@@ -283,7 +277,7 @@ describe("the session-start text on each fixture", () => {
         "Waiting on the user: none",
       ].join("\n"),
     );
-    expect(context.endsWith("# docs/STATUS.md\n\nThis repo has no docs/STATUS.md.")).toBe(true);
+    expect(context.endsWith("Waiting on the user: none")).toBe(true);
   });
 
   test("layout-0.8: the one line that says to run setup-brain to migrate", async () => {
@@ -291,7 +285,7 @@ describe("the session-start text on each fixture", () => {
     const context = contextOf(await spawnHook(root));
     expect(context).toContain(protocol);
     expect(context).toContain(
-      "# brain status\n\nThis repo is on layout 1 (brain 0.9 and earlier): run setup-brain to migrate. Found: CONTEXT.md, spec/, tasks/plan.md, tasks/todo.md, docs/intent/, docs/agents/issue-tracker.md, docs/agents/triage-labels.md.\n",
+      "# brain status\n\nThis repo is on layout 1 (brain 0.9 and earlier): run setup-brain to migrate. Found: CONTEXT.md, spec/, tasks/plan.md, tasks/todo.md, docs/intent/, docs/agents/issue-tracker.md, docs/agents/triage-labels.md.",
     );
   });
 
@@ -303,22 +297,19 @@ describe("the session-start text on each fixture", () => {
 });
 
 describe("when the status does not fit or does not run", () => {
-  test("a docs/STATUS.md too long for the cap is cut at a line end, and one line says so", async () => {
-    const lines = Array.from({ length: 400 }, (_, i) => `- Note line ${i + 1} of 400.`);
-    const root = await repo("long", "idea-mid-define", {
-      "docs/STATUS.md": `# Status\n\n${lines.join("\n")}\n`,
-    });
-    const context = contextOf(await spawnHook(root));
+  test("a long status report is cut at a line end and names the full report command", async () => {
+    const lines = Array.from({ length: 500 }, (_, i) => `- Report line ${i + 1} of 500.`);
+    const plugin = await stubPlugin("long-report", JSON.stringify({ report: lines }));
+    const root = await repo("long", "idea-mid-define");
+    const context = contextOf(await spawnHook(root, { plugin }));
     expect(context).toContain(protocol);
-    expect(context).toContain(brainCommand);
-    expect(context).toContain("Stage: define (IDEA-001: Sync notes across devices)");
-    expect(context).toContain("- Note line 1 of 400.");
-    expect(context).not.toContain("- Note line 400 of 400.");
+    expect(context).toContain("- Report line 1 of 500.");
+    expect(context).not.toContain("- Report line 500 of 500.");
     const [kept, cut] = context.split(
-      "\nThe status text is cut here to keep this text under 10,000 characters. Run `brain status` and read docs/STATUS.md for the rest.",
+      "\nThe status text is cut here to keep this text under 10,000 characters. Run `brain status --json` for the rest.",
     );
     expect(cut).toBe("");
-    expect(kept).toMatch(/\n- Note line \d+ of 400\.$/u);
+    expect(kept).toMatch(/\n- Report line \d+ of 500\.$/u);
   });
 
   test("a CLAUDE_PROJECT_DIR that does not exist still leaves the protocol and says why status did not start", async () => {
@@ -343,22 +334,16 @@ describe("when the status does not fit or does not run", () => {
     ).toBe(true);
   });
 
-  test("on resume, a docs/STATUS.md too long for the cap is cut at a line end, and one line says so", async () => {
-    const lines = Array.from({ length: 500 }, (_, i) => `- Note line ${i + 1} of 500.`);
+  test("on resume a legacy note is absent even when it is long", async () => {
     const root = await repo("long-resume", "idea-mid-define", {
-      "docs/STATUS.md": `# Status\n\n${lines.join("\n")}\n`,
+      "docs/STATUS.md": `# Status\n${"Stale next step.\n".repeat(1000)}`,
     });
     const context = contextOf(await spawnHook(root, { stdin: input("resume", root) }));
     expect(protocolLinesIn(context)).toEqual([]);
     expect(context).toContain(brainCommand);
     expect(context).toContain("Stage: define (IDEA-001: Sync notes across devices)");
-    expect(context).toContain("- Note line 1 of 500.");
-    expect(context).not.toContain("- Note line 500 of 500.");
-    const [kept, cut] = context.split(
-      "\nThe status text is cut here to keep this text under 10,000 characters. Run `brain status` and read docs/STATUS.md for the rest.",
-    );
-    expect(cut).toBe("");
-    expect(kept).toMatch(/\n- Note line \d+ of 500\.$/u);
+    expect(context).not.toContain("Stale next step.");
+    expect(context).not.toContain("# docs/STATUS.md");
   });
 
   test("on resume, a brain status that fails leaves the brain path and the failure, with no protocol text", async () => {
@@ -380,7 +365,6 @@ describe("when the status does not fit or does not run", () => {
 describe("when brain status exits 0 with output the hook cannot read", () => {
   const notJson = "it is not JSON";
   const noReport = "it has no `report` list of strings";
-  const badNote = "its `note` is not null or an object with a `text` string";
 
   test.each([
     ["stdout that is not JSON", "Stage: define\nNext step: none\n", notJson],
@@ -397,7 +381,6 @@ describe("when brain status exits 0 with output the hook cannot read", () => {
       JSON.stringify({ report: ["Stage: define", 5], note: null }),
       noReport,
     ],
-    ["a note with no text", JSON.stringify({ report: ["Stage: define"], note: {} }), badNote],
   ])(
     "%s: the protocol, the brain path and one line that says so",
     async (name, stdout, problem) => {

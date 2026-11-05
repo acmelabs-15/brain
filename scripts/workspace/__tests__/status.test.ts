@@ -76,7 +76,6 @@ type Json = {
   }[];
   ideas: { id: string; title: string; status: string | null; path: string; specs: string[] }[];
   red: string[];
-  note: { path: string; text: string; next: string | null; waiting: string | null } | null;
 };
 
 /** `brain status --json` in `root`, parsed, after a check that the five lines match the text run. */
@@ -104,7 +103,7 @@ afterAll(async () => {
 });
 
 describe("brain status, the five lines on each fixture", () => {
-  test("idea-mid-define: an idea in define, with docs/STATUS.md naming the next step and the waiting decisions", async () => {
+  test("idea-mid-define: an idea in define, with its rows naming the next step and waiting decisions", async () => {
     const root = await repo("five-idea", "idea-mid-define");
     const res = await brain(root, "status");
     expect(res.stderr).toBe("");
@@ -112,9 +111,9 @@ describe("brain status, the five lines on each fixture", () => {
       lines(
         "Stage: define (IDEA-001: Sync notes across devices)",
         "Last step: IDEA-001#04: Sync through a hosted service, or peer to peer? (DEC-002)",
-        "Next step: IDEA-001#06. Build the two merge prototypes, then ask the user to pick one.",
+        "Next step: IDEA-001#06: How do two edits to one note merge? Pick one of two prototypes; in progress: IDEA-001#05: Set up a test account on the sync service",
         "Red: none",
-        "Waiting on the user: IDEA-001#06 (pick a merge prototype) and IDEA-001#08 (end-to-end encryption at launch).",
+        "Waiting on the user: IDEA-001#06: How do two edits to one note merge? Pick one of two prototypes; IDEA-001#08: Must notes be end-to-end encrypted at launch?",
       ),
     );
     expect(res.code).toBe(0);
@@ -136,7 +135,7 @@ describe("brain status, the five lines on each fixture", () => {
     expect(res.code).toBe(0);
   });
 
-  test("no-active-work: no line names a parked idea or a finished spec, and the next step quotes docs/STATUS.md", async () => {
+  test("no-active-work: no line names a parked idea or a finished spec, and the next step is none", async () => {
     const root = await repo("five-none", "no-active-work");
     const res = await brain(root, "status");
     expect(res.stderr).toBe("");
@@ -144,7 +143,7 @@ describe("brain status, the five lines on each fixture", () => {
       lines(
         "Stage: no active work",
         "Last step: none",
-        "Next step: none in the workspace; docs/STATUS.md says: No active work. Start with interview-me.",
+        "Next step: none",
         "Red: none",
         "Waiting on the user: none",
       ),
@@ -169,7 +168,7 @@ describe("brain status, the lines the rows give", () => {
     expect(res.code).toBe(0);
   });
 
-  test("a docs/STATUS.md that names neither line leaves both to the rows", async () => {
+  test("a legacy docs/STATUS.md leaves both lines to the rows", async () => {
     const root = await repo("rows-note", "idea-mid-define", {
       "docs/STATUS.md": "# Status\n\n- Red: nothing.\n",
     });
@@ -238,7 +237,7 @@ describe("brain status, the lines the rows give", () => {
       lines(
         "Stage: finished (SPEC-001: Colour tokens for a light and a dark theme)",
         "Last step: SPEC-001#03: Both themes pass the contrast check (9d7f3b4; `bun run check`: green)",
-        "Next step: none in the workspace; docs/STATUS.md says: No active work. Start with interview-me.",
+        "Next step: none",
         "Red: none",
         "Waiting on the user: none",
       ),
@@ -290,7 +289,7 @@ None.
       lines(
         "Stage: no active work",
         "Last step: none",
-        "Next step: none in the workspace; docs/STATUS.md says: No active work. Start with interview-me.",
+        "Next step: none",
         "Red: none",
         "Waiting on the user: none",
       ),
@@ -307,7 +306,7 @@ None.
 });
 
 describe("brain status --json, on each fixture", () => {
-  test("idea-mid-define: the frontier its README names, the rows in progress and waiting, and the full note", async () => {
+  test("idea-mid-define: the frontier its README names, the rows in progress and waiting, and no legacy note", async () => {
     const root = await repo("json-idea", "idea-mid-define");
     const data = await statusJson(root);
     expect(data.migrate).toBeNull();
@@ -337,13 +336,7 @@ describe("brain status --json, on each fixture", () => {
       },
     ]);
     expect(data.red).toEqual([]);
-    expect(data.note).toEqual({
-      path: "docs/STATUS.md",
-      text: await Bun.file(`${root}/docs/STATUS.md`).text(),
-      next: "IDEA-001#06. Build the two merge prototypes, then ask the user to pick one.",
-      waiting:
-        "IDEA-001#06 (pick a merge prototype) and IDEA-001#08 (end-to-end encryption at launch).",
-    });
+    expect(data).not.toHaveProperty("note");
   });
 
   test("spec-mid-build: the plan's frontier, its row in progress, and the spec the idea produced", async () => {
@@ -363,7 +356,7 @@ describe("brain status --json, on each fixture", () => {
       { id: "IDEA-001", status: "specced", specs: ["SPEC-001"] },
     ]);
     expect(data.red).toEqual([]);
-    expect(data.note).toBeNull();
+    expect(data).not.toHaveProperty("note");
   });
 
   test("no-active-work: no effort, though the parked idea's map has an open row, and each idea's specs", async () => {
@@ -375,12 +368,7 @@ describe("brain status --json, on each fixture", () => {
       { id: "IDEA-002", status: "parked", specs: [] },
     ]);
     expect(data.red).toEqual([]);
-    expect(data.note).toEqual({
-      path: "docs/STATUS.md",
-      text: "No active work. Start with interview-me.\n",
-      next: null,
-      waiting: null,
-    });
+    expect(data).not.toHaveProperty("note");
   });
 
   test("a red item: each brain check finding, as brain check names it", async () => {
@@ -514,9 +502,9 @@ describe("brain status, red items", () => {
       lines(
         "Stage: define (IDEA-001: Sync notes across devices)",
         "Last step: IDEA-001#04: Sync through a hosted service, or peer to peer? (DEC-002)",
-        "Next step: IDEA-001#06. Build the two merge prototypes, then ask the user to pick one.",
+        "Next step: IDEA-001#06: How do two edits to one note merge? Pick one of two prototypes; in progress: IDEA-001#05: Set up a test account on the sync service",
         "Red: no docs/agents/workspace.md: run setup-brain",
-        "Waiting on the user: IDEA-001#06 (pick a merge prototype) and IDEA-001#08 (end-to-end encryption at launch).",
+        "Waiting on the user: IDEA-001#06: How do two edits to one note merge? Pick one of two prototypes; IDEA-001#08: Must notes be end-to-end encrypted at launch?",
       ),
     );
     expect(res.code).toBe(0);

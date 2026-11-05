@@ -2,13 +2,13 @@
  * brain status: report the active work in five lines: the stage, the last completed step, the
  * next step, the red items, and the decisions waiting on the user. The active effort comes from
  * `effort.ts`, the one place that finds it: the effort the git branch names, else every effort
- * that is not finished. `docs/STATUS.md`, the handoff note the agent rewrites at task end, feeds
- * the next-step and waiting lines when it names them. It is read-only: it writes no file.
+ * that is not finished. Rows and records give every line. It is read-only: it writes no file.
  * Exit codes: 0 a report, 1 a config it cannot use, 2 bad usage.
  */
 import { realpath } from "node:fs/promises";
 import path from "node:path";
 
+import { fileNames } from "../lib/files";
 import { checkWorkspace } from "./check";
 import { configFile, findRepo, readConfig } from "./config";
 import { activeEffort, listEfforts } from "./effort";
@@ -22,17 +22,22 @@ import type { DocType } from "./schema";
 const usage = `usage: brain status [--json]
 
   Report the active work in five lines: stage, last step, next step, red items and the
-  decisions waiting on the user. --json gives the same data, the full docs/STATUS.md text and
+  decisions waiting on the user. --json gives the same data, the rows in progress and
   the specs each idea produced. It changes no file.`;
-
-/** The handoff note, relative to the repo's root. */
-const noteFile = "docs/STATUS.md";
 
 /** The row types the user resolves: a map's decide rows. */
 const decideTypes = new Set(["interview", "prototype", "ideate"]);
 
 /** One map or plan row, cited with its file's ID: `IDEA-001#06`. */
-type Step = { ref: string; title: string; type: string; status: Row["status"]; result: string };
+type Step = {
+  ref: string;
+  title: string;
+  type: string;
+  status: Row["status"];
+  result: string;
+  outcome?: "partial" | "blocked";
+  record?: string;
+};
 
 /** The state of one effort the report names. */
 type EffortState = {
@@ -54,9 +59,6 @@ type EffortState = {
 /** An idea in any status, and the specs whose `sources:` name it. */
 type Idea = { id: string; title: string; status: string | null; path: string; specs: string[] };
 
-/** The handoff note, and the next step and waiting decisions it names. */
-type Note = { path: string; text: string; next: string | null; waiting: string | null };
-
 type Status = {
   /** The 0.8-layout files found in a repo with no workspace config; null when there are none. */
   migrate: string[] | null;
@@ -66,7 +68,6 @@ type Status = {
   ideas: Idea[];
   /** One line per red item: each `brain check` finding, and a missing workspace config. */
   red: string[];
-  note: Note | null;
 };
 
 /** The title after a file's H1 prefix (`# IDEA-001: `), or after `# ` when the prefix differs. */
@@ -175,25 +176,41 @@ async function readIdeas(root: string, efforts: Effort[]): Promise<Idea[]> {
   return ideas;
 }
 
-/** The note's text, and the next step and waiting decisions it names on a labelled line. */
-async function readNote(root: string): Promise<Note | null> {
-  const file = Bun.file(path.join(root, noteFile));
-  if (!(await file.exists())) {
-    return null;
-  }
-  const text = await file.text();
-  const note: Note = { path: noteFile, text, next: null, waiting: null };
-  for (const line of text.split("\n")) {
-    const named = /^(?:[-*] +)?(?<label>[^:]+?): +(?<value>\S.*)$/u.exec(line.trim())?.groups;
-    const label = named?.label?.toLowerCase();
-    const value = named?.value?.trim() ?? "";
-    if ((label === "next" || label === "next step") && note.next === null) {
-      note.next = value;
-    } else if ((label === "waiting on the user" || label === "waiting") && note.waiting === null) {
-      note.waiting = value;
+/** Attach unresolved research outcomes only to the rows still in progress. */
+async function researchOutcomes(
+  root: string,
+  folder: string,
+  efforts: EffortState[],
+): Promise<string[]> {
+  const steps = new Map(
+    efforts.flatMap((effort) => effort.inProgress.map((step) => [step.ref, step] as const)),
+  );
+  const blocked: string[] = [];
+  for (const name of await fileNames(path.join(root, folder))) {
+    if (!/^RES-\d{3}-.+\.md$/u.test(name)) {
+      continue;
+    }
+    const file = path.join(folder, name);
+    const parsed = readFrontmatter(await Bun.file(path.join(root, file)).text());
+    if (parsed === null || "error" in parsed) {
+      continue;
+    }
+    const { from, id, status: recordStatus, outcome } = parsed.data;
+    const step = typeof from === "string" ? steps.get(from) : undefined;
+    if (
+      step === undefined ||
+      recordStatus !== "in-progress" ||
+      (outcome !== "partial" && outcome !== "blocked")
+    ) {
+      continue;
+    }
+    step.outcome = outcome;
+    step.record = String(id);
+    if (outcome === "blocked") {
+      blocked.push(`${file}: ${step.ref} is blocked; read the record for the retry condition`);
     }
   }
-  return note;
+  return blocked;
 }
 
 function shown(step: Step): string {
@@ -212,34 +229,21 @@ function joined(parts: string[]): string {
 function computedNext(efforts: EffortState[]): string[] {
   return efforts.flatMap((effort) => {
     const parts = effort.frontier.slice(0, 1).map(shown);
-    if (effort.inProgress.length > 0) {
-      parts.push(`in progress: ${effort.inProgress.map(shown).join(", ")}`);
+    const active = effort.inProgress.filter((step) => step.outcome === undefined);
+    if (active.length > 0) {
+      parts.push(`in progress: ${active.map(shown).join(", ")}`);
+    }
+    for (const step of effort.inProgress.filter((row) => row.outcome !== undefined)) {
+      parts.push(`${step.outcome}: ${shown(step)} (${step.record})`);
     }
     return parts;
   });
 }
 
-/** The next-step line: the note's, else the rows', else the note's first line of text. */
-function nextLine(efforts: EffortState[], note: Note | null): string {
-  if (note?.next !== null && note?.next !== undefined) {
-    return note.next;
-  }
-  const computed = computedNext(efforts);
-  if (computed.length > 0) {
-    return computed.join("; ");
-  }
-  const first = note?.text
-    .split("\n")
-    .map((line) => line.trim())
-    .find((line) => line !== "" && !line.startsWith("#"));
-  return first === undefined ? "none" : `none in the workspace; ${noteFile} says: ${first}`;
-}
-
-/** The five lines, from the efforts, the red items and the note. */
+/** The five lines, from the efforts and the red items. */
 function fiveLines(
   efforts: EffortState[],
-  red: { setup: boolean; findings: number },
-  note: Note | null,
+  red: { setup: boolean; findings: number; blocked: number },
 ): string[] {
   const stage =
     efforts.length === 0
@@ -260,11 +264,16 @@ function fiveLines(
     const findings = red.findings === 1 ? "finding" : "findings";
     redItems.push(`${red.findings} brain check ${findings}: run brain check`);
   }
-  const waiting = note?.waiting ?? joined(efforts.flatMap((effort) => effort.waiting.map(shown)));
+  if (red.blocked > 0) {
+    redItems.push(
+      `${red.blocked} blocked research ${red.blocked === 1 ? "record" : "records"}: read brain status --json`,
+    );
+  }
+  const waiting = joined(efforts.flatMap((effort) => effort.waiting.map(shown)));
   return [
     `Stage: ${stage}`,
     `Last step: ${joined(last)}`,
-    `Next step: ${nextLine(efforts, note)}`,
+    `Next step: ${joined(computedNext(efforts))}`,
     `Red: ${joined(redItems)}`,
     `Waiting on the user: ${waiting}`,
   ];
@@ -276,11 +285,10 @@ function fiveLines(
  */
 async function readStatus(root: string): Promise<Status> {
   const setup = !(await Bun.file(path.join(root, configFile)).exists());
-  const note = await readNote(root);
   const old = setup ? await findOldLayout(root) : [];
   if (old.length > 0) {
     const line = `This repo is on layout 1 (brain 0.9 and earlier): run setup-brain to migrate. Found: ${old.join(", ")}.`;
-    return { migrate: old, report: [line], efforts: [], ideas: [], red: [], note };
+    return { migrate: old, report: [line], efforts: [], ideas: [], red: [] };
   }
   const { paths } = await readConfig(root);
   const { findings } = await checkWorkspace(root, paths);
@@ -288,17 +296,18 @@ async function readStatus(root: string): Promise<Status> {
   for (const effort of reported(await activeEffort(root, paths))) {
     efforts.push(await readEffort(root, effort));
   }
+  const blocked = await researchOutcomes(root, paths.research, efforts);
   const red = [
     ...(setup ? [`no ${configFile}: run setup-brain`] : []),
     ...findings.map((finding) => `${finding.path}: ${finding.problem}`),
+    ...blocked,
   ];
   return {
     migrate: null,
-    report: fiveLines(efforts, { setup, findings: findings.length }, note),
+    report: fiveLines(efforts, { setup, findings: findings.length, blocked: blocked.length }),
     efforts,
     ideas: await readIdeas(root, await listEfforts(root, paths)),
     red,
-    note,
   };
 }
 

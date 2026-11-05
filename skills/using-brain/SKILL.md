@@ -13,7 +13,7 @@ Most work travels one **main flow**: idea to ship. A **vocabulary layer** runs u
 
 ## Precondition
 
-Run setup-brain once per repo, before the first flow. It writes `docs/agents/workspace.md`, `docs/agents/capabilities.md`, `docs/agents/domain.md` and the `docs/STATUS.md` seed, and for Codex the plain-talk and protocol blocks. Running it again is safe, and `--check` reports drift without writing.
+Run setup-brain once per repo, before the first flow. It writes `docs/agents/workspace.md`, `docs/agents/capabilities.md` and `docs/agents/domain.md`, and for Codex the plain-talk and protocol blocks. Running it again is safe, and `--check` reports drift without writing.
 
 ## Skill Discovery
 
@@ -75,7 +75,7 @@ interview-me is always stateful. In a repo it keeps the map in `docs/ideas/IDEA-
 - a research row, which a sub-agent resolves by finding facts and citing their sources;
 - a do row, which the agent or the user resolves by doing work that a later decision needs.
 
-Each decision goes to a DEC file the moment the user makes it, each finding to a RES file, and each new term to `GLOSSARY.md`. After every resolved row, interview-me works out the map again and writes it to disk. Only the main session writes the map. A session ends only between rows, and the next session resumes from the idea's `status` and the frontier of its map.
+Each decision goes to a DEC file the moment the user makes it, each finding to a RES file, and each new term to `GLOSSARY.md`. After every answer or research result, interview-me evaluates the whole map and writes what changed to disk. Only the main session writes the map. A session ends only between rows, and the next session resumes from the idea's `status` and the frontier of its map.
 
 A research row runs in a sub-agent: the `researcher` agent on Claude Code, the general-purpose agent on the other hosts. Its brief is in interview-me's `RESEARCH.md`, and its method is source-driven-development.
 
@@ -93,10 +93,10 @@ Domain words come from `GLOSSARY.md` through `docs/agents/domain.md`. A concept 
 
 The files carry the work, not the window. Each of these is on disk the moment it exists:
 
-- the map, which interview-me writes again after every row;
+- the map, which interview-me keeps current after every answer and research result;
 - a DEC file for each decision, and a RES file for each finding;
 - the spec, which spec-driven-development writes from the map and those records;
-- the plan's rows and `docs/STATUS.md`, which the build updates after every task.
+- the plan's rows and result records, which the build keeps current throughout each task.
 
 So a session may end between two rows or after any completed task, when the context budget runs low (context-engineering). The next session reads the files and resumes.
 
@@ -247,7 +247,7 @@ In Claude Code every command sits under the plugin prefix: type `/brain`, a colo
 
 | Stage | Skill | One-Line Summary |
 |-------|-------|-----------------|
-| Setup | setup-brain | The workspace, capabilities and domain files and the `STATUS.md` seed, once per repo; `--check` reports drift |
+| Setup | setup-brain | The workspace, capabilities and domain files, once per repo; `--check` reports drift |
 | Any | status | Where the work stands in five lines: stage, last step, next step, red items, decisions waiting on the user |
 | Define | interview-me | A stateful map across sessions, one question per row, until the destination is clear |
 | Define | idea-refine | Refine ideas through structured divergent and convergent thinking; resolves ideate rows |

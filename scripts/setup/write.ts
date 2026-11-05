@@ -31,7 +31,7 @@
  * max_parallel that the repo's own file sets, and brings the rest of the template's text. On a
  * repo on the brain 0.8 layout that is not migrated yet, it is skipped: its `layout: 2` marks a
  * migrated repo, so the migrate mode writes it, and --check exits 1 until then.
- * docs/STATUS.md gets the seed once; after that it is the agent's handoff note and is never written.
+ * A legacy docs/STATUS.md is preserved as history; rows and records now hold current state.
  * <codex home>/AGENTS.md gets the plain-talk block and the protocol block, each between its own
  * markers, when the Codex home directory exists ($CODEX_HOME, else ~/.codex); a symlink there is
  * written through and kept. At project scope the blocks go into the repo's AGENTS.md instead and the
@@ -41,7 +41,7 @@
  * nothing, and exits 1 when a file differs from what a run would write, or when a run skips a file
  * until the user fixes it by hand. A missing Codex home is not drift.
  */
-import { mkdir } from "node:fs/promises";
+import { mkdir, rename, unlink } from "node:fs/promises";
 import { homedir } from "node:os";
 
 import { isDirectory, readIfPresent } from "../lib/files";
@@ -252,14 +252,31 @@ function domainText(template: string, layout: Layout, adrFolders: string[]): str
     : text.replace(/^- `docs\/decisions\/`.*$/mu, (line) => [line, ...kept].join("\n"));
 }
 
-/** Write the STATUS.md seed once. After that the file is the agent's handoff note, kept as it is. */
-async function writeSeed(input: SetupInput, seed: string): Promise<Change> {
-  const path = "docs/STATUS.md";
-  const full = `${input.root}/${path}`;
-  if (await Bun.file(full).exists()) {
-    return { path, action: "unchanged" };
+/** Preserve an old note byte for byte; history never supplies current status. */
+async function retireStatusNote(input: SetupInput): Promise<Change[]> {
+  const from = "docs/STATUS.md";
+  const to = "docs/agents/history/STATUS.md";
+  const text = await readIfPresent(`${input.root}/${from}`);
+  if (text === null) {
+    return [];
   }
-  return put(input, path, full, seed);
+  const previous = await readIfPresent(`${input.root}/${to}`);
+  if (previous !== null && previous !== text) {
+    return [
+      {
+        path: from,
+        action: "skipped",
+        note: `${to} already holds different history; preserve both before retiring the note`,
+      },
+    ];
+  }
+  if (!input.dryRun) {
+    await mkdir(`${input.root}/docs/agents/history`, { recursive: true });
+    await (previous === null
+      ? rename(`${input.root}/${from}`, `${input.root}/${to}`)
+      : unlink(`${input.root}/${from}`));
+  }
+  return [{ path: `${from} -> ${to}`, action: "moved" }];
 }
 
 /** Write every install file, or with `dryRun` only list it; return one change per file. */
@@ -291,7 +308,7 @@ export async function writeSetup(input: SetupInput): Promise<Change[]> {
   changes.push(
     await put(input, domainPath, `${input.root}/${domainPath}`, domain),
     await writeWorkspace(input, await template("skills/setup-brain/workspace.md"), waiting, specs),
-    await writeSeed(input, await template("skills/setup-brain/STATUS.md")),
+    ...(await retireStatusNote(input)),
   );
   return changes;
 }

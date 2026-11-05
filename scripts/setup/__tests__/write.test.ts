@@ -33,9 +33,8 @@ max_parallel: 8
 
 Rules v2.
 `;
-const seed = "# Status\n\nNo active work. Start with interview-me.\n";
 /** What a fresh run writes into the repo, in the order the change list names it. */
-const repoFiles = ["docs/agents/domain.md", "docs/agents/workspace.md", "docs/STATUS.md"];
+const repoFiles = ["docs/agents/domain.md", "docs/agents/workspace.md"];
 const exists = (p: string) =>
   stat(p).then(
     () => true,
@@ -75,7 +74,6 @@ beforeAll(async () => {
     "# Domain docs\n\nLayout: {{layout}}.\n",
   );
   await Bun.write(`${brain}/skills/setup-brain/workspace.md`, workspace);
-  await Bun.write(`${brain}/skills/setup-brain/STATUS.md`, seed);
 });
 
 afterAll(async () => {
@@ -85,7 +83,7 @@ afterAll(async () => {
 const base = { layout: "single" as const, dryRun: false, codexHome: null };
 
 describe("writeSetup, the repo", () => {
-  test("in an empty repo it creates domain.md, workspace.md and the STATUS.md seed, and nothing else", async () => {
+  test("in an empty repo it creates domain.md and workspace.md, and nothing else", async () => {
     const root = await repo("empty");
     const changes = await writeSetup({ brain, root, ...base });
     expect(changes).toEqual(repoFiles.map((path) => ({ path, action: "created" })));
@@ -93,7 +91,7 @@ describe("writeSetup, the repo", () => {
       "# Domain docs\n\nLayout: single-context.\n",
     );
     expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(workspace);
-    expect(await Bun.file(`${root}/docs/STATUS.md`).text()).toBe(seed);
+    expect(await Bun.file(`${root}/docs/STATUS.md`).exists()).toBe(false);
     expect(await exists(`${root}/docs/agents/issue-tracker.md`)).toBe(false);
     expect(await exists(`${root}/docs/agents/triage-labels.md`)).toBe(false);
     expect(await exists(`${root}/AGENTS.md`)).toBe(false);
@@ -127,12 +125,15 @@ describe("writeSetup, the repo", () => {
     expect(await exists(`${root}/docs`)).toBe(false);
   });
 
-  test("an existing docs/STATUS.md is the agent's handoff note: kept byte for byte", async () => {
+  test("an existing docs/STATUS.md becomes history byte for byte", async () => {
     const note = "# Status\n\n- Next: IDEA-001#03. Ask the user about the reader.\n";
     const root = await repo("status-kept", { "docs/STATUS.md": note });
     const changes = await writeSetup({ brain, root, ...base });
-    expect(changes).toContainEqual({ path: "docs/STATUS.md", action: "unchanged" });
-    expect(await Bun.file(`${root}/docs/STATUS.md`).text()).toBe(note);
+    expect(changes).toContainEqual({
+      path: "docs/STATUS.md -> docs/agents/history/STATUS.md",
+      action: "moved",
+    });
+    expect(await Bun.file(`${root}/docs/agents/history/STATUS.md`).text()).toBe(note);
   });
 
   test("multi layout names the map in domain.md", async () => {
@@ -302,13 +303,12 @@ describe("writeSetup, a repo on the brain 0.8 layout", () => {
     note: "the repo is on layout 1 (brain 0.9 and earlier): the migrate mode writes this file",
   };
 
-  test("writes domain.md and the seed, and leaves workspace.md to the migrate mode: its layout: 2 marks a migrated repo", async () => {
+  test("writes domain.md and leaves workspace.md to the migrate mode: its layout: 2 marks a migrated repo", async () => {
     const root = await repo("old-layout", { "tasks/plan.md": "# Implementation Plan: X\n" });
     const changes = await writeSetup({ brain, root, ...base });
     expect(changes).toEqual([
       { path: "docs/agents/domain.md", action: "created" },
       waitsForMigration,
-      { path: "docs/STATUS.md", action: "created" },
     ]);
     expect(await exists(`${root}/docs/agents/workspace.md`)).toBe(false);
   });
@@ -514,7 +514,7 @@ describe("write.ts --check", () => {
     for (const path of repoFiles) {
       expect(out).toContain(`created   ${path}`);
     }
-    expect(out).toContain("3 files differ from what setup-brain writes: run setup-brain");
+    expect(out).toContain("2 files differ from what setup-brain writes: run setup-brain");
     expect(await exists(`${root}/docs`)).toBe(false);
   });
 
@@ -625,7 +625,7 @@ describe("write.ts, the specs folder of a first install", () => {
     expect(checked.exitCode).toBe(1);
     expect(checked.stdout.toString()).toContain("created   docs/agents/workspace.md\n");
     expect(checked.stdout.toString()).toEndWith(
-      "3 files differ from what setup-brain writes: run setup-brain\n",
+      "2 files differ from what setup-brain writes: run setup-brain\n",
     );
   });
 });
@@ -805,16 +805,11 @@ describe("write.ts --check, a glossary move", () => {
   });
 });
 
-describe("the shipped STATUS.md seed", () => {
-  const shipped = `${import.meta.dir}/../../..`;
-
-  test("says there is no active work and names interview-me, with no labelled line that would hide the frontier", async () => {
-    // brain status takes a `Next:` or `Waiting on the user:` line over the rows, so a seeded one
-    // would still win after interview-me charts the first idea.
-    const text = await Bun.file(`${shipped}/skills/setup-brain/STATUS.md`).text();
-    expect(text).toContain("No active work.");
-    expect(text).toContain("interview-me");
-    expect(text).not.toMatch(/^(?:[-*] +)?(?:next|next step|waiting|waiting on the user): /imu);
+describe("the retired status note", () => {
+  test("the plugin ships no seed that would become a second state source", async () => {
+    expect(
+      await Bun.file(`${import.meta.dir}/../../../skills/setup-brain/STATUS.md`).exists(),
+    ).toBe(false);
   });
 });
 

@@ -28,7 +28,7 @@ One install per host. Each page has install, verify, update and remove:
 - [Antigravity CLI](docs/install/antigravity.md)
 
 Then, once per repo, run `setup-brain`. It checks for bun, which brain's scripts need, and
-writes the workspace layout, the glossary rules and a `docs/STATUS.md` handoff note into
+writes the workspace layout and the glossary rules into
 `docs/`. It proposes `docs/agents/capabilities.md` from the repo's files, the toolchain
 checks, library skills and MCP servers the repo needs, and writes it after your yes. On a
 machine with Codex it writes the plain-talk and protocol blocks into

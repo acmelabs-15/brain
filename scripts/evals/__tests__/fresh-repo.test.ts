@@ -169,11 +169,7 @@ describe("setup/fresh-repo, the case files", () => {
 describe("setup/fresh-repo, the graders on played runs", () => {
   test("a run that checks bun, then writes with the script, passes every grader", async () => {
     const run = await play("good", correct);
-    expect(run.created).toEqual([
-      "docs/STATUS.md",
-      "docs/agents/domain.md",
-      "docs/agents/workspace.md",
-    ]);
+    expect(run.created).toEqual(["docs/agents/domain.md", "docs/agents/workspace.md"]);
     expect(await failing(run)).toEqual([]);
   });
 
@@ -212,12 +208,15 @@ describe("setup/fresh-repo, the graders on played runs", () => {
 
   test("a run that never runs the script fails the script and file graders", async () => {
     const run = await play("no-script", () => Promise.resolve([bunCheck]));
-    expect(await failing(run)).toEqual([
-      "bun-first",
-      "domain-md",
-      "script-ran",
-      "status-md",
-      "workspace-md",
-    ]);
+    expect(await failing(run)).toEqual(["bun-first", "domain-md", "script-ran", "workspace-md"]);
+  });
+
+  test("a run that recreates the retired status note fails the status grader", async () => {
+    const run = await play("retired-note", async (root) => {
+      const calls = await correct(root);
+      await Bun.write(`${root}/docs/STATUS.md`, "Next: an invented next step.\n");
+      return calls;
+    });
+    expect(await failing(run)).toEqual(["status-md"]);
   });
 });

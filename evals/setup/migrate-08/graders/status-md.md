@@ -1,6 +1,7 @@
 ---
 type: file_exists
 path: docs/STATUS.md
+exists: false
 ---
 
-The 0.8 repo had no handoff note. After the migration, the install step of setup-brain writes the `STATUS.md` seed.
+Setup creates no status note. Current state lives in the workspace rows and records.

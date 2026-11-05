@@ -1,6 +1,6 @@
 ---
 name: setup-brain
-description: "Prepare a repo for brain: the workspace layout, the STATUS.md handoff note, the domain docs rules and capabilities.md (toolchain checks, library skills and servers), and for Codex the plain-talk and protocol blocks. Run once per repo before the other brain skills, again after a brain update, with --check to report drift, to migrate a repo on layout 1, brain 0.9 and earlier (SPEC.md or spec/, tasks/plan.md, docs/intent/, numbered ADRs) into the workspace, also when brain status says to migrate, or when a hand-written AGENTS.md or CLAUDE.md repeats rules that brain now carries."
+description: "Prepare a repo for brain: the workspace layout, the domain docs rules and capabilities.md (toolchain checks, library skills and servers), and for Codex the plain-talk and protocol blocks. Run once per repo before the other brain skills, again after a brain update, with --check to report drift, to migrate a repo on layout 1, brain 0.9 and earlier (SPEC.md or spec/, tasks/plan.md, docs/intent/, numbered ADRs) into the workspace, also when brain status says to migrate, or when a hand-written AGENTS.md or CLAUDE.md repeats rules that brain now carries."
 ---
 
 # Setup brain
@@ -9,7 +9,6 @@ Write what the other brain skills assume is in a repo:
 
 - **`docs/agents/workspace.md`**, the workspace layout: the folders for ideas, decisions, research and specs, and their naming rules. Every brain skill and `brain` read it.
 - **`docs/agents/domain.md`**, the rules for reading the glossary, `GLOSSARY.md`, and the decision records.
-- **`docs/STATUS.md`**, the handoff note, seeded with "No active work. Start with interview-me." The agent rewrites it at the end of each task, so setup-brain writes it only when it is absent.
 - **`docs/agents/capabilities.md`**, what work in this repo needs beyond brain: toolchain checks, library skills and MCP servers. The capability check in brain's protocol reads it. setup-brain proposes it from the repo's files and writes it only after the user's yes; from then on it is the repo's file.
 - **For Codex, the plain-talk block and the protocol block**, in the Codex global `AGENTS.md` once per machine, or in this repo's `AGENTS.md` at project scope. Codex is the one host where the plugin cannot carry the text. Claude Code, Gemini CLI and Antigravity get both from the plugin itself.
 
@@ -33,7 +32,8 @@ brain's scripts run with bun: this skill's script, and `brain status`, `brain ne
 
 Read what exists. Facts are your job; never ask the user for one you can look up.
 
-- `docs/agents/workspace.md`, `docs/agents/domain.md` and `docs/STATUS.md`: which exist. A re-run keeps the folder paths and `max_parallel` that an existing `workspace.md` sets, and leaves an existing `STATUS.md` as it is.
+- `docs/agents/workspace.md` and `docs/agents/domain.md`: which exist. A re-run keeps the folder paths and `max_parallel` that an existing `workspace.md` sets.
+- A legacy `docs/STATUS.md`, when present: read it in full. Before the write, carry each live action, wait and unresolved question into its idea map, plan or linked record. Preserve any user conditions. The script moves the old note byte for byte to `docs/agents/history/STATUS.md`; this is read-only history, never current state. If that destination holds different history, the script keeps both files and reports the collision.
 - `GLOSSARY.md`, `GLOSSARY-MAP.md` and `docs/decisions/`: which exist. Also the old glossary names at the root, `CONTEXT.md` and `CONTEXT-MAP.md`.
 - Monorepo signals: `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or `packages/*` folders that each hold their own `src/`. Their absence means single-context, which is almost every repo.
 - The Codex home: `$CODEX_HOME`, else `~/.codex`. Whether the directory exists, and whether its `AGENTS.md` already holds the blocks between `<!-- brain:plain-talk:start -->` and `<!-- brain:plain-talk:end -->`, and between `<!-- brain:protocol:start -->` and `<!-- brain:protocol:end -->`.
@@ -42,7 +42,7 @@ Read what exists. Facts are your job; never ask the user for one you can look up
 ## 3. Decide the small things, and say so
 
 - Single-context is the default. Write it without a question.
-- `workspace.md` and the `STATUS.md` seed take no question: every repo gets the same layout.
+- `workspace.md` takes no question: every repo gets the same layout.
 - The specs folder, `paths.specs` in `workspace.md`, is the script's pick on a first install, the run that creates `workspace.md`. It is `specs/`, or `docs/specs/` when that folder already holds a spec folder `SPEC-NNN-<slug>/`: `brain new-doc SPEC` wrote there on brain 0.10.0 and 0.11.0, and those specs stay where they are. A re-run keeps the folders an existing `workspace.md` names.
 - At global scope the Codex file is written when the Codex home exists and skipped when it does not. Text outside the markers is kept, and a symlink there stays a symlink.
 
@@ -158,10 +158,10 @@ One line per file: created, updated, unchanged, skipped or moved, with the reaso
 - every brain skill and `brain` read `docs/agents/workspace.md` for the folders and the naming rules;
 - the capability check in brain's protocol reads `docs/agents/capabilities.md`: it runs the toolchain checks, loads the library skills and proves each server;
 - every brain lifecycle skill reads `docs/agents/domain.md` and, through it, `GLOSSARY.md`; the domain-modeling skill writes `GLOSSARY.md` and the decision records;
-- `brain status` reads `docs/STATUS.md`, and on Claude Code the session-start text carries both;
+- `brain status` computes the report from the workspace's rows and records; on Claude Code the session-start text carries that report;
 - Codex reads the blocks in its `AGENTS.md` at the start of every session.
 
-Then give the next step: start with interview-me, which charts the first idea.
+Then run `brain status`. Resume the active effort when one exists; otherwise route the user's request through using-brain.
 
 ## Check for drift
 
@@ -175,7 +175,7 @@ It writes nothing. It lists each file, then ends with "every file is in place" (
 
 `--check` covers the files of step 5. For `capabilities.md`, run step 6's dry run: it says whether the file exists and lists each row it does not name yet.
 
-Running this skill again is safe: the scripts change nothing when everything is in place, keep the repo's workspace settings, and never rewrite `docs/STATUS.md` or an existing `capabilities.md`.
+Running this skill again is safe: the scripts change nothing when everything is in place, keep the repo's workspace settings and an existing `capabilities.md`, and preserve a legacy status note as history.
 
 ## Migrate a repo on layout 1
 

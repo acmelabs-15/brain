@@ -11,7 +11,7 @@ A layout-2 repo where every effort is finished or parked. The check, status and 
 - `docs/research/RES-001-*.md`: resolved. One finding carries a `last-modified` validator.
 - `docs/specs/SPEC-001-theme-tokens/`: `sources: [IDEA-001, DEC-002, RES-001]`; plan rows 01 to 03 all resolved.
 - `docs/specs/SPEC-002-theme-switch/`: `sources: [IDEA-001, DEC-002]`; plan rows 01, 03 and 04 resolved, row 02 `superseded by 03`.
-- `docs/STATUS.md`: the seed text, "No active work. Start with interview-me."
+- `docs/STATUS.md`: a legacy seed, kept to prove it cannot invent a next step.
 
 ## What brain must report
 
@@ -20,7 +20,7 @@ A layout-2 repo where every effort is finished or parked. The check, status and 
 - Stage: none.
 - Frontier: empty for both specs. IDEA-002's map has row 01 on its frontier, but a parked idea is not active work, so row 01 is not reported.
 - Last completed step: none in an active effort. The last resolved rows are SPEC-001#03 and SPEC-002#04, both checkpoints.
-- Next step: none from the workspace. `docs/STATUS.md` says "Start with interview-me."
+- Next step: none from the workspace. The legacy note does not change the report.
 - Decisions waiting on the user: none.
 - Red: none.
 - Specs each idea produced: IDEA-001 produced SPEC-001 and SPEC-002; IDEA-002 produced none.

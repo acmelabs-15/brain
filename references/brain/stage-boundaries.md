@@ -10,10 +10,10 @@ The **stage boundary** is the gap between two stages. The gap between two rows o
 
 In a brain repo the state of the work lives in files, not in the window:
 
-- the map, which interview-me writes again after every row;
+- the map, which interview-me keeps current after every answer and research result;
 - a DEC file for each decision, and a RES file for each finding, each written the moment it lands;
 - the spec, which spec-driven-development writes from the map and those records;
-- the plan's rows and `docs/STATUS.md`, which the build updates after every task.
+- the plan's rows and result records, which the build keeps current throughout each task.
 
 So a move at a boundary loses less here than it would elsewhere: the next session reads the files back, and the protocol's session start resumes from them. End a session between two rows or after a completed task when the context budget runs low. What the files cannot hold is reasoning that nobody wrote down, which is why each decision goes to its DEC file the moment the user makes it.
 

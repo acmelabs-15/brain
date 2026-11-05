@@ -41,10 +41,10 @@ const statusOnlyIntro =
 const statusOnlySources = new Set(["resume", "fork"]);
 
 const cutLine =
-  "The status text is cut here to keep this text under 10,000 characters. Run `brain status` and read docs/STATUS.md for the rest.";
+  "The status text is cut here to keep this text under 10,000 characters. Run `brain status --json` for the rest.";
 
 /** The fields of `brain status --json` the hook uses. */
-type Status = { report: string[]; note: { text: string } | null };
+type Status = { report: string[] };
 
 /**
  * The fields the hook uses from `brain status --json` output, or why the output does not hold
@@ -58,17 +58,14 @@ function readStatus(stdout: string): Status | { problem: string } {
   } catch {
     return { problem: "it is not JSON" };
   }
-  const { report, note } = (value ?? {}) as { report?: unknown; note?: unknown };
+  const { report } = (value ?? {}) as { report?: unknown };
   if (!Array.isArray(report) || !report.every((line) => typeof line === "string")) {
     return { problem: "it has no `report` list of strings" };
   }
-  if (note !== null && typeof (note as { text?: unknown } | undefined)?.text !== "string") {
-    return { problem: "its `note` is not null or an object with a `text` string" };
-  }
-  return { report, note: note as Status["note"] };
+  return { report };
 }
 
-/** The status section: the five lines and the handoff note, or why `brain status` failed. */
+/** The status section: the five lines, or why `brain status` failed. */
 async function statusText(brain: string, project: string): Promise<string> {
   let run: { code: number | null; signal: string | null; stdout: string; stderr: string };
   try {
@@ -98,8 +95,7 @@ async function statusText(brain: string, project: string): Promise<string> {
   if ("problem" in status) {
     return `# brain status\n\n\`brain status --json\` gave output that the hook cannot read: ${status.problem}`;
   }
-  const note = status.note === null ? "This repo has no docs/STATUS.md." : status.note.text.trim();
-  return `# brain status\n\n${status.report.join("\n")}\n\n# docs/STATUS.md\n\n${note}`;
+  return `# brain status\n\n${status.report.join("\n")}`;
 }
 
 /** `head`, then as much of `status` as fits under the cap, cut at a line end with a line that says so. */
