@@ -20,6 +20,7 @@ result: # with status: done, the DEC-NNN or the commit SHA this idea produced
 
 ## Notes
 <the skills every session loads, and standing preferences for this idea>
+<!-- Save partial answers and pending questions here as they arrive, under Row NN: Settled, Source, Conditions, Open and Next. Link in-progress RES records and record waits with their retry condition. Replace settled notes with the resulting DEC/RES link. -->
 
 ## Map
 <!-- Write one row per question right under the table's header, numbered from 01: | 01 | <question> | <interview, prototype, ideate, research or task> | open | — | — | -->
