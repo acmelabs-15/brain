@@ -26,7 +26,7 @@ Claude now receives current protocol and router paths without consumer root-file
 - The user authorizes the bounded comparison and delegates both feedback and approval. The assistant writes and approves all 16 retained feedback entries under that delegation. This is not Peter's manual review and does not approve every architectural recommendation.
 - The prior 16 implementation commits through baseline `8e8b25edc1bda67825ae4d861418eac548a7ff24` remain intact. DEC-007, reapproved DEC-013/014, and DEC-024 remain authoritative for their settled scope.
 - The other held DEC-012–023 remain unapproved, despite accepted frontmatter in historical copies. This work adopts no new stage/schema or external-spec ownership policy from those records.
-- The repairs are saved in local commit `2ca689f2`; a documentation follow-up records final verification. Nothing is pushed, merged, released or installed. The earlier push and PR-description requests were already fulfilled. Delegated review approval supplies no new publishing authority.
+- The repairs and documentation follow-up are pushed through `0cd5a706` on `fix/interview-recovery` at Peter's explicit request. PR #28's description is updated. No merge, release or installed-plugin update occurs.
 
 Sources: the user's current request and explicit security-import answer; saved handoff chronology; DEC-007/013/014/024; local evidence `implementation-state.md` and `review-scope.json`, checked 2026-11-05. The implementation-state file contains earlier progress entries; later source, review and check evidence supersedes those entries.
 
@@ -166,6 +166,8 @@ Sources: retained run traces, fixed-criteria grading, reservation/cost records a
 The latest source inspection confirms that capability Toolchain identity uses both command and source, and spec Stage 1 step 3 reuses scoped seam approval. Future source changes require their evidence baseline to be checked again; the recorded gate result is not a permanent guarantee.
 
 ## Follow-ups
+
+The remaining work is captured in [IDEA-004: Resolve the remaining keystone workflow findings](../ideas/IDEA-004-keystone-workflow-follow-ups.md). It gives K3–K12, U1–U5 and E1/E2 separate open rows, with this record as their evidence. Creating that map does not implement its findings.
 
 The main session should keep these distinct:
 
