@@ -2,7 +2,7 @@
 id: RES-038
 status: resolved # in-progress | resolved
 kind: research
-from: IDEA-003#54 # a row (IDEA-NNN#NN, SPEC-NNN#NN), an idea or spec (IDEA-NNN, SPEC-NNN), or user
+from: IDEA-013#03 # a row (IDEA-NNN#NN, SPEC-NNN#NN), an idea or spec (IDEA-NNN, SPEC-NNN), or user
 date: 2026-11-05
 ---
 # RES-038: A question before the first word

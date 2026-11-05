@@ -21,13 +21,9 @@ A spec for the mod and its prompt.
 ## Notes
 Every session loads ask-user-question, domain-modeling and context-engineering.
 
-Peter split this scope out of IDEA-003 on 2026-11-05. The Intent is a draft, and no row here is decided.
-
-DEC-010, DEC-020, RES-038 and RES-040 are the sources. They name IDEA-003, DEC-007 and DEC-008, which stay on branch `docs/workflow-audit-main`.
+Peter made this its own idea on 2026-11-05. The Intent is a draft. Row 06 is the open question.
 
 RES-040's runs used fixed labels and `--plugin-dir`, so reading `brain status` first and a marketplace install are unproven.
-
-- Row 01 was IDEA-003#98.
 <!-- Save partial answers and pending questions here as they arrive, under Row NN: Settled, Source, Conditions, Open and Next. Link in-progress RES records and record waits with their retry condition. Replace settled notes with the resulting DEC/RES link. -->
 
 ## Map
@@ -35,7 +31,12 @@ RES-040's runs used fixed labels and `--plugin-dir`, so reading `brain status` f
 
 | # | Question | Type | Status | Blocked by | Result |
 |---|---|---|---|---|---|
-| 01 | Which session sources show the opening question, and how does it avoid opening in the middle of a task? | interview | open | — | — |
+| 01 | Which mechanisms can a plugin use, on each host, to run `using-brain` at session start with no user setup? | research | resolved | — | RES-035 |
+| 02 | Does a new session open with a question before the user types? | interview | resolved | 01 | DEC-010 |
+| 03 | Can a turn started before the first word show an ask-user-question prompt on Claude Code, from a plugin with no user setup? | research | resolved | — | RES-038 |
+| 04 | Does the opening question use a mod's `$.ui.ask`, with no model turn, in place of a started turn? Test it on every source, with a draft in the box, and with a mid-turn prompt | research | resolved | — | RES-040 |
+| 05 | Which mechanism opens the question on Claude Code, so where does its text sit, and what follows Esc or a timeout? | interview | resolved | 04 | DEC-020 |
+| 06 | Which session sources show the opening question, and how does it avoid opening in the middle of a task? | interview | open | 04 | — |
 
 ## Not yet specified
 None.

@@ -22,7 +22,7 @@ A complete definition of the remaining work, carried into decisions or specs, wi
 - [RES-069: Keystone workflow audit and approved repairs](../research/RES-069-keystone-workflow-audit.md) holds the findings, source references, probes, reviews and evaluation limits. Its K, U and E identifiers are retained below.
 - PR #28 contains the completed repairs through commit 0cd5a70663d3013569c75964a83c481ef110c024. They are pushed. K1 (missing fixed spec files) and K2 (proposed decisions resolving rows) are already fixed and excluded from this open map.
 - Earlier interview recovery, workspace-owned status and the approved security import remain completed work. The removed status skill stays removed.
-- Delegated review approval covers the completed change. Older held decisions remain held; this map does not close or supersede rows in IDEA-003.
+- Delegated review approval covers the completed change. Older held decisions remain held.
 - No question is pending and no worker is running for this idea. On 2026-11-05 Peter split this idea by scope (DEC-025). All 17 rows moved to IDEA-005 to IDEA-012, so this idea holds no open work. Out of scope names where each row went, and the table below keeps each row's old number.
 
 ### Evidence and recommended direction

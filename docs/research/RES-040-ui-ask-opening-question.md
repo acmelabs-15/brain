@@ -2,7 +2,7 @@
 id: RES-040
 status: resolved # in-progress | resolved
 kind: research
-from: IDEA-003#97 # a row (IDEA-NNN#NN, SPEC-NNN#NN), an idea or spec (IDEA-NNN, SPEC-NNN), or user
+from: IDEA-013#04 # a row (IDEA-NNN#NN, SPEC-NNN#NN), an idea or spec (IDEA-NNN, SPEC-NNN), or user
 date: 2026-11-05
 ---
 # RES-040: The opening question through ui.ask

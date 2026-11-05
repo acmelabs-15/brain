@@ -2,7 +2,7 @@
 id: RES-037
 status: resolved # in-progress | resolved
 kind: research
-from: IDEA-003#25 # a row (IDEA-NNN#NN, SPEC-NNN#NN), an idea or spec (IDEA-NNN, SPEC-NNN), or user
+from: user # a row (IDEA-NNN#NN, SPEC-NNN#NN), an idea or spec (IDEA-NNN, SPEC-NNN), or user
 date: 2026-11-05
 ---
 # RES-037: The flow and its state

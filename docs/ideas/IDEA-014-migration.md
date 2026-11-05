@@ -21,14 +21,13 @@ A spec for the migration.
 ## Notes
 Every session loads ask-user-question, domain-modeling and context-engineering.
 
-Peter split this scope out of IDEA-003 on 2026-11-05. The Intent is a draft, and no row here is decided.
+Peter made this its own idea on 2026-11-05. The Intent is a draft, and no row here is decided.
 
 Peter on migration, 2026-11-05: other codebases will not be compatible with the new workflow. The list of old and new pieces feeds a robust migration. On plugin startup, brain evaluates whether the workspace is outdated or incompatible, tells the user automatically, and offers to migrate safely. The migration backs up everything in its current state before it changes anything. Afterwards a mechanism validates that all state in the backup is preserved and that the codebase migrated successfully.
 
 At 0.13.0, `skills/setup-brain/MIGRATION.md` covers layout 1 and says it is no whole-repo backup. The layout version stays 2 (`scripts/workspace/old-layout.ts:17`), so row 01 also asks what brings a migration to a repo already on layout 2.
 
-- Row 01 was IDEA-003#78, row 02 was #79, row 03 was #80, row 05 was #96 and row 06 was #82.
-- Row 04 keeps the open part of IDEA-003#52. `skills/setup-brain/MIGRATION.md` already says what happens to uncommitted files, and the workspace's Session state covers a host with no hook.
+Row 04 asks only about proof: `skills/setup-brain/MIGRATION.md` already says what happens to uncommitted files, and the workspace's Session state covers a host with no hook.
 <!-- Save partial answers and pending questions here as they arrive, under Row NN: Settled, Source, Conditions, Open and Next. Link in-progress RES records and record waits with their retry condition. Replace settled notes with the resulting DEC/RES link. -->
 
 ## Map

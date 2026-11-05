@@ -2,7 +2,7 @@
 id: RES-035
 status: resolved # in-progress | resolved
 kind: research
-from: IDEA-003#50 # a row (IDEA-NNN#NN, SPEC-NNN#NN), an idea or spec (IDEA-NNN, SPEC-NNN), or user
+from: IDEA-013#01 # a row (IDEA-NNN#NN, SPEC-NNN#NN), an idea or spec (IDEA-NNN, SPEC-NNN), or user
 date: 2026-11-04
 ---
 # RES-035: Mechanisms that run using-brain at session start
