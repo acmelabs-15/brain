@@ -16,7 +16,7 @@ import { isDirectory } from "../lib/files";
 import { tableCells } from "../lib/table";
 import { findRepo, readConfig } from "./config";
 import type { Paths } from "./config";
-import { blockersOf, findCycle } from "./graph";
+import { blockersOf, findCycle, layWaves, stillToDo } from "./graph";
 import { readRows } from "./map";
 import type { Row, Table } from "./map";
 import { cycleProblem, parallelWaves, renderParallelWaves } from "./plan";
@@ -243,8 +243,47 @@ function rowProblems(table: Table, body: string, known: Set<string>): string[] {
   }
   // A row left out for its format only takes edges away, so a cycle in the rest is a real one.
   const cycle = findCycle(rows);
-  if (cycle !== null) {
+  if (cycle === null) {
+    for (const { row, blocker } of layWaves(rows).stuck) {
+      problems.push(
+        `row ${row.id}: blocked by ${blocker.id}, which is superseded by ${blocker.supersededBy}`,
+      );
+    }
+  } else {
     problems.push(cycleProblem(cycle));
+  }
+  return problems;
+}
+
+/** A level-two section without comments; null when the section is absent. */
+function ideaSection(body: string, heading: string): string | null {
+  const lines = body.replaceAll(/<!--[\s\S]*?-->/gu, "").split("\n");
+  const start = lines.findIndex((line) => line.trim() === `## ${heading}`);
+  if (start === -1) {
+    return null;
+  }
+  const below = lines.slice(start + 1);
+  const end = below.findIndex((line) => /^#{1,2} /u.test(line));
+  return (end === -1 ? below : below.slice(0, end)).join("\n").trim();
+}
+
+/** A finished idea has a settled map, no fog and a recorded confirmation of its intent. */
+function ideaCompletionProblems(status: unknown, body: string): string[] {
+  if (status !== "done" && status !== "specced") {
+    return [];
+  }
+  const problems = readRows("map", body)
+    .rows.filter(stillToDo)
+    .map((row) => `status: ${status}, but row ${row.id} is ${row.status}`);
+  const fog = ideaSection(body, "Not yet specified");
+  if (fog === null) {
+    problems.push(`status: ${status}, but Not yet specified is missing`);
+  } else if (fog !== "" && !/^(?:- )?None\.?$/iu.test(fog)) {
+    problems.push(`status: ${status}, but Not yet specified still holds fog`);
+  }
+  const intent = ideaSection(body, "Intent") ?? "";
+  if (!/^Confirmed by [^<>\n]+ on \d{4}-\d{2}-\d{2}\.\s*$/mu.test(intent)) {
+    problems.push(`status: ${status}, but Intent has no confirmation`);
   }
   return problems;
 }
@@ -338,6 +377,9 @@ export async function checkWorkspace(root: string, paths: Paths): Promise<Result
         problems.push(...placeholderTitle(body));
         if (table !== undefined) {
           problems.push(...rowProblems(table, body, known));
+        }
+        if (doc.type === "IDEA") {
+          problems.push(...ideaCompletionProblems(data.status, body));
         }
         if (doc.type === "plan") {
           const todo = Bun.file(path.join(root, doc.unit, "tasks", "todo.md"));
