@@ -458,6 +458,27 @@ describe("lifecycle/interview-parallel-research, the scaffold", () => {
 });
 
 describe("lifecycle/interview-parallel-research, the computed graders on played runs", () => {
+  test("the map grader rejects missing, repeated and wrong-type research rows", async () => {
+    for (const damage of ["missing", "repeated", "wrong-type"] as const) {
+      const run = await play(damage, async (root) => {
+        await markStarted(root, research);
+        const path = `${root}/${idea}`;
+        const text = await Bun.file(path).text();
+        const row = text.match(/^\| 02 \|.*$/mu)?.[0];
+        expect(row).toBeDefined();
+        let replacement = "";
+        if (damage === "repeated") {
+          replacement = `${row}\n${row}`;
+        } else if (damage === "wrong-type") {
+          replacement = String(row).replace("| research |", "| interview |");
+        }
+        await Bun.write(path, text.replace(String(row), replacement));
+        return { turns: [...resumeTurns, research.map(researchCall)], last: goodReply };
+      });
+      expect(await failing(run)).toEqual(["rows-in-progress"]);
+    }
+  });
+
   test("a resume that starts the three research rows in one turn, then asks row 05, passes every computed grader", async () => {
     const run = await play("good", async (root) => ({
       turns: [...resumeTurns, research.map(researchCall), [await markStarted(root, research)]],
