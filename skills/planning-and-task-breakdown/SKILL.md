@@ -1,6 +1,6 @@
 ---
 name: planning-and-task-breakdown
-description: Breaks a spec into ordered, verifiable tasks: finds a prefactor, slices vertically, sequences a wide refactor as expand, migrate, contract, writes the plan rows and task blocks into the spec folder's tasks/plan.md and tasks/todo.md, and puts granularity, blocking edges and merge-or-split to the user before build. Use when a spec needs implementable tasks, a task is too large to start, scope needs an estimate, or parallel work is possible.
+description: "Breaks a spec into ordered, verifiable tasks: finds a prefactor, slices vertically, sequences a wide refactor as expand, migrate, contract, writes the plan rows and task blocks into the spec folder's tasks/plan.md and tasks/todo.md, and puts granularity, blocking edges and merge-or-split to the user before build. Use when a spec needs implementable tasks, a task is too large to start, scope needs an estimate, or parallel work is possible."
 ---
 
 # Planning and Task Breakdown

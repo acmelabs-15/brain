@@ -27,6 +27,11 @@ describe("skill metadata validation", () => {
       "---\nname: [\ndescription: Interview the user.\n---\n",
       "frontmatter: not valid YAML",
     ],
+    [
+      "colon-in-description",
+      "---\nname: sample\ndescription: Do the work: test it.\n---\n",
+      "frontmatter: not valid YAML",
+    ],
     ["no-name", "---\ndescription: Interview the user.\n---\n", "name: needs a nonempty string"],
     [
       "blank-description",

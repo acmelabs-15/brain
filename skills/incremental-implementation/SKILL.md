@@ -1,6 +1,6 @@
 ---
 name: incremental-implementation
-description: Delivers a task in thin, verifiable slices: implement, run the touched test files, typecheck, commit, repeat. After the last slice it runs the full suite once and calls code-review-and-quality before the task is done. Use when a change touches more than one file, when picking up the next task from a spec folder's tasks/plan.md or running its frontier in parallel, when a change goes behind a feature flag, or when a task feels too big for one step.
+description: "Delivers a task in thin, verifiable slices: implement, run the touched test files, typecheck, commit, repeat. After the last slice it runs the full suite once and calls code-review-and-quality before the task is done. Use when a change touches more than one file, when picking up the next task from a spec folder's tasks/plan.md or running its frontier in parallel, when a change goes behind a feature flag, or when a task feels too big for one step."
 ---
 
 # Incremental Implementation

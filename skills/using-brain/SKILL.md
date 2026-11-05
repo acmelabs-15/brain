@@ -1,6 +1,6 @@
 ---
 name: using-brain
-description: Routes a piece of work to the brain skill that fits it: the stateful interview, the main flow from idea to ship, the prototype detour and the vocabulary layer. Use at session start, when resuming work, when unsure which skill or command applies, or at a stage boundary to choose continue, clear, handoff, sub-agent or compact. Names setup-brain as the once-per-repo precondition.
+description: "Routes a piece of work to the brain skill that fits it: the stateful interview, the main flow from idea to ship, the prototype detour and the vocabulary layer. Use at session start, when resuming work, when unsure which skill or command applies, or at a stage boundary to choose continue, clear, handoff, sub-agent or compact. Names setup-brain as the once-per-repo precondition."
 ---
 
 # Using brain
