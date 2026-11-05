@@ -112,16 +112,6 @@
           "to": "skills/wait-what"
         }
       ]
-    },
-    "ask-user-question": {
-      "repo": "acmelabs-15/ask-user-question",
-      "sha": "62d3b797efc672758b803d3b7bc08bab210562bc",
-      "seed": [
-        {
-          "from": "skills/ask-user-question",
-          "to": "skills/ask-user-question"
-        }
-      ]
     }
   }
 }
