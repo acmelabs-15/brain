@@ -73,7 +73,15 @@ For a partial answer, keep the row open and add or update a Notes entry:
 - Next: ask only about editing permission.
 ```
 
-Record the pending question and row before asking it. Preserve the actual answer and its conditions before interpreting other rows. Clear the pending question once its answer is applied or the question is retired; a partial reply leaves its remaining gap in Notes. A partial answer needs no accepted DEC. Once a decision is complete, follow [domain-modeling's decision steps](../domain-modeling/SKILL.md#record-every-decision), including its DEC creation command and `from` field. Then link the record from the resolved row and replace the partial note with that link.
+Record the pending question and row before asking it. Preserve the actual answer and its conditions before interpreting other rows. Clear the pending question once its answer is applied or the question is retired; a partial reply leaves its remaining gap in Notes. A partial answer needs no accepted DEC.
+
+For a complete decision, finish these writes in order:
+
+1. Save the user's answer and conditions in Notes, with its source.
+2. Follow [domain-modeling's decision steps](../domain-modeling/SKILL.md#record-every-decision): create and fully fill the accepted DEC, including `from`, then validate it. Await the write and validation results.
+3. Once the record has no finding, mark the row resolved and link its DEC. Replace the answer note with that link only after the complete record is on disk.
+
+Submit the record write and the later map write in separate, sequential tool calls. A crash at any boundary must leave either the saved answer or its complete record available to Resume.
 
 A research or do record is its own living progress record. Keep its findings, work already done, completion evidence and next action there. Only the main session writes the idea; each sub-agent writes its own record.
 
@@ -187,7 +195,7 @@ Finish is complete when its conditions still hold, the confirmed destination exi
 ## Resume
 
 1. Read the selected idea in full. For `done`, report its result. For `specced`, route to the spec that cites it. Resume a parked idea only at the user's request. For `define`, continue below.
-2. Read partial answers, pending questions and waits in Notes. Reconcile **open and in-progress rows** with existing DEC and RES records by `from`; a crash can occur after a record is saved but before the map changes. Reuse a complete accepted answer rather than asking it again. A proposed DEC remains a proposal.
+2. Read partial answers, pending questions and waits in Notes. Reconcile **open and in-progress rows** with existing DEC and RES records by `from`; a crash can occur after a record is saved but before the map changes. Reuse a complete accepted answer rather than asking it again. A proposed DEC remains a proposal. Also validate records linked from resolved rows; repair an incomplete record from saved evidence, or reopen its row when the evidence does not settle it.
 3. Apply research through [Read a result](#read-a-result), including the current-row check and retry condition. Check whether an agent still runs before replacing it. Continue its existing record and next action when it stopped.
 4. Recover do work through [Do rows](#do-rows). Inspect completion evidence first. Preserve user-run checklist work until the user reports its result.
 5. Evaluate the whole map. Tell the user briefly what is settled, what remains, and the next question or block. Continue the loop, or the first unfinished Finish step when its conditions hold.

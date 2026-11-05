@@ -70,6 +70,7 @@ export const interviewCases: InterviewCase[] = [
       "The daily export answer has a decision record before the retention question.",
       "Rows 01 and 02 each link to their own accepted record with the matching from field.",
       "The next question concerns retention; no unanswered row is resolved.",
+      "Each accepted decision record is complete and validated before its map row is marked resolved.",
     ],
   },
   {

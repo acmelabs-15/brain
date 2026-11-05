@@ -33,7 +33,7 @@ Record: <existing path, or new: slug and title>
 Start from: <sources>
 Out of scope: <exclusions>
 
-1. Establish the record before substantive work. For a new record, run brain new-doc RES <slug> --title "<title>". Set kind: research, from: <row>, and status: in-progress. Fill Question, the sufficient-answer condition under Answer, and the intended next action. For an existing record, read it in full, keep its ID and sourced findings, and continue the unfinished work. Recheck a finding when its age, source version or changed question makes it unreliable.
+1. Establish the record before substantive work. For a new record, run brain new-doc RES <slug> --title "<title>". Set kind: research, from: <row>, and status: in-progress. Fill Question, the sufficient-answer condition under Answer, and the intended next action. Remove unfilled template samples; Findings can be empty while no claim is confirmed. For an existing record, read it in full, keep its ID and sourced findings, and continue the unfinished work. Recheck a finding when its age, source version or changed question makes it unreliable.
 
 2. Check capabilities. Load brain:source-driven-development (source-driven-development on a host without plugin prefixes) using the host's skill mechanism or its SKILL.md file. Apply its source hierarchy, retrieval safety and citation rules. Its implementation steps are outside this research task. Prove each required source tool with a read. If a required capability fails, record outcome: blocked, the failure, what is still unknown, and the condition for retry. Keep status: in-progress. Return the record path. If the record itself cannot be created or written, return the exact failure and intended next action so the parent can save them.
 
