@@ -1,3 +1,4 @@
+import { existsSync, realpathSync } from "node:fs";
 /** Real Claude tool events with a scripted user; this does not test native dialog rendering. */
 import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
@@ -78,9 +79,46 @@ async function snapshot(cwd: string, output: string): Promise<void> {
   await Bun.write(output, JSON.stringify(files, null, 2));
 }
 
+function canonical(file: string): string {
+  let parent = file;
+  const suffix: string[] = [];
+  while (!existsSync(parent)) {
+    suffix.unshift(path.basename(parent));
+    const next = path.dirname(parent);
+    if (next === parent) {
+      return file;
+    }
+    parent = next;
+  }
+  return path.join(realpathSync(parent), ...suffix);
+}
+
 function inside(file: string, cwd: string): boolean {
-  const absolute = path.resolve(cwd, file);
-  return absolute === cwd || absolute.startsWith(`${cwd}/`);
+  if (file.startsWith("~")) {
+    return false;
+  }
+  const absolute = canonical(path.resolve(cwd, file));
+  const root = canonical(cwd);
+  return absolute === root || absolute.startsWith(`${root}/`);
+}
+
+/** Read defaults are the fixture; only the selected plugin is an additional read root. */
+export function allowedRead(
+  tool: string,
+  input: ObjectValue,
+  cwd: string,
+  plugin: string,
+): boolean {
+  const value = tool === "Read" ? input.file_path : (input.path ?? cwd);
+  if (typeof value !== "string" || value.length === 0) {
+    return false;
+  }
+  const file = path.resolve(cwd, value);
+  if (value.startsWith("~") || !(inside(file, cwd) || inside(file, plugin))) {
+    return false;
+  }
+  const glob = tool === "Glob" ? input.pattern : input.glob;
+  return typeof glob !== "string" || !/^(?:\/|~)|(?:^|\/)\.\.(?:\/|$)/u.test(glob);
 }
 
 /** Run a bounded test session. Every submitted answer and pre-question file state is saved. */
@@ -115,7 +153,7 @@ export async function runSession(options: SessionOptions): Promise<SessionResult
       "--mcp-config",
       '{"mcpServers":{}}',
       "--settings",
-      '{"disableAllHooks":true,"autoMemoryEnabled":false}',
+      '{"disableAllHooks":true,"autoMemoryEnabled":false,"permissions":{"ask":["Read","Glob","Grep","Write","Edit","Bash"]}}',
       "--tools",
       "Read,Write,Edit,Glob,Grep,Bash,Skill,AskUserQuestion",
       "--plugin-dir",
@@ -192,7 +230,9 @@ export async function runSession(options: SessionOptions): Promise<SessionResult
       response = { behavior: "allow", updatedInput: input };
     } else if (["Write", "Edit"].includes(tool) && inside(String(input.file_path ?? ""), cwd)) {
       response = { behavior: "allow", updatedInput: input };
-    } else if (["Read", "Glob", "Grep", "Skill"].includes(tool)) {
+    } else if (["Read", "Glob", "Grep"].includes(tool) && allowedRead(tool, input, cwd, plugin)) {
+      response = { behavior: "allow", updatedInput: input };
+    } else if (tool === "Skill") {
       response = { behavior: "allow", updatedInput: input };
     }
     const message = {
