@@ -23,11 +23,7 @@ describe("parseConfig", () => {
   test("accepts the committed upstream.json", async () => {
     const raw = await Bun.file(`${import.meta.dir}/../../../upstream.json`).json();
     const config = parseConfig(raw);
-    expect(Object.keys(config.upstreams)).toEqual([
-      "agent-skills",
-      "mattpocock-skills",
-      "ask-user-question",
-    ]);
+    expect(Object.keys(config.upstreams)).toEqual(["agent-skills", "mattpocock-skills"]);
     expect(config.upstreams["agent-skills"]?.seed).toHaveLength(11);
     expect(config.upstreams["agent-skills"]?.take[0]?.except).toHaveLength(9);
     // idea-refine is seeded: the take leaves it out, and the seed list copies it once.
@@ -36,8 +32,12 @@ describe("parseConfig", () => {
       from: "skills/idea-refine",
       to: "skills/idea-refine",
     });
-    expect(config.upstreams["ask-user-question"]?.take).toEqual([]);
-    expect(config.upstreams["ask-user-question"]?.seed).toHaveLength(1);
+  });
+
+  test("accepts an upstream with no take, as an empty take list", () => {
+    const raw = valid();
+    delete (raw.upstreams["agent-skills"] as { take?: Mapping[] }).take;
+    expect(parseConfig(raw).upstreams["agent-skills"]?.take).toEqual([]);
   });
 
   test("rejects a missing sha, naming the upstream", () => {
