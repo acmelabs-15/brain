@@ -116,6 +116,46 @@ describe("finished ideas", () => {
       problem: "status: done, but Intent has no confirmation",
     });
   });
+
+  test.each([
+    ["self", "| 01 | Old choice? | interview | superseded by 01 | — | — |", "01 -> 01"],
+    [
+      "cycle",
+      [
+        "| 01 | Old choice? | interview | superseded by 02 | — | — |",
+        "| 02 | Another old choice? | interview | superseded by 01 | — | — |",
+      ].join("\n"),
+      "01 -> 02 -> 01",
+    ],
+  ])("rejects a finished idea with a replacement %s", async (name, rows, cycle) => {
+    const root = await finished(`replacement-${name}`, "done");
+    const file = `${root}/${idea}`;
+    const text = await Bun.file(file).text();
+    await Bun.write(
+      file,
+      text.replace("| 01 | Which devices? | interview | resolved | — | DEC-001 |", rows),
+    );
+    expect(await findings(root)).toContainEqual({
+      path: idea,
+      problem: `row 01: superseded-by cycle (${cycle})`,
+    });
+  });
+
+  test("accepts a replacement chain that ends in a resolved row", async () => {
+    const root = await finished("replacement-chain", "done");
+    const file = `${root}/${idea}`;
+    const text = await Bun.file(file).text();
+    const rows = [
+      "| 01 | Old choice? | interview | superseded by 02 | — | — |",
+      "| 02 | Another old choice? | interview | superseded by 03 | — | — |",
+      "| 03 | Final choice? | interview | resolved | — | DEC-001 |",
+    ].join("\n");
+    await Bun.write(
+      file,
+      text.replace("| 01 | Which devices? | interview | resolved | — | DEC-001 |", rows),
+    );
+    expect(await findings(root)).toEqual([]);
+  });
 });
 
 describe("research that resolves a map row", () => {
