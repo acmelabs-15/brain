@@ -75,7 +75,7 @@ interview-me is always stateful. In a repo it keeps the map in `docs/ideas/IDEA-
 - a research row, which a sub-agent resolves by finding facts and citing their sources;
 - a do row, which the agent or the user resolves by doing work that a later decision needs.
 
-Each decision goes to a DEC file the moment the user makes it, each finding to a RES file, and each new term to `GLOSSARY.md`. After every answer or research result, interview-me evaluates the whole map and writes what changed to disk. Only the main session writes the map. A session ends only between rows, and the next session resumes from the idea's `status` and the frontier of its map.
+Each decision goes to a DEC file the moment the user makes it, each finding to a RES file, and each new term to `GLOSSARY.md`. After every answer or research result, interview-me evaluates the whole map and writes what changed to disk. Only the main session writes the map. Save partial answers and each record's next action before a pause; the next session reconciles that state before choosing a frontier row.
 
 A research row runs in a sub-agent: the `researcher` agent on Claude Code, the general-purpose agent on the other hosts. Its brief is in interview-me's `RESEARCH.md`, and its method is source-driven-development.
 
