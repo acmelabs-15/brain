@@ -68,7 +68,8 @@ describe("using-brain, the rest of its table in the intent doc", () => {
     for (const kind of ["decide row", "research row", "do row"]) {
       expect(interview).toContain(kind);
     }
-    expect(interview).toMatch(/between rows/u);
+    expect(interview).toMatch(/Save partial answers and each record's next action before a pause/u);
+    expect(interview).toMatch(/reconciles that state before choosing a frontier row/u);
     expect(interview).toMatch(/the map lives in the conversation/u);
     expect(text).toContain("### 7. Record As You Go");
     expect(text).not.toContain("docs/intent/");
