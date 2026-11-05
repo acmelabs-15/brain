@@ -1,6 +1,6 @@
 ---
 id: IDEA-004
-status: define
+status: parked
 ---
 # IDEA-004: Resolve the remaining keystone workflow findings
 
@@ -22,8 +22,8 @@ A complete definition of the remaining work, carried into decisions or specs, wi
 - [RES-069: Keystone workflow audit and approved repairs](../research/RES-069-keystone-workflow-audit.md) holds the findings, source references, probes, reviews and evaluation limits. Its K, U and E identifiers are retained below.
 - PR #28 contains the completed repairs through commit 0cd5a70663d3013569c75964a83c481ef110c024. They are pushed. K1 (missing fixed spec files) and K2 (proposed decisions resolving rows) are already fixed and excluded from this open map.
 - Earlier interview recovery, workspace-owned status and the approved security import remain completed work. The removed status skill stays removed.
-- Delegated review approval covers the completed change. Older held decisions remain held; this map does not close or supersede rows in IDEA-003.
-- No question is pending and no worker is running for this idea. Every row below is open. Row order is an index, not an approved delivery sequence. Blocking links need to be established from the chosen scope.
+- Delegated review approval covers the completed change. Older held decisions remain held.
+- No question is pending and no worker is running for this idea. On 2026-11-05 Peter split this idea by scope (DEC-025). All 17 rows moved to IDEA-005 to IDEA-012, so this idea holds no open work. Out of scope names where each row went, and the table below keeps each row's old number.
 
 ### Evidence and recommended direction
 
@@ -58,28 +58,28 @@ A complete definition of the remaining work, carried into decisions or specs, wi
 
 | # | Question | Type | Status | Blocked by | Result |
 |---|---|---|---|---|---|
-| 01 | How does a spec awaiting approval or planning remain visible and resumable? | interview | open | — | — |
-| 02 | How do external specifications integrate with Brain without duplicate authority? | interview | open | — | — |
-| 03 | What state must ideation and prototype detours save and return throughout an exchange? | research | open | — | — |
-| 04 | Which idea-refine instructions and examples must change to obey the shared question rules? | research | open | — | — |
-| 05 | Who schedules build tasks and independent reviews within each host's actual capacity? | interview | open | — | — |
-| 06 | What review lookup and diff rules preserve the user's explicit scope? | research | open | — | — |
-| 07 | What supported-layout rule must every workspace writer enforce? | research | open | — | — |
-| 08 | How does optional root cleanup preserve rules that only look similar? | research | open | — | — |
-| 09 | What recovery guarantee should ordinary setup provide after a partial write failure? | interview | open | — | — |
-| 10 | What durable handoff does each planning, review, performance and shipping stage return? | research | open | — | — |
-| 11 | Which upstream correction fixes the sample quality checker's missed files and sensitive output? | research | open | — | — |
-| 12 | Which orchestration references or caller boundaries must change to match Brain's workflow? | research | open | — | — |
-| 13 | Which testing examples need correction to preserve the agreed test boundaries and quality bar? | research | open | — | — |
-| 14 | Which secondary-skill interfaces reintroduce conflicting approval, root-file or host rules? | research | open | — | — |
-| 15 | What should happen to the optional cache guidance and its freshness and trust defects? | research | open | — | — |
-| 16 | What change and observable check make restored status visible to the user? | research | open | — | — |
-| 17 | What change and evidence check keep recommendation claims within their support? | research | open | — | — |
 
 ## Not yet specified
 Exact follow-up boundaries, implementation order, verification scope and any further state fields remain to be defined. The map captures the known questions without choosing their answers.
 
 ## Out of scope
+- Row 01, How does a spec awaiting approval or planning remain visible and resumable?: moved to IDEA-008 row 01.
+- Row 02, How do external specifications integrate with Brain without duplicate authority?: moved to IDEA-010 row 01.
+- Row 03, What state must ideation and prototype detours save and return throughout an exchange?: moved to IDEA-009 row 01.
+- Row 04, Which idea-refine instructions and examples must change to obey the shared question rules?: moved to IDEA-009 row 02.
+- Row 05, Who schedules build tasks and independent reviews within each host's actual capacity?: moved to IDEA-007 row 01.
+- Row 06, What review lookup and diff rules preserve the user's explicit scope?: moved to IDEA-007 row 02.
+- Row 07, What supported-layout rule must every workspace writer enforce?: moved to IDEA-006 row 01.
+- Row 08, How does optional root cleanup preserve rules that only look similar?: moved to IDEA-006 row 02.
+- Row 09, What recovery guarantee should ordinary setup provide after a partial write failure?: moved to IDEA-006 row 03.
+- Row 10, What durable handoff does each planning, review, performance and shipping stage return?: moved to IDEA-008 row 02.
+- Row 11, Which upstream correction fixes the sample quality checker's missed files and sensitive output?: moved to IDEA-011 row 01.
+- Row 12, Which orchestration references or caller boundaries must change to match Brain's workflow?: moved to IDEA-007 row 03.
+- Row 13, Which testing examples need correction to preserve the agreed test boundaries and quality bar?: moved to IDEA-011 row 02.
+- Row 14, Which secondary-skill interfaces reintroduce conflicting approval, root-file or host rules?: moved to IDEA-009 row 03.
+- Row 15, What should happen to the optional cache guidance and its freshness and trust defects?: moved to IDEA-005 row 01.
+- Row 16, What change and observable check make restored status visible to the user?: moved to IDEA-012 row 01.
+- Row 17, What change and evidence check keep recommendation claims within their support?: moved to IDEA-012 row 02.
 - Repeating or undoing completed PR #28 repairs without new evidence.
 - Treating prior held decisions as newly approved because they carry accepted frontmatter.
 - Editing vendored bytes locally, updating unrelated upstream pins, or activating the optional cache during capture.
