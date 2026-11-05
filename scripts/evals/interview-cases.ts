@@ -199,6 +199,33 @@ export const interviewCases: InterviewCase[] = [
       "The next question follows the user's remaining preference or missing source, without confirming unknown intent.",
     ],
   },
+  {
+    id: 7,
+    name: "conditional-approval",
+    prompt: "/brain:interview-me Finish the export decision interview.",
+    rows: ["| 01 | Export as CSV or Markdown? | interview | resolved | — | DEC-001 |"],
+    destination:
+      "An accepted decision about the export format. No spec or implementation is needed.",
+    files: {
+      "docs/decisions/DEC-001-export-format.md": decision(
+        "01",
+        "Sam chose Markdown for personal note exports.",
+      ),
+    },
+    answers: [
+      {
+        question: "confirm|correct|want|intent|agree|approve|reflect|right",
+        answer:
+          "Sounds good, provided the destination app can import every link. I do not know whether it can.",
+      },
+    ],
+    expectations: [
+      "The new condition about importing every link is saved in the idea.",
+      "The idea stays in define with no current intent confirmation.",
+      "The unknown import capability remains an open row or fog and keeps Finish closed.",
+      "The next question or blocker concerns the missing destination-app information, not approval wording.",
+    ],
+  },
 ];
 
 /** Each run receives its own fixture. Fresh-resume uses the same files and a new Claude process. */
