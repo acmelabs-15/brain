@@ -1,37 +1,33 @@
-# Working on brain
+# Maintaining Brain
 
-brain is one plugin for Claude Code, Codex CLI, Gemini CLI and Antigravity CLI. `README.md` says what is inside; `specs/` holds one spec folder per module, and `brain status` (`bun run status`) says where the work stands. This file holds what an agent needs on every turn here.
+This file guides work on the Brain plugin repository. Root CLAUDE.md imports this file. Consumer startup comes from the installed plugin's host adapter, protocol and router.
+
+## Start here
+
+1. Inspect the branch and working tree. Preserve existing changes and read the user's current handoff before choosing work from older records.
+2. Read README.md for the component map, then docs/agents/capabilities.md and docs/agents/domain.md in full. Read the glossary named by domain.md. An absent glossary is valid before the first term is resolved.
+3. For saved ideas, specs or task state, read docs/agents/workspace.md and the selected effort's records. Current user scope and a newer handoff take precedence over historical next-step text.
+4. Verify Bun against the range in package.json. That declared range is authoritative; the CI version is one tested version within it.
 
 ## Ownership
 
-- A file listed in `upstream.lock.json` is vendored. A change to it goes upstream, as a pull request to the pack it comes from. `bun run sync -- --check` fails on a local edit.
-- Every other file is brain's. The eight combined skills and the commands were seeded from addy's text and are owned here; `bun run sync -- --report` shows what addy changed since.
-- A generated file names its source. `output-styles/talk-plain.md`, `GEMINI.md`, `rules/talk-plain.md`, `plain-talk/AGENTS-block.md` and the plain-talk block in this file come from `plain-talk/PLAIN-TALK.md`. `rules/protocol.md`, `protocol/AGENTS-block.md` and the protocol blocks in `GEMINI.md` and at the end of this file come from `protocol/PROTOCOL.md`. Edit the source, then run `bun run plain-talk:render`.
+- Files under upstream.lock.json's files key are vendored. Fix them upstream or import a reviewed, pinned upstream correction through the sync configuration. Preserve byte identity and license notices.
+- The seeds key records provenance for Brain-owned files. Combined skills, commands and other unlisted files are maintained here.
+- Generated files name their sources. Edit plain-talk/PLAIN-TALK.md or protocol/PROTOCOL.md, then run the renderer. The consumer protocol renders into its host delivery files, outside this maintainer file.
+- Read docs/maintainers/changes.md before adding, renaming, removing or changing instructions, skills, commands or host behavior. Complete its affected-surface and evaluation checks before declaring the change done.
 
-## Commands
+## Working rules
 
-```
-bun run check      # the gate: typecheck, lint, format, tests, version, render, lifecycle, workspace and sync checks
-bun run validate   # the host validators
-bun run sync       # fetch every pinned upstream again
-bun run changeset  # a user-facing change gets one; the release workflow versions and tags from it
-```
+- Use Bun for shipped TypeScript tools. Tests live beside the source in __tests__ and use bun:test; new tests are named <original-filename>.test.ts.
+- Ask through brain:ask-user-question for an unresolved user decision or missing permission. Reuse confirmed requirements. Put the context, evidence, recommendation and cost inside the one question.
+- Follow references/brain/commit-contract.md for verified slices, task results, integration and state commits. Stage files by name and keep unrelated work intact.
+- Root instruction files serve maintainers. Verify consumer behavior in a separate fixture with its own existing or absent root files.
 
-## Where things live
+## Checks and records
 
-| What | Where |
-|---|---|
-| The capability map; one spec per module | `docs/decisions/DEC-004-capability-map-brain.md`; `specs/SPEC-NNN-<module>/spec.md` |
-| Each module's plan and task list; the one done plan with no spec of its own | `specs/SPEC-NNN-<module>/tasks/plan.md` and `todo.md`; `tasks/done/context-scope/` |
-| Intent, research notes, decision records, install pages | `docs/intent/`, `docs/research/`, `docs/decisions/`, `docs/install/` |
-| Tests | `__tests__/` beside the file under test, `bun:test` |
+package.json owns the available commands. bun run check is the repository check; bun run validate runs the host validators. docs/maintainers/changes.md explains scoped checks, the exact root-CLAUDE warning exception and verification limits. A user-facing change includes a Changeset.
 
-## Change discipline
-
-- Bun 1.4.0 only. No Node runtime, no Python.
-- A failing test first, then the code. Per commit, run the test files for what you touched, then `bun run typecheck`, `bun run lint`, `bun run format:check` and the fast checks (`bun run lifecycle:check`, `bun run workspace:check`, and the render, version and sync checks); a text-only change needs only the checks that read that text. Run the full `bun run check` and `bun run validate` once, in the background, before a push or at a checkpoint.
-- One commit per task. Stage the task's files by name.
-- A decision that is the user's goes through the ask-user-question skill, one question per call.
+docs/agents/workspace.md owns record locations. Each module has a spec folder with spec.md, tasks/plan.md and tasks/todo.md. The capability map is docs/decisions/DEC-004-capability-map-brain.md; tasks/done/context-scope/ retains its completed historical plan.
 
 <!-- brain:plain-talk:start -->
 ## Talk plain
@@ -73,60 +69,3 @@ Where a check fails, re-pitch the draft: give a little context, in ASD-STE100 Si
 
 The sentence rules also apply to the text of a question put to the reader through the host's user-question tool. The layout of that call follows the ask-user-question skill. Load it before you compose the call.
 <!-- brain:plain-talk:end -->
-
-<!-- brain:protocol:start -->
-## brain protocol
-
-`brain <cmd>` runs the brain plugin's `scripts/brain.ts` with bun. On Claude Code, the session-start text gives its full path; type it in full: Bash commands lack `CLAUDE_PLUGIN_ROOT`. A sub-agent gets the path in its brief. On another host, resolve the plugin folder as setup-brain does.
-
-## Session start
-
-1. Read `docs/agents/workspace.md` in full and follow its **Session state** procedure. If the file or its **Session state** section is missing, read the plugin's `skills/setup-brain/workspace.md` template. Keep any existing workspace settings and follow its missing-or-older-workspace case.
-2. Read `docs/agents/capabilities.md`, `docs/agents/domain.md` and the glossary that `domain.md` names, each to its last line. When one is missing, tell the user once to run setup-brain.
-3. Open the active effort: for an idea, its map; for a spec, `spec.md`, `tasks/plan.md` and `tasks/todo.md`.
-4. Check `git status` and the branch. Run the toolchain checks in `capabilities.md`. Keep work you did not start.
-
-## Work through brain
-
-- Before you act, load any skill that may apply, even at a 1% chance. 'Too small for a skill', 'I'll just do it quickly' and 'I'll gather context first' are not reasons to skip one.
-- Keep ask-user-question loaded. Every decision or permission goes through it, one question per call, with a recommendation and its reason.
-- Create every numbered file (IDEA, SPEC, DEC, RES) only through `brain new-doc <TYPE> <slug>`. Its claim keeps each number to one agent.
-- For a skill that only the user starts, such as handoff, give the user its command.
-
-## Capability check
-
-Run it:
-
-- at the start of a task, and at each stage change (define, plan, build, verify, review, ship);
-- before you start a sub-agent;
-- after a compaction or a long run of tool calls;
-- before you guess a convention that a skill or a server would give.
-
-Confirm:
-
-- the brain skills for this stage;
-- the library skills and servers in `docs/agents/capabilities.md`, each server proved by one real read-only call (a tool name in your list is no proof);
-- ask-user-question.
-
-Load what is missing. When a server does not answer, stop the work that depends on it and say what failed. Report in one line what you loaded or fixed; nothing when all was in place.
-
-## Sub-agent briefs
-
-A sub-agent sees nothing of your conversation. Its brief names:
-
-- the exact skills it loads and the servers it needs;
-- the capability check, run at its start and at each stage change; its first report says what it loaded and whether each server answered, and it stops and reports when one fails;
-- the progress file: a task agent's scratch file, or a research agent's RES file;
-- its result file, named with the task ID first (`T10-result.md`); the name never starts with report, summary, findings or analysis (Claude Code refuses those);
-- the resolved `brain` path.
-
-A sub-agent has no question tool, so its questions go into its result file. A task sub-agent replies with that file's path and one line: pass or fail, the commit SHA, any question. A research row's brief is the one in interview-me's `RESEARCH.md`; that sub-agent replies with its RES path only.
-
-## Task end
-
-1. Update the row in the map or in `tasks/plan.md`: its status and result link. Only the main session writes rows; a sub-agent reports instead.
-2. Put research in its RES file and a decision in its DEC file. Update the spec when its facts change.
-3. Run `brain check`. Fix each finding, or name it as red in the next step.
-4. Keep the next action, red items and user waits in the active effort's rows and records. A user-run step is a do row with its exact command, blocking rows that need it. Run `brain status`.
-5. Record what is committed, pushed or waiting for approval. Stage files by name.
-<!-- brain:protocol:end -->

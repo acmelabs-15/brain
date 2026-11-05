@@ -14,7 +14,70 @@ export type SessionOptions = {
   commands?: string[];
   timeoutSeconds?: number;
   maxCostUsd?: number;
+  /** Enable the selected plugin's real hooks; ambient settings remain disabled. */
+  hooks?: boolean;
+  /** Omit the native question tool to test supported discovery/fallback behavior. */
+  nativeQuestions?: boolean;
+  allowedSkills?: string[];
+  /** Allow only the setup scripts and generated guidance in addition to interview records. */
+  setup?: boolean;
 };
+
+export const selectedBrainSkills = [
+  "api-and-interface-design",
+  "ask-user-question",
+  "browser-testing-with-devtools",
+  "ci-cd-and-automation",
+  "code-review-and-quality",
+  "code-simplification",
+  "codebase-design",
+  "constraint-driven-development",
+  "context-engineering",
+  "debugging-and-error-recovery",
+  "deprecation-and-migration",
+  "documentation-and-adrs",
+  "domain-modeling",
+  "doubt-driven-development",
+  "frontend-ui-engineering",
+  "git-workflow-and-versioning",
+  "handoff",
+  "idea-refine",
+  "incremental-implementation",
+  "interview-me",
+  "observability-and-instrumentation",
+  "performance-optimization",
+  "planning-and-task-breakdown",
+  "prototype",
+  "security-and-hardening",
+  "setup-brain",
+  "shipping-and-launch",
+  "source-driven-development",
+  "spec-driven-development",
+  "test-driven-development",
+  "using-brain",
+  "wait-what",
+  "writing-for-agents",
+].map((name) => `brain:${name}`);
+
+export const selectedBrainInvocations = [
+  ...selectedBrainSkills,
+  ...[
+    "build",
+    "code-simplify",
+    "constraints",
+    "plan",
+    "review",
+    "ship",
+    "spec",
+    "status",
+    "test",
+    "webperf",
+  ].map((name) => `brain:${name}`),
+];
+
+export function allowedSkill(input: ObjectValue, selected = selectedBrainInvocations): boolean {
+  return typeof input.skill === "string" && selected.includes(input.skill);
+}
 export type SessionResult = {
   outcome: string;
   questions: string[];
@@ -41,14 +104,95 @@ export function answerQuestion(input: ObjectValue, answer: string): ObjectValue 
   return { behavior: "allow", updatedInput: { ...input, answers: { [question]: answer } } };
 }
 
+function setupArgsAllowed(script: string, args: string[], cwd: string): boolean {
+  const flags = new Set(
+    script === "write" ? ["--dry-run", "--check", "--no-codex"] : ["--dry-run"],
+  );
+  const values: Record<string, (value: string) => boolean> = {
+    "--root": (value) => value === ".",
+    ...(script === "write"
+      ? {
+          "--layout": (value: string) => ["single", "multi"].includes(value),
+          "--codex-home": (value: string) => value === path.join(cwd, "codex"),
+          "--codex-scope": (value: string) => ["global", "project"].includes(value),
+        }
+      : {
+          "--skills": (value: string) =>
+            // This is catalog data for matching dependencies, not permission to invoke a skill.
+            value
+              .split(",")
+              .every(
+                (name) =>
+                  name === "" ||
+                  selectedBrainInvocations.includes(name) ||
+                  name === "plugin-authoring",
+              ),
+          "--omit": (value: string) => value === "bun",
+        }),
+  };
+  const seen = new Set<string>();
+  for (let i = 0; i < args.length; i += 1) {
+    const flag = args[i] ?? "";
+    if (flags.has(flag)) {
+      seen.add(flag);
+      continue;
+    }
+    i += 1;
+    const value = args[i];
+    const check = values[flag];
+    if (check === undefined || value === undefined || !check(value)) {
+      return false;
+    }
+    seen.add(flag);
+  }
+  const confinedHome = script !== "write" || seen.has("--codex-home") || seen.has("--no-codex");
+  return confinedHome && seen.has("--root") && (script === "write" || seen.has("--skills"));
+}
+
+/** A small argument grammar for the two trusted setup scripts; no arbitrary program or root. */
+function allowedSetupCommand(command: string, scripts: string, cwd: string): boolean {
+  for (const script of ["write", "capabilities"]) {
+    const file = `${scripts}/setup/${script}.ts`;
+    const prefix = [`bun "${file}" `, `bun '${file}' `, `bun ${file} `].find((value) =>
+      command.startsWith(value),
+    );
+    if (prefix === undefined) {
+      continue;
+    }
+    const rest = command.slice(prefix.length).trim();
+    const parts = rest.match(/"[^"\\]*"|'[^'\\]*'|[^\s"']+/gu) ?? [];
+    if (parts.join(" ") !== rest.replaceAll(/\s+/gu, " ")) {
+      return false;
+    }
+    const args = parts.map((part) => (/^["']/u.test(part) ? part.slice(1, -1) : part));
+    return setupArgsAllowed(script, args, cwd);
+  }
+  return false;
+}
+
 /** The test host approves only its own local CLI commands, without shell composition. */
-export function allowedCommand(command: string, brain: string, commands: string[] = []): boolean {
+export function allowedCommand(
+  command: string,
+  brain: string,
+  commands: string[] = [],
+  setup = false,
+  cwd?: string,
+): boolean {
   if (/[\n\r;$`&|<>]/u.test(command)) {
     return false;
   }
   if (
     commands.includes(command) ||
-    /^(?:pwd|bun --version|git status --short|git branch --show-current)$/u.test(command)
+    /^(?:pwd|ls -la|bun --version|git status --short(?: --branch| --untracked-files=all)?|git branch --show-current)$/u.test(
+      command,
+    )
+  ) {
+    return true;
+  }
+  if (
+    setup &&
+    cwd !== undefined &&
+    allowedSetupCommand(command, path.dirname(brain), path.resolve(cwd))
   ) {
     return true;
   }
@@ -60,6 +204,7 @@ export function allowedCommand(command: string, brain: string, commands: string[
   const rest = command.slice(prefix.length);
   return (
     /^(?:check|status)(?: --json)?$/u.test(rest) ||
+    rest === "--help" ||
     /^new-doc (?:IDEA|DEC|RES) [a-z0-9]+(?:-[a-z0-9]+)*(?: --title (?:"[^"\\]*"|'[^'\\]*'))?$/u.test(
       rest,
     )
@@ -111,14 +256,20 @@ function artifactPath(relative: string): boolean {
 }
 
 /** Records are writable; fixture source, runtime configuration and completion receipts are not. */
-export function allowedArtifactWrite(input: ObjectValue, cwd: string): boolean {
+export function allowedArtifactWrite(input: ObjectValue, cwd: string, setup = false): boolean {
   const { file_path: file } = input;
   if (typeof file !== "string" || file.startsWith("~") || /(?:^|\/)\.\.(?:\/|$)/u.test(file)) {
     return false;
   }
   const absolute = path.resolve(cwd, file);
   const relative = path.relative(path.resolve(cwd), absolute);
-  if (!artifactPath(relative)) {
+  const writable = (name: string) =>
+    artifactPath(name) ||
+    (setup &&
+      ["docs/agents/workspace.md", "docs/agents/domain.md", "docs/agents/capabilities.md"].includes(
+        name,
+      ));
+  if (!writable(relative)) {
     return false;
   }
   try {
@@ -134,7 +285,7 @@ export function allowedArtifactWrite(input: ObjectValue, cwd: string): boolean {
         break;
       }
     }
-    return artifactPath(path.relative(root, canonical(absolute)));
+    return writable(path.relative(root, canonical(absolute)));
   } catch {
     return false;
   }
@@ -159,6 +310,89 @@ export function allowedRead(
   return typeof glob !== "string" || !/^(?:\/|~)|(?:^|\/)\.\.(?:\/|$)/u.test(glob);
 }
 
+/** Arguments and environment are inspectable without starting a model process. */
+export function sessionInvocation(options: SessionOptions): {
+  args: string[];
+  env: Record<string, string | undefined>;
+} {
+  const cwd = path.resolve(options.cwd);
+  const plugin = path.resolve(options.plugin);
+  const tools = ["Read", "Write", "Edit", "Glob", "Grep", "Bash", "Skill"];
+  if (options.nativeQuestions !== false) {
+    tools.push("AskUserQuestion");
+  }
+  const settings = {
+    disableAllHooks: options.hooks !== true,
+    autoMemoryEnabled: false,
+    claudeMdExcludes: ["**"],
+    disableBundledSkills: true,
+    permissions: { ask: tools },
+  };
+  const excludedEnv = new Set([
+    "BUN_OPTIONS",
+    "NODE_OPTIONS",
+    "BASH_ENV",
+    "ENV",
+    "CLAUDE_ENV_FILE",
+  ]);
+  const env: Record<string, string | undefined> = {
+    ...Object.fromEntries(
+      Object.entries(process.env).filter(
+        ([key]) => !excludedEnv.has(key) && !key.startsWith("GIT_"),
+      ),
+    ),
+    GIT_CEILING_DIRECTORIES: cwd,
+    GIT_CONFIG_NOSYSTEM: "1",
+    GIT_CONFIG_GLOBAL: "/dev/null",
+    CODEX_HOME: `${cwd}/codex`,
+    XDG_CACHE_HOME: `${cwd}/.eval-cache`,
+    CLAUDE_CODE_DISABLE_CLAUDE_MDS: "1",
+    CLAUDE_CODE_DISABLE_AUTO_MEMORY: "1",
+    CLAUDE_CODE_DISABLE_BUNDLED_SKILLS: "1",
+    CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD: "0",
+    CLAUDE_CODE_AUTO_CONNECT_IDE: "false",
+  };
+  const args = [
+    "claude",
+    "--print",
+    "--input-format",
+    "stream-json",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--include-hook-events",
+    "--permission-prompt-tool",
+    "stdio",
+    "--permission-mode",
+    "manual",
+    "--restricted",
+    "--setting-sources",
+    "",
+    "--strict-mcp-config",
+    "--mcp-config",
+    '{"mcpServers":{}}',
+    "--settings",
+    JSON.stringify(settings),
+    "--tools",
+    tools.join(","),
+    "--plugin-dir",
+    plugin,
+    "--add-dir",
+    plugin,
+    "--no-chrome",
+    "--max-budget-usd",
+    String(options.maxCostUsd ?? 2),
+    "--no-session-persistence",
+    "--append-system-prompt",
+    `This is a controlled behavior evaluation. Work only in the invented consumer fixture. ${
+      options.nativeQuestions === false
+        ? "This host exposes no native question tool. "
+        : "The host supplies a scripted user through AskUserQuestion. "
+    }Run one command per Bash call; shell composition is disabled by this test host. The brain CLI is bun "${plugin}/scripts/brain.ts". The user is Sam. ${options.setup ? `Every setup writer command, including --dry-run and --check, must include --codex-home "${cwd}/codex" or --no-codex. The codex folder is invented other-host state inside this fixture; never use a real host configuration path.` : ""}`,
+  ];
+  return { args, env };
+}
+
 /** Run a bounded test session. Every submitted answer and pre-question file state is saved. */
 export async function runSession(options: SessionOptions): Promise<SessionResult> {
   const cwd = path.resolve(options.cwd);
@@ -171,49 +405,14 @@ export async function runSession(options: SessionOptions): Promise<SessionResult
   let outcome = "incomplete";
   let costUsd: number | null = null;
   const started = performance.now();
-  const child = Bun.spawn(
-    [
-      "claude",
-      "--print",
-      "--input-format",
-      "stream-json",
-      "--output-format",
-      "stream-json",
-      "--verbose",
-      "--permission-prompt-tool",
-      "stdio",
-      "--permission-mode",
-      "manual",
-      "--restricted",
-      "--setting-sources",
-      "",
-      "--strict-mcp-config",
-      "--mcp-config",
-      '{"mcpServers":{}}',
-      "--settings",
-      '{"disableAllHooks":true,"autoMemoryEnabled":false,"permissions":{"ask":["Read","Glob","Grep","Write","Edit","Bash"]}}',
-      "--tools",
-      "Read,Write,Edit,Glob,Grep,Bash,Skill,AskUserQuestion",
-      "--plugin-dir",
-      plugin,
-      "--add-dir",
-      plugin,
-      "--max-budget-usd",
-      String(options.maxCostUsd ?? 2),
-      "--no-session-persistence",
-      "--append-system-prompt",
-      "This is a controlled interview evaluation. The host supplies a live scripted user through AskUserQuestion. " +
-        "Use the loaded skill normally. Work only in the fixture folder. " +
-        `The brain CLI is bun "${brain}". The user is Sam.`,
-    ],
-    {
-      cwd,
-      stdin: "pipe",
-      stdout: "pipe",
-      stderr: "pipe",
-      env: { ...process.env, GIT_CEILING_DIRECTORIES: cwd },
-    },
-  );
+  const invocation = sessionInvocation(options);
+  const child = Bun.spawn(invocation.args, {
+    cwd,
+    stdin: "pipe",
+    stdout: "pipe",
+    stderr: "pipe",
+    env: invocation.env,
+  });
   const send = (value: ObjectValue) => child.stdin.write(`${JSON.stringify(value)}\n`);
   let drainTimer: ReturnType<typeof setTimeout> | undefined;
   const stop = (reason: string) => {
@@ -263,14 +462,17 @@ export async function runSession(options: SessionOptions): Promise<SessionResult
       answers.push(scripted.answer);
     } else if (
       tool === "Bash" &&
-      allowedCommand(String(input.command ?? ""), brain, options.commands)
+      allowedCommand(String(input.command ?? ""), brain, options.commands, options.setup, cwd)
     ) {
       response = { behavior: "allow", updatedInput: input };
-    } else if (["Write", "Edit"].includes(tool) && allowedArtifactWrite(input, cwd)) {
+    } else if (
+      ["Write", "Edit"].includes(tool) &&
+      allowedArtifactWrite(input, cwd, options.setup)
+    ) {
       response = { behavior: "allow", updatedInput: input };
     } else if (["Read", "Glob", "Grep"].includes(tool) && allowedRead(tool, input, cwd, plugin)) {
       response = { behavior: "allow", updatedInput: input };
-    } else if (tool === "Skill") {
+    } else if (tool === "Skill" && allowedSkill(input, options.allowedSkills)) {
       response = { behavior: "allow", updatedInput: input };
     }
     const message = {
@@ -296,6 +498,9 @@ export async function runSession(options: SessionOptions): Promise<SessionResult
         const event = object(JSON.parse(line));
         events.push(event);
         await appendFile(`${options.output}/trace.jsonl`, `${line}\n`);
+        if (String(event.subtype ?? "").startsWith("hook_")) {
+          await appendFile(`${options.output}/hook-events.jsonl`, `${line}\n`);
+        }
         if (event.type === "control_response" && object(event.response).request_id === "init") {
           if (object(event.response).subtype === "success") {
             send({ type: "user", message: { role: "user", content: options.prompt } });

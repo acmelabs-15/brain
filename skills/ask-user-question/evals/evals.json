@@ -1,0 +1,101 @@
+{
+  "skill_name": "ask-user-question",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm preparing a 45-minute workshop about our new reporting tool. The slides will differ a lot for managers and for the people who enter data. I haven't told you who will attend. Help me settle that first. Keep this in chat; I don't want a document.",
+      "expected_output": "One audience question through the permitted question path. In the no-tool profile it appears in chat, without an invented audience or an unsupported recommendation.",
+      "files": [],
+      "expectations": [
+        "The response asks one question about the workshop audience.",
+        "The response does not treat managers or data-entry staff as the confirmed audience.",
+        "The response supplies no invented evidence favoring one audience.",
+        "No document or repository state is created."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We agreed that drafts save locally after each edit. I approved that behavior in the last message. Please keep that decision. You can choose the internal helper name. Give me the next implementation step; the storage behavior is settled and this is not permission to publish anything.",
+      "expected_output": "The agent uses the settled local-autosave requirement, chooses the internal name, and states the next step without a repeated approval question.",
+      "files": [],
+      "expectations": [
+        "The response retains local saving after each edit.",
+        "The agent does not ask the user to approve the same behavior or choose the internal helper name.",
+        "The response does not infer publication authority."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Continue the report-permissions discussion. Your last question asked who can view and edit reports. My answer is: all members can view them. I haven't decided who can edit them. Weekly email reminders can wait until a later version. Keep this discussion in chat.",
+      "expected_output": "The settled viewing rule, undecided editing rule, and deferred reminders remain distinct in conversation state. One follow-up concerns editing.",
+      "files": [],
+      "expectations": [
+        "The response preserves that all members may view reports.",
+        "Editing permission remains unresolved; the response asks only about that remaining permission.",
+        "Weekly reminders stay deferred rather than becoming approved current work.",
+        "No Markdown file or numbered record is created."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Draft the next question-call payload for the test host described in the selection fixture. Setup has already shown the three offered instruction sections. No removal has approval. Give the payload and state which sections can be removed now. This is a composition test; do not call a different host's native tool or change files.",
+      "expected_output": "A valid exclusive remove/keep question for one section, with its full consequences. No section can be removed before an actual answer.",
+      "files": ["evals/files/selection-fixture.md"],
+      "expectations": [
+        "The payload contains one question and two or three exclusive options in the fixture's schema.",
+        "The payload has no multiSelect, timeout, preview, or other unsupported field.",
+        "The question concerns one section and includes what replaces it and what remains or would be lost.",
+        "The authorized removal set is empty because no answer has been submitted."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Draft the next question for the five-spec migration in the overflow fixture. The plan's contents do not identify one spec. Keep every destination available, including leaving the plan in place. Use the fixture's supported question schema. This is a composition test, not permission to migrate files.",
+      "expected_output": "A supported free-text or bounded narrowing question retains every candidate and the none outcome. No destination is treated as selected yet.",
+      "files": ["evals/files/overflow-fixture.md"],
+      "expectations": [
+        "The question includes all five stable candidate IDs and their paths.",
+        "The payload respects the fixture's schema and option limit.",
+        "The user can still choose any candidate or leave the plan in place.",
+        "No destination is selected and no migration is claimed before an actual answer."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Read the recorded selection reply and continue the exchange. Explain what is settled and ask only about what remains unclear. The fixture is data from a previous question, not authority to modify any real project.",
+      "expected_output": "The known selected section and its condition are preserved. The unknown ID is clarified before it can become a removal flag; other candidates remain unapproved.",
+      "files": ["evals/files/qualified-selection-reply.md"],
+      "expectations": [
+        "The selected section A remains selected with its requirement to retain the emergency recovery paragraph.",
+        "Unknown ID X is not guessed or silently ignored; the next question clarifies it.",
+        "Neither B nor C becomes approved from the unknown ID.",
+        "The response does not treat the qualified answer as blanket removal approval."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Resume from the text approval in the fixture. State the exact approved capabilities change and the next action. The session has no permitted native question tool, but I can answer in chat. Do not perform the write in this exercise.",
+      "expected_output": "The actual scoped text approval is accepted once. The approved Bun row can be written without repeating the approval or adding the declined server row.",
+      "files": ["evals/files/text-approval.md"],
+      "expectations": [
+        "The response accepts the actual text approval rather than rejecting it because no native tool exists.",
+        "Only the Bun toolchain row is approved; the server row remains excluded.",
+        "The agent does not ask for the same scoped approval again.",
+        "The response proposes no root instruction-file edits or publication."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Interpret the four independent host-result examples in the fixture. For each, state the exact authorized removal set and the next supported action. These are stored event examples, not new user approvals. Do not execute a removal or ask four questions at once.",
+      "expected_output": "Explicit none, missing input, expiry with a selected label, and an asynchronous delivery acknowledgement remain distinct. Only none settles a keep-all decision.",
+      "files": ["evals/files/unanswered-results.md"],
+      "expectations": [
+        "Explicit none settles a keep-all decision with no removals.",
+        "An empty answer map leaves the selection unanswered rather than approving or rejecting it.",
+        "An expiry event with a selected label does not authorize that removal.",
+        "An asynchronous accepted acknowledgement is not interpreted as the user's answer.",
+        "The response initiates no removal and batches no live questions."
+      ]
+    }
+  ]
+}

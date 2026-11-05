@@ -348,10 +348,24 @@ async function context(brain: string, root: string): Promise<Context> {
     throw new Error(`brain's protocol is missing: ${protocolPath}`);
   }
   const ctx: Context = { homes: [], targets: [], entries: [], capabilities: "" };
-  for (const section of parse(await protocol.text()).sections) {
+  const protocolText = await protocol.text();
+  for (const section of parse(protocolText).sections) {
     const name = `protocol: ${section.heading}`;
     ctx.homes.push(homeOf(name, section));
     ctx.targets.push({ words: wordsOf(section.heading), home: name });
+  }
+  if (protocolText.includes("`skills/using-brain/SKILL.md`")) {
+    const router = Bun.file(`${brain}/skills/using-brain/SKILL.md`);
+    const start = parse(await router.text()).sections.find(
+      (section) => section.heading === "Start",
+    );
+    if (start === undefined) {
+      throw new Error(
+        "using-brain has no Start section for the protocol's delegated startup rules",
+      );
+    }
+    // Follow only this explicit delegation, rather than treating every skill as standing policy.
+    ctx.homes.push(homeOf("using-brain: Start", start));
   }
   const file = Bun.file(`${root}/${capabilitiesPath}`);
   ctx.capabilities = (await file.exists()) ? await file.text() : "";

@@ -2,6 +2,7 @@
 export type Finding = {
   kind:
     | "metadata"
+    | "body-size"
     | "unresolved"
     | "old-prefix"
     | "flag-mismatch"

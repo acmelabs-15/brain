@@ -23,7 +23,7 @@ So a move at a boundary loses less here than it would elsewhere: the next sessio
 | --- | --- |
 | **Continue** | Stay in the session. No context switch at all. |
 | **Clear** | Empty the context window and start from nothing. `/clear` in Claude Code and Gemini CLI. |
-| **Handoff** | Write a portable markdown file and seed a session anywhere with it. The handoff skill does this. |
+| **Handoff** | Offer the user's handoff command for a portable document that seeds another session. Run the user-only skill when the user requests it. |
 | **Sub-agent** | Send the task to its own context window and get a report back. |
 | **Compact** | Compress this context and seed a fresh session with the summary. `/compact` in Claude Code, `/compress` in Gemini CLI. |
 
@@ -31,7 +31,7 @@ So a move at a boundary loses less here than it would elsewhere: the next sessio
 
 Work top to bottom at the boundary. The first **yes** wins.
 
-**1. Can you continue in this session?** Two things make the answer yes: the next stage needs this session as a **primary source**, beyond what the files hold, or you have enough [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) left (about 150k tokens) for the next stage to fit. In a brain repo the define stage's reasoning is on disk in its DEC and RES files, so the plan and the build rarely need the interview's window itself. Continue costs nothing and loses nothing, so rule it out before anything else.
+**1. Can you continue in this session?** Two things make the answer yes: the next stage needs this session as a **primary source**, beyond what the files hold, or the host's remaining context budget can hold the next bounded action. Use the host's actual limit and current usage when available; a fixed token estimate does not prove capacity. In a brain repo the define stage's reasoning is on disk in its DEC and RES files, so the plan and the build rarely need the interview's window itself. Continue costs nothing and loses nothing, so rule it out before anything else.
 
 **2. Is the context irrelevant to what comes next?** Is everything in this session (the exploration, the decisions, the dead ends) disposable, or already in the files? If so, **clear**. It is the cheapest move on the board: it takes no time and hands back the whole window. Clearing is not terminal: the old session stays resumable.
 
@@ -44,7 +44,7 @@ The cost of getting this wrong is one-way. Clear a *relevant* context and you lo
 - sending the work to a **colleague**,
 - or forking a side task you found **mid-stage** without derailing what you are doing.
 
-That list is the whole clause. What handoff buys is **portability**: a file that travels. If nothing is travelling, you do not need it.
+That list is the whole clause. What handoff buys is **portability**: a file that travels. If nothing is travelling, you do not need it. Offer the command when one of these cases applies; a recommendation alone does not invoke the user-only skill.
 
 **4. Can the task be done AFK?** Is it scoped tightly enough to run with you away from the keyboard, no steering? Then send it to a **sub-agent** and leave this session untouched. Automated review is the standard case: the agent reads the diff and reports, and you are not needed while it does.
 

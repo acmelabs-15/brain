@@ -87,3 +87,116 @@ test("different history keeps both notes and reports the collision", async () =>
     "Next: previous review.\n",
   );
 });
+
+test("ordinary setup leaves consumer roots and an existing Codex home unchanged", async () => {
+  const root = await mkdtemp(`${tmpdir()}/brain-host-setup-`);
+  roots.push(root);
+  const codexHome = `${root}/codex-home`;
+  const files = {
+    "AGENTS.md": "# Consumer rules\n",
+    "CLAUDE.md": "# Consumer Claude rules\n",
+    "codex-home/AGENTS.md": "# Personal Codex rules\n",
+  };
+  for (const [file, text] of Object.entries(files)) {
+    await Bun.write(`${root}/${file}`, text);
+  }
+  const run = Bun.spawnSync(["bun", `${brain}/scripts/setup/write.ts`, "--root", root], {
+    env: { ...process.env, CODEX_HOME: codexHome },
+  });
+  expect(run.exitCode).toBe(0);
+  expect(run.stdout.toString()).not.toContain(codexHome);
+  for (const [file, text] of Object.entries(files)) {
+    expect(await Bun.file(`${root}/${file}`).text()).toBe(text);
+  }
+  expect(await Bun.file(`${root}/docs/agents/workspace.md`).exists()).toBe(true);
+});
+
+test.each([
+  ["future", "---\nlayout: 3\n---\n# Future workspace\n", "newer"],
+  ["future-crlf", "---\r\nlayout: 3\r\n---\r\n# Future workspace\r\n", "newer"],
+  ["invalid", "---\nlayout: 2\nmax_parallel: 0\n---\n# Workspace\n", "max_parallel"],
+  ["malformed", "---\npaths: [unfinished\n---\n# Workspace\n", "frontmatter"],
+  ["unclosed", "---\nlayout: 3\n# Missing closing delimiter\n", "frontmatter"],
+])("%s workspace is refused before any setup write", async (name, workspace, problem) => {
+  const root = await mkdtemp(`${tmpdir()}/brain-refuse-${name}-`);
+  roots.push(root);
+  const files = {
+    "docs/agents/workspace.md": workspace,
+    "docs/agents/domain.md": "# Existing domain guidance\n",
+    "docs/STATUS.md": "# Work still to recover\n",
+    "codex-home/AGENTS.md": "# Personal rules\n",
+  };
+  for (const [file, text] of Object.entries(files)) {
+    await Bun.write(`${root}/${file}`, text);
+  }
+  const run = Bun.spawnSync([
+    "bun",
+    `${brain}/scripts/setup/write.ts`,
+    "--root",
+    root,
+    "--codex-scope",
+    "global",
+    "--codex-home",
+    `${root}/codex-home`,
+  ]);
+  expect(run.exitCode).toBe(1);
+  expect(run.stderr.toString()).toContain(problem);
+  for (const [file, text] of Object.entries(files)) {
+    expect(await Bun.file(`${root}/${file}`).text()).toBe(text);
+  }
+  expect(await Bun.file(`${root}/docs/agents/history/STATUS.md`).exists()).toBe(false);
+});
+
+test("refresh keeps the selected domain layout and extra workspace settings", async () => {
+  const root = await mkdtemp(`${tmpdir()}/brain-refresh-domain-`);
+  roots.push(root);
+  await writeSetup({ root, brain, layout: "multi", dryRun: false });
+  const file = `${root}/docs/agents/workspace.md`;
+  const existingWorkspace = await Bun.file(file).text();
+  const workspace = existingWorkspace.replace(
+    "max_parallel: 8",
+    "max_parallel: 3\nteam: design-system\nreview:\n  owner: Peter",
+  );
+  await Bun.write(file, workspace);
+  const run = Bun.spawnSync(["bun", `${brain}/scripts/setup/write.ts`, "--root", root]);
+  expect(run.exitCode).toBe(0);
+  expect(await Bun.file(`${root}/docs/agents/domain.md`).text()).toContain("Layout: multi-context");
+  expect(await Bun.file(file).text()).toBe(workspace);
+});
+
+test("a missing template fails before an explicitly selected Codex write", async () => {
+  const root = await mkdtemp(`${tmpdir()}/brain-setup-preflight-`);
+  roots.push(root);
+  const plugin = `${root}/plugin`;
+  for (const file of ["plain-talk/AGENTS-block.md", "protocol/AGENTS-block.md"]) {
+    await Bun.write(`${plugin}/${file}`, await Bun.file(`${brain}/${file}`).text());
+  }
+  const home = `${root}/codex-home`;
+  const before = "# Personal rules\n";
+  await Bun.write(`${home}/AGENTS.md`, before);
+  await expect(
+    writeSetup({
+      root,
+      brain: plugin,
+      dryRun: false,
+      codexScope: "global",
+      codexHome: home,
+    }),
+  ).rejects.toThrow();
+  expect(await Bun.file(`${home}/AGENTS.md`).text()).toBe(before);
+  expect(await Bun.file(`${root}/docs/agents/workspace.md`).exists()).toBe(false);
+});
+
+test("refresh preserves a valid CRLF workspace header byte for byte", async () => {
+  const root = await mkdtemp(`${tmpdir()}/brain-refresh-crlf-`);
+  roots.push(root);
+  const header =
+    "---\r\nlayout: 2 # keep this comment\r\nmax_parallel: 3\r\nteam: design-system\r\n---\r\n";
+  const file = `${root}/docs/agents/workspace.md`;
+  await Bun.write(file, `${header}# Workspace\r\n\r\nOlder generated guidance.\r\n`);
+  const run = Bun.spawnSync(["bun", `${brain}/scripts/setup/write.ts`, "--root", root]);
+  expect(run.exitCode).toBe(0);
+  const refreshed = await Bun.file(file).text();
+  expect(refreshed.slice(0, header.length)).toBe(header);
+  expect(refreshed).toContain("## Session state");
+});

@@ -80,7 +80,12 @@ afterAll(async () => {
   await rm(work, { recursive: true, force: true });
 });
 
-const base = { layout: "single" as const, dryRun: false, codexHome: null };
+const base = {
+  layout: "single" as const,
+  dryRun: false,
+  codexHome: null,
+  codexScope: "global" as const,
+};
 
 describe("writeSetup, the repo", () => {
   test("in an empty repo it creates domain.md and workspace.md, and nothing else", async () => {
@@ -283,15 +288,10 @@ describe("writeSetup, the workspace config", () => {
     expect(changes).toContainEqual({ path: "docs/agents/workspace.md", action: "unchanged" });
   });
 
-  test("a workspace.md whose frontmatter is not valid YAML is skipped with the reason, and kept", async () => {
+  test("a workspace.md whose frontmatter is not valid YAML is refused and kept", async () => {
     const before = "---\npaths: [docs/decisions\n---\n# Workspace\n";
     const root = await repo("workspace-broken", { "docs/agents/workspace.md": before });
-    const changes = await writeSetup({ brain, root, ...base });
-    expect(changes).toContainEqual({
-      path: "docs/agents/workspace.md",
-      action: "skipped",
-      note: "its frontmatter is not valid YAML; fix it, then run setup-brain again",
-    });
+    await expect(writeSetup({ brain, root, ...base })).rejects.toThrow("frontmatter");
     expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(before);
   });
 });
@@ -492,7 +492,7 @@ describe("writeSetup, Codex project scope", () => {
     expect(await Bun.file(`${root}/GEMINI.md`).text()).toBe("# G\n");
   });
 
-  test("the default scope is global", async () => {
+  test("explicit global scope writes the global file only", async () => {
     const root = await repo("scope-default");
     const home = await codexHome("scope-default");
     const changes = await writeSetup({ brain, root, ...base, codexHome: home });
@@ -554,19 +554,12 @@ describe("write.ts --check", () => {
     );
   });
 
-  test("a workspace.md whose frontmatter is not valid YAML is drift: exit 1, its note shown, the file kept", async () => {
+  test("a workspace.md whose frontmatter is not valid YAML makes check fail, with the file kept", async () => {
     const before = "---\npaths: [docs/decisions\n---\n# Workspace\n";
     const root = await repo("check-broken-yaml", { "docs/agents/workspace.md": before });
-    await writeSetup({ brain, root, ...base });
     const run = check(root);
     expect(run.exitCode).toBe(1);
-    const out = run.stdout.toString();
-    expect(out).toContain(
-      "skipped   docs/agents/workspace.md  (its frontmatter is not valid YAML; fix it, then run setup-brain again)",
-    );
-    expect(out).toEndWith(
-      "1 file differs from what setup-brain writes: fix each skipped file by hand, then run setup-brain\n",
-    );
+    expect(run.stderr.toString()).toContain("frontmatter");
     expect(await Bun.file(`${root}/docs/agents/workspace.md`).text()).toBe(before);
   });
 
@@ -583,6 +576,8 @@ describe("write.ts --check", () => {
       brain,
       "--codex-home",
       home,
+      "--codex-scope",
+      "global",
       "--check",
     ]);
     expect(run.exitCode).toBe(0);
@@ -690,10 +685,14 @@ describe("the shipped ADR folder", () => {
 /** A git repo holding `files`, all committed, so `git mv` can move them. */
 async function gitRepo(name: string, files: Record<string, string>): Promise<string> {
   const root = await repo(name, files);
-  const git = (...args: string[]) => Bun.spawnSync(["git", ...args], { cwd: root });
-  git("init", "-q");
-  git("add", ".");
-  git("-c", "user.name=test", "-c", "user.email=test@example.com", "commit", "-q", "-m", "init");
+  const git = (...args: string[]) =>
+    Bun.spawnSync(["git", "-c", "commit.gpgsign=false", ...args], { cwd: root });
+  expect(git("init", "-q").exitCode).toBe(0);
+  expect(git("add", ".").exitCode).toBe(0);
+  expect(
+    git("-c", "user.name=test", "-c", "user.email=test@example.com", "commit", "-q", "-m", "init")
+      .exitCode,
+  ).toBe(0);
   return root;
 }
 

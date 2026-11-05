@@ -6,8 +6,18 @@ import { checkWorkspace } from "../check";
 import { defaultPaths } from "../config";
 
 const fixtures = `${import.meta.dir}/fixtures`;
+const cli = `${import.meta.dir}/../../brain.ts`;
 const idea = "docs/ideas/IDEA-001-sync-notes.md";
 let work: string;
+
+function brain(root: string, ...args: string[]) {
+  const result = Bun.spawnSync([process.execPath, cli, ...args], { cwd: root });
+  return {
+    code: result.exitCode,
+    stdout: result.stdout.toString(),
+    stderr: result.stderr.toString(),
+  };
+}
 
 async function findings(root: string) {
   const result = await checkWorkspace(root, defaultPaths);
@@ -32,6 +42,84 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await rm(work, { recursive: true, force: true });
+});
+
+describe("required spec files at the CLI boundary", () => {
+  test("a non-migrated spec reports its missing plan and todo in check and status", async () => {
+    const root = `${work}/missing-plan`;
+    await Bun.write(`${root}/docs/agents/workspace.md`, "---\nlayout: 2\n---\n# Workspace\n");
+    await Bun.write(
+      `${root}/specs/SPEC-001-widget/spec.md`,
+      "---\nspec: SPEC-001\nsources: []\n---\n# SPEC-001: Widget\n",
+    );
+    const result = brain(root, "check");
+    expect(result.stderr).toBe("");
+    expect(result.code).toBe(1);
+    expect(result.stdout).toBe(
+      [
+        "specs/SPEC-001-widget/tasks/plan.md: file: missing required plan file",
+        "specs/SPEC-001-widget/tasks/todo.md: file: missing required todo file",
+        "2 findings in 1 workspace file",
+        "",
+      ].join("\n"),
+    );
+    const status = JSON.parse(brain(root, "status", "--json").stdout);
+    expect(status.red).toEqual([
+      "specs/SPEC-001-widget/tasks/plan.md: file: missing required plan file",
+      "specs/SPEC-001-widget/tasks/todo.md: file: missing required todo file",
+    ]);
+  });
+
+  test.each([
+    ["spec.md", "spec"],
+    ["tasks/plan.md", "plan"],
+    ["tasks/todo.md", "todo"],
+  ])("reports a missing %s in the configured specs folder", async (file, type) => {
+    const root = `${work}/missing-${type}-custom`;
+    await Bun.write(
+      `${root}/docs/agents/workspace.md`,
+      "---\nlayout: 2\npaths:\n  specs: design/specs\n---\n# Workspace\n",
+    );
+    expect(Bun.spawnSync(["git", "init", "--quiet"], { cwd: root }).exitCode).toBe(0);
+    const created = brain(root, "new-doc", "SPEC", "widget", "--title", "Widget");
+    expect({ code: created.code, stderr: created.stderr }).toEqual({ code: 0, stderr: "" });
+    const where = `design/specs/SPEC-001-widget/${file}`;
+    await rm(`${root}/${where}`);
+    const result = brain(root, "check");
+    expect(result.code).toBe(1);
+    expect(result.stdout).toBe(
+      `${where}: file: missing required ${type} file\n1 finding in 2 workspace files\n`,
+    );
+  });
+
+  test("a spec folder with only another file still reports every missing fixed file", async () => {
+    const root = `${work}/spec-with-only-notes`;
+    await Bun.write(`${root}/docs/agents/workspace.md`, "---\nlayout: 2\n---\n# Workspace\n");
+    await Bun.write(`${root}/specs/SPEC-001-widget/notes.md`, "# Notes\n");
+    const result = brain(root, "check");
+    expect(result.code).toBe(1);
+    expect(result.stdout).toBe(
+      [
+        "specs/SPEC-001-widget/notes.md: name: not SPEC-NNN-<slug>/spec.md, tasks/plan.md or tasks/todo.md",
+        "specs/SPEC-001-widget/spec.md: file: missing required spec file",
+        "specs/SPEC-001-widget/tasks/plan.md: file: missing required plan file",
+        "specs/SPEC-001-widget/tasks/todo.md: file: missing required todo file",
+        "4 findings in 1 workspace file",
+        "",
+      ].join("\n"),
+    );
+  });
+
+  test("a migrated spec can keep its historical absence of a plan and todo", async () => {
+    const root = `${work}/migrated-with-no-plan`;
+    await Bun.write(`${root}/docs/agents/workspace.md`, "---\nlayout: 2\n---\n# Workspace\n");
+    await Bun.write(
+      `${root}/specs/SPEC-001-widget/spec.md`,
+      "---\nspec: SPEC-001\nmigrated: 0.8\n---\n# Old widget spec\n",
+    );
+    const result = brain(root, "check");
+    expect(result).toEqual({ code: 0, stdout: "no finding in 1 workspace file\n", stderr: "" });
+  });
 });
 
 describe("workspace map blocking rows", () => {
@@ -198,6 +286,70 @@ describe("research that resolves a map row", () => {
     expect(await findings(root)).toContainEqual({
       path: idea,
       problem: "row 02: RES-001 is not answered research (status: in-progress, outcome: absent)",
+    });
+  });
+});
+
+describe("decision resolution at the CLI boundary", () => {
+  test("a still-proposed decision cannot resolve a current map row", async () => {
+    const root = await changedMap(
+      "proposed-decision",
+      "| 01 | Which devices? | interview | resolved | — | DEC-001 |",
+    );
+    const file = `${root}/docs/decisions/DEC-001-phones-and-laptops.md`;
+    const before = await Bun.file(file).text();
+    const proposed = before
+      .replace("status: accepted", "status: proposed")
+      .replace(/^decided:.*\n/mu, "");
+    await Bun.write(file, proposed);
+    const result = brain(root, "check");
+    expect(result.stderr).toBe("");
+    expect(result.code).toBe(1);
+    expect(result.stdout).toBe(
+      `${idea}: row 01: DEC-001 is proposed and cannot resolve a map row\n1 finding in 5 workspace files\n`,
+    );
+    const status = JSON.parse(brain(root, "status", "--json").stdout);
+    expect(status.red).toEqual([
+      `${idea}: row 01: DEC-001 is proposed and cannot resolve a map row`,
+    ]);
+    expect(await Bun.file(file).text()).toBe(proposed);
+  });
+
+  test.each(["accepted", "superseded by DEC-002"])(
+    "keeps a resolved historical row linked to a %s decision valid",
+    async (status) => {
+      const root = await changedMap(
+        `decision-${Bun.hash(status)}`,
+        "| 01 | Which devices? | interview | resolved | — | DEC-001 |",
+      );
+      const file = `${root}/docs/decisions/DEC-001-phones-and-laptops.md`;
+      const before = await Bun.file(file).text();
+      const text = before.replace("status: accepted", `status: ${status}`);
+      await Bun.write(file, text);
+      expect(brain(root, "check")).toEqual({
+        code: 0,
+        stdout: "no finding in 5 workspace files\n",
+        stderr: "",
+      });
+      expect(await Bun.file(file).text()).toBe(text);
+    },
+  );
+
+  test("a proposed decision can remain open without resolving its row", async () => {
+    const root = await changedMap(
+      "proposal-stays-open",
+      "| 01 | Which devices? | interview | open | — | — |",
+    );
+    const file = `${root}/docs/decisions/DEC-001-phones-and-laptops.md`;
+    const before = await Bun.file(file).text();
+    const text = before
+      .replace("status: accepted", "status: proposed")
+      .replace(/^decided:.*\n/mu, "");
+    await Bun.write(file, text);
+    expect(brain(root, "check")).toEqual({
+      code: 0,
+      stdout: "no finding in 5 workspace files\n",
+      stderr: "",
     });
   });
 });

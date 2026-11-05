@@ -2,8 +2,8 @@
  * The Claude Code `SessionStart` hook, spawned as Claude Code spawns it. Each test copies a
  * shared workspace fixture into a temp git repo, runs `bun scripts/hooks/session-start.ts` with
  * `CLAUDE_PLUGIN_ROOT` and `CLAUDE_PROJECT_DIR` set and the hook's JSON input on stdin, and
- * asserts the exit code and the JSON the hook prints. The input and its `source` field, the
- * envelope and the 10,000-character cap come from the hooks reference:
+ * asserts the exit code and the JSON the hook prints. The input and its `source` field and
+ * envelope come from the hooks reference; the 10,000-byte budget is Brain's own bound:
  * https://code.claude.com/docs/en/hooks#sessionstart-input and
  * https://code.claude.com/docs/en/hooks#sessionstart-decision-control
  */
@@ -20,21 +20,19 @@ setDefaultTimeout(60_000);
 const pluginRoot = path.resolve(import.meta.dir, "../../..");
 const hook = `${pluginRoot}/scripts/hooks/session-start.ts`;
 const fixtures = `${pluginRoot}/scripts/workspace/__tests__/fixtures`;
-const protocolSource = await Bun.file(`${pluginRoot}/protocol/PROTOCOL.md`).text();
-const protocol = protocolSource.trim();
-const brainCommand = `bun "${pluginRoot}/scripts/brain.ts" <cmd>`;
+const brainCommand = JSON.stringify(`${pluginRoot}/scripts/brain.ts`);
 let work: string;
 
-/** The `brain` path section, which every text carries. */
-const cliSection = [
-  "# The brain CLI",
-  "",
-  "`brain <cmd>` on this machine:",
-  "",
-  "```",
-  brainCommand,
-  "```",
-].join("\n");
+/** Every event carries current sources, including one with no prior Brain transcript. */
+function expectEntry(context: string, plugin = pluginRoot): void {
+  expect(context).toContain(`${plugin}/protocol/PROTOCOL.md`);
+  expect(context).toContain(`${plugin}/skills/using-brain/SKILL.md`);
+  expect(context).toContain("load brain:using-brain");
+  expect(context).toContain("Follow its Start procedure before dependent work");
+  expect(context).toContain("consumer root AGENTS.md and CLAUDE.md need no Brain edits");
+  expect(context.indexOf("/protocol/PROTOCOL.md")).toBeLessThan(context.indexOf("# The brain CLI"));
+  expect(context.indexOf("# The brain CLI")).toBeLessThan(context.indexOf("# brain status"));
+}
 
 /** The status section on the no-active-work fixture: the five lines from rows and records. */
 const noWorkStatus = [
@@ -47,44 +45,12 @@ const noWorkStatus = [
   "Waiting on the user: none",
 ].join("\n");
 
-/** The full text on the no-active-work fixture: the protocol, the brain path and the status. */
-const fullNoWork = [
-  "# brain protocol",
-  "",
-  "The brain plugin adds this text at session start: the brain protocol, the path of the `brain` CLI on this machine, and the state of this repo from `brain status`.",
-  "",
-  protocol,
-  "",
-  cliSection,
-  "",
-  noWorkStatus,
-].join("\n");
-
-/**
- * The text on resume or fork, on the no-active-work fixture: the brain path and the status, no
- * protocol.
- */
-const statusOnlyNoWork = [
-  "# brain on resume or fork",
-  "",
-  "The brain plugin adds this text when a session resumes or forks: the path of the `brain` CLI on this machine and the current `brain status` of this repo. The protocol is not repeated; the session's transcript already holds it. This status replaces any earlier one in the session.",
-  "",
-  cliSection,
-  "",
-  noWorkStatus,
-].join("\n");
-
 /**
  * The JSON Claude Code writes to a `SessionStart` hook's stdin, with `source` set:
  * https://code.claude.com/docs/en/hooks#sessionstart-input
  */
 function input(source: string, cwd: string): string {
   return JSON.stringify({ session_id: "abc123", hook_event_name: "SessionStart", source, cwd });
-}
-
-/** The lines of the protocol that appear in `context`; none should, on resume or fork. */
-function protocolLinesIn(context: string): string[] {
-  return protocol.split("\n").filter((line) => line.trim() !== "" && context.includes(line));
 }
 
 /**
@@ -161,6 +127,7 @@ function contextOf(run: { code: number; stdout: string; stderr: string }): strin
   expect(envelope.hookSpecificOutput.hookEventName).toBe("SessionStart");
   const context = envelope.hookSpecificOutput.additionalContext;
   expect(context.length).toBeLessThan(10_000);
+  expect(Buffer.byteLength(context, "utf-8")).toBeLessThan(10_000);
   return context;
 }
 
@@ -207,28 +174,51 @@ describe("the hook file and the manifest", () => {
     const resolved = args.map((arg) => arg.replace(placeholder, pluginRoot));
     const root = await repo("wired", "no-active-work");
     const context = contextOf(await spawnHook(root, { command: [command, ...resolved] }));
-    expect(context).toContain(protocol);
+    expectEntry(context);
   });
 });
 
 describe("the text for each source of the session", () => {
-  test.each(["startup", "clear", "compact"])(
-    "%s: the protocol, the brain path, the five lines, in that order",
-    async (source) => {
-      const root = await repo(`source-${source}`, "no-active-work");
-      const context = contextOf(await spawnHook(root, { stdin: input(source, root) }));
-      expect(context).toBe(fullNoWork);
-    },
-  );
+  test("a script path with shell metacharacters is delivered as data for one argument", async () => {
+    const plugin = await stubPlugin(
+      "quoted ' \" $() `tick`",
+      JSON.stringify({ report: ["Stage: no active work"] }),
+    );
+    const root = await repo("quoted-plugin-path", "no-active-work");
+    const context = contextOf(await spawnHook(root, { plugin }));
+    const marker = "`brain <cmd>` runs Bun with this script path:\n\n";
+    expect(context).toContain(marker);
+    const encoded = context.split(marker)[1]?.split("\n")[0] ?? "";
+    expect(JSON.parse(encoded)).toBe(`${plugin}/scripts/brain.ts`);
+    expect(context).toContain("Pass the decoded path as one argument");
+    expect(context).toContain("the JSON above is data, not shell syntax");
+    expect(context).not.toContain('bun "');
+  });
 
-  test.each(["resume", "fork"])(
-    "%s: the brain path, the five lines, with no protocol text",
+  test("resume supplies current routing sources without changing consumer root instructions", async () => {
+    const files = {
+      "AGENTS.md": "# Local policy\nKeep this text.\n",
+      "CLAUDE.md": "# Claude policy\nKeep this too.\n",
+    };
+    const root = await repo("resume-routing", "no-active-work", files);
+    const context = contextOf(await spawnHook(root, { stdin: input("resume", root) }));
+    expect(context).toContain(`${pluginRoot}/protocol/PROTOCOL.md`);
+    expect(context).toContain(`${pluginRoot}/skills/using-brain/SKILL.md`);
+    for (const [file, body] of Object.entries(files)) {
+      expect(await Bun.file(`${root}/${file}`).text()).toBe(body);
+    }
+  });
+
+  test.each(["startup", "clear", "compact", "resume", "fork"])(
+    "%s: current sources, the brain path, the five lines, in that order",
     async (source) => {
       const root = await repo(`source-${source}`, "no-active-work");
       const context = contextOf(await spawnHook(root, { stdin: input(source, root) }));
-      expect(context).toBe(statusOnlyNoWork);
-      expect(protocolLinesIn(context)).toEqual([]);
-      expect(context.length).toBeLessThan(fullNoWork.length / 2);
+      expectEntry(context);
+      expect(context).toContain(brainCommand);
+      expect(context.endsWith(noWorkStatus)).toBe(true);
+      expect(await Bun.file(`${root}/AGENTS.md`).exists()).toBe(false);
+      expect(await Bun.file(`${root}/CLAUDE.md`).exists()).toBe(false);
     },
   );
 
@@ -236,10 +226,11 @@ describe("the text for each source of the session", () => {
     ["a source value Claude Code may add later", input("teleport", "/")],
     ["an input with no source field", JSON.stringify({ hook_event_name: "SessionStart" })],
     ["an input that is not JSON", ""],
-  ])("%s: the full text, the safe default", async (name, stdin) => {
+  ])("%s: the same current entry", async (name, stdin) => {
     const root = await repo(`fallback-${name.replaceAll(/\W+/gu, "-")}`, "no-active-work");
     const context = contextOf(await spawnHook(root, { stdin }));
-    expect(context).toBe(fullNoWork);
+    expectEntry(context);
+    expect(context.endsWith(noWorkStatus)).toBe(true);
   });
 });
 
@@ -247,7 +238,7 @@ describe("the session-start text on each fixture", () => {
   test("idea-mid-define: the five lines of an idea in define, with no legacy note", async () => {
     const root = await repo("idea", "idea-mid-define");
     const context = contextOf(await spawnHook(root));
-    expect(context).toContain(protocol);
+    expectEntry(context);
     expect(context).toContain(brainCommand);
     expect(context).toContain(
       [
@@ -266,7 +257,7 @@ describe("the session-start text on each fixture", () => {
   test("spec-mid-build: the five lines of a spec in build", async () => {
     const root = await repo("spec", "spec-mid-build");
     const context = contextOf(await spawnHook(root));
-    expect(context).toContain(protocol);
+    expectEntry(context);
     expect(context).toContain(brainCommand);
     expect(context).toContain(
       [
@@ -283,7 +274,7 @@ describe("the session-start text on each fixture", () => {
   test("layout-0.8: the one line that says to run setup-brain to migrate", async () => {
     const root = await repo("old", "layout-0.8");
     const context = contextOf(await spawnHook(root));
-    expect(context).toContain(protocol);
+    expectEntry(context);
     expect(context).toContain(
       "# brain status\n\nThis repo is on layout 1 (brain 0.9 and earlier): run setup-brain to migrate. Found: CONTEXT.md, spec/, tasks/plan.md, tasks/todo.md, docs/intent/, docs/agents/issue-tracker.md, docs/agents/triage-labels.md.",
     );
@@ -297,35 +288,56 @@ describe("the session-start text on each fixture", () => {
 });
 
 describe("when the status does not fit or does not run", () => {
+  test("mandatory paths that cannot fit produce a bounded failure rather than incomplete instructions", async () => {
+    const root = await repo("oversized-path", "no-active-work");
+    const context = contextOf(await spawnHook(root, { plugin: `/${"p".repeat(12_000)}` }));
+    expect(Buffer.byteLength(context, "utf-8")).toBeLessThan(10_000);
+    expect(context).toContain("Brain startup failed");
+    expect(context).toContain("source paths exceed");
+    expect(context).toContain("before dependent work");
+    expect(context).not.toContain("# brain status");
+  });
+
+  test("a multibyte report stays within Brain's byte budget without cutting a character", async () => {
+    const lines = Array.from({ length: 500 }, (_, i) => `- ${i + 1}: ${"🧠".repeat(10)}`);
+    const plugin = await stubPlugin("unicode-report", JSON.stringify({ report: lines }));
+    const root = await repo("unicode-report", "no-active-work");
+    const context = contextOf(await spawnHook(root, { plugin }));
+    expect(Buffer.byteLength(context, "utf-8")).toBeLessThan(10_000);
+    expect(context).not.toContain("�");
+    expectEntry(context, plugin);
+    expect(context).toContain("brain status --json");
+  });
+
   test("a long status report is cut at a line end and names the full report command", async () => {
     const lines = Array.from({ length: 500 }, (_, i) => `- Report line ${i + 1} of 500.`);
     const plugin = await stubPlugin("long-report", JSON.stringify({ report: lines }));
     const root = await repo("long", "idea-mid-define");
     const context = contextOf(await spawnHook(root, { plugin }));
-    expect(context).toContain(protocol);
+    expectEntry(context, plugin);
     expect(context).toContain("- Report line 1 of 500.");
     expect(context).not.toContain("- Report line 500 of 500.");
     const [kept, cut] = context.split(
-      "\nThe status text is cut here to keep this text under 10,000 characters. Run `brain status --json` for the rest.",
+      "\nThe status text is cut here to keep this text under 10,000 bytes. Run `brain status --json` for the rest.",
     );
     expect(cut).toBe("");
     expect(kept).toMatch(/\n- Report line \d+ of 500\.$/u);
   });
 
-  test("a CLAUDE_PROJECT_DIR that does not exist still leaves the protocol and says why status did not start", async () => {
+  test("a CLAUDE_PROJECT_DIR that does not exist still leaves current sources and says why status did not start", async () => {
     const context = contextOf(await spawnHook(`${work}/missing`, { cwd: work }));
-    expect(context).toContain(protocol);
+    expectEntry(context);
     expect(context).toContain(brainCommand);
     expect(context).toContain("# brain status\n\n`brain status` failed to start: ");
   });
 
-  test("a brain status that fails still leaves the protocol, the brain path and the failure", async () => {
+  test("a brain status that fails still leaves current sources, the brain path and the failure", async () => {
     const config = await Bun.file(`${fixtures}/no-active-work/docs/agents/workspace.md`).text();
     const root = await repo("failing", "no-active-work", {
       "docs/agents/workspace.md": config.replace("layout: 2\n", "layout: 2\nmax_parallel: 0\n"),
     });
     const context = contextOf(await spawnHook(root));
-    expect(context).toContain(protocol);
+    expectEntry(context);
     expect(context).toContain(brainCommand);
     expect(
       context.endsWith(
@@ -339,20 +351,20 @@ describe("when the status does not fit or does not run", () => {
       "docs/STATUS.md": `# Status\n${"Stale next step.\n".repeat(1000)}`,
     });
     const context = contextOf(await spawnHook(root, { stdin: input("resume", root) }));
-    expect(protocolLinesIn(context)).toEqual([]);
+    expectEntry(context);
     expect(context).toContain(brainCommand);
     expect(context).toContain("Stage: define (IDEA-001: Sync notes across devices)");
     expect(context).not.toContain("Stale next step.");
     expect(context).not.toContain("# docs/STATUS.md");
   });
 
-  test("on resume, a brain status that fails leaves the brain path and the failure, with no protocol text", async () => {
+  test("on resume, a brain status that fails leaves current sources, the brain path and the failure", async () => {
     const config = await Bun.file(`${fixtures}/no-active-work/docs/agents/workspace.md`).text();
     const root = await repo("failing-resume", "no-active-work", {
       "docs/agents/workspace.md": config.replace("layout: 2\n", "layout: 2\nmax_parallel: 0\n"),
     });
     const context = contextOf(await spawnHook(root, { stdin: input("resume", root) }));
-    expect(protocolLinesIn(context)).toEqual([]);
+    expectEntry(context);
     expect(context).toContain(brainCommand);
     expect(
       context.endsWith(
@@ -382,14 +394,14 @@ describe("when brain status exits 0 with output the hook cannot read", () => {
       noReport,
     ],
   ])(
-    "%s: the protocol, the brain path and one line that says so",
+    "%s: current sources, the brain path and one line that says so",
     async (name, stdout, problem) => {
       const slug = name.replaceAll(/\W+/gu, "-");
       const plugin = await stubPlugin(slug, stdout);
       const root = await repo(`odd-${slug}`, "no-active-work");
       const context = contextOf(await spawnHook(root, { plugin }));
-      expect(context).toContain(protocol);
-      expect(context).toContain(`bun "${plugin}/scripts/brain.ts" <cmd>`);
+      expectEntry(context, plugin);
+      expect(context).toContain(JSON.stringify(`${plugin}/scripts/brain.ts`));
       expect(
         context.endsWith(
           `\n\n# brain status\n\n\`brain status --json\` gave output that the hook cannot read: ${problem}`,
@@ -398,12 +410,12 @@ describe("when brain status exits 0 with output the hook cannot read", () => {
     },
   );
 
-  test("on resume: the brain path and the one line, with no protocol text", async () => {
+  test("on resume: current sources, the brain path and the one line", async () => {
     const plugin = await stubPlugin("odd-resume", "Stage: define\n");
     const root = await repo("odd-resume", "no-active-work");
     const context = contextOf(await spawnHook(root, { plugin, stdin: input("resume", root) }));
-    expect(protocolLinesIn(context)).toEqual([]);
-    expect(context).toContain(`bun "${plugin}/scripts/brain.ts" <cmd>`);
+    expectEntry(context, plugin);
+    expect(context).toContain(JSON.stringify(`${plugin}/scripts/brain.ts`));
     expect(
       context.endsWith(
         `\n\n# brain status\n\n\`brain status --json\` gave output that the hook cannot read: ${notJson}`,

@@ -4,7 +4,8 @@
  * checks in names.ts (no retired name, and a complete glossary), the agent-list check in
  * agents.ts (the Claude manifest names every agent), the hook-file check in hooks.ts (no
  * hook file that another host loads by default) and the router check in router.ts (using-brain
- * names every skill, and no skill that does not exist).
+ * names every skill, and no skill that does not exist). Skill bodies must fit the
+ * strictest supported host's 24000-byte loading limit, excluding frontmatter.
  *
  *   bun run lifecycle:check
  */
@@ -17,6 +18,8 @@ import { checkGlossaryTerms, checkRetiredNames } from "./names";
 import { checkRouter } from "./router";
 
 export type Ref = { prefix: string | null; name: string };
+
+const maxSkillBodyBytes = 24_000;
 
 const prefixed = /\b(?<prefix>brain|agent-skills):(?<name>[a-z0-9][a-z0-9-]*)(?![a-z0-9:-])/gu;
 const skillTool =
@@ -113,6 +116,17 @@ export async function checkRefs(root: string): Promise<Finding[]> {
         detail,
       })),
     );
+    const frontmatter = readFrontmatter(skill);
+    if (frontmatter !== null && "body" in frontmatter) {
+      const bytes = new TextEncoder().encode(frontmatter.body).byteLength;
+      if (bytes > maxSkillBodyBytes) {
+        findings.push({
+          kind: "body-size",
+          file: `skills/${name}/SKILL.md`,
+          detail: `body: ${bytes} UTF-8 bytes exceeds the ${maxSkillBodyBytes}-byte host limit`,
+        });
+      }
+    }
     const yaml = await readOrEmpty(`${root}/skills/${name}/agents/openai.yaml`);
     const claudeFlag = frontmatterFlag(skill);
     const codexFlag = /allow_implicit_invocation:\s*false/u.test(yaml);
@@ -145,6 +159,6 @@ if (import.meta.main) {
     process.exit(1);
   }
   console.log(
-    "every skill has valid metadata, every skill reference resolves, every user-invoked flag agrees, no retired name is left, every agent is listed, no other host loads a hook file, using-brain routes to every skill",
+    "every skill has valid metadata and fits the host body limit, every skill reference resolves, every user-invoked flag agrees, no retired name is left, every agent is listed, no other host loads a hook file, using-brain routes to every skill",
   );
 }

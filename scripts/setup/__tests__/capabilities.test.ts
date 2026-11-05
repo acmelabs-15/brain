@@ -329,7 +329,7 @@ describe("writeCapabilities, the user's choices", () => {
 
 describe("writeCapabilities, an existing file", () => {
   test("is the repo's file: kept byte for byte, with each proposed row it does not name listed", async () => {
-    const before = `# Mine\n\n| \`@tanstack/ai\` | \`tanstack-ai:*\` |\n| \`docs\` | by hand |\n`;
+    const before = `# Mine\n\n## Library skills\n\n| \`@tanstack/ai\` | \`tanstack-ai:*\` |\n\n## Servers\n\n| \`docs\` | by hand |\n`;
     const root = await repo("existing", {
       [path]: before,
       "package.json": pkg({

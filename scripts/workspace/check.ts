@@ -12,7 +12,7 @@
 import { realpath } from "node:fs/promises";
 import path from "node:path";
 
-import { isDirectory } from "../lib/files";
+import { folderNames, isDirectory } from "../lib/files";
 import { tableCells } from "../lib/table";
 import { findRepo, readConfig } from "./config";
 import type { Paths } from "./config";
@@ -35,6 +35,7 @@ const specFiles: Record<string, DocType> = {
   "tasks/plan.md": "plan",
   "tasks/todo.md": "todo",
 };
+const specFolderName = new RegExp(`^SPEC-\\d{3}-${slug}$`, "u");
 
 /**
  * Each workspace folder, the name a file in it must have, and the shape a finding names. In a
@@ -73,6 +74,7 @@ const folders: { key: keyof Paths; name: RegExp; shape: string; type?: DocType }
 
 /** A workspace file whose name gives it a type. Paths are relative to the repo's root. */
 type Doc = { path: string; type: DocType; id: string; unit: string };
+type LoadedDoc = { doc: Doc; text: string };
 type Finding = { path: string; problem: string };
 type Result = {
   findings: Finding[];
@@ -120,6 +122,35 @@ async function scan(
     }
   }
   return { docs, findings, files };
+}
+
+/** A migrated spec may have no old plan to move; every new spec needs all three fixed files. */
+async function missingSpecFiles(
+  root: string,
+  paths: Paths,
+  loaded: LoadedDoc[],
+): Promise<Finding[]> {
+  const present = new Set(loaded.map(({ doc }) => doc.path));
+  const specs = new Map(
+    loaded.filter(({ doc }) => doc.type === "spec").map(({ doc, text }) => [doc.unit, text]),
+  );
+  const findings: Finding[] = [];
+  for (const name of await folderNames(path.join(root, paths.specs))) {
+    if (!specFolderName.test(name)) {
+      continue;
+    }
+    const unit = path.join(paths.specs, name);
+    const frontmatter = readFrontmatter(specs.get(unit) ?? "");
+    const migrated =
+      frontmatter !== null && "data" in frontmatter && String(frontmatter.data.migrated) === "0.8";
+    for (const [file, type] of Object.entries(specFiles)) {
+      const where = path.join(unit, file);
+      if (!present.has(where) && !(migrated && type !== "spec")) {
+        findings.push({ path: where, problem: `file: missing required ${type} file` });
+      }
+    }
+  }
+  return findings;
 }
 
 /** One finding for each file or spec folder past the first that takes an ID already taken. */
@@ -254,6 +285,7 @@ function rowProblems(
   body: string,
   known: Set<string>,
   research: Map<string, Record<string, unknown>>,
+  decisions: Map<string, Record<string, unknown>>,
 ): string[] {
   const { rows, problems } = readRows(table, body);
   if (table === "plan") {
@@ -270,6 +302,12 @@ function rowProblems(
     }
     if (row.status === "resolved") {
       problems.push(...researchResultProblems(row.id, links, research));
+      for (const link of links) {
+        // Later supersession preserves a historical resolution; a still-proposed DEC never supplied one.
+        if (decisions.get(link)?.status === "proposed") {
+          problems.push(`row ${row.id}: ${link} is proposed and cannot resolve a map row`);
+        }
+      }
     }
   }
   // A row left out for its format only takes edges away, so a cycle in the rest is a real one.
@@ -397,12 +435,15 @@ export async function checkWorkspace(root: string, paths: Paths): Promise<Result
       text: await Bun.file(path.join(root, doc.path)).text(),
     })),
   );
+  findings.push(...(await missingSpecFiles(root, paths, loaded)));
   const research = new Map<string, Record<string, unknown>>();
+  const decisions = new Map<string, Record<string, unknown>>();
   for (const { doc, text } of loaded) {
-    if (doc.type === "RES") {
+    if (doc.type === "RES" || doc.type === "DEC") {
       const frontmatter = readFrontmatter(text);
       if (frontmatter !== null && "data" in frontmatter) {
-        research.set(doc.id, frontmatter.data);
+        const records = doc.type === "RES" ? research : decisions;
+        records.set(doc.id, frontmatter.data);
       }
     }
   }
@@ -421,7 +462,7 @@ export async function checkWorkspace(root: string, paths: Paths): Promise<Result
       if (!migrated) {
         problems.push(...placeholderTitle(body));
         if (table !== undefined) {
-          problems.push(...rowProblems(table, body, known, research));
+          problems.push(...rowProblems(table, body, known, research, decisions));
         }
         if (doc.type === "IDEA") {
           problems.push(...ideaCompletionProblems(data.status, body));

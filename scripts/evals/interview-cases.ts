@@ -239,7 +239,13 @@ export async function scaffoldInterview(
   if (c.noRepo) {
     return;
   }
-  const init = Bun.spawnSync(["git", "init", "--quiet"], { cwd });
+  const env = Object.fromEntries(
+    Object.entries(process.env).filter(([key]) => !key.startsWith("GIT_")),
+  );
+  const init = Bun.spawnSync(["git", "init", "--quiet", "--template=", "--initial-branch=eval"], {
+    cwd,
+    env: { ...env, GIT_CONFIG_GLOBAL: "/dev/null", GIT_CONFIG_NOSYSTEM: "1" },
+  });
   if (init.exitCode !== 0) {
     throw new Error(init.stderr.toString());
   }

@@ -297,9 +297,9 @@ function parseYaml(text: string): { data: unknown } | { error: string } {
 export function readFrontmatter(
   text: string,
 ): { data: Record<string, unknown>; body: string } | { error: string } | null {
-  const parts = /^---\n(?:(?<head>[\s\S]*?)\n)?---(?:\n|$)/u.exec(text);
+  const parts = /^---\r?\n(?:(?<head>[\s\S]*?)\r?\n)?---(?:\r?\n|$)/u.exec(text);
   if (parts === null) {
-    return null;
+    return /^---\r?\n/u.test(text) ? { error: "missing closing delimiter" } : null;
   }
   const parsed = parseYaml(parts.groups?.head ?? "");
   if ("error" in parsed) {

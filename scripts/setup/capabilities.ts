@@ -13,6 +13,7 @@
  */
 import { mkdir } from "node:fs/promises";
 
+import { tableCells } from "../lib/table";
 import type { Change } from "./write";
 
 export type CapabilitiesInput = {
@@ -27,6 +28,7 @@ export type CapabilitiesInput = {
 
 /** A proposed row that an existing capabilities.md does not name, with the section it belongs in. */
 export type Unnamed = { section: string; row: string };
+export type Changed = Unnamed & { previous: string };
 
 export type CapabilitiesResult = {
   /** One change per repo file that could not be read, then the change to capabilities.md. */
@@ -34,6 +36,7 @@ export type CapabilitiesResult = {
   /** The text the proposal gives; written only when capabilities.md does not exist yet. */
   text: string;
   unnamed: Unnamed[];
+  changed: Changed[];
 };
 
 /** One proposed row: `name` is what --omit matches, `cell` its first cell, as the file spells it. */
@@ -267,6 +270,67 @@ function fill(template: string, sections: Section[]): string {
   return text;
 }
 
+/** Table cells without layout whitespace; an escaped pipe belongs to its cell. */
+function cells(row: string): string[] {
+  return tableCells(row) ?? [];
+}
+
+/** Each capability table belongs to its level-two heading; examples inside fences are not rows. */
+function sectionRows(text: string, heading: string): string[] {
+  const rows: string[] = [];
+  let inside = false;
+  let fence: string | null = null;
+  for (const line of text.split("\n")) {
+    const mark = /^\s*(?<mark>`{3,}|~{3,})/u.exec(line)?.groups?.mark;
+    if (mark !== undefined) {
+      if (fence === null) {
+        fence = mark;
+      } else if (mark.startsWith(fence)) {
+        fence = null;
+      }
+      continue;
+    }
+    if (fence !== null) {
+      continue;
+    }
+    if (/^#{1,2} /u.test(line)) {
+      inside = line.trim() === `## ${heading}`;
+    } else if (inside && tableCells(line) !== null) {
+      rows.push(line);
+    }
+  }
+  return rows;
+}
+
+/** Toolchain constraints from independent sources remain independent rows. */
+function matchesEntry(row: string, entry: Entry, heading: string): boolean {
+  const before = cells(row);
+  const after = cells(entry.row);
+  return before[0] === entry.cell && (heading !== "Toolchain" || before.at(2) === after.at(2));
+}
+
+/** Report changed source facts without replacing repo-owned text or a server's proof command. */
+function changedRows(current: string, sections: Section[]): Changed[] {
+  return sections.flatMap(({ heading, entries }) =>
+    entries.flatMap((entry) => {
+      const rows = sectionRows(current, heading);
+      const previous = rows.find((row) => matchesEntry(row, entry, heading));
+      const after = cells(entry.row);
+      if (previous === undefined) {
+        return [];
+      }
+      const before = cells(previous);
+      const proof = before.at(2);
+      if (heading === "Servers" && proof !== undefined) {
+        after[2] = proof;
+      }
+      return before.join("|") === after.join("|")
+        ? []
+        : [{ section: heading, previous: previous.trim(), row: `| ${after.join(" | ")} |` }];
+    }),
+  );
+}
+
 /** Propose capabilities.md and write it, unless `dryRun` is set or the file already exists. */
 export async function writeCapabilities(input: CapabilitiesInput): Promise<CapabilitiesResult> {
   const template = await Bun.file(`${input.brain}/skills/setup-brain/capabilities.md`).text();
@@ -283,17 +347,30 @@ export async function writeCapabilities(input: CapabilitiesInput): Promise<Capab
     const current = await file.text();
     const unnamed = kept.flatMap(({ heading, entries }) =>
       entries
-        .filter((entry) => !current.includes(entry.cell))
+        .filter(
+          (entry) =>
+            !sectionRows(current, heading).some((row) => matchesEntry(row, entry, heading)),
+        )
         .map((entry) => ({ section: heading, row: entry.row })),
     );
     const note = "the repo's file now: add a row by hand";
-    return { changes: [...skipped, { path: target, action: "unchanged", note }], text, unnamed };
+    return {
+      changes: [...skipped, { path: target, action: "unchanged", note }],
+      text,
+      unnamed,
+      changed: changedRows(current, kept),
+    };
   }
   if (!input.dryRun) {
     await mkdir(full.replace(/\/[^/]+$/u, ""), { recursive: true });
     await Bun.write(full, text);
   }
-  return { changes: [...skipped, { path: target, action: "created" }], text, unnamed: [] };
+  return {
+    changes: [...skipped, { path: target, action: "created" }],
+    text,
+    unnamed: [],
+    changed: [],
+  };
 }
 
 function parseArgs(argv: string[]): CapabilitiesInput {
@@ -357,6 +434,9 @@ async function main(argv: string[]): Promise<number> {
     }
     for (const { section, row } of result.unnamed) {
       console.log(`not named ${section}: ${row}`);
+    }
+    for (const { section, previous, row } of result.changed) {
+      console.log(`changed ${section}: ${row}\n  previous: ${previous}`);
     }
     const created = result.changes.some((c) => c.path === target && c.action === "created");
     if (input.dryRun && created) {

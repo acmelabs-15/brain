@@ -1,7 +1,7 @@
 ---
 name: ask-user-question
 description: "Prepares a user decision, composes one clear question, interprets the reply, and repairs the exchange. Use before asking a question during coding, planning, investigation, or another workflow, and when a reply is incomplete, confusing, corrective, qualified, or off the current topic. Applies to AskUserQuestion, request_user_input, request_user_input_async, and ask_user. Use for a wait-what request or when the user cannot digest a question. Investigate discoverable facts first; ask about the user's remaining intent or trade-off. The larger workflow keeps its own scope and completion rules. Not for building a questionnaire UI or writing general documentation about communication."
-compatibility: "Interactive Claude Code, Codex, or Gemini CLI with a permitted user-question tool. Follow the active tool schema and session instructions. The surrounding task supplies its evidence and project records; the host references distinguish verified contracts from untested rendering."
+compatibility: "Interactive session with a supported user-reply channel. Use a permitted native question tool, or the text fallback when none is available. The active host schema and session instructions govern the call. The surrounding workflow owns its state; host references distinguish documented contracts from untested rendering."
 metadata:
   type: core
   library: brain
@@ -21,24 +21,28 @@ Ask one question → read every part of the reply → update what is settled.
 Continue, investigate, or repair; keep unresolved dependent work pending.
 ```
 
-Check which question tool this session offers. Read that tool's reference before
-you compose the first call. Each tool name is a separate contract with its own
-schema.
+Check this session's question tools, schemas and permitted modes. Read the matching
+host reference before the first call. A shared tool name does not establish that
+two hosts have the same contract. For another host, use its actual schema and
+availability rules; keep undocumented behavior unverified.
 
-| Available tool | Read before composing the call |
+| Host and available tool | Read before composing the call |
 | --- | --- |
-| `AskUserQuestion` | [Claude Code](references/claude-code.md) |
-| `request_user_input` or `request_user_input_async` | [Codex](references/codex.md) |
-| `ask_user` | [Gemini CLI](references/gemini-cli.md) |
+| Claude Code: `AskUserQuestion` | [Claude Code](references/claude-code.md) |
+| Codex: `request_user_input` or `request_user_input_async` | [Codex](references/codex.md) |
+| Gemini CLI: `ask_user` | [Gemini CLI](references/gemini-cli.md) |
 
 Follow that tool's availability and schema. If no permitted question tool
-exists, state that limitation and ask in plain text, in the tool's layout:
+exists but the user can reply in chat, state that limitation and ask in plain text:
 
 - The context, then the one bounded question.
-- One option per line: its label, what happens, and what it costs.
-- One option's label ends in "(Recommended)", and its reason stands beside it
-  or in the question text.
-- The question and its options end the reply. Any note goes before them.
+- For a choice, one option per line: its label, what happens, and what it costs.
+  When evidence supports a recommendation, put that option first with
+  "(Recommended)" in its label and its reason beside it or in the question.
+  Otherwise state that the evidence favors no option.
+- For discovery, ask for the missing information. Supply options only when they
+  represent real alternatives; the user's unknown facts need no invented answer.
+- The question and any options end the reply. Any note goes before them.
 
 ```text
 This session has no question tool, so I ask here.
@@ -49,7 +53,14 @@ Should drafts require sign-in, or should we revise the recovery requirement?
 - Revise the recovery requirement: drafts need no sign-in. They stay on one device.
 ```
 
-Keep dependent work unresolved.
+An actual text reply can supply the same scoped decision or approval as a native
+answer. Keep dependent work unresolved until that reply settles its required
+inputs. With no supported reply channel, report the missing answer and continue
+only independent work.
+
+Before asking the user to select a set, or when candidates exceed the active
+tool's option limit, read [Selection](references/selection.md) in full. It defines
+supported controls, exact selection scope and handling of missing answers.
 
 **Wait for the person.** Keep an unanswered question pending. Add no response
 deadline, idle inference, cancellation timer, or automatic answer. A delivery
@@ -185,10 +196,11 @@ unclear term, make an option concrete, or divide independent decisions. Preserve
 what was already understood. A request such as wait-what does not answer the
 pending question or authorize a different task.
 
-Update the larger workflow's Markdown record as the exchange progresses. Record
-what settled and its source, conditions, unresolved facts, conflicts, useful later
-topics, and the next supported action. Mark proposals as proposals. State what
-you deferred and why. If the revisit condition is unknown, leave it open.
+Update the larger workflow's existing state as the exchange progresses: its
+Markdown record or the conversation. Follow that workflow's file-creation rules.
+Record what settled and its source, conditions, unresolved facts, conflicts,
+useful later topics, and the next supported action. Mark proposals as proposals.
+State what you deferred and why. If the revisit condition is unknown, leave it open.
 
 Use the project's existing destinations. A glossary receives resolved definitions;
 general working notes do not become glossary entries or accepted decisions.
@@ -403,3 +415,4 @@ schema and current session constraints decide what is permitted.
 - [Claude Code](references/claude-code.md): native questions, SDK replies, and host auto-continue settings.
 - [Codex](references/codex.md): synchronous versus asynchronous questions, response shapes, and waiting limits.
 - [Gemini CLI](references/gemini-cli.md): explicit question types, positional replies, and cancellation.
+- [Selection](references/selection.md): required before a set-selection question or when candidates exceed the tool's option limit.

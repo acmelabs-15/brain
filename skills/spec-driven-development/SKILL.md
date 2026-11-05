@@ -1,6 +1,6 @@
 ---
 name: spec-driven-development
-description: Writes a spec before code. Interviews when the ask is underspecified, confirms assumptions one question at a time, chooses the test seams, detours to a throwaway prototype when a question needs a runnable answer, and saves spec.md in its own spec folder. Use for a new project, feature or significant change with no spec, a vague idea or PRD, or a request that needs a capability map of modules first.
+description: Writes a spec before code. Interviews when the ask is underspecified, reuses settled requirements, resolves remaining binding assumptions one question at a time, chooses test seams, and uses prototypes for runnable evidence. Saves spec.md in its own spec folder. Use for a new project, feature or significant change with no spec, a vague idea or PRD, or a request that needs a capability map of modules first.
 ---
 
 # Spec-Driven Development
@@ -81,34 +81,26 @@ Build order: identity → billing, notifications → reporting
 
 ### Stage 1: Specify
 
-Stage 1 runs in order: understand the ask, confirm the assumptions, choose the test seams, take the prototype detour when a question needs one, then write the spec.
+Stage 1 runs in order: understand the ask, reuse settled requirements and resolve remaining binding assumptions, choose the test seams, take the prototype detour when a question needs one, then write the spec for review.
 
 **1. Understand the ask.** Read the conversation and the codebase before you ask anything. Two cases:
 
 - The answers are already written: in the conversation (a design thread, a bug discussion), or in the idea file of a finished interview (`IDEA-NNN-<slug>.md` in the workspace's ideas folder, `paths.ideas` in `docs/agents/workspace.md`) and the DEC and RES files its map links. Synthesise from them and ask nothing you can read. Each IDEA, DEC and RES file you use goes into the spec's `sources:` (step 5).
-- The ask is underspecified: "build me X" with no "for whom" or "why now". `Call the Skill tool with "interview-me"` and run it to its confidence stop before you write a line of spec.
+- The ask is underspecified: "build me X" with no "for whom" or "why now". Load interview-me and follow its [Finish](../interview-me/SKILL.md#finish) contract before writing the spec. Consume the confirmed Intent and its current records; an unfinished row, partial answer or pending confirmation keeps the interview open.
 
-**2. Surface assumptions.** Before writing any spec content, list what you assume:
+**2. Reuse settled requirements and resolve the gaps.** Inspect the confirmed Intent, decision records, user answers and current code. Reuse a requirement or decision when that evidence covers the current scope; record its source rather than asking for fresh approval. Verify discoverable facts against their owning source. If new evidence materially changes a settled premise, expose the conflict and reopen only the affected choice.
 
-```
-ASSUMPTIONS I'M MAKING:
-1. This is a web application (not native mobile)
-2. Authentication uses session-based cookies (not JWT)
-3. The database is PostgreSQL (based on existing Prisma schema)
-4. We're targeting modern browsers only (no IE11)
-```
+List the binding assumptions that remain unsupported. A binding assumption changes what gets built and cannot be settled by further inspection. Put each remaining choice through ask-user-question, one per call, with the premise, evidence, alternatives and recommendation inside the question. An unanswered binding assumption stays in Open Questions, and the spec waits on it. With none remaining, proceed without an assumptions-approval question.
 
-Then sort the list. An assumption the codebase settles (item 3, the Prisma schema) stays as stated, with its evidence beside it. An assumption that changes what gets built, and that reading cannot settle, is the human's decision: one question through the question tool per assumption, recommendation inside. An assumption still without an answer goes to Open Questions, and the spec waits on it.
+Reusing requirements does not replace the user's review and approval of the completed new spec. It keeps that review focused on the concrete artifact instead of repeating settled choices.
 
-The spec exists to surface misunderstandings before code is written. Assumptions are the most dangerous form of misunderstanding, so every one is written down and then either evidenced or asked.
-
-**3. Choose the test seams.** Sketch the seams at which the feature will be tested. Prefer existing seams to new ones. Use the highest seam that still proves the behaviour. Fewer seams across the codebase is better; the ideal number is one. When a new seam is unavoidable, propose it at the highest point you can. Put the seam choice through the question tool: the sketch, the alternatives, and your recommendation. The confirmed seams go into Testing Strategy. The existing tests at those seams go into Prior-art tests.
+**3. Choose the test seams.** Inspect the approved intent, decisions and existing tests for seams already settled for this behavior. Reuse that approval and record its source. For a new, materially changed or unresolved seam, sketch the fewest and highest boundaries that prove the behavior, then ask through ask-user-question with the alternatives and recommendation inside the question. Keep dependent work pending until that choice is settled. The confirmed seams and approval source go into Testing Strategy; existing tests at those seams go into Prior-art tests.
 
 **4. Take the prototype detour when a question needs a runnable answer.** Some questions resist prose and diagrams: does this state model feel right, does this reducer survive the odd cases, what should this screen look like. For such a question:
 
-1. `Call the Skill tool with "handoff"` and write the handoff document: the question, the spec so far, and what a verdict looks like.
-2. In a fresh session, `Call the Skill tool with "prototype"` and build the throwaway in its own directory, named so a reader sees it is a prototype. It answers the one question and nothing else.
-3. Hand back with handoff again: the verdict, the question it settled, and the snippet that carries the decision.
+1. State the question, the relevant spec content and what a verdict looks like. If the work must transfer to another working directory or harness, offer the user's handoff command. Invoke that user-only skill only when the user requests it.
+2. Load prototype and build the throwaway in its own directory, named so a reader sees it is a prototype. Use a fresh session when the chosen transfer needs one; otherwise continue in the current session. It answers the one question and nothing else.
+3. Return the verdict, the question it settled and the snippet that carries the decision. Offer the user's handoff command only when returning requires another transfer; the result itself does not authorize invoking it.
 4. Record the answer in the spec. Where a snippet encodes the decision more precisely than prose can (a state machine, a reducer, a schema, a type shape), inline it under the section that holds the decision and note that it came from a prototype. Trim it to the decision-rich part, not a working demo.
 
 The main tree keeps only the validated decision. The prototype directory stays out of the spec's Project Structure.
@@ -235,7 +227,7 @@ The spec is a living document, not a one-time artifact:
 | "The spec will slow us down" | A 15-minute spec prevents hours of rework. Waterfall in 15 minutes beats debugging in 15 hours. |
 | "Requirements will change anyway" | That's why the spec is a living document. An outdated spec is still better than no spec. |
 | "The user knows what they want" | Even clear requests have implicit assumptions. The spec surfaces those assumptions. |
-| "The conversation covers it, so I can skip the assumptions" | Synthesis skips the interview, not the assumptions list. The list is where a wrong reading becomes visible. |
+| "The conversation covers it, so no inspection is needed" | Reuse the confirmed answers after checking their scope and current evidence. Surface unresolved binding assumptions; a new list does not reopen settled requirements. |
 | "I'll pick the test seams when I write the tests" | A seam chosen during TDD is chosen per test, and the count creeps. Chosen in the spec, it is one decision the human saw. |
 | "I can reason out the state model on paper" | Cases that are hard to reason about are the signal for a prototype. Ten minutes of running code beats a page of maybes. |
 | "Three user stories cover it" | A short list is an unexplored feature. The long list is where the missing actor and the missing benefit appear. |
@@ -262,8 +254,8 @@ The spec is a living document, not a one-time artifact:
 
 Before proceeding to implementation, confirm:
 
-- [ ] The ask was interviewed (interview-me) or the conversation held the answers, and the assumptions list was written either way
-- [ ] Every assumption is evidenced from the codebase or confirmed through the question tool, one question per call
+- [ ] The ask was interviewed (interview-me) or existing answers settle it; their sources and scope are preserved
+- [ ] Settled requirements and decisions are reused; every remaining binding assumption is evidenced or resolved through one question, with its premise inside the question
 - [ ] Test seams are chosen (fewest, highest, existing first) and the human confirmed them
 - [ ] The spec covers all six core areas, then User Stories, Out of scope, and Prior-art tests
 - [ ] Domain concepts use the glossary's words; gaps are noted for domain-modeling

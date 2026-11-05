@@ -26,6 +26,10 @@ describe("interview evaluation host", () => {
 
   test("only allows the bounded brain commands and the case's exact local action", () => {
     const brain = "/fixture/plugin/scripts/brain.ts";
+    expect(allowedCommand("git status --short --branch", brain)).toBe(true);
+    expect(allowedCommand("git status --short --untracked-files=all", brain)).toBe(true);
+    expect(allowedCommand("ls -la", brain)).toBe(true);
+    expect(allowedCommand(`bun "${brain}" --help`, brain)).toBe(true);
     expect(allowedCommand(`bun "${brain}" check`, brain)).toBe(true);
     expect(allowedCommand(`bun "${brain}" new-doc DEC csv --title "Export CSV"`, brain)).toBe(true);
     expect(allowedCommand(`bun "${brain}" check; touch /tmp/other`, brain)).toBe(false);

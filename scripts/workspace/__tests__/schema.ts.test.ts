@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { checkDoc } from "../schema";
+import { checkDoc, readFrontmatter } from "../schema";
 
 function research(status: string, outcome: string): string {
   return `---
@@ -31,3 +31,15 @@ describe("research outcome", () => {
     );
   });
 });
+
+test.each(["\n", "\r\n"])(
+  "frontmatter accepts %j delimiters and preserves the exact body",
+  (eol) => {
+    const body = `# Body${eol}\nOriginal spacing  ${eol}`;
+    expect(readFrontmatter(`---${eol}layout: 3${eol}---${eol}${body}`)).toEqual({
+      data: { layout: 3 },
+      body,
+    });
+    expect(readFrontmatter(`---${eol}---${eol}${body}`)).toEqual({ data: {}, body });
+  },
+);

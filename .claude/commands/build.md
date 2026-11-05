@@ -14,6 +14,8 @@ Find the active spec through `docs/agents/workspace.md`. Read that file to its l
 
 `brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`. Claude Code fills in that path in this text only, so copy it from here into each command and each brief.
 
+Read the Brain-owned `references/brain/commit-contract.md` from the plugin before building. It governs slice commits, task results, integration and separate state-record commits.
+
 ## Modes
 
 - **`/build`** — implement the *next* pending task, then stop (careful, one slice at a time).
@@ -36,7 +38,7 @@ Take the next row on the frontier of the spec's `tasks/plan.md`. Then:
 
 ## Autonomous: the whole plan (`/build auto`)
 
-Use this once a spec exists and you want to collapse plan + build into one run. It removes the manual stepping between tasks — **not** the verification. Every task still earns a passing test and its own commit.
+Use this once a spec exists and you want to collapse plan + build into one run. It removes the manual stepping between tasks — **not** the verification. Every task still earns passing verification and a reviewed result. The commit contract permits verified slice commits before task completion.
 
 1. **Require a spec.** Use the active spec from "The spec folder". A README or arbitrary doc does **not** count. If no spec is active, stop and tell the user to run `/spec` first — do not invent requirements.
 2. **Establish a clean baseline.** Run `git status --porcelain`. If there are uncommitted changes outside the active spec's folder (`specs/SPEC-NNN-<slug>/` with the default paths: its `spec.md`, `tasks/plan.md` and `tasks/todo.md`), stop and ask the user to commit, stash, or confirm how to handle them. Autonomous per-task commits must not absorb unrelated local work, or the clean-rollback guarantee breaks.
@@ -64,11 +66,11 @@ Use this once a spec exists and you want to collapse plan + build into one run. 
    - the task's block from `tasks/todo.md`, copied whole, with the path of the spec folder and the spec section the block cites;
    - the `brain` path from "The spec folder", because a sub-agent's commands do not get the plugin variable;
    - the instruction to invoke brain:incremental-implementation and brain:test-driven-development;
-   - the rule to leave `tasks/plan.md` and `tasks/todo.md` to this session, to stage only the files the task touched, by name, and to make one commit on its worktree's branch;
-   - its result file: `T<NN>-result.md`, task ID first, in a folder outside the repo that you create for this build, holding the commit SHA, the verification command with its outcome, and any question. A sub-agent's file name never starts with report, summary, findings or analysis, which Claude Code refuses;
+   - the rule to leave `tasks/plan.md` and `tasks/todo.md` to this session, to stage only the files the task touched, by name, and to commit each verified slice on its worktree's branch under the commit contract;
+   - its result file: `T<NN>-result.md`, task ID first, in a folder outside the repo that you create for this build, holding the final implementation commit SHA, its slice commits, the scoped change, each acceptance check and verification command with its outcome, remaining limits, and any question. A sub-agent's file name never starts with report, summary, findings or analysis, which Claude Code refuses;
    - its reply: the result file's path plus one line: pass or fail, the commit SHA, and any question;
    - the rule that a decision the spec does not cover comes back as one question in its result, because a sub-agent cannot ask the user.
-5. **Merge one task at a time.** When a sub-agent of a fallback task replies, check the tree first (step 4 of "The worktree fallback"). Then read its line. Read its result file only when the line says fail or asks a question; then stop (step 6 above). When several tasks have passed, take the one on `criticalPath` first:
+5. **Merge one task at a time.** When a sub-agent of a fallback task replies, check the tree first (step 4 of "The worktree fallback"). Read its complete result file on every outcome, then inspect the scoped diff and task-specific acceptance and verification evidence. Resolve a failure, missing evidence or question before integration (step 6 above). A pass line alone is insufficient. When several tasks have passed, take the one on `criticalPath` first:
    1. Merge its branch into the feature branch: `git merge --no-ff <its branch>`. Resolve a small overlap in a shared file yourself.
    2. Run the repo's check command on the merged head.
    3. Close the row (see "Close a row").
@@ -98,7 +100,7 @@ The folder is `.claude/worktrees/`, where Claude Code makes its own worktrees. A
 This session is the only writer of `tasks/plan.md` and of the ticks in `tasks/todo.md`. After a task's commit (`/build`) or its merge (`/build auto`):
 
 1. Tick the boxes in the task's block of `tasks/todo.md`.
-2. Set the task's row in `tasks/plan.md` to `resolved`, and write its result as the table asks: the task's commit SHA, then the verification command and its outcome.
+2. Set the task's row in `tasks/plan.md` to `resolved`, and write its result as the table asks: the final verified implementation commit SHA (or integration commit after a merge), then the verification command and its outcome.
 3. Replace the text of the plan's "Parallel waves" section with the waves text of a fresh `brain plan`, everything above its `Cap:` line: a resolved row leaves the waves. A plan without the section gets one, below the Tasks table.
 4. Run `brain check`. No finding may name a file in the spec folder.
 5. Commit `tasks/plan.md` and `tasks/todo.md` alone, staged by name, in a commit of their own: the row's result names the task's commit, which exists only once that commit does.

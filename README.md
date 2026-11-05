@@ -27,15 +27,16 @@ One install per host. Each page has install, verify, update and remove:
 - [Gemini CLI](docs/install/gemini-cli.md)
 - [Antigravity CLI](docs/install/antigravity.md)
 
-Then, once per repo, run `setup-brain`. It checks for bun, which brain's scripts need, and
-writes the workspace layout and the glossary rules into
-`docs/`. It proposes `docs/agents/capabilities.md` from the repo's files, the toolchain
-checks, library skills and MCP servers the repo needs, and writes it after your yes. On a
-machine with Codex it writes the plain-talk and protocol blocks into
-`~/.codex/AGENTS.md` once, or into this repo's `AGENTS.md` when you choose the project
-scope. When the repo's `AGENTS.md` or `CLAUDE.md` already holds rules that brain now
-carries, it shows that overlap, and removes only the `AGENTS.md` sections you pick, in a
-commit of its own. `setup-brain --check` reports drift and writes nothing.
+Read [the prerequisites](docs/install/prerequisites.md), then run `setup-brain` once
+per repo and after Brain updates. Claude's startup hook also routes missing setup
+through that skill when the selected work needs it. Setup previews workspace,
+domain and capability guidance under `docs/agents/`; it preserves existing settings
+and requires the user's decision for unresolved scope.
+
+Normal Claude setup leaves consumer `AGENTS.md` and `CLAUDE.md` unchanged. The
+Codex adapter writes marked blocks only when that host and scope are selected.
+Root-instruction cleanup is a separate explicit request with exact change review.
+`setup-brain --check` reports drift and writes nothing. A missing glossary alone is valid.
 
 ## What is inside
 
@@ -44,9 +45,9 @@ commit of its own. `setup-brain --check` reports drift and writes nothing.
 | `skills/` | 25 agent-skills (16 vendored, 9 seeded), 6 of mattpocock/skills (4 vendored, 2 seeded), and brain's own: ask-user-question and setup-brain | vendored ones are byte-identical to upstream; the rest are brain's |
 | `references/`, `agents/`, `hooks/` | agent-skills' checklists, personas and hook scripts, and brain's own references in `references/brain/` | vendored, except `references/brain/` |
 | `claude/agents/` | the Claude-only `researcher` agent, which runs a research row from interview-me's brief | brain |
-| `scripts/hooks/` | the Claude-only `SessionStart` hook, which gives each session the brain protocol and the `brain status` report | brain |
+| `scripts/hooks/` | the Claude-only `SessionStart` hook, which gives every session current protocol/router paths and the computed workspace report | brain |
 | `.claude/commands/`, `commands/` | lifecycle commands and a thin `status` shortcut: ten for Claude Code, Gemini and Antigravity | brain; all but `status` seeded from agent-skills |
-| `output-styles/`, `GEMINI.md`, `rules/`, `plain-talk/`, `protocol/` | the plain-talk text and the brain protocol, with their rendered forms; the two blocks at the end of `AGENTS.md` are among them | brain |
+| `output-styles/`, `GEMINI.md`, `rules/`, `plain-talk/`, `protocol/` | canonical plain talk and consumer protocol, rendered for host delivery; maintainer `AGENTS.md` shares plain talk only | brain |
 | `upstream.json`, `upstream.lock.json` | which commit of each upstream is vendored, and a hash per file | brain |
 | `licenses/` | the upstream licence texts | vendored |
 
@@ -56,12 +57,13 @@ The upstream packs are MIT licensed; their texts are in `licenses/`. brain is MI
 
 Run `setup-brain` once per repo first. The commands are the entry points in Claude Code
 (`/brain:<name>`) and Gemini CLI (`/<name>`). In Codex and Antigravity, call the skills by
-name. Every stage asks each decision through the ask-user-question skill, one question per
-call, and reads the glossary through `docs/agents/domain.md`.
+name. Every stage sends unresolved user decisions through ask-user-question, one
+question per call, reuses settled requirements, and reads the glossary through
+`docs/agents/domain.md`.
 
 | Stage | Command | Skills it composes |
 |---|---|---|
-| Define | `spec` | `interview-me` when the ask is underspecified, then `spec-driven-development`; `domain-modeling` keeps the glossary; `prototype` and `handoff` for a question that needs a runnable answer |
+| Define | `spec` | `interview-me` when the ask is underspecified, then `spec-driven-development`; `domain-modeling` keeps the glossary; `prototype` supplies runnable evidence; `handoff` remains user-invoked |
 | Plan | `plan` (`planning` in Gemini) | `planning-and-task-breakdown` |
 | Build | `build` | `incremental-implementation` with `test-driven-development`; `build auto` runs each task in a clean context |
 | Verify | `test` | `test-driven-development`; `debugging-and-error-recovery` for a bug |
@@ -107,7 +109,10 @@ the `ANTHROPIC_API_KEY` repository secret. `evals/results/` is not committed.
 
 ## Development
 
-Bun only.
+Bun only; `package.json` owns the supported range. Read [the maintainer change
+contract](docs/maintainers/changes.md) before changing a skill or host behavior.
+Root `AGENTS.md` is the maintainer entry; root `CLAUDE.md` imports it. Consumer
+startup uses plugin delivery and does not depend on those contributor files.
 
 ```
 bun install
@@ -115,11 +120,19 @@ bun run check                  # typecheck, lint, format check, tests, version, 
 bun run sync                   # fetch every pinned upstream and rewrite the vendored tree
 bun run sync -- --check        # fail if a vendored file drifted
 bun run sync -- --report       # what upstream changed in a seeded file since it was seeded
-bun run validate               # claude plugin validate --strict, and agy plugin validate
+bun run validate               # strict Claude reports with the explicit root-file policy, plus Antigravity validation
 ```
 
 To update an upstream: change its `sha` in `upstream.json`, run `bun run sync`, read the
 diff, commit. Never edit a vendored file; a change goes upstream as a pull request.
+Security uses its own reviewed pin and required references; updating that pin
+does not update the remaining Addy files. All imported files stay byte-identical
+to their owning pin. The lifecycle check rejects skill bodies over 24,000 UTF-8
+bytes, the supported host loading limit.
+
+Claude's exact contributor-file warning is visible as **accepted with one approved
+warning**. Every other strict warning or error still fails. This is Brain's wrapper
+policy, not a claim that the unmodified strict validator passes.
 
 Design records: `specs/` (one spec folder per module, with its plan), `docs/intent/`,
 `docs/research/`, `docs/decisions/` (the capability map is `DEC-004`).

@@ -179,14 +179,10 @@ const skillCalls: Call[] = [
   { tool: "Skill", input: { skill: "brain:context-engineering" } },
 ];
 
-/** The reply of a correct run: the chart in a few lines, then row 01's question, recommended. */
+/** The reply of a correct run: the chart, then one open discovery question. */
 const goodReply = `The map is in ${idea}. Destination: a spec for the view that answers "how are we doing?". The frontier holds rows 01 and 02.
 
-Row 01: when you say "how are we doing?", who is asking?
-
-- The engineering team in standup (Recommended): "we" usually scopes that way, and standups are where this question comes up. Cost: the view leaves out what a manager needs.
-- You alone: a personal view. Cost: the team gets nothing from it.
-- Up the chain, a manager or the board: Cost: other metrics and a slower path to a first version.`;
+Row 01: who will use the metrics dashboard?`;
 
 /** Play a run: scaffold, then `act` in the workspace, which returns the calls it made and its reply. */
 async function play(
@@ -258,10 +254,11 @@ describe("lifecycle/spec-underspecified, the case files", () => {
     expect(String(file?.pattern)).toContain("docs/ideas/IDEA-001-");
   });
 
-  test("the one llm grader judges the question", async () => {
+  test("the semantic grader judges one grounded discovery question", async () => {
     const graders = await readGraders();
     const llm = graders.filter((each) => each.type === "llm");
-    expect(llm.map((each) => each.name)).toEqual(["one-recommendation"]);
+    expect(llm.map((each) => each.name)).toEqual(["one-discovery-question"]);
+    expect(llm[0]?.focus).toBe("last_message");
   });
 });
 
@@ -321,10 +318,15 @@ describe("lifecycle/spec-underspecified, the computed graders on played runs", (
     expect(await failing(run)).toEqual(["interview-fired"]);
   });
 
-  test("a question with no recommendation fails only the recommended grader", async () => {
+  test("a plain discovery question needs no invented recommendation", async () => {
     const run = await charted("no-recommendation", {
-      last: 'Row 01: when you say "how are we doing?", who is asking?',
+      last: "Who will use the metrics dashboard?",
     });
-    expect(await failing(run)).toEqual(["recommended"]);
+    expect(await failing(run)).toEqual([]);
+  });
+
+  test("a reply that asks nothing fails the visible-question check", async () => {
+    const run = await charted("no-question", { last: "The idea map is saved." });
+    expect(await failing(run)).toEqual(["question-asked"]);
   });
 });

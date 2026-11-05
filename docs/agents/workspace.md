@@ -30,7 +30,7 @@ Use this procedure at session start, after clearing or resuming a session, and w
 1. Get the current report. Reuse the report the session-start hook just supplied; otherwise run `brain status`. It reads the whole repo from any folder inside it and writes no file. Use `brain status --json` when you need each effort's frontier, rows in progress, full red items, or the specs produced by an idea.
 2. Show the five lines as printed. The report uses the effort the git branch names, or every unfinished effort when the branch names none. Use **Find the active effort** below to select the work; ask through ask-user-question when that choice remains the user's.
 3. Give each reported problem its next action. A layout-1 report needs setup-brain's migration. A missing workspace file needs setup-brain; until then the CLI uses its default folders. For workspace-check findings, run `brain check` and show the file and rule it names. For blocked research, read its record for the missing prerequisite and retry condition.
-4. With no active work, route the user's request through using-brain. With active work, follow **Resume** below and read its current records before naming the next action.
+4. Return the report and selected effort to the caller. For a status-only request, report without starting or changing work. When asked to continue, follow **Resume** below. When called by using-brain, return to its current routing step; this procedure does not invoke the router again.
 
 | Line | Meaning |
 |---|---|
@@ -44,7 +44,7 @@ When Bun or the plugin path is unavailable, read the selected idea's map or spec
 
 **Missing or older workspace:** when the file is absent, use this template's defaults as a reference and report that setup is needed. When an installed copy lacks this section, use this template's procedure with the installed copy's settings and report that setup-brain must refresh its guidance. The status command itself creates no files.
 
-This procedure is complete when the user has the current report, each red item has a supported next action, and the active effort is selected or its selection waits on the user. "Continue" resumes the next approved row or task after the session's required reads and checks.
+This procedure is complete when the user has the current report, each red item has a supported next action, and the relevant effort is selected or its selection waits on the user. An explicit user request or handoff takes precedence over a report's suggested next step. "Continue" resumes the next approved action only after the owning workflow reconciles current records and the session's required reads and checks complete.
 
 ## Files
 
@@ -66,15 +66,15 @@ This procedure is complete when the user has the current report, each red item h
 
 An effort is the idea or spec that a session works on. The active effort is the one that is not finished: an idea with `status: define`, or a spec whose `tasks/plan.md` has a row that is `open` or `in-progress`. An idea with `status: specced` or `done` is finished, and a `parked` idea waits until the user names it. Take the first that applies:
 
-1. A slug passed to the command.
+1. An effort explicitly named by the user or the current handoff, including a slug passed to a command that accepts one.
 2. The git branch name, if it matches an idea or spec.
 3. The only idea or spec that is not finished.
-4. Otherwise, ask the user.
+4. Otherwise, ask the user when continuing work requires a choice. A concrete new task does not require selecting an unrelated old effort first.
 
 ## Resume
 
-- An idea: compute the frontier of its map, and take the next row. The frontier is every `open` row whose `Blocked by` rows are all `resolved`.
-- A spec: take the next row on the frontier of `tasks/plan.md`. Its block in `tasks/todo.md` holds the detail.
+- An idea: load interview-me and follow interview-me's **Resume** before choosing a row. It reconciles saved answers, linked records, running research and uncertain effects, then evaluates the whole map. The frontier is every `open` row whose `Blocked by` rows are all `resolved`.
+- A spec: read `spec.md`, `tasks/plan.md`, `tasks/todo.md` and relevant result records. Reconcile completed work with actual changes and verification evidence before repeating a task. Load the workflow for the next approved action; incremental-implementation owns a build task. Its task block holds the acceptance criteria.
 - An idea with `status: specced` is finished. Resume the spec that lists it in `sources:`.
 - An idea with `status: done` is finished with no spec. Its `result:` names what it produced: a `DEC-NNN` for a decision, or a commit SHA for a change made in place.
 

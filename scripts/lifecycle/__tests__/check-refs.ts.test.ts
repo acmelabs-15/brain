@@ -20,7 +20,7 @@ describe("skill metadata validation", () => {
     [
       "unclosed",
       "---\n\n## name: sample\ndescription: Interview the user.\n",
-      "frontmatter: missing or unclosed",
+      "frontmatter: missing closing delimiter",
     ],
     [
       "invalid",
@@ -47,5 +47,62 @@ describe("skill metadata validation", () => {
     expect(findings).toHaveLength(1);
     expect(findings[0]?.file).toBe("skills/sample/SKILL.md");
     expect(findings[0]?.detail).toStartWith(problem);
+  });
+});
+
+describe("skill body size", () => {
+  test("rejects a body beyond the shared host's 24000-byte limit", async () => {
+    const root = `${work}/oversize-body`;
+    await mkdir(`${root}/skills/sample`, { recursive: true });
+    await Bun.write(
+      `${root}/skills/sample/SKILL.md`,
+      `---\nname: sample\ndescription: A skill.\n---\n${"a".repeat(24_001)}`,
+    );
+
+    expect(await checkRefs(root)).toContainEqual({
+      kind: "body-size",
+      file: "skills/sample/SKILL.md",
+      detail: "body: 24001 UTF-8 bytes exceeds the 24000-byte host limit",
+    });
+  });
+
+  test.each([
+    ["ascii-boundary", "a".repeat(24_000)],
+    ["multibyte-boundary", "界".repeat(8000)],
+  ])("accepts exactly 24000 body bytes: %s", async (name, body) => {
+    const root = `${work}/${name}`;
+    await mkdir(`${root}/skills/sample`, { recursive: true });
+    await Bun.write(
+      `${root}/skills/sample/SKILL.md`,
+      `---\nname: sample\ndescription: A skill.\n---\n${body}`,
+    );
+
+    expect(await checkRefs(root)).toEqual([]);
+  });
+
+  test("counts multibyte text as UTF-8 bytes rather than characters", async () => {
+    const root = `${work}/multibyte-oversize`;
+    await mkdir(`${root}/skills/sample`, { recursive: true });
+    await Bun.write(
+      `${root}/skills/sample/SKILL.md`,
+      `---\nname: sample\ndescription: A skill.\n---\n${"界".repeat(8000)}🧠`,
+    );
+
+    expect(await checkRefs(root)).toContainEqual({
+      kind: "body-size",
+      file: "skills/sample/SKILL.md",
+      detail: "body: 24004 UTF-8 bytes exceeds the 24000-byte host limit",
+    });
+  });
+
+  test("excludes large valid frontmatter from the body limit", async () => {
+    const root = `${work}/large-frontmatter`;
+    await mkdir(`${root}/skills/sample`, { recursive: true });
+    await Bun.write(
+      `${root}/skills/sample/SKILL.md`,
+      `---\nname: sample\ndescription: A skill.\nmetadata:\n  note: ${"a".repeat(25_000)}\n---\n# Short body\n`,
+    );
+
+    expect(await checkRefs(root)).toEqual([]);
   });
 });

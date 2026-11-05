@@ -1,10 +1,7 @@
 import { describe, expect, test } from "bun:test";
 
-/**
- * using-brain carries the intent doc's `using-brain` table and the Decisions row
- * "Anti-rationalization rules": the 1% rule in Skill Rule 1 and nowhere in the protocol, the
- * stateful interview, the files that carry the work across a stage boundary, one lifecycle line
- * per stage, and the status command.
+/** Structural contracts for router ownership and its required references.
+ * These checks do not measure model routing; behavior evaluations do that separately.
  */
 const root = `${import.meta.dir}/../../..`;
 
@@ -21,57 +18,65 @@ function section(text: string, title: string): string {
   return end === -1 ? rest : rest.slice(0, end);
 }
 
-/** The text of numbered rule `n` in a list, up to the next numbered rule. */
-function rule(text: string, n: number): string {
-  const start = text.search(new RegExp(`^${n}\\. `, "mu"));
-  expect(start).not.toBe(-1);
-  const rest = text.slice(start);
-  const end = rest.slice(1).search(/^\d+\. /mu);
-  return end === -1 ? rest : rest.slice(0, end + 1);
-}
-
-describe("using-brain, Skill Rule 1: the 1% rule", () => {
-  test("carries the ported wording and the three rejected thoughts", async () => {
-    const one = rule(section(await read("skills/using-brain/SKILL.md"), "Skill Rules"), 1);
-    expect(one).toContain("If a task matches a skill, you MUST invoke it");
-    expect(one).toContain("even a 1% chance");
-    expect(one).toContain('"This is too small for a skill"');
-    expect(one).toContain('"I can just quickly implement this"');
-    expect(one).toContain('"I\'ll gather context first"');
+describe("using-brain, scope and required skills", () => {
+  test("direct answers bypass a lifecycle while narrow changes keep applicable guidance", async () => {
+    const router = await read("skills/using-brain/SKILL.md");
+    expect(router).toContain(
+      "A fact answered by reading? → Read the owning source and answer directly",
+    );
+    expect(router).toContain("A narrow change still loads its applicable technical guidance");
+    expect(router).toContain(
+      "Follow the selected skill's required dependencies and completion checks",
+    );
   });
 
-  test("reaches every session as a short form in the protocol; the long form stays here", async () => {
-    // Peter, 2026-10-30: nothing preloads using-brain, so the protocol carries Rule 1's short
-    // form in place of its soft line, and using-brain keeps the long form.
+  test("protocol loads the action's dependencies and leaves decision preparation with its owner", async () => {
     const protocol = await read("protocol/PROTOCOL.md");
-    expect(protocol).toContain(
-      "Before you act, load any skill that may apply, even at a 1% chance. 'Too small for a skill', 'I'll just do it quickly' and 'I'll gather context first' are not reasons to skip one.",
-    );
-    expect(protocol).not.toContain("When a skill may apply, load it before you act.");
-    expect(protocol).not.toMatch(/MUST invoke/u);
+    expect(protocol).toContain("including their declared dependencies");
+    expect(protocol).toContain("Keep ask-user-question loaded");
+    expect(protocol).toContain("unresolved user decision or missing permission");
+    expect(protocol).toContain("Reuse settled requirements");
   });
 });
 
-describe("using-brain, the rest of its table in the intent doc", () => {
-  test("Skill Rule 4 starts with interview-me when what is wanted is unclear, with the spec when it is clear", async () => {
-    const four = rule(section(await read("skills/using-brain/SKILL.md"), "Skill Rules"), 4);
-    expect(four).toMatch(/unclear[\s\S]*interview-me[\s\S]*clear[\s\S]*spec/u);
+describe("using-brain, routing and durable state", () => {
+  test("startup has one explicit router entry and resumes ideas through their recovery owner", async () => {
+    const protocol = await read("protocol/PROTOCOL.md");
+    const router = await read("skills/using-brain/SKILL.md");
+    const workspace = await read("skills/setup-brain/workspace.md");
+    expect(protocol).toContain("using-brain");
+    expect(router).toContain("## Start");
+    expect(router).toContain("host's supported skill mechanism");
+    expect(workspace).toContain("interview-me's **Resume**");
+    expect(workspace).toContain("Return the report and selected effort to the caller");
+    expect(workspace).not.toContain(
+      "With no active work, route the user's request through using-brain",
+    );
   });
 
-  test("the interview is stateful, keeps its map in an idea file, and records as it goes", async () => {
+  test("new significant work reaches a spec, unresolved intent reaches interview, and settled requirements stay settled", async () => {
+    const text = await read("skills/using-brain/SKILL.md");
+    expect(text).toContain("A significant new change has clear intent? → spec-driven-development");
+    expect(text).toContain("Missing intent or a binding requirement? → interview-me");
+    expect(text).toContain("Reuse settled requirements and explicit delegation");
+    expect(text).not.toContain("ASSUMPTIONS I'M MAKING");
+  });
+
+  test("the interview owns recovery and uses configured folders or conversation mode", async () => {
     const text = await read("skills/using-brain/SKILL.md");
     const interview = text.slice(
       text.indexOf("### The interview"),
       text.indexOf("### The prototype"),
     );
-    expect(interview).toContain("docs/ideas/IDEA-NNN-<slug>.md");
-    for (const kind of ["decide row", "research row", "do row"]) {
-      expect(interview).toContain(kind);
-    }
+    expect(interview).toContain("Read its **Resume** procedure before continuing an existing idea");
+    expect(interview).toContain("Use the folders in the loaded workspace settings");
+    expect(interview).toContain("only through `brain new-doc`");
     expect(interview).toMatch(/Save partial answers and each record's next action before a pause/u);
-    expect(interview).toMatch(/reconciles that state before choosing a frontier row/u);
+    expect(interview).toContain(
+      "Reconcile saved answers and results before choosing the next frontier row",
+    );
     expect(interview).toMatch(/the map lives in the conversation/u);
-    expect(text).toContain("### 7. Record As You Go");
+    expect(text).not.toContain("docs/ideas/IDEA-NNN");
     expect(text).not.toContain("docs/intent/");
   });
 
@@ -79,11 +84,12 @@ describe("using-brain, the rest of its table in the intent doc", () => {
     const text = await read("skills/using-brain/SKILL.md");
     const detour = text.slice(
       text.indexOf("### The prototype"),
-      text.indexOf("### The vocabulary"),
+      text.indexOf("## Stage Boundaries"),
     );
     expect(detour).toMatch(/prototype row/u);
     expect(detour).toMatch(/DEC file/u);
-    expect(detour).toMatch(/handoff[^.]*only when[^.]*(?:directory|harness)/u);
+    expect(detour).toContain("For another directory or harness, offer the user's handoff command");
+    expect(detour).toContain("Invoke the user-only handoff skill only when the user requests it");
   });
 
   test("the stage boundaries say the files carry the work, and no window holds define through plan", async () => {
@@ -103,7 +109,7 @@ describe("using-brain, the rest of its table in the intent doc", () => {
       (match) => match.groups?.stage,
     );
     expect(stages).toEqual(["Define", "Plan", "Build", "Verify", "Review", "Ship"]);
-    expect(lifecycle).toContain("`specs/SPEC-NNN-<slug>/`");
+    expect(lifecycle).toContain("../../references/brain/commit-contract.md");
   });
 
   test("the lifecycle names where spec-driven-development's own stages fall", async () => {

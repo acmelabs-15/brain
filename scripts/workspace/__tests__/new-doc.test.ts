@@ -431,7 +431,17 @@ describe("brain new-doc, where it runs", () => {
     const git = (...args: string[]) => Bun.spawnSync(["git", ...args], { cwd: main }).exitCode;
     expect(git("add", "README.md")).toBe(0);
     expect(
-      git("-c", "user.name=t", "-c", "user.email=t@example.com", "commit", "-qm", "init"),
+      git(
+        "-c",
+        "commit.gpgsign=false",
+        "-c",
+        "user.name=t",
+        "-c",
+        "user.email=t@example.com",
+        "commit",
+        "-qm",
+        "init",
+      ),
     ).toBe(0);
     const linked = `${work}/linked-tree`;
     expect(git("worktree", "add", "--quiet", linked)).toBe(0);

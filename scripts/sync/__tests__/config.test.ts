@@ -23,14 +23,44 @@ describe("parseConfig", () => {
   test("accepts the committed upstream.json", async () => {
     const raw = await Bun.file(`${import.meta.dir}/../../../upstream.json`).json();
     const config = parseConfig(raw);
-    expect(Object.keys(config.upstreams)).toEqual(["agent-skills", "mattpocock-skills"]);
+    expect(Object.keys(config.upstreams)).toEqual([
+      "agent-skills",
+      "agent-skills-security",
+      "mattpocock-skills",
+    ]);
     expect(config.upstreams["agent-skills"]?.seed).toHaveLength(11);
-    expect(config.upstreams["agent-skills"]?.take[0]?.except).toHaveLength(9);
+    expect(config.upstreams["agent-skills"]?.take[0]?.except).toHaveLength(10);
     // idea-refine is seeded: the take leaves it out, and the seed list copies it once.
     expect(config.upstreams["agent-skills"]?.take[0]?.except).toContain("idea-refine");
     expect(config.upstreams["agent-skills"]?.seed).toContainEqual({
       from: "skills/idea-refine",
       to: "skills/idea-refine",
+    });
+    expect(config.upstreams["agent-skills"]?.sha).toBe(sha);
+    expect(config.upstreams["mattpocock-skills"]?.sha).toBe(
+      "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+    );
+    expect(config.upstreams["agent-skills"]?.take[0]?.except).toContain("security-and-hardening");
+    expect(config.upstreams["agent-skills"]?.take[1]?.except).toEqual(["security-checklist.md"]);
+    expect(config.upstreams["agent-skills-security"]).toEqual({
+      repo: "addyosmani/agent-skills",
+      sha: "78f00a4b2975245ec2979307382a624289f6a722",
+      take: [
+        {
+          from: "skills/security-and-hardening/SKILL.md",
+          to: "skills/security-and-hardening/SKILL.md",
+        },
+        {
+          from: "skills/security-and-hardening/references/hardening-patterns.md",
+          to: "skills/security-and-hardening/references/hardening-patterns.md",
+        },
+        {
+          from: "references/security-checklist.md",
+          to: "references/security-checklist.md",
+        },
+      ],
+      seed: [],
+      license: "LICENSE",
     });
   });
 
