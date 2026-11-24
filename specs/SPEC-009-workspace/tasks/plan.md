@@ -102,5 +102,5 @@ Every phase ends with a checkpoint row in `tasks/todo.md` and a review with Pete
 
 - At T06: what to do with the uncommitted `brain-wrap.md` change.
 - At T28: the 1% wording is ported from Peter's hand-written `AGENTS.md`; the build reads
-  `/Users/peterkloss/Dev/resume/AGENTS.md` for it, and asks if that file lacks it.
+  `~/Dev/resume/AGENTS.md` for it, and asks if that file lacks it.
 - At T39: the second ask before brain's history moves. Answered: Peter said yes, and T39 is done.

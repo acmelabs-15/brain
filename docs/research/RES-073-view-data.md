@@ -84,7 +84,7 @@ Unknown: which of the prose links in "Contrary evidence" the views should show i
 - A spec lists the ideas, decisions and research it comes from in `sources:`, links run one way, and an idea holds no list of its specs. Source: docs/agents/workspace.md:61, checked 2026-11-20.
 - `brain status --json` prints the keys migrate, report, efforts, ideas and red. Source: scripts/workspace/status.ts:62-71, checked 2026-11-20.
 - `efforts` holds only the reported efforts: the effort the branch names, else every effort that is not finished. Source: scripts/workspace/status.ts:147-153, checked 2026-11-20.
-- In this worktree on branch `feat/views-mod`, `brain status --json` reported one effort, IDEA-015, with stage define, 2 frontier rows and 3 rows in progress. Source: output of `bun /Users/peterkloss/.claude/plugins/cache/acmelabs/brain/0.13.0/scripts/brain.ts status --json` in /Users/peterkloss/Dev/ACMElabs/brain-views-mod, checked 2026-11-20.
+- In this worktree on branch `feat/views-mod`, `brain status --json` reported one effort, IDEA-015, with stage define, 2 frontier rows and 3 rows in progress. Source: output of `bun ~/.claude/plugins/cache/acmelabs/brain/0.13.0/scripts/brain.ts status --json` in ~/Dev/ACMElabs/brain-views-mod, checked 2026-11-20.
 - An effort state has id, kind, stage, title, path, lastStep, frontier, inProgress and waiting. Source: scripts/workspace/status.ts:43-57, checked 2026-11-20.
 - A `Step` has ref, title, type, status and result, plus outcome and record for partial or blocked research, and it carries no blocked-by or superseded-by. Source: scripts/workspace/status.ts:32-40, checked 2026-11-20.
 - `brain status` gives an idea the stage define, a spec the stage build, and either one the stage finished when the effort is finished. Source: scripts/workspace/status.ts:117-120, checked 2026-11-20.
@@ -111,12 +111,12 @@ Unknown: which of the prose links in "Contrary evidence" the views should show i
 - The exported `checkWorkspace` returns findings, a file count and the unclassified decisions, not the parsed records. Source: scripts/workspace/check.ts:78-85, checked 2026-11-20.
 - All 9 specs carry `migrated: 0.8` and no `sources:`, and their H1 reads `# Spec: <module>`. Source: specs/SPEC-001-evals/spec.md:1-5, checked 2026-11-20.
 - The migrated plans use the layout-1 table `| # | Component | Depends on | Risk |`, not the current plan table. Source: specs/SPEC-001-evals/tasks/plan.md:11, checked 2026-11-20.
-- `brain plan SPEC-009 --json` exits 1 with "plan: no table with the columns # | Task | Type | Status | Blocked by | Result". Source: output of `bun /Users/peterkloss/.claude/plugins/cache/acmelabs/brain/0.13.0/scripts/brain.ts plan SPEC-009 --json`, checked 2026-11-20.
+- `brain plan SPEC-009 --json` exits 1 with "plan: no table with the columns # | Task | Type | Status | Blocked by | Result". Source: output of `bun ~/.claude/plugins/cache/acmelabs/brain/0.13.0/scripts/brain.ts plan SPEC-009 --json`, checked 2026-11-20.
 - Migrated todo files hold checkbox lines such as `- [x] Task 1: gate script`, not task blocks under `## Task NN:`. Source: specs/SPEC-001-evals/tasks/todo.md:7, checked 2026-11-20.
 - A migrated spec states its status only in body prose, such as "Status: superseded on 2026-10-28 by …" in SPEC-005. Source: specs/SPEC-005-question/spec.md:8, checked 2026-11-20.
 - A current-format plan row carries a commit SHA and a verification result, such as row 01 of the spec-mid-build fixture. Source: scripts/workspace/__tests__/fixtures/spec-mid-build/docs/specs/SPEC-001-invoice-csv-export/tasks/plan.md:19, checked 2026-11-20.
-- The repo has 13 ideas (9 define, 4 parked), 68 map rows, 43 blocked-by edges, 0 current-format plan rows, 48 layout-1 component rows and 121 ticked todo checkboxes. Source: `readRows` and `readFrontmatter` run over docs/ideas, plus a line count over specs/*/tasks, in /Users/peterkloss/Dev/ACMElabs/brain-views-mod, checked 2026-11-20.
-- `brain check` reports no finding in 67 workspace files and 3 migrated decisions with no kind (DEC-001, DEC-002, DEC-004). Source: output of `bun /Users/peterkloss/.claude/plugins/cache/acmelabs/brain/0.13.0/scripts/brain.ts check`, checked 2026-11-20.
+- The repo has 13 ideas (9 define, 4 parked), 68 map rows, 43 blocked-by edges, 0 current-format plan rows, 48 layout-1 component rows and 121 ticked todo checkboxes. Source: `readRows` and `readFrontmatter` run over docs/ideas, plus a line count over specs/*/tasks, in ~/Dev/ACMElabs/brain-views-mod, checked 2026-11-20.
+- `brain check` reports no finding in 67 workspace files and 3 migrated decisions with no kind (DEC-001, DEC-002, DEC-004). Source: output of `bun ~/.claude/plugins/cache/acmelabs/brain/0.13.0/scripts/brain.ts check`, checked 2026-11-20.
 - The workspace code in the installed plugin 0.13.0 is the same as the worktree's scripts/workspace and scripts/lib. Source: `diff -r` of both folders, checked 2026-11-20.
 
 ## Follow-ups

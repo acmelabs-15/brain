@@ -292,7 +292,7 @@ No test asserts these texts:
 - The hook line for a signal, "failed with `<signal>` (the hook allows it 10 s)".
 
 ### Probes
-Each probe copies a fixture to a temp folder, runs `git init`, makes one change, and runs `bun scripts/brain.ts status` there. Script: `/private/tmp/claude-501/-Users-peterkloss-Dev-ACMElabs-brain/8f41990c-e539-4b97-b369-e4f4bd8d4c22/scratchpad/status-waits/row19-probes/probe.ts`, run from the repo root with `bun <script>`. The scratchpad is temporary; this table is enough to repeat a probe by hand.
+Each probe copies a fixture to a temp folder, runs `git init`, makes one change, and runs `bun scripts/brain.ts status` there. Script: `<scratchpad of session 8f41990c>/status-waits/row19-probes/probe.ts`, run from the repo root with `bun <script>`. The scratchpad is temporary; this table is enough to repeat a probe by hand.
 
 | Probe | Fixture and change | Result |
 |---|---|---|

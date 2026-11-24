@@ -13,7 +13,7 @@ brain asks every user decision through ask-user-question (`docs/intent/brain-wra
 
 ## How to read
 
-Paths: `A` = `skills`, `C` = `.claude/commands`, `M` = `/private/tmp/claude-501/-Users-peterkloss/d71891a9-f15c-48be-b664-852390fc2582/scratchpad/matt/skills`. Codes (`SKILL.md` unless named): Q `A/ask-user-question`; QC, QX, QG its `references/claude-code.md`, `codex.md`, `gemini-cli.md`; I `A/interview-me`; R `A/idea-refine`; S `A/spec-driven-development`; U `A/using-agent-skills`; P `A/planning-and-task-breakdown`; D `A/doubt-driven-development`; CS, CP, CB `C/spec.md`, `plan.md`, `build.md`; G `M/productivity/grilling`. `auq` is ask-user-question. `addy adds` covers a rule held by addy or grilling that auq lacks. Where addy and grilling differ, RES-002 §1 rows 2 and 5 record it (`docs/research/RES-002-matt-over-addy.md:20`, `:24`); `docs/intent/brain-wrap.md:58` settled it.
+Paths: `A` = `skills`, `C` = `.claude/commands`, `M` = `<scratchpad of session d71891a9>/matt/skills`. Codes (`SKILL.md` unless named): Q `A/ask-user-question`; QC, QX, QG its `references/claude-code.md`, `codex.md`, `gemini-cli.md`; I `A/interview-me`; R `A/idea-refine`; S `A/spec-driven-development`; U `A/using-agent-skills`; P `A/planning-and-task-breakdown`; D `A/doubt-driven-development`; CS, CP, CB `C/spec.md`, `plan.md`, `build.md`; G `M/productivity/grilling`. `auq` is ask-user-question. `addy adds` covers a rule held by addy or grilling that auq lacks. Where addy and grilling differ, RES-002 §1 rows 2 and 5 record it (`docs/research/RES-002-matt-over-addy.md:20`, `:24`); `docs/intent/brain-wrap.md:58` settled it.
 
 ## 1. Rules about asking the user
 

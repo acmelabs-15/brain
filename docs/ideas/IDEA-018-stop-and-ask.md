@@ -50,7 +50,7 @@ In its first two replies the agent used the jev-gate plugin as the frame: it lea
 
 ### Facts found so far (leads, each with its source)
 
-- Jev is TypeSafe's decision model; it returns probabilities, not text. The jev-gate plugin is one `PreToolUse` hook that asks Jev questions about a tool call, logs first, and can later `ask` the user or `deny` with a reason. Source: `/Users/peterkloss/Dev/ACMElabs/jev-gate/README.md`; `/Users/peterkloss/Dev/ACMElabs/jev-gate/hooks/hooks.json`.
+- Jev is TypeSafe's decision model; it returns probabilities, not text. The jev-gate plugin is one `PreToolUse` hook that asks Jev questions about a tool call, logs first, and can later `ask` the user or `deny` with a reason. Source: `~/Dev/ACMElabs/jev-gate/README.md`; `~/Dev/ACMElabs/jev-gate/hooks/hooks.json`.
 - TanStack AI's `decide()` asks a decision model typed questions (`choice`, `score`, `boolean`) about one `state`; answers carry probabilities. Its adapters name other deciders besides Jev: OpenAI, Gemini, OpenRouter, Vercel AI Gateway, Cloudflare and a local server. Source: https://tanstack.com/ai/latest/docs/evaluate/evaluate, checked 2026-11-21.
 - A past row holds Peter's structural option for a case where wording failed 3 of 3: a `PreToolUse` check before the first edit. Source: `docs/ideas/IDEA-001-review-follow-ups.md:46`.
 - A `Stop` hook with `decision: "block"` keeps the turn going and gives the agent the reason. An Antigravity plugin can ship hooks where `PreToolUse` can return `deny` and `Stop` can return `block`. Source: `docs/research/RES-035-auto-start-mechanisms.md:29,87` (a past record; a second check is due before a design rests on it).
@@ -64,7 +64,7 @@ In its first two replies the agent used the jev-gate plugin as the frame: it lea
 - A threshold must come from data. The transcript of this session holds real cases of all three moments, with the correct answer known:
 
 ```text
-/Users/peterkloss/.claude/projects/-Users-peterkloss-Dev-ACMElabs-brain-views-mod/7c94dc97-6557-4548-9260-2ecb400b6826.jsonl
+~/.claude/projects/<project>/7c94dc97-6557-4548-9260-2ecb400b6826.jsonl
 ```
 
 ### Rows 02, 03 and 04 — the survey, started 2026-11-21

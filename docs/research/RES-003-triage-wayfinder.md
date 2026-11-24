@@ -13,7 +13,7 @@ RES-002 section 6 row 9 found that matt's on-ramps, `triage` and `wayfinder`, ha
 
 ## Codes
 
-`M` = `/private/tmp/claude-501/-Users-peterkloss/d71891a9-f15c-48be-b664-852390fc2582/scratchpad/matt/skills/engineering`, `A` = `/Users/peterkloss/Dev/ACMElabs/brain-wrap`. TR, AB, OS = `M/triage/SKILL.md`, `AGENT-BRIEF.md`, `OUT-OF-SCOPE.md`. WF = `M/wayfinder/SKILL.md`. SM, TL, ITL, ITG, ITGL = `M/setup-matt-pocock-skills/SKILL.md`, `triage-labels.md`, `issue-tracker-local.md`, `issue-tracker-github.md`, `issue-tracker-gitlab.md`. DT, DW = `M/../../docs/engineering/triage.md`, `wayfinder.md`. S, R, I, P, U, D = `A/skills/<name>/SKILL.md` for spec-driven-development, idea-refine, interview-me, planning-and-task-breakdown, using-agent-skills, debugging-and-error-recovery. CP = `A/.claude/commands/plan.md`. SB = `A/skills/setup-brain/SKILL.md`.
+`M` = `<scratchpad of session d71891a9>/matt/skills/engineering`, `A` = `~/Dev/ACMElabs/brain-wrap`. TR, AB, OS = `M/triage/SKILL.md`, `AGENT-BRIEF.md`, `OUT-OF-SCOPE.md`. WF = `M/wayfinder/SKILL.md`. SM, TL, ITL, ITG, ITGL = `M/setup-matt-pocock-skills/SKILL.md`, `triage-labels.md`, `issue-tracker-local.md`, `issue-tracker-github.md`, `issue-tracker-gitlab.md`. DT, DW = `M/../../docs/engineering/triage.md`, `wayfinder.md`. S, R, I, P, U, D = `A/skills/<name>/SKILL.md` for spec-driven-development, idea-refine, interview-me, planning-and-task-breakdown, using-agent-skills, debugging-and-error-recovery. CP = `A/.claude/commands/plan.md`. SB = `A/skills/setup-brain/SKILL.md`.
 
 ## 1. Triage
 

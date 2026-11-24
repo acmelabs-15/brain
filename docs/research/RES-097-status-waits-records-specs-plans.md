@@ -299,7 +299,7 @@ Three independent agents checked the first version of this record. I opened the 
 
 ### Commands
 
-Run each from the repo root, `/Users/peterkloss/Dev/ACMElabs/brain-views-mod`, at commit `dfcab49b` with the uncommitted records of this session. `brain` means `bun /Users/peterkloss/.claude/plugins/cache/acmelabs/brain/0.13.0/scripts/brain.ts`. `diff -rq scripts/workspace <that plugin folder>/scripts/workspace` prints nothing, so the repo's parser and the installed one are the same.
+Run each from the repo root, `~/Dev/ACMElabs/brain-views-mod`, at commit `dfcab49b` with the uncommitted records of this session. `brain` means `bun ~/.claude/plugins/cache/acmelabs/brain/0.13.0/scripts/brain.ts`. `diff -rq scripts/workspace <that plugin folder>/scripts/workspace` prints nothing, so the repo's parser and the installed one are the same.
 
 - C1: `ls specs/*/spec.md specs/*/tasks/*.md | wc -l` prints 25. `grep -L '^migrated: 0.8$' specs/*/spec.md specs/*/tasks/*.md` prints nothing.
 - C2: `grep -nE '^(status|sources|blocked-by|blocked_by|result):' specs/*/spec.md specs/*/tasks/*.md tasks/done/context-scope/*.md` prints nothing.
@@ -373,11 +373,11 @@ It prints: 58 tasks; per phase 8, 8, 9, 10, 5, 16 and 2; 85 edges, none unknown;
 C19:
 
 ```ts
-import { listEfforts } from "/Users/peterkloss/Dev/ACMElabs/brain-views-mod/scripts/workspace/effort";
-import { readConfig } from "/Users/peterkloss/Dev/ACMElabs/brain-views-mod/scripts/workspace/config";
-import { retiredNames } from "/Users/peterkloss/Dev/ACMElabs/brain-views-mod/scripts/lifecycle/names";
+import { listEfforts } from "scripts/workspace/effort";
+import { readConfig } from "scripts/workspace/config";
+import { retiredNames } from "scripts/lifecycle/names";
 
-const root = "/Users/peterkloss/Dev/ACMElabs/brain-views-mod";
+const root = "~/Dev/ACMElabs/brain-views-mod";
 const efforts = await listEfforts(root, (await readConfig(root)).paths);
 for (const branch of ["lifecycle", "feat/source-cache", "feat/views-mod", "main"]) {
   const named = branch.split("/").at(-1);

@@ -126,7 +126,7 @@ His words (verbatim):
 
 Facts found before the agent answered, each with its source:
 
-- Jev is TypeSafe's decision model; it returns probabilities, not text. Peter's plugin jev-gate is one `PreToolUse` hook that asks Jev questions about a tool call. It starts in shadow mode (log only); enforce mode can `ask` the user or `deny` with a reason. One of its signals is `off_task`. Source: `/Users/peterkloss/Dev/ACMElabs/jev-gate/README.md`; `/Users/peterkloss/Dev/ACMElabs/jev-gate/hooks/hooks.json`.
+- Jev is TypeSafe's decision model; it returns probabilities, not text. Peter's plugin jev-gate is one `PreToolUse` hook that asks Jev questions about a tool call. It starts in shadow mode (log only); enforce mode can `ask` the user or `deny` with a reason. One of its signals is `off_task`. Source: `~/Dev/ACMElabs/jev-gate/README.md`; `~/Dev/ACMElabs/jev-gate/hooks/hooks.json`.
 - A past row already holds Peter's structural option for a case where wording failed 3 of 3: a `PreToolUse` check, "related to his jev-gate plugin", and "No more wording changes for it". Source: `docs/ideas/IDEA-001-review-follow-ups.md:46`.
 - A `Stop` hook with `decision: "block"` keeps the turn going and gives the agent the reason. Source: `docs/research/RES-035-auto-start-mechanisms.md:29` (a past record; a second check is due before a design rests on it).
 - Not researched: whether a mod can stop a tool call; whether Jev judges the state of a conversation well.
@@ -139,7 +139,7 @@ Facts on that page and on jev-gate, read by the main agent:
 
 - TanStack AI's `decide()` asks a decision model typed questions (`choice`, `score`, `boolean`) about one `state`. A `boolean` answer carries `.probability`, the chance of true; a `score` answer carries `.score`, a raw fraction. The page states no threshold of its own apart from 0.5 for a boolean's `.value`. Adapters exist for TypeSafe's Jev, OpenRouter, Vercel AI Gateway, Cloudflare, OpenAI, Gemini and a local server. Source: https://tanstack.com/ai/latest/docs/evaluate/evaluate, checked 2026-11-21.
 - "On the TypeSafe wire, the boolean question type is named noul." Source: the same page, checked 2026-11-21.
-- jev-gate already sends `noul` and `score` questions to the same wire format (`/v1/systemone`) with plain `fetch`, compares each blocking signal with a threshold (default 0.9), and has no runtime dependency. Source: `/Users/peterkloss/Dev/ACMElabs/jev-gate/scripts/gate/jev.ts:28-69`; `/Users/peterkloss/Dev/ACMElabs/jev-gate/scripts/gate/config.ts:68`; `/Users/peterkloss/Dev/ACMElabs/jev-gate/README.md`.
+- jev-gate already sends `noul` and `score` questions to the same wire format (`/v1/systemone`) with plain `fetch`, compares each blocking signal with a threshold (default 0.9), and has no runtime dependency. Source: `~/Dev/ACMElabs/jev-gate/scripts/gate/jev.ts:28-69`; `~/Dev/ACMElabs/jev-gate/scripts/gate/config.ts:68`; `~/Dev/ACMElabs/jev-gate/README.md`.
 
 ### Row 08 — partial (the evidence rule), 2026-11-21
 

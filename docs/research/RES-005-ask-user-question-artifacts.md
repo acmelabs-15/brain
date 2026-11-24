@@ -9,7 +9,7 @@ Date: 2026-09-19. Status: read-only analysis. All 24 artifacts, the shipped skil
 
 ## How to read
 
-`A/` = `/Users/peterkloss/Dev/ACMElabs/ask-user-question/skills/_artifacts/`. `Q` = `skills/ask-user-question/SKILL.md` in brain-wrap; `QC`, `QX`, `QG` = its `references/claude-code.md`, `codex.md`, `gemini-cli.md`. `R4` = `docs/research/RES-004-ask-user-question-fit.md`. `I` = `docs/intent/brain-wrap.md`. Line counts are from `wc -l`. brain-wrap has no `CONTEXT.md` glossary yet (only `skills/domain-modeling/CONTEXT-FORMAT.md`), so "glossary words" below means the words the domain map fixes.
+`A/` = `~/Dev/ACMElabs/ask-user-question/skills/_artifacts/`. `Q` = `skills/ask-user-question/SKILL.md` in brain-wrap; `QC`, `QX`, `QG` = its `references/claude-code.md`, `codex.md`, `gemini-cli.md`. `R4` = `docs/research/RES-004-ask-user-question-fit.md`. `I` = `docs/intent/brain-wrap.md`. Line counts are from `wc -l`. brain-wrap has no `CONTEXT.md` glossary yet (only `skills/domain-modeling/CONTEXT-FORMAT.md`), so "glossary words" below means the words the domain map fixes.
 
 ## 1. Inventory
 

@@ -24,7 +24,7 @@ How it was made, on 2026-11-21, by workflow run `wf_b45aa748-93e` (33 agents) an
 - A search for the strong words (Blocked by, superseded, in-progress, specced, parked, frontier, resolved, wave, checkpoint, depends on, waits on, outcome:) found 7 lines outside every site. All 7 are other meanings: "the resolved path" (5), an idea template's "Outcome:" line, and "depends on it".
 
 Limits:
-- The per-site data (lines, kinds, operations, values and a summary for each site) is in the session scratchpad, `/private/tmp/claude-501/-Users-peterkloss-Dev-ACMElabs-brain/8f41990c-e539-4b97-b369-e4f4bd8d4c22/scratchpad/status-waits/`, which is temporary. This record keeps the per-file index below; the topic records of rows 17 to 30 carry the depth.
+- The per-site data (lines, kinds, operations, values and a summary for each site) is in the session scratchpad, `<scratchpad of session 8f41990c>/status-waits/`, which is temporary. This record keeps the per-file index below; the topic records of rows 17 to 30 carry the depth.
 - A reader judged scope file by file. The three checks on each topic record (rows 17 to 30) test those judgements again.
 - Kinds and operations are the readers' labels, so the counts show size, not exact classes.
 
@@ -689,7 +689,7 @@ Result in short:
 
 #### M1. Branch `prototype/views-board`: a second implementation of status and waits
 
-- Where: worktree `/Users/peterkloss/Dev/ACMElabs/brain-views-proto`, tip `1381391c`, 6 commits, the last on 2026-11-21. 42 files under `prototypes/views-board-mod/`, none on this branch.
+- Where: worktree `~/Dev/ACMElabs/brain-views-proto`, tip `1381391c`, 6 commits, the last on 2026-11-21. 42 files under `prototypes/views-board-mod/`, none on this branch.
 - `docs/ideas/IDEA-015-views-mod.md` lines 50 to 87 point to it. The readers recorded the pointer and not the content.
 - It is the only code that names `ready`, `waiting` and `in review`, the three values that DEC-051 says are worked out and never stored. The shipped code has no such value; `scripts/workspace/graph.ts` lines 94-103 hold only a local list named `ready`.
 
@@ -717,7 +717,7 @@ Result in short:
 
 #### M2. Branch `skill-creation`: real records in the layout-1 tracker format
 
-- Where: worktree `/Users/peterkloss/Dev/ACMElabs/brain-skill-creation`, tip `f4d361a1`, 2026-09-20, 22 commits that this branch lacks, 155 files changed.
+- Where: worktree `~/Dev/ACMElabs/brain-skill-creation`, tip `f4d361a1`, 2026-09-20, 22 commits that this branch lacks, 155 files changed.
 - The tracker folder is `docs/tracker/`. That path appears in no file of this worktree. `scripts/setup/migrate.ts` and `scripts/workspace/old-layout.ts` name neither `docs/tracker/` nor `.scratch/`. RES-037 lines 91 and 779 note the gap for `.scratch/` only.
 - The folder comes from a `--tracker-dir` flag in that branch's `scripts/setup/write.ts`. No release holds that flag (checked in v0.8.0 and v0.9.0).
 
@@ -733,7 +733,7 @@ Result in short:
 
 #### M3. The ID claim store
 
-- Where: `/Users/peterkloss/Dev/ACMElabs/brain/.git/brain/ids/<TYPE>/<NNN>`, one empty folder for each claim. All worktrees share it. Outside git the store is `~/.cache/brain/` (absent on this machine).
+- Where: `~/Dev/ACMElabs/brain/.git/brain/ids/<TYPE>/<NNN>`, one empty folder for each claim. All worktrees share it. Outside git the store is `~/.cache/brain/` (absent on this machine).
 - Code: `scripts/workspace/claims.ts` lines 1-7 and 38-47. The reader marked the file borderline and did not look at the store.
 - Content today: 48 DEC, 16 IDEA, 90 RES and 9 SPEC claims.
 - A claim is never removed. RES-078 to RES-085 are claimed and have no file (`docs/ideas/IDEA-016-effort-blocked-by.md` lines 76 and 82). DEC-001, DEC-002, DEC-006 and RES-001 to RES-005 have a file and no claim.
@@ -742,7 +742,7 @@ Result in short:
 #### M4. Live layout-2 records in a repo that uses Brain
 
 - `~/.claude/plugins/installed_plugins.json` lists Brain 0.13.0 at project scope in 10 repos. 6 are on layout 1 (RES-037 covers them). 2 are on layout 2. No research record names these 2.
-- `/Users/peterkloss/Dev/peterkloss.dev`: 14 ideas, 106 decision records, 36 research records, 1 spec. It holds twice the decision records of this repo.
+- `~/Dev/peterkloss.dev`: 14 ideas, 106 decision records, 36 research records, 1 spec. It holds twice the decision records of this repo.
 
 | Field | Values in that repo |
 |---|---|
@@ -752,7 +752,7 @@ Result in short:
 | Idea `result:` | Empty, with the template comment "with status: done, the DEC-NNN or the commit SHA" still on the line |
 
 - Waits written as prose in its idea notes, 10 lines in 6 files. Forms: a row waits on a row of another idea (`IDEA-008` line 86), an idea's Success line waits on a row (`IDEA-007` line 103, `IDEA-012` line 78), a research record waits (`IDEA-008` line 89), and a row waits on a thing outside Brain, a write-up and an API key (`IDEA-001` lines 94 and 99).
-- `/Users/peterkloss/Dev/tanstack-chat`: layout 2, 1 spec, 4 rows, all `resolved`.
+- `~/Dev/tanstack-chat`: layout 2, 1 spec, 4 rows, all `resolved`.
 
 #### M5. Brain 0.5.0 in Gemini CLI and Antigravity
 
@@ -762,7 +762,7 @@ Result in short:
 
 #### M6. Command copies that Codex wrote
 
-- Where: `/Users/peterkloss/Dev/ACMElabs/brain/.agents/skills/source-command-*/SKILL.md`, 8 folders. `.gitignore` line 12 hides them.
+- Where: `~/Dev/ACMElabs/brain/.agents/skills/source-command-*/SKILL.md`, 8 folders. `.gitignore` line 12 hides them.
 - `source-command-plan/SKILL.md` (2026-10-29) lines 14, 23 and 25 hold layout-1 rules: read `SPEC.md` or `spec/`, save to root `tasks/plan.md`, stop on "unchecked tasks". The current `.claude/commands/plan.md` lines 7-26 say the opposite.
 - No copy of the build command exists. The status copy is from 2026-11-05.
 
@@ -805,9 +805,9 @@ The inventory records kind and operation for a site. It does not record who may 
 - `skill-creation` (22 commits) and `prototype/views-board` (6 commits) are M2 and M1.
 
 ## Findings
-- Every one of the 611 listed files has an entry from a reader that read it in full; 0 entries are missing or malformed. Source: `/private/tmp/claude-501/-Users-peterkloss-Dev-ACMElabs-brain/8f41990c-e539-4b97-b369-e4f4bd8d4c22/scratchpad/status-waits/inventory/S01-result.json` to `S25-result.json`, merged by `/private/tmp/claude-501/-Users-peterkloss-Dev-ACMElabs-brain/8f41990c-e539-4b97-b369-e4f4bd8d4c22/scratchpad/merge_inventory.py`, checked 2026-11-21.
-- The readers recorded 2228 sites, 213 of them borderline; the 8 sweeps recorded 3275 sites (W1-literal-values 583, W2-literal-waits 619, W3-literal-words 547, W4-kind-efforts 382, W5-kind-rows-records 395, W6-flow-commands 282, W7-flow-lifecycle 299, W8-history 168). Source: `/private/tmp/claude-501/-Users-peterkloss-Dev-ACMElabs-brain/8f41990c-e539-4b97-b369-e4f4bd8d4c22/scratchpad/status-waits/inventory-merged.json`, checked 2026-11-21.
-- 5 sweep sites have no matching reader site and 7 strong search hits lie outside every site; none is a missed handling of status or waits. Source: the gap list printed by `/private/tmp/claude-501/-Users-peterkloss-Dev-ACMElabs-brain/8f41990c-e539-4b97-b369-e4f4bd8d4c22/scratchpad/merge_inventory.py`, each place opened in the main session, checked 2026-11-21.
+- Every one of the 611 listed files has an entry from a reader that read it in full; 0 entries are missing or malformed. Source: `<scratchpad of session 8f41990c>/status-waits/inventory/S01-result.json` to `S25-result.json`, merged by `<scratchpad of session 8f41990c>/merge_inventory.py`, checked 2026-11-21.
+- The readers recorded 2228 sites, 213 of them borderline; the 8 sweeps recorded 3275 sites (W1-literal-values 583, W2-literal-waits 619, W3-literal-words 547, W4-kind-efforts 382, W5-kind-rows-records 395, W6-flow-commands 282, W7-flow-lifecycle 299, W8-history 168). Source: `<scratchpad of session 8f41990c>/status-waits/inventory-merged.json`, checked 2026-11-21.
+- 5 sweep sites have no matching reader site and 7 strong search hits lie outside every site; none is a missed handling of status or waits. Source: the gap list printed by `<scratchpad of session 8f41990c>/merge_inventory.py`, each place opened in the main session, checked 2026-11-21.
 - The code area with the most sites is `scripts/workspace`; the record areas with the most are `docs/research` and `docs/ideas`. Source: the table "Sites by area" above, checked 2026-11-21.
 
 ## Follow-ups
