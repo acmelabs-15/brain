@@ -1,11 +1,11 @@
 ---
-layout: 2\
-paths:\
-decisions: docs/decisions\
-research: docs/research\
-ideas: docs/ideas\
-specs: docs/specs\
-max\_parallel: 8
+layout: 2
+paths:
+  decisions: docs/decisions
+  research: docs/research
+  ideas: docs/ideas
+  specs: docs/specs
+max_parallel: 8
 ---
 
 # Workspace
