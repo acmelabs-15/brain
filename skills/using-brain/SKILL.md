@@ -1,153 +1,188 @@
 ---
 name: using-brain
-description: "Routes the current request and restores Brain work at session start, resume, clear or compaction. Use at those boundaries, before choosing a workflow for a new task, when continuing an idea or spec, or when the correct skill is unclear. Reuses current workspace evidence and settled decisions; keeps direct answers and bounded repairs separate from defining new work."
+description: Discovers and invokes Brain. Use when starting a session, or when you need to decide which skill or workflow applies to the piece of work at hand. This is the meta-skill that governs how all other skills are discovered and invoked.
 ---
 
-# Using brain
+## Overview
 
-Restore the context needed for the current request, then give the work to its owning skill. This router owns that choice. The workspace owns state reporting and effort selection; each workflow owns its recovery and completion.
-
-## Start
-
-Run this entry once at a session boundary. When the router is already active, continue the unfinished step. A new user message steers the current task unless it explicitly replaces it.
-
-1. **Establish the request.** Preserve the user's explicit task, named effort, handoff, conditions and pending question. A computed report describes saved work; it does not override a newer instruction or supply approval.
-2. **Load the exchange rules.** Load ask-user-question through the host's supported skill mechanism. When the host offers no such mechanism, read its SKILL.md in full. Use the same rule for every skill this router selects. Read the matching host reference before asking a question. A user-only skill remains the user's command.
-3. **Identify the workspace.** With no project repository, use the selected workflow's conversation mode; repository setup, numbered files and the CLI do not apply. In a repository, resolve the installed Brain path from the session-start text or setup-brain's host instructions. `brain <cmd>` means Bun running that installation's `scripts/brain.ts` from the project.
-4. **Restore session state.** Read `docs/agents/workspace.md` in full and follow **Session state** once. If the file or its **Session state** section is missing, read the installed `skills/setup-brain/workspace.md` template. Keep any existing workspace settings. Let setup-brain handle a missing or older workspace through its inspected setup or migration path when the selected work needs it. A direct factual answer can proceed from its sources without creating workspace files. Preserve required setup approvals. The workspace returns its report and selection here; it does not restart this router.
-5. **Read the project rules.** Read existing `docs/agents/capabilities.md` and `docs/agents/domain.md` in full. Follow domain.md to the relevant glossary when it exists. A glossary is created lazily; its absence alone is not incomplete setup. Missing guidance goes to setup-brain when the selected work needs it; a direct answer from sufficient sources can proceed. Run the declared toolchain checks. Check `git status` and the branch. Keep work you did not start. Reuse unchanged evidence already read in this session.
-6. **Route the next supported action.** Use the discovery rules below. For continued work, read its current records and enter the owning workflow's recovery procedure before selecting a row or repeating an effect. A failed prerequisite stops only work that needs it; report the failure and continue independent authorized work.
-
-Start is complete when the current request is clear, the needed project context is restored or its exact blocker is known, and the next action has an owner. Continue that action; loading the router alone does not complete the user's task.
+Brain is a collection of engineering workflow skills organized by development phase. Each skill encodes a specific process that senior engineers follow. This meta-skill helps you discover and apply the right skill for your current task.
 
 ## Skill Discovery
 
-An explicit skill request uses that skill within its supported scope. Otherwise choose the first applicable situation, then add only the skills needed by that action:
+When a task arrives, identify the development phase and apply the corresponding skill:
 
 ```
-Current request
-    ├── A fact answered by reading? → Read the owning source and answer directly
-    ├── Missing or older workspace? → setup-brain
-    ├── Resume an idea? → interview-me (Resume before choosing a row)
-    ├── Resume an approved spec task? → incremental-implementation
-    ├── A behavior is broken? → debugging-and-error-recovery
-    ├── A mechanical edit or approved task? → incremental-implementation (when it spans files)
-    ├── Missing intent or a binding requirement? → interview-me
-    ├── An idea needs alternatives? → idea-refine
-    ├── A design question needs runnable evidence? → prototype
-    ├── A significant new change has clear intent? → spec-driven-development
-    ├── A spec needs tasks? → planning-and-task-breakdown
-    ├── A project needs its quality bar agreed? → constraint-driven-development
-    ├── Code needs review? → code-review-and-quality
-    ├── Working code needs simplification? → code-simplification
-    ├── A release is authorized? → shipping-and-launch
-    └── A user decision remains? → ask-user-question
+Task arrives
+    │
+    ├── Don't know what you want yet? ──────→ interview-me
+    ├── Have a rough concept, need variants? → idea-refine
+    ├── New project/feature/change? ──→ spec-driven-development
+    ├── No quality bar written down? ──→ constraint-driven-development
+    ├── Have a spec, need tasks? ──────→ task-decomposition
+    ├── Implementing code? ────────────→ incremental-implementation
+    │   ├── UI work? ─────────────────→ frontend-ui-engineering
+    │   ├── API work? ────────────────→ api-and-interface-design
+    │   ├── Need better context? ─────→ context-engineering
+    │   ├── Need doc-verified code? ───→ source-driven-development
+    │   └── Stakes high / unfamiliar code? ──→ doubt-driven-development
+    ├── Writing/running tests? ────────→ test-driven-development
+    │   └── Browser-based? ───────────→ browser-testing-with-devtools
+    ├── Something broke? ──────────────→ debugging-and-error-recovery
+    ├── Reviewing code? ───────────────→ code-review-and-quality
+    │   ├── Too complex? ─────────────→ code-simplification
+    │   ├── Security concerns? ───────→ security-and-hardening
+    │   └── Performance concerns? ────→ performance-optimization
+    ├── Committing/branching? ─────────→ git-workflow-and-versioning
+    ├── CI/CD pipeline work? ──────────→ ci-cd-and-automation
+    ├── Deprecating/migrating? ────────→ deprecation-and-migration
+    ├── Writing docs/ADRs? ───────────→ documentation-and-adrs
+    ├── Adding logs/metrics/alerts? ───→ observability-and-instrumentation
+    └── Deploying/launching? ─────────→ shipping-and-launch
 ```
 
-For a direct information request, read the source and answer. Do not create an idea, spec or implementation plan solely to answer it. A narrow change still loads its applicable technical guidance and verifies its behavior; its small size does not excuse skipping those duties.
+## Core Operating Behaviors
 
-For continued work, honor an explicitly named effort before branch-based selection. A request to continue with several eligible efforts and no selection needs one question through ask-user-question. A status question during active work reports that work and preserves its next action and pending question.
+These behaviors apply at all times, across all skills. They are non-negotiable.
 
-For a bounded repair, use debugging-and-error-recovery to establish the failing behavior, then test-driven-development for the change. Use incremental-implementation for multiple files or slices. Reuse an existing approved spec or task. A new significant change without a spec goes through spec-driven-development; an unresolved requirement goes through interview-me first.
+### 1. Surface Assumptions
 
-### Skills needed by the action
+Before implementing anything non-trivial, explicitly state your assumptions:
 
-| Action | Load when applicable |
-|---|---|
-| Write behavior or tests | test-driven-development |
-| Change browser UI | frontend-ui-engineering; browser-testing-with-devtools |
-| Change an API or module boundary | api-and-interface-design; codebase-design for the seam |
-| Use a framework or library | source-driven-development and the project's declared library skills |
-| Change security-sensitive behavior | security-and-hardening; doubt-driven-development for material uncertainty |
-| Investigate performance | performance-optimization |
-| Change Git history or integrate work | git-workflow-and-versioning and the [commit contract](../../references/brain/commit-contract.md) |
-| Change a pipeline | ci-cd-and-automation |
-| Migrate or retire behavior | deprecation-and-migration |
-| Write human guidance | documentation-and-adrs |
-| Write agent instructions | writing-for-agents; the maintainer's required skill-authoring workflow |
-| Add production visibility | observability-and-instrumentation |
-| Sharpen a term or record a decision | domain-modeling |
-| Repair context or a confusing reply | context-engineering or wait-what, respectively |
+```
+ASSUMPTIONS I'M MAKING:
+1. [assumption about requirements]
+2. [assumption about architecture]
+3. [assumption about scope]
+→ Correct me now or I'll proceed with these.
+```
 
-Follow the selected skill's required dependencies and completion checks. Consult the project capability file before guessing a tool or library convention. A catalog entry proves availability only; a required server needs a real read-only response.
+Don't silently fill in ambiguous requirements. The most common failure mode is making wrong assumptions and running with them unchecked. Surface uncertainty early — it's cheaper than rework.
 
-### Decisions
+### 2. Manage Confusion Actively
 
-Ask-user-question owns question preparation, recommendations, reply interpretation and repair. Reuse settled requirements and explicit delegation. Inspect discoverable facts first. Ask only about an unresolved user decision or missing permission, with the evidence, consequence and recommendation inside that one question. Small reversible choices within the agreed behavior remain the agent's; state the reason and continue.
+When you encounter inconsistencies, conflicting requirements, or unclear specifications:
 
-### The interview and durable state
+1. **STOP.** Do not proceed with a guess.
+2. Name the specific confusion.
+3. Present the tradeoff or ask the clarifying question.
+4. Wait for resolution before continuing.
 
-Interview-me owns its map, frontier, fog, continuous writes, recovery and Finish checks. Read its **Resume** procedure before continuing an existing idea. Save partial answers and each record's next action before a pause. Reconcile saved answers and results before choosing the next frontier row.
+**Bad:** Silently picking one interpretation and hoping it's right. **Good:** "I see X in the spec but Y in the existing code. Which takes precedence?"
 
-Use the folders in the loaded workspace settings. Create numbered files only through `brain new-doc`. The main session writes map and plan rows; research workers write their own records. In conversation mode, the map lives in the conversation and uses that mode's rules instead of file operations.
+### 3. Push Back When Warranted
 
-### The prototype detour
+You are not a yes-machine. When an approach has clear problems:
 
-A prototype row asks for runnable evidence before a design decision. Load prototype; return its evidence to the owning map. The user's choice goes in a DEC file that links the prototype's branch. For another directory or harness, offer the user's handoff command when needed. Invoke the user-only handoff skill only when the user requests it.
+- Point out the issue directly
+- Explain the concrete downside (quantify when possible — "this adds \~200ms latency" not "this might be slower")
+- Propose an alternative
+- Accept the human's decision if they override with full information
 
-## Stage Boundaries
+Sycophancy is a failure mode. "Of course!" followed by implementing a bad idea helps no one. Honest technical disagreement is more valuable than false agreement.
 
-The files carry the work, not the window. Preserve decisions, partial answers, research progress, verification evidence, changed files and outstanding approvals continuously. At a completed row or task, read [Stage boundaries](../../references/brain/stage-boundaries.md) before choosing how to continue across contexts. Use the host's actual context information; a fixed token estimate does not prove that the next task will fit.
+### 4. Enforce Simplicity
+
+Your natural tendency is to overcomplicate. Actively resist it.
+
+Before finishing any implementation, ask:
+
+- Can this be done in fewer lines?
+- Are these abstractions earning their complexity?
+- Would a staff engineer look at this and say "why didn't you just..."?
+
+If you build 1000 lines and 100 would suffice, you have failed. Prefer the boring, obvious solution. Cleverness is expensive.
+
+### 5. Maintain Scope Discipline
+
+Touch only what you're asked to touch.
+
+Do NOT:
+
+- Remove comments you don't understand
+- "Clean up" code orthogonal to the task
+- Refactor adjacent systems as a side effect
+- Delete code that seems unused without explicit approval
+- Add features not in the spec because they "seem useful"
+
+Your job is surgical precision, not unsolicited renovation.
+
+### 6. Verify, Don't Assume
+
+Every skill includes a verification step. A task is not complete until verification passes. "Seems right" is never sufficient — there must be evidence (passing tests, build output, runtime data).
+
+Per-skill verification is the local check. The project-wide bar that applies to *every* change, regardless of which skill is active, is the Definition of Done: tests pass, no regressions, behavior verified at runtime, docs updated. See `../../references/definition-of-done.md`. It complements each task's acceptance criteria rather than replacing them.
+
+## Failure Modes to Avoid
+
+These are the subtle errors that look like productivity but create problems:
+
+1. Making wrong assumptions without checking
+2. Not managing your own confusion — plowing ahead when lost
+3. Not surfacing inconsistencies you notice
+4. Not presenting tradeoffs on non-obvious decisions
+5. Being sycophantic ("Of course!") to approaches with clear problems
+6. Overcomplicating code and APIs
+7. Modifying code or comments orthogonal to the task
+8. Removing things you don't fully understand
+9. Building without a spec because "it's obvious"
+10. Skipping verification because "it looks right"
+
+## Skill Rules
+
+1. **Check for an applicable skill before starting work.** Skills encode processes that prevent common mistakes.
+2. **Skills are workflows, not suggestions.** Follow the steps in order. Don't skip verification steps.
+3. **Multiple skills can apply.** A feature implementation might involve `idea-refine` → `spec-driven-development` → `task-decomposition` → `incremental-implementation` → `test-driven-development` → `code-review-and-quality` → `code-simplification` → `shipping-and-launch` in sequence.
+4. **When in doubt, start with a spec.** If the task is non-trivial and there's no spec, begin with `spec-driven-development`.
 
 ## Lifecycle Sequence
 
-1. Define: confirmed intent in an idea and its DEC/RES records, then a spec when needed.
-2. Plan: approved rows and task blocks in the spec folder.
-3. Build: verified changes under the [commit contract](../../references/brain/commit-contract.md), with results linked from the plan.
-4. Verify: observed behavior and checks that distinguish success from failure.
-5. Review: one ranked list of findings and one verdict.
-6. Ship: the separately authorized release, with monitoring and rollback.
+For a complete feature, the typical skill sequence is:
 
-A task uses the stages its scope needs. Spec-driven-development's Stages 0 and 1 cover define; Stages 2 and 3 cover plan; Stage 4 covers build. Their owning skills carry the procedure.
+```
+1.  interview-me                → Extract what the user actually wants
+2.  idea-refine                 → Refine vague ideas
+3.  spec-driven-development     → Define what we're building
+4.  task-decomposition          → Break into verifiable chunks
+5.  context-engineering         → Load the right context
+6.  source-driven-development   → Verify against official docs
+7.  incremental-implementation  → Build slice by slice
+8.  observability-and-instrumentation → Instrument as you build (runs parallel with 7-9, not after)
+9.  doubt-driven-development    → Cross-examine non-trivial decisions in-flight
+10. test-driven-development     → Prove each slice works
+11. code-review-and-quality     → Review before merge
+12. code-simplification         → Reduce unnecessary complexity while preserving behavior
+13. git-workflow-and-versioning → Clean commit history
+14. documentation-and-adrs      → Document decisions
+15. deprecation-and-migration   → Retire old systems and move users safely when needed
+16. shipping-and-launch         → Deploy safely
+```
 
-### Commands and skills
-
-| Stage | Skill | Claude Code command | Gemini CLI command |
-|---|---|---|---|
-| Define | interview-me, spec-driven-development | `spec` | `/spec` |
-| Plan | planning-and-task-breakdown | `plan` | `/planning` |
-| Build | incremental-implementation, test-driven-development | `build` | `/build` |
-| Verify | debugging-and-error-recovery | `test` | `/test` |
-| Review | code-review-and-quality | `review` | `/review` |
-| Ship | shipping-and-launch | `ship` | `/ship` |
-
-Claude commands use the `/brain:` prefix. Other hosts use their supported skill invocation mechanism. Follow the host's installation guide for discovery and invocation; a universal Skill tool is not assumed.
-
-Status is a workspace procedure, not a skill. Claude's `/brain:status`, Gemini's `/status`, and a status request in chat follow **Session state** in `docs/agents/workspace.md`. The `brain status` CLI supplies its read-only report.
+Not every task needs every skill. A bug fix might only need: `debugging-and-error-recovery` → `test-driven-development` → `code-review-and-quality`.
 
 ## Quick Reference
 
-| Stage | Skill | One-Line Summary |
-|---|---|---|
-| Setup | setup-brain | Inspect and prepare workspace guidance; migrate only within approval |
-| Define | interview-me | Define intent, recover saved answers and maintain the whole map |
-| Define | idea-refine | Explore alternatives for an unresolved idea |
-| Define | prototype | Build throwaway evidence for a design question |
-| Define | spec-driven-development | Write a spec from clear intent |
-| Define | constraint-driven-development | Agree the project's quality bar |
-| Plan | planning-and-task-breakdown | Order verifiable tasks from a spec |
-| Build | incremental-implementation | Deliver verified slices |
-| Build | source-driven-development | Read authoritative sources for technical decisions |
-| Build | doubt-driven-development | Challenge material assumptions with independent review |
-| Build | context-engineering | Restore and manage relevant context |
-| Build | codebase-design | Consult deep-module and test-seam vocabulary |
-| Build | frontend-ui-engineering | Build accessible, responsive interfaces |
-| Build | api-and-interface-design | Define stable interfaces and contracts |
-| Verify | test-driven-development | Prove the failing behavior, then the fix |
-| Verify | browser-testing-with-devtools | Observe real browser behavior |
-| Verify | debugging-and-error-recovery | Establish and resolve the cause of a failure |
-| Review | code-review-and-quality | Review five axes and return one verdict |
-| Review | code-simplification | Improve clarity without changing behavior |
-| Review | security-and-hardening | Inspect and strengthen security boundaries |
-| Review | performance-optimization | Measure and resolve performance problems |
-| Ship | git-workflow-and-versioning | Keep changes scoped and history reviewable |
-| Ship | ci-cd-and-automation | Automate build and deployment checks |
-| Ship | deprecation-and-migration | Move consumers safely between supported behaviors |
-| Ship | documentation-and-adrs | Maintain human guidance and decision context |
-| Ship | observability-and-instrumentation | Make production behavior diagnosable |
-| Ship | shipping-and-launch | Verify and perform an authorized release |
-| Any | ask-user-question | Resolve one remaining user decision at a time |
-| Any | handoff | User-only portable transfer to another session |
-| Any | domain-modeling | Maintain domain words and decision records |
-| Any | wait-what | Repair an explanation the user did not follow |
-| Any | writing-for-agents | Design clear agent instructions and pointers |
+| Phase | Skill | One-Line Summary |
+| --- | --- | --- |
+| Define | interview-me | Surface what the user actually wants before any plan, spec, or code exists |
+| Define | idea-refine | Refine ideas through structured divergent and convergent thinking |
+| Define | spec-driven-development | Requirements and acceptance criteria before code |
+| Plan | task-decomposition | Decompose into small, verifiable tasks |
+| Build | incremental-implementation | Thin vertical slices, test each before expanding |
+| Build | source-driven-development | Verify against official docs before implementing |
+| Build | doubt-driven-development | Adversarial fresh-context review of every non-trivial decision |
+| Build | context-engineering | Right context at the right time |
+| Build | frontend-ui-engineering | Production-quality UI with accessibility |
+| Build | api-and-interface-design | Stable interfaces with clear contracts |
+| Verify | test-driven-development | Failing test first, then make it pass |
+| Verify | browser-testing-with-devtools | Chrome DevTools MCP for runtime verification |
+| Verify | debugging-and-error-recovery | Reproduce → localize → fix → guard |
+| Review | code-review-and-quality | Five-axis review with quality gates |
+| Review | code-simplification | Preserve behavior while reducing unnecessary complexity |
+| Review | security-and-hardening | OWASP prevention, input validation, least privilege |
+| Review | performance-optimization | Measure first, optimize only what matters |
+| Ship | git-workflow-and-versioning | Atomic commits, clean history |
+| Ship | ci-cd-and-automation | Automated quality gates on every change |
+| Ship | deprecation-and-migration | Remove old systems and migrate users safely |
+| Ship | documentation-and-adrs | Document the why, not just the what |
+| Ship | observability-and-instrumentation | Structured logs, RED metrics, traces, symptom-based alerts |
+| Ship | shipping-and-launch | Pre-launch checklist, monitoring, rollback plan |

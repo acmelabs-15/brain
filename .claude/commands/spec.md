@@ -2,9 +2,10 @@
 description: Start spec-driven development — write a structured specification before writing code
 ---
 
-Invoke the brain:spec-driven-development skill. The stage's standing rules live in that skill: a decision that is the user's goes through the host's user-question tool, one question per call, composed with brain:ask-user-question; domain words come from `GLOSSARY.md` through `docs/agents/domain.md`; the spec and the plan live in this repo.
+Invoke the brain:spec-driven-development skill.
 
-Begin by understanding what the user wants to build. When the ask is underspecified, the skill runs brain:interview-me first, one question per call. Cover:
+Begin by understanding what the user wants to build. Ask clarifying questions about:
+
 1. The objective and target users
 2. Core features and acceptance criteria
 3. Tech stack preferences and constraints
@@ -12,12 +13,6 @@ Begin by understanding what the user wants to build. When the ask is underspecif
 
 Then generate a structured spec covering all six core areas: objective, commands, project structure, code style, testing strategy, and boundaries.
 
-If the request bundles several independently testable capabilities, first propose a capability map (module ids, dependency direction, build order) per the skill's Stage 0 and get it approved, then spec each module in dependency order, each in its own spec folder.
+If the request bundles several independently testable capabilities, first propose a map of specs (module ids, dependency direction) per the skill's Phase 0 and get it approved, then spec each module in dependency order.
 
-Save each spec in its own spec folder:
-
-1. Run `brain new-doc SPEC <slug> --title "<the spec's title>"`, where `brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`. It claims the next number and writes `SPEC-NNN-<slug>/`, with `spec.md`, `tasks/plan.md` and `tasks/todo.md`, each with the title in its H1, into the folder of specs that `docs/agents/workspace.md` names. When that file is missing, new-doc uses `specs/`, the default; tell the user once to run setup-brain, which writes it.
-2. Write the spec into `spec.md`, and list the IDEA, DEC and RES files it comes from in `sources:`.
-3. Leave `tasks/plan.md` and `tasks/todo.md` as they are; `/plan` fills them.
-
-Confirm the spec with the user before proceeding.
+Save the spec as `docs/specs/SPEC-NNN-<slug>/spec.md` and confirm with the user before proceeding.

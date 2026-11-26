@@ -1,53 +1,61 @@
 ---
 name: incremental-implementation
-description: "Delivers a task in thin, verifiable slices: implement, run the touched test files, typecheck, commit, repeat. After the last slice it runs the full suite once and calls code-review-and-quality before the task is done. Use when a change touches more than one file, when picking up the next task from a spec folder's tasks/plan.md or running its frontier in parallel, when a change goes behind a feature flag, or when a task feels too big for one step."
+description: Delivers changes incrementally in thin, verifiable slices. Use when implementing any feature or change that touches more than one file, or when picking up the next ready task. Use when rolling a change out behind a feature flag, when you're about to write a large amount of code at once, or when a task feels too big to land in one step.
 ---
-
-# Incremental Implementation
 
 ## Overview
 
-Build in thin vertical slices: implement one piece, test it, verify it, then expand. Avoid implementing an entire feature in one pass. Each increment should leave the system in a working, testable state. This is the execution discipline that makes large features manageable.
+Build in thin vertical slices — implement one piece, test it, verify it, then expand. Avoid implementing an entire feature in one pass. Each increment should leave the system in a working, testable state. This is the execution discipline that makes large features manageable.
 
 ## When to Use
 
 - Implementing any multi-file change
-- Building a new feature from the task breakdown in a spec folder's `tasks/plan.md`
+
+- Building a new feature from a task breakdown
+
 - Refactoring existing code
-- Any time you're tempted to write more than ~100 lines before testing
+
+- Any time you're tempted to write more than \~100 lines before testing
 
 **When NOT to use:** Single-file, single-function changes where the scope is already minimal.
-
-**Where the tasks live.** A task comes from the active spec folder (`docs/agents/workspace.md` says how to find it): a row on the frontier of its `tasks/plan.md` (an `open` row whose Blocked by rows are all `resolved`), with the task's detail in the block of the same number in its `tasks/todo.md`. The block's acceptance criteria and verification steps bound the task. In a repo with no `docs/agents/workspace.md`, look in the default specs folder, `specs/`, and tell the user once to run setup-brain.
-
-Before implementation, read [the commit contract](../../references/brain/commit-contract.md). It owns slice commits, task completion, integration and separate state-record commits.
 
 ## The Increment Cycle
 
 ```
+
 ┌──────────────────────────────────────┐
+
 │                                      │
+
 │   Implement ──→ Test ──→ Verify ──┐  │
+
 │       ▲                           │  │
+
 │       └───── Commit ◄─────────────┘  │
+
 │              │                       │
+
 │              ▼                       │
+
 │          Next slice                  │
+
 │                                      │
+
 └──────────────────────────────────────┘
+
 ```
 
 For each slice:
 
 1. **Implement** the smallest complete piece of functionality
-2. **Test**: run the test files the slice touches (write one first when none exists; the test-driven-development skill carries the red-green-refactor loop)
-3. **Verify**: typecheck, build, and confirm the slice works as expected (tests pass, manual check)
-4. **Commit**: save your progress with a descriptive message (see `git-workflow-and-versioning` for atomic commit guidance)
-5. **Move to the next slice**: carry forward, don't restart
 
-Names in code, tests and commit messages come from `GLOSSARY.md` through `docs/agents/domain.md`. A concept the glossary lacks is a gap to note for the domain-modeling skill.
+2. **Test** — run the test suite (or write a test if none exists)
 
-After the last slice, the Verification section below closes the task.
+3. **Verify** — confirm the slice works as expected (tests pass, build succeeds, manual check)
+
+4. **Commit** -- save your progress with a descriptive message (see `git-workflow-and-versioning` for atomic commit guidance)
+
+5. **Move to the next slice** — carry forward, don't restart
 
 ## Slicing Strategies
 
@@ -56,17 +64,23 @@ After the last slice, the Verification section below closes the task.
 Build one complete path through the stack:
 
 ```
+
 Slice 1: Create a task (DB + API + basic UI)
+
     → Tests pass, user can create a task via the UI
 
 Slice 2: List tasks (query + API + UI)
+
     → Tests pass, user can see their tasks
 
 Slice 3: Edit a task (update + API + UI)
+
     → Tests pass, user can modify tasks
 
 Slice 4: Delete a task (delete + API + UI + confirmation)
+
     → Tests pass, full CRUD complete
+
 ```
 
 Each slice delivers working end-to-end functionality.
@@ -76,10 +90,15 @@ Each slice delivers working end-to-end functionality.
 When backend and frontend need to develop in parallel:
 
 ```
+
 Slice 0: Define the API contract (types, interfaces, OpenAPI spec)
+
 Slice 1a: Implement backend against the contract + API tests
+
 Slice 1b: Implement frontend against mock data matching the contract
+
 Slice 2: Integrate and test end-to-end
+
 ```
 
 ### Risk-First Slicing
@@ -87,9 +106,13 @@ Slice 2: Integrate and test end-to-end
 Tackle the riskiest or most uncertain piece first:
 
 ```
+
 Slice 1: Prove the WebSocket connection works (highest risk)
+
 Slice 2: Build real-time task updates on the proven connection
+
 Slice 3: Add offline support and reconnection
+
 ```
 
 If Slice 1 fails, you discover it before investing in Slices 2 and 3.
@@ -101,21 +124,31 @@ If Slice 1 fails, you discover it before investing in Slices 2 and 3.
 Before writing any code, ask: "What is the simplest thing that could work?"
 
 After writing code, review it against these checks:
+
 - Can this be done in fewer lines?
+
 - Are these abstractions earning their complexity?
+
 - Would a staff engineer look at this and say "why didn't you just..."?
+
 - Am I building for hypothetical future requirements, or the current task?
 
 ```
+
 SIMPLICITY CHECK:
+
 ✗ Generic EventBus with middleware pipeline for one notification
+
 ✓ Simple function call
 
 ✗ Abstract factory pattern for two similar components
+
 ✓ Two straightforward components with shared utilities
 
 ✗ Config-driven form builder for three forms
+
 ✓ Three form components
+
 ```
 
 Three similar lines of code is better than a premature abstraction. Implement the naive, obviously-correct version first. Optimize only after correctness is proven with tests.
@@ -125,22 +158,30 @@ Three similar lines of code is better than a premature abstraction. Implement th
 Touch only what the task requires.
 
 Do NOT:
+
 - "Clean up" code adjacent to your change
+
 - Refactor imports in files you're not modifying
+
 - Remove comments you don't fully understand
+
 - Add features not in the spec because they "seem useful"
+
 - Modernize syntax in files you're only reading
 
-If you notice something worth improving outside your task scope, note it, don't fix it:
+If you notice something worth improving outside your task scope, note it — don't fix it:
 
 ```
+
 NOTICED BUT NOT TOUCHING:
-- src/utils/format.ts has an unused import (unrelated to this task)
-- The auth middleware could use better error messages (separate task)
-→ Want me to create tasks for these?
-```
 
-Whether those become tasks is the user's decision. Call the Skill tool with "ask-user-question" and ask it as one question.
+- src/utils/format.ts has an unused import (unrelated to this task)
+
+- The auth middleware could use better error messages (separate task)
+
+→ Want me to create tasks for these?
+
+```
 
 ### Rule 1: One Thing at a Time
 
@@ -148,7 +189,7 @@ Each increment changes one logical thing. Don't mix concerns:
 
 **Bad:** One commit that adds a new component, refactors an existing one, and updates the build config.
 
-**Good:** Three separate commits, one for each change.
+**Good:** Three separate commits — one for each change.
 
 ### Rule 2: Keep It Compilable
 
@@ -158,13 +199,18 @@ After each increment, the project must build and existing tests must pass. Don't
 
 If a feature isn't ready for users but you need to merge increments:
 
-```typescript
+```
+
 // Feature flag for work-in-progress
+
 const ENABLE_TASK_SHARING = process.env.FEATURE_TASK_SHARING === 'true';
 
 if (ENABLE_TASK_SHARING) {
+
   // New sharing UI
+
 }
+
 ```
 
 This lets you merge small increments to the main branch without exposing incomplete work.
@@ -173,12 +219,18 @@ This lets you merge small increments to the main branch without exposing incompl
 
 New code should default to safe, conservative behavior:
 
-```typescript
+```
+
 // Safe: disabled by default, opt-in
+
 export function createTask(data: TaskInput, options?: { notify?: boolean }) {
+
   const shouldNotify = options?.notify ?? false;
+
   // ...
+
 }
+
 ```
 
 ### Rule 5: Rollback-Friendly
@@ -186,96 +238,105 @@ export function createTask(data: TaskInput, options?: { notify?: boolean }) {
 Each increment should be independently revertable:
 
 - Additive changes (new files, new functions) are easy to revert
+
 - Modifications to existing code should be minimal and focused
+
 - Database migrations should have corresponding rollback migrations
-- Avoid deleting something in one commit and replacing it in the same commit; separate them
+
+- Avoid deleting something in one commit and replacing it in the same commit — separate them
 
 ## Working with Agents
 
 When directing an agent to implement incrementally:
 
 ```
-"Let's implement Task 3 from the plan.
+
+"Let's implement Task 3 from the spec.
 
 Start with just the database schema change and the API endpoint.
-Don't touch the UI yet. We'll do that in the next increment.
+
+Don't touch the UI yet — we'll do that in the next increment.
 
 After implementing, run the repository's test and build commands to
+
 verify nothing is broken."
+
 ```
 
 Be explicit about what's in scope and what's NOT in scope for each increment.
-
-## Running a Plan's Frontier in Parallel
-
-This section is for the session that works through a plan. A sub-agent whose brief holds one task's block builds that task only.
-
-The frontier of a plan often holds several tasks that need nothing from each other. Run them in parallel, each task in its own sub-agent and worktree, as the `/build auto` command says step by step for each host. `brain plan --json` gives the frontier (its first wave), the critical path and the cap. On Claude Code, `brain` is `bun "${CLAUDE_PLUGIN_ROOT}/scripts/brain.ts"`; on other hosts, `docs/agents/workspace.md` says how to run it.
-
-- **Every task on the frontier at once**, up to the cap: `max_parallel` in `docs/agents/workspace.md`, default 8, or the `BRAIN_MAX_PARALLEL` variable, which wins.
-- **A stated reason before fewer.** Before you start fewer tasks than the frontier and the cap allow, tell the user why: a fact about the tasks or the host, such as two tasks that edit the same function. "To be safe" is not a reason.
-- **Critical path first**, when the cap bites and when several finished tasks wait to merge.
-- **A worktree from the feature branch's head**, never `main`, with the install step first. A worktree that starts elsewhere (Claude Code starts one on the remote's default branch unless `worktree.baseRef` is `"head"`) runs `git merge --ff-only <feature branch>` before the install.
-- **A worktree the host does not give, the main session makes.** Gemini CLI never gives a sub-agent a worktree; Claude Code refuses one in some sessions, such as `claude plugin eval`. Then the main session runs `git worktree add` from the feature branch's head, runs the install there, and gives the sub-agent that path; the brief says to work only in it. On Claude Code this starts after the first refusal and holds for every later task. The `/build auto` command's "The worktree fallback" section has the steps.
-- **The main tree stays as it was.** Before the first fallback task starts, the main session records `git status --porcelain --untracked-files=all`, with the worktree folder left out. When a fallback task replies, it runs the command again. A line the record lacks means a sub-agent wrote in the main tree: the main session stops the build, merges nothing, and tells the user.
-- **A merged fallback worktree goes.** After the merge: `git worktree remove`, then `git worktree prune`. A failed task keeps its worktree for the user to inspect, and the report names its path.
-- **Read before integration.** The main session reads every task's complete result, scoped diff and acceptance/verification evidence, including successful tasks. Resolve missing evidence before integrating.
-- **One merge at a time.** The main session merges each finished task into the feature branch, resolves small overlaps in shared files, and runs the repo's check command after each merge.
-- **One writer.** Only the main session writes plan rows and todo ticks. It closes each row in a commit of its own, after the task's merge, because the row's result names the task's commit SHA.
-- **Rebase on change.** When a merge changes a file or an interface that a running task uses, the main session tells that task to rebase onto the new head.
-- **A checkpoint row on the frontier stops the build** for the user's review. No new task starts until the user says yes.
-- **A result file named after the task**, task ID first (`T01-result.md`). The sub-agent's reply is that file's path plus one line: pass or fail, the commit SHA, and any question.
 
 ## Increment Checklist
 
 After each increment, verify with the repository's own commands (see the test-driven-development skill's Discover the Stack First section):
 
 - [ ] The change does one thing and does it completely
-- [ ] The test files the slice touches pass (the repository's test command scoped to a file: `npm test -- <file>`, `pytest <file>`, ...)
+
+- [ ] All existing tests still pass (the repository's test command: `npm test`, `./gradlew test`, `pytest`, ...)
+
 - [ ] The build succeeds (the repository's build command)
-- [ ] Type checking passes, where the stack has one (`npx tsc --noEmit`, `mypy`, ...)
+
+- [ ] Type checking passes, where the stack has one `npx tsc --noEmit`, `mypy`, ...)
+
 - [ ] Linting passes (the repository's lint command)
+
 - [ ] The new functionality works as expected
+
 - [ ] The change is committed with a descriptive message
 
-**Note:** Run each verification command after a change that could affect it. After a successful run, don't repeat the same command unless the code has changed since: re-running on unchanged code adds no information. The typecheck and the touched test files run on every slice; the full test suite runs once, after the last slice.
+**Note:** Run each verification command after a change that could affect it. After a successful run, don't repeat the same command unless the code has changed since — re-running on unchanged code adds no information.
 
 ## Common Rationalizations
 
 | Rationalization | Reality |
-|---|---|
+
+| --- | --- |
+
 | "I'll test it all at the end" | Bugs compound. A bug in Slice 1 makes Slices 2-5 wrong. Test each slice. |
+
 | "It's faster to do it all at once" | It *feels* faster until something breaks and you can't find which of 500 changed lines caused it. |
+
 | "These changes are too small to commit separately" | Small commits are free. Large commits hide bugs and make rollbacks painful. |
+
 | "I'll add the feature flag later" | If the feature isn't complete, it shouldn't be user-visible. Add the flag now. |
+
 | "This refactor is small enough to include" | Refactors mixed with features make both harder to review and debug. Separate them. |
+
 | "Let me run the build command again just to be sure" | After a successful run, repeating the same command adds nothing unless the code has changed since. Run it again after subsequent edits, not as reassurance. |
-| "I'll run the full suite on every slice to be safe" | The typecheck and the touched test files catch what a slice can break. The full suite runs once, after the last slice; on every slice it costs minutes and adds little. |
-| "Review can wait for the pull request" | The task is not done until code-review-and-quality has run on its diff. A finding fixed now is a slice; a finding found at the PR is rework. |
 
 ## Red Flags
 
 - More than 100 lines of code written without running tests
+
 - Multiple unrelated changes in a single increment
+
 - "Let me just quickly add this too" scope expansion
+
 - Skipping the test/verify step to move faster
+
 - Build or tests broken between increments
+
 - Large uncommitted changes accumulating
+
 - Building abstractions before the third use case demands it
+
 - Touching files outside the task scope "while I'm here"
+
 - Creating new utility files for one-time operations
+
 - Running the same build/test command twice in a row without any intervening code change
-- A task declared done before the full suite and the review have run
 
 ## Verification
 
 After completing all increments for a task:
 
 - [ ] Each increment was individually tested and committed
-- [ ] The full test suite passes (the one full run for the task)
+
+- [ ] The full test suite passes
+
 - [ ] The build is clean
+
 - [ ] The feature works end-to-end as specified
-- [ ] The task's diff has been reviewed: Call the Skill tool with "code-review-and-quality". Each finding you fix is a slice: test, verify, commit. Declare the task done only after the review passes.
+
 - [ ] No uncommitted changes remain
 
 ## See Also
